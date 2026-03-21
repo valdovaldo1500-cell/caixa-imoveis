@@ -26,15 +26,12 @@ export function parseCSV(csvText: string): RawProperty[] {
   if (lines.length < 2) return [];
 
   // Find the header line (skip metadata rows)
+  // Find header row: must contain both "cidade" and multiple semicolons
   let headerIdx = 0;
   for (let i = 0; i < Math.min(10, lines.length); i++) {
     const lower = lines[i].toLowerCase();
-    if (
-      lower.includes("imóvel") ||
-      lower.includes("imovel") ||
-      lower.includes("cidade") ||
-      lower.includes("endereço")
-    ) {
+    const semicolons = (lines[i].match(/;/g) || []).length;
+    if (semicolons >= 5 && lower.includes("cidade") && lower.includes("bairro")) {
       headerIdx = i;
       break;
     }
