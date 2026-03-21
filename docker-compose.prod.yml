@@ -4,10 +4,10 @@ services:
     expose:
       - "3000"
     depends_on:
-      postgres:
+      imoveis-db:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgres://imoveis:${DB_PASSWORD}@postgres:5432/imoveis
+      DATABASE_URL: postgres://imoveis:${DB_PASSWORD}@imoveis-db:5432/imoveis
       SESSION_SECRET: ${SESSION_SECRET}
       DASHBOARD_PASSWORD: ${DASHBOARD_PASSWORD}
       HCAPTCHA_SECRET: ${HCAPTCHA_SECRET}
@@ -27,7 +27,7 @@ services:
       - traefik.http.routers.imoveis-https.tls.certresolver=letsencrypt
       - traefik.http.services.imoveis.loadbalancer.server.port=3000
 
-  postgres:
+  imoveis-db:
     image: postgres:16-alpine
     volumes:
       - pgdata:/var/lib/postgresql/data
