@@ -1,0 +1,290 @@
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+interface Property {
+  id: number;
+  caixaId: string;
+  cidade: string;
+  bairro: string | null;
+  endereco: string | null;
+  descricao: string | null;
+  tipoImovel: string | null;
+  preco: string | null;
+  valorAvaliacao: string | null;
+  desconto: string | null;
+  modalidadeVenda: string | null;
+  aceitaFinanciamento: boolean;
+  linkCaixa: string | null;
+  score: string | null;
+  firstSeenAt: string;
+}
+
+interface Pagination {
+  page: number;
+  limit: number;
+  total: number;
+  pages: number;
+}
+
+function formatBRL(value: string | number | null) {
+  if (value === null) return "—";
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    maximumFractionDigits: 0,
+  }).format(Number(value));
+}
+
+export default function ImoveisPage() {
+  const [data, setData] = useState<Property[]>([]);
+  const [pagination, setPagination] = useState<Pagination>({
+    page: 1,
+    limit: 50,
+    total: 0,
+    pages: 0,
+  });
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("desconto");
+  const [order, setOrder] = useState<"asc" | "desc">("desc");
+
+  const fetchData = useCallback(
+    async (page = 1) => {
+      setLoading(true);
+      const params = new URLSearchParams({
+        page: String(page),
+        limit: "50",
+        sort,
+        order,
+      });
+      if (search) params.set("q", search);
+
+      try {
+        const res = await fetch(`/api/properties?${params}`, {
+          credentials: "include",
+        });
+        const json = await res.json();
+        setData(json.data || []);
+        setPagination(json.pagination || { page: 1, limit: 50, total: 0, pages: 0 });
+      } catch {
+        setData([]);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [sort, order, search]
+  );
+
+  useEffect(() => {
+    fetchData(1);
+  }, [fetchData]);
+
+  const handleSort = (col: string) => {
+    if (sort === col) {
+      setOrder(order === "desc" ? "asc" : "desc");
+    } else {
+      setSort(col);
+      setOrder("desc");
+    }
+  };
+
+  const sortIcon = (col: string) => {
+    if (sort !== col) return "";
+    return order === "desc" ? " ↓" : " ↑";
+  };
+
+  return (
+    <div className="min-h-screen p-6 space-y-4">
+      <header className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Imóveis</h1>
+          <p className="text-sm text-zinc-400">
+            {pagination.total} imóveis encontrados
+          </p>
+        </div>
+        <Link
+          href="/"
+          className="px-3 py-2 rounded bg-zinc-800 hover:bg-zinc-700 text-sm"
+        >
+          Dashboard
+        </Link>
+      </header>
+
+      <div className="flex gap-3">
+        <Input
+          placeholder="Buscar cidade, bairro ou endereço..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && fetchData(1)}
+          className="max-w-md bg-zinc-800 border-zinc-700"
+        />
+        <Button onClick={() => fetchData(1)} variant="secondary">
+          Buscar
+        </Button>
+      </div>
+
+      <Card className="bg-zinc-900 border-zinc-800 overflow-auto">
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
+                <TableHead
+                  className="cursor-pointer text-zinc-400"
+                  onClick={() => handleSort("cidade")}
+                >
+                  Cidade{sortIcon("cidade")}
+                </TableHead>
+                <TableHead className="text-zinc-400">Bairro</TableHead>
+                <TableHead className="text-zinc-400">Tipo</TableHead>
+                <TableHead
+                  className="cursor-pointer text-zinc-400 text-right"
+                  onClick={() => handleSort("preco")}
+                >
+                  Preço{sortIcon("preco")}
+                </TableHead>
+                <TableHead className="text-zinc-400 text-right">
+                  Avaliação
+                </TableHead>
+                <TableHead
+                  className="cursor-pointer text-zinc-400 text-right"
+                  onClick={() => handleSort("desconto")}
+                >
+                  Desconto{sortIcon("desconto")}
+                </TableHead>
+                <TableHead className="text-zinc-400">Modalidade</TableHead>
+                <TableHead
+                  className="cursor-pointer text-zinc-400"
+                  onClick={() => handleSort("score")}
+                >
+                  Score{sortIcon("score")}
+                </TableHead>
+                <TableHead className="text-zinc-400">Link</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {loading ? (
+                <TableRow>
+                  <TableCell colSpan={9} className="text-center text-zinc-500 py-8">
+                    Carregando...
+                  </TableCell>
+                </TableRow>
+              ) : data.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={9} className="text-center text-zinc-500 py-8">
+                    Nenhum imóvel encontrado
+                  </TableCell>
+                </TableRow>
+              ) : (
+                data.map((p) => (
+                  <TableRow
+                    key={p.id}
+                    className="border-zinc-800 hover:bg-zinc-800/50"
+                  >
+                    <TableCell className="font-medium">{p.cidade}</TableCell>
+                    <TableCell className="text-zinc-400">
+                      {p.bairro || "—"}
+                    </TableCell>
+                    <TableCell className="text-zinc-400 text-xs">
+                      {p.tipoImovel || p.descricao || "—"}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {formatBRL(p.preco)}
+                    </TableCell>
+                    <TableCell className="text-right text-zinc-400">
+                      {formatBRL(p.valorAvaliacao)}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {p.desconto ? (
+                        <Badge
+                          variant={
+                            parseFloat(p.desconto) >= 40
+                              ? "default"
+                              : "secondary"
+                          }
+                          className={
+                            parseFloat(p.desconto) >= 40
+                              ? "bg-green-900 text-green-300"
+                              : ""
+                          }
+                        >
+                          {parseFloat(p.desconto).toFixed(0)}%
+                        </Badge>
+                      ) : (
+                        "—"
+                      )}
+                    </TableCell>
+                    <TableCell className="text-zinc-400 text-xs max-w-[120px] truncate">
+                      {p.modalidadeVenda || "—"}
+                    </TableCell>
+                    <TableCell>
+                      {p.score ? (
+                        <span className="font-mono text-sm">
+                          {parseFloat(p.score).toFixed(0)}
+                        </span>
+                      ) : (
+                        "—"
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {p.linkCaixa ? (
+                        <a
+                          href={p.linkCaixa}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-400 hover:text-blue-300 text-xs"
+                        >
+                          Ver
+                        </a>
+                      ) : (
+                        "—"
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      {/* Pagination */}
+      {pagination.pages > 1 && (
+        <div className="flex items-center justify-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={pagination.page <= 1}
+            onClick={() => fetchData(pagination.page - 1)}
+          >
+            Anterior
+          </Button>
+          <span className="text-sm text-zinc-400">
+            {pagination.page} / {pagination.pages}
+          </span>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={pagination.page >= pagination.pages}
+            onClick={() => fetchData(pagination.page + 1)}
+          >
+            Próxima
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+}
