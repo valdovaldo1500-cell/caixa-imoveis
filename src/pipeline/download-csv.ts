@@ -7,6 +7,12 @@ const CSV_URL =
 export async function downloadCSV(): Promise<string> {
   const tmpPath = "/tmp/caixa_imoveis_rs.csv";
 
+  // Try local cache first (for development / when Caixa blocks the IP)
+  const localCache = process.env.CSV_LOCAL_PATH;
+  if (localCache && existsSync(localCache)) {
+    return readFileSync(localCache).toString("latin1");
+  }
+
   // Use curl with browser-like headers to bypass Radware Bot Manager
   execFileSync("curl", [
     "-s",
