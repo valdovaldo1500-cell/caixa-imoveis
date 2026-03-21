@@ -1,20 +1,38 @@
+import { execFileSync } from "child_process";
+import { readFileSync, existsSync } from "fs";
+
 const CSV_URL =
   "https://venda-imoveis.caixa.gov.br/listaweb/Lista_imoveis_RS.csv";
 
 export async function downloadCSV(): Promise<string> {
-  const res = await fetch(CSV_URL, {
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    },
-  });
+  const tmpPath = "/tmp/caixa_imoveis_rs.csv";
 
-  if (!res.ok) {
-    throw new Error(`Failed to download CSV: ${res.status} ${res.statusText}`);
+  // Use curl with browser-like headers to bypass Radware Bot Manager
+  execFileSync("curl", [
+    "-s",
+    "-o", tmpPath,
+    "-L",
+    "--max-time", "60",
+    "-H", "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "-H", "Accept: text/csv,text/plain,*/*",
+    "-H", "Accept-Language: pt-BR,pt;q=0.9,en;q=0.8",
+    "-H", "Referer: https://venda-imoveis.caixa.gov.br/sistema/download-lista.asp",
+    CSV_URL,
+  ], { timeout: 90000 });
+
+  if (!existsSync(tmpPath)) {
+    throw new Error("Failed to download CSV: file not found after curl");
   }
 
-  const buffer = await res.arrayBuffer();
-  // CSV is Latin-1 encoded
-  const decoder = new TextDecoder("latin1");
-  return decoder.decode(buffer);
+  const buffer = readFileSync(tmpPath);
+
+  // Check if we got a CAPTCHA page instead of CSV
+  const preview = buffer.toString("latin1").substring(0, 200);
+  if (preview.includes("<head>") || preview.includes("CAPTCHA")) {
+    throw new Error(
+      "Download blocked by Radware Bot Manager. CSV not available from this IP."
+    );
+  }
+
+  return buffer.toString("latin1");
 }
