@@ -1,0 +1,26 @@
+import { NextResponse } from "next/server";
+import { runPipeline } from "@/pipeline/run";
+
+let isRunning = false;
+
+export async function POST() {
+  if (isRunning) {
+    return NextResponse.json(
+      { error: "Pipeline já está executando" },
+      { status: 409 }
+    );
+  }
+
+  isRunning = true;
+  try {
+    const result = await runPipeline();
+    return NextResponse.json(result);
+  } catch (err) {
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : String(err) },
+      { status: 500 }
+    );
+  } finally {
+    isRunning = false;
+  }
+}
