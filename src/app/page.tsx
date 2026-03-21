@@ -1,65 +1,255 @@
-import Image from "next/image";
+import { db } from "@/lib/db";
+import { properties } from "@/lib/db/schema";
+import { sql, isNull } from "drizzle-orm";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+async function getStats() {
+  const [totalResult] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(properties)
+    .where(isNull(properties.removedAt));
+
+  const [avgDiscount] = await db
+    .select({
+      avg: sql<string>`round(avg(${properties.desconto})::numeric, 1)`,
+    })
+    .from(properties)
+    .where(isNull(properties.removedAt));
+
+  const [avgPrice] = await db
+    .select({
+      avg: sql<string>`round(avg(${properties.preco})::numeric, 0)`,
+    })
+    .from(properties)
+    .where(isNull(properties.removedAt));
+
+  const [newToday] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(properties)
+    .where(
+      sql`${properties.firstSeenAt}::date = current_date AND ${properties.removedAt} IS NULL`
+    );
+
+  const [removedToday] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(properties)
+    .where(sql`${properties.removedAt}::date = current_date`);
+
+  const [withGeo] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(properties)
+    .where(
+      sql`${properties.lat} IS NOT NULL AND ${properties.removedAt} IS NULL`
+    );
+
+  const topCidades = await db
+    .select({
+      cidade: properties.cidade,
+      count: sql<number>`count(*)::int`,
+    })
+    .from(properties)
+    .where(isNull(properties.removedAt))
+    .groupBy(properties.cidade)
+    .orderBy(sql`count(*) desc`)
+    .limit(10);
+
+  const byTipo = await db
+    .select({
+      tipo: sql<string>`coalesce(${properties.tipoImovel}, ${properties.descricao}, 'N/D')`,
+      count: sql<number>`count(*)::int`,
+    })
+    .from(properties)
+    .where(isNull(properties.removedAt))
+    .groupBy(
+      sql`coalesce(${properties.tipoImovel}, ${properties.descricao}, 'N/D')`
+    )
+    .orderBy(sql`count(*) desc`)
+    .limit(8);
+
+  return {
+    total: totalResult?.count ?? 0,
+    avgDiscount: avgDiscount?.avg ?? "0",
+    avgPrice: avgPrice?.avg ?? "0",
+    newToday: newToday?.count ?? 0,
+    removedToday: removedToday?.count ?? 0,
+    withGeo: withGeo?.count ?? 0,
+    topCidades,
+    byTipo,
+  };
+}
+
+function formatBRL(value: string | number) {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    maximumFractionDigits: 0,
+  }).format(Number(value));
+}
+
+export default async function DashboardPage() {
+  let stats;
+  try {
+    stats = await getStats();
+  } catch {
+    stats = null;
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen p-6 space-y-6">
+      <header className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Imóveis Caixa RS</h1>
+          <p className="text-sm text-zinc-400">
+            Dashboard de análise de imóveis retomados
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <nav className="flex gap-3">
+          <Link
+            href="/imoveis"
+            className="px-3 py-2 rounded bg-zinc-800 hover:bg-zinc-700 text-sm"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+            Tabela
+          </Link>
+        </nav>
+      </header>
+
+      {!stats ? (
+        <Card className="bg-zinc-900 border-zinc-800">
+          <CardContent className="p-8 text-center text-zinc-400">
+            <p className="text-lg mb-2">Banco de dados não disponível</p>
+            <p className="text-sm">
+              Execute o pipeline para importar os dados:{" "}
+              <code className="bg-zinc-800 px-2 py-1 rounded">
+                POST /api/pipeline/trigger
+              </code>
+            </p>
+          </CardContent>
+        </Card>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs text-zinc-400 font-normal">
+                  Total Imóveis
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold">{stats.total}</p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs text-zinc-400 font-normal">
+                  Desconto Médio
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-green-400">
+                  {stats.avgDiscount}%
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs text-zinc-400 font-normal">
+                  Preço Médio
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold">
+                  {formatBRL(stats.avgPrice)}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs text-zinc-400 font-normal">
+                  Novos Hoje
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-blue-400">
+                  {stats.newToday}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs text-zinc-400 font-normal">
+                  Removidos Hoje
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-red-400">
+                  {stats.removedToday}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs text-zinc-400 font-normal">
+                  Geolocalizados
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold">{stats.withGeo}</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader>
+                <CardTitle className="text-lg">Top Cidades</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {stats.topCidades.map((c) => (
+                    <div
+                      key={c.cidade}
+                      className="flex justify-between text-sm"
+                    >
+                      <span className="text-zinc-300">{c.cidade}</span>
+                      <span className="text-zinc-400">{c.count}</span>
+                    </div>
+                  ))}
+                  {stats.topCidades.length === 0 && (
+                    <p className="text-zinc-500 text-sm">Sem dados</p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader>
+                <CardTitle className="text-lg">Por Tipo</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {stats.byTipo.map((t) => (
+                    <div key={t.tipo} className="flex justify-between text-sm">
+                      <span className="text-zinc-300">{t.tipo}</span>
+                      <span className="text-zinc-400">{t.count}</span>
+                    </div>
+                  ))}
+                  {stats.byTipo.length === 0 && (
+                    <p className="text-zinc-500 text-sm">Sem dados</p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </>
+      )}
     </div>
   );
 }
