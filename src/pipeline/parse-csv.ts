@@ -48,7 +48,7 @@ export function parseCSV(csvText: string): RawProperty[] {
       return keywords.some((k) => lower.includes(k));
     });
 
-  const colId = findCol(["n° do imovel", "n do imovel", "numero do imovel"]);
+  const colId = findCol(["do imovel", "numero do imovel"]);
   const colUF = findCol(["uf", "estado"]);
   const colCidade = findCol(["cidade", "municipio"]);
   const colBairro = findCol(["bairro"]);
