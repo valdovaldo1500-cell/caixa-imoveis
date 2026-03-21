@@ -15,9 +15,17 @@ export interface RawProperty {
 
 function parseDecimal(value: string): number | null {
   if (!value || value.trim() === "" || value.trim() === "-") return null;
-  // Brazilian format: 1.234,56 → 1234.56
-  const cleaned = value.trim().replace(/\./g, "").replace(",", ".");
-  const num = parseFloat(cleaned);
+  const trimmed = value.trim();
+
+  if (trimmed.includes(",")) {
+    // Brazilian format: 1.234,56 → 1234.56
+    const cleaned = trimmed.replace(/\./g, "").replace(",", ".");
+    const num = parseFloat(cleaned);
+    return isNaN(num) ? null : num;
+  }
+
+  // No comma — already uses dot as decimal separator (e.g., "40.47")
+  const num = parseFloat(trimmed);
   return isNaN(num) ? null : num;
 }
 
