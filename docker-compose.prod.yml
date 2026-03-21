@@ -1,0 +1,50 @@
+services:
+  app:
+    build: .
+    expose:
+      - "3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://imoveis:${DB_PASSWORD}@postgres:5432/imoveis
+      SESSION_SECRET: ${SESSION_SECRET}
+      DASHBOARD_PASSWORD: ${DASHBOARD_PASSWORD}
+      HCAPTCHA_SECRET: ${HCAPTCHA_SECRET}
+      NEXT_PUBLIC_HCAPTCHA_SITE_KEY: ${HCAPTCHA_SITE_KEY}
+    restart: unless-stopped
+    networks:
+      - default
+      - coolify
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.imoveis-http.rule=Host(`imoveis.crimebrasil.com.br`)
+      - traefik.http.routers.imoveis-http.entrypoints=http
+      - traefik.http.routers.imoveis-http.middlewares=redirect-to-https@docker
+      - traefik.http.routers.imoveis-https.rule=Host(`imoveis.crimebrasil.com.br`)
+      - traefik.http.routers.imoveis-https.entrypoints=https
+      - traefik.http.routers.imoveis-https.tls=true
+      - traefik.http.routers.imoveis-https.tls.certresolver=letsencrypt
+      - traefik.http.services.imoveis.loadbalancer.server.port=3000
+
+  postgres:
+    image: postgres:16-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: imoveis
+      POSTGRES_USER: imoveis
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U imoveis"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+
+networks:
+  coolify:
+    external: true
