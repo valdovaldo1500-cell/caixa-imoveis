@@ -612,6 +612,7 @@ export default function ImoveisPage() {
                 >
                   Desconto{sortIcon("desconto")}
                 </TableHead>
+                <TableHead className="text-zinc-400 text-right">Desc. Mercado</TableHead>
                 <TableHead className="text-zinc-400">Modalidade</TableHead>
                 <TableHead
                   className="cursor-pointer text-zinc-400"
