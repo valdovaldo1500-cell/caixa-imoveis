@@ -766,6 +766,10 @@ function ImoveisPageInner() {
   const [showSavePopup, setShowSavePopup] = useState(false);
   const savePopupRef = useRef<HTMLDivElement>(null);
 
+  // Drag-and-drop column reorder state
+  const [dragCol, setDragCol] = useState<string | null>(null);
+  const [dragOverCol, setDragOverCol] = useState<string | null>(null);
+
   // Score popup click-outside ref
   const scorePopupRef = useRef<HTMLDivElement>(null);
   useClickOutside(scorePopupRef, () => setExpandedScore(null));
