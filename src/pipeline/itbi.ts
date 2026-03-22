@@ -451,6 +451,52 @@ export interface ComparableDetail {
   areaConstrPrivativa: number;
   precoM2: number;
   anoConstrucao: number | null;
+  similarityScore: number; // 0-1, how close area is to target (1 = exact)
+}
+
+export interface TierResult {
+  label: string;
+  criteria: string;
+  comparables: ComparableDetail[];
+  medianPrecoM2: number | null;
+  count: number;
+}
+
+function buildComparableDetail(
+  tx: {
+    dataEstimativa: Date | null;
+    baseCalculo: string | null;
+    finalidadeConstrucao: string | null;
+    logradouro: string | null;
+    nEndereco: string | null;
+    nUnidade: string | null;
+    bairro: string | null;
+    cep: string | null;
+    areaConstrPrivativa: string | null;
+    anoConstrucao: number | null;
+  },
+  propArea: number | null
+): ComparableDetail {
+  const base = parseFloat(tx.baseCalculo || "0");
+  const area = parseFloat(tx.areaConstrPrivativa || "0");
+  const similarityScore =
+    propArea && area > 0
+      ? Math.max(0, 1 - Math.abs(area - propArea) / propArea)
+      : 0;
+  return {
+    dataEstimativa: tx.dataEstimativa ? tx.dataEstimativa.toISOString().split("T")[0] : null,
+    baseCalculo: base,
+    finalidadeConstrucao: tx.finalidadeConstrucao || "",
+    logradouro: tx.logradouro || "",
+    nEndereco: tx.nEndereco || "",
+    nUnidade: tx.nUnidade || "",
+    bairro: tx.bairro || "",
+    cep: tx.cep || "",
+    areaConstrPrivativa: area,
+    precoM2: area > 0 ? Math.round((base / area) * 100) / 100 : 0,
+    anoConstrucao: tx.anoConstrucao,
+    similarityScore: Math.round(similarityScore * 1000) / 1000,
+  };
 }
 
 export async function getPropertyComparables(propertyId: number): Promise<{
@@ -464,14 +510,13 @@ export async function getPropertyComparables(propertyId: number): Promise<{
     marketValue: number | null;
     marketValuePerM2: number | null;
   };
-  comparables: ComparableDetail[];
+  tier1: TierResult;
+  tier2: TierResult;
   methodology: {
-    medianPrecoM2: number | null;
+    usedTier: 1 | 2;
     estimatedValue: number | null;
     estimatedRent: number | null;
-    comparablesUsed: number;
-    period: string;
-    filters: string;
+    medianPrecoM2: number | null;
   };
 } | null> {
   const [prop] = await db
@@ -484,69 +529,70 @@ export async function getPropertyComparables(propertyId: number): Promise<{
 
   const bairroKey = (prop.bairro || "").toUpperCase().trim();
   const itbiTypes = getItbiTypes(prop.tipoImovel || prop.descricao);
+  const exactItbiType = itbiTypes[0] ?? null;
   const propArea = prop.areaPrivativaM2
     ? parseFloat(prop.areaPrivativaM2)
     : prop.areaTotalM2
       ? parseFloat(prop.areaTotalM2)
       : null;
 
-  const cutoff = new Date();
-  cutoff.setMonth(cutoff.getMonth() - 18);
+  const cutoff18m = new Date();
+  cutoff18m.setMonth(cutoff18m.getMonth() - 18);
+  const cutoff12m = new Date();
+  cutoff12m.setMonth(cutoff12m.getMonth() - 12);
 
   const allTx = await db
     .select()
     .from(itbiTransactions)
     .where(
       and(
-        gte(itbiTransactions.dataEstimativa, cutoff),
+        gte(itbiTransactions.dataEstimativa, cutoff18m),
         sql`${itbiTransactions.baseCalculo}::numeric > 10000`,
         sql`${itbiTransactions.areaConstrPrivativa}::numeric > 0`,
         sql`upper(${itbiTransactions.bairro}) = ${bairroKey}`
       )
     );
 
-  const comparables = allTx.filter((tx) => {
+  // Tier 1 — exact type, area ±25%, last 12 months
+  const tier1Tx = allTx.filter((tx) => {
     const txTipo = (tx.finalidadeConstrucao || "").toUpperCase();
-    if (!itbiTypes.includes(txTipo)) return false;
-
+    if (exactItbiType && txTipo !== exactItbiType) return false;
+    if (tx.dataEstimativa && tx.dataEstimativa < cutoff12m) return false;
     if (propArea && tx.areaConstrPrivativa) {
       const txArea = parseFloat(tx.areaConstrPrivativa);
-      if (txArea > 0) {
-        const ratio = Math.abs(txArea - propArea) / propArea;
-        if (ratio > 0.5) return false;
-      }
+      if (txArea > 0 && Math.abs(txArea - propArea) / propArea > 0.25) return false;
     }
     return true;
   });
 
-  const details: ComparableDetail[] = comparables.map((tx) => {
-    const base = parseFloat(tx.baseCalculo || "0");
-    const area = parseFloat(tx.areaConstrPrivativa || "0");
-    return {
-      dataEstimativa: tx.dataEstimativa ? tx.dataEstimativa.toISOString().split("T")[0] : null,
-      baseCalculo: base,
-      finalidadeConstrucao: tx.finalidadeConstrucao || "",
-      logradouro: tx.logradouro || "",
-      nEndereco: tx.nEndereco || "",
-      nUnidade: tx.nUnidade || "",
-      bairro: tx.bairro || "",
-      cep: tx.cep || "",
-      areaConstrPrivativa: area,
-      precoM2: area > 0 ? Math.round((base / area) * 100) / 100 : 0,
-      anoConstrucao: tx.anoConstrucao,
-    };
+  // Tier 2 — type group, area ±50%, last 18 months
+  const tier2Tx = allTx.filter((tx) => {
+    const txTipo = (tx.finalidadeConstrucao || "").toUpperCase();
+    if (!itbiTypes.includes(txTipo)) return false;
+    if (propArea && tx.areaConstrPrivativa) {
+      const txArea = parseFloat(tx.areaConstrPrivativa);
+      if (txArea > 0 && Math.abs(txArea - propArea) / propArea > 0.5) return false;
+    }
+    return true;
   });
 
-  // Sort by date descending
-  details.sort((a, b) => {
-    if (!a.dataEstimativa) return 1;
-    if (!b.dataEstimativa) return -1;
-    return b.dataEstimativa.localeCompare(a.dataEstimativa);
-  });
+  function buildAndSortDetails(txList: typeof allTx): ComparableDetail[] {
+    return txList
+      .map((tx) => buildComparableDetail(tx, propArea))
+      .sort((a, b) => b.similarityScore - a.similarityScore);
+  }
 
-  const pricesPerM2 = details.map((d) => d.precoM2).filter((v) => v > 0);
-  const medianPrecoM2 = median(pricesPerM2);
-  const estimatedValue = medianPrecoM2 && propArea ? medianPrecoM2 * propArea : null;
+  const tier1Details = buildAndSortDetails(tier1Tx);
+  const tier2Details = buildAndSortDetails(tier2Tx);
+
+  const tier1Prices = tier1Details.map((d) => d.precoM2).filter((v) => v > 0);
+  const tier2Prices = tier2Details.map((d) => d.precoM2).filter((v) => v > 0);
+  const tier1Median = median(tier1Prices);
+  const tier2Median = median(tier2Prices);
+
+  const usedTier: 1 | 2 = tier1Details.length >= 3 ? 1 : 2;
+  const activeMedian = usedTier === 1 ? tier1Median : tier2Median;
+  const estimatedValue = activeMedian && propArea ? activeMedian * propArea : null;
   const estimatedRent = estimatedValue ? estimatedValue * 0.005 : null;
 
   return {
@@ -560,14 +606,25 @@ export async function getPropertyComparables(propertyId: number): Promise<{
       marketValue: prop.marketValue ? parseFloat(prop.marketValue) : null,
       marketValuePerM2: prop.marketValuePerM2 ? parseFloat(prop.marketValuePerM2) : null,
     },
-    comparables: details,
+    tier1: {
+      label: "Imóveis muito similares",
+      criteria: "mesmo bairro, mesmo tipo, área ±25%, últimos 12 meses",
+      comparables: tier1Details,
+      medianPrecoM2: tier1Median ? Math.round(tier1Median) : null,
+      count: tier1Details.length,
+    },
+    tier2: {
+      label: "Imóveis no bairro",
+      criteria: "mesmo bairro, tipo similar, área ±50%, últimos 18 meses",
+      comparables: tier2Details,
+      medianPrecoM2: tier2Median ? Math.round(tier2Median) : null,
+      count: tier2Details.length,
+    },
     methodology: {
-      medianPrecoM2: medianPrecoM2 ? Math.round(medianPrecoM2) : null,
+      usedTier,
       estimatedValue: estimatedValue ? Math.round(estimatedValue) : null,
       estimatedRent: estimatedRent ? Math.round(estimatedRent) : null,
-      comparablesUsed: details.length,
-      period: "últimos 18 meses",
-      filters: "mesmo bairro, tipo similar, área ±50%",
+      medianPrecoM2: activeMedian ? Math.round(activeMedian) : null,
     },
   };
 }
