@@ -1626,35 +1626,91 @@ function ImoveisPageInner() {
     />
   );
 
+  const NON_DRAGGABLE = ["foto", "actions"];
+
+  const handleDragStart = (colId: string) => {
+    if (NON_DRAGGABLE.includes(colId)) return;
+    setDragCol(colId);
+  };
+
+  const handleDragOver = (e: React.DragEvent, colId: string) => {
+    if (NON_DRAGGABLE.includes(colId) || colId === dragCol) return;
+    e.preventDefault();
+    setDragOverCol(colId);
+  };
+
+  const handleDrop = (e: React.DragEvent, targetColId: string) => {
+    e.preventDefault();
+    if (!dragCol || dragCol === targetColId || NON_DRAGGABLE.includes(targetColId)) {
+      setDragCol(null);
+      setDragOverCol(null);
+      return;
+    }
+    const cols = [...visibleColumns];
+    const fromIdx = cols.indexOf(dragCol);
+    const toIdx = cols.indexOf(targetColId);
+    if (fromIdx === -1 || toIdx === -1) return;
+    cols.splice(fromIdx, 1);
+    cols.splice(toIdx, 0, dragCol);
+    saveColumns(cols);
+    setDragCol(null);
+    setDragOverCol(null);
+  };
+
+  const handleDragEnd = () => {
+    setDragCol(null);
+    setDragOverCol(null);
+  };
+
   const renderHeader = (colId: string) => {
     const colDef = ALL_COLUMNS.find((c) => c.id === colId);
     const label = colDef?.label ?? "";
     const sk = (colDef as { sortKey?: string } | undefined)?.sortKey;
     const w = columnWidths[colId];
     const style = w ? { minWidth: w, maxWidth: w } : undefined;
+    const isDraggable = !NON_DRAGGABLE.includes(colId);
+    const isDragTarget = dragOverCol === colId && dragCol !== colId;
+    const isDragging = dragCol === colId;
+    const dragStyle: React.CSSProperties = {
+      ...style,
+      opacity: isDragging ? 0.5 : 1,
+      borderLeft: isDragTarget ? "2px solid #3b82f6" : undefined,
+      cursor: isDraggable ? "grab" : undefined,
+    };
+    const dragProps = isDraggable
+      ? {
+          draggable: true,
+          onDragStart: () => handleDragStart(colId),
+          onDragOver: (e: React.DragEvent) => handleDragOver(e, colId),
+          onDrop: (e: React.DragEvent) => handleDrop(e, colId),
+          onDragEnd: handleDragEnd,
+        }
+      : {};
 
     if (colId === "foto") {
-      return <TableHead key={colId} className="w-10 text-zinc-400 relative" style={style}>{resizeHandle(colId)}</TableHead>;
+      return <TableHead key={colId} className="w-10 text-zinc-400 relative" style={dragStyle} {...dragProps}>{resizeHandle(colId)}</TableHead>;
     }
     if (colId === "actions") {
-      return <TableHead key={colId} className="w-16 text-zinc-400 relative" style={style}>{resizeHandle(colId)}</TableHead>;
+      return <TableHead key={colId} className="w-16 text-zinc-400 relative" style={dragStyle} {...dragProps}>{resizeHandle(colId)}</TableHead>;
     }
     if (sk) {
-      const rightAligned = ["preco", "precoM2", "avaliacao", "desconto", "descontoMercado", "valorMercado", "mercadoM2", "zapM2", "aluguel"].includes(colId);
+      const rightAligned = ["preco", "precoM2", "avaliacao", "desconto", "descontoMercado", "valorMercado", "mercadoM2", "zapM2", "aluguel", "distancia"].includes(colId);
       return (
         <TableHead
           key={colId}
-          className={`cursor-pointer text-zinc-400 relative${rightAligned ? " text-right" : ""}`}
+          className={`text-zinc-400 relative${rightAligned ? " text-right" : ""}`}
           onClick={() => handleSort(sk)}
-          style={style}
+          style={{ ...dragStyle, cursor: isDraggable ? "grab" : "pointer" }}
+          {...dragProps}
         >
           {label}{sortIcon(sk)}
           {resizeHandle(colId)}
         </TableHead>
       );
     }
+    const rightAligned = ["distancia"].includes(colId);
     return (
-      <TableHead key={colId} className="text-zinc-400 relative" style={style}>
+      <TableHead key={colId} className={`text-zinc-400 relative${rightAligned ? " text-right" : ""}`} style={dragStyle} {...dragProps}>
         {label}
         {resizeHandle(colId)}
       </TableHead>
