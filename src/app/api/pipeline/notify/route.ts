@@ -106,6 +106,9 @@ export async function POST() {
 
     // Query price changes today (properties with price history recorded today,
     // excluding newly added ones)
+    const todayIso = today.toISOString();
+    const tomorrowIso = tomorrow.toISOString();
+
     const priceChangedRows = await db.execute(sql`
       SELECT sub."caixaId", sub.cidade, sub.bairro, sub."tipoImovel",
              sub.preco, sub.desconto, sub.score, sub."linkCaixa", sub."oldPreco"
@@ -122,9 +125,9 @@ export async function POST() {
           ph.preco AS "oldPreco"
         FROM price_history ph
         JOIN properties p ON p.id = ph.property_id
-        WHERE ph.recorded_at >= ${today}
-          AND ph.recorded_at < ${tomorrow}
-          AND p.first_seen_at < ${today}
+        WHERE ph.recorded_at >= ${todayIso}::timestamptz
+          AND ph.recorded_at < ${tomorrowIso}::timestamptz
+          AND p.first_seen_at < ${todayIso}::timestamptz
           AND p.removed_at IS NULL
         ORDER BY p.caixa_id, ph.recorded_at DESC
       ) sub
