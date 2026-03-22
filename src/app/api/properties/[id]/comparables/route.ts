@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getPropertyComparables } from "@/pipeline/itbi";
-import { getZapComparables } from "@/pipeline/zap";
+import { getZapComparables, getZapRentalComparables } from "@/pipeline/zap";
 
 export async function GET(
   request: NextRequest,
