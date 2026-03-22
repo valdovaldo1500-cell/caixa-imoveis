@@ -150,7 +150,7 @@ export default function AnalisePage() {
                 <CardTitle className="text-lg">Por Tipo de Imóvel</CardTitle>
               </CardHeader>
               <CardContent>
-                <ResponsiveContainer width="100%" height={280}>
+                <ResponsiveContainer width="100%" height={240}>
                   <PieChart>
                     <Pie
                       data={data.byType}
@@ -180,6 +180,19 @@ export default function AnalisePage() {
                     />
                   </PieChart>
                 </ResponsiveContainer>
+                {/* Color legend */}
+                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+                  {data.byType.map((entry, i) => (
+                    <div key={i} className="flex items-center gap-1.5 text-xs text-zinc-400">
+                      <span
+                        className="inline-block w-2.5 h-2.5 rounded-sm shrink-0"
+                        style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }}
+                      />
+                      <span>{entry.tipo}</span>
+                      <span className="text-zinc-500">({entry.count})</span>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
 
