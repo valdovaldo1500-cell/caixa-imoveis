@@ -295,11 +295,13 @@ export async function calculateMarketValues(): Promise<{
     return { updated: 0, withComparables: 0 };
   }
 
-  // 18 months ago cutoff
-  const cutoff = new Date();
-  cutoff.setMonth(cutoff.getMonth() - 18);
+  // 18 months ago cutoff (Tier 2) and 12 months (Tier 1)
+  const cutoff18m = new Date();
+  cutoff18m.setMonth(cutoff18m.getMonth() - 18);
+  const cutoff12m = new Date();
+  cutoff12m.setMonth(cutoff12m.getMonth() - 12);
 
-  // Load all recent ITBI transactions for POA in one query
+  // Load all recent ITBI transactions for POA in one query (18m window covers both tiers)
   const allTx = await db
     .select({
       bairro: itbiTransactions.bairro,
@@ -316,7 +318,7 @@ export async function calculateMarketValues(): Promise<{
     .from(itbiTransactions)
     .where(
       and(
-        gte(itbiTransactions.dataEstimativa, cutoff),
+        gte(itbiTransactions.dataEstimativa, cutoff18m),
         sql`${itbiTransactions.baseCalculo}::numeric > 10000`,
         sql`${itbiTransactions.areaConstrPrivativa}::numeric > 0`
       )
@@ -340,19 +342,38 @@ export async function calculateMarketValues(): Promise<{
     const bairroTx = txByBairro.get(bairroKey) || [];
 
     const itbiTypes = getItbiTypes(prop.tipoImovel || prop.descricao);
+    // Tier 1 uses exact first type; Tier 2 uses all mapped types
+    const exactItbiType = itbiTypes[0] ?? null;
+
     const propArea = prop.areaPrivativaM2
       ? parseFloat(prop.areaPrivativaM2)
       : prop.areaTotalM2
         ? parseFloat(prop.areaTotalM2)
         : null;
 
-    // Filter comparables
-    const comparables = bairroTx.filter((tx) => {
-      // Type match
+    // Tier 1 — "Imóveis muito similares": same bairro, exact type, area ±25%, last 12 months
+    const tier1 = bairroTx.filter((tx) => {
+      const txTipo = (tx.finalidadeConstrucao || "").toUpperCase();
+      if (exactItbiType && txTipo !== exactItbiType) return false;
+
+      if (tx.dataEstimativa && tx.dataEstimativa < cutoff12m) return false;
+
+      if (propArea && tx.areaConstrPrivativa) {
+        const txArea = parseFloat(tx.areaConstrPrivativa);
+        if (txArea > 0) {
+          const ratio = Math.abs(txArea - propArea) / propArea;
+          if (ratio > 0.25) return false;
+        }
+      }
+
+      return true;
+    });
+
+    // Tier 2 — "Imóveis no bairro": same bairro, type group, area ±50%, last 18 months
+    const tier2 = bairroTx.filter((tx) => {
       const txTipo = (tx.finalidadeConstrucao || "").toUpperCase();
       if (!itbiTypes.includes(txTipo)) return false;
 
-      // Area filter: within 50% if area is known
       if (propArea && tx.areaConstrPrivativa) {
         const txArea = parseFloat(tx.areaConstrPrivativa);
         if (txArea > 0) {
@@ -364,8 +385,11 @@ export async function calculateMarketValues(): Promise<{
       return true;
     });
 
+    // Decide which tier to use for the market value calculation
+    const activeComparables = tier1.length >= 3 ? tier1 : tier2;
+
     // Calculate median R$/m²
-    const pricesPerM2 = comparables
+    const pricesPerM2 = activeComparables
       .map((tx) => {
         const base = parseFloat(tx.baseCalculo || "0");
         const area = parseFloat(tx.areaConstrPrivativa || "0");
@@ -380,7 +404,9 @@ export async function calculateMarketValues(): Promise<{
       await db
         .update(properties)
         .set({
-          comparablesCount: comparables.length,
+          comparablesCount: activeComparables.length,
+          comparablesTier1Count: tier1.length,
+          comparablesTier2Count: tier2.length,
           marketValueUpdatedAt: now,
           updatedAt: now,
         })
@@ -398,14 +424,16 @@ export async function calculateMarketValues(): Promise<{
         marketValue: marketValue.toFixed(2),
         marketValuePerM2: medianPricePerM2.toFixed(2),
         marketRentValue: marketRentValue.toFixed(2),
-        comparablesCount: comparables.length,
+        comparablesCount: activeComparables.length,
+        comparablesTier1Count: tier1.length,
+        comparablesTier2Count: tier2.length,
         marketValueUpdatedAt: now,
         updatedAt: now,
       })
       .where(eq(properties.id, prop.id));
 
     updated++;
-    if (comparables.length > 0) withComparables++;
+    if (activeComparables.length > 0) withComparables++;
   }
 
   return { updated, withComparables };
