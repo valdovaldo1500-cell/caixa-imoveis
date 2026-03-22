@@ -765,10 +765,25 @@ export default function ImoveisPage() {
                         "—"
                       )}
                     </TableCell>
+                    <TableCell className="text-right">
+                      {p.marketValue && p.preco ? (() => {
+                        const mv = parseFloat(p.marketValue);
+                        const preco = parseFloat(p.preco);
+                        const pct = ((1 - preco / mv) * 100);
+                        const label = `${pct > 0 ? "-" : "+"}${Math.abs(pct).toFixed(0)}%`;
+                        return (
+                          <Badge className={pct > 20 ? "bg-green-900 text-green-300" : pct > 0 ? "bg-emerald-900 text-emerald-300" : "bg-red-900 text-red-300"}>
+                            {label}
+                          </Badge>
+                        );
+                      })() : (
+                        <span className="text-zinc-600">—</span>
+                      )}
+                    </TableCell>
                     <TableCell className="text-zinc-400 text-xs max-w-[120px] truncate">
                       {p.modalidadeVenda || "—"}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="relative">
                       {p.score ? (
                         <span
                           className="font-mono text-sm cursor-help relative group"
