@@ -119,18 +119,22 @@ export function computeScoreBreakdown(
     areaValueScore = Math.max(0, Math.min(100, (1 - pricePerM2 / cityStats.avgPricePerM2) * 100 + 50));
   }
 
-  // 6. Days on market (10%)
+  // 6. Days on market (5%)
   const daysSinceFirstSeen = (Date.now() - property.firstSeenAt.getTime()) / (1000 * 60 * 60 * 24);
   const daysOnMarketScore = Math.min(100, (daysSinceFirstSeen / 90) * 100);
 
+  // 7. Crime safety (10%)
+  const crimeSafetyScore = scoreCrimeSafety(property.crimeRate);
+
   // Weighted total
   const total =
-    discountScore * 0.30 +
+    discountScore * 0.25 +
     priceEfficiencyScore * 0.20 +
     financingScore * 0.15 +
     propertyTypeScore * 0.10 +
     areaValueScore * 0.15 +
-    daysOnMarketScore * 0.10;
+    daysOnMarketScore * 0.05 +
+    crimeSafetyScore * 0.10;
 
   return {
     discount: Math.round(discountScore * 100) / 100,
@@ -139,6 +143,7 @@ export function computeScoreBreakdown(
     propertyType: propertyTypeScore,
     areaValue: Math.round(areaValueScore * 100) / 100,
     daysOnMarket: Math.round(daysOnMarketScore * 100) / 100,
+    crimeSafety: crimeSafetyScore,
     total: Math.round(total * 100) / 100,
   };
 }
