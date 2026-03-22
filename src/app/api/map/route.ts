@@ -8,6 +8,9 @@ export async function GET(request: NextRequest) {
   const modalidade = searchParams.get("modalidade");
   const descontoMin = searchParams.get("desconto_min");
   const descontoMax = searchParams.get("desconto_max");
+  const precoMin = searchParams.get("preco_min");
+  const precoMax = searchParams.get("preco_max");
+  const tipo = searchParams.get("tipo");
 
   const conditions: SQL[] = [
     isNull(properties.removedAt),
