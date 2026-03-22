@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { propertyNotes } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
+import { getUsernameFromRequest } from "@/lib/auth";
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
@@ -15,11 +16,16 @@ export async function GET(
     return NextResponse.json({ error: "Invalid property ID" }, { status: 400 });
   }
 
+  const username = getUsernameFromRequest(request);
+  if (!username) {
+    return NextResponse.json({ note: null });
+  }
+
   try {
     const [row] = await db
       .select({ note: propertyNotes.note })
       .from(propertyNotes)
-      .where(eq(propertyNotes.propertyId, propertyId))
+      .where(and(eq(propertyNotes.propertyId, propertyId), eq(propertyNotes.username, username)))
       .limit(1);
 
     return NextResponse.json({ note: row?.note ?? null });
@@ -43,6 +49,11 @@ export async function PUT(
     return NextResponse.json({ error: "Invalid property ID" }, { status: 400 });
   }
 
+  const username = getUsernameFromRequest(request);
+  if (!username) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   let body: { note?: string };
   try {
     body = await request.json();
@@ -55,18 +66,29 @@ export async function PUT(
   try {
     if (note.trim() === "") {
       // Delete the note record if empty
-      await db.delete(propertyNotes).where(eq(propertyNotes.propertyId, propertyId));
+      await db
+        .delete(propertyNotes)
+        .where(and(eq(propertyNotes.propertyId, propertyId), eq(propertyNotes.username, username)));
       return NextResponse.json({ note: null });
     }
 
-    // Upsert
-    await db
-      .insert(propertyNotes)
-      .values({ propertyId, note })
-      .onConflictDoUpdate({
-        target: propertyNotes.propertyId,
-        set: { note, updatedAt: new Date() },
-      });
+    // Check if note exists for this user+property
+    const [existing] = await db
+      .select({ id: propertyNotes.id })
+      .from(propertyNotes)
+      .where(and(eq(propertyNotes.propertyId, propertyId), eq(propertyNotes.username, username)))
+      .limit(1);
+
+    if (existing) {
+      await db
+        .update(propertyNotes)
+        .set({ note, updatedAt: new Date() })
+        .where(eq(propertyNotes.id, existing.id));
+    } else {
+      await db
+        .insert(propertyNotes)
+        .values({ propertyId, username, note });
+    }
 
     return NextResponse.json({ note });
   } catch (err) {
