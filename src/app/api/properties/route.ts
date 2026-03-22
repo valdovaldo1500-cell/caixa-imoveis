@@ -66,6 +66,19 @@ export async function GET(request: NextRequest) {
   } else if (modalidades.length > 1) {
     conditions.push(sql`(${sql.join(modalidades.map((m) => ilike(properties.modalidadeVenda, m)), sql` OR `)})`);
   }
+  if (maxDistance) {
+    const dist = parseFloat(maxDistance);
+    if (!isNaN(dist)) {
+      conditions.push(sql`
+        ${properties.lat} IS NOT NULL AND ${properties.lng} IS NOT NULL AND
+        (6371 * acos(
+          cos(radians(${POA_LAT})) * cos(radians(${properties.lat}::float)) *
+          cos(radians(${properties.lng}::float) - radians(${POA_LNG})) +
+          sin(radians(${POA_LAT})) * sin(radians(${properties.lat}::float))
+        )) <= ${dist}
+      `);
+    }
+  }
   // Full-text search using tsvector when q is provided
   let tsQuery: ReturnType<typeof sql> | null = null;
   if (search) {
