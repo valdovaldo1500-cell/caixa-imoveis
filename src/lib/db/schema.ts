@@ -63,6 +63,7 @@ export const properties = pgTable(
     marketValueUpdatedAt: timestamp("market_value_updated_at"),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
+    searchVector: tsvector("search_vector"),
   },
   (table) => [
     index("idx_properties_cidade").on(table.cidade),
