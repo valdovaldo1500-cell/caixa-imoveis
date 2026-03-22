@@ -68,6 +68,8 @@ export default function MapaPage() {
   const [error, setError] = useState<string | null>(null);
   const [modalidade, setModalidade] = useState("Todas");
   const [descontoMin, setDescontoMin] = useState("");
+  const [precoMax, setPrecoMax] = useState("");
+  const [tipo, setTipo] = useState("");
 
   const fetchData = useCallback(() => {
     setLoading(true);
