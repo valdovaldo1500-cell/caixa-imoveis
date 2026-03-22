@@ -232,13 +232,13 @@ export default function ImoveisPage() {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={10} className="text-center text-zinc-500 py-8">
+                  <TableCell colSpan={13} className="text-center text-zinc-500 py-8">
                     Carregando...
                   </TableCell>
                 </TableRow>
               ) : data.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={10} className="text-center text-zinc-500 py-8">
+                  <TableCell colSpan={13} className="text-center text-zinc-500 py-8">
                     Nenhum imóvel encontrado
                   </TableCell>
                 </TableRow>
@@ -248,6 +248,22 @@ export default function ImoveisPage() {
                     key={p.id}
                     className="border-zinc-800 hover:bg-zinc-800/50"
                   >
+                    <TableCell className="w-8 px-2">
+                      <button
+                        onClick={() => toggleFavorite(p.id)}
+                        className={`transition-colors ${
+                          favorited[p.id]
+                            ? "text-yellow-400 hover:text-yellow-300"
+                            : "text-zinc-600 hover:text-zinc-400"
+                        }`}
+                        title={favorited[p.id] ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                      >
+                        <Star
+                          className="w-4 h-4"
+                          fill={favorited[p.id] ? "currentColor" : "none"}
+                        />
+                      </button>
+                    </TableCell>
                     <TableCell className="font-medium">
                       <Link href={`/imoveis/${p.id}`} className="hover:text-blue-400 transition-colors">
                         {p.cidade}
