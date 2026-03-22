@@ -177,6 +177,40 @@ export default function ImoveisPage() {
     [sort, order, search]
   );
 
+  // Load which properties are hidden
+  const loadHidden = useCallback(async () => {
+    try {
+      const res = await fetch("/api/hidden", { credentials: "include" });
+      if (!res.ok) return;
+      const json = await res.json() as { ids: number[] };
+      setHiddenIds(new Set(json.ids));
+    } catch {
+      // silently ignore
+    }
+  }, []);
+
+  const toggleHidden = async (propertyId: number) => {
+    try {
+      const res = await fetch(`/api/properties/${propertyId}/hide`, {
+        method: "POST",
+        credentials: "include",
+      });
+      if (!res.ok) return;
+      const json = await res.json() as { hidden: boolean };
+      setHiddenIds((prev) => {
+        const next = new Set(prev);
+        if (json.hidden) {
+          next.add(propertyId);
+        } else {
+          next.delete(propertyId);
+        }
+        return next;
+      });
+    } catch {
+      // silently ignore
+    }
+  };
+
   // Load which properties are favorited
   const loadFavorites = useCallback(async () => {
     try {
