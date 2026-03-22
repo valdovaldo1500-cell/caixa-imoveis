@@ -1726,7 +1726,9 @@ function ImoveisPageInner() {
     const label = colDef?.label ?? "";
     const sk = (colDef as { sortKey?: string } | undefined)?.sortKey;
     const w = columnWidths[colId];
-    const style = w ? { minWidth: w, maxWidth: w } : undefined;
+    const dw = (colDef as { defaultWidth?: number } | undefined)?.defaultWidth;
+    const effectiveW = w || dw;
+    const style = effectiveW ? { minWidth: effectiveW, maxWidth: w ? w : undefined } : undefined;
     const isDraggable = !NON_DRAGGABLE.includes(colId);
     const isDragTarget = dragOverCol === colId && dragCol !== colId;
     const isDragging = dragCol === colId;
