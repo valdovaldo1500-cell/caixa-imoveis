@@ -810,10 +810,14 @@ export default function ImoveisPage() {
                         } else {
                           bg = "bg-red-950"; text = "text-red-400";
                         }
+                        const citySlug = p.cidade.toLowerCase().replace(/ /g, "-").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                        const crimeUrl = `https://crimebrasil.com.br/?state=RS&municipio=${encodeURIComponent(p.cidade)}`;
                         return (
-                          <Badge className={`${bg} ${text}`}>
-                            {label}
-                          </Badge>
+                          <a href={crimeUrl} target="_blank" rel="noopener noreferrer" title={`Ver criminalidade em ${p.cidade} no Crime Brasil`}>
+                            <Badge className={`${bg} ${text} hover:opacity-80 cursor-pointer`}>
+                              {label}
+                            </Badge>
+                          </a>
                         );
                       })() : (
                         <span className="text-zinc-500">—</span>
