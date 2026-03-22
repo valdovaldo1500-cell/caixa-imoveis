@@ -108,43 +108,57 @@ export default function PropertyMap({ properties }: PropertyMapProps) {
               }}
             >
               <Popup>
-                <div style={{ minWidth: 200 }}>
-                  <p style={{ fontWeight: "bold", marginBottom: 4 }}>
-                    {p.cidade}
-                    {p.bairro ? ` — ${p.bairro}` : ""}
-                  </p>
-                  <p>
-                    <span style={{ color: "#555" }}>Preço: </span>
-                    <strong>{formatBRL(p.preco)}</strong>
-                  </p>
-                  {p.desconto && (
-                    <p>
-                      <span style={{ color: "#555" }}>Desconto: </span>
-                      <strong style={{ color: color }}>
-                        {parseFloat(p.desconto).toFixed(0)}%
-                      </strong>
-                    </p>
+                <div style={{ minWidth: 240, fontSize: 13, lineHeight: 1.5 }}>
+                  {p.fotoUrl && (
+                    <img src={p.fotoUrl} alt="" style={{ width: "100%", height: 80, objectFit: "cover", borderRadius: 4, marginBottom: 6 }} />
                   )}
-                  {p.modalidadeVenda && (
-                    <p style={{ color: "#555", fontSize: 12, marginTop: 4 }}>
-                      {p.modalidadeVenda}
-                    </p>
-                  )}
-                  {p.linkCaixa && (
-                    <a
-                      href={p.linkCaixa}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: "inline-block",
-                        marginTop: 8,
-                        color: "#2563eb",
-                        fontSize: 13,
-                      }}
-                    >
-                      Ver na Caixa →
+                  <p style={{ fontWeight: "bold", marginBottom: 2, fontSize: 14 }}>
+                    {p.tipoImovel || "Imóvel"} — {p.bairro || p.cidade}
+                  </p>
+                  <p style={{ color: "#888", fontSize: 11, marginBottom: 6 }}>
+                    {p.cidade}{p.areaPrivativaM2 ? ` · ${parseFloat(p.areaPrivativaM2).toFixed(0)}m²` : ""}
+                    {p.quartos ? ` · ${p.quartos}q` : ""}
+                    {p.vagas ? ` · ${p.vagas}v` : ""}
+                  </p>
+                  <table style={{ width: "100%", fontSize: 12, borderCollapse: "collapse" }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ color: "#888", paddingRight: 8 }}>Preço</td>
+                        <td style={{ fontWeight: 600 }}>{formatBRL(p.preco)}</td>
+                      </tr>
+                      {p.desconto && (
+                        <tr>
+                          <td style={{ color: "#888" }}>Desconto</td>
+                          <td style={{ fontWeight: 600, color }}>{parseFloat(p.desconto).toFixed(0)}%</td>
+                        </tr>
+                      )}
+                      {p.marketValue && (
+                        <tr>
+                          <td style={{ color: "#888" }}>Mercado</td>
+                          <td>{formatBRL(p.marketValue)}</td>
+                        </tr>
+                      )}
+                      {p.score && (
+                        <tr>
+                          <td style={{ color: "#888" }}>Score</td>
+                          <td style={{ fontWeight: 600 }}>{parseFloat(p.score).toFixed(0)}</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                  <p style={{ color: "#888", fontSize: 11, marginTop: 4 }}>
+                    {p.modalidadeVenda || ""}
+                  </p>
+                  <div style={{ marginTop: 6, display: "flex", gap: 8 }}>
+                    <a href={`/imoveis/${p.id}`} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", fontSize: 12 }}>
+                      Detalhes →
                     </a>
-                  )}
+                    {p.linkCaixa && (
+                      <a href={p.linkCaixa} target="_blank" rel="noopener noreferrer" style={{ color: "#888", fontSize: 12 }}>
+                        Caixa →
+                      </a>
+                    )}
+                  </div>
                 </div>
               </Popup>
             </CircleMarker>
