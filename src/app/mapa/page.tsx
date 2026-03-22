@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Link from "next/link";
+import NavHeader from "@/components/NavHeader";
 import { useState, useEffect } from "react";
 
 const PropertyMap = dynamic(() => import("@/components/PropertyMap"), {
