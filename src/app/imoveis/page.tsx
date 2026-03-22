@@ -1546,44 +1546,61 @@ function ImoveisPageInner() {
 
       case "zapValor":
         return (
-          <TableCell key={colId} className="text-right">
+          <TableCell key={colId} className="text-right relative">
             {p.zapMarketValue && p.preco ? (() => {
               const mv = parseFloat(p.zapMarketValue);
               const preco = parseFloat(p.preco);
               const isGoodDeal = preco < mv;
               return (
-                <span className={isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}>
+                <button
+                  onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
+                  className={`cursor-pointer hover:underline text-left ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
+                >
                   {formatBRL(p.zapMarketValue)}
                   {p.zapComparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span> : null}
-                </span>
+                </button>
               );
             })() : (
               <span className="text-zinc-600">—</span>
+            )}
+            {expandedComparables === p.id && (
+              <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
         );
 
       case "mercadoM2":
         return (
-          <TableCell key={colId} className="text-right text-zinc-400 text-sm">
+          <TableCell key={colId} className="text-right relative">
             {p.marketValuePerM2 ? (
-              `R$\u00a0${Math.round(parseFloat(p.marketValuePerM2)).toLocaleString("pt-BR")}`
+              <button
+                onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
+                className="text-zinc-400 text-sm cursor-pointer hover:underline"
+              >
+                R$&nbsp;{Math.round(parseFloat(p.marketValuePerM2)).toLocaleString("pt-BR")}
+              </button>
             ) : (
               <span className="text-zinc-600">—</span>
+            )}
+            {expandedComparables === p.id && (
+              <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
         );
 
       case "zapM2":
         return (
-          <TableCell key={colId} className="text-right text-zinc-400 text-sm">
+          <TableCell key={colId} className="text-right relative">
             {p.zapMarketValuePerM2 ? (
-              <span title={`ZAP: ${p.zapComparablesCount ?? 0} anúncios`}>
-                {`R$\u00a0${Math.round(parseFloat(p.zapMarketValuePerM2)).toLocaleString("pt-BR")}`}
+              <button
+                onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
+                className="text-zinc-400 text-sm cursor-pointer hover:underline"
+              >
+                R$&nbsp;{Math.round(parseFloat(p.zapMarketValuePerM2)).toLocaleString("pt-BR")}
                 {p.zapComparablesCount ? (
                   <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span>
                 ) : null}
-              </span>
+              </button>
             ) : (
               <span className="text-zinc-600">—</span>
             )}
