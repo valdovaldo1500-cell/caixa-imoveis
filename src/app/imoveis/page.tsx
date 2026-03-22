@@ -30,6 +30,7 @@ interface Property {
   aceitaFinanciamento: boolean;
   linkCaixa: string | null;
   score: string | null;
+  crimeRate: string | null;
   firstSeenAt: string;
 }
 
