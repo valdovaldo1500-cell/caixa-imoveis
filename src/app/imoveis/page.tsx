@@ -140,6 +140,10 @@ export default function ImoveisPage() {
     fetchData(1);
   }, [fetchData]);
 
+  useEffect(() => {
+    loadFavorites();
+  }, [loadFavorites]);
+
   const handleSort = (col: string) => {
     if (sort === col) {
       setOrder(order === "desc" ? "asc" : "desc");
