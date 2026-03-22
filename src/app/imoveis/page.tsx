@@ -858,7 +858,6 @@ export default function ImoveisPage() {
                         } else {
                           bg = "bg-red-950"; text = "text-red-400";
                         }
-                        const citySlug = p.cidade.toLowerCase().replace(/ /g, "-").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                         const citySlug = p.cidade.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, "-");
                         const bairroSlug = p.bairro ? p.bairro.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, "-") : "";
                         const crimeUrl = bairroSlug
