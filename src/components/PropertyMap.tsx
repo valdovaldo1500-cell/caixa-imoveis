@@ -74,7 +74,14 @@ export default function PropertyMap({ properties }: PropertyMapProps) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterIcon}>
+      <MarkerClusterGroup
+        chunkedLoading
+        iconCreateFunction={createClusterIcon}
+        showCoverageOnHover={false}
+        maxClusterRadius={50}
+        spiderfyOnMaxZoom
+        disableClusteringAtZoom={16}
+      >
         {properties.map((p) => {
           const color = getMarkerColor(p.desconto);
           const lat = parseFloat(p.lat);
