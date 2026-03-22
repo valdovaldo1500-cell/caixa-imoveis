@@ -29,7 +29,8 @@ function getMarkerColor(desconto: string | null): string {
   return "#ef4444"; // red
 }
 
-function createClusterIcon(cluster: L.MarkerCluster): L.DivIcon {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function createClusterIcon(cluster: any): L.DivIcon {
   const count = cluster.getChildCount();
   let size = 36;
   let bg = "rgba(34,197,94,0.85)";
