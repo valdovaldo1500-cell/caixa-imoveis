@@ -1832,7 +1832,7 @@ function ImoveisPageInner() {
 
         <Card className="bg-zinc-900 border-zinc-800 overflow-auto">
           <CardContent className="p-0">
-            <Table>
+            <Table style={{ tableLayout: Object.keys(columnWidths).length > 0 ? "fixed" : "auto" }}>
               <TableHeader>
                 <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
                   {visibleColumns.map((colId) => renderHeader(colId))}
