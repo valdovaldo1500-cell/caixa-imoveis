@@ -555,11 +555,11 @@ export async function getPropertyComparables(propertyId: number, months: number 
       )
     );
 
-  // Tier 1 — exact type, area ±25%, last 12 months
+  // Tier 1 — exact type, area ±25%, within requested months
   const tier1Tx = allTx.filter((tx) => {
     const txTipo = (tx.finalidadeConstrucao || "").toUpperCase();
     if (exactItbiType && txTipo !== exactItbiType) return false;
-    if (tx.dataEstimativa && tx.dataEstimativa < cutoff12m) return false;
+    if (tx.dataEstimativa && tx.dataEstimativa < cutoffTier1) return false;
     if (propArea && tx.areaConstrPrivativa) {
       const txArea = parseFloat(tx.areaConstrPrivativa);
       if (txArea > 0 && Math.abs(txArea - propArea) / propArea > 0.25) return false;
