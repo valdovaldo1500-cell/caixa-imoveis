@@ -82,9 +82,9 @@ export async function GET() {
       .orderBy(sql`count(*) desc`);
 
     // Price distribution
-    const priceDistribution = await db
-      .select({
-        range: sql<string>`
+    const priceDistribution = await db.execute(sql`
+      SELECT range, count FROM (
+        SELECT
           CASE
             WHEN ${properties.preco} IS NULL THEN 'N/D'
             WHEN ${properties.preco} < 50000 THEN '0-50k'
@@ -93,34 +93,23 @@ export async function GET() {
             WHEN ${properties.preco} < 500000 THEN '200k-500k'
             WHEN ${properties.preco} < 1000000 THEN '500k-1M'
             ELSE '1M+'
-          END
-        `,
-        count: sql<number>`count(*)::int`,
-      })
-      .from(properties)
-      .where(isNull(properties.removedAt))
-      .groupBy(
-        sql`CASE
-          WHEN ${properties.preco} IS NULL THEN 'N/D'
-          WHEN ${properties.preco} < 50000 THEN '0-50k'
-          WHEN ${properties.preco} < 100000 THEN '50k-100k'
-          WHEN ${properties.preco} < 200000 THEN '100k-200k'
-          WHEN ${properties.preco} < 500000 THEN '200k-500k'
-          WHEN ${properties.preco} < 1000000 THEN '500k-1M'
-          ELSE '1M+'
-        END`
-      )
-      .orderBy(
-        sql`CASE
-          WHEN ${properties.preco} IS NULL THEN 99
-          WHEN ${properties.preco} < 50000 THEN 0
-          WHEN ${properties.preco} < 100000 THEN 1
-          WHEN ${properties.preco} < 200000 THEN 2
-          WHEN ${properties.preco} < 500000 THEN 3
-          WHEN ${properties.preco} < 1000000 THEN 4
-          ELSE 5
-        END`
-      );
+          END as range,
+          count(*)::int as count,
+          min(CASE
+            WHEN ${properties.preco} IS NULL THEN 99
+            WHEN ${properties.preco} < 50000 THEN 0
+            WHEN ${properties.preco} < 100000 THEN 1
+            WHEN ${properties.preco} < 200000 THEN 2
+            WHEN ${properties.preco} < 500000 THEN 3
+            WHEN ${properties.preco} < 1000000 THEN 4
+            ELSE 5
+          END) as sort_order
+        FROM ${properties}
+        WHERE ${properties.removedAt} IS NULL
+        GROUP BY range
+        ORDER BY sort_order
+      ) t
+    `);
 
     return NextResponse.json({
       byCity,
