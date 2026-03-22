@@ -391,7 +391,23 @@ export default function ImoveisPage() {
                     </TableCell>
                     <TableCell>
                       {p.score ? (
-                        <span className="font-mono text-sm">
+                        <span
+                          className="font-mono text-sm cursor-help relative group"
+                          title={p.scoreDetails ? Object.entries(p.scoreDetails)
+                            .filter(([k]) => k !== "total")
+                            .map(([k, v]) => {
+                              const labels: Record<string, string> = {
+                                discount: "Desconto",
+                                priceEfficiency: "Preço vs cidade",
+                                financing: "Financiamento",
+                                propertyType: "Tipo imóvel",
+                                areaValue: "Valor/m²",
+                                daysOnMarket: "Dias no mercado",
+                                crimeSafety: "Segurança",
+                              };
+                              return `${labels[k] || k}: ${typeof v === "number" ? v.toFixed(0) : v}`;
+                            }).join(" | ") : ""}
+                        >
                           {parseFloat(p.score).toFixed(0)}
                         </span>
                       ) : (
