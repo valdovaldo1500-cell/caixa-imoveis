@@ -82,7 +82,7 @@ export function computeScoreBreakdown(
   },
   cityStats: CityStats
 ): ScoreBreakdown {
-  // 1. Discount score (30%)
+  // 1. Discount score (25%)
   const discountPct = parseFloat(property.desconto ?? "0") || 0;
   const discountScore = Math.min(100, (discountPct / 60) * 100);
 
