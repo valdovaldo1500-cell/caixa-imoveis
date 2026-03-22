@@ -203,6 +203,9 @@ export default function ImoveisPage() {
                   Preço{sortIcon("preco")}
                 </TableHead>
                 <TableHead className="text-zinc-400 text-right">
+                  R$/m²
+                </TableHead>
+                <TableHead className="text-zinc-400 text-right">
                   Avaliação
                 </TableHead>
                 <TableHead
