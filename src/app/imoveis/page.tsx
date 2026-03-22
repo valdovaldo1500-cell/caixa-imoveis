@@ -1165,7 +1165,8 @@ function ImoveisPageInner() {
     filterModalidades.length > 0 ||
     filterDescontoMin !== "" ||
     filterPrecoMax !== "" ||
-    filterPrecoMin !== "";
+    filterPrecoMin !== "" ||
+    filterDistancia !== "";
 
   const applyCustomPrice = () => {
     setFilterPrecoMin(customPrecoMin);
