@@ -545,16 +545,24 @@ export default function ImoveisPage() {
                         <span className="text-zinc-600">—</span>
                       )}
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-right relative">
                       {p.marketRentValue ? (
-                        <span
-                          className="text-zinc-300 cursor-help"
-                          title={`Anual: R$ ${Math.round(parseFloat(p.marketRentValue) * 12).toLocaleString("pt-BR")}`}
+                        <button
+                          onClick={() => setExpandedRent(expandedRent === p.id ? null : p.id)}
+                          className="text-zinc-300 cursor-pointer hover:underline text-left"
                         >
                           {formatBRL(p.marketRentValue)}<span className="text-zinc-600 text-xs">/mês</span>
-                        </span>
+                        </button>
                       ) : (
                         <span className="text-zinc-600">—</span>
+                      )}
+                      {expandedRent === p.id && p.marketRentValue && p.marketValue && (
+                        <RentPopup
+                          propertyId={p.id}
+                          rentValue={parseFloat(p.marketRentValue)}
+                          marketValue={parseFloat(p.marketValue)}
+                          onClose={() => setExpandedRent(null)}
+                        />
                       )}
                     </TableCell>
                     <TableCell>
