@@ -107,23 +107,27 @@ export async function POST() {
     // Query price changes today (properties with price history recorded today,
     // excluding newly added ones)
     const priceChangedRows = await db.execute(sql`
-      SELECT DISTINCT ON (p.caixa_id)
-        p.caixa_id AS "caixaId",
-        p.cidade,
-        p.bairro,
-        p.tipo_imovel AS "tipoImovel",
-        p.preco,
-        p.desconto,
-        p.score,
-        p.link_caixa AS "linkCaixa",
-        ph.preco AS "oldPreco"
-      FROM price_history ph
-      JOIN properties p ON p.id = ph.property_id
-      WHERE ph.recorded_at >= ${today}
-        AND ph.recorded_at < ${tomorrow}
-        AND p.first_seen_at < ${today}
-        AND p.removed_at IS NULL
-      ORDER BY p.caixa_id, ph.recorded_at DESC
+      SELECT sub."caixaId", sub.cidade, sub.bairro, sub."tipoImovel",
+             sub.preco, sub.desconto, sub.score, sub."linkCaixa", sub."oldPreco"
+      FROM (
+        SELECT DISTINCT ON (p.caixa_id)
+          p.caixa_id AS "caixaId",
+          p.cidade,
+          p.bairro,
+          p.tipo_imovel AS "tipoImovel",
+          p.preco,
+          p.desconto,
+          p.score,
+          p.link_caixa AS "linkCaixa",
+          ph.preco AS "oldPreco"
+        FROM price_history ph
+        JOIN properties p ON p.id = ph.property_id
+        WHERE ph.recorded_at >= ${today}
+          AND ph.recorded_at < ${tomorrow}
+          AND p.first_seen_at < ${today}
+          AND p.removed_at IS NULL
+        ORDER BY p.caixa_id, ph.recorded_at DESC
+      ) sub
     `);
 
     const priceChanges = (priceChangedRows as unknown) as Array<{
