@@ -1409,6 +1409,7 @@ function ImoveisPageInner() {
             )}
           </TableCell>
         );
+      }
 
       case "modalidade":
         return (
