@@ -201,7 +201,11 @@ export default function ImoveisPage() {
                     key={p.id}
                     className="border-zinc-800 hover:bg-zinc-800/50"
                   >
-                    <TableCell className="font-medium">{p.cidade}</TableCell>
+                    <TableCell className="font-medium">
+                      <Link href={`/imoveis/${p.id}`} className="hover:text-blue-400 transition-colors">
+                        {p.cidade}
+                      </Link>
+                    </TableCell>
                     <TableCell className="text-zinc-400">
                       {p.bairro || "—"}
                     </TableCell>
