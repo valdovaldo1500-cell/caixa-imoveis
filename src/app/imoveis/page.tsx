@@ -1399,7 +1399,7 @@ function ImoveisPageInner() {
               const mv = parseFloat(dmv);
               const preco = parseFloat(p.preco);
               const pct = ((1 - preco / mv) * 100);
-              const label = `${pct > 0 ? "-" : "+"}${Math.abs(pct).toFixed(0)}%`;
+              const label = pct >= 0 ? `${pct.toFixed(0)}%` : `+${Math.abs(pct).toFixed(0)}%`;
               return (
                 <Badge className={pct > 20 ? "bg-green-900 text-green-300" : pct > 0 ? "bg-emerald-900 text-emerald-300" : "bg-red-900 text-red-300"}>
                   {label}
