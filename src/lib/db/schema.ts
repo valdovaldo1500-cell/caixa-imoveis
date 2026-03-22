@@ -124,6 +124,19 @@ export const itbiTransactions = pgTable(
   ]
 );
 
+export const favorites = pgTable(
+  "favorites",
+  {
+    id: serial("id").primaryKey(),
+    propertyId: integer("property_id").notNull().references(() => properties.id),
+    notes: text("notes"),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => [
+    index("idx_favorites_property").on(table.propertyId),
+  ]
+);
+
 export const pipelineRuns = pgTable("pipeline_runs", {
   id: serial("id").primaryKey(),
   startedAt: timestamp("started_at").notNull(),
