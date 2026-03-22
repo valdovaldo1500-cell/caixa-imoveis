@@ -317,25 +317,25 @@ export default function ImoveisPage() {
                       {p.crimeRate ? (() => {
                         const rate = parseFloat(p.crimeRate);
                         const label = `${Math.round(rate).toLocaleString("pt-BR")}/100k`;
-                        if (rate < 1000) {
-                          return (
-                            <Badge className="bg-green-900 text-green-300">
-                              {label}
-                            </Badge>
-                          );
+                        let bg: string, text: string;
+                        if (rate < 3000) {
+                          bg = "bg-green-900"; text = "text-green-300";
                         } else if (rate < 5000) {
-                          return (
-                            <Badge className="bg-yellow-900 text-yellow-300">
-                              {label}
-                            </Badge>
-                          );
+                          bg = "bg-emerald-900"; text = "text-emerald-300";
+                        } else if (rate < 7000) {
+                          bg = "bg-yellow-900"; text = "text-yellow-300";
+                        } else if (rate < 9000) {
+                          bg = "bg-orange-900"; text = "text-orange-300";
+                        } else if (rate < 12000) {
+                          bg = "bg-red-900"; text = "text-red-300";
                         } else {
-                          return (
-                            <Badge className="bg-red-900 text-red-300">
-                              {label}
-                            </Badge>
-                          );
+                          bg = "bg-red-950"; text = "text-red-400";
                         }
+                        return (
+                          <Badge className={`${bg} ${text}`}>
+                            {label}
+                          </Badge>
+                        );
                       })() : (
                         <span className="text-zinc-500">—</span>
                       )}
