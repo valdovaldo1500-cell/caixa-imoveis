@@ -19,6 +19,7 @@ export async function GET(request: NextRequest) {
   const precoMin = params.get("preco_min");
   const precoMax = params.get("preco_max");
   const descontoMin = params.get("desconto_min");
+  const modalidade = params.get("modalidade");
   const search = params.get("q");
   const includeRemoved = params.get("removed") === "true";
 
