@@ -500,6 +500,7 @@ export default function ImoveisPage() {
                   Valor Mercado{sortIcon("market_value")}
                 </TableHead>
                 <TableHead className="text-zinc-400 text-right">R$/m²</TableHead>
+                <TableHead className="text-zinc-400 text-right">ZAP R$/m²</TableHead>
                 <TableHead className="text-zinc-400 text-right">Aluguel</TableHead>
                 <TableHead className="text-zinc-400">Link</TableHead>
               </TableRow>
