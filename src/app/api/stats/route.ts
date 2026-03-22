@@ -45,9 +45,9 @@ export async function GET() {
       .orderBy(sql`count(*) desc`);
 
     // Discount distribution in 10% buckets
-    const byDiscount = await db
-      .select({
-        range: sql<string>`
+    const byDiscount = await db.execute(sql`
+      SELECT range, count FROM (
+        SELECT
           CASE
             WHEN ${properties.desconto} IS NULL THEN 'N/D'
             WHEN ${properties.desconto} < 10 THEN '0-10%'
@@ -60,42 +60,15 @@ export async function GET() {
             WHEN ${properties.desconto} < 80 THEN '70-80%'
             WHEN ${properties.desconto} < 90 THEN '80-90%'
             ELSE '90-100%'
-          END
-        `,
-        count: sql<number>`count(*)::int`,
-      })
-      .from(properties)
-      .where(isNull(properties.removedAt))
-      .groupBy(
-        sql`CASE
-          WHEN ${properties.desconto} IS NULL THEN 'N/D'
-          WHEN ${properties.desconto} < 10 THEN '0-10%'
-          WHEN ${properties.desconto} < 20 THEN '10-20%'
-          WHEN ${properties.desconto} < 30 THEN '20-30%'
-          WHEN ${properties.desconto} < 40 THEN '30-40%'
-          WHEN ${properties.desconto} < 50 THEN '40-50%'
-          WHEN ${properties.desconto} < 60 THEN '50-60%'
-          WHEN ${properties.desconto} < 70 THEN '60-70%'
-          WHEN ${properties.desconto} < 80 THEN '70-80%'
-          WHEN ${properties.desconto} < 90 THEN '80-90%'
-          ELSE '90-100%'
-        END`
-      )
-      .orderBy(
-        sql`CASE
-          WHEN ${properties.desconto} IS NULL THEN 99
-          WHEN ${properties.desconto} < 10 THEN 0
-          WHEN ${properties.desconto} < 20 THEN 1
-          WHEN ${properties.desconto} < 30 THEN 2
-          WHEN ${properties.desconto} < 40 THEN 3
-          WHEN ${properties.desconto} < 50 THEN 4
-          WHEN ${properties.desconto} < 60 THEN 5
-          WHEN ${properties.desconto} < 70 THEN 6
-          WHEN ${properties.desconto} < 80 THEN 7
-          WHEN ${properties.desconto} < 90 THEN 8
-          ELSE 9
-        END`
-      );
+          END as range,
+          count(*)::int as count,
+          min(CASE WHEN ${properties.desconto} IS NULL THEN 99 ELSE floor(${properties.desconto}::numeric / 10) END) as sort_order
+        FROM ${properties}
+        WHERE ${properties.removedAt} IS NULL
+        GROUP BY range
+        ORDER BY sort_order
+      ) t
+    `);
 
     // By modalidade de venda
     const byModalidade = await db
