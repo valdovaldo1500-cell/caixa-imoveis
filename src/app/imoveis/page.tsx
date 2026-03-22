@@ -240,6 +240,11 @@ export default function ImoveisPage() {
         order,
       });
       if (search) params.set("q", search);
+      if (filterCidade) params.set("cidade", filterCidade);
+      if (filterTipo) params.set("tipo", filterTipo);
+      if (filterModalidade) params.set("modalidade", filterModalidade);
+      if (filterDescontoMin) params.set("desconto_min", filterDescontoMin);
+      if (filterPrecoMax) params.set("preco_max", filterPrecoMax);
 
       try {
         const res = await fetch(`/api/properties?${params}`, {
@@ -254,7 +259,7 @@ export default function ImoveisPage() {
         setLoading(false);
       }
     },
-    [sort, order, search]
+    [sort, order, search, filterCidade, filterTipo, filterModalidade, filterDescontoMin, filterPrecoMax]
   );
 
   // Load which properties are hidden
