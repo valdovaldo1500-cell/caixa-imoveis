@@ -35,6 +35,26 @@ export async function GET(request: NextRequest) {
     }
   }
 
+  if (precoMin) {
+    const min = parseFloat(precoMin);
+    if (!isNaN(min)) {
+      conditions.push(gte(properties.preco, String(min)));
+    }
+  }
+
+  if (precoMax) {
+    const max = parseFloat(precoMax);
+    if (!isNaN(max)) {
+      conditions.push(lte(properties.preco, String(max)));
+    }
+  }
+
+  if (tipo) {
+    conditions.push(
+      ilike(properties.tipoImovel, `%${tipo}%`)
+    );
+  }
+
   const data = await db
     .select({
       id: properties.id,
