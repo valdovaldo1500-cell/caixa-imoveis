@@ -499,7 +499,7 @@ function buildComparableDetail(
   };
 }
 
-export async function getPropertyComparables(propertyId: number): Promise<{
+export async function getPropertyComparables(propertyId: number, months: number = 12): Promise<{
   property: {
     id: number;
     cidade: string;
