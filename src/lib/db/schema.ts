@@ -9,7 +9,15 @@ import {
   timestamp,
   jsonb,
   index,
+  customType,
 } from "drizzle-orm/pg-core";
+
+// tsvector is not a built-in Drizzle type; declare it so we can reference the column
+const tsvector = customType<{ data: string }>({
+  dataType() {
+    return "tsvector";
+  },
+});
 
 export const properties = pgTable(
   "properties",
