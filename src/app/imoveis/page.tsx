@@ -453,7 +453,7 @@ function SavedFiltersDropdown({
 // ---------------------------------------------------------------------------
 // Popups
 // ---------------------------------------------------------------------------
-function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose: () => void }) {
+function ComparablesPopup({ propertyId, onClose, source = "itbi" }: { propertyId: number; onClose: () => void; source?: "itbi" | "zap" }) {
   const [data, setData] = useState<{
     property: { bairro: string; tipoImovel: string; areaPrivativaM2: string };
     tier1: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string; finalidadeConstrucao: string }>; medianPrecoM2: number; count: number };
