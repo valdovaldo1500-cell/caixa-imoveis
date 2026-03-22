@@ -345,6 +345,7 @@ export default function ImoveisPage() {
           </Button>
         </div>
       )}
+      </div>
     </div>
   );
 }
