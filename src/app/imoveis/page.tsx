@@ -45,6 +45,8 @@ interface Property {
   zapRentValue: string | null;
   zapComparablesCount: number | null;
   fotoUrl: string | null;
+  lat: string | null;
+  lng: string | null;
 }
 
 interface Pagination {
