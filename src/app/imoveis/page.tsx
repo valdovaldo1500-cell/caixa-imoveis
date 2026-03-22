@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, Eye, EyeOff, MessageSquare, Building2, Bell, BellOff } from "lucide-react";
+import { Star, Eye, EyeOff, MessageSquare, Building2, Bell, BellOff, Settings2, X, ChevronDown } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -55,6 +55,35 @@ interface Pagination {
 
 const FILTERS_KEY = "caixa-imoveis-filters";
 const NOTIFICATIONS_KEY = "caixa-imoveis-notifications";
+const COLUMNS_KEY = "caixa-imoveis-columns";
+
+// ---------------------------------------------------------------------------
+// Column configuration
+// ---------------------------------------------------------------------------
+const ALL_COLUMNS = [
+  { id: "foto", label: "Foto", defaultVisible: true },
+  { id: "actions", label: "", defaultVisible: true },
+  { id: "cidade", label: "Cidade", defaultVisible: true, sortKey: "cidade" },
+  { id: "bairro", label: "Bairro", defaultVisible: true },
+  { id: "tipo", label: "Tipo", defaultVisible: true },
+  { id: "preco", label: "Preço", defaultVisible: true, sortKey: "preco" },
+  { id: "precoM2", label: "R$/m²", defaultVisible: true },
+  { id: "avaliacao", label: "Avaliação", defaultVisible: false },
+  { id: "desconto", label: "Desconto", defaultVisible: true, sortKey: "desconto" },
+  { id: "descontoMercado", label: "Desc. Mercado", defaultVisible: true },
+  { id: "modalidade", label: "Modalidade", defaultVisible: false },
+  { id: "score", label: "Score", defaultVisible: true, sortKey: "score" },
+  { id: "crime", label: "Criminalidade", defaultVisible: true },
+  { id: "valorMercado", label: "Valor Mercado", defaultVisible: true, sortKey: "market_value" },
+  { id: "mercadoM2", label: "R$/m² Mercado", defaultVisible: false },
+  { id: "zapM2", label: "ZAP R$/m²", defaultVisible: false },
+  { id: "aluguel", label: "Aluguel", defaultVisible: true },
+  { id: "link", label: "Link", defaultVisible: true },
+] as const;
+
+type ColumnId = typeof ALL_COLUMNS[number]["id"];
+
+const DEFAULT_VISIBLE = ALL_COLUMNS.filter((c) => c.defaultVisible).map((c) => c.id as string);
 
 function formatBRL(value: string | number | null) {
   if (value === null) return "—";
@@ -76,6 +105,194 @@ function useClickOutside(ref: React.RefObject<HTMLElement | null>, handler: () =
   }, [ref, handler]);
 }
 
+// ---------------------------------------------------------------------------
+// MultiSelect component
+// ---------------------------------------------------------------------------
+function MultiSelect({
+  label,
+  options,
+  selected,
+  onChange,
+}: {
+  label: string;
+  options: string[];
+  selected: string[];
+  onChange: (v: string[]) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, () => setOpen(false));
+
+  const toggle = (opt: string) => {
+    if (selected.includes(opt)) {
+      onChange(selected.filter((s) => s !== opt));
+    } else {
+      onChange([...selected, opt]);
+    }
+  };
+
+  const buttonLabel =
+    selected.length === 0
+      ? label
+      : selected.length === 1
+      ? selected[0]
+      : `${label} (${selected.length})`;
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className={`flex items-center gap-1 bg-zinc-800 border rounded px-2 py-1.5 text-zinc-300 text-xs whitespace-nowrap transition-colors ${
+          selected.length > 0 ? "border-blue-600" : "border-zinc-700"
+        }`}
+      >
+        <span className={selected.length === 0 ? "text-zinc-500" : ""}>{buttonLabel}</span>
+        <ChevronDown className="w-3 h-3 text-zinc-500 ml-0.5" />
+      </button>
+      {open && (
+        <div className="absolute left-0 top-full mt-1 z-[200] bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl min-w-[180px] max-h-64 overflow-y-auto">
+          {selected.length > 0 && (
+            <button
+              onClick={() => onChange([])}
+              className="w-full text-left px-3 py-1.5 text-xs text-zinc-500 hover:text-zinc-300 border-b border-zinc-800"
+            >
+              Limpar seleção
+            </button>
+          )}
+          {options.map((opt) => (
+            <label
+              key={opt}
+              className="flex items-center gap-2 px-3 py-1.5 text-xs text-zinc-300 hover:bg-zinc-800 cursor-pointer"
+            >
+              <input
+                type="checkbox"
+                checked={selected.includes(opt)}
+                onChange={() => toggle(opt)}
+                className="accent-blue-500"
+              />
+              {opt}
+            </label>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ColumnSettings panel
+// ---------------------------------------------------------------------------
+function ColumnSettings({
+  visibleColumns,
+  onChange,
+  onClose,
+}: {
+  visibleColumns: string[];
+  onChange: (cols: string[]) => void;
+  onClose: () => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, onClose);
+
+  const isVisible = (id: string) => visibleColumns.includes(id);
+
+  const toggle = (id: string) => {
+    if (isVisible(id)) {
+      // Don't allow hiding all columns
+      if (visibleColumns.length <= 1) return;
+      onChange(visibleColumns.filter((c) => c !== id));
+    } else {
+      // Insert at the position defined by ALL_COLUMNS order
+      const allIds = ALL_COLUMNS.map((c) => c.id as string);
+      const newVisible = [...visibleColumns, id].sort(
+        (a, b) => allIds.indexOf(a) - allIds.indexOf(b)
+      );
+      onChange(newVisible);
+    }
+  };
+
+  const moveUp = (id: string) => {
+    const idx = visibleColumns.indexOf(id);
+    if (idx <= 0) return;
+    const next = [...visibleColumns];
+    [next[idx - 1], next[idx]] = [next[idx], next[idx - 1]];
+    onChange(next);
+  };
+
+  const moveDown = (id: string) => {
+    const idx = visibleColumns.indexOf(id);
+    if (idx < 0 || idx >= visibleColumns.length - 1) return;
+    const next = [...visibleColumns];
+    [next[idx], next[idx + 1]] = [next[idx + 1], next[idx]];
+    onChange(next);
+  };
+
+  return (
+    <div
+      ref={ref}
+      className="absolute right-0 top-full mt-1 z-[300] bg-zinc-950 border border-zinc-700 rounded-lg shadow-xl p-3 w-64"
+    >
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-xs font-semibold text-zinc-300">Colunas visíveis</span>
+        <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">
+          <X className="w-3.5 h-3.5" />
+        </button>
+      </div>
+      <div className="space-y-0.5 max-h-72 overflow-y-auto">
+        {ALL_COLUMNS.map((col) => {
+          const vis = isVisible(col.id);
+          const idx = visibleColumns.indexOf(col.id as string);
+          return (
+            <div
+              key={col.id}
+              className="flex items-center gap-2 px-1 py-1 rounded hover:bg-zinc-800"
+            >
+              <input
+                type="checkbox"
+                checked={vis}
+                onChange={() => toggle(col.id as string)}
+                className="accent-blue-500 shrink-0"
+              />
+              <span className={`flex-1 text-xs ${vis ? "text-zinc-200" : "text-zinc-500"}`}>
+                {col.label || "(ações)"}
+              </span>
+              {vis && (
+                <div className="flex gap-0.5">
+                  <button
+                    onClick={() => moveUp(col.id as string)}
+                    disabled={idx === 0}
+                    className="text-zinc-600 hover:text-zinc-300 disabled:opacity-30 text-xs px-0.5"
+                    title="Mover para cima"
+                  >
+                    ▲
+                  </button>
+                  <button
+                    onClick={() => moveDown(col.id as string)}
+                    disabled={idx === visibleColumns.length - 1}
+                    className="text-zinc-600 hover:text-zinc-300 disabled:opacity-30 text-xs px-0.5"
+                    title="Mover para baixo"
+                  >
+                    ▼
+                  </button>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <button
+        onClick={() => onChange([...DEFAULT_VISIBLE])}
+        className="mt-2 w-full text-xs text-zinc-500 hover:text-zinc-300 border border-zinc-800 hover:border-zinc-600 rounded py-1 transition-colors"
+      >
+        Reset padrão
+      </button>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Popups
+// ---------------------------------------------------------------------------
 function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose: () => void }) {
   const [data, setData] = useState<{
     property: { bairro: string; tipoImovel: string; areaPrivativaM2: string };
@@ -335,6 +552,9 @@ function NotePopup({
   );
 }
 
+// ---------------------------------------------------------------------------
+// Main page
+// ---------------------------------------------------------------------------
 export default function ImoveisPage() {
   const [data, setData] = useState<Property[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
@@ -347,9 +567,9 @@ export default function ImoveisPage() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("desconto");
   const [order, setOrder] = useState<"asc" | "desc">("desc");
-  const [filterCidade, setFilterCidade] = useState("");
-  const [filterTipo, setFilterTipo] = useState("");
-  const [filterModalidade, setFilterModalidade] = useState("");
+  const [filterCidades, setFilterCidades] = useState<string[]>([]);
+  const [filterTipos, setFilterTipos] = useState<string[]>([]);
+  const [filterModalidades, setFilterModalidades] = useState<string[]>([]);
   const [filterDescontoMin, setFilterDescontoMin] = useState("");
   const [filterPrecoMax, setFilterPrecoMax] = useState("");
   // Map of propertyId -> favoriteId (present means favorited)
@@ -363,17 +583,24 @@ export default function ImoveisPage() {
   const [expandedNote, setExpandedNote] = useState<number | null>(null);
   const [filtersLoaded, setFiltersLoaded] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [visibleColumns, setVisibleColumns] = useState<string[]>(DEFAULT_VISIBLE);
+  const [showColumnSettings, setShowColumnSettings] = useState(false);
+  const columnSettingsRef = useRef<HTMLDivElement>(null);
 
   // Score popup click-outside ref
   const scorePopupRef = useRef<HTMLDivElement>(null);
   useClickOutside(scorePopupRef, () => setExpandedScore(null));
 
-  // Load saved filters from localStorage on mount
+  // Load saved filters and column config from localStorage on mount
   useEffect(() => {
     try {
       const saved = localStorage.getItem(FILTERS_KEY);
       if (saved) {
         const filters = JSON.parse(saved) as {
+          cidades?: string[];
+          tipos?: string[];
+          modalidades?: string[];
+          // legacy single-value fields
           cidade?: string;
           tipo?: string;
           modalidade?: string;
@@ -381,19 +608,40 @@ export default function ImoveisPage() {
           precoMax?: string;
           showHidden?: boolean;
         };
-        if (filters.cidade !== undefined) setFilterCidade(filters.cidade);
-        if (filters.tipo !== undefined) setFilterTipo(filters.tipo);
-        if (filters.modalidade !== undefined) setFilterModalidade(filters.modalidade);
+        // Support both old single-string and new array formats
+        if (filters.cidades !== undefined) setFilterCidades(filters.cidades);
+        else if (filters.cidade) setFilterCidades([filters.cidade]);
+        if (filters.tipos !== undefined) setFilterTipos(filters.tipos);
+        else if (filters.tipo) setFilterTipos([filters.tipo]);
+        if (filters.modalidades !== undefined) setFilterModalidades(filters.modalidades);
+        else if (filters.modalidade) setFilterModalidades([filters.modalidade]);
         if (filters.descontoMin !== undefined) setFilterDescontoMin(filters.descontoMin);
         if (filters.precoMax !== undefined) setFilterPrecoMax(filters.precoMax);
         if (filters.showHidden !== undefined) setShowHidden(filters.showHidden);
       }
       const notif = localStorage.getItem(NOTIFICATIONS_KEY);
       if (notif !== null) setNotificationsEnabled(JSON.parse(notif) as boolean);
+      const cols = localStorage.getItem(COLUMNS_KEY);
+      if (cols) {
+        const parsed = JSON.parse(cols) as string[];
+        // Validate that all stored ids are known
+        const validIds = new Set(ALL_COLUMNS.map((c) => c.id as string));
+        const filtered = parsed.filter((id) => validIds.has(id));
+        if (filtered.length > 0) setVisibleColumns(filtered);
+      }
     } catch {
       // ignore
     }
     setFiltersLoaded(true);
+  }, []);
+
+  const saveColumns = useCallback((cols: string[]) => {
+    setVisibleColumns(cols);
+    try {
+      localStorage.setItem(COLUMNS_KEY, JSON.stringify(cols));
+    } catch {
+      // ignore
+    }
   }, []);
 
   const saveFilters = () => {
@@ -401,9 +649,9 @@ export default function ImoveisPage() {
       localStorage.setItem(
         FILTERS_KEY,
         JSON.stringify({
-          cidade: filterCidade,
-          tipo: filterTipo,
-          modalidade: filterModalidade,
+          cidades: filterCidades,
+          tipos: filterTipos,
+          modalidades: filterModalidades,
           descontoMin: filterDescontoMin,
           precoMax: filterPrecoMax,
           showHidden,
@@ -434,9 +682,9 @@ export default function ImoveisPage() {
         order,
       });
       if (search) params.set("q", search);
-      if (filterCidade) params.set("cidade", filterCidade);
-      if (filterTipo) params.set("tipo", filterTipo);
-      if (filterModalidade) params.set("modalidade", filterModalidade);
+      if (filterCidades.length > 0) params.set("cidade", filterCidades.join(","));
+      if (filterTipos.length > 0) params.set("tipo", filterTipos.join(","));
+      if (filterModalidades.length > 0) params.set("modalidade", filterModalidades.join(","));
       if (filterDescontoMin) params.set("desconto_min", filterDescontoMin);
       if (filterPrecoMax) params.set("preco_max", filterPrecoMax);
 
@@ -453,7 +701,7 @@ export default function ImoveisPage() {
         setLoading(false);
       }
     },
-    [sort, order, search, filterCidade, filterTipo, filterModalidade, filterDescontoMin, filterPrecoMax]
+    [sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax]
   );
 
   // Load which properties are hidden
@@ -574,539 +822,644 @@ export default function ImoveisPage() {
     return order === "desc" ? " ↓" : " ↑";
   };
 
+  const hasActiveFilters =
+    filterCidades.length > 0 ||
+    filterTipos.length > 0 ||
+    filterModalidades.length > 0 ||
+    filterDescontoMin !== "" ||
+    filterPrecoMax !== "";
+
+  // ---------------------------------------------------------------------------
+  // Render a single cell by columnId
+  // ---------------------------------------------------------------------------
+  const renderCell = (colId: string, p: Property) => {
+    const isHidden = hiddenIds.has(p.id);
+    switch (colId) {
+      case "foto":
+        return (
+          <TableCell key={colId} className="w-10 px-1">
+            {p.fotoUrl ? (
+              <img
+                src={p.fotoUrl}
+                alt="Foto do imóvel"
+                className="w-10 h-10 rounded object-cover"
+              />
+            ) : (
+              <div className="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center">
+                <Building2 className="w-5 h-5 text-zinc-600" />
+              </div>
+            )}
+          </TableCell>
+        );
+
+      case "actions":
+        return (
+          <TableCell key={colId} className="w-20 px-2">
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => toggleFavorite(p.id)}
+                className={`transition-colors ${
+                  favorited[p.id]
+                    ? "text-yellow-400 hover:text-yellow-300"
+                    : "text-zinc-600 hover:text-zinc-400"
+                }`}
+                title={favorited[p.id] ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+              >
+                <Star
+                  className="w-4 h-4"
+                  fill={favorited[p.id] ? "currentColor" : "none"}
+                />
+              </button>
+              <button
+                onClick={() => toggleHidden(p.id)}
+                className={`transition-colors ${
+                  isHidden
+                    ? "text-zinc-400 hover:text-zinc-200"
+                    : "text-zinc-700 hover:text-zinc-500"
+                }`}
+                title={isHidden ? "Mostrar imóvel" : "Ocultar imóvel"}
+              >
+                {isHidden ? (
+                  <EyeOff className="w-4 h-4" />
+                ) : (
+                  <Eye className="w-4 h-4" />
+                )}
+              </button>
+              <div className="relative">
+                <button
+                  onClick={() => setExpandedNote(expandedNote === p.id ? null : p.id)}
+                  className={`transition-colors ${
+                    notes[p.id]
+                      ? "text-blue-400 hover:text-blue-300"
+                      : "text-zinc-700 hover:text-zinc-500"
+                  }`}
+                  title={notes[p.id] ? notes[p.id].slice(0, 60) : "Adicionar nota"}
+                >
+                  <MessageSquare
+                    className="w-4 h-4"
+                    fill={notes[p.id] ? "currentColor" : "none"}
+                  />
+                </button>
+                {expandedNote === p.id && (
+                  <NotePopup
+                    propertyId={p.id}
+                    initialNote={notes[p.id] ?? ""}
+                    onSave={(note) => {
+                      setNotes((prev) => {
+                        const next = { ...prev };
+                        if (note === null) {
+                          delete next[p.id];
+                        } else {
+                          next[p.id] = note;
+                        }
+                        return next;
+                      });
+                    }}
+                    onClose={() => setExpandedNote(null)}
+                  />
+                )}
+              </div>
+            </div>
+          </TableCell>
+        );
+
+      case "cidade":
+        return (
+          <TableCell key={colId} className="font-medium">
+            <Link href={`/imoveis/${p.id}`} className="hover:text-blue-400 transition-colors">
+              {p.cidade}
+            </Link>
+          </TableCell>
+        );
+
+      case "bairro":
+        return (
+          <TableCell key={colId} className="text-zinc-400">
+            {p.bairro || "—"}
+          </TableCell>
+        );
+
+      case "tipo":
+        return (
+          <TableCell key={colId} className="text-zinc-400 text-xs">
+            {p.tipoImovel || p.descricao || "—"}
+          </TableCell>
+        );
+
+      case "preco":
+        return (
+          <TableCell key={colId} className="text-right">
+            {formatBRL(p.preco)}
+          </TableCell>
+        );
+
+      case "precoM2":
+        return (
+          <TableCell key={colId} className="text-right text-zinc-500 text-xs">
+            {p.preco && p.areaPrivativaM2 && parseFloat(p.areaPrivativaM2) > 0
+              ? `R$\u00a0${Math.round(parseFloat(p.preco) / parseFloat(p.areaPrivativaM2)).toLocaleString("pt-BR")}`
+              : "—"}
+          </TableCell>
+        );
+
+      case "avaliacao":
+        return (
+          <TableCell key={colId} className="text-right text-zinc-400">
+            {formatBRL(p.valorAvaliacao)}
+          </TableCell>
+        );
+
+      case "desconto":
+        return (
+          <TableCell key={colId} className="text-right">
+            {p.desconto ? (
+              <Badge
+                variant={parseFloat(p.desconto) >= 40 ? "default" : "secondary"}
+                className={parseFloat(p.desconto) >= 40 ? "bg-green-900 text-green-300" : ""}
+              >
+                {parseFloat(p.desconto).toFixed(0)}%
+              </Badge>
+            ) : (
+              "—"
+            )}
+          </TableCell>
+        );
+
+      case "descontoMercado":
+        return (
+          <TableCell key={colId} className="text-right">
+            {p.marketValue && p.preco ? (() => {
+              const mv = parseFloat(p.marketValue);
+              const preco = parseFloat(p.preco);
+              const pct = ((1 - preco / mv) * 100);
+              const label = `${pct > 0 ? "-" : "+"}${Math.abs(pct).toFixed(0)}%`;
+              return (
+                <Badge className={pct > 20 ? "bg-green-900 text-green-300" : pct > 0 ? "bg-emerald-900 text-emerald-300" : "bg-red-900 text-red-300"}>
+                  {label}
+                </Badge>
+              );
+            })() : (
+              <span className="text-zinc-600">—</span>
+            )}
+          </TableCell>
+        );
+
+      case "modalidade":
+        return (
+          <TableCell key={colId} className="text-zinc-400 text-xs max-w-[120px] truncate">
+            {p.modalidadeVenda || "—"}
+          </TableCell>
+        );
+
+      case "score":
+        return (
+          <TableCell key={colId} className="relative">
+            {p.score ? (
+              <>
+                <button
+                  onClick={() => setExpandedScore(expandedScore === p.id ? null : p.id)}
+                  className="font-mono text-sm cursor-pointer hover:underline"
+                >
+                  {parseFloat(p.score).toFixed(0)}
+                </button>
+                {expandedScore === p.id && p.scoreDetails && (
+                  <div ref={scorePopupRef} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-lg shadow-xl p-3 w-[280px] text-left">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs font-semibold text-zinc-300">Score: {parseFloat(p.score).toFixed(1)}</span>
+                      <button onClick={() => setExpandedScore(null)} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
+                    </div>
+                    <div className="space-y-1.5">
+                      {Object.entries(p.scoreDetails)
+                        .filter(([k]) => k !== "total")
+                        .map(([k, v]) => {
+                          const labels: Record<string, string> = {
+                            discount: "Desconto",
+                            priceEfficiency: "Preço vs cidade",
+                            financing: "Financiamento",
+                            propertyType: "Tipo imóvel",
+                            areaValue: "Valor/m²",
+                            daysOnMarket: "Dias mercado",
+                            crimeSafety: "Segurança",
+                          };
+                          const weights: Record<string, number> = {
+                            discount: 25, priceEfficiency: 20, financing: 15,
+                            propertyType: 10, areaValue: 15, daysOnMarket: 5, crimeSafety: 10,
+                          };
+                          const val = typeof v === "number" ? v : 0;
+                          const w = weights[k] || 0;
+                          return (
+                            <div key={k} className="flex items-center gap-2 text-xs">
+                              <span className="w-20 text-zinc-400 truncate">{labels[k] || k}</span>
+                              <div className="flex-1 h-2 bg-zinc-800 rounded overflow-hidden">
+                                <div className="h-full rounded" style={{
+                                  width: `${val}%`,
+                                  backgroundColor: val >= 70 ? "#22c55e" : val >= 40 ? "#eab308" : "#ef4444"
+                                }} />
+                              </div>
+                              <span className="w-8 text-right text-zinc-500">{val.toFixed(0)}</span>
+                              <span className="w-6 text-right text-zinc-600">{w}%</span>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              "—"
+            )}
+          </TableCell>
+        );
+
+      case "crime":
+        return (
+          <TableCell key={colId}>
+            {p.crimeRate ? (() => {
+              const rate = parseFloat(p.crimeRate);
+              const label = `${Math.round(rate).toLocaleString("pt-BR")}/100k`;
+              let bg: string, text: string;
+              if (rate < 3000) {
+                bg = "bg-green-900"; text = "text-green-300";
+              } else if (rate < 5000) {
+                bg = "bg-emerald-900"; text = "text-emerald-300";
+              } else if (rate < 7000) {
+                bg = "bg-yellow-900"; text = "text-yellow-300";
+              } else if (rate < 9000) {
+                bg = "bg-orange-900"; text = "text-orange-300";
+              } else if (rate < 12000) {
+                bg = "bg-red-900"; text = "text-red-300";
+              } else {
+                bg = "bg-red-950"; text = "text-red-400";
+              }
+              const citySlug = p.cidade.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, "-");
+              const bairroSlug = p.bairro ? p.bairro.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, "-") : "";
+              const crimeUrl = bairroSlug
+                ? `https://crimebrasil.com.br/bairro/rs/${citySlug}/${bairroSlug}`
+                : `https://crimebrasil.com.br/cidade/rs/${citySlug}`;
+              return (
+                <a href={crimeUrl} target="_blank" rel="noopener noreferrer" title={`Ver criminalidade em ${p.bairro || p.cidade} no Crime Brasil`}>
+                  <Badge className={`${bg} ${text} hover:opacity-80 cursor-pointer`}>
+                    {label}
+                  </Badge>
+                </a>
+              );
+            })() : (
+              <span className="text-zinc-500">—</span>
+            )}
+          </TableCell>
+        );
+
+      case "valorMercado":
+        return (
+          <TableCell key={colId} className="text-right relative">
+            {p.marketValue && p.preco ? (() => {
+              const mv = parseFloat(p.marketValue);
+              const preco = parseFloat(p.preco);
+              const isGoodDeal = preco < mv;
+              return (
+                <button
+                  onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
+                  className={`cursor-pointer hover:underline text-left ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
+                >
+                  {formatBRL(p.marketValue)}
+                  {p.comparablesCount ? (
+                    <span className="text-xs text-zinc-500 ml-1">
+                      ({p.comparablesCount})
+                    </span>
+                  ) : null}
+                </button>
+              );
+            })() : (
+              <span className="text-zinc-600">—</span>
+            )}
+            {expandedComparables === p.id && (
+              <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
+            )}
+          </TableCell>
+        );
+
+      case "mercadoM2":
+        return (
+          <TableCell key={colId} className="text-right text-zinc-400 text-sm">
+            {p.marketValuePerM2 ? (
+              `R$\u00a0${Math.round(parseFloat(p.marketValuePerM2)).toLocaleString("pt-BR")}`
+            ) : (
+              <span className="text-zinc-600">—</span>
+            )}
+          </TableCell>
+        );
+
+      case "zapM2":
+        return (
+          <TableCell key={colId} className="text-right text-zinc-400 text-sm">
+            {p.zapMarketValuePerM2 ? (
+              <span title={`ZAP: ${p.zapComparablesCount ?? 0} anúncios`}>
+                {`R$\u00a0${Math.round(parseFloat(p.zapMarketValuePerM2)).toLocaleString("pt-BR")}`}
+                {p.zapComparablesCount ? (
+                  <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span>
+                ) : null}
+              </span>
+            ) : (
+              <span className="text-zinc-600">—</span>
+            )}
+          </TableCell>
+        );
+
+      case "aluguel":
+        return (
+          <TableCell key={colId} className="text-right relative">
+            {(p.marketRentValue || p.zapRentValue) ? (() => {
+              const rentVal = p.marketRentValue || p.zapRentValue!;
+              const isZapRent = !p.marketRentValue && !!p.zapRentValue;
+              return (
+                <button
+                  onClick={() => setExpandedRent(expandedRent === p.id ? null : p.id)}
+                  className="text-zinc-300 cursor-pointer hover:underline text-left"
+                  title={isZapRent ? "Estimativa baseada em anúncios ZAP" : undefined}
+                >
+                  {formatBRL(rentVal)}
+                  <span className="text-zinc-600 text-xs">/mês</span>
+                  {isZapRent && <span className="text-zinc-500 text-xs ml-1">ZAP</span>}
+                </button>
+              );
+            })() : (
+              <span className="text-zinc-600">—</span>
+            )}
+            {expandedRent === p.id && p.marketRentValue && p.marketValue && (
+              <RentPopup
+                propertyId={p.id}
+                onClose={() => setExpandedRent(null)}
+              />
+            )}
+          </TableCell>
+        );
+
+      case "link":
+        return (
+          <TableCell key={colId}>
+            {p.linkCaixa ? (
+              <a
+                href={p.linkCaixa}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300 text-xs"
+              >
+                Ver
+              </a>
+            ) : (
+              "—"
+            )}
+          </TableCell>
+        );
+
+      default:
+        return <TableCell key={colId} />;
+    }
+  };
+
+  // ---------------------------------------------------------------------------
+  // Render a column header by columnId
+  // ---------------------------------------------------------------------------
+  const renderHeader = (colId: string) => {
+    const colDef = ALL_COLUMNS.find((c) => c.id === colId);
+    const label = colDef?.label ?? "";
+    const sk = (colDef as { sortKey?: string } | undefined)?.sortKey;
+
+    if (colId === "foto") {
+      return <TableHead key={colId} className="w-10 text-zinc-400" />;
+    }
+    if (colId === "actions") {
+      return <TableHead key={colId} className="w-16 text-zinc-400" />;
+    }
+    if (sk) {
+      const rightAligned = ["preco", "precoM2", "avaliacao", "desconto", "descontoMercado", "valorMercado", "mercadoM2", "zapM2", "aluguel"].includes(colId);
+      return (
+        <TableHead
+          key={colId}
+          className={`cursor-pointer text-zinc-400${rightAligned ? " text-right" : ""}`}
+          onClick={() => handleSort(sk)}
+        >
+          {label}{sortIcon(sk)}
+        </TableHead>
+      );
+    }
+    return (
+      <TableHead key={colId} className="text-zinc-400">
+        {label}
+      </TableHead>
+    );
+  };
+
+  const colCount = visibleColumns.length;
+
   return (
     <div className="min-h-screen flex flex-col">
       <NavHeader />
       <div className="p-6 space-y-4">
-      <div>
-        <h1 className="text-xl font-bold">Imóveis</h1>
-        <p className="text-sm text-zinc-400">
-          {pagination.total} imóveis encontrados
-        </p>
-      </div>
+        <div>
+          <h1 className="text-xl font-bold">Imóveis</h1>
+          <p className="text-sm text-zinc-400">
+            {pagination.total} imóveis encontrados
+          </p>
+        </div>
 
-      <div className="flex gap-3 flex-wrap items-center">
-        <Input
-          placeholder="Buscar cidade, bairro ou endereço..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && fetchData(1)}
-          className="max-w-md bg-zinc-800 border-zinc-700"
-        />
-        <Button onClick={() => fetchData(1)} variant="secondary">
-          Buscar
-        </Button>
-        <label className="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={showHidden}
-            onChange={(e) => setShowHidden(e.target.checked)}
-            className="accent-zinc-500"
+        <div className="flex gap-3 flex-wrap items-center">
+          <Input
+            placeholder="Buscar cidade, bairro ou endereço..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && fetchData(1)}
+            className="max-w-md bg-zinc-800 border-zinc-700"
           />
-          Mostrar ocultos
-        </label>
-      </div>
+          <Button onClick={() => fetchData(1)} variant="secondary">
+            Buscar
+          </Button>
+          <label className="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={showHidden}
+              onChange={(e) => setShowHidden(e.target.checked)}
+              className="accent-zinc-500"
+            />
+            Mostrar ocultos
+          </label>
+          {/* Column settings gear button */}
+          <div ref={columnSettingsRef} className="relative ml-auto">
+            <button
+              onClick={() => setShowColumnSettings((v) => !v)}
+              className={`flex items-center gap-1.5 border rounded px-2 py-1.5 text-xs transition-colors ${
+                showColumnSettings
+                  ? "text-zinc-200 border-zinc-500 bg-zinc-700"
+                  : "text-zinc-400 border-zinc-700 bg-zinc-800 hover:bg-zinc-700"
+              }`}
+              title="Personalizar colunas"
+            >
+              <Settings2 className="w-3.5 h-3.5" />
+              <span>Colunas</span>
+            </button>
+            {showColumnSettings && (
+              <ColumnSettings
+                visibleColumns={visibleColumns}
+                onChange={saveColumns}
+                onClose={() => setShowColumnSettings(false)}
+              />
+            )}
+          </div>
+        </div>
 
-      <div className="flex gap-2 flex-wrap items-center text-xs">
-        <select value={filterCidade} onChange={(e) => setFilterCidade(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300">
-          <option value="">Todas cidades</option>
-          <option value="PORTO ALEGRE">Porto Alegre</option>
-          <option value="PELOTAS">Pelotas</option>
-          <option value="CAXIAS DO SUL">Caxias do Sul</option>
-          <option value="CANOAS">Canoas</option>
-          <option value="SANTA MARIA">Santa Maria</option>
-          <option value="VIAMAO">Viamão</option>
-          <option value="GRAVATAI">Gravataí</option>
-          <option value="NOVO HAMBURGO">Novo Hamburgo</option>
-          <option value="SAO LEOPOLDO">São Leopoldo</option>
-          <option value="PASSO FUNDO">Passo Fundo</option>
-        </select>
-        <select value={filterTipo} onChange={(e) => setFilterTipo(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300">
-          <option value="">Todos tipos</option>
-          <option value="Apartamento">Apartamento</option>
-          <option value="Casa">Casa</option>
-          <option value="Terreno">Terreno</option>
-          <option value="Loja">Loja</option>
-          <option value="Comercial">Comercial</option>
-        </select>
-        <select value={filterModalidade} onChange={(e) => setFilterModalidade(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300">
-          <option value="">Todas modalidades</option>
-          <option value="Venda Direta Online">Venda Direta Online</option>
-          <option value="Licitação Aberta">Licitação Aberta</option>
-          <option value="Venda Online">Venda Online</option>
-          <option value="1º Leilão SFI">1º Leilão SFI</option>
-          <option value="2º Leilão SFI">2º Leilão SFI</option>
-        </select>
-        <select value={filterDescontoMin} onChange={(e) => setFilterDescontoMin(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300">
-          <option value="">Desconto mín.</option>
-          <option value="20">≥ 20%</option>
-          <option value="30">≥ 30%</option>
-          <option value="40">≥ 40%</option>
-          <option value="50">≥ 50%</option>
-          <option value="60">≥ 60%</option>
-          <option value="70">≥ 70%</option>
-        </select>
-        <select value={filterPrecoMax} onChange={(e) => setFilterPrecoMax(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300">
-          <option value="">Preço máx.</option>
-          <option value="50000">até R$ 50k</option>
-          <option value="100000">até R$ 100k</option>
-          <option value="200000">até R$ 200k</option>
-          <option value="500000">até R$ 500k</option>
-          <option value="1000000">até R$ 1M</option>
-        </select>
-        {(filterCidade || filterTipo || filterModalidade || filterDescontoMin || filterPrecoMax) && (
+        <div className="flex gap-2 flex-wrap items-center text-xs">
+          <MultiSelect
+            label="Cidades"
+            options={[
+              "PORTO ALEGRE",
+              "PELOTAS",
+              "CAXIAS DO SUL",
+              "CANOAS",
+              "SANTA MARIA",
+              "VIAMAO",
+              "GRAVATAI",
+              "NOVO HAMBURGO",
+              "SAO LEOPOLDO",
+              "PASSO FUNDO",
+            ]}
+            selected={filterCidades}
+            onChange={setFilterCidades}
+          />
+          <MultiSelect
+            label="Tipos"
+            options={["Apartamento", "Casa", "Terreno", "Loja", "Comercial"]}
+            selected={filterTipos}
+            onChange={setFilterTipos}
+          />
+          <MultiSelect
+            label="Modalidades"
+            options={[
+              "Venda Direta Online",
+              "Licitação Aberta",
+              "Venda Online",
+              "1º Leilão SFI",
+              "2º Leilão SFI",
+            ]}
+            selected={filterModalidades}
+            onChange={setFilterModalidades}
+          />
+          <select value={filterDescontoMin} onChange={(e) => setFilterDescontoMin(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300 text-xs">
+            <option value="">Desconto mín.</option>
+            <option value="20">≥ 20%</option>
+            <option value="30">≥ 30%</option>
+            <option value="40">≥ 40%</option>
+            <option value="50">≥ 50%</option>
+            <option value="60">≥ 60%</option>
+            <option value="70">≥ 70%</option>
+          </select>
+          <select value={filterPrecoMax} onChange={(e) => setFilterPrecoMax(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300 text-xs">
+            <option value="">Preço máx.</option>
+            <option value="50000">até R$ 50k</option>
+            <option value="100000">até R$ 100k</option>
+            <option value="200000">até R$ 200k</option>
+            <option value="500000">até R$ 500k</option>
+            <option value="1000000">até R$ 1M</option>
+          </select>
+          {hasActiveFilters && (
+            <button
+              onClick={() => {
+                setFilterCidades([]);
+                setFilterTipos([]);
+                setFilterModalidades([]);
+                setFilterDescontoMin("");
+                setFilterPrecoMax("");
+              }}
+              className="text-zinc-500 hover:text-zinc-300 underline"
+            >
+              Limpar filtros
+            </button>
+          )}
           <button
-            onClick={() => { setFilterCidade(""); setFilterTipo(""); setFilterModalidade(""); setFilterDescontoMin(""); setFilterPrecoMax(""); }}
-            className="text-zinc-500 hover:text-zinc-300 underline"
+            onClick={saveFilters}
+            className="text-zinc-400 hover:text-zinc-200 border border-zinc-700 rounded px-2 py-1 bg-zinc-800 hover:bg-zinc-700 transition-colors"
+            title="Salvar filtros atuais no navegador"
           >
-            Limpar filtros
+            Salvar filtros
           </button>
-        )}
-        <button
-          onClick={saveFilters}
-          className="text-zinc-400 hover:text-zinc-200 border border-zinc-700 rounded px-2 py-1 bg-zinc-800 hover:bg-zinc-700 transition-colors"
-          title="Salvar filtros atuais no navegador"
-        >
-          Salvar filtros
-        </button>
-        <button
-          onClick={toggleNotifications}
-          className={`flex items-center gap-1 border rounded px-2 py-1 transition-colors ${
-            notificationsEnabled
-              ? "text-yellow-400 border-yellow-700 bg-yellow-950 hover:bg-yellow-900"
-              : "text-zinc-400 border-zinc-700 bg-zinc-800 hover:bg-zinc-700"
-          }`}
-          title={notificationsEnabled ? "Notificações ativadas" : "Ativar notificações por email"}
-        >
-          {notificationsEnabled ? <Bell className="w-3 h-3" /> : <BellOff className="w-3 h-3" />}
-          <span>Notificações</span>
-        </button>
-      </div>
+          <button
+            onClick={toggleNotifications}
+            className={`flex items-center gap-1 border rounded px-2 py-1 transition-colors ${
+              notificationsEnabled
+                ? "text-yellow-400 border-yellow-700 bg-yellow-950 hover:bg-yellow-900"
+                : "text-zinc-400 border-zinc-700 bg-zinc-800 hover:bg-zinc-700"
+            }`}
+            title={notificationsEnabled ? "Notificações ativadas" : "Ativar notificações por email"}
+          >
+            {notificationsEnabled ? <Bell className="w-3 h-3" /> : <BellOff className="w-3 h-3" />}
+            <span>Notificações</span>
+          </button>
+        </div>
 
-      <Card className="bg-zinc-900 border-zinc-800 overflow-auto">
-        <CardContent className="p-0">
-          <Table>
-            <TableHeader>
-              <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
-                <TableHead className="w-10 text-zinc-400" />
-                <TableHead className="w-16 text-zinc-400" />
-                <TableHead
-                  className="cursor-pointer text-zinc-400"
-                  onClick={() => handleSort("cidade")}
-                >
-                  Cidade{sortIcon("cidade")}
-                </TableHead>
-                <TableHead className="text-zinc-400">Bairro</TableHead>
-                <TableHead className="text-zinc-400">Tipo</TableHead>
-                <TableHead
-                  className="cursor-pointer text-zinc-400 text-right"
-                  onClick={() => handleSort("preco")}
-                >
-                  Preço{sortIcon("preco")}
-                </TableHead>
-                <TableHead className="text-zinc-400 text-right">
-                  R$/m²
-                </TableHead>
-                <TableHead className="text-zinc-400 text-right">
-                  Avaliação
-                </TableHead>
-                <TableHead
-                  className="cursor-pointer text-zinc-400 text-right"
-                  onClick={() => handleSort("desconto")}
-                >
-                  Desconto{sortIcon("desconto")}
-                </TableHead>
-                <TableHead className="text-zinc-400 text-right">Desc. Mercado</TableHead>
-                <TableHead className="text-zinc-400">Modalidade</TableHead>
-                <TableHead
-                  className="cursor-pointer text-zinc-400"
-                  onClick={() => handleSort("score")}
-                >
-                  Score{sortIcon("score")}
-                </TableHead>
-                <TableHead className="text-zinc-400">Criminalidade</TableHead>
-                <TableHead
-                  className="cursor-pointer text-zinc-400 text-right"
-                  onClick={() => handleSort("market_value")}
-                >
-                  Valor Mercado{sortIcon("market_value")}
-                </TableHead>
-                <TableHead className="text-zinc-400 text-right">R$/m²</TableHead>
-                <TableHead className="text-zinc-400 text-right">ZAP R$/m²</TableHead>
-                <TableHead className="text-zinc-400 text-right">Aluguel</TableHead>
-                <TableHead className="text-zinc-400">Link</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {loading ? (
-                <TableRow>
-                  <TableCell colSpan={18} className="text-center text-zinc-500 py-8">
-                    Carregando...
-                  </TableCell>
+        <Card className="bg-zinc-900 border-zinc-800 overflow-auto">
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
+                  {visibleColumns.map((colId) => renderHeader(colId))}
                 </TableRow>
-              ) : data.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={18} className="text-center text-zinc-500 py-8">
-                    Nenhum imóvel encontrado
-                  </TableCell>
-                </TableRow>
-              ) : (
-                data
-                  .filter((p) => showHidden || !hiddenIds.has(p.id))
-                  .map((p) => {
-                  const isHidden = hiddenIds.has(p.id);
-                  return (
-                  <TableRow
-                    key={p.id}
-                    className={`border-zinc-800 hover:bg-zinc-800/50 transition-opacity ${isHidden ? "opacity-40" : ""}`}
-                  >
-                    {/* Thumbnail column */}
-                    <TableCell className="w-10 px-1">
-                      {p.fotoUrl ? (
-                        <img
-                          src={p.fotoUrl}
-                          alt="Foto do imóvel"
-                          className="w-10 h-10 rounded object-cover"
-                        />
-                      ) : (
-                        <div className="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center">
-                          <Building2 className="w-5 h-5 text-zinc-600" />
-                        </div>
-                      )}
-                    </TableCell>
-                    <TableCell className="w-20 px-2">
-                      <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => toggleFavorite(p.id)}
-                        className={`transition-colors ${
-                          favorited[p.id]
-                            ? "text-yellow-400 hover:text-yellow-300"
-                            : "text-zinc-600 hover:text-zinc-400"
-                        }`}
-                        title={favorited[p.id] ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-                      >
-                        <Star
-                          className="w-4 h-4"
-                          fill={favorited[p.id] ? "currentColor" : "none"}
-                        />
-                      </button>
-                      <button
-                        onClick={() => toggleHidden(p.id)}
-                        className={`transition-colors ${
-                          isHidden
-                            ? "text-zinc-400 hover:text-zinc-200"
-                            : "text-zinc-700 hover:text-zinc-500"
-                        }`}
-                        title={isHidden ? "Mostrar imóvel" : "Ocultar imóvel"}
-                      >
-                        {isHidden ? (
-                          <EyeOff className="w-4 h-4" />
-                        ) : (
-                          <Eye className="w-4 h-4" />
-                        )}
-                      </button>
-                      <div className="relative">
-                        <button
-                          onClick={() => setExpandedNote(expandedNote === p.id ? null : p.id)}
-                          className={`transition-colors ${
-                            notes[p.id]
-                              ? "text-blue-400 hover:text-blue-300"
-                              : "text-zinc-700 hover:text-zinc-500"
-                          }`}
-                          title={notes[p.id] ? notes[p.id].slice(0, 60) : "Adicionar nota"}
-                        >
-                          <MessageSquare
-                            className="w-4 h-4"
-                            fill={notes[p.id] ? "currentColor" : "none"}
-                          />
-                        </button>
-                        {expandedNote === p.id && (
-                          <NotePopup
-                            propertyId={p.id}
-                            initialNote={notes[p.id] ?? ""}
-                            onSave={(note) => {
-                              setNotes((prev) => {
-                                const next = { ...prev };
-                                if (note === null) {
-                                  delete next[p.id];
-                                } else {
-                                  next[p.id] = note;
-                                }
-                                return next;
-                              });
-                            }}
-                            onClose={() => setExpandedNote(null)}
-                          />
-                        )}
-                      </div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      <Link href={`/imoveis/${p.id}`} className="hover:text-blue-400 transition-colors">
-                        {p.cidade}
-                      </Link>
-                    </TableCell>
-                    <TableCell className="text-zinc-400">
-                      {p.bairro || "—"}
-                    </TableCell>
-                    <TableCell className="text-zinc-400 text-xs">
-                      {p.tipoImovel || p.descricao || "—"}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {formatBRL(p.preco)}
-                    </TableCell>
-                    <TableCell className="text-right text-zinc-500 text-xs">
-                      {p.preco && p.areaPrivativaM2 && parseFloat(p.areaPrivativaM2) > 0
-                        ? `R$\u00a0${Math.round(parseFloat(p.preco) / parseFloat(p.areaPrivativaM2)).toLocaleString("pt-BR")}`
-                        : "—"}
-                    </TableCell>
-                    <TableCell className="text-right text-zinc-400">
-                      {formatBRL(p.valorAvaliacao)}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {p.desconto ? (
-                        <Badge
-                          variant={
-                            parseFloat(p.desconto) >= 40
-                              ? "default"
-                              : "secondary"
-                          }
-                          className={
-                            parseFloat(p.desconto) >= 40
-                              ? "bg-green-900 text-green-300"
-                              : ""
-                          }
-                        >
-                          {parseFloat(p.desconto).toFixed(0)}%
-                        </Badge>
-                      ) : (
-                        "—"
-                      )}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {p.marketValue && p.preco ? (() => {
-                        const mv = parseFloat(p.marketValue);
-                        const preco = parseFloat(p.preco);
-                        const pct = ((1 - preco / mv) * 100);
-                        const label = `${pct > 0 ? "-" : "+"}${Math.abs(pct).toFixed(0)}%`;
-                        return (
-                          <Badge className={pct > 20 ? "bg-green-900 text-green-300" : pct > 0 ? "bg-emerald-900 text-emerald-300" : "bg-red-900 text-red-300"}>
-                            {label}
-                          </Badge>
-                        );
-                      })() : (
-                        <span className="text-zinc-600">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-zinc-400 text-xs max-w-[120px] truncate">
-                      {p.modalidadeVenda || "—"}
-                    </TableCell>
-                    <TableCell className="relative">
-                      {p.score ? (
-                        <>
-                          <button
-                            onClick={() => setExpandedScore(expandedScore === p.id ? null : p.id)}
-                            className="font-mono text-sm cursor-pointer hover:underline"
-                          >
-                            {parseFloat(p.score).toFixed(0)}
-                          </button>
-                          {expandedScore === p.id && p.scoreDetails && (
-                            <div ref={scorePopupRef} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-lg shadow-xl p-3 w-[280px] text-left">
-                              <div className="flex justify-between items-center mb-2">
-                                <span className="text-xs font-semibold text-zinc-300">Score: {parseFloat(p.score).toFixed(1)}</span>
-                                <button onClick={() => setExpandedScore(null)} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
-                              </div>
-                              <div className="space-y-1.5">
-                                {Object.entries(p.scoreDetails)
-                                  .filter(([k]) => k !== "total")
-                                  .map(([k, v]) => {
-                                    const labels: Record<string, string> = {
-                                      discount: "Desconto",
-                                      priceEfficiency: "Preço vs cidade",
-                                      financing: "Financiamento",
-                                      propertyType: "Tipo imóvel",
-                                      areaValue: "Valor/m²",
-                                      daysOnMarket: "Dias mercado",
-                                      crimeSafety: "Segurança",
-                                    };
-                                    const weights: Record<string, number> = {
-                                      discount: 25, priceEfficiency: 20, financing: 15,
-                                      propertyType: 10, areaValue: 15, daysOnMarket: 5, crimeSafety: 10,
-                                    };
-                                    const val = typeof v === "number" ? v : 0;
-                                    const w = weights[k] || 0;
-                                    return (
-                                      <div key={k} className="flex items-center gap-2 text-xs">
-                                        <span className="w-20 text-zinc-400 truncate">{labels[k] || k}</span>
-                                        <div className="flex-1 h-2 bg-zinc-800 rounded overflow-hidden">
-                                          <div className="h-full rounded" style={{
-                                            width: `${val}%`,
-                                            backgroundColor: val >= 70 ? "#22c55e" : val >= 40 ? "#eab308" : "#ef4444"
-                                          }} />
-                                        </div>
-                                        <span className="w-8 text-right text-zinc-500">{val.toFixed(0)}</span>
-                                        <span className="w-6 text-right text-zinc-600">{w}%</span>
-                                      </div>
-                                    );
-                                  })}
-                              </div>
-                            </div>
-                          )}
-                        </>
-                      ) : (
-                        "—"
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {p.crimeRate ? (() => {
-                        const rate = parseFloat(p.crimeRate);
-                        const label = `${Math.round(rate).toLocaleString("pt-BR")}/100k`;
-                        let bg: string, text: string;
-                        if (rate < 3000) {
-                          bg = "bg-green-900"; text = "text-green-300";
-                        } else if (rate < 5000) {
-                          bg = "bg-emerald-900"; text = "text-emerald-300";
-                        } else if (rate < 7000) {
-                          bg = "bg-yellow-900"; text = "text-yellow-300";
-                        } else if (rate < 9000) {
-                          bg = "bg-orange-900"; text = "text-orange-300";
-                        } else if (rate < 12000) {
-                          bg = "bg-red-900"; text = "text-red-300";
-                        } else {
-                          bg = "bg-red-950"; text = "text-red-400";
-                        }
-                        const citySlug = p.cidade.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, "-");
-                        const bairroSlug = p.bairro ? p.bairro.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, "-") : "";
-                        const crimeUrl = bairroSlug
-                          ? `https://crimebrasil.com.br/bairro/rs/${citySlug}/${bairroSlug}`
-                          : `https://crimebrasil.com.br/cidade/rs/${citySlug}`;
-                        return (
-                          <a href={crimeUrl} target="_blank" rel="noopener noreferrer" title={`Ver criminalidade em ${p.bairro || p.cidade} no Crime Brasil`}>
-                            <Badge className={`${bg} ${text} hover:opacity-80 cursor-pointer`}>
-                              {label}
-                            </Badge>
-                          </a>
-                        );
-                      })() : (
-                        <span className="text-zinc-500">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-right relative">
-                      {p.marketValue && p.preco ? (() => {
-                        const mv = parseFloat(p.marketValue);
-                        const preco = parseFloat(p.preco);
-                        const isGoodDeal = preco < mv;
-                        return (
-                          <button
-                            onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
-                            className={`cursor-pointer hover:underline text-left ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
-                          >
-                            {formatBRL(p.marketValue)}
-                            {p.comparablesCount ? (
-                              <span className="text-xs text-zinc-500 ml-1">
-                                ({p.comparablesCount})
-                              </span>
-                            ) : null}
-                          </button>
-                        );
-                      })() : (
-                        <span className="text-zinc-600">—</span>
-                      )}
-                      {expandedComparables === p.id && (
-                        <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
-                      )}
-                    </TableCell>
-                    <TableCell className="text-right text-zinc-400 text-sm">
-                      {p.marketValuePerM2 ? (
-                        `R$\u00a0${Math.round(parseFloat(p.marketValuePerM2)).toLocaleString("pt-BR")}`
-                      ) : (
-                        <span className="text-zinc-600">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-right text-zinc-400 text-sm">
-                      {p.zapMarketValuePerM2 ? (
-                        <span title={`ZAP: ${p.zapComparablesCount ?? 0} anúncios`}>
-                          {`R$\u00a0${Math.round(parseFloat(p.zapMarketValuePerM2)).toLocaleString("pt-BR")}`}
-                          {p.zapComparablesCount ? (
-                            <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span>
-                          ) : null}
-                        </span>
-                      ) : (
-                        <span className="text-zinc-600">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-right relative">
-                      {(p.marketRentValue || p.zapRentValue) ? (() => {
-                        const rentVal = p.marketRentValue || p.zapRentValue!;
-                        const isZapRent = !p.marketRentValue && !!p.zapRentValue;
-                        return (
-                          <button
-                            onClick={() => setExpandedRent(expandedRent === p.id ? null : p.id)}
-                            className="text-zinc-300 cursor-pointer hover:underline text-left"
-                            title={isZapRent ? "Estimativa baseada em anúncios ZAP" : undefined}
-                          >
-                            {formatBRL(rentVal)}
-                            <span className="text-zinc-600 text-xs">/mês</span>
-                            {isZapRent && <span className="text-zinc-500 text-xs ml-1">ZAP</span>}
-                          </button>
-                        );
-                      })() : (
-                        <span className="text-zinc-600">—</span>
-                      )}
-                      {expandedRent === p.id && p.marketRentValue && p.marketValue && (
-                        <RentPopup
-                          propertyId={p.id}
-                          onClose={() => setExpandedRent(null)}
-                        />
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {p.linkCaixa ? (
-                        <a
-                          href={p.linkCaixa}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-400 hover:text-blue-300 text-xs"
-                        >
-                          Ver
-                        </a>
-                      ) : (
-                        "—"
-                      )}
+              </TableHeader>
+              <TableBody>
+                {loading ? (
+                  <TableRow>
+                    <TableCell colSpan={colCount} className="text-center text-zinc-500 py-8">
+                      Carregando...
                     </TableCell>
                   </TableRow>
-                  );
-                })
-              )}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+                ) : data.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={colCount} className="text-center text-zinc-500 py-8">
+                      Nenhum imóvel encontrado
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  data
+                    .filter((p) => showHidden || !hiddenIds.has(p.id))
+                    .map((p) => {
+                      const isHidden = hiddenIds.has(p.id);
+                      return (
+                        <TableRow
+                          key={p.id}
+                          className={`border-zinc-800 hover:bg-zinc-800/50 transition-opacity ${isHidden ? "opacity-40" : ""}`}
+                        >
+                          {visibleColumns.map((colId) => renderCell(colId, p))}
+                        </TableRow>
+                      );
+                    })
+                )}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
 
-      {/* Pagination */}
-      {pagination.pages > 1 && (
-        <div className="flex items-center justify-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={pagination.page <= 1}
-            onClick={() => fetchData(pagination.page - 1)}
-          >
-            Anterior
-          </Button>
-          <span className="text-sm text-zinc-400">
-            {pagination.page} / {pagination.pages}
-          </span>
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={pagination.page >= pagination.pages}
-            onClick={() => fetchData(pagination.page + 1)}
-          >
-            Próxima
-          </Button>
-        </div>
-      )}
+        {/* Pagination */}
+        {pagination.pages > 1 && (
+          <div className="flex items-center justify-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={pagination.page <= 1}
+              onClick={() => fetchData(pagination.page - 1)}
+            >
+              Anterior
+            </Button>
+            <span className="text-sm text-zinc-400">
+              {pagination.page} / {pagination.pages}
+            </span>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={pagination.page >= pagination.pages}
+              onClick={() => fetchData(pagination.page + 1)}
+            >
+              Próxima
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
