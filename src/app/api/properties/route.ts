@@ -59,6 +59,7 @@ export async function GET(request: NextRequest) {
     cidade: sql`${properties.cidade}`,
     score: sql`${properties.score}`,
     first_seen: sql`${properties.firstSeenAt}`,
+    market_value: sql`${properties.marketValue}`,
   };
   const sortCol = sortMap[sort] || sortMap.desconto;
   const orderSql =
