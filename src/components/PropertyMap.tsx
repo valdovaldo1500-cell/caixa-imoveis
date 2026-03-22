@@ -73,15 +73,24 @@ export default function PropertyMap({ properties }: PropertyMapProps) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <MarkerClusterGroup chunkedLoading>
+      <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterIcon}>
         {properties.map((p) => {
           const color = getMarkerColor(p.desconto);
-          const icon = createColoredIcon(color);
           const lat = parseFloat(p.lat);
           const lng = parseFloat(p.lng);
           if (isNaN(lat) || isNaN(lng)) return null;
           return (
-            <Marker key={p.id} position={[lat, lng]} icon={icon}>
+            <CircleMarker
+              key={p.id}
+              center={[lat, lng]}
+              radius={7}
+              pathOptions={{
+                fillColor: color,
+                fillOpacity: 0.9,
+                color: "rgba(0,0,0,0.5)",
+                weight: 2,
+              }}
+            >
               <Popup>
                 <div style={{ minWidth: 200 }}>
                   <p style={{ fontWeight: "bold", marginBottom: 4 }}>
