@@ -1601,7 +1601,7 @@ function ImoveisPageInner() {
     const label = colDef?.label ?? "";
     const sk = (colDef as { sortKey?: string } | undefined)?.sortKey;
     const w = columnWidths[colId];
-    const style = w ? { width: w, minWidth: w } : undefined;
+    const style = w ? { minWidth: w, maxWidth: w } : undefined;
 
     if (colId === "foto") {
       return <TableHead key={colId} className="w-10 text-zinc-400 relative" style={style}>{resizeHandle(colId)}</TableHead>;
