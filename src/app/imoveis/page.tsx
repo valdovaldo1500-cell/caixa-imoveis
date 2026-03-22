@@ -618,7 +618,7 @@ export default function ImoveisPage() {
                     key={p.id}
                     className={`border-zinc-800 hover:bg-zinc-800/50 transition-opacity ${isHidden ? "opacity-40" : ""}`}
                   >
-                    <TableCell className="w-16 px-2">
+                    <TableCell className="w-20 px-2">
                       <div className="flex items-center gap-1">
                       <button
                         onClick={() => toggleFavorite(p.id)}
@@ -649,6 +649,40 @@ export default function ImoveisPage() {
                           <Eye className="w-4 h-4" />
                         )}
                       </button>
+                      <div className="relative">
+                        <button
+                          onClick={() => setExpandedNote(expandedNote === p.id ? null : p.id)}
+                          className={`transition-colors ${
+                            notes[p.id]
+                              ? "text-blue-400 hover:text-blue-300"
+                              : "text-zinc-700 hover:text-zinc-500"
+                          }`}
+                          title={notes[p.id] ? notes[p.id].slice(0, 60) : "Adicionar nota"}
+                        >
+                          <MessageSquare
+                            className="w-4 h-4"
+                            fill={notes[p.id] ? "currentColor" : "none"}
+                          />
+                        </button>
+                        {expandedNote === p.id && (
+                          <NotePopup
+                            propertyId={p.id}
+                            initialNote={notes[p.id] ?? ""}
+                            onSave={(note) => {
+                              setNotes((prev) => {
+                                const next = { ...prev };
+                                if (note === null) {
+                                  delete next[p.id];
+                                } else {
+                                  next[p.id] = note;
+                                }
+                                return next;
+                              });
+                            }}
+                            onClose={() => setExpandedNote(null)}
+                          />
+                        )}
+                      </div>
                       </div>
                     </TableCell>
                     <TableCell className="font-medium">
