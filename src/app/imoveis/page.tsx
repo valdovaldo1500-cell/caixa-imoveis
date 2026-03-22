@@ -40,6 +40,9 @@ interface Property {
   marketRentValue: string | null;
   comparablesCount: number | null;
   areaPrivativaM2: string | null;
+  zapMarketValuePerM2: string | null;
+  zapRentValue: string | null;
+  zapComparablesCount: number | null;
 }
 
 interface Pagination {
