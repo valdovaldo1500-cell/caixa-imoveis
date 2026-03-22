@@ -78,6 +78,8 @@ export default function MapaPage() {
     const params = new URLSearchParams();
     if (modalidade && modalidade !== "Todas") params.set("modalidade", modalidade);
     if (descontoMin) params.set("desconto_min", descontoMin);
+    if (precoMax) params.set("preco_max", precoMax);
+    if (tipo) params.set("tipo", tipo);
 
     const url = `/api/map${params.toString() ? `?${params.toString()}` : ""}`;
 
