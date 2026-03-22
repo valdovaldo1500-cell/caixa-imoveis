@@ -361,12 +361,18 @@ export async function getZapRentalComparables(propertyId: number): Promise<{
   }
 
   function matchesFallback(r: ZapRow): boolean {
-    // Same city, no bairro filter, same type/area/quartos
+    // Same city, no bairro filter but MUST match type and area
+    // Type is mandatory in fallback
     if (zapTypes && r.unitType && !zapTypes.includes(r.unitType.toUpperCase())) return false;
+    if (!zapTypes && r.unitType) return false; // skip if we can't determine type
+    // Area ±50% (relaxed from strict's ±30%)
     if (propArea && r.area) {
       const a = parseFloat(r.area);
-      if (a > 0 && Math.abs(a - propArea) / propArea > 0.3) return false;
+      if (a > 0 && Math.abs(a - propArea) / propArea > 0.5) return false;
     }
+    // If we have area, the listing must also have area
+    if (propArea && (!r.area || parseFloat(r.area) <= 0)) return false;
+    // Bedrooms ±1
     if (propQuartos !== null && r.bedrooms !== null) {
       if (Math.abs(r.bedrooms - propQuartos) > 1) return false;
     }
@@ -375,8 +381,11 @@ export async function getZapRentalComparables(propertyId: number): Promise<{
 
   let matched = cityRental.filter(matchesStrict);
   if (matched.length < 3) {
+    // Fallback: same city, same type, relaxed area — but NOT random listings
     matched = cityRental.filter(matchesFallback);
   }
+  // Never return more than 15
+  matched = matched.slice(0, 15);
 
   const prices = matched.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
   const med = median(prices) ?? 0;
