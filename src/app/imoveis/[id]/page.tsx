@@ -709,6 +709,47 @@ export default function PropertyDetailPage() {
             </Card>
           )}
 
+          {/* Notes */}
+          {noteLoaded && (
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-zinc-400 flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4" />
+                  Notas
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <Textarea
+                  className="bg-zinc-800 border-zinc-700 text-zinc-200 text-sm resize-none focus:border-zinc-500"
+                  rows={4}
+                  placeholder="Adicione suas observações sobre este imóvel..."
+                  value={noteDraft}
+                  onChange={(e) => setNoteDraft(e.target.value)}
+                />
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={saveNote}
+                    disabled={noteSaving || noteDraft === note}
+                    className="px-3 py-1.5 text-sm bg-blue-700 hover:bg-blue-600 text-white rounded disabled:opacity-40 transition-colors"
+                  >
+                    {noteSaving ? "Salvando..." : "Salvar nota"}
+                  </button>
+                  {noteDraft !== note && (
+                    <button
+                      onClick={() => setNoteDraft(note)}
+                      className="text-xs text-zinc-500 hover:text-zinc-300"
+                    >
+                      Cancelar
+                    </button>
+                  )}
+                  {note && noteDraft === note && (
+                    <span className="text-xs text-zinc-600">Nota salva</span>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Description */}
           {property.descricao && (
             <Card className="bg-zinc-900 border-zinc-800">
