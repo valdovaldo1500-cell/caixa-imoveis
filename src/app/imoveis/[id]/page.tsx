@@ -61,6 +61,8 @@ interface Property {
   marketValuePerM2: string | null;
   marketRentValue: string | null;
   comparablesCount: number | null;
+  comparablesTier1Count: number | null;
+  comparablesTier2Count: number | null;
 }
 
 interface PriceHistoryEntry {
@@ -69,14 +71,26 @@ interface PriceHistoryEntry {
   recordedAt: string;
 }
 
-interface Comparable {
-  id: number;
-  baseCalculo: string | null;
-  logradouro: string | null;
-  bairro: string | null;
-  areaConstrPrivativa: string | null;
-  pricePerM2: number | null;
+interface ComparableDetail {
   dataEstimativa: string | null;
+  baseCalculo: number;
+  finalidadeConstrucao: string;
+  logradouro: string;
+  nEndereco: string;
+  nUnidade: string;
+  bairro: string;
+  areaConstrPrivativa: number;
+  precoM2: number;
+  anoConstrucao: number | null;
+  similarityScore: number;
+}
+
+interface TierResult {
+  label: string;
+  criteria: string;
+  comparables: ComparableDetail[];
+  medianPrecoM2: number | null;
+  count: number;
 }
 
 interface ComparablesResult {
@@ -84,16 +98,18 @@ interface ComparablesResult {
     id: number;
     cidade: string;
     bairro: string | null;
-    areaPrivativaM2: string | null;
+    areaPrivativaM2: number | null;
+    preco: number | null;
+    marketValue: number | null;
+    marketValuePerM2: number | null;
   };
-  comparables: Comparable[];
-  summary: {
-    count: number;
-    avgPricePerM2: number | null;
-    medianPricePerM2: number | null;
-    minPricePerM2: number | null;
-    maxPricePerM2: number | null;
-    estimatedMarketValue: number | null;
+  tier1: TierResult;
+  tier2: TierResult;
+  methodology: {
+    usedTier: 1 | 2;
+    estimatedValue: number | null;
+    estimatedRent: number | null;
+    medianPrecoM2: number | null;
   };
 }
 
@@ -182,6 +198,118 @@ function ScoreBar({ label, detail }: { label: string; detail: ScoreDetail }) {
   );
 }
 
+// ─── Comparable tier list component ──────────────────────────────────────────
+
+function TierComparablesList({
+  tier,
+  isOpen,
+  onToggle,
+  propArea,
+  usedTier,
+  tierNumber,
+}: {
+  tier: TierResult;
+  isOpen: boolean;
+  onToggle: () => void;
+  propArea: number | null;
+  usedTier: 1 | 2;
+  tierNumber: 1 | 2;
+}) {
+  const isActive = usedTier === tierNumber;
+
+  return (
+    <div className="border border-zinc-800 rounded-lg overflow-hidden">
+      <button
+        onClick={onToggle}
+        className="w-full flex items-center justify-between px-3 py-2.5 text-left hover:bg-zinc-800/50 transition-colors"
+      >
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-xs font-medium text-zinc-300 truncate">{tier.label}</span>
+          {isActive && (
+            <Badge className="bg-blue-900 text-blue-300 text-xs px-1.5 py-0 shrink-0">
+              usado
+            </Badge>
+          )}
+        </div>
+        <div className="flex items-center gap-3 shrink-0 ml-2">
+          {tier.medianPrecoM2 !== null && (
+            <span className="text-xs font-mono text-zinc-400">
+              med. R${tier.medianPrecoM2.toLocaleString("pt-BR")}/m²
+            </span>
+          )}
+          <span className="text-xs text-zinc-500">
+            {tier.count} imóvel{tier.count !== 1 ? "is" : ""}
+          </span>
+          <span className="text-zinc-600 text-xs">{isOpen ? "▲" : "▼"}</span>
+        </div>
+      </button>
+
+      {isOpen && (
+        <div className="border-t border-zinc-800 px-3 pb-3 pt-2 space-y-2">
+          <p className="text-xs text-zinc-600 italic">{tier.criteria}</p>
+
+          {tier.comparables.length === 0 ? (
+            <p className="text-xs text-zinc-500">Nenhum comparável encontrado.</p>
+          ) : (
+            <div className="space-y-1 max-h-64 overflow-y-auto">
+              {tier.comparables.slice(0, 25).map((c, i) => {
+                const areaDiff =
+                  propArea && c.areaConstrPrivativa > 0
+                    ? ((c.areaConstrPrivativa - propArea) / propArea) * 100
+                    : null;
+                return (
+                  <div
+                    key={i}
+                    className="flex justify-between text-xs text-zinc-400 py-1 border-b border-zinc-800/50 gap-2"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <span className="truncate block">
+                        {c.logradouro
+                          ? `${c.logradouro}${c.nEndereco ? ` ${c.nEndereco}` : ""}${c.nUnidade ? ` un.${c.nUnidade}` : ""}`
+                          : c.bairro || "—"}
+                      </span>
+                      <span className="text-zinc-600">
+                        {c.areaConstrPrivativa > 0
+                          ? `${c.areaConstrPrivativa.toFixed(0)} m²`
+                          : "—"}
+                        {areaDiff !== null && (
+                          <span
+                            className={
+                              Math.abs(areaDiff) < 10
+                                ? "text-green-700 ml-1"
+                                : "text-zinc-600 ml-1"
+                            }
+                          >
+                            ({areaDiff > 0 ? "+" : ""}
+                            {areaDiff.toFixed(0)}%)
+                          </span>
+                        )}
+                        {c.dataEstimativa && (
+                          <span className="ml-2">{formatDate(c.dataEstimativa)}</span>
+                        )}
+                      </span>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <span className="font-mono text-zinc-300">
+                        {formatBRL(c.baseCalculo)}
+                      </span>
+                      {c.precoM2 > 0 && (
+                        <span className="block text-zinc-500">
+                          R${Math.round(c.precoM2).toLocaleString("pt-BR")}/m²
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 export default function PropertyDetailPage() {
@@ -191,7 +319,8 @@ export default function PropertyDetailPage() {
   const [property, setProperty] = useState<Property | null>(null);
   const [history, setHistory] = useState<PriceHistoryEntry[]>([]);
   const [comparables, setComparables] = useState<ComparablesResult | null>(null);
-  const [showComparables, setShowComparables] = useState(false);
+  const [showTier1, setShowTier1] = useState(false);
+  const [showTier2, setShowTier2] = useState(false);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [favorited, setFavorited] = useState(false);
@@ -309,6 +438,13 @@ export default function PropertyDetailPage() {
   const scoreDetailsMap = property.scoreDetails as Record<string, ScoreDetail> | null;
 
   const crimeRate = property.crimeRate ? parseFloat(property.crimeRate) : null;
+
+  // Derived property area for comparable similarity display
+  const propArea = property.areaPrivativaM2
+    ? parseFloat(property.areaPrivativaM2)
+    : property.areaTotalM2
+    ? parseFloat(property.areaTotalM2)
+    : null;
 
   return (
     <div className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto space-y-6">
@@ -621,65 +757,52 @@ export default function PropertyDetailPage() {
                       <p className="font-semibold text-zinc-200">{formatBRL(property.marketRentValue)}/mês</p>
                     </div>
                   )}
-                  {property.comparablesCount !== null && (
-                    <div>
-                      <p className="text-xs text-zinc-500 mb-1">Comparáveis</p>
-                      <p className="font-semibold text-zinc-200">{property.comparablesCount} transações</p>
-                    </div>
-                  )}
+                  <div>
+                    <p className="text-xs text-zinc-500 mb-1">Comparáveis</p>
+                    <p className="font-semibold text-zinc-200">
+                      {property.comparablesTier1Count !== null && property.comparablesTier2Count !== null ? (
+                        <>
+                          <span className="text-blue-400">{property.comparablesTier1Count}</span>
+                          <span className="text-zinc-500"> / </span>
+                          <span>{property.comparablesTier2Count}</span>
+                          <span className="text-zinc-600 text-xs ml-1">t1/t2</span>
+                        </>
+                      ) : property.comparablesCount !== null ? (
+                        `${property.comparablesCount} transações`
+                      ) : (
+                        "—"
+                      )}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Comparables toggle */}
-                {property.comparablesCount && property.comparablesCount > 0 && (
-                  <div className="pt-2 border-t border-zinc-800">
-                    <button
-                      onClick={() => setShowComparables((v) => !v)}
-                      className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
-                    >
-                      {showComparables
-                        ? "Ocultar comparáveis"
-                        : `Ver ${property.comparablesCount} comparável${property.comparablesCount !== 1 ? "is" : ""} →`}
-                    </button>
+                {/* Two-tier comparables section */}
+                {comparables && (comparables.tier1.count > 0 || comparables.tier2.count > 0) && (
+                  <div className="pt-2 border-t border-zinc-800 space-y-2">
+                    <p className="text-xs text-zinc-500">
+                      Base de cálculo: Tier {comparables.methodology.usedTier}
+                      {comparables.methodology.usedTier === 1
+                        ? " (imóveis muito similares)"
+                        : " (imóveis no bairro — Tier 1 insuficiente)"}
+                    </p>
 
-                    {showComparables && comparables && (
-                      <div className="mt-3 space-y-2">
-                        {comparables.summary && (
-                          <div className="grid grid-cols-2 gap-2 text-xs text-zinc-400 pb-2 border-b border-zinc-800">
-                            <span>Média R$/m²: <span className="text-zinc-200 font-mono">
-                              {comparables.summary.avgPricePerM2
-                                ? `R$ ${Math.round(comparables.summary.avgPricePerM2).toLocaleString("pt-BR")}`
-                                : "—"}
-                            </span></span>
-                            <span>Mediana R$/m²: <span className="text-zinc-200 font-mono">
-                              {comparables.summary.medianPricePerM2
-                                ? `R$ ${Math.round(comparables.summary.medianPricePerM2).toLocaleString("pt-BR")}`
-                                : "—"}
-                            </span></span>
-                          </div>
-                        )}
-                        <div className="space-y-1 max-h-64 overflow-y-auto">
-                          {comparables.comparables.slice(0, 20).map((c, i) => (
-                            <div
-                              key={c.id || i}
-                              className="flex justify-between text-xs text-zinc-400 py-1 border-b border-zinc-800/50"
-                            >
-                              <span className="flex-1 truncate pr-2">
-                                {c.logradouro || c.bairro || "—"}
-                                {c.areaConstrPrivativa
-                                  ? ` · ${parseFloat(c.areaConstrPrivativa).toFixed(0)} m²`
-                                  : ""}
-                              </span>
-                              <span className="font-mono text-zinc-300 shrink-0">
-                                {c.baseCalculo ? formatBRL(c.baseCalculo) : "—"}
-                                {c.pricePerM2
-                                  ? ` · R$${Math.round(c.pricePerM2).toLocaleString("pt-BR")}/m²`
-                                  : ""}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                    <TierComparablesList
+                      tier={comparables.tier1}
+                      isOpen={showTier1}
+                      onToggle={() => setShowTier1((v) => !v)}
+                      propArea={propArea}
+                      usedTier={comparables.methodology.usedTier}
+                      tierNumber={1}
+                    />
+
+                    <TierComparablesList
+                      tier={comparables.tier2}
+                      isOpen={showTier2}
+                      onToggle={() => setShowTier2((v) => !v)}
+                      propArea={propArea}
+                      usedTier={comparables.methodology.usedTier}
+                      tierNumber={2}
+                    />
                   </div>
                 )}
               </CardContent>
