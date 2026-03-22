@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { LogOut, User } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/", label: "Dashboard" },
@@ -14,7 +15,23 @@ const NAV_LINKS = [
 
 export default function NavHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/status", { credentials: "include" })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.authed && d.username) setUsername(d.username);
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
+    router.replace("/login");
+  };
 
   return (
     <header className="bg-zinc-900 border-b border-zinc-800 shrink-0">
@@ -48,6 +65,23 @@ export default function NavHeader() {
               </Link>
             );
           })}
+
+          {/* User + Logout */}
+          <div className="ml-3 pl-3 border-l border-zinc-700 flex items-center gap-2">
+            {username && (
+              <span className="text-xs text-zinc-500 flex items-center gap-1">
+                <User className="w-3 h-3" />
+                {username}
+              </span>
+            )}
+            <button
+              onClick={handleLogout}
+              className="text-zinc-500 hover:text-red-400 transition-colors p-1 rounded hover:bg-zinc-800"
+              title="Sair"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </div>
         </nav>
 
         {/* Mobile hamburger */}
@@ -102,6 +136,13 @@ export default function NavHeader() {
               </Link>
             );
           })}
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 px-3 py-2 rounded text-sm text-red-400 hover:bg-zinc-800 transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            Sair{username ? ` (${username})` : ""}
+          </button>
         </nav>
       )}
     </header>
