@@ -1,9 +1,37 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { and, isNull, isNotNull } from "drizzle-orm";
+import { and, isNull, isNotNull, gte, lte, ilike, SQL } from "drizzle-orm";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const { searchParams } = request.nextUrl;
+  const modalidade = searchParams.get("modalidade");
+  const descontoMin = searchParams.get("desconto_min");
+  const descontoMax = searchParams.get("desconto_max");
+
+  const conditions: SQL[] = [
+    isNull(properties.removedAt),
+    isNotNull(properties.lat),
+  ];
+
+  if (modalidade) {
+    conditions.push(ilike(properties.modalidadeVenda, modalidade));
+  }
+
+  if (descontoMin) {
+    const min = parseFloat(descontoMin);
+    if (!isNaN(min)) {
+      conditions.push(gte(properties.desconto, String(min)));
+    }
+  }
+
+  if (descontoMax) {
+    const max = parseFloat(descontoMax);
+    if (!isNaN(max)) {
+      conditions.push(lte(properties.desconto, String(max)));
+    }
+  }
+
   const data = await db
     .select({
       id: properties.id,
@@ -17,7 +45,7 @@ export async function GET() {
       lng: properties.lng,
     })
     .from(properties)
-    .where(and(isNull(properties.removedAt), isNotNull(properties.lat)));
+    .where(and(...conditions));
 
   return NextResponse.json({ data });
 }
