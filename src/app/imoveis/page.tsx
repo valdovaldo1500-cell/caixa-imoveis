@@ -1617,7 +1617,7 @@ function ImoveisPageInner() {
               <span className="text-zinc-600">—</span>
             )}
             {expandedComparables === "zapValor:" + p.id && (
-              <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
+              <ComparablesPopup propertyId={p.id} source="zap" onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
         );
