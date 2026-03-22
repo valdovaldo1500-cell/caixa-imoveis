@@ -337,6 +337,22 @@ export default function PropertyDetailPage() {
                 </span>
               </>
             )}
+            <button
+              onClick={toggleFavorite}
+              disabled={favoriteLoading}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded border text-sm transition-colors disabled:opacity-50 ${
+                favorited
+                  ? "border-yellow-600 bg-yellow-900/40 text-yellow-400 hover:bg-yellow-900/60"
+                  : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600"
+              }`}
+              title={favorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+            >
+              <Star
+                className="w-4 h-4"
+                fill={favorited ? "currentColor" : "none"}
+              />
+              {favorited ? "Favoritado" : "Favoritar"}
+            </button>
             {property.linkCaixa && (
               <a
                 href={property.linkCaixa}
