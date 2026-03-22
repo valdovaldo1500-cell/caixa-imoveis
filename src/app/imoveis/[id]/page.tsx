@@ -718,9 +718,12 @@ export default function PropertyDetailPage() {
 
           {/* Market value */}
           {(property.marketValue || property.marketValuePerM2) && (
-            <Card className="bg-zinc-900 border-zinc-800">
+            <Card id="comparaveis" className="bg-zinc-900 border-zinc-800">
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium text-zinc-400">Valor de Mercado (ITBI)</CardTitle>
+                <CardTitle className="text-sm font-medium text-zinc-400">
+                  Valor de Mercado (ITBI)
+                  <span className="text-xs text-zinc-600 ml-2">Fonte: Dados Abertos POA — ITBI</span>
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="grid grid-cols-2 gap-4">
