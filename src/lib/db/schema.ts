@@ -46,6 +46,8 @@ export const properties = pgTable(
     removedAt: timestamp("removed_at"),
     detailScrapedAt: timestamp("detail_scraped_at"),
     fotoUrl: text("foto_url"),
+    crimeRate: decimal("crime_rate", { precision: 10, scale: 2 }),
+    crimeRateUpdatedAt: timestamp("crime_rate_updated_at"),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
   },
