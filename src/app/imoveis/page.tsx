@@ -558,7 +558,8 @@ export default function ImoveisPage() {
                       )}
                     </TableCell>
                   </TableRow>
-                ))
+                  );
+                })
               )}
             </TableBody>
           </Table>
