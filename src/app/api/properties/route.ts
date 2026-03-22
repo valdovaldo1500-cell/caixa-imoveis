@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { sql, isNull, gte, lte, and, ilike } from "drizzle-orm";
+import { sql, isNull, gte, lte, and, ilike, inArray } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
@@ -13,27 +13,38 @@ export async function GET(request: NextRequest) {
   const sort = params.get("sort") || "desconto";
   const order = params.get("order") === "asc" ? "asc" : "desc";
 
-  // Filters
-  const cidade = params.get("cidade");
-  const tipo = params.get("tipo");
+  // Filters — support comma-separated multi-values for cidade, tipo, modalidade
+  const cidadeParam = params.get("cidade");
+  const tipoParam = params.get("tipo");
   const precoMin = params.get("preco_min");
   const precoMax = params.get("preco_max");
   const descontoMin = params.get("desconto_min");
-  const modalidade = params.get("modalidade");
+  const modalidadeParam = params.get("modalidade");
   const search = params.get("q");
   const includeRemoved = params.get("removed") === "true";
+
+  const cidades = cidadeParam ? cidadeParam.split(",").map((s) => s.trim()).filter(Boolean) : [];
+  const tipos = tipoParam ? tipoParam.split(",").map((s) => s.trim()).filter(Boolean) : [];
+  const modalidades = modalidadeParam ? modalidadeParam.split(",").map((s) => s.trim()).filter(Boolean) : [];
 
   const conditions = [];
 
   if (!includeRemoved) {
     conditions.push(isNull(properties.removedAt));
   }
-  if (cidade) {
-    conditions.push(ilike(properties.cidade, cidade));
+  if (cidades.length === 1) {
+    conditions.push(ilike(properties.cidade, cidades[0]));
+  } else if (cidades.length > 1) {
+    // Use OR of ilike for case-insensitive multi-city matching
+    conditions.push(sql`(${sql.join(cidades.map((c) => ilike(properties.cidade, c)), sql` OR `)})`);
   }
-  if (tipo) {
+  if (tipos.length === 1) {
     conditions.push(
-      sql`(${ilike(properties.tipoImovel, `%${tipo}%`)} OR ${ilike(properties.descricao, `%${tipo}%`)})`
+      sql`(${ilike(properties.tipoImovel, `%${tipos[0]}%`)} OR ${ilike(properties.descricao, `%${tipos[0]}%`)})`
+    );
+  } else if (tipos.length > 1) {
+    conditions.push(
+      sql`(${sql.join(tipos.map((t) => sql`(${ilike(properties.tipoImovel, `%${t}%`)} OR ${ilike(properties.descricao, `%${t}%`)})`), sql` OR `)})`
     );
   }
   if (precoMin) {
@@ -45,8 +56,10 @@ export async function GET(request: NextRequest) {
   if (descontoMin) {
     conditions.push(gte(properties.desconto, descontoMin));
   }
-  if (modalidade) {
-    conditions.push(ilike(properties.modalidadeVenda, modalidade));
+  if (modalidades.length === 1) {
+    conditions.push(ilike(properties.modalidadeVenda, modalidades[0]));
+  } else if (modalidades.length > 1) {
+    conditions.push(sql`(${sql.join(modalidades.map((m) => ilike(properties.modalidadeVenda, m)), sql` OR `)})`);
   }
   // Full-text search using tsvector when q is provided
   let tsQuery: ReturnType<typeof sql> | null = null;
@@ -54,7 +67,6 @@ export async function GET(request: NextRequest) {
     const words = search.trim().split(/\s+/).filter(Boolean);
     if (words.length > 1) {
       // Multiple words: use FTS with AND logic, fallback to ilike for safety
-      const queryStr = words.join(" & ");
       tsQuery = sql`plainto_tsquery('portuguese', ${search})`;
       conditions.push(sql`(
         ${properties.searchVector} @@ plainto_tsquery('portuguese', ${search})
