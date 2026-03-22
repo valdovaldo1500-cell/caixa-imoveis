@@ -10,9 +10,17 @@ interface MapProperty {
   cidade: string;
   bairro: string | null;
   preco: string | null;
+  valorAvaliacao: string | null;
   desconto: string | null;
+  tipoImovel: string | null;
+  quartos: number | null;
+  vagas: number | null;
+  areaPrivativaM2: string | null;
+  score: string | null;
+  marketValue: string | null;
   modalidadeVenda: string | null;
   linkCaixa: string | null;
+  fotoUrl: string | null;
   lat: string;
   lng: string;
 }
