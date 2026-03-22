@@ -218,13 +218,7 @@ export async function scrapeNewProperties(limit = 20): Promise<{
           detailScrapedAt: new Date(),
           updatedAt: new Date(),
         })
-        .where(
-          // Use drizzle's eq — import directly to avoid circular import
-          ((): ReturnType<typeof import("drizzle-orm").eq> => {
-            const { eq } = require("drizzle-orm");
-            return eq(properties.id, prop.id);
-          })()
-        );
+        .where(eq(properties.id, prop.id));
 
       result.scraped++;
     } catch (err) {
