@@ -50,6 +50,13 @@
       "when": 1774197560608,
       "tag": "0006_kind_purifiers",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1774198145106,
+      "tag": "0007_perfect_power_pack",
+      "breakpoints": true
     }
   ]
 }

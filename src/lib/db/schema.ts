@@ -176,6 +176,23 @@ export const zapListings = pgTable("zap_listings", {
   index("idx_zap_business").on(table.business),
 ]);
 
+export const propertyNotes = pgTable(
+  "property_notes",
+  {
+    id: serial("id").primaryKey(),
+    propertyId: integer("property_id")
+      .notNull()
+      .references(() => properties.id)
+      .unique(),
+    note: text("note").notNull(),
+    updatedAt: timestamp("updated_at").defaultNow(),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => [
+    index("idx_property_notes_prop").on(table.propertyId),
+  ]
+);
+
 export const pipelineRuns = pgTable("pipeline_runs", {
   id: serial("id").primaryKey(),
   startedAt: timestamp("started_at").notNull(),
