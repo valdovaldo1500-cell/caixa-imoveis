@@ -79,6 +79,8 @@ export function computeScoreBreakdown(
     areaTotalM2: string | null;
     areaPrivativaM2: string | null;
     crimeRate: string | null;
+    marketValue?: string | null;
+    zapMarketValue?: string | null;
   },
   cityStats: CityStats
 ): ScoreBreakdown {
