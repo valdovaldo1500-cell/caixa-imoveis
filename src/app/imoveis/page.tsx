@@ -279,6 +279,32 @@ export default function ImoveisPage() {
                         <span className="text-zinc-500">—</span>
                       )}
                     </TableCell>
+                    <TableCell className="text-right">
+                      {p.marketValue && p.preco ? (() => {
+                        const mv = parseFloat(p.marketValue);
+                        const preco = parseFloat(p.preco);
+                        const isGoodDeal = preco < mv;
+                        return (
+                          <span className={isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}>
+                            {formatBRL(p.marketValue)}
+                            {p.comparablesCount ? (
+                              <span className="text-xs text-zinc-500 ml-1">
+                                ({p.comparablesCount})
+                              </span>
+                            ) : null}
+                          </span>
+                        );
+                      })() : (
+                        <span className="text-zinc-600">—</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right text-zinc-400 text-sm">
+                      {p.marketValuePerM2 ? (
+                        `R$\u00a0${Math.round(parseFloat(p.marketValuePerM2)).toLocaleString("pt-BR")}`
+                      ) : (
+                        <span className="text-zinc-600">—</span>
+                      )}
+                    </TableCell>
                     <TableCell>
                       {p.linkCaixa ? (
                         <a
