@@ -143,10 +143,11 @@ export default function AnalisePage() {
                   <YAxis tick={{ fill: "#a1a1aa", fontSize: 11 }} tickLine={false} axisLine={false} />
                   <Tooltip
                     contentStyle={TOOLTIP_STYLE}
-                    formatter={(value: number, name: string) => {
-                      if (name === "avgDiscount") return [`${value}%`, "Desconto médio"];
-                      if (name === "avgPrice") return [formatBRL(value), "Preço médio"];
-                      return [value, "Imóveis"];
+                    formatter={(value, name) => {
+                      const v = Number(value);
+                      if (name === "avgDiscount") return [`${v}%`, "Desconto médio"];
+                      if (name === "avgPrice") return [formatBRL(v), "Preço médio"];
+                      return [v, "Imóveis"];
                     }}
                     labelStyle={{ color: "#f4f4f5", fontWeight: 600, marginBottom: 4 }}
                   />
