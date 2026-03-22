@@ -3,10 +3,10 @@ import { properties } from "@/lib/db/schema";
 import { isNull, sql } from "drizzle-orm";
 
 interface MunicipioData {
-  name: string;
+  municipio: string;
   weight: number;
-  lat: number;
-  lng: number;
+  latitude: number;
+  longitude: number;
   population: number;
 }
 
