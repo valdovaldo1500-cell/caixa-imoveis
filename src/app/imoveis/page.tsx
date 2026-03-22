@@ -346,14 +346,18 @@ export default function ImoveisPage() {
                         const preco = parseFloat(p.preco);
                         const isGoodDeal = preco < mv;
                         return (
-                          <span className={isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}>
+                          <Link
+                            href={`/imoveis/${p.id}#comparaveis`}
+                            className={`hover:underline ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
+                            title="Ver comparáveis ITBI usados neste cálculo"
+                          >
                             {formatBRL(p.marketValue)}
                             {p.comparablesCount ? (
                               <span className="text-xs text-zinc-500 ml-1">
-                                ({p.comparablesCount})
+                                ({p.comparablesCount} comp.)
                               </span>
                             ) : null}
-                          </span>
+                          </Link>
                         );
                       })() : (
                         <span className="text-zinc-600">—</span>
