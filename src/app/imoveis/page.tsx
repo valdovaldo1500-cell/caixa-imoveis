@@ -690,6 +690,18 @@ export default function ImoveisPage() {
                         <span className="text-zinc-600">—</span>
                       )}
                     </TableCell>
+                    <TableCell className="text-right text-zinc-400 text-sm">
+                      {p.zapMarketValuePerM2 ? (
+                        <span title={`ZAP: ${p.zapComparablesCount ?? 0} anúncios`}>
+                          {`R$\u00a0${Math.round(parseFloat(p.zapMarketValuePerM2)).toLocaleString("pt-BR")}`}
+                          {p.zapComparablesCount ? (
+                            <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span>
+                          ) : null}
+                        </span>
+                      ) : (
+                        <span className="text-zinc-600">—</span>
+                      )}
+                    </TableCell>
                     <TableCell className="text-right relative">
                       {p.marketRentValue ? (
                         <button
