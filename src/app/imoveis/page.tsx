@@ -98,6 +98,44 @@ export default function ImoveisPage() {
     [sort, order, search]
   );
 
+  // Load which properties are favorited
+  const loadFavorites = useCallback(async () => {
+    try {
+      const res = await fetch("/api/favorites", { credentials: "include" });
+      if (!res.ok) return;
+      const favs = await res.json() as Array<{ id: number; propertyId: number }>;
+      const map: Record<number, number> = {};
+      for (const f of favs) {
+        map[f.propertyId] = f.id;
+      }
+      setFavorited(map);
+    } catch {
+      // silently ignore
+    }
+  }, []);
+
+  const toggleFavorite = async (propertyId: number) => {
+    try {
+      const res = await fetch(`/api/properties/${propertyId}/favorite`, {
+        method: "POST",
+        credentials: "include",
+      });
+      if (!res.ok) return;
+      const json = await res.json() as { favorited: boolean; favoriteId?: number };
+      setFavorited((prev) => {
+        const next = { ...prev };
+        if (json.favorited && json.favoriteId != null) {
+          next[propertyId] = json.favoriteId;
+        } else {
+          delete next[propertyId];
+        }
+        return next;
+      });
+    } catch {
+      // silently ignore
+    }
+  };
+
   useEffect(() => {
     fetchData(1);
   }, [fetchData]);
