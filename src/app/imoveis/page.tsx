@@ -372,12 +372,17 @@ export default function ImoveisPage() {
                   </TableCell>
                 </TableRow>
               ) : (
-                data.map((p) => (
+                data
+                  .filter((p) => showHidden || !hiddenIds.has(p.id))
+                  .map((p) => {
+                  const isHidden = hiddenIds.has(p.id);
+                  return (
                   <TableRow
                     key={p.id}
-                    className="border-zinc-800 hover:bg-zinc-800/50"
+                    className={`border-zinc-800 hover:bg-zinc-800/50 transition-opacity ${isHidden ? "opacity-40" : ""}`}
                   >
-                    <TableCell className="w-8 px-2">
+                    <TableCell className="w-16 px-2">
+                      <div className="flex items-center gap-1">
                       <button
                         onClick={() => toggleFavorite(p.id)}
                         className={`transition-colors ${
@@ -392,6 +397,22 @@ export default function ImoveisPage() {
                           fill={favorited[p.id] ? "currentColor" : "none"}
                         />
                       </button>
+                      <button
+                        onClick={() => toggleHidden(p.id)}
+                        className={`transition-colors ${
+                          isHidden
+                            ? "text-zinc-400 hover:text-zinc-200"
+                            : "text-zinc-700 hover:text-zinc-500"
+                        }`}
+                        title={isHidden ? "Mostrar imóvel" : "Ocultar imóvel"}
+                      >
+                        {isHidden ? (
+                          <EyeOff className="w-4 h-4" />
+                        ) : (
+                          <Eye className="w-4 h-4" />
+                        )}
+                      </button>
+                      </div>
                     </TableCell>
                     <TableCell className="font-medium">
                       <Link href={`/imoveis/${p.id}`} className="hover:text-blue-400 transition-colors">
