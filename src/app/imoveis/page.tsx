@@ -734,6 +734,7 @@ function ImoveisPageInner() {
   const [filterDescontoMin, setFilterDescontoMin] = useState("");
   const [filterPrecoMax, setFilterPrecoMax] = useState("");
   const [filterPrecoMin, setFilterPrecoMin] = useState("");
+  const [filterDistancia, setFilterDistancia] = useState("");
   const [precoMaxMode, setPrecoMaxMode] = useState<"preset" | "custom">("preset");
   const [customPrecoMin, setCustomPrecoMin] = useState("");
   const [customPrecoMax, setCustomPrecoMax] = useState("");
