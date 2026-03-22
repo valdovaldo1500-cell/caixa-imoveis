@@ -1519,13 +1519,10 @@ function ImoveisPageInner() {
         );
 
       case "valorMercado": {
-        const mvRaw = p.marketValue || p.zapMarketValue;
-        const mvSource = p.marketValue ? "ITBI" : p.zapMarketValue ? "ZAP" : null;
-        const mvCount = p.marketValue ? p.comparablesCount : p.zapComparablesCount;
         return (
           <TableCell key={colId} className="text-right relative">
-            {mvRaw && p.preco ? (() => {
-              const mv = parseFloat(mvRaw);
+            {p.marketValue && p.preco ? (() => {
+              const mv = parseFloat(p.marketValue);
               const preco = parseFloat(p.preco);
               const isGoodDeal = preco < mv;
               return (
@@ -1533,10 +1530,8 @@ function ImoveisPageInner() {
                   onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
                   className={`cursor-pointer hover:underline text-left ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
                 >
-                  {formatBRL(mvRaw)}
-                  <span className="text-xs text-zinc-600 ml-1">
-                    {mvSource}{mvCount ? ` (${mvCount})` : ""}
-                  </span>
+                  {formatBRL(p.marketValue)}
+                  {p.comparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.comparablesCount})</span> : null}
                 </button>
               );
             })() : (
@@ -1548,6 +1543,25 @@ function ImoveisPageInner() {
           </TableCell>
         );
       }
+
+      case "zapValor":
+        return (
+          <TableCell key={colId} className="text-right">
+            {p.zapMarketValue && p.preco ? (() => {
+              const mv = parseFloat(p.zapMarketValue);
+              const preco = parseFloat(p.preco);
+              const isGoodDeal = preco < mv;
+              return (
+                <span className={isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}>
+                  {formatBRL(p.zapMarketValue)}
+                  {p.zapComparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span> : null}
+                </span>
+              );
+            })() : (
+              <span className="text-zinc-600">—</span>
+            )}
+          </TableCell>
+        );
 
       case "mercadoM2":
         return (
