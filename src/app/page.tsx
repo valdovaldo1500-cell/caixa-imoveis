@@ -98,35 +98,15 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen p-6 space-y-6">
-      <header className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Imóveis Caixa RS</h1>
-          <p className="text-sm text-zinc-400">
-            Dashboard de análise de imóveis retomados
-          </p>
-        </div>
-        <nav className="flex gap-3">
-          <Link
-            href="/analise"
-            className="px-3 py-2 rounded bg-zinc-800 hover:bg-zinc-700 text-sm"
-          >
-            Análise
-          </Link>
-          <Link
-            href="/imoveis"
-            className="px-3 py-2 rounded bg-zinc-800 hover:bg-zinc-700 text-sm"
-          >
-            Tabela
-          </Link>
-          <Link
-            href="/mapa"
-            className="px-3 py-2 rounded bg-zinc-800 hover:bg-zinc-700 text-sm"
-          >
-            Mapa
-          </Link>
-        </nav>
-      </header>
+    <div className="min-h-screen flex flex-col">
+      <NavHeader />
+      <div className="p-6 space-y-6">
+      <div>
+        <h1 className="text-xl font-bold">Dashboard</h1>
+        <p className="text-sm text-zinc-400">
+          Análise de imóveis retomados
+        </p>
+      </div>
 
       {!stats ? (
         <Card className="bg-zinc-900 border-zinc-800">
