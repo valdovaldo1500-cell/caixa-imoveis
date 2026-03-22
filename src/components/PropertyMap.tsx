@@ -86,9 +86,10 @@ export default function PropertyMap({ properties }: PropertyMapProps) {
         chunkedLoading
         iconCreateFunction={createClusterIcon}
         showCoverageOnHover={false}
-        maxClusterRadius={50}
+        maxClusterRadius={40}
         spiderfyOnMaxZoom
-        disableClusteringAtZoom={16}
+        spiderfyDistanceMultiplier={2}
+        zoomToBoundsOnClick
       >
         {properties.map((p) => {
           const color = getMarkerColor(p.desconto);
