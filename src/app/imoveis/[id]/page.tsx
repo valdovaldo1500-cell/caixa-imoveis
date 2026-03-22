@@ -246,9 +246,8 @@ export default function PropertyDetailPage() {
         credentials: "include",
       });
       if (res.ok) {
-        const json = await res.json() as { favorited: boolean; favoriteId?: number };
+        const json = await res.json() as { favorited: boolean };
         setFavorited(json.favorited);
-        setFavoriteId(json.favoriteId ?? null);
       }
     } catch {
       // silently ignore
