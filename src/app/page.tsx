@@ -113,6 +113,12 @@ export default async function DashboardPage() {
           >
             Tabela
           </Link>
+          <Link
+            href="/mapa"
+            className="px-3 py-2 rounded bg-zinc-800 hover:bg-zinc-700 text-sm"
+          >
+            Mapa
+          </Link>
         </nav>
       </header>
 
