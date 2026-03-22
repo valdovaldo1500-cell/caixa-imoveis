@@ -174,7 +174,8 @@ export default function AnalisePage() {
                       cy="50%"
                       outerRadius={90}
                       label={(props: PieLabelRenderProps) => {
-                        const tipo = String((props as Record<string, unknown>)["tipo"] ?? "");
+                        const entry = props as unknown as Record<string, unknown>;
+                        const tipo = String(entry["tipo"] ?? "");
                         const pct = typeof props.percent === "number" ? props.percent : 0;
                         return `${truncate(tipo, 12)} ${(pct * 100).toFixed(0)}%`;
                       }}
