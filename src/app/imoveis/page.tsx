@@ -178,6 +178,13 @@ export default function ImoveisPage() {
                   Score{sortIcon("score")}
                 </TableHead>
                 <TableHead className="text-zinc-400">Criminalidade</TableHead>
+                <TableHead
+                  className="cursor-pointer text-zinc-400 text-right"
+                  onClick={() => handleSort("market_value")}
+                >
+                  Valor Mercado{sortIcon("market_value")}
+                </TableHead>
+                <TableHead className="text-zinc-400 text-right">R$/m²</TableHead>
                 <TableHead className="text-zinc-400">Link</TableHead>
               </TableRow>
             </TableHeader>
