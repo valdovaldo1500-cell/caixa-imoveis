@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { hiddenProperties } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
+import { getUsernameFromRequest } from "@/lib/auth";
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
@@ -15,11 +16,16 @@ export async function GET(
     return NextResponse.json({ error: "Invalid property ID" }, { status: 400 });
   }
 
+  const username = getUsernameFromRequest(request);
+  if (!username) {
+    return NextResponse.json({ hidden: false });
+  }
+
   try {
     const [existing] = await db
       .select({ id: hiddenProperties.id })
       .from(hiddenProperties)
-      .where(eq(hiddenProperties.propertyId, propertyId))
+      .where(and(eq(hiddenProperties.propertyId, propertyId), eq(hiddenProperties.username, username)))
       .limit(1);
 
     return NextResponse.json({ hidden: !!existing });
@@ -33,7 +39,7 @@ export async function GET(
 }
 
 export async function POST(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
@@ -43,11 +49,16 @@ export async function POST(
     return NextResponse.json({ error: "Invalid property ID" }, { status: 400 });
   }
 
+  const username = getUsernameFromRequest(request);
+  if (!username) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const [existing] = await db
       .select({ id: hiddenProperties.id })
       .from(hiddenProperties)
-      .where(eq(hiddenProperties.propertyId, propertyId))
+      .where(and(eq(hiddenProperties.propertyId, propertyId), eq(hiddenProperties.username, username)))
       .limit(1);
 
     if (existing) {
@@ -56,7 +67,7 @@ export async function POST(
       return NextResponse.json({ hidden: false });
     } else {
       // Not hidden — hide (toggle on)
-      await db.insert(hiddenProperties).values({ propertyId }).returning();
+      await db.insert(hiddenProperties).values({ propertyId, username }).returning();
       return NextResponse.json({ hidden: true });
     }
   } catch (err) {
