@@ -701,7 +701,7 @@ export default function PropertyDetailPage() {
                           fontSize: 12,
                         }}
                         labelStyle={{ color: "#a1a1aa" }}
-                        formatter={(value: number) => [formatBRL(value), "Preço"]}
+                        formatter={(value) => [formatBRL(value as number), "Preço"]}
                       />
                       <Line
                         type="monotone"
