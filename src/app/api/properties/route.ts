@@ -26,6 +26,7 @@ export async function GET(request: NextRequest) {
   const modalidadeParam = params.get("modalidade");
   const search = params.get("q");
   const includeRemoved = params.get("removed") === "true";
+  const maxDistance = params.get("max_distance");
 
   const cidades = cidadeParam ? cidadeParam.split(",").map((s) => s.trim()).filter(Boolean) : [];
   const tipos = tipoParam ? tipoParam.split(",").map((s) => s.trim()).filter(Boolean) : [];
