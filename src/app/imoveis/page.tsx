@@ -803,7 +803,7 @@ function ImoveisPageInner() {
   const [customPrecoMax, setCustomPrecoMax] = useState("");
   // Map of propertyId -> favoriteId (present means favorited)
   const [favorited, setFavorited] = useState<Record<number, number>>({});
-  const [expandedComparables, setExpandedComparables] = useState<number | null>(null);
+  const [expandedComparables, setExpandedComparables] = useState<string | null>(null); // "colId:propId"
   const [expandedRent, setExpandedRent] = useState<number | null>(null);
   const [expandedScore, setExpandedScore] = useState<number | null>(null);
   const [hiddenIds, setHiddenIds] = useState<Set<number>>(new Set());
@@ -1535,7 +1535,7 @@ function ImoveisPageInner() {
               const isGoodDeal = preco < mv;
               return (
                 <button
-                  onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
+                  onClick={() => setExpandedComparables(expandedComparables === "valorMercado:" + p.id ? null : "valorMercado:" + p.id)}
                   className={`cursor-pointer hover:underline text-left ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
                 >
                   {formatBRL(p.marketValue)}
@@ -1545,7 +1545,7 @@ function ImoveisPageInner() {
             })() : (
               <span className="text-zinc-600">—</span>
             )}
-            {expandedComparables === p.id && (
+            {expandedComparables === "valorMercado:" + p.id && (
               <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
@@ -1561,7 +1561,7 @@ function ImoveisPageInner() {
               const isGoodDeal = preco < mv;
               return (
                 <button
-                  onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
+                  onClick={() => setExpandedComparables(expandedComparables === "zapValor:" + p.id ? null : "zapValor:" + p.id)}
                   className={`cursor-pointer hover:underline text-left ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
                 >
                   {formatBRL(p.zapMarketValue)}
@@ -1571,7 +1571,7 @@ function ImoveisPageInner() {
             })() : (
               <span className="text-zinc-600">—</span>
             )}
-            {expandedComparables === p.id && (
+            {expandedComparables === "zapValor:" + p.id && (
               <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
@@ -1582,7 +1582,7 @@ function ImoveisPageInner() {
           <TableCell key={colId} className="text-right relative">
             {p.marketValuePerM2 ? (
               <button
-                onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
+                onClick={() => setExpandedComparables(expandedComparables === "mercadoM2:" + p.id ? null : "mercadoM2:" + p.id)}
                 className="text-zinc-400 text-sm cursor-pointer hover:underline"
               >
                 R$&nbsp;{Math.round(parseFloat(p.marketValuePerM2)).toLocaleString("pt-BR")}
@@ -1590,7 +1590,7 @@ function ImoveisPageInner() {
             ) : (
               <span className="text-zinc-600">—</span>
             )}
-            {expandedComparables === p.id && (
+            {expandedComparables === "mercadoM2:" + p.id && (
               <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
@@ -1601,7 +1601,7 @@ function ImoveisPageInner() {
           <TableCell key={colId} className="text-right relative">
             {p.zapMarketValuePerM2 ? (
               <button
-                onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
+                onClick={() => setExpandedComparables(expandedComparables === "zapM2:" + p.id ? null : "zapM2:" + p.id)}
                 className="text-zinc-400 text-sm cursor-pointer hover:underline"
               >
                 R$&nbsp;{Math.round(parseFloat(p.zapMarketValuePerM2)).toLocaleString("pt-BR")}
@@ -1612,7 +1612,7 @@ function ImoveisPageInner() {
             ) : (
               <span className="text-zinc-600">—</span>
             )}
-            {expandedComparables === p.id && (
+            {expandedComparables === "zapM2:" + p.id && (
               <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
