@@ -200,7 +200,7 @@ function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () =>
         <p>Valor de mercado: <span className="text-zinc-200 font-medium">{formatBRL(marketValue)}</span></p>
         <p>Yield mensal: <span className="text-zinc-200 font-medium">0,5%</span></p>
         <p>Aluguel estimado: <span className="text-green-400 font-medium">{formatBRL(rentValue)}/mês</span></p>
-        <p>Aluguel anual: <span className="text-zinc-200 font-medium">{formatBRL(rentValue * 12)}/ano</span></p>
+        <p>Aluguel anual: <span className="text-zinc-200 font-medium">{formatBRL(rentValue !== null ? rentValue * 12 : null)}/ano</span></p>
       </div>
       {loading ? (
         <p className="text-xs text-zinc-500">Carregando transações...</p>
