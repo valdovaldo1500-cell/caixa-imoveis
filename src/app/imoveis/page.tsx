@@ -32,6 +32,7 @@ interface Property {
   aceitaFinanciamento: boolean;
   linkCaixa: string | null;
   score: string | null;
+  scoreDetails: Record<string, number> | null;
   crimeRate: string | null;
   firstSeenAt: string;
   marketValue: string | null;
