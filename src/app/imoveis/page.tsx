@@ -785,25 +785,56 @@ export default function ImoveisPage() {
                     </TableCell>
                     <TableCell className="relative">
                       {p.score ? (
-                        <span
-                          className="font-mono text-sm cursor-help relative group"
-                          title={p.scoreDetails ? Object.entries(p.scoreDetails)
-                            .filter(([k]) => k !== "total")
-                            .map(([k, v]) => {
-                              const labels: Record<string, string> = {
-                                discount: "Desconto",
-                                priceEfficiency: "Preço vs cidade",
-                                financing: "Financiamento",
-                                propertyType: "Tipo imóvel",
-                                areaValue: "Valor/m²",
-                                daysOnMarket: "Dias no mercado",
-                                crimeSafety: "Segurança",
-                              };
-                              return `${labels[k] || k}: ${typeof v === "number" ? v.toFixed(0) : v}`;
-                            }).join(" | ") : ""}
-                        >
-                          {parseFloat(p.score).toFixed(0)}
-                        </span>
+                        <>
+                          <button
+                            onClick={() => setExpandedScore(expandedScore === p.id ? null : p.id)}
+                            className="font-mono text-sm cursor-pointer hover:underline"
+                          >
+                            {parseFloat(p.score).toFixed(0)}
+                          </button>
+                          {expandedScore === p.id && p.scoreDetails && (
+                            <div className="absolute right-0 top-full mt-1 z-50 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl p-3 w-[280px] text-left">
+                              <div className="flex justify-between items-center mb-2">
+                                <span className="text-xs font-semibold text-zinc-300">Score: {parseFloat(p.score).toFixed(1)}</span>
+                                <button onClick={() => setExpandedScore(null)} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
+                              </div>
+                              <div className="space-y-1.5">
+                                {Object.entries(p.scoreDetails)
+                                  .filter(([k]) => k !== "total")
+                                  .map(([k, v]) => {
+                                    const labels: Record<string, string> = {
+                                      discount: "Desconto",
+                                      priceEfficiency: "Preço vs cidade",
+                                      financing: "Financiamento",
+                                      propertyType: "Tipo imóvel",
+                                      areaValue: "Valor/m²",
+                                      daysOnMarket: "Dias mercado",
+                                      crimeSafety: "Segurança",
+                                    };
+                                    const weights: Record<string, number> = {
+                                      discount: 25, priceEfficiency: 20, financing: 15,
+                                      propertyType: 10, areaValue: 15, daysOnMarket: 5, crimeSafety: 10,
+                                    };
+                                    const val = typeof v === "number" ? v : 0;
+                                    const w = weights[k] || 0;
+                                    return (
+                                      <div key={k} className="flex items-center gap-2 text-xs">
+                                        <span className="w-20 text-zinc-400 truncate">{labels[k] || k}</span>
+                                        <div className="flex-1 h-2 bg-zinc-800 rounded overflow-hidden">
+                                          <div className="h-full rounded" style={{
+                                            width: `${val}%`,
+                                            backgroundColor: val >= 70 ? "#22c55e" : val >= 40 ? "#eab308" : "#ef4444"
+                                          }} />
+                                        </div>
+                                        <span className="w-8 text-right text-zinc-500">{val.toFixed(0)}</span>
+                                        <span className="w-6 text-right text-zinc-600">{w}%</span>
+                                      </div>
+                                    );
+                                  })}
+                              </div>
+                            </div>
+                          )}
+                        </>
                       ) : (
                         "—"
                       )}
