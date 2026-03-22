@@ -223,9 +223,8 @@ export default function PropertyDetailPage() {
         setComparables(await compRes.json());
       }
       if (favRes.ok) {
-        const favData = await favRes.json() as { favorited: boolean; favoriteId?: number };
+        const favData = await favRes.json() as { favorited: boolean };
         setFavorited(favData.favorited);
-        setFavoriteId(favData.favoriteId ?? null);
       }
     } catch {
       setNotFound(true);
