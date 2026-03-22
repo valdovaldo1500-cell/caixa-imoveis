@@ -1234,25 +1234,25 @@ function ImoveisPageInner() {
     switch (colId) {
       case "foto":
         return (
-          <TableCell key={colId} className="w-20 px-1 relative group/img">
+          <TableCell key={colId} className="w-24 px-1 relative group/img">
             {p.fotoUrl ? (
               <>
                 <img
                   src={p.fotoUrl}
                   alt=""
-                  className="w-16 h-16 rounded object-cover"
+                  className="w-20 h-14 rounded object-cover"
                   loading="lazy"
                 />
-                <div className="hidden group-hover/img:block absolute left-0 top-0 z-[200] pointer-events-none">
+                <div className="hidden group-hover/img:block absolute left-full top-0 ml-2 z-[200] pointer-events-none">
                   <img
                     src={p.fotoUrl}
                     alt=""
-                    className="w-64 h-48 rounded-lg object-cover shadow-2xl border-2 border-zinc-600"
+                    className="max-w-[500px] max-h-[400px] rounded-lg object-contain bg-zinc-950 shadow-2xl border-2 border-zinc-600 p-1"
                   />
                 </div>
               </>
             ) : (
-              <div className="w-8 h-8 rounded bg-zinc-800" />
+              <div className="w-8 h-6 rounded bg-zinc-800" />
             )}
           </TableCell>
         );
