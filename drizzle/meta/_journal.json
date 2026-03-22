@@ -22,6 +22,13 @@
       "when": 1774176305787,
       "tag": "0002_colorful_gwen_stacy",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1774224000000,
+      "tag": "0003_search_vector",
+      "breakpoints": true
     }
   ]
 }
