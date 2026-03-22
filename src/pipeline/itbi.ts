@@ -610,14 +610,14 @@ export async function getPropertyComparables(propertyId: number, months: number 
     },
     tier1: {
       label: "Imóveis muito similares",
-      criteria: "mesmo bairro, mesmo tipo, área ±25%, últimos 12 meses",
+      criteria: `mesmo bairro, mesmo tipo, área ±25%, últimos ${tier1Months} meses`,
       comparables: tier1Details,
       medianPrecoM2: tier1Median ? Math.round(tier1Median) : null,
       count: tier1Details.length,
     },
     tier2: {
       label: "Imóveis no bairro",
-      criteria: "mesmo bairro, tipo similar, área ±50%, últimos 18 meses",
+      criteria: `mesmo bairro, tipo similar, área ±50%, últimos ${tier2Months} meses`,
       comparables: tier2Details,
       medianPrecoM2: tier2Median ? Math.round(tier2Median) : null,
       count: tier2Details.length,
