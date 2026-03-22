@@ -346,11 +346,12 @@ export default function PropertyDetailPage() {
       setProperty(data);
 
       // Fetch history, comparables, favorite status, and note in parallel
-      const [histRes, compRes, favRes, noteRes] = await Promise.all([
+      const [histRes, compRes, favRes, noteRes, hideRes] = await Promise.all([
         fetch(`/api/properties/${id}/history`, { credentials: "include" }),
         fetch(`/api/properties/${id}/comparables`, { credentials: "include" }),
         fetch(`/api/properties/${id}/favorite`, { credentials: "include" }),
         fetch(`/api/properties/${id}/notes`, { credentials: "include" }),
+        fetch(`/api/properties/${id}/hide`, { credentials: "include" }),
       ]);
 
       if (histRes.ok) {
@@ -362,6 +363,10 @@ export default function PropertyDetailPage() {
       if (favRes.ok) {
         const favData = await favRes.json() as { favorited: boolean };
         setFavorited(favData.favorited);
+      }
+      if (hideRes.ok) {
+        const hideData = await hideRes.json() as { hidden: boolean };
+        setHidden(hideData.hidden);
       }
       if (noteRes.ok) {
         const noteData = await noteRes.json() as { note: string | null };
