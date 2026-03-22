@@ -1026,7 +1026,7 @@ function ImoveisPageInner() {
         setLoading(false);
       }
     },
-    [sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax, filterPrecoMin]
+    [sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax, filterPrecoMin, filterDistancia]
   );
 
   // Load which properties are hidden
