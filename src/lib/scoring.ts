@@ -3,12 +3,13 @@ import { properties } from "@/lib/db/schema";
 import { isNull, sql } from "drizzle-orm";
 
 export interface ScoreBreakdown {
-  discount: number;        // 0-100, weight 30%
+  discount: number;        // 0-100, weight 25%
   priceEfficiency: number; // 0-100, weight 20%
   financing: number;       // 0-100, weight 15%
   propertyType: number;    // 0-100, weight 10%
   areaValue: number;       // 0-100, weight 15%
-  daysOnMarket: number;    // 0-100, weight 10%
+  daysOnMarket: number;    // 0-100, weight 5%
+  crimeSafety: number;     // 0-100, weight 10%
   total: number;           // weighted sum 0-100
 }
 
