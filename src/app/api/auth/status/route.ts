@@ -6,9 +6,14 @@ export async function GET() {
   const cookieStore = await cookies();
   const session = cookieStore.get(COOKIE_NAME)?.value;
 
-  if (!session || !verifySession(session)) {
+  if (!session) {
     return NextResponse.json({ authed: false });
   }
 
-  return NextResponse.json({ authed: true });
+  const result = verifySession(session);
+  if (!result.valid) {
+    return NextResponse.json({ authed: false });
+  }
+
+  return NextResponse.json({ authed: true, username: result.username });
 }
