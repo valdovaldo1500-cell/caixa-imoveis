@@ -335,6 +335,7 @@ export default function ImoveisPage() {
   const [favorited, setFavorited] = useState<Record<number, number>>({});
   const [expandedComparables, setExpandedComparables] = useState<number | null>(null);
   const [expandedRent, setExpandedRent] = useState<number | null>(null);
+  const [expandedScore, setExpandedScore] = useState<number | null>(null);
   const [hiddenIds, setHiddenIds] = useState<Set<number>>(new Set());
   const [showHidden, setShowHidden] = useState(true);
   const [notes, setNotes] = useState<Record<number, string>>({});
