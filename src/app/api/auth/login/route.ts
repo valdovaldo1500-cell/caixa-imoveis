@@ -1,18 +1,20 @@
 import { NextResponse } from "next/server";
+import { createHash } from "crypto";
 import { signSession, COOKIE_NAME, COOKIE_OPTIONS } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { users } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 
-const DASHBOARD_PASSWORD =
-  process.env.DASHBOARD_PASSWORD || "change-me";
 const HCAPTCHA_SECRET =
   process.env.HCAPTCHA_SECRET || "0x0000000000000000000000000000000000000000";
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { password, hcaptchaToken } = body;
+  const { username, password, hcaptchaToken } = body;
 
-  if (!password || !hcaptchaToken) {
+  if (!username || !password || !hcaptchaToken) {
     return NextResponse.json(
-      { error: "Senha e captcha são obrigatórios" },
+      { error: "Usuário, senha e captcha são obrigatórios" },
       { status: 400 }
     );
   }
@@ -35,17 +37,32 @@ export async function POST(request: Request) {
     );
   }
 
-  // Verify password
-  if (password !== DASHBOARD_PASSWORD) {
+  // Look up user
+  const [user] = await db
+    .select({ id: users.id, username: users.username, passwordHash: users.passwordHash })
+    .from(users)
+    .where(eq(users.username, String(username).toLowerCase()))
+    .limit(1);
+
+  if (!user) {
     return NextResponse.json(
-      { error: "Senha incorreta" },
+      { error: "Usuário ou senha incorretos" },
+      { status: 401 }
+    );
+  }
+
+  // Verify password (SHA-256)
+  const hash = createHash("sha256").update(String(password)).digest("hex");
+  if (hash !== user.passwordHash) {
+    return NextResponse.json(
+      { error: "Usuário ou senha incorretos" },
       { status: 401 }
     );
   }
 
   // Create session
-  const token = signSession();
-  const response = NextResponse.json({ success: true });
+  const token = signSession(user.username);
+  const response = NextResponse.json({ success: true, username: user.username });
   response.cookies.set(COOKIE_NAME, token, COOKIE_OPTIONS);
 
   return response;
