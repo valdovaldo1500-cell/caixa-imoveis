@@ -286,7 +286,7 @@ export default function ImoveisPage() {
         </p>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap items-center">
         <Input
           placeholder="Buscar cidade, bairro ou endereço..."
           value={search}
@@ -297,6 +297,15 @@ export default function ImoveisPage() {
         <Button onClick={() => fetchData(1)} variant="secondary">
           Buscar
         </Button>
+        <label className="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={showHidden}
+            onChange={(e) => setShowHidden(e.target.checked)}
+            className="accent-zinc-500"
+          />
+          Mostrar ocultos
+        </label>
       </div>
 
       <Card className="bg-zinc-900 border-zinc-800 overflow-auto">
