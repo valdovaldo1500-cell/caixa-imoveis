@@ -281,6 +281,11 @@ export default function ImoveisPage() {
                     <TableCell className="text-right">
                       {formatBRL(p.preco)}
                     </TableCell>
+                    <TableCell className="text-right text-zinc-500 text-xs">
+                      {p.preco && p.areaPrivativaM2 && parseFloat(p.areaPrivativaM2) > 0
+                        ? `R$\u00a0${Math.round(parseFloat(p.preco) / parseFloat(p.areaPrivativaM2)).toLocaleString("pt-BR")}`
+                        : "—"}
+                    </TableCell>
                     <TableCell className="text-right text-zinc-400">
                       {formatBRL(p.valorAvaliacao)}
                     </TableCell>
