@@ -14,6 +14,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
+  type PieLabelRenderProps,
 } from "recharts";
 
 interface StatsData {
