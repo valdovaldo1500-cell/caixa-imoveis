@@ -4,7 +4,7 @@ import { getPropertyComparables } from "@/pipeline/itbi";
 import { getZapComparables } from "@/pipeline/zap";
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
@@ -14,9 +14,12 @@ export async function GET(
     return NextResponse.json({ error: "Invalid property ID" }, { status: 400 });
   }
 
+  const monthsParam = request.nextUrl.searchParams.get("months");
+  const months = monthsParam ? Math.max(1, parseInt(monthsParam, 10)) : 12;
+
   try {
     const [itbiResult, zapResult] = await Promise.all([
-      getPropertyComparables(propertyId),
+      getPropertyComparables(propertyId, months),
       getZapComparables(propertyId),
     ]);
 
