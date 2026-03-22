@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import NavHeader from "@/components/NavHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, Eye, EyeOff, MessageSquare, Building2, Bell, BellOff, Settings2, X, ChevronDown } from "lucide-react";
+import { Star, Eye, EyeOff, MessageSquare, Bell, BellOff, Settings2, X, ChevronDown, Save, Trash2 } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -53,7 +54,22 @@ interface Pagination {
   pages: number;
 }
 
+interface SavedFilterPreset {
+  name: string;
+  isDefault: boolean;
+  filters: {
+    cidades: string[];
+    tipos: string[];
+    modalidades: string[];
+    descontoMin: string;
+    precoMax: string;
+    precoMin: string;
+    showHidden: boolean;
+  };
+}
+
 const FILTERS_KEY = "caixa-imoveis-filters";
+const SAVED_FILTERS_KEY = "caixa-imoveis-saved-filters";
 const NOTIFICATIONS_KEY = "caixa-imoveis-notifications";
 const COLUMNS_KEY = "caixa-imoveis-columns";
 
@@ -68,7 +84,7 @@ const ALL_COLUMNS = [
   { id: "tipo", label: "Tipo", defaultVisible: true },
   { id: "preco", label: "Preço", defaultVisible: true, sortKey: "preco" },
   { id: "precoM2", label: "R$/m²", defaultVisible: true },
-  { id: "avaliacao", label: "Avaliação", defaultVisible: true },
+  { id: "avaliacao", label: "Avaliação", defaultVisible: false },
   { id: "desconto", label: "Desconto", defaultVisible: true, sortKey: "desconto" },
   { id: "descontoMercado", label: "Desc. Mercado", defaultVisible: true },
   { id: "modalidade", label: "Modalidade", defaultVisible: false },
@@ -291,6 +307,145 @@ function ColumnSettings({
 }
 
 // ---------------------------------------------------------------------------
+// SaveFilterPopup
+// ---------------------------------------------------------------------------
+function SaveFilterPopup({
+  onSave,
+  onClose,
+}: {
+  onSave: (name: string) => void;
+  onClose: () => void;
+}) {
+  const [name, setName] = useState("");
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, onClose);
+  return (
+    <div
+      ref={ref}
+      className="absolute left-0 top-full mt-1 z-[300] bg-zinc-950 border border-zinc-700 rounded-lg shadow-xl p-3 w-60"
+    >
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-xs font-semibold text-zinc-300">Salvar filtro</span>
+        <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300">
+          <X className="w-3.5 h-3.5" />
+        </button>
+      </div>
+      <input
+        autoFocus
+        type="text"
+        placeholder="Nome do filtro..."
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && name.trim()) {
+            onSave(name.trim());
+          }
+        }}
+        className="w-full bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-xs text-zinc-200 focus:outline-none focus:border-zinc-500 mb-2"
+      />
+      <button
+        disabled={!name.trim()}
+        onClick={() => name.trim() && onSave(name.trim())}
+        className="w-full px-2 py-1.5 text-xs bg-blue-700 hover:bg-blue-600 text-white rounded disabled:opacity-40 transition-colors"
+      >
+        Salvar
+      </button>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// SavedFiltersDropdown
+// ---------------------------------------------------------------------------
+function SavedFiltersDropdown({
+  presets,
+  notificationsEnabled,
+  onApply,
+  onDelete,
+  onSetDefault,
+  onToggleNotifications,
+}: {
+  presets: SavedFilterPreset[];
+  notificationsEnabled: boolean;
+  onApply: (preset: SavedFilterPreset) => void;
+  onDelete: (name: string) => void;
+  onSetDefault: (name: string) => void;
+  onToggleNotifications: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, () => setOpen(false));
+
+  return (
+    <div ref={ref} className="relative flex items-center gap-1">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className={`flex items-center gap-1 bg-zinc-800 border rounded px-2 py-1.5 text-xs whitespace-nowrap transition-colors ${
+          presets.length > 0 ? "border-blue-700 text-blue-300" : "border-zinc-700 text-zinc-400"
+        }`}
+      >
+        <span>Filtros salvos{presets.length > 0 ? ` (${presets.length})` : ""}</span>
+        <ChevronDown className="w-3 h-3 text-zinc-500 ml-0.5" />
+      </button>
+      {/* Notification bell inline */}
+      <button
+        onClick={onToggleNotifications}
+        className={`flex items-center gap-1 border rounded px-2 py-1.5 text-xs transition-colors ${
+          notificationsEnabled
+            ? "text-yellow-400 border-yellow-700 bg-yellow-950 hover:bg-yellow-900"
+            : "text-zinc-400 border-zinc-700 bg-zinc-800 hover:bg-zinc-700"
+        }`}
+        title={notificationsEnabled ? "Notificações ativadas" : "Ativar notificações por email"}
+      >
+        {notificationsEnabled ? <Bell className="w-3 h-3" /> : <BellOff className="w-3 h-3" />}
+      </button>
+      {open && (
+        <div className="absolute left-0 top-full mt-1 z-[300] bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl w-60">
+          {presets.length === 0 ? (
+            <p className="text-xs text-zinc-500 px-3 py-3">Nenhum filtro salvo ainda.</p>
+          ) : (
+            presets.map((preset) => (
+              <div
+                key={preset.name}
+                className="flex items-center gap-1 px-3 py-2 hover:bg-zinc-800 border-b border-zinc-800 last:border-0"
+              >
+                <button
+                  onClick={() => {
+                    onApply(preset);
+                    setOpen(false);
+                  }}
+                  className="flex-1 text-left text-xs text-zinc-200 truncate"
+                >
+                  {preset.name}
+                </button>
+                <button
+                  onClick={() => onSetDefault(preset.name)}
+                  title={preset.isDefault ? "Remover como padrão" : "Definir como padrão"}
+                  className={`text-xs px-1 rounded transition-colors ${
+                    preset.isDefault
+                      ? "text-yellow-400"
+                      : "text-zinc-600 hover:text-yellow-400"
+                  }`}
+                >
+                  ★
+                </button>
+                <button
+                  onClick={() => onDelete(preset.name)}
+                  title="Excluir filtro"
+                  className="text-zinc-600 hover:text-red-400 transition-colors"
+                >
+                  <Trash2 className="w-3 h-3" />
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Popups
 // ---------------------------------------------------------------------------
 function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose: () => void }) {
@@ -414,7 +569,7 @@ function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () =>
   const marketValue = estimatedValue;
 
   return (
-    <div ref={ref} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-lg shadow-xl p-3 w-[420px] max-h-[400px] overflow-auto text-left">
+    <div ref={ref} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-xl shadow-xl p-3 w-[420px] max-h-[400px] overflow-auto text-left">
       <div className="flex justify-between items-center mb-2">
         <span className="text-xs font-semibold text-zinc-300">Como calculamos o aluguel</span>
         <div className="flex items-center gap-2">
@@ -556,6 +711,9 @@ function NotePopup({
 // Main page
 // ---------------------------------------------------------------------------
 export default function ImoveisPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [data, setData] = useState<Property[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
     page: 1,
@@ -572,6 +730,10 @@ export default function ImoveisPage() {
   const [filterModalidades, setFilterModalidades] = useState<string[]>([]);
   const [filterDescontoMin, setFilterDescontoMin] = useState("");
   const [filterPrecoMax, setFilterPrecoMax] = useState("");
+  const [filterPrecoMin, setFilterPrecoMin] = useState("");
+  const [precoMaxMode, setPrecoMaxMode] = useState<"preset" | "custom">("preset");
+  const [customPrecoMin, setCustomPrecoMin] = useState("");
+  const [customPrecoMax, setCustomPrecoMax] = useState("");
   // Map of propertyId -> favoriteId (present means favorited)
   const [favorited, setFavorited] = useState<Record<number, number>>({});
   const [expandedComparables, setExpandedComparables] = useState<number | null>(null);
@@ -586,45 +748,140 @@ export default function ImoveisPage() {
   const [visibleColumns, setVisibleColumns] = useState<string[]>(DEFAULT_VISIBLE);
   const [showColumnSettings, setShowColumnSettings] = useState(false);
   const columnSettingsRef = useRef<HTMLDivElement>(null);
+  const [savedPresets, setSavedPresets] = useState<SavedFilterPreset[]>([]);
+  const [showSavePopup, setShowSavePopup] = useState(false);
+  const savePopupRef = useRef<HTMLDivElement>(null);
 
   // Score popup click-outside ref
   const scorePopupRef = useRef<HTMLDivElement>(null);
   useClickOutside(scorePopupRef, () => setExpandedScore(null));
 
+  // Helper to push URL params without navigation
+  const syncUrl = useCallback((overrides?: {
+    page?: number;
+    sort?: string;
+    order?: string;
+    search?: string;
+    filterCidades?: string[];
+    filterTipos?: string[];
+    filterModalidades?: string[];
+    filterDescontoMin?: string;
+    filterPrecoMax?: string;
+    filterPrecoMin?: string;
+  }) => {
+    const s = overrides?.sort ?? sort;
+    const o = overrides?.order ?? order;
+    const q = overrides?.search ?? search;
+    const p = overrides?.page ?? 1;
+    const cidades = overrides?.filterCidades ?? filterCidades;
+    const tipos = overrides?.filterTipos ?? filterTipos;
+    const modalidades = overrides?.filterModalidades ?? filterModalidades;
+    const descontoMin = overrides?.filterDescontoMin ?? filterDescontoMin;
+    const precoMax = overrides?.filterPrecoMax ?? filterPrecoMax;
+    const precoMin = overrides?.filterPrecoMin ?? filterPrecoMin;
+
+    const params = new URLSearchParams();
+    if (p > 1) params.set("page", String(p));
+    if (s && s !== "desconto") params.set("sort", s);
+    if (o && o !== "desc") params.set("order", o);
+    if (q) params.set("q", q);
+    if (cidades.length > 0) params.set("cidade", cidades.join(","));
+    if (tipos.length > 0) params.set("tipo", tipos.join(","));
+    if (modalidades.length > 0) params.set("modalidade", modalidades.join(","));
+    if (descontoMin) params.set("desconto_min", descontoMin);
+    if (precoMax) params.set("preco_max", precoMax);
+    if (precoMin) params.set("preco_min", precoMin);
+    const qs = params.toString();
+    router.replace(qs ? `/imoveis?${qs}` : "/imoveis", { scroll: false });
+  }, [sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax, filterPrecoMin, router]);
+
   // Load saved filters and column config from localStorage on mount
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(FILTERS_KEY);
-      if (saved) {
-        const filters = JSON.parse(saved) as {
-          cidades?: string[];
-          tipos?: string[];
-          modalidades?: string[];
-          // legacy single-value fields
-          cidade?: string;
-          tipo?: string;
-          modalidade?: string;
-          descontoMin?: string;
-          precoMax?: string;
-          showHidden?: boolean;
-        };
-        // Support both old single-string and new array formats
-        if (filters.cidades !== undefined) setFilterCidades(filters.cidades);
-        else if (filters.cidade) setFilterCidades([filters.cidade]);
-        if (filters.tipos !== undefined) setFilterTipos(filters.tipos);
-        else if (filters.tipo) setFilterTipos([filters.tipo]);
-        if (filters.modalidades !== undefined) setFilterModalidades(filters.modalidades);
-        else if (filters.modalidade) setFilterModalidades([filters.modalidade]);
-        if (filters.descontoMin !== undefined) setFilterDescontoMin(filters.descontoMin);
-        if (filters.precoMax !== undefined) setFilterPrecoMax(filters.precoMax);
-        if (filters.showHidden !== undefined) setShowHidden(filters.showHidden);
+      // Read URL params first (highest priority)
+      const urlSort = searchParams.get("sort");
+      const urlOrder = searchParams.get("order");
+      const urlQ = searchParams.get("q");
+      const urlCidade = searchParams.get("cidade");
+      const urlTipo = searchParams.get("tipo");
+      const urlModalidade = searchParams.get("modalidade");
+      const urlDescontoMin = searchParams.get("desconto_min");
+      const urlPrecoMax = searchParams.get("preco_max");
+      const urlPrecoMin = searchParams.get("preco_min");
+
+      const hasUrlFilters = urlCidade || urlTipo || urlModalidade || urlDescontoMin || urlPrecoMax || urlPrecoMin || urlSort || urlOrder || urlQ;
+
+      if (hasUrlFilters) {
+        // Apply URL params
+        if (urlSort) setSort(urlSort);
+        if (urlOrder) setOrder(urlOrder as "asc" | "desc");
+        if (urlQ) setSearch(urlQ);
+        if (urlCidade) setFilterCidades(urlCidade.split(",").filter(Boolean));
+        if (urlTipo) setFilterTipos(urlTipo.split(",").filter(Boolean));
+        if (urlModalidade) setFilterModalidades(urlModalidade.split(",").filter(Boolean));
+        if (urlDescontoMin) setFilterDescontoMin(urlDescontoMin);
+        if (urlPrecoMax) {
+          setFilterPrecoMax(urlPrecoMax);
+          const presetValues = ["50000", "100000", "200000", "500000", "1000000"];
+          if (!presetValues.includes(urlPrecoMax)) {
+            setPrecoMaxMode("custom");
+            setCustomPrecoMax(urlPrecoMax);
+          }
+        }
+        if (urlPrecoMin) {
+          setFilterPrecoMin(urlPrecoMin);
+          setPrecoMaxMode("custom");
+          setCustomPrecoMin(urlPrecoMin);
+        }
+      } else {
+        // Fall back to localStorage: check for a default preset first
+        const presetsRaw = localStorage.getItem(SAVED_FILTERS_KEY);
+        const presets: SavedFilterPreset[] = presetsRaw ? JSON.parse(presetsRaw) : [];
+        const defaultPreset = presets.find((p) => p.isDefault);
+        if (defaultPreset) {
+          setFilterCidades(defaultPreset.filters.cidades);
+          setFilterTipos(defaultPreset.filters.tipos);
+          setFilterModalidades(defaultPreset.filters.modalidades);
+          setFilterDescontoMin(defaultPreset.filters.descontoMin);
+          setFilterPrecoMax(defaultPreset.filters.precoMax);
+          setFilterPrecoMin(defaultPreset.filters.precoMin || "");
+          setShowHidden(defaultPreset.filters.showHidden);
+        } else {
+          // Legacy single-filter key
+          const saved = localStorage.getItem(FILTERS_KEY);
+          if (saved) {
+            const filters = JSON.parse(saved) as {
+              cidades?: string[];
+              tipos?: string[];
+              modalidades?: string[];
+              cidade?: string;
+              tipo?: string;
+              modalidade?: string;
+              descontoMin?: string;
+              precoMax?: string;
+              showHidden?: boolean;
+            };
+            if (filters.cidades !== undefined) setFilterCidades(filters.cidades);
+            else if (filters.cidade) setFilterCidades([filters.cidade]);
+            if (filters.tipos !== undefined) setFilterTipos(filters.tipos);
+            else if (filters.tipo) setFilterTipos([filters.tipo]);
+            if (filters.modalidades !== undefined) setFilterModalidades(filters.modalidades);
+            else if (filters.modalidade) setFilterModalidades([filters.modalidade]);
+            if (filters.descontoMin !== undefined) setFilterDescontoMin(filters.descontoMin);
+            if (filters.precoMax !== undefined) setFilterPrecoMax(filters.precoMax);
+            if (filters.showHidden !== undefined) setShowHidden(filters.showHidden);
+          }
+        }
       }
+
+      // Always load presets list, notifications, columns
+      const presetsRaw = localStorage.getItem(SAVED_FILTERS_KEY);
+      if (presetsRaw) setSavedPresets(JSON.parse(presetsRaw) as SavedFilterPreset[]);
       const notif = localStorage.getItem(NOTIFICATIONS_KEY);
       if (notif !== null) setNotificationsEnabled(JSON.parse(notif) as boolean);
       const cols = localStorage.getItem(COLUMNS_KEY);
       if (cols) {
         const parsed = JSON.parse(cols) as string[];
-        // Validate that all stored ids are known
         const validIds = new Set(ALL_COLUMNS.map((c) => c.id as string));
         const filtered = parsed.filter((id) => validIds.has(id));
         if (filtered.length > 0) setVisibleColumns(filtered);
@@ -633,6 +890,7 @@ export default function ImoveisPage() {
       // ignore
     }
     setFiltersLoaded(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const saveColumns = useCallback((cols: string[]) => {
@@ -644,22 +902,69 @@ export default function ImoveisPage() {
     }
   }, []);
 
-  const saveFilters = () => {
+  const handleSaveFilterPreset = (name: string) => {
+    const newPreset: SavedFilterPreset = {
+      name,
+      isDefault: false,
+      filters: {
+        cidades: filterCidades,
+        tipos: filterTipos,
+        modalidades: filterModalidades,
+        descontoMin: filterDescontoMin,
+        precoMax: filterPrecoMax,
+        precoMin: filterPrecoMin,
+        showHidden,
+      },
+    };
+    const updated = [...savedPresets.filter((p) => p.name !== name), newPreset];
+    setSavedPresets(updated);
     try {
-      localStorage.setItem(
-        FILTERS_KEY,
-        JSON.stringify({
-          cidades: filterCidades,
-          tipos: filterTipos,
-          modalidades: filterModalidades,
-          descontoMin: filterDescontoMin,
-          precoMax: filterPrecoMax,
-          showHidden,
-        })
-      );
+      localStorage.setItem(SAVED_FILTERS_KEY, JSON.stringify(updated));
     } catch {
       // ignore
     }
+    setShowSavePopup(false);
+  };
+
+  const handleDeletePreset = (name: string) => {
+    const updated = savedPresets.filter((p) => p.name !== name);
+    setSavedPresets(updated);
+    try {
+      localStorage.setItem(SAVED_FILTERS_KEY, JSON.stringify(updated));
+    } catch {
+      // ignore
+    }
+  };
+
+  const handleSetDefaultPreset = (name: string) => {
+    const updated = savedPresets.map((p) => ({
+      ...p,
+      isDefault: p.name === name ? !p.isDefault : false,
+    }));
+    setSavedPresets(updated);
+    try {
+      localStorage.setItem(SAVED_FILTERS_KEY, JSON.stringify(updated));
+    } catch {
+      // ignore
+    }
+  };
+
+  const handleApplyPreset = (preset: SavedFilterPreset) => {
+    setFilterCidades(preset.filters.cidades);
+    setFilterTipos(preset.filters.tipos);
+    setFilterModalidades(preset.filters.modalidades);
+    setFilterDescontoMin(preset.filters.descontoMin);
+    setFilterPrecoMax(preset.filters.precoMax);
+    setFilterPrecoMin(preset.filters.precoMin || "");
+    setShowHidden(preset.filters.showHidden);
+    syncUrl({
+      filterCidades: preset.filters.cidades,
+      filterTipos: preset.filters.tipos,
+      filterModalidades: preset.filters.modalidades,
+      filterDescontoMin: preset.filters.descontoMin,
+      filterPrecoMax: preset.filters.precoMax,
+      filterPrecoMin: preset.filters.precoMin || "",
+    });
   };
 
   const toggleNotifications = () => {
@@ -687,6 +992,7 @@ export default function ImoveisPage() {
       if (filterModalidades.length > 0) params.set("modalidade", filterModalidades.join(","));
       if (filterDescontoMin) params.set("desconto_min", filterDescontoMin);
       if (filterPrecoMax) params.set("preco_max", filterPrecoMax);
+      if (filterPrecoMin) params.set("preco_min", filterPrecoMin);
 
       try {
         const res = await fetch(`/api/properties?${params}`, {
@@ -701,7 +1007,7 @@ export default function ImoveisPage() {
         setLoading(false);
       }
     },
-    [sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax]
+    [sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax, filterPrecoMin]
   );
 
   // Load which properties are hidden
@@ -796,6 +1102,18 @@ export default function ImoveisPage() {
     if (filtersLoaded) fetchData(1);
   }, [fetchData, filtersLoaded]);
 
+  // Sync URL whenever filter state changes (skip on first render)
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (!filtersLoaded) return;
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    syncUrl();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filtersLoaded, sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax, filterPrecoMin]);
+
   useEffect(() => {
     loadFavorites();
   }, [loadFavorites]);
@@ -827,7 +1145,13 @@ export default function ImoveisPage() {
     filterTipos.length > 0 ||
     filterModalidades.length > 0 ||
     filterDescontoMin !== "" ||
-    filterPrecoMax !== "";
+    filterPrecoMax !== "" ||
+    filterPrecoMin !== "";
+
+  const applyCustomPrice = () => {
+    setFilterPrecoMin(customPrecoMin);
+    setFilterPrecoMax(customPrecoMax);
+  };
 
   // ---------------------------------------------------------------------------
   // Render a single cell by columnId
@@ -845,9 +1169,7 @@ export default function ImoveisPage() {
                 className="w-10 h-10 rounded object-cover"
               />
             ) : (
-              <div className="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center">
-                <Building2 className="w-5 h-5 text-zinc-600" />
-              </div>
+              <div className="w-6 h-6 rounded bg-zinc-800" />
             )}
           </TableCell>
         );
@@ -1352,14 +1674,67 @@ export default function ImoveisPage() {
             <option value="60">≥ 60%</option>
             <option value="70">≥ 70%</option>
           </select>
-          <select value={filterPrecoMax} onChange={(e) => setFilterPrecoMax(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300 text-xs">
+          {/* Price filter with custom option */}
+          <select
+            value={precoMaxMode === "custom" ? "custom" : filterPrecoMax}
+            onChange={(e) => {
+              if (e.target.value === "custom") {
+                setPrecoMaxMode("custom");
+              } else {
+                setPrecoMaxMode("preset");
+                setFilterPrecoMax(e.target.value);
+                setFilterPrecoMin("");
+                setCustomPrecoMin("");
+                setCustomPrecoMax("");
+              }
+            }}
+            className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300 text-xs"
+          >
             <option value="">Preço máx.</option>
             <option value="50000">até R$ 50k</option>
             <option value="100000">até R$ 100k</option>
             <option value="200000">até R$ 200k</option>
             <option value="500000">até R$ 500k</option>
             <option value="1000000">até R$ 1M</option>
+            <option value="custom">Personalizado...</option>
           </select>
+          {precoMaxMode === "custom" && (
+            <div className="flex items-center gap-1">
+              <input
+                type="number"
+                placeholder="Mín."
+                value={customPrecoMin}
+                onChange={(e) => setCustomPrecoMin(e.target.value)}
+                className="w-20 bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300 text-xs focus:outline-none focus:border-zinc-500"
+              />
+              <span className="text-zinc-600">—</span>
+              <input
+                type="number"
+                placeholder="Máx."
+                value={customPrecoMax}
+                onChange={(e) => setCustomPrecoMax(e.target.value)}
+                className="w-20 bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300 text-xs focus:outline-none focus:border-zinc-500"
+              />
+              <button
+                onClick={applyCustomPrice}
+                className="px-2 py-1.5 text-xs bg-blue-700 hover:bg-blue-600 text-white rounded transition-colors"
+              >
+                OK
+              </button>
+              <button
+                onClick={() => {
+                  setPrecoMaxMode("preset");
+                  setFilterPrecoMax("");
+                  setFilterPrecoMin("");
+                  setCustomPrecoMin("");
+                  setCustomPrecoMax("");
+                }}
+                className="text-zinc-500 hover:text-zinc-300"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
           {hasActiveFilters && (
             <button
               onClick={() => {
@@ -1368,31 +1743,42 @@ export default function ImoveisPage() {
                 setFilterModalidades([]);
                 setFilterDescontoMin("");
                 setFilterPrecoMax("");
+                setFilterPrecoMin("");
+                setPrecoMaxMode("preset");
+                setCustomPrecoMin("");
+                setCustomPrecoMax("");
               }}
               className="text-zinc-500 hover:text-zinc-300 underline"
             >
               Limpar filtros
             </button>
           )}
-          <button
-            onClick={saveFilters}
-            className="text-zinc-400 hover:text-zinc-200 border border-zinc-700 rounded px-2 py-1 bg-zinc-800 hover:bg-zinc-700 transition-colors"
-            title="Salvar filtros atuais no navegador"
-          >
-            Salvar filtros
-          </button>
-          <button
-            onClick={toggleNotifications}
-            className={`flex items-center gap-1 border rounded px-2 py-1 transition-colors ${
-              notificationsEnabled
-                ? "text-yellow-400 border-yellow-700 bg-yellow-950 hover:bg-yellow-900"
-                : "text-zinc-400 border-zinc-700 bg-zinc-800 hover:bg-zinc-700"
-            }`}
-            title={notificationsEnabled ? "Notificações ativadas" : "Ativar notificações por email"}
-          >
-            {notificationsEnabled ? <Bell className="w-3 h-3" /> : <BellOff className="w-3 h-3" />}
-            <span>Notificações</span>
-          </button>
+          {/* Save filter button with popup */}
+          <div ref={savePopupRef} className="relative">
+            <button
+              onClick={() => setShowSavePopup((v) => !v)}
+              className="flex items-center gap-1 text-zinc-400 hover:text-zinc-200 border border-zinc-700 rounded px-2 py-1.5 bg-zinc-800 hover:bg-zinc-700 transition-colors"
+              title="Salvar filtros atuais"
+            >
+              <Save className="w-3 h-3" />
+              <span>Salvar filtro</span>
+            </button>
+            {showSavePopup && (
+              <SaveFilterPopup
+                onSave={handleSaveFilterPreset}
+                onClose={() => setShowSavePopup(false)}
+              />
+            )}
+          </div>
+          {/* Saved filters dropdown + notifications bell inline */}
+          <SavedFiltersDropdown
+            presets={savedPresets}
+            notificationsEnabled={notificationsEnabled}
+            onApply={handleApplyPreset}
+            onDelete={handleDeletePreset}
+            onSetDefault={handleSetDefaultPreset}
+            onToggleNotifications={toggleNotifications}
+          />
         </div>
 
         <Card className="bg-zinc-900 border-zinc-800 overflow-auto">
@@ -1443,7 +1829,11 @@ export default function ImoveisPage() {
               variant="outline"
               size="sm"
               disabled={pagination.page <= 1}
-              onClick={() => fetchData(pagination.page - 1)}
+              onClick={() => {
+                const newPage = pagination.page - 1;
+                fetchData(newPage);
+                syncUrl({ page: newPage });
+              }}
             >
               Anterior
             </Button>
@@ -1454,7 +1844,11 @@ export default function ImoveisPage() {
               variant="outline"
               size="sm"
               disabled={pagination.page >= pagination.pages}
-              onClick={() => fetchData(pagination.page + 1)}
+              onClick={() => {
+                const newPage = pagination.page + 1;
+                fetchData(newPage);
+                syncUrl({ page: newPage });
+              }}
             >
               Próxima
             </Button>
