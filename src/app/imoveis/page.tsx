@@ -173,6 +173,7 @@ export default function ImoveisPage() {
                 >
                   Score{sortIcon("score")}
                 </TableHead>
+                <TableHead className="text-zinc-400">Criminalidade</TableHead>
                 <TableHead className="text-zinc-400">Link</TableHead>
               </TableRow>
             </TableHeader>
