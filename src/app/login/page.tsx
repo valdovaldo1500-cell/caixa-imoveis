@@ -26,6 +26,7 @@ declare global {
 
 export default function LoginPage() {
   const router = useRouter();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [hcaptchaToken, setHcaptchaToken] = useState("");
   const [error, setError] = useState("");
@@ -81,7 +82,7 @@ export default function LoginPage() {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password, hcaptchaToken }),
+        body: JSON.stringify({ username, password, hcaptchaToken }),
         credentials: "include",
       });
 
@@ -117,6 +118,22 @@ export default function LoginPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
+              <Label htmlFor="username" className="text-zinc-300">
+                Usuário
+              </Label>
+              <Input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="bg-zinc-800 border-zinc-700 text-zinc-100"
+                placeholder="Digite o usuário"
+                autoComplete="username"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="password" className="text-zinc-300">
                 Senha
               </Label>
@@ -127,6 +144,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="bg-zinc-800 border-zinc-700 text-zinc-100"
                 placeholder="Digite a senha"
+                autoComplete="current-password"
                 required
               />
             </div>
@@ -141,7 +159,7 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              disabled={loading || !hcaptchaToken || !password}
+              disabled={loading || !hcaptchaToken || !username || !password}
               className="w-full"
             >
               {loading ? "Entrando..." : "Entrar"}
