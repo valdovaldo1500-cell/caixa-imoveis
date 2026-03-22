@@ -327,6 +327,7 @@ export default function PropertyDetailPage() {
   const [notFound, setNotFound] = useState(false);
   const [favorited, setFavorited] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [note, setNote] = useState<string>("");
   const [noteDraft, setNoteDraft] = useState<string>("");
   const [noteSaving, setNoteSaving] = useState(false);
