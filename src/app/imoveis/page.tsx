@@ -37,6 +37,7 @@ interface Property {
   firstSeenAt: string;
   marketValue: string | null;
   marketValuePerM2: string | null;
+  marketRentValue: string | null;
   comparablesCount: number | null;
   areaPrivativaM2: string | null;
 }
