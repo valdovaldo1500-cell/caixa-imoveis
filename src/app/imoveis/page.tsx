@@ -257,6 +257,10 @@ export default function ImoveisPage() {
     loadFavorites();
   }, [loadFavorites]);
 
+  useEffect(() => {
+    loadHidden();
+  }, [loadHidden]);
+
   const handleSort = (col: string) => {
     if (sort === col) {
       setOrder(order === "desc" ? "asc" : "desc");
