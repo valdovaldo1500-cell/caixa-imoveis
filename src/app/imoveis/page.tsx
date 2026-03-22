@@ -209,6 +209,74 @@ function RentPopup({ propertyId, rentValue, marketValue, onClose }: { propertyId
   );
 }
 
+function NotePopup({
+  propertyId,
+  initialNote,
+  onSave,
+  onClose,
+}: {
+  propertyId: number;
+  initialNote: string;
+  onSave: (note: string | null) => void;
+  onClose: () => void;
+}) {
+  const [text, setText] = useState(initialNote);
+  const [saving, setSaving] = useState(false);
+
+  const save = async () => {
+    setSaving(true);
+    try {
+      const res = await fetch(`/api/properties/${propertyId}/notes`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ note: text }),
+      });
+      if (res.ok) {
+        const json = await res.json() as { note: string | null };
+        onSave(json.note);
+        onClose();
+      }
+    } catch {
+      // silently ignore
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="absolute left-0 top-full mt-1 z-50 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl p-3 w-72 text-left">
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-xs font-semibold text-zinc-300">Nota</span>
+        <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
+      </div>
+      <textarea
+        className="w-full bg-zinc-800 border border-zinc-700 rounded p-2 text-xs text-zinc-200 resize-none focus:outline-none focus:border-zinc-500"
+        rows={4}
+        placeholder="Adicione uma nota sobre este imóvel..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        autoFocus
+      />
+      <div className="flex gap-2 mt-2 justify-end">
+        <button
+          onClick={onClose}
+          className="px-2 py-1 text-xs text-zinc-400 hover:text-zinc-200"
+        >
+          Cancelar
+        </button>
+        <button
+          onClick={save}
+          disabled={saving}
+          className="px-3 py-1 text-xs bg-blue-700 hover:bg-blue-600 text-white rounded disabled:opacity-50"
+        >
+          {saving ? "Salvando..." : "Salvar"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ImoveisPage() {
   const [data, setData] = useState<Property[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
@@ -232,6 +300,8 @@ export default function ImoveisPage() {
   const [expandedRent, setExpandedRent] = useState<number | null>(null);
   const [hiddenIds, setHiddenIds] = useState<Set<number>>(new Set());
   const [showHidden, setShowHidden] = useState(true);
+  const [notes, setNotes] = useState<Record<number, string>>({});
+  const [expandedNote, setExpandedNote] = useState<number | null>(null);
 
   const fetchData = useCallback(
     async (page = 1) => {
