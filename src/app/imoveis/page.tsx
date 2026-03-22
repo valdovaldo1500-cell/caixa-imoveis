@@ -1552,32 +1552,71 @@ function ImoveisPageInner() {
   // ---------------------------------------------------------------------------
   // Render a column header by columnId
   // ---------------------------------------------------------------------------
+  const onResizeStart = (colId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const th = (e.target as HTMLElement).closest("th");
+    const startW = th?.offsetWidth || 100;
+    resizingRef.current = { colId, startX: e.clientX, startW };
+
+    const onMove = (ev: MouseEvent) => {
+      if (!resizingRef.current) return;
+      const diff = ev.clientX - resizingRef.current.startX;
+      const newW = Math.max(40, resizingRef.current.startW + diff);
+      setColumnWidths((prev) => {
+        const next = { ...prev, [colId]: newW };
+        localStorage.setItem("caixa-imoveis-col-widths", JSON.stringify(next));
+        return next;
+      });
+    };
+    const onUp = () => {
+      resizingRef.current = null;
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+    };
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onUp);
+  };
+
+  const resizeHandle = (colId: string) => (
+    <div
+      onMouseDown={(e) => onResizeStart(colId, e)}
+      className="absolute right-0 top-0 bottom-0 w-1 cursor-col-resize hover:bg-blue-500/50 active:bg-blue-500"
+      style={{ zIndex: 10 }}
+    />
+  );
+
   const renderHeader = (colId: string) => {
     const colDef = ALL_COLUMNS.find((c) => c.id === colId);
     const label = colDef?.label ?? "";
     const sk = (colDef as { sortKey?: string } | undefined)?.sortKey;
+    const w = columnWidths[colId];
+    const style = w ? { width: w, minWidth: w } : undefined;
 
     if (colId === "foto") {
-      return <TableHead key={colId} className="w-10 text-zinc-400" />;
+      return <TableHead key={colId} className="w-10 text-zinc-400 relative" style={style}>{resizeHandle(colId)}</TableHead>;
     }
     if (colId === "actions") {
-      return <TableHead key={colId} className="w-16 text-zinc-400" />;
+      return <TableHead key={colId} className="w-16 text-zinc-400 relative" style={style}>{resizeHandle(colId)}</TableHead>;
     }
     if (sk) {
       const rightAligned = ["preco", "precoM2", "avaliacao", "desconto", "descontoMercado", "valorMercado", "mercadoM2", "zapM2", "aluguel"].includes(colId);
       return (
         <TableHead
           key={colId}
-          className={`cursor-pointer text-zinc-400${rightAligned ? " text-right" : ""}`}
+          className={`cursor-pointer text-zinc-400 relative${rightAligned ? " text-right" : ""}`}
           onClick={() => handleSort(sk)}
+          style={style}
         >
           {label}{sortIcon(sk)}
+          {resizeHandle(colId)}
         </TableHead>
       );
     }
     return (
-      <TableHead key={colId} className="text-zinc-400">
+      <TableHead key={colId} className="text-zinc-400 relative" style={style}>
         {label}
+        {resizeHandle(colId)}
       </TableHead>
     );
   };
