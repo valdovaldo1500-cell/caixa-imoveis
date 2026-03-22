@@ -1390,11 +1390,12 @@ function ImoveisPageInner() {
           </TableCell>
         );
 
-      case "descontoMercado":
+      case "descontoMercado": {
+        const dmv = p.marketValue || p.zapMarketValue;
         return (
           <TableCell key={colId} className="text-right">
-            {p.marketValue && p.preco ? (() => {
-              const mv = parseFloat(p.marketValue);
+            {dmv && p.preco ? (() => {
+              const mv = parseFloat(dmv);
               const preco = parseFloat(p.preco);
               const pct = ((1 - preco / mv) * 100);
               const label = `${pct > 0 ? "-" : "+"}${Math.abs(pct).toFixed(0)}%`;
