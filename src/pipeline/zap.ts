@@ -285,6 +285,122 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
   return { updated };
 }
 
+export interface ZapRentalComparable {
+  zapId: string | null;
+  bairro: string | null;
+  unitType: string | null;
+  price: number;
+  area: number;
+  pricePerM2: number;
+  bedrooms: number | null;
+  listingUrl: string | null;
+}
+
+export async function getZapRentalComparables(propertyId: number): Promise<{
+  comparables: ZapRentalComparable[];
+  medianRent: number;
+  count: number;
+}> {
+  const [prop] = await db
+    .select({
+      id: properties.id,
+      cidade: properties.cidade,
+      bairro: properties.bairro,
+      tipoImovel: properties.tipoImovel,
+      descricao: properties.descricao,
+      quartos: properties.quartos,
+      areaPrivativaM2: properties.areaPrivativaM2,
+      areaTotalM2: properties.areaTotalM2,
+    })
+    .from(properties)
+    .where(eq(properties.id, propertyId))
+    .limit(1);
+
+  if (!prop) return { comparables: [], medianRent: 0, count: 0 };
+
+  const cityKey = normalizeCidade(prop.cidade);
+  const bairroKey = (prop.bairro || "").toUpperCase().trim();
+  const propArea =
+    prop.areaPrivativaM2 && parseFloat(prop.areaPrivativaM2) > 0
+      ? parseFloat(prop.areaPrivativaM2)
+      : prop.areaTotalM2 && parseFloat(prop.areaTotalM2) > 0
+        ? parseFloat(prop.areaTotalM2)
+        : null;
+  const propQuartos = prop.quartos ?? null;
+  const zapTypes = getZapUnitTypes(prop.tipoImovel, prop.descricao);
+
+  type ZapRow = typeof zapListings.$inferSelect;
+
+  const cityRental = await db
+    .select()
+    .from(zapListings)
+    .where(
+      and(
+        eq(zapListings.business, "RENTAL"),
+        sql`upper(unaccent(${zapListings.cidade})) = upper(unaccent(${prop.cidade}))`
+      )
+    );
+
+  function matchesStrict(r: ZapRow): boolean {
+    // Type filter
+    if (zapTypes && r.unitType && !zapTypes.includes(r.unitType.toUpperCase())) return false;
+    // Area ±30%
+    if (propArea && r.area) {
+      const a = parseFloat(r.area);
+      if (a > 0 && Math.abs(a - propArea) / propArea > 0.3) return false;
+    }
+    // Bedrooms ±1
+    if (propQuartos !== null && r.bedrooms !== null) {
+      if (Math.abs(r.bedrooms - propQuartos) > 1) return false;
+    }
+    // Bairro ilike match
+    if (bairroKey && r.bairro) {
+      if (!r.bairro.toUpperCase().includes(bairroKey) && !bairroKey.includes(r.bairro.toUpperCase())) return false;
+    }
+    return true;
+  }
+
+  function matchesFallback(r: ZapRow): boolean {
+    // Same city, no bairro filter, same type/area/quartos
+    if (zapTypes && r.unitType && !zapTypes.includes(r.unitType.toUpperCase())) return false;
+    if (propArea && r.area) {
+      const a = parseFloat(r.area);
+      if (a > 0 && Math.abs(a - propArea) / propArea > 0.3) return false;
+    }
+    if (propQuartos !== null && r.bedrooms !== null) {
+      if (Math.abs(r.bedrooms - propQuartos) > 1) return false;
+    }
+    return true;
+  }
+
+  let matched = cityRental.filter(matchesStrict);
+  if (matched.length < 3) {
+    matched = cityRental.filter(matchesFallback);
+  }
+
+  const prices = matched.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
+  const med = median(prices) ?? 0;
+
+  function toRentalComparable(r: ZapRow): ZapRentalComparable {
+    return {
+      zapId: r.zapId,
+      bairro: r.bairro,
+      unitType: r.unitType,
+      price: parseFloat(r.price || "0"),
+      area: parseFloat(r.area || "0"),
+      pricePerM2: parseFloat(r.pricePerM2 || "0"),
+      bedrooms: r.bedrooms,
+      listingUrl: r.listingUrl,
+    };
+  }
+
+  return {
+    comparables: matched.slice(0, 10).map(toRentalComparable),
+    medianRent: Math.round(med),
+    count: matched.length,
+  };
+}
+
 export interface ZapComparable {
   zapId: string | null;
   business: string | null;
