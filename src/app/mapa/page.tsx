@@ -44,6 +44,24 @@ const DESCONTO_MIN_OPTIONS = [
   { label: "≥70%", value: "70" },
 ];
 
+const PRECO_MAX_OPTIONS = [
+  { label: "Todos", value: "" },
+  { label: "até R$ 50k", value: "50000" },
+  { label: "até R$ 100k", value: "100000" },
+  { label: "até R$ 200k", value: "200000" },
+  { label: "até R$ 500k", value: "500000" },
+  { label: "até R$ 1M", value: "1000000" },
+];
+
+const TIPO_OPTIONS = [
+  { label: "Todos", value: "" },
+  { label: "Apartamento", value: "Apartamento" },
+  { label: "Casa", value: "Casa" },
+  { label: "Terreno", value: "Terreno" },
+  { label: "Comercial", value: "Comercial" },
+  { label: "Loja", value: "Loja" },
+];
+
 export default function MapaPage() {
   const [properties, setProperties] = useState<MapProperty[]>([]);
   const [loading, setLoading] = useState(true);
