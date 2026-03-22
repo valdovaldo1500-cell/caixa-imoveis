@@ -1545,6 +1545,7 @@ function ImoveisPageInner() {
             )}
           </TableCell>
         );
+      }
 
       case "mercadoM2":
         return (
