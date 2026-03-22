@@ -239,6 +239,26 @@ export default function PropertyDetailPage() {
     fetchProperty();
   }, [fetchProperty]);
 
+  const toggleFavorite = async () => {
+    if (favoriteLoading) return;
+    setFavoriteLoading(true);
+    try {
+      const res = await fetch(`/api/properties/${id}/favorite`, {
+        method: "POST",
+        credentials: "include",
+      });
+      if (res.ok) {
+        const json = await res.json() as { favorited: boolean; favoriteId?: number };
+        setFavorited(json.favorited);
+        setFavoriteId(json.favoriteId ?? null);
+      }
+    } catch {
+      // silently ignore
+    } finally {
+      setFavoriteLoading(false);
+    }
+  };
+
   // ── Loading skeleton ───────────────────────────────────────────────────────
   if (loading) {
     return (
