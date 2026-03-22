@@ -60,6 +60,8 @@ export const properties = pgTable(
     marketValuePerM2: decimal("market_value_per_m2", { precision: 10, scale: 2 }),
     marketRentValue: decimal("market_rent_value", { precision: 10, scale: 2 }),
     comparablesCount: integer("comparables_count"),
+    comparablesTier1Count: integer("comparables_tier1_count"),
+    comparablesTier2Count: integer("comparables_tier2_count"),
     marketValueUpdatedAt: timestamp("market_value_updated_at"),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
