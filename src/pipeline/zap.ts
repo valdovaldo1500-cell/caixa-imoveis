@@ -337,7 +337,7 @@ export async function getZapRentalComparables(propertyId: number): Promise<{
     .where(
       and(
         eq(zapListings.business, "RENTAL"),
-        sql`upper(unaccent(${zapListings.cidade})) = upper(unaccent(${prop.cidade}))`
+        sql`upper(${zapListings.cidade}) = ${cityKey}`
       )
     );
 
