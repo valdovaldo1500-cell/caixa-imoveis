@@ -97,6 +97,7 @@ const ALL_COLUMNS = [
   { id: "zapM2", label: "ZAP R$/m²", defaultVisible: false },
   { id: "aluguel", label: "Aluguel", defaultVisible: true },
   { id: "link", label: "Link", defaultVisible: true },
+  { id: "distancia", label: "Dist. POA", defaultVisible: false },
 ] as const;
 
 type ColumnId = typeof ALL_COLUMNS[number]["id"];
