@@ -1880,6 +1880,18 @@ function ImoveisPageInner() {
               </button>
             </div>
           )}
+          <select
+            value={filterDistancia}
+            onChange={(e) => setFilterDistancia(e.target.value)}
+            className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300 text-xs"
+          >
+            <option value="">Distância POA</option>
+            <option value="10">até 10km</option>
+            <option value="25">até 25km</option>
+            <option value="50">até 50km</option>
+            <option value="100">até 100km</option>
+            <option value="200">até 200km</option>
+          </select>
           {hasActiveFilters && (
             <button
               onClick={() => {
@@ -1889,6 +1901,7 @@ function ImoveisPageInner() {
                 setFilterDescontoMin("");
                 setFilterPrecoMax("");
                 setFilterPrecoMin("");
+                setFilterDistancia("");
                 setPrecoMaxMode("preset");
                 setCustomPrecoMin("");
                 setCustomPrecoMax("");
