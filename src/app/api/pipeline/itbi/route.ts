@@ -2,15 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { downloadAndImportITBI, calculateMarketValues } from "@/pipeline/itbi";
 
-const PIPELINE_TOKEN = process.env.PIPELINE_TOKEN || "caixa-pipeline-2026-rs-secret";
-
 export async function POST(request: NextRequest) {
-  // Bearer token auth
-  const auth = request.headers.get("authorization");
-  if (!auth || auth !== `Bearer ${PIPELINE_TOKEN}`) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   const action = request.nextUrl.searchParams.get("action") || "all";
 
   try {
