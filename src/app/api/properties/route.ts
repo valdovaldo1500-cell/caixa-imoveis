@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { sql, isNull, eq, gte, lte, and, ilike } from "drizzle-orm";
+import { sql, isNull, gte, lte, and, ilike } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
