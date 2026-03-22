@@ -121,9 +121,9 @@ function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose
           </table>
           {comps.length > 10 && (
             <p className="text-xs text-zinc-500 mt-1">
-              <Link href={`/imoveis/${propertyId}#comparaveis`} className="text-blue-400 hover:underline">
+              <a href={`/imoveis/${propertyId}#comparaveis`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
                 Ver todas as {comps.length} transações →
-              </Link>
+              </a>
             </p>
           )}
         </>
