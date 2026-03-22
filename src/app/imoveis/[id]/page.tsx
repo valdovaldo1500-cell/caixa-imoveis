@@ -542,6 +542,18 @@ export default function PropertyDetailPage() {
               />
               {favorited ? "Favoritado" : "Favoritar"}
             </button>
+            <button
+              onClick={toggleHidden}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded border text-sm transition-colors ${
+                hidden
+                  ? "border-zinc-500 bg-zinc-700 text-zinc-300 hover:bg-zinc-600"
+                  : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600"
+              }`}
+              title={hidden ? "Mostrar imóvel" : "Ocultar imóvel"}
+            >
+              {hidden ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              {hidden ? "Oculto" : "Ocultar"}
+            </button>
             {property.linkCaixa && (
               <a
                 href={property.linkCaixa}
