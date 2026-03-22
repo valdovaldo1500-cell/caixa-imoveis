@@ -189,7 +189,7 @@ export default function AnalisePage() {
                     </Pie>
                     <Tooltip
                       contentStyle={TOOLTIP_STYLE}
-                      formatter={(value: number) => [value, "Imóveis"]}
+                      formatter={(value) => [Number(value), "Imóveis"]}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -219,7 +219,7 @@ export default function AnalisePage() {
                     />
                     <Tooltip
                       contentStyle={TOOLTIP_STYLE}
-                      formatter={(value: number) => [value, "Imóveis"]}
+                      formatter={(value) => [Number(value), "Imóveis"]}
                     />
                     <Bar dataKey="count" fill="#34d399" radius={[3, 3, 0, 0]} />
                   </BarChart>
@@ -253,7 +253,7 @@ export default function AnalisePage() {
                     />
                     <Tooltip
                       contentStyle={TOOLTIP_STYLE}
-                      formatter={(value: number) => [value, "Imóveis"]}
+                      formatter={(value) => [Number(value), "Imóveis"]}
                     />
                     <Bar dataKey="count" fill="#f59e0b" radius={[3, 3, 0, 0]} />
                   </BarChart>
@@ -289,7 +289,7 @@ export default function AnalisePage() {
                     />
                     <Tooltip
                       contentStyle={TOOLTIP_STYLE}
-                      formatter={(value: number) => [value, "Imóveis"]}
+                      formatter={(value) => [Number(value), "Imóveis"]}
                     />
                     <Bar dataKey="count" fill="#a78bfa" radius={[0, 3, 3, 0]} />
                   </BarChart>
