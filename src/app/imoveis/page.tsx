@@ -884,8 +884,6 @@ export default function ImoveisPage() {
                       {expandedRent === p.id && p.marketRentValue && p.marketValue && (
                         <RentPopup
                           propertyId={p.id}
-                          rentValue={parseFloat(p.marketRentValue)}
-                          marketValue={parseFloat(p.marketValue)}
                           onClose={() => setExpandedRent(null)}
                         />
                       )}
