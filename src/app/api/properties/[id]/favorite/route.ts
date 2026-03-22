@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { favorites } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
+import { getUsernameFromRequest } from "@/lib/auth";
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
@@ -15,11 +16,16 @@ export async function GET(
     return NextResponse.json({ error: "Invalid property ID" }, { status: 400 });
   }
 
+  const username = getUsernameFromRequest(request);
+  if (!username) {
+    return NextResponse.json({ favorited: false });
+  }
+
   try {
     const [existing] = await db
       .select({ id: favorites.id })
       .from(favorites)
-      .where(eq(favorites.propertyId, propertyId))
+      .where(and(eq(favorites.propertyId, propertyId), eq(favorites.username, username)))
       .limit(1);
 
     if (existing) {
@@ -36,7 +42,7 @@ export async function GET(
 }
 
 export async function POST(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
@@ -46,11 +52,16 @@ export async function POST(
     return NextResponse.json({ error: "Invalid property ID" }, { status: 400 });
   }
 
+  const username = getUsernameFromRequest(request);
+  if (!username) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const [existing] = await db
       .select({ id: favorites.id })
       .from(favorites)
-      .where(eq(favorites.propertyId, propertyId))
+      .where(and(eq(favorites.propertyId, propertyId), eq(favorites.username, username)))
       .limit(1);
 
     if (existing) {
@@ -61,7 +72,7 @@ export async function POST(
       // Not favorited — add it (toggle on)
       const [created] = await db
         .insert(favorites)
-        .values({ propertyId })
+        .values({ propertyId, username })
         .returning();
       return NextResponse.json({ favorited: true, favoriteId: created.id });
     }
