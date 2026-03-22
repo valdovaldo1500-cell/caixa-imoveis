@@ -1514,11 +1514,14 @@ function ImoveisPageInner() {
           </TableCell>
         );
 
-      case "valorMercado":
+      case "valorMercado": {
+        const mvRaw = p.marketValue || p.zapMarketValue;
+        const mvSource = p.marketValue ? "ITBI" : p.zapMarketValue ? "ZAP" : null;
+        const mvCount = p.marketValue ? p.comparablesCount : p.zapComparablesCount;
         return (
           <TableCell key={colId} className="text-right relative">
-            {p.marketValue && p.preco ? (() => {
-              const mv = parseFloat(p.marketValue);
+            {mvRaw && p.preco ? (() => {
+              const mv = parseFloat(mvRaw);
               const preco = parseFloat(p.preco);
               const isGoodDeal = preco < mv;
               return (
@@ -1526,12 +1529,10 @@ function ImoveisPageInner() {
                   onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
                   className={`cursor-pointer hover:underline text-left ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
                 >
-                  {formatBRL(p.marketValue)}
-                  {p.comparablesCount ? (
-                    <span className="text-xs text-zinc-500 ml-1">
-                      ({p.comparablesCount})
-                    </span>
-                  ) : null}
+                  {formatBRL(mvRaw)}
+                  <span className="text-xs text-zinc-600 ml-1">
+                    {mvSource}{mvCount ? ` (${mvCount})` : ""}
+                  </span>
                 </button>
               );
             })() : (
