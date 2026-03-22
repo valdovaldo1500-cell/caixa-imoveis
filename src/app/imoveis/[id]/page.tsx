@@ -405,6 +405,19 @@ export default function PropertyDetailPage() {
     }
   };
 
+  const toggleHidden = async () => {
+    try {
+      const res = await fetch(`/api/properties/${id}/hide`, {
+        method: "POST",
+        credentials: "include",
+      });
+      if (res.ok) {
+        const json = await res.json() as { hidden: boolean };
+        setHidden(json.hidden);
+      }
+    } catch {}
+  };
+
   const saveNote = async () => {
     if (noteSaving) return;
     setNoteSaving(true);
