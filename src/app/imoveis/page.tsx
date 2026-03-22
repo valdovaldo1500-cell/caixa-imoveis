@@ -180,13 +180,13 @@ export default function ImoveisPage() {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center text-zinc-500 py-8">
+                  <TableCell colSpan={10} className="text-center text-zinc-500 py-8">
                     Carregando...
                   </TableCell>
                 </TableRow>
               ) : data.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center text-zinc-500 py-8">
+                  <TableCell colSpan={10} className="text-center text-zinc-500 py-8">
                     Nenhum imóvel encontrado
                   </TableCell>
                 </TableRow>
