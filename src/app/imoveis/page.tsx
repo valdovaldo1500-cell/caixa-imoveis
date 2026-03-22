@@ -68,7 +68,7 @@ const ALL_COLUMNS = [
   { id: "tipo", label: "Tipo", defaultVisible: true },
   { id: "preco", label: "Preço", defaultVisible: true, sortKey: "preco" },
   { id: "precoM2", label: "R$/m²", defaultVisible: true },
-  { id: "avaliacao", label: "Avaliação", defaultVisible: false },
+  { id: "avaliacao", label: "Avaliação", defaultVisible: true },
   { id: "desconto", label: "Desconto", defaultVisible: true, sortKey: "desconto" },
   { id: "descontoMercado", label: "Desc. Mercado", defaultVisible: true },
   { id: "modalidade", label: "Modalidade", defaultVisible: false },
