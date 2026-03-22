@@ -348,27 +348,29 @@ export default function ImoveisPage() {
                         <span className="text-zinc-500">—</span>
                       )}
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-right relative">
                       {p.marketValue && p.preco ? (() => {
                         const mv = parseFloat(p.marketValue);
                         const preco = parseFloat(p.preco);
                         const isGoodDeal = preco < mv;
                         return (
-                          <Link
-                            href={`/imoveis/${p.id}#comparaveis`}
-                            className={`hover:underline ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
-                            title="Ver comparáveis ITBI usados neste cálculo"
+                          <button
+                            onClick={() => setExpandedComparables(expandedComparables === p.id ? null : p.id)}
+                            className={`cursor-pointer hover:underline text-left ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
                           >
                             {formatBRL(p.marketValue)}
                             {p.comparablesCount ? (
                               <span className="text-xs text-zinc-500 ml-1">
-                                ({p.comparablesCount} comp.)
+                                ({p.comparablesCount})
                               </span>
                             ) : null}
-                          </Link>
+                          </button>
                         );
                       })() : (
                         <span className="text-zinc-600">—</span>
+                      )}
+                      {expandedComparables === p.id && (
+                        <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
                       )}
                     </TableCell>
                     <TableCell className="text-right text-zinc-400 text-sm">
