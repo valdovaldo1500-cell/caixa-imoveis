@@ -151,28 +151,50 @@ function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose
   );
 }
 
-function RentPopup({ propertyId, rentValue, marketValue, onClose }: { propertyId: number; rentValue: number; marketValue: number; onClose: () => void }) {
+function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () => void }) {
   const [comps, setComps] = useState<Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string }>>([]);
   const [medianM2, setMedianM2] = useState(0);
+  const [estimatedValue, setEstimatedValue] = useState<number | null>(null);
+  const [estimatedRent, setEstimatedRent] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+  const [months, setMonths] = useState(12);
 
   useEffect(() => {
-    fetch(`/api/properties/${propertyId}/comparables`, { credentials: "include" })
+    setLoading(true);
+    fetch(`/api/properties/${propertyId}/comparables?months=${months}`, { credentials: "include" })
       .then((r) => r.json())
       .then((d) => {
         const tier = d.tier1?.count > 0 ? d.tier1 : d.tier2;
         setComps(tier?.comparables || []);
         setMedianM2(d.methodology?.medianPrecoM2 || 0);
+        setEstimatedValue(d.methodology?.estimatedValue ?? null);
+        setEstimatedRent(d.methodology?.estimatedRent ?? null);
       })
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [propertyId]);
+  }, [propertyId, months]);
+
+  const rentValue = estimatedRent;
+  const marketValue = estimatedValue;
 
   return (
     <div className="absolute right-0 top-full mt-1 z-50 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl p-3 w-[420px] max-h-[400px] overflow-auto text-left">
       <div className="flex justify-between items-center mb-2">
         <span className="text-xs font-semibold text-zinc-300">Como calculamos o aluguel</span>
-        <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
+        <div className="flex items-center gap-2">
+          <label className="text-xs text-zinc-500">Período:</label>
+          <select
+            value={months}
+            onChange={(e) => setMonths(Number(e.target.value))}
+            className="bg-zinc-800 border border-zinc-700 text-xs text-zinc-300 rounded px-1 py-0.5"
+          >
+            <option value={6}>6 meses</option>
+            <option value={12}>12 meses</option>
+            <option value={18}>18 meses</option>
+            <option value={24}>24 meses</option>
+          </select>
+          <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
+        </div>
       </div>
       <div className="text-xs text-zinc-400 space-y-1 mb-3 bg-zinc-800 rounded p-2">
         <p>Valor de mercado: <span className="text-zinc-200 font-medium">{formatBRL(marketValue)}</span></p>
