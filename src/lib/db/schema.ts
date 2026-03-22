@@ -131,16 +131,25 @@ export const itbiTransactions = pgTable(
   ]
 );
 
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  username: varchar("username", { length: 50 }).unique().notNull(),
+  passwordHash: varchar("password_hash", { length: 128 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const favorites = pgTable(
   "favorites",
   {
     id: serial("id").primaryKey(),
     propertyId: integer("property_id").notNull().references(() => properties.id),
+    username: varchar("username", { length: 50 }),
     notes: text("notes"),
     createdAt: timestamp("created_at").defaultNow(),
   },
   (table) => [
     index("idx_favorites_property").on(table.propertyId),
+    index("idx_favorites_username").on(table.username),
   ]
 );
 
@@ -149,10 +158,12 @@ export const hiddenProperties = pgTable(
   {
     id: serial("id").primaryKey(),
     propertyId: integer("property_id").notNull().references(() => properties.id),
+    username: varchar("username", { length: 50 }),
     createdAt: timestamp("created_at").defaultNow(),
   },
   (table) => [
     index("idx_hidden_property").on(table.propertyId),
+    index("idx_hidden_username").on(table.username),
   ]
 );
 
