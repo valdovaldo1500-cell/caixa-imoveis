@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { isNull, sql } from "drizzle-orm";
+import { and, isNull, isNotNull } from "drizzle-orm";
 
 export async function GET() {
   const data = await db
@@ -17,9 +17,7 @@ export async function GET() {
       lng: properties.lng,
     })
     .from(properties)
-    .where(
-      sql`${properties.removedAt} IS NULL AND ${properties.lat} IS NOT NULL`
-    );
+    .where(and(isNull(properties.removedAt), isNotNull(properties.lat)));
 
   return NextResponse.json({ data });
 }
