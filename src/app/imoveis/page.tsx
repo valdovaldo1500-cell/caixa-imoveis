@@ -393,6 +393,63 @@ export default function ImoveisPage() {
         </label>
       </div>
 
+      <div className="flex gap-2 flex-wrap items-center text-xs">
+        <select value={filterCidade} onChange={(e) => setFilterCidade(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300">
+          <option value="">Todas cidades</option>
+          <option value="PORTO ALEGRE">Porto Alegre</option>
+          <option value="PELOTAS">Pelotas</option>
+          <option value="CAXIAS DO SUL">Caxias do Sul</option>
+          <option value="CANOAS">Canoas</option>
+          <option value="SANTA MARIA">Santa Maria</option>
+          <option value="VIAMAO">Viamão</option>
+          <option value="GRAVATAI">Gravataí</option>
+          <option value="NOVO HAMBURGO">Novo Hamburgo</option>
+          <option value="SAO LEOPOLDO">São Leopoldo</option>
+          <option value="PASSO FUNDO">Passo Fundo</option>
+        </select>
+        <select value={filterTipo} onChange={(e) => setFilterTipo(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300">
+          <option value="">Todos tipos</option>
+          <option value="Apartamento">Apartamento</option>
+          <option value="Casa">Casa</option>
+          <option value="Terreno">Terreno</option>
+          <option value="Loja">Loja</option>
+          <option value="Comercial">Comercial</option>
+        </select>
+        <select value={filterModalidade} onChange={(e) => setFilterModalidade(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300">
+          <option value="">Todas modalidades</option>
+          <option value="Venda Direta Online">Venda Direta Online</option>
+          <option value="Licitação Aberta">Licitação Aberta</option>
+          <option value="Venda Online">Venda Online</option>
+          <option value="1º Leilão SFI">1º Leilão SFI</option>
+          <option value="2º Leilão SFI">2º Leilão SFI</option>
+        </select>
+        <select value={filterDescontoMin} onChange={(e) => setFilterDescontoMin(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300">
+          <option value="">Desconto mín.</option>
+          <option value="20">≥ 20%</option>
+          <option value="30">≥ 30%</option>
+          <option value="40">≥ 40%</option>
+          <option value="50">≥ 50%</option>
+          <option value="60">≥ 60%</option>
+          <option value="70">≥ 70%</option>
+        </select>
+        <select value={filterPrecoMax} onChange={(e) => setFilterPrecoMax(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300">
+          <option value="">Preço máx.</option>
+          <option value="50000">até R$ 50k</option>
+          <option value="100000">até R$ 100k</option>
+          <option value="200000">até R$ 200k</option>
+          <option value="500000">até R$ 500k</option>
+          <option value="1000000">até R$ 1M</option>
+        </select>
+        {(filterCidade || filterTipo || filterModalidade || filterDescontoMin || filterPrecoMax) && (
+          <button
+            onClick={() => { setFilterCidade(""); setFilterTipo(""); setFilterModalidade(""); setFilterDescontoMin(""); setFilterPrecoMax(""); }}
+            className="text-zinc-500 hover:text-zinc-300 underline"
+          >
+            Limpar filtros
+          </button>
+        )}
+      </div>
+
       <Card className="bg-zinc-900 border-zinc-800 overflow-auto">
         <CardContent className="p-0">
           <Table>
