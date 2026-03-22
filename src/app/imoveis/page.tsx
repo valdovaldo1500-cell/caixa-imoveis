@@ -347,6 +347,22 @@ export default function ImoveisPage() {
     }
   }, []);
 
+  // Load all notes
+  const loadNotes = useCallback(async () => {
+    try {
+      const res = await fetch("/api/notes", { credentials: "include" });
+      if (!res.ok) return;
+      const json = await res.json() as { notes: Record<string, string> };
+      const map: Record<number, string> = {};
+      for (const [k, v] of Object.entries(json.notes)) {
+        map[parseInt(k, 10)] = v;
+      }
+      setNotes(map);
+    } catch {
+      // silently ignore
+    }
+  }, []);
+
   const toggleHidden = async (propertyId: number) => {
     try {
       const res = await fetch(`/api/properties/${propertyId}/hide`, {
