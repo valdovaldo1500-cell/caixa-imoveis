@@ -174,6 +174,32 @@ export default function MapaPage() {
               ))}
             </select>
           </div>
+
+          <div className="flex items-center gap-1.5">
+            <label className="text-zinc-500">Preço máx.</label>
+            <select
+              value={precoMax}
+              onChange={(e) => setPrecoMax(e.target.value)}
+              className="bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs rounded px-2 py-0.5 focus:outline-none focus:border-zinc-500"
+            >
+              {PRECO_MAX_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <label className="text-zinc-500">Tipo</label>
+            <select
+              value={tipo}
+              onChange={(e) => setTipo(e.target.value)}
+              className="bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs rounded px-2 py-0.5 focus:outline-none focus:border-zinc-500"
+            >
+              {TIPO_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
