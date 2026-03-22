@@ -1,24 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { and, isNull, isNotNull, gte, lte, ilike, SQL } from "drizzle-orm";
+import { and, isNull, isNotNull, gte, lte, ilike, SQL, sql } from "drizzle-orm";
+
+// Porto Alegre center coordinates
+const POA_LAT = -30.0346;
+const POA_LNG = -51.2177;
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
-  const modalidade = searchParams.get("modalidade");
+  const modalidadeParam = searchParams.get("modalidade");
   const descontoMin = searchParams.get("desconto_min");
   const descontoMax = searchParams.get("desconto_max");
   const precoMin = searchParams.get("preco_min");
   const precoMax = searchParams.get("preco_max");
-  const tipo = searchParams.get("tipo");
+  const tipoParam = searchParams.get("tipo");
+  const maxDistance = searchParams.get("max_distance");
+
+  const modalidades = modalidadeParam ? modalidadeParam.split(",").map((s) => s.trim()).filter(Boolean) : [];
+  const tipos = tipoParam ? tipoParam.split(",").map((s) => s.trim()).filter(Boolean) : [];
 
   const conditions: SQL[] = [
     isNull(properties.removedAt),
     isNotNull(properties.lat),
   ];
 
-  if (modalidade) {
-    conditions.push(ilike(properties.modalidadeVenda, modalidade));
+  if (modalidades.length === 1) {
+    conditions.push(ilike(properties.modalidadeVenda, modalidades[0]));
+  } else if (modalidades.length > 1) {
+    conditions.push(sql`(${sql.join(modalidades.map((m) => ilike(properties.modalidadeVenda, m)), sql` OR `)})`);
   }
 
   if (descontoMin) {
@@ -49,10 +59,23 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  if (tipo) {
-    conditions.push(
-      ilike(properties.tipoImovel, `%${tipo}%`)
-    );
+  if (tipos.length === 1) {
+    conditions.push(ilike(properties.tipoImovel, `%${tipos[0]}%`));
+  } else if (tipos.length > 1) {
+    conditions.push(sql`(${sql.join(tipos.map((t) => ilike(properties.tipoImovel, `%${t}%`)), sql` OR `)})`);
+  }
+
+  if (maxDistance) {
+    const dist = parseFloat(maxDistance);
+    if (!isNaN(dist)) {
+      conditions.push(sql`
+        (6371 * acos(
+          cos(radians(${POA_LAT})) * cos(radians(${properties.lat}::float)) *
+          cos(radians(${properties.lng}::float) - radians(${POA_LNG})) +
+          sin(radians(${POA_LAT})) * sin(radians(${properties.lat}::float))
+        )) <= ${dist}
+      `);
+    }
   }
 
   const data = await db
