@@ -545,6 +545,18 @@ export default function ImoveisPage() {
                         <span className="text-zinc-600">—</span>
                       )}
                     </TableCell>
+                    <TableCell className="text-right">
+                      {p.marketRentValue ? (
+                        <span
+                          className="text-zinc-300 cursor-help"
+                          title={`Anual: R$ ${Math.round(parseFloat(p.marketRentValue) * 12).toLocaleString("pt-BR")}`}
+                        >
+                          {formatBRL(p.marketRentValue)}<span className="text-zinc-600 text-xs">/mês</span>
+                        </span>
+                      ) : (
+                        <span className="text-zinc-600">—</span>
+                      )}
+                    </TableCell>
                     <TableCell>
                       {p.linkCaixa ? (
                         <a
