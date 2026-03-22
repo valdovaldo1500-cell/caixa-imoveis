@@ -399,6 +399,29 @@ export default function PropertyDetailPage() {
     }
   };
 
+  const saveNote = async () => {
+    if (noteSaving) return;
+    setNoteSaving(true);
+    try {
+      const res = await fetch(`/api/properties/${id}/notes`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ note: noteDraft }),
+      });
+      if (res.ok) {
+        const json = await res.json() as { note: string | null };
+        const saved = json.note ?? "";
+        setNote(saved);
+        setNoteDraft(saved);
+      }
+    } catch {
+      // silently ignore
+    } finally {
+      setNoteSaving(false);
+    }
+  };
+
   // ── Loading skeleton ───────────────────────────────────────────────────────
   if (loading) {
     return (
