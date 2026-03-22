@@ -187,6 +187,7 @@ export default function ImoveisPage() {
           <Table>
             <TableHeader>
               <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
+                <TableHead className="w-8 text-zinc-400" />
                 <TableHead
                   className="cursor-pointer text-zinc-400"
                   onClick={() => handleSort("cidade")}
