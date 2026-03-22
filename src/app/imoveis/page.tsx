@@ -218,6 +218,11 @@ export default function ImoveisPage() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("desconto");
   const [order, setOrder] = useState<"asc" | "desc">("desc");
+  const [filterCidade, setFilterCidade] = useState("");
+  const [filterTipo, setFilterTipo] = useState("");
+  const [filterModalidade, setFilterModalidade] = useState("");
+  const [filterDescontoMin, setFilterDescontoMin] = useState("");
+  const [filterPrecoMax, setFilterPrecoMax] = useState("");
   // Map of propertyId -> favoriteId (present means favorited)
   const [favorited, setFavorited] = useState<Record<number, number>>({});
   const [expandedComparables, setExpandedComparables] = useState<number | null>(null);
