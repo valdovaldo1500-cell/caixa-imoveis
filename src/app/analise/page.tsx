@@ -77,27 +77,13 @@ export default function AnalisePage() {
   }, []);
 
   return (
-    <div className="min-h-screen p-6 space-y-6">
-      <header className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Análise</h1>
-          <p className="text-sm text-zinc-400">Distribuições e estatísticas dos imóveis</p>
-        </div>
-        <nav className="flex gap-3">
-          <Link
-            href="/"
-            className="px-3 py-2 rounded bg-zinc-800 hover:bg-zinc-700 text-sm"
-          >
-            Dashboard
-          </Link>
-          <Link
-            href="/imoveis"
-            className="px-3 py-2 rounded bg-zinc-800 hover:bg-zinc-700 text-sm"
-          >
-            Tabela
-          </Link>
-        </nav>
-      </header>
+    <div className="min-h-screen flex flex-col">
+      <NavHeader />
+      <div className="p-6 space-y-6">
+      <div>
+        <h1 className="text-xl font-bold">Análise</h1>
+        <p className="text-sm text-zinc-400">Distribuições e estatísticas dos imóveis</p>
+      </div>
 
       {loading && (
         <div className="grid md:grid-cols-2 gap-6">
