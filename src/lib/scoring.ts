@@ -57,6 +57,17 @@ interface CityStats {
   avgPricePerM2: number;
 }
 
+function scoreCrimeSafety(crimeRate: string | null): number {
+  if (!crimeRate) return 50; // neutral when no data
+  const rate = parseFloat(crimeRate);
+  if (rate < 500) return 100;
+  if (rate < 1000) return 80;
+  if (rate < 2000) return 60;
+  if (rate < 5000) return 40;
+  if (rate < 10000) return 20;
+  return 0;
+}
+
 export function computeScoreBreakdown(
   property: {
     desconto: string | null;
@@ -67,6 +78,7 @@ export function computeScoreBreakdown(
     firstSeenAt: Date;
     areaTotalM2: string | null;
     areaPrivativaM2: string | null;
+    crimeRate: string | null;
   },
   cityStats: CityStats
 ): ScoreBreakdown {
