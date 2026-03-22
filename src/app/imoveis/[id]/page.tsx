@@ -194,6 +194,9 @@ export default function PropertyDetailPage() {
   const [showComparables, setShowComparables] = useState(false);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [favorited, setFavorited] = useState(false);
+  const [favoriteId, setFavoriteId] = useState<number | null>(null);
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
 
   const fetchProperty = useCallback(async () => {
     if (!id) return;
