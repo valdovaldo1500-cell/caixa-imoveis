@@ -503,47 +503,88 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi" }: { propertyId
       </div>
       {loading ? (
         <p className="text-xs text-zinc-500">Carregando...</p>
-      ) : !data || comps.length === 0 ? (
-        <p className="text-xs text-zinc-500">Nenhum comparável encontrado</p>
-      ) : (
-        <>
-          <p className="text-xs text-zinc-500 mb-2">
-            Mediana R$/m²: <span className="text-zinc-300 font-medium">R$ {Math.round(data.methodology.medianPrecoM2).toLocaleString("pt-BR")}</span>
-            {" · "}{comps.length} transações
-          </p>
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="text-zinc-500 border-b border-zinc-800">
-                <th className="text-left py-1 pr-2">Endereço</th>
-                <th className="text-right py-1 pr-2">Valor</th>
-                <th className="text-right py-1 pr-2">Área</th>
-                <th className="text-right py-1">R$/m²</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comps.slice(0, 10).map((c, i) => (
-                <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
-                  <td className="py-1 pr-2 text-zinc-300 max-w-[180px] truncate" title={`${c.logradouro}, ${c.nEndereco} — ${c.bairro} (${c.dataEstimativa?.slice(0, 10)})`}>
-                    {c.logradouro}, {c.nEndereco}
-                    <span className="text-zinc-600 ml-1">{c.dataEstimativa?.slice(0, 10)}</span>
-                  </td>
-                  <td className="py-1 pr-2 text-right text-zinc-300">{formatBRL(c.baseCalculo)}</td>
-                  <td className="py-1 pr-2 text-right text-zinc-400">{c.areaConstrPrivativa}m²</td>
-                  <td className="py-1 text-right text-zinc-300 font-medium">
-                    R$ {Math.round(c.precoM2).toLocaleString("pt-BR")}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {comps.length > 10 && (
-            <p className="text-xs text-zinc-500 mt-1">
-              <a href={`/imoveis/${propertyId}#comparaveis`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                Ver todas as {comps.length} transações →
-              </a>
+      ) : showZap ? (
+        /* ZAP listings */
+        zapComps.length === 0 ? (
+          <p className="text-xs text-zinc-500">Nenhum anúncio ZAP encontrado</p>
+        ) : (
+          <>
+            <p className="text-xs text-zinc-500 mb-2">
+              Mediana R$/m²: <span className="text-zinc-300 font-medium">R$ {Math.round(data?.zapListings?.medianPrecoM2 || 0).toLocaleString("pt-BR")}</span>
+              {" · "}{zapComps.length} anúncios
             </p>
-          )}
-        </>
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="text-zinc-500 border-b border-zinc-800">
+                  <th className="text-left py-1 pr-2">Bairro</th>
+                  <th className="text-left py-1 pr-2">Tipo</th>
+                  <th className="text-right py-1 pr-2">Preço</th>
+                  <th className="text-right py-1 pr-2">Área</th>
+                  <th className="text-right py-1 pr-2">R$/m²</th>
+                  <th className="text-right py-1 pr-2">Qtos</th>
+                  <th className="text-right py-1">Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                {zapComps.slice(0, 10).map((c, i) => (
+                  <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
+                    <td className="py-1 pr-2 text-zinc-300 max-w-[100px] truncate">{c.bairro || "—"}</td>
+                    <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate">{c.unitType || "—"}</td>
+                    <td className="py-1 pr-2 text-right text-zinc-300">{formatBRL(c.price)}</td>
+                    <td className="py-1 pr-2 text-right text-zinc-400">{c.area > 0 ? `${Math.round(c.area)}m²` : "—"}</td>
+                    <td className="py-1 pr-2 text-right text-zinc-300 font-medium">R$ {Math.round(c.pricePerM2).toLocaleString("pt-BR")}</td>
+                    <td className="py-1 pr-2 text-right text-zinc-400">{c.bedrooms ?? "—"}</td>
+                    <td className="py-1 text-right">
+                      {c.listingUrl ? <a href={c.listingUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">ver</a> : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )
+      ) : (
+        /* ITBI transactions */
+        itbiComps.length === 0 ? (
+          <p className="text-xs text-zinc-500">Nenhum comparável ITBI encontrado</p>
+        ) : (
+          <>
+            <p className="text-xs text-zinc-500 mb-2">
+              Mediana R$/m²: <span className="text-zinc-300 font-medium">R$ {Math.round(data?.methodology?.medianPrecoM2 || 0).toLocaleString("pt-BR")}</span>
+              {" · "}{itbiComps.length} transações
+            </p>
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="text-zinc-500 border-b border-zinc-800">
+                  <th className="text-left py-1 pr-2">Endereço</th>
+                  <th className="text-right py-1 pr-2">Valor</th>
+                  <th className="text-right py-1 pr-2">Área</th>
+                  <th className="text-right py-1">R$/m²</th>
+                </tr>
+              </thead>
+              <tbody>
+                {itbiComps.slice(0, 10).map((c, i) => (
+                  <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
+                    <td className="py-1 pr-2 text-zinc-300 max-w-[180px] truncate" title={`${c.logradouro}, ${c.nEndereco} — ${c.bairro} (${c.dataEstimativa?.slice(0, 10)})`}>
+                      {c.logradouro}, {c.nEndereco}
+                      <span className="text-zinc-600 ml-1">{c.dataEstimativa?.slice(0, 10)}</span>
+                    </td>
+                    <td className="py-1 pr-2 text-right text-zinc-300">{formatBRL(c.baseCalculo)}</td>
+                    <td className="py-1 pr-2 text-right text-zinc-400">{c.areaConstrPrivativa}m²</td>
+                    <td className="py-1 text-right text-zinc-300 font-medium">R$ {Math.round(c.precoM2).toLocaleString("pt-BR")}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {itbiComps.length > 10 && (
+              <p className="text-xs text-zinc-500 mt-1">
+                <a href={`/imoveis/${propertyId}#comparaveis`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                  Ver todas as {itbiComps.length} transações →
+                </a>
+              </p>
+            )}
+          </>
+        )
       )}
     </div>
   );
