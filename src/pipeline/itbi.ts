@@ -536,17 +536,19 @@ export async function getPropertyComparables(propertyId: number, months: number 
       ? parseFloat(prop.areaTotalM2)
       : null;
 
-  const cutoff18m = new Date();
-  cutoff18m.setMonth(cutoff18m.getMonth() - 18);
-  const cutoff12m = new Date();
-  cutoff12m.setMonth(cutoff12m.getMonth() - 12);
+  const tier1Months = months;
+  const tier2Months = Math.round(months * 1.5);
+  const cutoffTier2 = new Date();
+  cutoffTier2.setMonth(cutoffTier2.getMonth() - tier2Months);
+  const cutoffTier1 = new Date();
+  cutoffTier1.setMonth(cutoffTier1.getMonth() - tier1Months);
 
   const allTx = await db
     .select()
     .from(itbiTransactions)
     .where(
       and(
-        gte(itbiTransactions.dataEstimativa, cutoff18m),
+        gte(itbiTransactions.dataEstimativa, cutoffTier2),
         sql`${itbiTransactions.baseCalculo}::numeric > 10000`,
         sql`${itbiTransactions.areaConstrPrivativa}::numeric > 0`,
         sql`upper(${itbiTransactions.bairro}) = ${bairroKey}`
