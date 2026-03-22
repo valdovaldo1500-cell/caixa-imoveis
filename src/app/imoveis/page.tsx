@@ -746,8 +746,18 @@ function ImoveisPageInner() {
   const [filtersLoaded, setFiltersLoaded] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [visibleColumns, setVisibleColumns] = useState<string[]>(DEFAULT_VISIBLE);
+  const [columnWidths, setColumnWidths] = useState<Record<string, number>>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("caixa-imoveis-col-widths");
+        if (saved) return JSON.parse(saved);
+      } catch {}
+    }
+    return {};
+  });
   const [showColumnSettings, setShowColumnSettings] = useState(false);
   const columnSettingsRef = useRef<HTMLDivElement>(null);
+  const resizingRef = useRef<{ colId: string; startX: number; startW: number } | null>(null);
   const [savedPresets, setSavedPresets] = useState<SavedFilterPreset[]>([]);
   const [showSavePopup, setShowSavePopup] = useState(false);
   const savePopupRef = useRef<HTMLDivElement>(null);
