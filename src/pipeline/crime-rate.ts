@@ -31,7 +31,7 @@ export async function updateCrimeRates(): Promise<{
   for (const m of municipios) {
     if (m.population > 0) {
       const rate = (m.weight / m.population) * 100000;
-      rateMap.set(m.name.toUpperCase(), rate);
+      rateMap.set(m.municipio.toUpperCase(), rate);
     }
   }
 
