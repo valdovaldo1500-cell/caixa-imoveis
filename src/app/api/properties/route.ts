@@ -44,15 +44,35 @@ export async function GET(request: NextRequest) {
   if (descontoMin) {
     conditions.push(gte(properties.desconto, descontoMin));
   }
+  // Full-text search using tsvector when q is provided
+  let tsQuery: ReturnType<typeof sql> | null = null;
   if (search) {
-    conditions.push(
-      sql`(${ilike(properties.cidade, `%${search}%`)} OR ${ilike(properties.bairro, `%${search}%`)} OR ${ilike(properties.endereco, `%${search}%`)})`
-    );
+    const words = search.trim().split(/\s+/).filter(Boolean);
+    if (words.length > 1) {
+      // Multiple words: use FTS with AND logic, fallback to ilike for safety
+      const queryStr = words.join(" & ");
+      tsQuery = sql`plainto_tsquery('portuguese', ${search})`;
+      conditions.push(sql`(
+        ${properties.searchVector} @@ plainto_tsquery('portuguese', ${search})
+        OR ${ilike(properties.cidade, `%${search}%`)}
+        OR ${ilike(properties.bairro, `%${search}%`)}
+      )`);
+    } else {
+      // Single word: prefix search via FTS + ilike fallback
+      const prefixQuery = `${words[0]}:*`;
+      tsQuery = sql`to_tsquery('portuguese', ${prefixQuery})`;
+      conditions.push(sql`(
+        ${properties.searchVector} @@ to_tsquery('portuguese', ${prefixQuery})
+        OR ${ilike(properties.cidade, `%${search}%`)}
+        OR ${ilike(properties.bairro, `%${search}%`)}
+        OR ${ilike(properties.endereco, `%${search}%`)}
+      )`);
+    }
   }
 
   const where = conditions.length > 0 ? and(...conditions) : undefined;
 
-  // Determine sort column
+  // Determine sort column — when searching, rank by relevance first
   const sortMap: Record<string, ReturnType<typeof sql>> = {
     desconto: sql`${properties.desconto}`,
     preco: sql`${properties.preco}`,
@@ -62,10 +82,17 @@ export async function GET(request: NextRequest) {
     market_value: sql`${properties.marketValue}`,
   };
   const sortCol = sortMap[sort] || sortMap.desconto;
-  const orderSql =
-    order === "asc"
-      ? sql`${sortCol} ASC NULLS LAST`
-      : sql`${sortCol} DESC NULLS LAST`;
+
+  let orderSql: ReturnType<typeof sql>;
+  if (tsQuery && sort === "desconto") {
+    // When searching without explicit sort override, order by relevance then desconto
+    orderSql = sql`ts_rank(${properties.searchVector}, ${tsQuery}) DESC NULLS LAST, ${properties.desconto} DESC NULLS LAST`;
+  } else {
+    orderSql =
+      order === "asc"
+        ? sql`${sortCol} ASC NULLS LAST`
+        : sql`${sortCol} DESC NULLS LAST`;
+  }
 
   const [data, countResult] = await Promise.all([
     db
