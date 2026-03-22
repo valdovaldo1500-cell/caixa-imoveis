@@ -56,6 +56,81 @@ function formatBRL(value: string | number | null) {
   }).format(Number(value));
 }
 
+function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose: () => void }) {
+  const [data, setData] = useState<{
+    property: { bairro: string; tipoImovel: string; areaPrivativaM2: string };
+    tier1: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string; finalidadeConstrucao: string }>; medianPrecoM2: number; count: number };
+    tier2: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string; finalidadeConstrucao: string }>; medianPrecoM2: number; count: number };
+    methodology: { estimatedValue: number; medianPrecoM2: number; usedTier: number };
+  } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`/api/properties/${propertyId}/comparables`, { credentials: "include" })
+      .then((r) => r.json())
+      .then((d) => setData(d))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [propertyId]);
+
+  const comps = data ? (data.tier1.count > 0 ? data.tier1.comparables : data.tier2.comparables) : [];
+
+  return (
+    <div className="absolute right-0 top-full mt-1 z-50 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl p-3 w-[420px] max-h-[400px] overflow-auto text-left">
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-xs font-semibold text-zinc-300">
+          Transações ITBI usadas no cálculo
+        </span>
+        <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
+      </div>
+      {loading ? (
+        <p className="text-xs text-zinc-500">Carregando...</p>
+      ) : !data || comps.length === 0 ? (
+        <p className="text-xs text-zinc-500">Nenhum comparável encontrado</p>
+      ) : (
+        <>
+          <p className="text-xs text-zinc-500 mb-2">
+            Mediana R$/m²: <span className="text-zinc-300 font-medium">R$ {Math.round(data.methodology.medianPrecoM2).toLocaleString("pt-BR")}</span>
+            {" · "}{comps.length} transações
+          </p>
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-zinc-500 border-b border-zinc-800">
+                <th className="text-left py-1 pr-2">Endereço</th>
+                <th className="text-right py-1 pr-2">Valor</th>
+                <th className="text-right py-1 pr-2">Área</th>
+                <th className="text-right py-1">R$/m²</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comps.slice(0, 10).map((c, i) => (
+                <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
+                  <td className="py-1 pr-2 text-zinc-300 max-w-[180px] truncate" title={`${c.logradouro}, ${c.nEndereco} — ${c.bairro} (${c.dataEstimativa?.slice(0, 10)})`}>
+                    {c.logradouro}, {c.nEndereco}
+                    <span className="text-zinc-600 ml-1">{c.dataEstimativa?.slice(0, 10)}</span>
+                  </td>
+                  <td className="py-1 pr-2 text-right text-zinc-300">{formatBRL(c.baseCalculo)}</td>
+                  <td className="py-1 pr-2 text-right text-zinc-400">{c.areaConstrPrivativa}m²</td>
+                  <td className="py-1 text-right text-zinc-300 font-medium">
+                    R$ {Math.round(c.precoM2).toLocaleString("pt-BR")}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {comps.length > 10 && (
+            <p className="text-xs text-zinc-500 mt-1">
+              <Link href={`/imoveis/${propertyId}#comparaveis`} className="text-blue-400 hover:underline">
+                Ver todas as {comps.length} transações →
+              </Link>
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function ImoveisPage() {
   const [data, setData] = useState<Property[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
