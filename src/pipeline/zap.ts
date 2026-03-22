@@ -220,14 +220,31 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
       : [];
 
     let saleComparables = filterListings(bairroSaleListings);
-    // Fall back to city-wide if fewer than 3 bairro comparables
+    // Fall back to city-wide with type filter
     if (saleComparables.length < 3) {
       saleComparables = filterListings(citySaleListings);
+    }
+    // Last resort: city-wide without type filter (just area if available)
+    if (saleComparables.length < 3) {
+      saleComparables = citySaleListings.filter((row) => {
+        if (propArea && row.area) {
+          const rowArea = parseFloat(row.area);
+          if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.5) return false;
+        }
+        return true;
+      });
+    }
+    // Absolute fallback: all city listings (median R$/m² for the whole city)
+    if (saleComparables.length < 3) {
+      saleComparables = citySaleListings;
     }
 
     let rentalComparables = filterListings(bairroRentalListings);
     if (rentalComparables.length < 3) {
       rentalComparables = filterListings(cityRentalListings);
+    }
+    if (rentalComparables.length < 3) {
+      rentalComparables = cityRentalListings;
     }
 
     // Calculate median R$/m² from sale comparables
