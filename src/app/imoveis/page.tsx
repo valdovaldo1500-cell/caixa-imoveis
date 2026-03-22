@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import NavHeader from "@/components/NavHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, Eye, EyeOff, MessageSquare } from "lucide-react";
+import { Star, Eye, EyeOff, MessageSquare, Building2, Bell, BellOff } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -43,6 +43,7 @@ interface Property {
   zapMarketValuePerM2: string | null;
   zapRentValue: string | null;
   zapComparablesCount: number | null;
+  fotoUrl: string | null;
 }
 
 interface Pagination {
@@ -52,6 +53,9 @@ interface Pagination {
   pages: number;
 }
 
+const FILTERS_KEY = "caixa-imoveis-filters";
+const NOTIFICATIONS_KEY = "caixa-imoveis-notifications";
+
 function formatBRL(value: string | number | null) {
   if (value === null) return "—";
   return new Intl.NumberFormat("pt-BR", {
@@ -59,6 +63,17 @@ function formatBRL(value: string | number | null) {
     currency: "BRL",
     maximumFractionDigits: 0,
   }).format(Number(value));
+}
+
+function useClickOutside(ref: React.RefObject<HTMLElement | null>, handler: () => void) {
+  useEffect(() => {
+    const listener = (e: MouseEvent) => {
+      if (!ref.current || ref.current.contains(e.target as Node)) return;
+      handler();
+    };
+    document.addEventListener("mousedown", listener);
+    return () => document.removeEventListener("mousedown", listener);
+  }, [ref, handler]);
 }
 
 function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose: () => void }) {
@@ -70,6 +85,8 @@ function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose
   } | null>(null);
   const [loading, setLoading] = useState(true);
   const [months, setMonths] = useState(12);
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, onClose);
 
   useEffect(() => {
     setLoading(true);
@@ -83,7 +100,7 @@ function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose
   const comps = data ? (data.tier1.count > 0 ? data.tier1.comparables : data.tier2.comparables) : [];
 
   return (
-    <div className="absolute right-0 top-full mt-1 z-50 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl p-3 w-[420px] max-h-[400px] overflow-auto text-left">
+    <div ref={ref} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-lg shadow-xl p-3 w-[420px] max-h-[400px] overflow-auto text-left">
       <div className="flex justify-between items-center mb-2">
         <span className="text-xs font-semibold text-zinc-300">
           Transações ITBI usadas no cálculo
@@ -158,6 +175,8 @@ function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () =>
   const [estimatedRent, setEstimatedRent] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [months, setMonths] = useState(12);
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, onClose);
 
   useEffect(() => {
     setLoading(true);
@@ -178,7 +197,7 @@ function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () =>
   const marketValue = estimatedValue;
 
   return (
-    <div className="absolute right-0 top-full mt-1 z-50 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl p-3 w-[420px] max-h-[400px] overflow-auto text-left">
+    <div ref={ref} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-lg shadow-xl p-3 w-[420px] max-h-[400px] overflow-auto text-left">
       <div className="flex justify-between items-center mb-2">
         <span className="text-xs font-semibold text-zinc-300">Como calculamos o aluguel</span>
         <div className="flex items-center gap-2">
@@ -259,6 +278,8 @@ function NotePopup({
 }) {
   const [text, setText] = useState(initialNote);
   const [saving, setSaving] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, onClose);
 
   const save = async () => {
     setSaving(true);
@@ -282,7 +303,7 @@ function NotePopup({
   };
 
   return (
-    <div className="absolute left-0 top-full mt-1 z-50 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl p-3 w-72 text-left">
+    <div ref={ref} className="absolute left-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-lg shadow-xl p-3 w-72 text-left">
       <div className="flex justify-between items-center mb-2">
         <span className="text-xs font-semibold text-zinc-300">Nota</span>
         <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
@@ -340,6 +361,68 @@ export default function ImoveisPage() {
   const [showHidden, setShowHidden] = useState(true);
   const [notes, setNotes] = useState<Record<number, string>>({});
   const [expandedNote, setExpandedNote] = useState<number | null>(null);
+  const [filtersLoaded, setFiltersLoaded] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+
+  // Score popup click-outside ref
+  const scorePopupRef = useRef<HTMLDivElement>(null);
+  useClickOutside(scorePopupRef, () => setExpandedScore(null));
+
+  // Load saved filters from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(FILTERS_KEY);
+      if (saved) {
+        const filters = JSON.parse(saved) as {
+          cidade?: string;
+          tipo?: string;
+          modalidade?: string;
+          descontoMin?: string;
+          precoMax?: string;
+          showHidden?: boolean;
+        };
+        if (filters.cidade !== undefined) setFilterCidade(filters.cidade);
+        if (filters.tipo !== undefined) setFilterTipo(filters.tipo);
+        if (filters.modalidade !== undefined) setFilterModalidade(filters.modalidade);
+        if (filters.descontoMin !== undefined) setFilterDescontoMin(filters.descontoMin);
+        if (filters.precoMax !== undefined) setFilterPrecoMax(filters.precoMax);
+        if (filters.showHidden !== undefined) setShowHidden(filters.showHidden);
+      }
+      const notif = localStorage.getItem(NOTIFICATIONS_KEY);
+      if (notif !== null) setNotificationsEnabled(JSON.parse(notif) as boolean);
+    } catch {
+      // ignore
+    }
+    setFiltersLoaded(true);
+  }, []);
+
+  const saveFilters = () => {
+    try {
+      localStorage.setItem(
+        FILTERS_KEY,
+        JSON.stringify({
+          cidade: filterCidade,
+          tipo: filterTipo,
+          modalidade: filterModalidade,
+          descontoMin: filterDescontoMin,
+          precoMax: filterPrecoMax,
+          showHidden,
+        })
+      );
+    } catch {
+      // ignore
+    }
+  };
+
+  const toggleNotifications = () => {
+    const next = !notificationsEnabled;
+    setNotificationsEnabled(next);
+    try {
+      localStorage.setItem(NOTIFICATIONS_KEY, JSON.stringify(next));
+    } catch {
+      // ignore
+    }
+  };
 
   const fetchData = useCallback(
     async (page = 1) => {
@@ -462,8 +545,8 @@ export default function ImoveisPage() {
   };
 
   useEffect(() => {
-    fetchData(1);
-  }, [fetchData]);
+    if (filtersLoaded) fetchData(1);
+  }, [fetchData, filtersLoaded]);
 
   useEffect(() => {
     loadFavorites();
@@ -579,6 +662,25 @@ export default function ImoveisPage() {
             Limpar filtros
           </button>
         )}
+        <button
+          onClick={saveFilters}
+          className="text-zinc-400 hover:text-zinc-200 border border-zinc-700 rounded px-2 py-1 bg-zinc-800 hover:bg-zinc-700 transition-colors"
+          title="Salvar filtros atuais no navegador"
+        >
+          Salvar filtros
+        </button>
+        <button
+          onClick={toggleNotifications}
+          className={`flex items-center gap-1 border rounded px-2 py-1 transition-colors ${
+            notificationsEnabled
+              ? "text-yellow-400 border-yellow-700 bg-yellow-950 hover:bg-yellow-900"
+              : "text-zinc-400 border-zinc-700 bg-zinc-800 hover:bg-zinc-700"
+          }`}
+          title={notificationsEnabled ? "Notificações ativadas" : "Ativar notificações por email"}
+        >
+          {notificationsEnabled ? <Bell className="w-3 h-3" /> : <BellOff className="w-3 h-3" />}
+          <span>Notificações</span>
+        </button>
       </div>
 
       <Card className="bg-zinc-900 border-zinc-800 overflow-auto">
@@ -586,6 +688,7 @@ export default function ImoveisPage() {
           <Table>
             <TableHeader>
               <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
+                <TableHead className="w-10 text-zinc-400" />
                 <TableHead className="w-16 text-zinc-400" />
                 <TableHead
                   className="cursor-pointer text-zinc-400"
@@ -637,13 +740,13 @@ export default function ImoveisPage() {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={17} className="text-center text-zinc-500 py-8">
+                  <TableCell colSpan={18} className="text-center text-zinc-500 py-8">
                     Carregando...
                   </TableCell>
                 </TableRow>
               ) : data.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={17} className="text-center text-zinc-500 py-8">
+                  <TableCell colSpan={18} className="text-center text-zinc-500 py-8">
                     Nenhum imóvel encontrado
                   </TableCell>
                 </TableRow>
@@ -657,6 +760,20 @@ export default function ImoveisPage() {
                     key={p.id}
                     className={`border-zinc-800 hover:bg-zinc-800/50 transition-opacity ${isHidden ? "opacity-40" : ""}`}
                   >
+                    {/* Thumbnail column */}
+                    <TableCell className="w-10 px-1">
+                      {p.fotoUrl ? (
+                        <img
+                          src={p.fotoUrl}
+                          alt="Foto do imóvel"
+                          className="w-10 h-10 rounded object-cover"
+                        />
+                      ) : (
+                        <div className="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center">
+                          <Building2 className="w-5 h-5 text-zinc-600" />
+                        </div>
+                      )}
+                    </TableCell>
                     <TableCell className="w-20 px-2">
                       <div className="flex items-center gap-1">
                       <button
@@ -794,7 +911,7 @@ export default function ImoveisPage() {
                             {parseFloat(p.score).toFixed(0)}
                           </button>
                           {expandedScore === p.id && p.scoreDetails && (
-                            <div className="absolute right-0 top-full mt-1 z-50 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl p-3 w-[280px] text-left">
+                            <div ref={scorePopupRef} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-lg shadow-xl p-3 w-[280px] text-left">
                               <div className="flex justify-between items-center mb-2">
                                 <span className="text-xs font-semibold text-zinc-300">Score: {parseFloat(p.score).toFixed(1)}</span>
                                 <button onClick={() => setExpandedScore(null)} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
