@@ -97,7 +97,7 @@ export default function MapaPage() {
       .finally(() => {
         setLoading(false);
       });
-  }, [modalidade, descontoMin]);
+  }, [modalidade, descontoMin, precoMax, tipo]);
 
   useEffect(() => {
     fetchData();
