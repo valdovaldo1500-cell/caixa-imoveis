@@ -703,14 +703,21 @@ export default function ImoveisPage() {
                       )}
                     </TableCell>
                     <TableCell className="text-right relative">
-                      {p.marketRentValue ? (
-                        <button
-                          onClick={() => setExpandedRent(expandedRent === p.id ? null : p.id)}
-                          className="text-zinc-300 cursor-pointer hover:underline text-left"
-                        >
-                          {formatBRL(p.marketRentValue)}<span className="text-zinc-600 text-xs">/mês</span>
-                        </button>
-                      ) : (
+                      {(p.marketRentValue || p.zapRentValue) ? (() => {
+                        const rentVal = p.marketRentValue || p.zapRentValue!;
+                        const isZapRent = !p.marketRentValue && !!p.zapRentValue;
+                        return (
+                          <button
+                            onClick={() => setExpandedRent(expandedRent === p.id ? null : p.id)}
+                            className="text-zinc-300 cursor-pointer hover:underline text-left"
+                            title={isZapRent ? "Estimativa baseada em anúncios ZAP" : undefined}
+                          >
+                            {formatBRL(rentVal)}
+                            <span className="text-zinc-600 text-xs">/mês</span>
+                            {isZapRent && <span className="text-zinc-500 text-xs ml-1">ZAP</span>}
+                          </button>
+                        );
+                      })() : (
                         <span className="text-zinc-600">—</span>
                       )}
                       {expandedRent === p.id && p.marketRentValue && p.marketValue && (
