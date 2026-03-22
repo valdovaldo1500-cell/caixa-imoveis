@@ -1,0 +1,393 @@
+import { readFileSync } from "fs";
+import { db } from "@/lib/db";
+import { zapListings, properties } from "@/lib/db/schema";
+import { eq, and, ilike, sql, isNull } from "drizzle-orm";
+
+interface ZapListing {
+  zapId: string;
+  business: string;
+  cidade: string;
+  bairro: string;
+  unitType: string;
+  price: number;
+  area: number;
+  pricePerM2: number;
+  bedrooms: number;
+  parkingSpaces: number;
+  listingUrl: string;
+  condoFee: number;
+}
+
+function median(values: number[]): number | null {
+  if (values.length === 0) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0
+    ? (sorted[mid - 1] + sorted[mid]) / 2
+    : sorted[mid];
+}
+
+// Normalize city name for comparison: strip accents and uppercase
+function normalizeCidade(name: string): string {
+  return name
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
+export async function importZapData(
+  jsonPath: string
+): Promise<{ imported: number; skipped: number; errors: string[] }> {
+  let raw: string;
+  try {
+    raw = readFileSync(jsonPath, "utf-8");
+  } catch (err) {
+    throw new Error(
+      `Cannot read ZAP data file at ${jsonPath}: ${err instanceof Error ? err.message : String(err)}`
+    );
+  }
+
+  let listings: ZapListing[];
+  try {
+    listings = JSON.parse(raw);
+  } catch (err) {
+    throw new Error(`Invalid JSON in ${jsonPath}: ${err instanceof Error ? err.message : String(err)}`);
+  }
+
+  if (!Array.isArray(listings)) {
+    throw new Error("ZAP data file must contain a JSON array");
+  }
+
+  let imported = 0;
+  let skipped = 0;
+  const errors: string[] = [];
+
+  for (const listing of listings) {
+    try {
+      // Check if already exists by zapId + business
+      if (listing.zapId) {
+        const existing = await db
+          .select({ id: zapListings.id })
+          .from(zapListings)
+          .where(
+            and(
+              eq(zapListings.zapId, listing.zapId),
+              eq(zapListings.business, listing.business)
+            )
+          )
+          .limit(1);
+
+        if (existing.length > 0) {
+          skipped++;
+          continue;
+        }
+      }
+
+      await db.insert(zapListings).values({
+        zapId: listing.zapId || null,
+        business: listing.business,
+        cidade: listing.cidade,
+        bairro: listing.bairro || null,
+        unitType: listing.unitType || null,
+        price: listing.price.toFixed(2),
+        area: listing.area.toFixed(2),
+        pricePerM2: listing.pricePerM2.toFixed(2),
+        bedrooms: listing.bedrooms || null,
+        parkingSpaces: listing.parkingSpaces || null,
+        listingUrl: listing.listingUrl || null,
+        condoFee: listing.condoFee > 0 ? listing.condoFee.toFixed(2) : null,
+      });
+
+      imported++;
+    } catch (err) {
+      errors.push(
+        `Insert error for zapId=${listing.zapId}: ${err instanceof Error ? err.message : String(err)}`
+      );
+    }
+  }
+
+  return { imported, skipped, errors };
+}
+
+// Map Caixa property types to ZAP unit types
+const CAIXA_TO_ZAP_TYPES: Record<string, string[]> = {
+  apartamento: ["APARTMENT", "PENTHOUSE", "STUDIO", "FLAT"],
+  casa: ["HOME", "RESIDENTIAL"],
+  terreno: ["LAND"],
+  lote: ["LAND"],
+  comercial: ["COMMERCIAL", "OFFICE", "STORE"],
+  loja: ["STORE", "COMMERCIAL"],
+};
+
+function getZapUnitTypes(tipoImovel: string | null, descricao: string | null): string[] | null {
+  const src = (tipoImovel || descricao || "").toLowerCase();
+  for (const [key, types] of Object.entries(CAIXA_TO_ZAP_TYPES)) {
+    if (src.includes(key)) return types;
+  }
+  return null; // null means no type filter (use all)
+}
+
+export async function calculateZapMarketValues(): Promise<{ updated: number }> {
+  // Fetch all active properties
+  const allProperties = await db
+    .select({
+      id: properties.id,
+      cidade: properties.cidade,
+      bairro: properties.bairro,
+      tipoImovel: properties.tipoImovel,
+      descricao: properties.descricao,
+      areaPrivativaM2: properties.areaPrivativaM2,
+      areaTotalM2: properties.areaTotalM2,
+    })
+    .from(properties)
+    .where(isNull(properties.removedAt));
+
+  if (allProperties.length === 0) {
+    return { updated: 0 };
+  }
+
+  // Load all ZAP SALE listings in memory, grouped by normalized cidade
+  const allSaleListings = await db
+    .select()
+    .from(zapListings)
+    .where(eq(zapListings.business, "SALE"));
+
+  const allRentalListings = await db
+    .select()
+    .from(zapListings)
+    .where(eq(zapListings.business, "RENTAL"));
+
+  // Group by normalized cidade for fast lookup
+  type ZapRow = (typeof allSaleListings)[0];
+  const saleByCity = new Map<string, ZapRow[]>();
+  for (const row of allSaleListings) {
+    const key = normalizeCidade(row.cidade || "");
+    if (!saleByCity.has(key)) saleByCity.set(key, []);
+    saleByCity.get(key)!.push(row);
+  }
+
+  const rentalByCity = new Map<string, ZapRow[]>();
+  for (const row of allRentalListings) {
+    const key = normalizeCidade(row.cidade || "");
+    if (!rentalByCity.has(key)) rentalByCity.set(key, []);
+    rentalByCity.get(key)!.push(row);
+  }
+
+  let updated = 0;
+  const now = new Date();
+
+  for (const prop of allProperties) {
+    const cityKey = normalizeCidade(prop.cidade);
+    const propArea =
+      prop.areaPrivativaM2 && parseFloat(prop.areaPrivativaM2) > 0
+        ? parseFloat(prop.areaPrivativaM2)
+        : prop.areaTotalM2 && parseFloat(prop.areaTotalM2) > 0
+          ? parseFloat(prop.areaTotalM2)
+          : null;
+
+    const zapTypes = getZapUnitTypes(prop.tipoImovel, prop.descricao);
+    const bairroKey = (prop.bairro || "").toUpperCase().trim();
+
+    // Helper to filter ZAP listings for this property
+    function filterListings(listings: ZapRow[]): ZapRow[] {
+      return listings.filter((row) => {
+        // Type filter
+        if (zapTypes && row.unitType && !zapTypes.includes(row.unitType.toUpperCase())) {
+          return false;
+        }
+        // Area filter: ±50% if we have area
+        if (propArea && row.area) {
+          const rowArea = parseFloat(row.area);
+          if (rowArea > 0) {
+            const ratio = Math.abs(rowArea - propArea) / propArea;
+            if (ratio > 0.5) return false;
+          }
+        }
+        return true;
+      });
+    }
+
+    // Try bairro match first (preferred), then city-wide fallback
+    const citySaleListings = saleByCity.get(cityKey) || [];
+    const cityRentalListings = rentalByCity.get(cityKey) || [];
+
+    const bairroSaleListings = bairroKey
+      ? citySaleListings.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+      : [];
+    const bairroRentalListings = bairroKey
+      ? cityRentalListings.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+      : [];
+
+    let saleComparables = filterListings(bairroSaleListings);
+    // Fall back to city-wide if fewer than 3 bairro comparables
+    if (saleComparables.length < 3) {
+      saleComparables = filterListings(citySaleListings);
+    }
+
+    let rentalComparables = filterListings(bairroRentalListings);
+    if (rentalComparables.length < 3) {
+      rentalComparables = filterListings(cityRentalListings);
+    }
+
+    // Calculate median R$/m² from sale comparables
+    const salePricesPerM2 = saleComparables
+      .map((r) => {
+        const pm2 = parseFloat(r.pricePerM2 || "0");
+        return pm2 > 0 ? pm2 : null;
+      })
+      .filter((v): v is number => v !== null);
+
+    const medianSalePricePerM2 = median(salePricesPerM2);
+
+    // Calculate median rent from rental comparables
+    const rentalPrices = rentalComparables
+      .map((r) => parseFloat(r.price || "0"))
+      .filter((v) => v > 0);
+
+    const medianRent = median(rentalPrices);
+
+    const zapMarketValue =
+      medianSalePricePerM2 !== null && propArea ? medianSalePricePerM2 * propArea : null;
+
+    await db
+      .update(properties)
+      .set({
+        zapMarketValue: zapMarketValue !== null ? zapMarketValue.toFixed(2) : null,
+        zapMarketValuePerM2: medianSalePricePerM2 !== null ? medianSalePricePerM2.toFixed(2) : null,
+        zapRentValue: medianRent !== null ? medianRent.toFixed(2) : null,
+        zapComparablesCount: saleComparables.length > 0 ? saleComparables.length : null,
+        zapUpdatedAt: now,
+        updatedAt: now,
+      })
+      .where(eq(properties.id, prop.id));
+
+    updated++;
+  }
+
+  return { updated };
+}
+
+export interface ZapComparable {
+  zapId: string | null;
+  business: string | null;
+  cidade: string | null;
+  bairro: string | null;
+  unitType: string | null;
+  price: number;
+  area: number;
+  pricePerM2: number;
+  bedrooms: number | null;
+  parkingSpaces: number | null;
+  listingUrl: string | null;
+  condoFee: number | null;
+}
+
+export async function getZapComparables(propertyId: number): Promise<{
+  saleComparables: ZapComparable[];
+  rentalComparables: ZapComparable[];
+  medianSalePricePerM2: number | null;
+  medianRent: number | null;
+  zapMarketValue: number | null;
+  zapRentValue: number | null;
+} | null> {
+  const [prop] = await db
+    .select()
+    .from(properties)
+    .where(eq(properties.id, propertyId))
+    .limit(1);
+
+  if (!prop) return null;
+
+  const cityKey = normalizeCidade(prop.cidade);
+  const bairroKey = (prop.bairro || "").toUpperCase().trim();
+  const propArea =
+    prop.areaPrivativaM2 && parseFloat(prop.areaPrivativaM2) > 0
+      ? parseFloat(prop.areaPrivativaM2)
+      : prop.areaTotalM2 && parseFloat(prop.areaTotalM2) > 0
+        ? parseFloat(prop.areaTotalM2)
+        : null;
+
+  const zapTypes = getZapUnitTypes(prop.tipoImovel, prop.descricao);
+
+  function filterRows(rows: ZapRow[]): ZapRow[] {
+    return rows.filter((r) => {
+      if (zapTypes && r.unitType && !zapTypes.includes(r.unitType.toUpperCase())) return false;
+      if (propArea && r.area) {
+        const a = parseFloat(r.area);
+        if (a > 0 && Math.abs(a - propArea) / propArea > 0.5) return false;
+      }
+      return true;
+    });
+  }
+
+  type ZapRow = typeof zapListings.$inferSelect;
+
+  // Query city sale + rental listings
+  const [citySale, cityRental] = await Promise.all([
+    db
+      .select()
+      .from(zapListings)
+      .where(
+        and(
+          eq(zapListings.business, "SALE"),
+          sql`upper(${zapListings.cidade}) = ${cityKey}`
+        )
+      ),
+    db
+      .select()
+      .from(zapListings)
+      .where(
+        and(
+          eq(zapListings.business, "RENTAL"),
+          sql`upper(${zapListings.cidade}) = ${cityKey}`
+        )
+      ),
+  ]);
+
+  const bairroSale = bairroKey
+    ? citySale.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+    : [];
+  const bairroRental = bairroKey
+    ? cityRental.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+    : [];
+
+  let saleComps = filterRows(bairroSale);
+  if (saleComps.length < 3) saleComps = filterRows(citySale);
+
+  let rentalComps = filterRows(bairroRental);
+  if (rentalComps.length < 3) rentalComps = filterRows(cityRental);
+
+  const salePm2 = saleComps.map((r) => parseFloat(r.pricePerM2 || "0")).filter((v) => v > 0);
+  const rentalPrices = rentalComps.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
+
+  const medianSalePricePerM2 = median(salePm2);
+  const medianRent = median(rentalPrices);
+  const zapMarketValue = medianSalePricePerM2 && propArea ? medianSalePricePerM2 * propArea : null;
+
+  function toComparable(r: ZapRow): ZapComparable {
+    return {
+      zapId: r.zapId,
+      business: r.business,
+      cidade: r.cidade,
+      bairro: r.bairro,
+      unitType: r.unitType,
+      price: parseFloat(r.price || "0"),
+      area: parseFloat(r.area || "0"),
+      pricePerM2: parseFloat(r.pricePerM2 || "0"),
+      bedrooms: r.bedrooms,
+      parkingSpaces: r.parkingSpaces,
+      listingUrl: r.listingUrl,
+      condoFee: r.condoFee ? parseFloat(r.condoFee) : null,
+    };
+  }
+
+  return {
+    saleComparables: saleComps.slice(0, 20).map(toComparable),
+    rentalComparables: rentalComps.slice(0, 10).map(toComparable),
+    medianSalePricePerM2: medianSalePricePerM2 ? Math.round(medianSalePricePerM2) : null,
+    medianRent: medianRent ? Math.round(medianRent) : null,
+    zapMarketValue: zapMarketValue ? Math.round(zapMarketValue) : null,
+    zapRentValue: medianRent ? Math.round(medianRent) : null,
+  };
+}
