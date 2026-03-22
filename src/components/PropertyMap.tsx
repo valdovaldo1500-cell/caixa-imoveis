@@ -29,20 +29,27 @@ function getMarkerColor(desconto: string | null): string {
   return "#ef4444"; // red
 }
 
-function createColoredIcon(color: string): L.DivIcon {
+function createClusterIcon(cluster: L.MarkerCluster): L.DivIcon {
+  const count = cluster.getChildCount();
+  let size = 36;
+  let bg = "rgba(34,197,94,0.85)";
+  if (count > 50) { size = 48; bg = "rgba(239,68,68,0.85)"; }
+  else if (count > 20) { size = 44; bg = "rgba(234,179,8,0.85)"; }
+  else if (count > 5) { size = 40; bg = "rgba(34,197,94,0.85)"; }
+
   return L.divIcon({
-    className: "",
     html: `<div style="
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background-color: ${color};
-      border: 2px solid rgba(0,0,0,0.4);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    "></div>`,
-    iconSize: [14, 14],
-    iconAnchor: [7, 7],
-    popupAnchor: [0, -10],
+      width:${size}px;height:${size}px;
+      display:flex;align-items:center;justify-content:center;
+      border-radius:50%;
+      background:${bg};
+      color:white;font-weight:700;font-size:13px;
+      border:3px solid rgba(255,255,255,0.5);
+      box-shadow:0 2px 8px rgba(0,0,0,0.4);
+    ">${count}</div>`,
+    className: "",
+    iconSize: L.point(size, size),
+    iconAnchor: L.point(size / 2, size / 2),
   });
 }
 
