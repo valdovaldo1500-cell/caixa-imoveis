@@ -49,37 +49,23 @@ export default function MapaPage() {
 
   return (
     <div className="flex flex-col h-screen">
-      {/* Header */}
-      <header className="flex items-center justify-between px-4 py-3 bg-zinc-900 border-b border-zinc-800 shrink-0">
-        <div className="flex items-center gap-4">
-          <h1 className="text-lg font-bold">Mapa de Imóveis</h1>
-          {!loading && !error && (
-            <span className="text-sm text-zinc-400">
-              {properties.length} imóveis geolocalizados
-            </span>
-          )}
-          {loading && (
-            <span className="text-sm text-zinc-500">Carregando dados...</span>
-          )}
-          {error && (
-            <span className="text-sm text-red-400">Erro: {error}</span>
-          )}
-        </div>
-        <nav className="flex gap-3">
-          <Link
-            href="/"
-            className="px-3 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-sm"
-          >
-            Dashboard
-          </Link>
-          <Link
-            href="/imoveis"
-            className="px-3 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-sm"
-          >
-            Tabela
-          </Link>
-        </nav>
-      </header>
+      <NavHeader />
+
+      {/* Map subheader with status */}
+      <div className="flex items-center gap-4 px-4 py-2 bg-zinc-900 border-b border-zinc-800 shrink-0">
+        <h1 className="text-sm font-semibold text-zinc-300">Mapa de Imóveis</h1>
+        {!loading && !error && (
+          <span className="text-sm text-zinc-400">
+            {properties.length} geolocalizados
+          </span>
+        )}
+        {loading && (
+          <span className="text-sm text-zinc-500">Carregando dados...</span>
+        )}
+        {error && (
+          <span className="text-sm text-red-400">Erro: {error}</span>
+        )}
+      </div>
 
       {/* Legend */}
       <div className="flex items-center gap-4 px-4 py-2 bg-zinc-950 border-b border-zinc-800 text-xs text-zinc-400 shrink-0">
