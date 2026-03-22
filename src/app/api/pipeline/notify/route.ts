@@ -126,7 +126,7 @@ export async function POST() {
       ORDER BY p.caixa_id, ph.recorded_at DESC
     `);
 
-    const priceChanges = priceChangedRows as Array<{
+    const priceChanges = (priceChangedRows as unknown) as Array<{
       caixaId: string;
       cidade: string;
       bairro: string | null;
