@@ -193,14 +193,15 @@ export const propertyNotes = pgTable(
     id: serial("id").primaryKey(),
     propertyId: integer("property_id")
       .notNull()
-      .references(() => properties.id)
-      .unique(),
+      .references(() => properties.id),
+    username: varchar("username", { length: 50 }),
     note: text("note").notNull(),
     updatedAt: timestamp("updated_at").defaultNow(),
     createdAt: timestamp("created_at").defaultNow(),
   },
   (table) => [
     index("idx_property_notes_prop").on(table.propertyId),
+    index("idx_property_notes_username").on(table.username),
   ]
 );
 
