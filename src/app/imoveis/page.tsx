@@ -1746,18 +1746,21 @@ function ImoveisPageInner() {
         }
       : {};
 
+    const baseClass = "text-zinc-400 relative text-xs leading-tight whitespace-normal";
+    const rightCols = ["preco", "precoM2", "avaliacao", "desconto", "descontoMercado", "valorMercado", "mercadoM2", "zapM2", "aluguel", "distancia"];
+    const rightAligned = rightCols.includes(colId);
+
     if (colId === "foto") {
-      return <TableHead key={colId} className="w-10 text-zinc-400 relative" style={dragStyle} {...dragProps}>{resizeHandle(colId)}</TableHead>;
+      return <TableHead key={colId} className={`w-10 ${baseClass}`} style={dragStyle} {...dragProps}>{resizeHandle(colId)}</TableHead>;
     }
     if (colId === "actions") {
-      return <TableHead key={colId} className="w-16 text-zinc-400 relative" style={dragStyle} {...dragProps}>{resizeHandle(colId)}</TableHead>;
+      return <TableHead key={colId} className={`w-16 ${baseClass}`} style={dragStyle} {...dragProps}>{resizeHandle(colId)}</TableHead>;
     }
     if (sk) {
-      const rightAligned = ["preco", "precoM2", "avaliacao", "desconto", "descontoMercado", "valorMercado", "mercadoM2", "zapM2", "aluguel", "distancia"].includes(colId);
       return (
         <TableHead
           key={colId}
-          className={`text-zinc-400 relative${rightAligned ? " text-right" : ""}`}
+          className={`${baseClass}${rightAligned ? " text-right" : ""}`}
           onClick={() => handleSort(sk)}
           style={{ ...dragStyle, cursor: isDraggable ? "grab" : "pointer" }}
           {...dragProps}
@@ -1767,9 +1770,8 @@ function ImoveisPageInner() {
         </TableHead>
       );
     }
-    const rightAligned = ["distancia"].includes(colId);
     return (
-      <TableHead key={colId} className={`text-zinc-400 relative${rightAligned ? " text-right" : ""}`} style={dragStyle} {...dragProps}>
+      <TableHead key={colId} className={`${baseClass}${rightAligned ? " text-right" : ""}`} style={dragStyle} {...dragProps}>
         {label}
         {resizeHandle(colId)}
       </TableHead>
