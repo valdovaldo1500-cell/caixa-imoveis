@@ -2,11 +2,14 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { favorites, properties } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
+import { getUsernameFromRequest } from "@/lib/auth";
 
-export async function GET(_request: NextRequest) {
+export async function GET(request: NextRequest) {
+  const username = getUsernameFromRequest(request);
+
   try {
-    const rows = await db
+    const query = db
       .select({
         id: favorites.id,
         propertyId: favorites.propertyId,
@@ -24,8 +27,11 @@ export async function GET(_request: NextRequest) {
         removedAt: properties.removedAt,
       })
       .from(favorites)
-      .innerJoin(properties, eq(favorites.propertyId, properties.id))
-      .orderBy(favorites.createdAt);
+      .innerJoin(properties, eq(favorites.propertyId, properties.id));
+
+    const rows = username
+      ? await query.where(eq(favorites.username, username)).orderBy(favorites.createdAt)
+      : await query.where(eq(favorites.username, "")).orderBy(favorites.createdAt); // return empty if no session
 
     return NextResponse.json(rows);
   } catch (err) {
@@ -38,6 +44,11 @@ export async function GET(_request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const username = getUsernameFromRequest(request);
+  if (!username) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const { propertyId, notes } = body as { propertyId: number; notes?: string };
@@ -46,11 +57,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "propertyId required" }, { status: 400 });
     }
 
-    // Check for duplicate
+    // Check for duplicate for this user
     const existing = await db
       .select({ id: favorites.id })
       .from(favorites)
-      .where(eq(favorites.propertyId, Number(propertyId)))
+      .where(and(eq(favorites.propertyId, Number(propertyId)), eq(favorites.username, username)))
       .limit(1);
 
     if (existing.length > 0) {
@@ -62,7 +73,7 @@ export async function POST(request: NextRequest) {
 
     const [created] = await db
       .insert(favorites)
-      .values({ propertyId: Number(propertyId), notes: notes ?? null })
+      .values({ propertyId: Number(propertyId), username, notes: notes ?? null })
       .returning();
 
     return NextResponse.json(created, { status: 201 });
