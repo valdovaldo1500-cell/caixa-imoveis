@@ -131,7 +131,7 @@ export default function PropertyMap({ properties }: PropertyMapProps) {
                   )}
                 </div>
               </Popup>
-            </Marker>
+            </CircleMarker>
           );
         })}
       </MarkerClusterGroup>
