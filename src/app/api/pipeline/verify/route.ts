@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
       ),
       // comparables consistency
       db.execute(
-        sql`SELECT COUNT(*) AS total, SUM(CASE WHEN comparables_count > 0 THEN 1 ELSE 0 END) AS with_comparables FROM properties WHERE market_value IS NOT NULL AND removed_at IS NULL`
+        sql`SELECT COUNT(*) AS total, SUM(CASE WHEN comparables_count IS NOT NULL AND comparables_count > 0 THEN 1 ELSE 0 END) AS with_comparables FROM properties WHERE market_value IS NOT NULL AND removed_at IS NULL`
       ),
     ]);
 
