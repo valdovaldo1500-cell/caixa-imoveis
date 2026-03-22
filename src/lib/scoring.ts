@@ -214,6 +214,7 @@ export async function calculateScores(): Promise<{ scored: number; avgScore: num
         firstSeenAt: row.firstSeenAt,
         areaTotalM2: row.areaTotalM2,
         areaPrivativaM2: row.areaPrivativaM2,
+        crimeRate: row.crimeRate,
       },
       stats
     );
