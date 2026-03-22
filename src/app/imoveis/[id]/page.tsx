@@ -319,8 +319,9 @@ export default function PropertyDetailPage() {
   const [property, setProperty] = useState<Property | null>(null);
   const [history, setHistory] = useState<PriceHistoryEntry[]>([]);
   const [comparables, setComparables] = useState<ComparablesResult | null>(null);
-  const [showTier1, setShowTier1] = useState(false);
-  const [showTier2, setShowTier2] = useState(false);
+  const hashComparaveis = typeof window !== "undefined" && window.location.hash === "#comparaveis";
+  const [showTier1, setShowTier1] = useState(hashComparaveis);
+  const [showTier2, setShowTier2] = useState(hashComparaveis);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [favorited, setFavorited] = useState(false);
