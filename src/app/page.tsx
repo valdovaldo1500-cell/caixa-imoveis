@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
 import { sql, isNull } from "drizzle-orm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
+import NavHeader from "@/components/NavHeader";
 
 export const dynamic = "force-dynamic";
 
