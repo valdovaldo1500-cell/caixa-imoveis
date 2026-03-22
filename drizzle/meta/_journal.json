@@ -8,6 +8,13 @@
       "when": 1774130611453,
       "tag": "0000_red_iceman",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1774173811366,
+      "tag": "0001_cute_ultimo",
+      "breakpoints": true
     }
   ]
 }

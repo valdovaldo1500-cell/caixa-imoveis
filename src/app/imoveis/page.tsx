@@ -242,6 +242,33 @@ export default function ImoveisPage() {
                       )}
                     </TableCell>
                     <TableCell>
+                      {p.crimeRate ? (() => {
+                        const rate = parseFloat(p.crimeRate);
+                        const label = `${Math.round(rate).toLocaleString("pt-BR")}/100k`;
+                        if (rate < 1000) {
+                          return (
+                            <Badge className="bg-green-900 text-green-300">
+                              {label}
+                            </Badge>
+                          );
+                        } else if (rate < 5000) {
+                          return (
+                            <Badge className="bg-yellow-900 text-yellow-300">
+                              {label}
+                            </Badge>
+                          );
+                        } else {
+                          return (
+                            <Badge className="bg-red-900 text-red-300">
+                              {label}
+                            </Badge>
+                          );
+                        }
+                      })() : (
+                        <span className="text-zinc-500">—</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
                       {p.linkCaixa ? (
                         <a
                           href={p.linkCaixa}
