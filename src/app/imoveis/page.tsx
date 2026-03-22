@@ -70,6 +70,7 @@ export default function ImoveisPage() {
   const [order, setOrder] = useState<"asc" | "desc">("desc");
   // Map of propertyId -> favoriteId (present means favorited)
   const [favorited, setFavorited] = useState<Record<number, number>>({});
+  const [expandedComparables, setExpandedComparables] = useState<number | null>(null);
 
   const fetchData = useCallback(
     async (page = 1) => {
