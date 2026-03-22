@@ -173,9 +173,11 @@ export default function AnalisePage() {
                       cx="50%"
                       cy="50%"
                       outerRadius={90}
-                      label={({ tipo, percent }) =>
-                        `${truncate(tipo, 12)} ${(percent * 100).toFixed(0)}%`
-                      }
+                      label={(props: PieLabelRenderProps) => {
+                        const tipo = String((props as Record<string, unknown>)["tipo"] ?? "");
+                        const pct = typeof props.percent === "number" ? props.percent : 0;
+                        return `${truncate(tipo, 12)} ${(pct * 100).toFixed(0)}%`;
+                      }}
                       labelLine={{ stroke: "#52525b" }}
                     >
                       {data.byType.map((_, i) => (
