@@ -139,6 +139,18 @@ export const favorites = pgTable(
   ]
 );
 
+export const hiddenProperties = pgTable(
+  "hidden_properties",
+  {
+    id: serial("id").primaryKey(),
+    propertyId: integer("property_id").notNull().references(() => properties.id),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => [
+    index("idx_hidden_property").on(table.propertyId),
+  ]
+);
+
 export const pipelineRuns = pgTable("pipeline_runs", {
   id: serial("id").primaryKey(),
   startedAt: timestamp("started_at").notNull(),
