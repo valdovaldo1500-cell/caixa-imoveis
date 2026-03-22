@@ -708,9 +708,9 @@ function NotePopup({
 }
 
 // ---------------------------------------------------------------------------
-// Main page
+// Main page (inner — needs Suspense because of useSearchParams)
 // ---------------------------------------------------------------------------
-export default function ImoveisPage() {
+function ImoveisPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -1856,5 +1856,13 @@ export default function ImoveisPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ImoveisPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-zinc-500">Carregando...</div>}>
+      <ImoveisPageInner />
+    </Suspense>
   );
 }
