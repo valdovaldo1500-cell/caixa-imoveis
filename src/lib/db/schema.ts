@@ -82,6 +82,39 @@ export const priceHistory = pgTable(
   ]
 );
 
+export const itbiTransactions = pgTable(
+  "itbi_transactions",
+  {
+    id: serial("id").primaryKey(),
+    dataEstimativa: timestamp("data_estimativa"),
+    dataPagamento: timestamp("data_pagamento"),
+    baseCalculo: decimal("base_calculo", { precision: 12, scale: 2 }),
+    percTransmitido: decimal("perc_transmitido", { precision: 5, scale: 2 }),
+    finalidadeConstrucao: varchar("finalidade_construcao", { length: 100 }),
+    logradouro: text("logradouro"),
+    nEndereco: varchar("n_endereco", { length: 20 }),
+    nUnidade: varchar("n_unidade", { length: 50 }),
+    complemento: text("complemento"),
+    bairro: varchar("bairro", { length: 100 }),
+    cep: varchar("cep", { length: 10 }),
+    areaTotalTerreno: decimal("area_total_terreno", { precision: 10, scale: 2 }),
+    areaConstrTotal: decimal("area_constr_total", { precision: 10, scale: 2 }),
+    areaConstrPrivativa: decimal("area_constr_privativa", { precision: 10, scale: 2 }),
+    anoConstrucao: integer("ano_construcao"),
+    matricula: varchar("matricula", { length: 30 }),
+    zonaRegistro: varchar("zona_registro", { length: 10 }),
+    situacao: varchar("situacao", { length: 30 }),
+    year: integer("year"),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => [
+    index("idx_itbi_bairro").on(table.bairro),
+    index("idx_itbi_tipo").on(table.finalidadeConstrucao),
+    index("idx_itbi_data").on(table.dataEstimativa),
+    index("idx_itbi_year").on(table.year),
+  ]
+);
+
 export const pipelineRuns = pgTable("pipeline_runs", {
   id: serial("id").primaryKey(),
   startedAt: timestamp("started_at").notNull(),
