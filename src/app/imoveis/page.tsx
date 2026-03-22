@@ -32,6 +32,10 @@ interface Property {
   score: string | null;
   crimeRate: string | null;
   firstSeenAt: string;
+  marketValue: string | null;
+  marketValuePerM2: string | null;
+  comparablesCount: number | null;
+  areaPrivativaM2: string | null;
 }
 
 interface Pagination {
