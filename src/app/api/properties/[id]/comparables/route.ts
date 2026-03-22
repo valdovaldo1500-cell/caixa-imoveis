@@ -18,9 +18,10 @@ export async function GET(
   const months = monthsParam ? Math.max(1, parseInt(monthsParam, 10)) : 12;
 
   try {
-    const [itbiResult, zapResult] = await Promise.all([
+    const [itbiResult, zapResult, zapRentals] = await Promise.all([
       getPropertyComparables(propertyId, months),
       getZapComparables(propertyId),
+      getZapRentalComparables(propertyId),
     ]);
 
     if (!itbiResult) {
@@ -30,6 +31,7 @@ export async function GET(
     return NextResponse.json({
       ...itbiResult,
       zapListings: zapResult,
+      zapRentals,
     });
   } catch (err) {
     console.error("Comparables route error:", err);
