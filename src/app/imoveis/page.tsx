@@ -459,7 +459,7 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi" }: { propertyId
     tier1: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string; finalidadeConstrucao: string }>; medianPrecoM2: number; count: number };
     tier2: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string; finalidadeConstrucao: string }>; medianPrecoM2: number; count: number };
     methodology: { estimatedValue: number; medianPrecoM2: number; usedTier: number };
-    zapListings?: { comparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }>; medianPrecoM2: number; count: number };
+    zapListings?: { saleComparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }>; medianSalePricePerM2: number | null };
   } | null>(null);
   const [loading, setLoading] = useState(true);
   const [months, setMonths] = useState(12);
