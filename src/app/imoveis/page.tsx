@@ -69,14 +69,16 @@ function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose
     methodology: { estimatedValue: number; medianPrecoM2: number; usedTier: number };
   } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [months, setMonths] = useState(12);
 
   useEffect(() => {
-    fetch(`/api/properties/${propertyId}/comparables`, { credentials: "include" })
+    setLoading(true);
+    fetch(`/api/properties/${propertyId}/comparables?months=${months}`, { credentials: "include" })
       .then((r) => r.json())
       .then((d) => setData(d))
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [propertyId]);
+  }, [propertyId, months]);
 
   const comps = data ? (data.tier1.count > 0 ? data.tier1.comparables : data.tier2.comparables) : [];
 
@@ -86,7 +88,20 @@ function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose
         <span className="text-xs font-semibold text-zinc-300">
           Transações ITBI usadas no cálculo
         </span>
-        <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
+        <div className="flex items-center gap-2">
+          <label className="text-xs text-zinc-500">Período:</label>
+          <select
+            value={months}
+            onChange={(e) => setMonths(Number(e.target.value))}
+            className="bg-zinc-800 border border-zinc-700 text-xs text-zinc-300 rounded px-1 py-0.5"
+          >
+            <option value={6}>6 meses</option>
+            <option value={12}>12 meses</option>
+            <option value={18}>18 meses</option>
+            <option value={24}>24 meses</option>
+          </select>
+          <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
+        </div>
       </div>
       {loading ? (
         <p className="text-xs text-zinc-500">Carregando...</p>
