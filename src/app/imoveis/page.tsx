@@ -544,10 +544,12 @@ function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose
 }
 
 function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () => void }) {
-  const [comps, setComps] = useState<Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string }>>([]);
+  const [itbiComps, setItbiComps] = useState<Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string }>>([]);
   const [medianM2, setMedianM2] = useState(0);
   const [estimatedValue, setEstimatedValue] = useState<number | null>(null);
   const [estimatedRent, setEstimatedRent] = useState<number | null>(null);
+  const [zapRentals, setZapRentals] = useState<Array<{ zapId: string | null; bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }>>([]);
+  const [zapMedianRent, setZapMedianRent] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [months, setMonths] = useState(12);
   const ref = useRef<HTMLDivElement>(null);
@@ -559,52 +561,103 @@ function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () =>
       .then((r) => r.json())
       .then((d) => {
         const tier = d.tier1?.count > 0 ? d.tier1 : d.tier2;
-        setComps(tier?.comparables || []);
+        setItbiComps(tier?.comparables || []);
         setMedianM2(d.methodology?.medianPrecoM2 || 0);
         setEstimatedValue(d.methodology?.estimatedValue ?? null);
         setEstimatedRent(d.methodology?.estimatedRent ?? null);
+        setZapRentals(d.zapRentals?.comparables || []);
+        setZapMedianRent(d.zapRentals?.medianRent || 0);
       })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, [propertyId, months]);
 
-  const rentValue = estimatedRent;
+  const hasZapRentals = zapRentals.length > 0;
+  const rentValue = hasZapRentals ? zapMedianRent : estimatedRent;
   const marketValue = estimatedValue;
 
   return (
-    <div ref={ref} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-xl shadow-xl p-3 w-[420px] max-h-[400px] overflow-auto text-left">
+    <div ref={ref} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-xl shadow-xl p-3 w-[480px] max-h-[480px] overflow-auto text-left">
       <div className="flex justify-between items-center mb-2">
-        <span className="text-xs font-semibold text-zinc-300">Como calculamos o aluguel</span>
+        <span className="text-xs font-semibold text-zinc-300">
+          {hasZapRentals ? "Aluguéis similares no ZAP" : "Como calculamos o aluguel"}
+        </span>
         <div className="flex items-center gap-2">
-          <label className="text-xs text-zinc-500">Período:</label>
-          <select
-            value={months}
-            onChange={(e) => setMonths(Number(e.target.value))}
-            className="bg-zinc-800 border border-zinc-700 text-xs text-zinc-300 rounded px-1 py-0.5"
-          >
-            <option value={6}>6 meses</option>
-            <option value={12}>12 meses</option>
-            <option value={18}>18 meses</option>
-            <option value={24}>24 meses</option>
-          </select>
           <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
         </div>
       </div>
+
+      {/* Summary card */}
       <div className="text-xs text-zinc-400 space-y-1 mb-3 bg-zinc-800 rounded p-2">
-        <p>Valor de mercado: <span className="text-zinc-200 font-medium">{formatBRL(marketValue)}</span></p>
-        <p>Yield mensal: <span className="text-zinc-200 font-medium">0,5%</span></p>
-        <p>Aluguel estimado: <span className="text-green-400 font-medium">{formatBRL(rentValue)}/mês</span></p>
-        <p>Aluguel anual: <span className="text-zinc-200 font-medium">{formatBRL(rentValue !== null ? rentValue * 12 : null)}/ano</span></p>
+        {hasZapRentals ? (
+          <>
+            <p>Mediana aluguel ZAP: <span className="text-green-400 font-medium">{formatBRL(zapMedianRent)}/mês</span></p>
+            <p>Aluguel anual estimado: <span className="text-zinc-200 font-medium">{formatBRL(zapMedianRent * 12)}/ano</span></p>
+            <p className="text-zinc-500">{zapRentals.length} imóvel{zapRentals.length !== 1 ? "is" : ""} comparável{zapRentals.length !== 1 ? "is" : ""} encontrado{zapRentals.length !== 1 ? "s" : ""}</p>
+          </>
+        ) : (
+          <>
+            <p>Valor de mercado: <span className="text-zinc-200 font-medium">{formatBRL(marketValue)}</span></p>
+            <p>Yield mensal: <span className="text-zinc-200 font-medium">0,5%</span></p>
+            <p>Aluguel estimado: <span className="text-green-400 font-medium">{formatBRL(rentValue)}/mês</span></p>
+            <p>Aluguel anual: <span className="text-zinc-200 font-medium">{formatBRL(rentValue !== null ? rentValue * 12 : null)}/ano</span></p>
+          </>
+        )}
       </div>
+
       {loading ? (
-        <p className="text-xs text-zinc-500">Carregando transações...</p>
-      ) : comps.length === 0 ? (
+        <p className="text-xs text-zinc-500">Carregando dados...</p>
+      ) : hasZapRentals ? (
+        /* ZAP rental comparables table */
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="text-zinc-500 border-b border-zinc-800">
+              <th className="text-left py-1 pr-2">Bairro</th>
+              <th className="text-right py-1 pr-2">Aluguel</th>
+              <th className="text-right py-1 pr-2">Área</th>
+              <th className="text-right py-1 pr-2">Quartos</th>
+              <th className="text-right py-1">Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            {zapRentals.map((r, i) => (
+              <tr key={i} className="border-b border-zinc-800/50">
+                <td className="py-1 pr-2 text-zinc-300 max-w-[140px] truncate" title={r.bairro || ""}>
+                  {r.bairro || "—"}
+                </td>
+                <td className="py-1 pr-2 text-right text-green-400 font-medium">{formatBRL(r.price)}</td>
+                <td className="py-1 pr-2 text-right text-zinc-400">{r.area > 0 ? `${Math.round(r.area)}m²` : "—"}</td>
+                <td className="py-1 pr-2 text-right text-zinc-400">{r.bedrooms ?? "—"}</td>
+                <td className="py-1 text-right">
+                  {r.listingUrl ? (
+                    <a href={r.listingUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">ver</a>
+                  ) : "—"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : itbiComps.length === 0 ? (
         <p className="text-xs text-zinc-500">Sem comparáveis</p>
       ) : (
+        /* Fallback: ITBI-based table */
         <>
           <p className="text-xs text-zinc-500 mb-1">
             Transações ITBI base · Mediana R$/m²: <span className="text-zinc-300">R$ {Math.round(medianM2).toLocaleString("pt-BR")}</span>
           </p>
+          <div className="flex items-center gap-2 mb-2">
+            <label className="text-xs text-zinc-500">Período:</label>
+            <select
+              value={months}
+              onChange={(e) => setMonths(Number(e.target.value))}
+              className="bg-zinc-800 border border-zinc-700 text-xs text-zinc-300 rounded px-1 py-0.5"
+            >
+              <option value={6}>6 meses</option>
+              <option value={12}>12 meses</option>
+              <option value={18}>18 meses</option>
+              <option value={24}>24 meses</option>
+            </select>
+          </div>
           <table className="w-full text-xs">
             <thead>
               <tr className="text-zinc-500 border-b border-zinc-800">
@@ -615,7 +668,7 @@ function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () =>
               </tr>
             </thead>
             <tbody>
-              {comps.slice(0, 8).map((c, i) => (
+              {itbiComps.slice(0, 8).map((c, i) => (
                 <tr key={i} className="border-b border-zinc-800/50">
                   <td className="py-1 pr-2 text-zinc-300 max-w-[180px] truncate" title={`${c.logradouro}, ${c.nEndereco} — ${c.bairro} (${c.dataEstimativa?.slice(0, 10)})`}>
                     {c.logradouro}, {c.nEndereco}
@@ -627,10 +680,10 @@ function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () =>
               ))}
             </tbody>
           </table>
-          {comps.length > 8 && (
+          {itbiComps.length > 8 && (
             <p className="text-xs text-zinc-500 mt-1">
               <a href={`/imoveis/${propertyId}#comparaveis`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                +{comps.length - 8} transações →
+                +{itbiComps.length - 8} transações →
               </a>
             </p>
           )}
