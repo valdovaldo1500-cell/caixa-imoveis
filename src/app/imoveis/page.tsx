@@ -615,19 +615,27 @@ function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () =>
           <thead>
             <tr className="text-zinc-500 border-b border-zinc-800">
               <th className="text-left py-1 pr-2">Bairro</th>
+              <th className="text-left py-1 pr-2">Tipo</th>
               <th className="text-right py-1 pr-2">Aluguel</th>
+              <th className="text-right py-1 pr-2">R$/m²</th>
               <th className="text-right py-1 pr-2">Área</th>
-              <th className="text-right py-1 pr-2">Quartos</th>
+              <th className="text-right py-1 pr-2">Qtos</th>
               <th className="text-right py-1">Link</th>
             </tr>
           </thead>
           <tbody>
             {zapRentals.map((r, i) => (
               <tr key={i} className="border-b border-zinc-800/50">
-                <td className="py-1 pr-2 text-zinc-300 max-w-[140px] truncate" title={r.bairro || ""}>
+                <td className="py-1 pr-2 text-zinc-300 max-w-[100px] truncate" title={r.bairro || ""}>
                   {r.bairro || "—"}
                 </td>
+                <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate" title={r.unitType || ""}>
+                  {r.unitType || "—"}
+                </td>
                 <td className="py-1 pr-2 text-right text-green-400 font-medium">{formatBRL(r.price)}</td>
+                <td className="py-1 pr-2 text-right text-zinc-400">
+                  {r.area > 0 ? `R$\u00a0${Math.round(r.price / r.area).toLocaleString("pt-BR")}` : "—"}
+                </td>
                 <td className="py-1 pr-2 text-right text-zinc-400">{r.area > 0 ? `${Math.round(r.area)}m²` : "—"}</td>
                 <td className="py-1 pr-2 text-right text-zinc-400">{r.bedrooms ?? "—"}</td>
                 <td className="py-1 text-right">
