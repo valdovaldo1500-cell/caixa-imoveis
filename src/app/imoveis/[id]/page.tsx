@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Star, MessageSquare } from "lucide-react";
+import { Star, MessageSquare, Eye, EyeOff } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 
 // Recharts — no SSR
