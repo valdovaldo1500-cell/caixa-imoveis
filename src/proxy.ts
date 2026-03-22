@@ -13,6 +13,17 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Allow API calls with pipeline token (for automation/cron)
+  const PIPELINE_TOKEN = process.env.PIPELINE_TOKEN;
+  const authHeader = request.headers.get("authorization");
+  if (
+    PIPELINE_TOKEN &&
+    authHeader === `Bearer ${PIPELINE_TOKEN}` &&
+    pathname.startsWith("/api/pipeline/") || pathname.startsWith("/api/scoring/")
+  ) {
+    return NextResponse.next();
+  }
+
   // Check session cookie
   const sessionCookie = request.cookies.get(COOKIE_NAME)?.value;
 
