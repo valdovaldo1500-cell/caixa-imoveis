@@ -133,6 +133,79 @@ function ComparablesPopup({ propertyId, onClose }: { propertyId: number; onClose
   );
 }
 
+function RentPopup({ propertyId, rentValue, marketValue, onClose }: { propertyId: number; rentValue: number; marketValue: number; onClose: () => void }) {
+  const [comps, setComps] = useState<Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string }>>([]);
+  const [medianM2, setMedianM2] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`/api/properties/${propertyId}/comparables`, { credentials: "include" })
+      .then((r) => r.json())
+      .then((d) => {
+        const tier = d.tier1?.count > 0 ? d.tier1 : d.tier2;
+        setComps(tier?.comparables || []);
+        setMedianM2(d.methodology?.medianPrecoM2 || 0);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [propertyId]);
+
+  return (
+    <div className="absolute right-0 top-full mt-1 z-50 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl p-3 w-[420px] max-h-[400px] overflow-auto text-left">
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-xs font-semibold text-zinc-300">Como calculamos o aluguel</span>
+        <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
+      </div>
+      <div className="text-xs text-zinc-400 space-y-1 mb-3 bg-zinc-800 rounded p-2">
+        <p>Valor de mercado: <span className="text-zinc-200 font-medium">{formatBRL(marketValue)}</span></p>
+        <p>Yield mensal: <span className="text-zinc-200 font-medium">0,5%</span></p>
+        <p>Aluguel estimado: <span className="text-green-400 font-medium">{formatBRL(rentValue)}/mês</span></p>
+        <p>Aluguel anual: <span className="text-zinc-200 font-medium">{formatBRL(rentValue * 12)}/ano</span></p>
+      </div>
+      {loading ? (
+        <p className="text-xs text-zinc-500">Carregando transações...</p>
+      ) : comps.length === 0 ? (
+        <p className="text-xs text-zinc-500">Sem comparáveis</p>
+      ) : (
+        <>
+          <p className="text-xs text-zinc-500 mb-1">
+            Transações ITBI base · Mediana R$/m²: <span className="text-zinc-300">R$ {Math.round(medianM2).toLocaleString("pt-BR")}</span>
+          </p>
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-zinc-500 border-b border-zinc-800">
+                <th className="text-left py-1 pr-2">Endereço</th>
+                <th className="text-right py-1 pr-2">Valor</th>
+                <th className="text-right py-1 pr-2">Área</th>
+                <th className="text-right py-1">R$/m²</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comps.slice(0, 8).map((c, i) => (
+                <tr key={i} className="border-b border-zinc-800/50">
+                  <td className="py-1 pr-2 text-zinc-300 max-w-[180px] truncate" title={`${c.logradouro}, ${c.nEndereco} — ${c.bairro} (${c.dataEstimativa?.slice(0, 10)})`}>
+                    {c.logradouro}, {c.nEndereco}
+                  </td>
+                  <td className="py-1 pr-2 text-right text-zinc-300">{formatBRL(c.baseCalculo)}</td>
+                  <td className="py-1 pr-2 text-right text-zinc-400">{c.areaConstrPrivativa}m²</td>
+                  <td className="py-1 text-right text-zinc-300">R$ {Math.round(c.precoM2).toLocaleString("pt-BR")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {comps.length > 8 && (
+            <p className="text-xs text-zinc-500 mt-1">
+              <a href={`/imoveis/${propertyId}#comparaveis`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                +{comps.length - 8} transações →
+              </a>
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function ImoveisPage() {
   const [data, setData] = useState<Property[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
