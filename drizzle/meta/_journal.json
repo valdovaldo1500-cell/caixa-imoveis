@@ -43,6 +43,13 @@
       "when": 1774196753642,
       "tag": "0005_easy_viper",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1774197560608,
+      "tag": "0006_kind_purifiers",
+      "breakpoints": true
     }
   ]
 }

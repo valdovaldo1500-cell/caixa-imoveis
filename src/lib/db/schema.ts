@@ -156,6 +156,26 @@ export const hiddenProperties = pgTable(
   ]
 );
 
+export const zapListings = pgTable("zap_listings", {
+  id: serial("id").primaryKey(),
+  zapId: varchar("zap_id", { length: 30 }),
+  business: varchar("business", { length: 10 }), // SALE or RENTAL
+  cidade: varchar("cidade", { length: 100 }),
+  bairro: varchar("bairro", { length: 100 }),
+  unitType: varchar("unit_type", { length: 30 }),
+  price: decimal("price", { precision: 12, scale: 2 }),
+  area: decimal("area", { precision: 10, scale: 2 }),
+  pricePerM2: decimal("price_per_m2", { precision: 10, scale: 2 }),
+  bedrooms: integer("bedrooms"),
+  parkingSpaces: integer("parking_spaces"),
+  listingUrl: text("listing_url"),
+  condoFee: decimal("condo_fee", { precision: 10, scale: 2 }),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_zap_cidade_bairro").on(table.cidade, table.bairro),
+  index("idx_zap_business").on(table.business),
+]);
+
 export const pipelineRuns = pgTable("pipeline_runs", {
   id: serial("id").primaryKey(),
   startedAt: timestamp("started_at").notNull(),
