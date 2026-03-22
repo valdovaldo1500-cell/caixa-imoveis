@@ -859,9 +859,13 @@ export default function ImoveisPage() {
                           bg = "bg-red-950"; text = "text-red-400";
                         }
                         const citySlug = p.cidade.toLowerCase().replace(/ /g, "-").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                        const crimeUrl = `https://crimebrasil.com.br/?state=RS&municipio=${encodeURIComponent(p.cidade)}`;
+                        const citySlug = p.cidade.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, "-");
+                        const bairroSlug = p.bairro ? p.bairro.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, "-") : "";
+                        const crimeUrl = bairroSlug
+                          ? `https://crimebrasil.com.br/bairro/rs/${citySlug}/${bairroSlug}`
+                          : `https://crimebrasil.com.br/cidade/rs/${citySlug}`;
                         return (
-                          <a href={crimeUrl} target="_blank" rel="noopener noreferrer" title={`Ver criminalidade em ${p.cidade} no Crime Brasil`}>
+                          <a href={crimeUrl} target="_blank" rel="noopener noreferrer" title={`Ver criminalidade em ${p.bairro || p.cidade} no Crime Brasil`}>
                             <Badge className={`${bg} ${text} hover:opacity-80 cursor-pointer`}>
                               {label}
                             </Badge>
