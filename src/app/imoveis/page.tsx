@@ -1011,6 +1011,7 @@ function ImoveisPageInner() {
       if (filterDescontoMin) params.set("desconto_min", filterDescontoMin);
       if (filterPrecoMax) params.set("preco_max", filterPrecoMax);
       if (filterPrecoMin) params.set("preco_min", filterPrecoMin);
+      if (filterDistancia) params.set("max_distance", filterDistancia);
 
       try {
         const res = await fetch(`/api/properties?${params}`, {
