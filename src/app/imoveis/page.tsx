@@ -148,6 +148,7 @@ export default function ImoveisPage() {
   // Map of propertyId -> favoriteId (present means favorited)
   const [favorited, setFavorited] = useState<Record<number, number>>({});
   const [expandedComparables, setExpandedComparables] = useState<number | null>(null);
+  const [expandedRent, setExpandedRent] = useState<number | null>(null);
   const [hiddenIds, setHiddenIds] = useState<Set<number>>(new Set());
   const [showHidden, setShowHidden] = useState(true);
 
