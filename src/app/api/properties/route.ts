@@ -45,6 +45,9 @@ export async function GET(request: NextRequest) {
   if (descontoMin) {
     conditions.push(gte(properties.desconto, descontoMin));
   }
+  if (modalidade) {
+    conditions.push(ilike(properties.modalidadeVenda, modalidade));
+  }
   // Full-text search using tsvector when q is provided
   let tsQuery: ReturnType<typeof sql> | null = null;
   if (search) {
