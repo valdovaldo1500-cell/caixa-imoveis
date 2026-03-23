@@ -940,14 +940,19 @@ function ImoveisPageInner() {
       const urlDescontoMin = searchParams.get("desconto_min");
       const urlPrecoMax = searchParams.get("preco_max");
       const urlPrecoMin = searchParams.get("preco_min");
+      const urlDistance = searchParams.get("max_distance");
+      const urlHidden = searchParams.get("hidden");
+      const urlPage = searchParams.get("page");
 
-      const hasUrlFilters = urlCidade || urlTipo || urlModalidade || urlDescontoMin || urlPrecoMax || urlPrecoMin || urlSort || urlOrder || urlQ;
+      const hasUrlFilters = urlCidade || urlTipo || urlModalidade || urlDescontoMin || urlPrecoMax || urlPrecoMin || urlSort || urlOrder || urlQ || urlDistance || urlHidden || urlPage;
 
       if (hasUrlFilters) {
         // Apply URL params
         if (urlSort) setSort(urlSort);
         if (urlOrder) setOrder(urlOrder as "asc" | "desc");
         if (urlQ) setSearch(urlQ);
+        if (urlDistance) setFilterDistancia(urlDistance);
+        if (urlHidden === "false") setShowHidden(false);
         if (urlCidade) setFilterCidades(urlCidade.split(",").filter(Boolean));
         if (urlTipo) setFilterTipos(urlTipo.split(",").filter(Boolean));
         if (urlModalidade) setFilterModalidades(urlModalidade.split(",").filter(Boolean));
