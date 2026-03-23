@@ -547,32 +547,34 @@ export async function getZapComparables(propertyId: number, _months: number = 12
 
   let saleComps = filterRows(bairroSale);
   if (saleComps.length < 3) saleComps = filterRows(citySale);
-  // Fallback: city residential only + area (no specific type but exclude commercial)
-  if (saleComps.length < 3) {
+  // Fallback: city + same residential group (apt vs casa distinction preserved)
+  if (saleComps.length < 3 && zapTypes) {
+    const isAptGrp = zapTypes.some(t => ["APARTAMENTO", "COBERTURA", "KITNET"].includes(t));
+    const allowed = isAptGrp ? new Set(["APARTAMENTO", "COBERTURA", "KITNET"]) : new Set(["CASA", "SOBRADO"]);
     saleComps = citySale.filter((r) => {
       const rt = (r.unitType || "").toUpperCase();
-      if (isResidentialProp && COMMERCIAL_TYPES.has(rt)) return false;
-      if (!rt) return false;
+      if (!rt || COMMERCIAL_TYPES.has(rt)) return false;
+      if (!allowed.has(rt)) return false;
       if (propArea && r.area) {
         const a = parseFloat(r.area);
-        if (a > 0 && Math.abs(a - propArea) / propArea > 0.5) return false;
+        if (a > 0 && Math.abs(a - propArea) / propArea > 0.7) return false;
       }
       return true;
     });
   }
-  // NO absolute fallback — never mix commercial
 
   let rentalComps = filterRows(bairroRental);
   if (rentalComps.length < 3) rentalComps = filterRows(cityRental);
-  // Fallback: city residential only
-  if (rentalComps.length < 3) {
+  if (rentalComps.length < 3 && zapTypes) {
+    const isAptGrp = zapTypes.some(t => ["APARTAMENTO", "COBERTURA", "KITNET"].includes(t));
+    const allowed = isAptGrp ? new Set(["APARTAMENTO", "COBERTURA", "KITNET"]) : new Set(["CASA", "SOBRADO"]);
     rentalComps = cityRental.filter((r) => {
       const rt = (r.unitType || "").toUpperCase();
-      if (isResidentialProp && COMMERCIAL_TYPES.has(rt)) return false;
-      if (!rt) return false;
+      if (!rt || COMMERCIAL_TYPES.has(rt)) return false;
+      if (!allowed.has(rt)) return false;
       if (propArea && r.area) {
         const a = parseFloat(r.area);
-        if (a > 0 && Math.abs(a - propArea) / propArea > 0.5) return false;
+        if (a > 0 && Math.abs(a - propArea) / propArea > 0.7) return false;
       }
       return true;
     });
