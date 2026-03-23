@@ -192,20 +192,30 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
     const zapTypes = getZapUnitTypes(prop.tipoImovel, prop.descricao);
     const bairroKey = (prop.bairro || "").toUpperCase().trim();
 
+    const propQuartos = prop.quartos;
+    const isResidential = !zapTypes || !zapTypes.some(t => COMMERCIAL_TYPES.has(t));
+
     // Helper to filter ZAP listings for this property
-    function filterListings(listings: ZapRow[]): ZapRow[] {
+    function filterListings(listings: ZapRow[], strict = false): ZapRow[] {
       return listings.filter((row) => {
+        const rowType = (row.unitType || "").toUpperCase();
+        // Always exclude commercial types for residential properties
+        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
+        // Exclude null-type listings
+        if (!rowType) return false;
         // Type filter
-        if (zapTypes && row.unitType && !zapTypes.includes(row.unitType.toUpperCase())) {
-          return false;
-        }
+        if (zapTypes && !zapTypes.includes(rowType)) return false;
         // Area filter: ±50% if we have area
         if (propArea && row.area) {
           const rowArea = parseFloat(row.area);
           if (rowArea > 0) {
             const ratio = Math.abs(rowArea - propArea) / propArea;
-            if (ratio > 0.5) return false;
+            if (ratio > (strict ? 0.3 : 0.5)) return false;
           }
+        }
+        // Bedrooms filter: ±1
+        if (strict && propQuartos !== null && row.bedrooms !== null) {
+          if (Math.abs(row.bedrooms - propQuartos) > 1) return false;
         }
         return true;
       });
