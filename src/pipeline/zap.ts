@@ -425,7 +425,7 @@ export interface ZapComparable {
   condoFee: number | null;
 }
 
-export async function getZapComparables(propertyId: number): Promise<{
+export async function getZapComparables(propertyId: number, _months: number = 12): Promise<{
   saleComparables: ZapComparable[];
   rentalComparables: ZapComparable[];
   medianSalePricePerM2: number | null;
