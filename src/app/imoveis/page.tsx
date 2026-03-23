@@ -1250,7 +1250,7 @@ function ImoveisPageInner() {
     }
     syncUrl();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filtersLoaded, sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax, filterPrecoMin]);
+  }, [filtersLoaded, sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax, filterPrecoMin, filterDistancia, showHidden]);
 
   useEffect(() => {
     loadFavorites();
