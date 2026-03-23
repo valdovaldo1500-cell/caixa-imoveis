@@ -1903,7 +1903,7 @@ function ImoveisPageInner() {
             <input
               type="checkbox"
               checked={showHidden}
-              onChange={(e) => setShowHidden(e.target.checked)}
+              onChange={(e) => { setShowHidden(e.target.checked); syncUrl({ showHidden: e.target.checked }); }}
               className="accent-zinc-500"
             />
             Mostrar ocultos
