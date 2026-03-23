@@ -576,7 +576,7 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12 }:
   );
 }
 
-function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () => void }) {
+function RentPopup({ propertyId, onClose, months = 12 }: { propertyId: number; onClose: () => void; months?: number }) {
   const [itbiComps, setItbiComps] = useState<Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string }>>([]);
   const [medianM2, setMedianM2] = useState(0);
   const [estimatedValue, setEstimatedValue] = useState<number | null>(null);
@@ -1574,7 +1574,7 @@ function ImoveisPageInner() {
               <span className="text-zinc-600">—</span>
             )}
             {expandedComparables === "valorMercado:" + p.id && (
-              <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
+              <ComparablesPopup propertyId={p.id} months={globalPeriod} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
         );
@@ -1600,7 +1600,7 @@ function ImoveisPageInner() {
               <span className="text-zinc-600">—</span>
             )}
             {expandedComparables === "zapValor:" + p.id && (
-              <ComparablesPopup propertyId={p.id} source="zap" onClose={() => setExpandedComparables(null)} />
+              <ComparablesPopup propertyId={p.id} source="zap" months={globalPeriod} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
         );
@@ -1619,7 +1619,7 @@ function ImoveisPageInner() {
               <span className="text-zinc-600">—</span>
             )}
             {expandedComparables === "mercadoM2:" + p.id && (
-              <ComparablesPopup propertyId={p.id} onClose={() => setExpandedComparables(null)} />
+              <ComparablesPopup propertyId={p.id} months={globalPeriod} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
         );
@@ -1641,7 +1641,7 @@ function ImoveisPageInner() {
               <span className="text-zinc-600">—</span>
             )}
             {expandedComparables === "zapM2:" + p.id && (
-              <ComparablesPopup propertyId={p.id} source="zap" onClose={() => setExpandedComparables(null)} />
+              <ComparablesPopup propertyId={p.id} source="zap" months={globalPeriod} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
         );
