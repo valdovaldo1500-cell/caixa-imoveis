@@ -538,8 +538,8 @@ export async function getZapComparables(propertyId: number, _months: number = 12
   }
 
   return {
-    saleComparables: saleComps.slice(0, 20).map(toComparable),
-    rentalComparables: rentalComps.slice(0, 10).map(toComparable),
+    saleComparables: saleComps.map(toComparable),
+    rentalComparables: rentalComps.map(toComparable),
     medianSalePricePerM2: medianSalePricePerM2 ? Math.round(medianSalePricePerM2) : null,
     medianRent: medianRent ? Math.round(medianRent) : null,
     zapMarketValue: zapMarketValue ? Math.round(zapMarketValue) : null,
