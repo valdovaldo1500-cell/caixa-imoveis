@@ -239,34 +239,45 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
     if (saleComparables.length < 3) saleComparables = filterListings(bairroSaleListings);
     // Step 3: city + type + area
     if (saleComparables.length < 3) saleComparables = filterListings(citySaleListings);
-    // Step 4: city + residential only + area (no specific type, but exclude commercial)
-    if (saleComparables.length < 3) {
+    // Step 4: city + same residential group + relaxed area (no specific subtype but keep apt/casa distinction)
+    if (saleComparables.length < 3 && zapTypes) {
+      // Determine broad group: apartment-like or house-like
+      const isAptGroup = zapTypes.some(t => ["APARTAMENTO", "COBERTURA", "KITNET"].includes(t));
+      const aptTypes = new Set(["APARTAMENTO", "COBERTURA", "KITNET"]);
+      const casaTypes = new Set(["CASA", "SOBRADO"]);
+      const allowedGroup = isAptGroup ? aptTypes : casaTypes;
+
       saleComparables = citySaleListings.filter((row) => {
         const rowType = (row.unitType || "").toUpperCase();
-        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
-        if (!rowType) return false;
+        if (!rowType || COMMERCIAL_TYPES.has(rowType)) return false;
+        if (!allowedGroup.has(rowType)) return false; // Keep apt vs casa distinction
         if (propArea && row.area) {
           const rowArea = parseFloat(row.area);
-          if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.5) return false;
+          if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.7) return false; // relaxed to ±70%
         }
         return true;
       });
     }
-    // NO absolute fallback — never mix commercial with residential
+    // NO absolute fallback — never mix apt with casa or commercial
 
     // Rental: same cascade
     let rentalComparables = filterListings(bairroRentalListings, true);
     if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings);
     if (rentalComparables.length < 3) rentalComparables = filterListings(cityRentalListings);
-    // Step 4: city residential only
-    if (rentalComparables.length < 3) {
+    // Step 4: city + same residential group + relaxed area
+    if (rentalComparables.length < 3 && zapTypes) {
+      const isAptGroup = zapTypes.some(t => ["APARTAMENTO", "COBERTURA", "KITNET"].includes(t));
+      const aptTypes = new Set(["APARTAMENTO", "COBERTURA", "KITNET"]);
+      const casaTypes = new Set(["CASA", "SOBRADO"]);
+      const allowedGroup = isAptGroup ? aptTypes : casaTypes;
+
       rentalComparables = cityRentalListings.filter((row) => {
         const rowType = (row.unitType || "").toUpperCase();
-        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
-        if (!rowType) return false;
+        if (!rowType || COMMERCIAL_TYPES.has(rowType)) return false;
+        if (!allowedGroup.has(rowType)) return false;
         if (propArea && row.area) {
           const rowArea = parseFloat(row.area);
-          if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.5) return false;
+          if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.7) return false;
         }
         return true;
       });
