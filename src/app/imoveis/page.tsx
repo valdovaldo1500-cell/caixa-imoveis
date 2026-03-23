@@ -1814,7 +1814,7 @@ function ImoveisPageInner() {
         }
       : {};
 
-    const baseClass = "text-zinc-400 relative text-xs leading-tight whitespace-normal";
+    const baseClass = "text-zinc-400 relative text-xs leading-tight whitespace-normal sticky top-0 z-30 bg-zinc-900";
     const rightCols = ["preco", "precoM2", "avaliacao", "desconto", "descontoMercado", "valorMercado", "mercadoM2", "zapM2", "aluguel", "distancia"];
     const rightAligned = rightCols.includes(colId);
 
