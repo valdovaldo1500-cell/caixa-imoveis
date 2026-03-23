@@ -20,8 +20,8 @@ export async function GET(
   try {
     const [itbiResult, zapResult, zapRentals] = await Promise.all([
       getPropertyComparables(propertyId, months),
-      getZapComparables(propertyId),
-      getZapRentalComparables(propertyId),
+      getZapComparables(propertyId, months),
+      getZapRentalComparables(propertyId, months),
     ]);
 
     if (!itbiResult) {
