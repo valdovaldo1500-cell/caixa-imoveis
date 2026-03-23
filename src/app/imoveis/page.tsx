@@ -894,6 +894,8 @@ function ImoveisPageInner() {
     filterDescontoMin?: string;
     filterPrecoMax?: string;
     filterPrecoMin?: string;
+    filterDistancia?: string;
+    showHidden?: boolean;
   }) => {
     const s = overrides?.sort ?? sort;
     const o = overrides?.order ?? order;
@@ -905,6 +907,8 @@ function ImoveisPageInner() {
     const descontoMin = overrides?.filterDescontoMin ?? filterDescontoMin;
     const precoMax = overrides?.filterPrecoMax ?? filterPrecoMax;
     const precoMin = overrides?.filterPrecoMin ?? filterPrecoMin;
+    const dist = overrides?.filterDistancia ?? filterDistancia;
+    const hidden = overrides?.showHidden ?? showHidden;
 
     const params = new URLSearchParams();
     if (p > 1) params.set("page", String(p));
@@ -917,9 +921,11 @@ function ImoveisPageInner() {
     if (descontoMin) params.set("desconto_min", descontoMin);
     if (precoMax) params.set("preco_max", precoMax);
     if (precoMin) params.set("preco_min", precoMin);
+    if (dist) params.set("max_distance", dist);
+    if (!hidden) params.set("hidden", "false");
     const qs = params.toString();
     router.replace(qs ? `/imoveis?${qs}` : "/imoveis", { scroll: false });
-  }, [sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax, filterPrecoMin, router]);
+  }, [sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax, filterPrecoMin, filterDistancia, showHidden, router]);
 
   // Load saved filters and column config from localStorage on mount
   useEffect(() => {
