@@ -685,19 +685,6 @@ function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () =>
           <p className="text-xs text-zinc-500 mb-1">
             Transações ITBI base · Mediana R$/m²: <span className="text-zinc-300">R$ {Math.round(medianM2).toLocaleString("pt-BR")}</span>
           </p>
-          <div className="flex items-center gap-2 mb-2">
-            <label className="text-xs text-zinc-500">Período:</label>
-            <select
-              value={months}
-              onChange={(e) => setMonths(Number(e.target.value))}
-              className="bg-zinc-800 border border-zinc-700 text-xs text-zinc-300 rounded px-1 py-0.5"
-            >
-              <option value={6}>6 meses</option>
-              <option value={12}>12 meses</option>
-              <option value={18}>18 meses</option>
-              <option value={24}>24 meses</option>
-            </select>
-          </div>
           <table className="w-full text-xs">
             <thead>
               <tr className="text-zinc-500 border-b border-zinc-800">
