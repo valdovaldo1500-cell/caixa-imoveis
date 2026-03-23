@@ -526,7 +526,7 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi" }: { propertyId
                 </tr>
               </thead>
               <tbody>
-                {zapComps.slice(0, 10).map((c, i) => (
+                {zapComps.map((c, i) => (
                   <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
                     <td className="py-1 pr-2 text-zinc-300 max-w-[100px] truncate">{c.bairro || "—"}</td>
                     <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate">{c.unitType || "—"}</td>
