@@ -1118,6 +1118,8 @@ function ImoveisPageInner() {
         const json = await res.json();
         setData(json.data || []);
         setPagination(json.pagination || { page: 1, limit: 50, total: 0, pages: 0 });
+        // Clear recalculated values so they get refreshed for the new page
+        setRecalculatedValues({});
       } catch {
         setData([]);
       } finally {
