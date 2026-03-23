@@ -491,6 +491,7 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi" }: { propertyId
           <select
             value={months}
             onChange={(e) => setMonths(Number(e.target.value))}
+            onMouseDown={(e) => e.stopPropagation()}
             className="bg-zinc-800 border border-zinc-700 text-xs text-zinc-300 rounded px-1 py-0.5"
           >
             <option value={6}>6 meses</option>
