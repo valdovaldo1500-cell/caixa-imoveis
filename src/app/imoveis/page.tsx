@@ -1678,6 +1678,8 @@ function ImoveisPageInner() {
                   {formatBRL(rentVal)}
                   <span className="text-zinc-600 text-xs">/mês</span>
                   {isZapRent && <span className="text-zinc-500 text-xs ml-1">ZAP</span>}
+                  {!isZapRent && p.comparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.comparablesCount})</span> : null}
+                  {isZapRent && p.zapComparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span> : null}
                 </button>
               );
             })() : (
