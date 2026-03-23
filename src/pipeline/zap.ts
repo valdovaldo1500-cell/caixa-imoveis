@@ -384,12 +384,17 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
     return true;
   }
 
+  // Bairro-only — no city-wide fallback (different bairro = different rent)
   let matched = cityRental.filter(matchesStrict);
   if (matched.length < 3) {
-    // Fallback: same city, same type, relaxed area — but NOT random listings
-    matched = cityRental.filter(matchesFallback);
+    // Relaxed bairro match (same bairro, relaxed area/bedrooms)
+    matched = cityRental.filter(matchesFallback).filter(r => {
+      if (bairroKey && r.bairro) {
+        return r.bairro.toUpperCase().includes(bairroKey) || bairroKey.includes(r.bairro.toUpperCase());
+      }
+      return false;
+    });
   }
-  // Never return more than 15
   matched = matched.slice(0, 15);
 
   const prices = matched.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
