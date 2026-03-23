@@ -2079,7 +2079,7 @@ function ImoveisPageInner() {
           />
         </div>
 
-        <Card className="bg-zinc-900 border-zinc-800 overflow-visible">
+        <Card className="bg-zinc-900 border-zinc-800 overflow-auto max-h-[calc(100vh-280px)]">
           <CardContent className="p-0 pb-4">
             <Table>
               <TableHeader className="sticky top-0 z-30 bg-zinc-900">
