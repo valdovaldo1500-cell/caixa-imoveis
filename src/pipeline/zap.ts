@@ -391,10 +391,12 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
   }
 
   function matchesFallback(r: ZapRow): boolean {
-    // Same city, no bairro filter but MUST match type and area
+    const rowType = (r.unitType || "").toUpperCase();
+    // Exclude commercial for residential
+    if (isResProp && COMMERCIAL_TYPES.has(rowType)) return false;
+    if (!rowType) return false;
     // Type is mandatory in fallback
-    if (zapTypes && r.unitType && !zapTypes.includes(r.unitType.toUpperCase())) return false;
-    if (!zapTypes && r.unitType) return false; // skip if we can't determine type
+    if (zapTypes && !zapTypes.includes(rowType)) return false;
     // Area ±50% (relaxed from strict's ±30%)
     if (propArea && r.area) {
       const a = parseFloat(r.area);
