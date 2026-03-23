@@ -365,9 +365,15 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
       )
     );
 
+  const isResProp = !zapTypes || !zapTypes.some(t => COMMERCIAL_TYPES.has(t));
+
   function matchesStrict(r: ZapRow): boolean {
+    const rowType = (r.unitType || "").toUpperCase();
+    // Exclude commercial for residential
+    if (isResProp && COMMERCIAL_TYPES.has(rowType)) return false;
+    if (!rowType) return false;
     // Type filter
-    if (zapTypes && r.unitType && !zapTypes.includes(r.unitType.toUpperCase())) return false;
+    if (zapTypes && !zapTypes.includes(rowType)) return false;
     // Area ±30%
     if (propArea && r.area) {
       const a = parseFloat(r.area);
