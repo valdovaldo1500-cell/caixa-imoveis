@@ -34,14 +34,16 @@ Caixa Econômica Federal auctions repossessed properties (imóveis retomados) ac
 | Styling | Tailwind CSS + shadcn/ui |
 | ORM | Drizzle ORM |
 | Database | PostgreSQL 16 |
-| Auth | Custom HMAC-SHA256 cookie sessions (7 days) |
+| Auth | Multi-user HMAC-SHA256 cookie sessions (7 days) |
 | Email | Resend API |
 | Maps | Leaflet + react-leaflet-cluster |
 | Charts | Recharts |
 
 ### Authentication
 
-Login requires a password + hCaptcha verification. On success, the server issues an `imoveis_session` cookie containing `timestamp:HMAC-SHA256(timestamp)`. The HMAC is signed with `SESSION_SECRET`. Cookie lifetime is 7 days (`MAX_AGE = 604800`). The `proxy.ts` middleware (Next.js 16 equivalent of `middleware.ts`) validates the cookie on every request.
+Login requires a **username + password + hCaptcha** verification. On success, the server issues an `imoveis_session` cookie containing `username:timestamp:HMAC-SHA256(username:timestamp)`. The HMAC is signed with `SESSION_SECRET`. Cookie lifetime is 7 days (`MAX_AGE = 604800`). The `proxy.ts` middleware (Next.js 16 equivalent of `middleware.ts`) validates the cookie on every request.
+
+Multiple users are supported. User credentials are stored in the database and seeded via `POST /api/pipeline/seed-users`. The authenticated username is decoded from the session cookie and displayed in the NavHeader alongside a logout button.
 
 A separate `PIPELINE_TOKEN` environment variable allows API automation (cron jobs) to call pipeline and scoring endpoints without browser authentication, by passing `Authorization: Bearer <token>` in the request header.
 
@@ -68,7 +70,8 @@ Browser
               ├── geocode.ts
               ├── crime-rate.ts
               ├── itbi.ts
-              └── zap.ts
+              ├── zap.ts
+              └── quintoandar.ts
 ```
 
 ### Route Guard (`src/proxy.ts`)
@@ -117,7 +120,16 @@ Eight tables, all defined in `src/lib/db/schema.ts`:
 - **Update frequency:** Weekly (Sundays via cron)
 - **Content:** ~65,000 residential real estate transfer transactions for Porto Alegre (2024–2026). Fields include: `data_estimativa`, `base_de_calculo` (transaction value), `finalidade_construcao` (property type), `logradouro`, `bairro`, `cep`, `area_constr_privativa`, `ano_construcao`, `matricula`.
 - **Filtering on import:** Only residential types are kept (`APARTAMENTO`, `RESIDENCIA ISOLADA`, etc.); cancelled transactions and records with zero area are discarded.
-- **Use:** Powers the ITBI 2-tier market value calculation for Porto Alegre properties.
+- **Use:** Powers the ITBI 2-tier (+ Tier 3 fallback) market value calculation for Porto Alegre properties.
+- **Coverage:** 219/231 POA properties (95%) as of 2026-03-23. Remaining 12 are terrenos without built area.
+
+#### ITBI Improvements (2026-03-23)
+
+Three enhancements were added to increase match coverage from 78% to 95%:
+
+1. **Fuzzy bairro matching** — normalizes accents and strips articles (DE, DO, DA) before comparing bairro names between the property and ITBI transactions. Example: "PETROPOLIS" matches "PETRÓPOLIS".
+2. **Smart type mapping** — ITBI type `CONDOMÍNIO EM EDIFICAÇÃO` is mapped to `APARTAMENTO`; `RESIDÊNCIA ISOLADA` is mapped to the house group. This prevents comparables from being missed due to ITBI's verbose type labels.
+3. **Tier 3 fallback** — a third tier (bairro + area ±50%, no type filter) is attempted if Tiers 1 and 2 yield insufficient comparables. This is the last resort before falling back to ZAP.
 
 ### ZAP Imóveis
 
@@ -126,6 +138,30 @@ Eight tables, all defined in `src/lib/db/schema.ts`:
 - **Content:** ~2,927 listings covering 20 RS cities; both SALE and RENTAL. Fields: `zap_id`, `business`, `cidade`, `bairro`, `unit_type`, `price`, `area`, `price_per_m2`, `bedrooms`, `parking_spaces`, `listing_url`, `condo_fee`.
 - **Import mechanism:** Playwright scraper writes output to `/tmp/zap-data.json`; `POST /api/pipeline/zap?action=import` reads this file and upserts into `zap_listings`.
 - **Use:** Provides market value estimates (`zap_market_value`) and rent estimates (`zap_rent_value`) for all cities, as a fallback when ITBI data is unavailable (all non-POA cities).
+- **Anti-bot:** Cloudflare blocks standard headless Chrome. The scraper must be launched via `xvfb-run` with a real Chrome binary to pass the bot challenge.
+
+#### ZAP Critical Fix (2026-03-23)
+
+The type mapping in ZAP comparables was using English enum values (`APARTMENT`, `HOUSE`) as stored by the ZAP API, but the property table stores Portuguese values (`APARTAMENTO`, `CASA`). This caused all type-filtered comparables lookups to return zero results, forcing every property to use the city-wide fallback (worst comparables).
+
+Additionally, commercial types (`SALA`, `LOJA`, `LOTE`, `TERRENO`) were being included in residential comparables, inflating or deflating estimates for houses and apartments.
+
+**Fix applied:**
+- Type matching now maps ZAP English values to Portuguese before comparing
+- Commercial types are excluded from the comparable set when the target property is residential
+
+**Audit result after fix:** 8/10 properties rated GOOD (strong comparables), 2/10 MIXED. Before: 2/10 GOOD.
+
+### QuintoAndar
+
+- **Source:** quintoandar.com.br — scraped via SSR (`__NEXT_DATA__` JSON embedded in HTML)
+- **Update frequency:** Weekly (Saturdays via cron)
+- **Cities covered:** Porto Alegre (2,744 listings), São Leopoldo, Canoas, Novo Hamburgo, Viamão
+- **Anti-bot:** None. Standard `fetch` + HTML parsing works without Playwright or special headers.
+- **Scraping method:** Each city search page is fetched server-side; the `__NEXT_DATA__` script tag is parsed to extract the full listing JSON without needing JavaScript rendering.
+- **Pipeline step:** `POST /api/pipeline/quintoandar` — fetches all city pages, extracts listings, upserts into a `quintoandar_listings` table (or merged into `zap_listings` with `source = 'quintoandar'`).
+- **Coverage:** ~65% of city listings are captured via SSR. Pages beyond the SSR-rendered set require client-side navigation and are not scraped.
+- **Use:** Supplements ZAP rental and sale data, particularly for POA where it provides the largest dataset.
 
 ### Crime Brasil API
 
@@ -133,7 +169,7 @@ Eight tables, all defined in `src/lib/db/schema.ts`:
 - **Endpoint:** `GET https://crimebrasil.com.br/api/heatmap/municipios?state=RS&ultimos_meses=12`
 - **Update frequency:** Updated per pipeline run (daily)
 - **Content:** Crime `weight` (total incidents) + `population` per RS municipality. The pipeline calculates `(weight / population) * 100000` to get a crime rate per 100,000 inhabitants, stored in `properties.crime_rate`.
-- **Use:** Feeds the `crimeSafety` scoring factor.
+- **Use:** Feeds the `crimeSafety` scoring factor. The crime rate badge in the property table links directly to the Crime Brasil bairro page for that property.
 
 ### Nominatim (OpenStreetMap)
 
@@ -147,7 +183,7 @@ Eight tables, all defined in `src/lib/db/schema.ts`:
 
 ### `/login`
 
-Password input + hCaptcha widget. On success, sets the `imoveis_session` cookie and redirects to `/`.
+Username + password input + hCaptcha widget. On success, sets the `imoveis_session` cookie encoding the username and redirects to `/`.
 
 ### `/` — Dashboard
 
@@ -157,17 +193,24 @@ KPI summary cards showing: total active properties, new properties today, avg di
 
 Full paginated data table with the following capabilities:
 
-- **18 configurable columns:** cidade, bairro, tipo, preco, desconto, score, quartos, vagas, area, market_value, zap_market_value, modalidade, first_seen, aceita_financiamento, comarca, matricula, crime_rate, link_caixa
-- **Multi-select filters:** city (multi), property type (multi), sale modality (multi), price range, minimum discount
+- **Columns:** cidade, bairro, tipo, preco, desconto, score, quartos, vagas, area, market_value (ITBI), zap_market_value (ZAP), modalidade, first_seen, aceita_financiamento, comarca, matricula, crime_rate, link_caixa — ITBI and ZAP values displayed in separate columns
+- **Resizable columns:** Drag the right edge of any column header to resize. Width is persisted in localStorage.
+- **Drag-and-drop column reorder:** Drag column headers left or right to reorder. Order is persisted in localStorage.
+- **Sticky header:** Table header stays visible while scrolling long property lists.
+- **Multi-select filters:** City (multi), property type (multi), sale modality (multi), custom price range (min/max inputs), minimum discount, distance from Porto Alegre (Haversine km)
+- **Global period filter:** 6 / 12 / 18 / 24 months selector — recalculates ITBI comparables for the selected lookback window without re-running the full pipeline
 - **Full-text search:** Uses PostgreSQL `tsvector` + `plainto_tsquery`/`to_tsquery` with Portuguese language config; falls back to `ilike` for city, bairro, and address fields
 - **Sort:** Any column, ascending or descending; relevance-ranked when searching
+- **URL sync:** All filter states (city, type, modality, price, discount, distance, search, page, sort) are reflected in the URL query string for shareable links
+- **Named filter presets:** Save the current filter combination under a custom name; load or delete presets; one preset can be marked as default (applied on page load)
 - **Popups per row:**
   - Score popup — shows full scoring breakdown with factor weights
-  - Comparables popup — shows ITBI tier1/tier2 comparables and ZAP listings
+  - Comparables popup — shows ITBI tier1/tier2/tier3 comparables and ZAP listings
   - Rent popup — shows estimated rent from ITBI (0.5% of market value) or ZAP median rent
-- **Hide/show:** Dismissed properties are hidden from the table (stored in `hidden_properties`)
-- **Favorites toggle:** Heart icon saves a property to `/favoritos`
-- **Notes:** Inline notes per property, persisted to `property_notes`
+- **Hide/show:** Dismissed properties are hidden from the table (stored in `hidden_properties`, per user)
+- **Favorites toggle:** Heart icon saves a property to `/favoritos` (per user)
+- **Notes:** Inline notes per property, persisted to `property_notes` (per user)
+- **Crime rate badge:** Displays crime rate per 100k; clicking opens the Crime Brasil bairro page for that property's city
 
 ### `/imoveis/[id]` — Property Detail
 
@@ -175,7 +218,7 @@ Full detail view for a single property including:
 
 - All property fields
 - Score breakdown chart
-- ITBI comparables list (tier 1 and tier 2) with address, area, transaction date, R$/m²
+- ITBI comparables list (tier 1, tier 2, tier 3) with address, area, transaction date, R$/m²
 - ZAP sale/rental comparables
 - Price history chart (from `price_history` table)
 - Embedded Caixa crime rate for the city
@@ -194,18 +237,21 @@ Five Recharts visualizations:
 
 ### `/mapa` — Map
 
-Interactive Leaflet map with marker clustering. Each marker opens a popup with price, discount, type, score, and a link to the detail page. Four filter controls:
+Interactive Leaflet map with marker clustering and spiderfy for co-located markers (multiple properties at the same address open into a spider layout instead of nesting inside a cluster). Each marker opens a **rich popup** with: property photo, type, area, quartos, score, price, discount, and links to the detail page and Caixa listing.
 
-1. Sale modality
+Filter controls (matching the `/imoveis` table):
+
+1. Sale modality (multi-select)
 2. Minimum discount
 3. Price range
-4. Property type
+4. Property type (multi-select)
+5. Distance from Porto Alegre (Haversine km)
 
 Only geolocated properties (with `lat`/`lng`) appear on the map.
 
 ### `/favoritos` — Saved Properties
 
-List of favorited properties with their current price, discount, score, market value, and removal status (shows alert if a favorited property was removed from Caixa's list). Each entry supports per-property notes.
+List of favorited properties (per logged-in user) with their current price, discount, score, market value, and removal status (shows alert if a favorited property was removed from Caixa's list). Each entry supports per-property notes.
 
 ---
 
@@ -217,12 +263,13 @@ All endpoints require authentication (session cookie) unless noted. Pipeline and
 
 | Method | Path | Auth | Description |
 |--------|------|------|-------------|
-| `POST` | `/api/auth/login` | None | Validates password + hCaptcha; sets session cookie |
-| `GET` | `/api/auth/status` | None | Returns `{ authenticated: boolean }` |
+| `POST` | `/api/auth/login` | None | Validates username + password + hCaptcha; sets session cookie |
+| `GET` | `/api/auth/status` | None | Returns `{ authenticated: boolean, username?: string }` |
+| `POST` | `/api/auth/logout` | Session | Clears the session cookie |
 
 **Login request body:**
 ```json
-{ "password": "...", "hcaptchaToken": "..." }
+{ "username": "...", "password": "...", "hcaptchaToken": "..." }
 ```
 
 ### Properties
@@ -239,6 +286,7 @@ All endpoints require authentication (session cookie) unless noted. Pipeline and
 | `POST` | `/api/properties/[id]/hide` | Toggle hidden on/off |
 | `GET` | `/api/properties/[id]/notes` | Get note text for property |
 | `PUT` | `/api/properties/[id]/notes` | Upsert note text (empty string deletes) |
+| `POST` | `/api/properties/recalculate` | Recalculate market value for a single property using the current ITBI dataset |
 
 **`GET /api/properties` query parameters:**
 
@@ -254,6 +302,7 @@ All endpoints require authentication (session cookie) unless noted. Pipeline and
 | `preco_min` | number | Minimum price |
 | `preco_max` | number | Maximum price |
 | `desconto_min` | number | Minimum discount percentage |
+| `distancia_max` | number | Max distance from Porto Alegre in km (Haversine) |
 | `q` | string | Full-text search (Portuguese FTS + ilike fallback) |
 | `removed` | `"true"` | Include removed properties |
 
@@ -261,9 +310,9 @@ All endpoints require authentication (session cookie) unless noted. Pipeline and
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `months` | int | Lookback window for ITBI tier 1 (default: 12); tier 2 uses 1.5x this value |
+| `months` | int | Lookback window for ITBI tier 1 (default: 12); tier 2 uses 1.5x, tier 3 uses 2x |
 
-Response includes both `tier1` and `tier2` ITBI results, plus `zapListings` with sale and rental comparables.
+Response includes `tier1`, `tier2`, and `tier3` ITBI results, plus `zapListings` with sale and rental comparables.
 
 **`PUT /api/properties/[id]/notes` request body:**
 ```json
@@ -274,7 +323,7 @@ Response includes both `tier1` and `tier2` ITBI results, plus `zapListings` with
 
 | Method | Path | Description |
 |--------|------|-------------|
-| `GET` | `/api/favorites` | All favorites with joined property data |
+| `GET` | `/api/favorites` | All favorites (for logged-in user) with joined property data |
 | `POST` | `/api/favorites` | Add a favorite (`{ propertyId, notes? }`) |
 | `DELETE` | `/api/favorites/[id]` | Remove a favorite by favorite ID |
 | `PATCH` | `/api/favorites/[id]` | Update notes on a favorite (`{ notes }`) |
@@ -283,7 +332,7 @@ Response includes both `tier1` and `tier2` ITBI results, plus `zapListings` with
 
 | Method | Path | Description |
 |--------|------|-------------|
-| `GET` | `/api/hidden` | Returns `{ ids: number[] }` of all hidden property IDs |
+| `GET` | `/api/hidden` | Returns `{ ids: number[] }` of all hidden property IDs for the logged-in user |
 
 ### Notes (bulk)
 
@@ -309,12 +358,13 @@ The endpoint is marked `dynamic = "force-dynamic"` to prevent caching.
 
 | Parameter | Description |
 |-----------|-------------|
-| `modalidade` | Filter by sale modality |
+| `modalidade` | Filter by sale modality (multi-select, comma-separated) |
 | `desconto_min` | Minimum discount |
 | `desconto_max` | Maximum discount |
 | `preco_min` | Minimum price |
 | `preco_max` | Maximum price |
-| `tipo` | Property type (partial match) |
+| `tipo` | Property type (multi-select, comma-separated, partial match) |
+| `distancia_max` | Max distance from Porto Alegre in km (Haversine) |
 
 Response: `{ data: [...] }` — each item includes `id`, `cidade`, `bairro`, `preco`, `valorAvaliacao`, `desconto`, `tipoImovel`, `quartos`, `vagas`, `areaPrivativaM2`, `score`, `marketValue`, `modalidadeVenda`, `linkCaixa`, `fotoUrl`, `lat`, `lng`.
 
@@ -331,8 +381,10 @@ All pipeline endpoints require session cookie OR `Authorization: Bearer <PIPELIN
 | `POST` | `/api/pipeline/crime-rates` | Fetch RS crime rates from crimebrasil.com.br API |
 | `POST` | `/api/pipeline/itbi` | Import ITBI CSVs and/or calculate POA market values |
 | `POST` | `/api/pipeline/zap` | Import ZAP JSON and/or calculate ZAP market values |
+| `POST` | `/api/pipeline/quintoandar` | Scrape QuintoAndar listings for RS cities and upsert |
 | `POST` | `/api/pipeline/notify` | Send daily email report of new properties + price changes |
 | `POST` | `/api/pipeline/verify` | Run 24 data integrity checks; returns detailed report |
+| `POST` | `/api/pipeline/seed-users` | Seed initial user credentials into the database |
 
 **`POST /api/pipeline/scrape` query parameters:**
 
@@ -404,6 +456,14 @@ Each active property receives a score from 0 to 100, computed as a weighted sum 
 | **Days on Market** | 5% | `min(100, (daysSinceFirstSeen / 90) * 100)` — saturates at 90 days |
 | **Crime Safety** | 10% | Rate <500 = 100, 500–1000 = 80, 1000–2000 = 60, 2000–5000 = 40, 5000–10000 = 20, ≥10000 = 0; null → 50 (neutral) |
 
+### Market Value Priority
+
+The effective market value for the **Price Efficiency** factor uses ITBI as the primary source and ZAP as the fallback:
+
+```
+effectiveMarketValue = itbiMarketValue > 0 ? itbiMarketValue : zapMarketValue
+```
+
 ### Area Resolution Order
 
 Area data for the Price Efficiency and Area Value factors is resolved in this order:
@@ -431,21 +491,27 @@ Source: `src/pipeline/itbi.ts` — `calculateMarketValues()`
 
 Only applies to Porto Alegre properties because ITBI (Imposto de Transmissão de Bens Imóveis) data is only available from the Porto Alegre open data portal.
 
-**Two-tier system:**
+**Three-tier system:**
 
 **Tier 1 — "Imóveis muito similares" (very similar properties):**
-- Same bairro as the target property
-- Exact same ITBI type (e.g., `APARTAMENTO` must match `APARTAMENTO`)
+- Same bairro as the target property (fuzzy matched: accents normalized, articles DE/DO/DA stripped)
+- Exact same mapped ITBI type (e.g., `APARTAMENTO` must match `APARTAMENTO`; `CONDOMÍNIO EM EDIFICAÇÃO` also maps to `APARTAMENTO`)
 - Area within ±25% of target property's area
-- Transaction date within last 12 months
+- Transaction date within last 12 months (or `months` parameter)
 
 **Tier 2 — "Imóveis no bairro" (neighborhood properties):**
-- Same bairro
+- Same bairro (fuzzy matched)
 - Any type within the same mapped type group (e.g., any apartment variant)
 - Area within ±50%
-- Transaction date within last 18 months
+- Transaction date within last 18 months (1.5× the Tier 1 window)
 
-**Selection rule:** If Tier 1 has ≥3 comparables, use Tier 1; otherwise fall back to Tier 2.
+**Tier 3 — "Bairro sem filtro de tipo" (area-only fallback):**
+- Same bairro (fuzzy matched)
+- Area within ±50%
+- No type filter
+- Transaction date within last 24 months (2× the Tier 1 window)
+
+**Selection rule:** If Tier 1 has ≥3 comparables, use Tier 1; if Tier 2 has ≥3 comparables, use Tier 2; otherwise use Tier 3. If no tier has ≥1 comparable, fall back to ZAP.
 
 **Market value formula:**
 ```
@@ -466,6 +532,8 @@ Source: `src/pipeline/zap.ts` — `calculateZapMarketValues()`
 
 Applies to all active properties. Uses ZAP Imóveis scraped listings as comparables.
 
+**Type mapping:** ZAP API returns English type labels (`APARTMENT`, `HOUSE`, `COMMERCIAL`). These are mapped to Portuguese (`APARTAMENTO`, `CASA`, etc.) before matching against the property's `tipo_imovel`. Commercial types (`SALA`, `LOJA`, `LOTE`, `TERRENO`) are excluded when the target property is residential.
+
 **Lookup strategy for sale comparables (cascade):**
 1. Same bairro + type filter + area ±50%
 2. Same city + type filter + area ±50%
@@ -484,13 +552,6 @@ zap_rent_value = median(price of rental comparables)
 ```
 
 **Stored columns:** `zap_market_value`, `zap_market_value_per_m2`, `zap_rent_value`, `zap_comparables_count`, `zap_updated_at`
-
-### Scoring Priority
-
-In the scoring engine, the effective market value for the Price Efficiency factor is:
-```
-effectiveMarketValue = itbiMarketValue > 0 ? itbiMarketValue : zapMarketValue
-```
 
 ---
 
@@ -513,11 +574,58 @@ POST /api/pipeline/crime-rates
 # 4. Recalculate scores
 POST /api/scoring/run
 
-# 5. Send email notification
+# 5. Geocode any new properties without coordinates
+POST /api/pipeline/geocode
+
+# 6. Scrape Caixa detail pages for photos (50/day)
+POST /api/pipeline/scrape?limit=50
+
+# 7. Send email notification
 POST /api/pipeline/notify
+
+# 8. Run data integrity verification
+POST /api/pipeline/verify
 ```
 
 All requests use `Authorization: Bearer <PIPELINE_TOKEN>`.
+
+### Hourly Cleanup
+
+Docker image cleanup runs hourly via cron to prevent disk space buildup from old images:
+
+```bash
+docker image prune -f --filter "until=24h"
+```
+
+### Weekly ZAP Refresh (Wednesdays)
+
+ZAP scraping requires a Playwright script running outside the Next.js container, launched via `xvfb-run` to pass Cloudflare's bot challenge:
+
+```bash
+# 1. Run Playwright scraper (external) → /tmp/zap-data.json
+xvfb-run --auto-servernum node scraper/zap.js
+
+# 2. Copy file into container
+docker cp /tmp/zap-data.json <container>:/tmp/zap-data.json
+
+# 3. Import and calculate
+POST /api/pipeline/zap?action=all
+
+# 4. Re-run scoring
+POST /api/scoring/run
+```
+
+### Weekly QuintoAndar Refresh (Saturdays)
+
+QuintoAndar has no anti-bot protection and can be scraped directly:
+
+```bash
+# Fetch all 5 RS cities via SSR and upsert listings
+POST /api/pipeline/quintoandar
+
+# Re-run scoring with updated market data
+POST /api/scoring/run
+```
 
 ### Weekly ITBI Refresh (Sundays)
 
@@ -526,22 +634,6 @@ All requests use `Authorization: Bearer <PIPELINE_TOKEN>`.
 POST /api/pipeline/itbi?action=all
 
 # Re-run scoring with updated market values
-POST /api/scoring/run
-```
-
-### Weekly ZAP Refresh (Wednesdays)
-
-ZAP scraping requires a Playwright script running outside the Next.js container:
-
-```bash
-# 1. Run Playwright scraper (external) → /tmp/zap-data.json
-# 2. Copy file into container
-docker cp /tmp/zap-data.json <container>:/tmp/zap-data.json
-
-# 3. Import and calculate
-POST /api/pipeline/zap?action=all
-
-# 4. Re-run scoring
 POST /api/scoring/run
 ```
 
@@ -616,7 +708,6 @@ Two services defined in `docker-compose.prod.yml`:
 |----------|----------|-------------|
 | `DATABASE_URL` | Yes | `postgres://imoveis:<DB_PASSWORD>@imoveis-db:5432/imoveis` |
 | `SESSION_SECRET` | Yes | Secret for HMAC-SHA256 session signing |
-| `DASHBOARD_PASSWORD` | Yes | Login password for the dashboard |
 | `HCAPTCHA_SECRET` | Yes | hCaptcha server-side secret |
 | `NEXT_PUBLIC_HCAPTCHA_SITE_KEY` | Yes | hCaptcha site key (also build arg) |
 | `RESEND_API_KEY` | Yes | Resend API key for email notifications |
@@ -624,6 +715,8 @@ Two services defined in `docker-compose.prod.yml`:
 | `PIPELINE_TOKEN` | Yes | Bearer token for automated API calls |
 | `CSV_LOCAL_PATH` | No | Path to pre-downloaded CSV file (bypasses Caixa download) |
 | `DB_PASSWORD` | Yes (prod) | PostgreSQL password |
+
+> **Note:** `DASHBOARD_PASSWORD` was removed in the multi-user auth migration. User credentials are now stored in the database and managed via `/api/pipeline/seed-users`.
 
 ### Traefik Labels
 
@@ -685,12 +778,16 @@ docker compose up -d
 
 # 3. Copy and configure environment
 cp .env.example .env.local
-# Edit .env.local: DATABASE_URL, SESSION_SECRET, DASHBOARD_PASSWORD, HCAPTCHA_SECRET, etc.
+# Edit .env.local: DATABASE_URL, SESSION_SECRET, HCAPTCHA_SECRET, PIPELINE_TOKEN, RESEND_API_KEY, etc.
 
 # 4. Push schema to database
 pnpm drizzle-kit push
 
-# 5. Start dev server (port 3000)
+# 5. Seed initial users
+curl -X POST http://localhost:3000/api/pipeline/seed-users \
+  -H "Authorization: Bearer <PIPELINE_TOKEN>"
+
+# 6. Start dev server (port 3000)
 pnpm dev
 ```
 
@@ -712,11 +809,12 @@ pnpm start     # Start built server
 | File | Purpose |
 |------|---------|
 | `src/proxy.ts` | Auth middleware (all route protection) |
-| `src/lib/auth.ts` | HMAC session sign/verify logic |
+| `src/lib/auth.ts` | HMAC session sign/verify logic (multi-user) |
 | `src/lib/db/schema.ts` | Full database schema (all 8 tables) |
 | `src/lib/scoring.ts` | Scoring engine + `computeScoreBreakdown()` |
-| `src/pipeline/itbi.ts` | ITBI import, market value calculation, comparables API |
-| `src/pipeline/zap.ts` | ZAP import and market value calculation |
+| `src/pipeline/itbi.ts` | ITBI import, 3-tier market value calculation, comparables API |
+| `src/pipeline/zap.ts` | ZAP import and market value calculation (with EN→PT type mapping) |
+| `src/pipeline/quintoandar.ts` | QuintoAndar SSR scraper (5 RS cities) |
 | `src/pipeline/geocode.ts` | Nominatim geocoder (1 req/sec) |
 | `src/pipeline/crime-rate.ts` | Crime rate fetcher from crimebrasil.com.br |
 | `src/pipeline/scrape-details.ts` | Caixa detail page scraper (curl + cheerio) |
@@ -738,7 +836,9 @@ pnpm start     # Start built server
 ### Known Limitations
 
 - **Radware blocker:** Caixa's CSV endpoint blocks server-side downloads from the Hetzner IP. The workaround is to download the CSV manually and inject it via `docker cp` + the `CSV_LOCAL_PATH` env var.
-- **ITBI is POA-only:** Market value via ITBI comparables only works for Porto Alegre properties. All other cities use ZAP data.
-- **ZAP scraper requires manual trigger:** The Playwright-based ZAP scraper runs outside the container. Scraped data must be copied in as `/tmp/zap-data.json` before calling `/api/pipeline/zap`.
+- **ZAP requires xvfb-run:** The Playwright-based ZAP scraper must run inside a virtual display (`xvfb-run`) with a real Chrome binary to pass Cloudflare's bot detection. Standard headless mode is blocked.
+- **QuintoAndar partial coverage:** ~65% of listings per city are captured via SSR. Pages beyond the SSR-rendered set require client-side navigation and are not scraped currently.
+- **ITBI is POA-only:** Market value via ITBI comparables only works for Porto Alegre properties. All other cities use ZAP data. 12 POA properties (terrenos sem área construída) have no ITBI market value because area is required for R$/m² calculation.
 - **Geocoding rate limit:** Nominatim enforces 1 request per second. Geocoding 957 properties takes ~17 minutes minimum. The scraper processes up to 200 per call.
 - **Score mutex:** Both `/api/pipeline/trigger` and `/api/scoring/run` use in-process boolean flags to prevent concurrent execution. Restarting the container resets these flags.
+- **Photo scraping quota:** Caixa detail page scraping is capped at 50/day to avoid triggering Radware's rate limits.
