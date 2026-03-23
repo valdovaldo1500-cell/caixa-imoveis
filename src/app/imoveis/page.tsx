@@ -842,6 +842,7 @@ function ImoveisPageInner() {
   const [filterPrecoMax, setFilterPrecoMax] = useState("");
   const [filterPrecoMin, setFilterPrecoMin] = useState("");
   const [filterDistancia, setFilterDistancia] = useState("");
+  const [globalPeriod, setGlobalPeriod] = useState(12);
   const [precoMaxMode, setPrecoMaxMode] = useState<"preset" | "custom">("preset");
   const [customPrecoMin, setCustomPrecoMin] = useState("");
   const [customPrecoMax, setCustomPrecoMax] = useState("");
