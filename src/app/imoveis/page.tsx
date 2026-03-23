@@ -499,7 +499,9 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi" }: { propertyId
                 <option value={12}>12 meses</option>
                 <option value={18}>18 meses</option>
                 <option value={24}>24 meses</option>
-          </select>
+              </select>
+            </>
+          )}
           <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
         </div>
       </div>
