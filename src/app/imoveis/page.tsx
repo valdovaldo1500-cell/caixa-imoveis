@@ -1244,6 +1244,32 @@ function ImoveisPageInner() {
     loadNotes();
   }, [loadNotes]);
 
+  // Recalculate ITBI values for the current page whenever globalPeriod or data changes
+  useEffect(() => {
+    if (data.length === 0) return;
+    // Only recalculate for properties that have ITBI data (marketValue or marketValuePerM2)
+    const idsWithItbi = data
+      .filter((p) => p.marketValue || p.marketValuePerM2)
+      .map((p) => p.id);
+    if (idsWithItbi.length === 0) return;
+
+    setRecalculating(true);
+    fetch("/api/properties/recalculate", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ propertyIds: idsWithItbi, months: globalPeriod }),
+    })
+      .then((r) => r.json())
+      .then((json: { recalculated?: Record<number, { marketValue: string | null; marketValuePerM2: string | null; comparablesCount: number }> }) => {
+        if (json.recalculated) {
+          setRecalculatedValues(json.recalculated);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setRecalculating(false));
+  }, [data, globalPeriod]);
+
   const handleSort = (col: string) => {
     const newOrder = sort === col ? (order === "desc" ? "asc" : "desc") : "desc";
     const newSort = col;
