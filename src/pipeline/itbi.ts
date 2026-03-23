@@ -331,11 +331,21 @@ export async function calculateMarketValues(): Promise<{
       )
     );
 
-  // Group by bairro for fast lookup
+  // Normalize bairro: remove accents, articles (DE, DO, DA, DOS, DAS), trim
+  function normBairro(name: string): string {
+    return name
+      .toUpperCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/\b(DE|DO|DA|DOS|DAS|E)\b/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  // Group by normalized bairro for fast lookup
   type TxRow = (typeof allTx)[0];
   const txByBairro = new Map<string, TxRow[]>();
   for (const tx of allTx) {
-    const bairroKey = (tx.bairro || "").toUpperCase().trim();
+    const bairroKey = normBairro(tx.bairro || "");
     if (!txByBairro.has(bairroKey)) txByBairro.set(bairroKey, []);
     txByBairro.get(bairroKey)!.push(tx);
   }
