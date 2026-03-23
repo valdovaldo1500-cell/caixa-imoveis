@@ -496,9 +496,22 @@ export async function getZapComparables(propertyId: number): Promise<{
 
   let saleComps = filterRows(bairroSale);
   if (saleComps.length < 3) saleComps = filterRows(citySale);
+  // Fallback: city-wide without type filter (area only)
+  if (saleComps.length < 3) {
+    saleComps = citySale.filter((r) => {
+      if (propArea && r.area) {
+        const a = parseFloat(r.area);
+        if (a > 0 && Math.abs(a - propArea) / propArea > 0.5) return false;
+      }
+      return true;
+    });
+  }
+  // Absolute fallback: all city sale listings
+  if (saleComps.length < 3) saleComps = citySale;
 
   let rentalComps = filterRows(bairroRental);
   if (rentalComps.length < 3) rentalComps = filterRows(cityRental);
+  if (rentalComps.length < 3) rentalComps = cityRental;
 
   const salePm2 = saleComps.map((r) => parseFloat(r.pricePerM2 || "0")).filter((v) => v > 0);
   const rentalPrices = rentalComps.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
