@@ -296,7 +296,7 @@ export interface ZapRentalComparable {
   listingUrl: string | null;
 }
 
-export async function getZapRentalComparables(propertyId: number): Promise<{
+export async function getZapRentalComparables(propertyId: number, _months: number = 12): Promise<{
   comparables: ZapRentalComparable[];
   medianRent: number;
   count: number;
