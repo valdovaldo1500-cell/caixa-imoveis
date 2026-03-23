@@ -36,10 +36,11 @@ function normalizeCidade(name: string): string {
     .trim();
 }
 
-// Map Caixa property types to QA unit types (Portuguese)
+// Map Caixa property types to QA unit types (Portuguese — QA uses title-cased types uppercased)
+// QA types observed: APARTAMENTO, CASA, CASACONDOMINIO, STUDIOOUKITCHENETTE, COBERTURA
 const CAIXA_TO_QA_TYPES: Record<string, string[]> = {
-  apartamento: ["APARTAMENTO", "COBERTURA", "KITNET"],
-  casa: ["CASA", "SOBRADO"],
+  apartamento: ["APARTAMENTO", "COBERTURA", "KITNET", "STUDIOOUKITCHENETTE"],
+  casa: ["CASA", "SOBRADO", "CASACONDOMINIO"],
   terreno: ["LOTE", "TERRENO"],
   lote: ["LOTE", "TERRENO"],
   comercial: ["SALA", "LOJA"],
