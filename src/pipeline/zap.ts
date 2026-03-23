@@ -506,40 +506,12 @@ export async function getZapComparables(propertyId: number, _months: number = 12
     ? cityRental.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
     : [];
 
+  // Bairro-only matching — no city-wide fallback (different bairro = different price)
   let saleComps = filterRows(bairroSale);
-  if (saleComps.length < 3) saleComps = filterRows(citySale);
-  // Fallback: city + same residential group (apt vs casa distinction preserved)
-  if (saleComps.length < 3 && zapTypes) {
-    const isAptGrp = zapTypes.some(t => ["APARTAMENTO", "COBERTURA", "KITNET"].includes(t));
-    const allowed = isAptGrp ? new Set(["APARTAMENTO", "COBERTURA", "KITNET"]) : new Set(["CASA", "SOBRADO"]);
-    saleComps = citySale.filter((r) => {
-      const rt = (r.unitType || "").toUpperCase();
-      if (!rt || COMMERCIAL_TYPES.has(rt)) return false;
-      if (!allowed.has(rt)) return false;
-      if (propArea && r.area) {
-        const a = parseFloat(r.area);
-        if (a > 0 && Math.abs(a - propArea) / propArea > 0.7) return false;
-      }
-      return true;
-    });
-  }
+  // No city-wide fallback
 
   let rentalComps = filterRows(bairroRental);
-  if (rentalComps.length < 3) rentalComps = filterRows(cityRental);
-  if (rentalComps.length < 3 && zapTypes) {
-    const isAptGrp = zapTypes.some(t => ["APARTAMENTO", "COBERTURA", "KITNET"].includes(t));
-    const allowed = isAptGrp ? new Set(["APARTAMENTO", "COBERTURA", "KITNET"]) : new Set(["CASA", "SOBRADO"]);
-    rentalComps = cityRental.filter((r) => {
-      const rt = (r.unitType || "").toUpperCase();
-      if (!rt || COMMERCIAL_TYPES.has(rt)) return false;
-      if (!allowed.has(rt)) return false;
-      if (propArea && r.area) {
-        const a = parseFloat(r.area);
-        if (a > 0 && Math.abs(a - propArea) / propArea > 0.7) return false;
-      }
-      return true;
-    });
-  }
+  // No city-wide fallback
 
   const salePm2 = saleComps.map((r) => parseFloat(r.pricePerM2 || "0")).filter((v) => v > 0);
   const rentalPrices = rentalComps.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
