@@ -2102,8 +2102,8 @@ function ImoveisPageInner() {
           />
         </div>
 
-        <Card className="bg-zinc-900 border-zinc-800 overflow-auto">
-          <CardContent className="p-0">
+        <Card className="bg-zinc-900 border-zinc-800 overflow-visible">
+          <CardContent className="p-0 pb-4">
             <Table>
               <TableHeader className="sticky top-0 z-30 bg-zinc-900">
                 <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
