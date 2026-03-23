@@ -453,7 +453,7 @@ function SavedFiltersDropdown({
 // ---------------------------------------------------------------------------
 // Popups
 // ---------------------------------------------------------------------------
-function ComparablesPopup({ propertyId, onClose, source = "itbi" }: { propertyId: number; onClose: () => void; source?: "itbi" | "zap" }) {
+function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12 }: { propertyId: number; onClose: () => void; source?: "itbi" | "zap"; months?: number }) {
   const [data, setData] = useState<{
     property: { bairro: string; tipoImovel: string; areaPrivativaM2: string };
     tier1: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string; finalidadeConstrucao: string }>; medianPrecoM2: number; count: number };
@@ -462,7 +462,6 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi" }: { propertyId
     zapListings?: { saleComparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }>; medianSalePricePerM2: number | null };
   } | null>(null);
   const [loading, setLoading] = useState(true);
-  const [months, setMonths] = useState(12);
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, onClose);
 
@@ -597,7 +596,6 @@ function RentPopup({ propertyId, onClose }: { propertyId: number; onClose: () =>
   const [zapRentals, setZapRentals] = useState<Array<{ zapId: string | null; bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }>>([]);
   const [zapMedianRent, setZapMedianRent] = useState<number>(0);
   const [loading, setLoading] = useState(true);
-  const [months, setMonths] = useState(12);
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, onClose);
 
