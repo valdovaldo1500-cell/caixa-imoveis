@@ -45,6 +45,9 @@ interface Property {
   zapMarketValuePerM2: string | null;
   zapRentValue: string | null;
   zapComparablesCount: number | null;
+  qaMarketValue: string | null;
+  qaRentValue: string | null;
+  qaComparablesCount: number | null;
   fotoUrl: string | null;
   lat: string | null;
   lng: string | null;
