@@ -1675,23 +1675,16 @@ function ImoveisPageInner() {
       case "aluguel":
         return (
           <TableCell key={colId} className="text-right relative">
-            {(p.marketRentValue || p.zapRentValue) ? (() => {
-              const rentVal = p.marketRentValue || p.zapRentValue!;
-              const isZapRent = !p.marketRentValue && !!p.zapRentValue;
-              return (
-                <button
-                  onClick={() => setExpandedRent(expandedRent === p.id ? null : p.id)}
-                  className="text-zinc-300 cursor-pointer hover:underline text-left"
-                  title={isZapRent ? "Estimativa baseada em anúncios ZAP" : undefined}
-                >
-                  {formatBRL(rentVal)}
-                  <span className="text-zinc-600 text-xs">/mês</span>
-                  {isZapRent && <span className="text-zinc-500 text-xs ml-1">ZAP</span>}
-                  {!isZapRent && p.comparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.comparablesCount})</span> : null}
-                  {isZapRent && p.zapComparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span> : null}
-                </button>
-              );
-            })() : (
+            {p.zapRentValue ? (
+              <button
+                onClick={() => setExpandedRent(expandedRent === p.id ? null : p.id)}
+                className="text-zinc-300 cursor-pointer hover:underline text-left"
+              >
+                {formatBRL(p.zapRentValue)}
+                <span className="text-zinc-600 text-xs">/mês</span>
+                {p.zapComparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span> : null}
+              </button>
+            ) : (
               <span className="text-zinc-600">—</span>
             )}
             {expandedRent === p.id && (
