@@ -355,8 +355,17 @@ export async function calculateMarketValues(): Promise<{
   const now = new Date();
 
   for (const prop of poaProperties) {
-    const bairroKey = (prop.bairro || "").toUpperCase().trim();
-    const bairroTx = txByBairro.get(bairroKey) || [];
+    const bairroKey = normBairro(prop.bairro || "");
+    let bairroTx = txByBairro.get(bairroKey) || [];
+    // Fuzzy fallback: try partial match if exact normalized match fails
+    if (bairroTx.length === 0 && bairroKey.length > 3) {
+      for (const [k, txs] of txByBairro) {
+        if (k.includes(bairroKey) || bairroKey.includes(k)) {
+          bairroTx = txs;
+          break;
+        }
+      }
+    }
 
     const itbiTypes = getItbiTypes(prop.tipoImovel || prop.descricao);
     // Tier 1 uses exact first type; Tier 2 uses all mapped types
