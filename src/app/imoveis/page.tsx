@@ -847,6 +847,12 @@ function ImoveisPageInner() {
   const [showSavePopup, setShowSavePopup] = useState(false);
   const savePopupRef = useRef<HTMLDivElement>(null);
 
+  // Recalculated ITBI values keyed by propertyId, updated when globalPeriod changes
+  const [recalculatedValues, setRecalculatedValues] = useState<
+    Record<number, { marketValue: string | null; marketValuePerM2: string | null; comparablesCount: number }>
+  >({});
+  const [recalculating, setRecalculating] = useState(false);
+
   // Drag-and-drop column reorder state
   const [dragCol, setDragCol] = useState<string | null>(null);
   const [dragOverCol, setDragOverCol] = useState<string | null>(null);
