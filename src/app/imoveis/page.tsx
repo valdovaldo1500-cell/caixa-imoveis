@@ -2040,7 +2040,7 @@ function ImoveisPageInner() {
           )}
           <select
             value={filterDistancia}
-            onChange={(e) => setFilterDistancia(e.target.value)}
+            onChange={(e) => { setFilterDistancia(e.target.value); syncUrl({ filterDistancia: e.target.value }); }}
             className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300 text-xs"
           >
             <option value="">Distância POA</option>
