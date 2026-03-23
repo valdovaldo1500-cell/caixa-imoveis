@@ -19,7 +19,7 @@ export function proxy(request: NextRequest) {
   if (
     PIPELINE_TOKEN &&
     authHeader === `Bearer ${PIPELINE_TOKEN}` &&
-    (pathname.startsWith("/api/pipeline/") || pathname.startsWith("/api/scoring/"))
+    (pathname.startsWith("/api/pipeline/") || pathname.startsWith("/api/scoring/") || pathname.startsWith("/api/properties/"))
   ) {
     return NextResponse.next();
   }
