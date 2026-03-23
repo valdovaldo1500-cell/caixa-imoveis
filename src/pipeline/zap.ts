@@ -527,9 +527,12 @@ export async function getZapComparables(propertyId: number, _months: number = 12
 
   let saleComps = filterRows(bairroSale);
   if (saleComps.length < 3) saleComps = filterRows(citySale);
-  // Fallback: city-wide without type filter (area only)
+  // Fallback: city residential only + area (no specific type but exclude commercial)
   if (saleComps.length < 3) {
     saleComps = citySale.filter((r) => {
+      const rt = (r.unitType || "").toUpperCase();
+      if (isResidentialProp && COMMERCIAL_TYPES.has(rt)) return false;
+      if (!rt) return false;
       if (propArea && r.area) {
         const a = parseFloat(r.area);
         if (a > 0 && Math.abs(a - propArea) / propArea > 0.5) return false;
@@ -537,8 +540,7 @@ export async function getZapComparables(propertyId: number, _months: number = 12
       return true;
     });
   }
-  // Absolute fallback: all city sale listings
-  if (saleComps.length < 3) saleComps = citySale;
+  // NO absolute fallback — never mix commercial
 
   let rentalComps = filterRows(bairroRental);
   if (rentalComps.length < 3) rentalComps = filterRows(cityRental);
