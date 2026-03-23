@@ -89,7 +89,7 @@ const ALL_COLUMNS = [
   { id: "precoM2", label: "R$/m²", defaultVisible: true, defaultWidth: 75 },
   { id: "avaliacao", label: "Avaliação", defaultVisible: true, defaultWidth: 100 },
   { id: "desconto", label: "Desc.", defaultVisible: true, sortKey: "desconto", defaultWidth: 65 },
-  { id: "descontoMercado", label: "Desc. Merc.", defaultVisible: true, defaultWidth: 75 },
+  { id: "descontoMercado", label: "Desc. Merc.", defaultVisible: true, sortKey: "desconto_mercado", defaultWidth: 75 },
   { id: "modalidade", label: "Modalidade", defaultVisible: false },
   { id: "score", label: "Score", defaultVisible: true, sortKey: "score", defaultWidth: 55 },
   { id: "crime", label: "Crime", defaultVisible: true, defaultWidth: 90 },
