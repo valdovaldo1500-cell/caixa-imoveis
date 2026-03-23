@@ -1254,12 +1254,11 @@ function ImoveisPageInner() {
   }, [loadNotes]);
 
   const handleSort = (col: string) => {
-    if (sort === col) {
-      setOrder(order === "desc" ? "asc" : "desc");
-    } else {
-      setSort(col);
-      setOrder("desc");
-    }
+    const newOrder = sort === col ? (order === "desc" ? "asc" : "desc") : "desc";
+    const newSort = col;
+    setSort(newSort);
+    setOrder(newOrder);
+    syncUrl({ sort: newSort, order: newOrder });
   };
 
   const sortIcon = (col: string) => {
