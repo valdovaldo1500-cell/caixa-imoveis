@@ -114,6 +114,7 @@ export async function GET(request: NextRequest) {
     score: sql`${properties.score}`,
     first_seen: sql`${properties.firstSeenAt}`,
     market_value: sql`${properties.marketValue}`,
+    desconto_mercado: sql`CASE WHEN ${properties.preco}::numeric > 0 AND coalesce(${properties.marketValue}, ${properties.zapMarketValue}) IS NOT NULL THEN (1 - ${properties.preco}::numeric / coalesce(${properties.marketValue}, ${properties.zapMarketValue})::numeric) * 100 ELSE NULL END`,
   };
   const sortCol = sortMap[sort] || sortMap.desconto;
 
