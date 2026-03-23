@@ -550,8 +550,7 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi" }: { propertyId
         ) : (
           <>
             <p className="text-xs text-zinc-500 mb-2">
-              Mediana R$/m²: <span className="text-zinc-300 font-medium">R$ {Math.round(data?.methodology?.medianPrecoM2 || 0).toLocaleString("pt-BR")}</span>
-              {" · "}{itbiComps.length} transações
+              {itbiComps.length} transações comparáveis
             </p>
             <table className="w-full text-xs">
               <thead>
