@@ -1462,7 +1462,8 @@ function ImoveisPageInner() {
         );
 
       case "descontoMercado": {
-        const dmv = p.marketValue || p.zapMarketValue;
+        const recalcDm = recalculatedValues[p.id];
+        const dmv = (recalcDm ? recalcDm.marketValue : p.marketValue) || p.zapMarketValue;
         return (
           <TableCell key={colId} className="text-right">
             {dmv && p.preco ? (() => {
