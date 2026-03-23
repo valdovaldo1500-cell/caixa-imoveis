@@ -385,8 +385,20 @@ export async function calculateMarketValues(): Promise<{
       return true;
     });
 
+    // Tier 3 — "Todos no bairro": same bairro, no type filter, area ±50%
+    const tier3 = bairroTx.filter((tx) => {
+      if (propArea && tx.areaConstrPrivativa) {
+        const txArea = parseFloat(tx.areaConstrPrivativa);
+        if (txArea > 0) {
+          const ratio = Math.abs(txArea - propArea) / propArea;
+          if (ratio > 0.5) return false;
+        }
+      }
+      return true;
+    });
+
     // Decide which tier to use for the market value calculation
-    const activeComparables = tier1.length >= 3 ? tier1 : tier2;
+    const activeComparables = tier1.length >= 3 ? tier1 : tier2.length >= 3 ? tier2 : tier3;
 
     // Calculate median R$/m²
     const pricesPerM2 = activeComparables
