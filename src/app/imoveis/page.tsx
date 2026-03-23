@@ -2048,6 +2048,16 @@ function ImoveisPageInner() {
             <option value="100">até 100km</option>
             <option value="200">até 200km</option>
           </select>
+          <select
+            value={globalPeriod}
+            onChange={(e) => setGlobalPeriod(Number(e.target.value))}
+            className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300 text-xs"
+          >
+            <option value={6}>6 meses</option>
+            <option value={12}>12 meses</option>
+            <option value={18}>18 meses</option>
+            <option value={24}>24 meses</option>
+          </select>
           {hasActiveFilters && (
             <button
               onClick={() => {
