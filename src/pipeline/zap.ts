@@ -110,15 +110,18 @@ export async function importZapData(
   return { imported, skipped, errors };
 }
 
-// Map Caixa property types to ZAP unit types
+// Map Caixa property types to ZAP unit types (Portuguese — matching DB values)
 const CAIXA_TO_ZAP_TYPES: Record<string, string[]> = {
-  apartamento: ["APARTMENT", "PENTHOUSE", "STUDIO", "FLAT"],
-  casa: ["HOME", "RESIDENTIAL"],
-  terreno: ["LAND"],
-  lote: ["LAND"],
-  comercial: ["COMMERCIAL", "OFFICE", "STORE"],
-  loja: ["STORE", "COMMERCIAL"],
+  apartamento: ["APARTAMENTO", "COBERTURA", "KITNET"],
+  casa: ["CASA", "SOBRADO"],
+  terreno: ["LOTE", "TERRENO"],
+  lote: ["LOTE", "TERRENO"],
+  comercial: ["SALA", "LOJA"],
+  loja: ["LOJA", "SALA"],
 };
+
+// Commercial types to EXCLUDE from residential comparables
+const COMMERCIAL_TYPES = new Set(["SALA", "LOJA", "LOTE", "TERRENO"]);
 
 function getZapUnitTypes(tipoImovel: string | null, descricao: string | null): string[] | null {
   const src = (tipoImovel || descricao || "").toLowerCase();
