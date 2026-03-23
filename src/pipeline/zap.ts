@@ -232,14 +232,18 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
       ? cityRentalListings.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
       : [];
 
-    let saleComparables = filterListings(bairroSaleListings);
-    // Fall back to city-wide with type filter
-    if (saleComparables.length < 3) {
-      saleComparables = filterListings(citySaleListings);
-    }
-    // Last resort: city-wide without type filter (just area if available)
+    // Step 1: bairro + type + area (strict with bedrooms)
+    let saleComparables = filterListings(bairroSaleListings, true);
+    // Step 2: bairro + type + area (relaxed)
+    if (saleComparables.length < 3) saleComparables = filterListings(bairroSaleListings);
+    // Step 3: city + type + area
+    if (saleComparables.length < 3) saleComparables = filterListings(citySaleListings);
+    // Step 4: city + residential only + area (no specific type, but exclude commercial)
     if (saleComparables.length < 3) {
       saleComparables = citySaleListings.filter((row) => {
+        const rowType = (row.unitType || "").toUpperCase();
+        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
+        if (!rowType) return false;
         if (propArea && row.area) {
           const rowArea = parseFloat(row.area);
           if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.5) return false;
@@ -247,17 +251,24 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
         return true;
       });
     }
-    // Absolute fallback: all city listings (median R$/m² for the whole city)
-    if (saleComparables.length < 3) {
-      saleComparables = citySaleListings;
-    }
+    // NO absolute fallback — never mix commercial with residential
 
-    let rentalComparables = filterListings(bairroRentalListings);
+    // Rental: same cascade
+    let rentalComparables = filterListings(bairroRentalListings, true);
+    if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings);
+    if (rentalComparables.length < 3) rentalComparables = filterListings(cityRentalListings);
+    // Step 4: city residential only
     if (rentalComparables.length < 3) {
-      rentalComparables = filterListings(cityRentalListings);
-    }
-    if (rentalComparables.length < 3) {
-      rentalComparables = cityRentalListings;
+      rentalComparables = cityRentalListings.filter((row) => {
+        const rowType = (row.unitType || "").toUpperCase();
+        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
+        if (!rowType) return false;
+        if (propArea && row.area) {
+          const rowArea = parseFloat(row.area);
+          if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.5) return false;
+        }
+        return true;
+      });
     }
 
     // Calculate median R$/m² from sale comparables
