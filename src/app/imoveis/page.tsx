@@ -1683,7 +1683,7 @@ function ImoveisPageInner() {
             })() : (
               <span className="text-zinc-600">—</span>
             )}
-            {expandedRent === p.id && p.marketRentValue && p.marketValue && (
+            {expandedRent === p.id && (
               <RentPopup
                 propertyId={p.id}
                 onClose={() => setExpandedRent(null)}
