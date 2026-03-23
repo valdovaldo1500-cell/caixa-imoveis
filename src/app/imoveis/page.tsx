@@ -1641,15 +1641,17 @@ function ImoveisPageInner() {
           </TableCell>
         );
 
-      case "mercadoM2":
+      case "mercadoM2": {
+        const recalcM2 = recalculatedValues[p.id];
+        const displayM2 = recalcM2 ? recalcM2.marketValuePerM2 : p.marketValuePerM2;
         return (
           <TableCell key={colId} className="text-right relative">
-            {p.marketValuePerM2 ? (
+            {displayM2 ? (
               <button
                 onClick={() => setExpandedComparables(expandedComparables === "mercadoM2:" + p.id ? null : "mercadoM2:" + p.id)}
                 className="text-zinc-400 text-sm cursor-pointer hover:underline"
               >
-                R$&nbsp;{Math.round(parseFloat(p.marketValuePerM2)).toLocaleString("pt-BR")}
+                R$&nbsp;{Math.round(parseFloat(displayM2)).toLocaleString("pt-BR")}
               </button>
             ) : (
               <span className="text-zinc-600">—</span>
@@ -1659,6 +1661,7 @@ function ImoveisPageInner() {
             )}
           </TableCell>
         );
+      }
 
       case "zapM2":
         return (
