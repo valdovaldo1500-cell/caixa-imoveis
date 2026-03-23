@@ -1690,6 +1690,25 @@ function ImoveisPageInner() {
           </TableCell>
         );
 
+      case "qaValor":
+        return (
+          <TableCell key={colId} className="text-right">
+            {p.qaMarketValue && p.preco ? (() => {
+              const mv = parseFloat(p.qaMarketValue);
+              const preco = parseFloat(p.preco);
+              const isGoodDeal = preco < mv;
+              return (
+                <span className={isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}>
+                  {formatBRL(p.qaMarketValue)}
+                  {p.qaComparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.qaComparablesCount})</span> : null}
+                </span>
+              );
+            })() : (
+              <span className="text-zinc-600">—</span>
+            )}
+          </TableCell>
+        );
+
       case "aluguel":
         return (
           <TableCell key={colId} className="text-right relative">
