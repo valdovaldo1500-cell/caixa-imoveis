@@ -487,21 +487,17 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi" }: { propertyId
           {title}
         </span>
         <div className="flex items-center gap-2">
-          {!showZap && (
-            <>
-              <label className="text-xs text-zinc-500">Período:</label>
-              <select
-                value={months}
-                onChange={(e) => setMonths(Number(e.target.value))}
-                className="bg-zinc-800 border border-zinc-700 text-xs text-zinc-300 rounded px-1 py-0.5"
-              >
-                <option value={6}>6 meses</option>
-                <option value={12}>12 meses</option>
-                <option value={18}>18 meses</option>
-                <option value={24}>24 meses</option>
-              </select>
-            </>
-          )}
+          <label className="text-xs text-zinc-500">Período:</label>
+          <select
+            value={months}
+            onChange={(e) => setMonths(Number(e.target.value))}
+            className="bg-zinc-800 border border-zinc-700 text-xs text-zinc-300 rounded px-1 py-0.5"
+          >
+            <option value={6}>6 meses</option>
+            <option value={12}>12 meses</option>
+            <option value={18}>18 meses</option>
+            <option value={24}>24 meses</option>
+          </select>
           <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
         </div>
       </div>
