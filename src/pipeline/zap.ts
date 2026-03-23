@@ -475,10 +475,17 @@ export async function getZapComparables(propertyId: number, _months: number = 12
         : null;
 
   const zapTypes = getZapUnitTypes(prop.tipoImovel, prop.descricao);
+  const isResidentialProp = !zapTypes || !zapTypes.some(t => COMMERCIAL_TYPES.has(t));
 
   function filterRows(rows: ZapRow[]): ZapRow[] {
     return rows.filter((r) => {
-      if (zapTypes && r.unitType && !zapTypes.includes(r.unitType.toUpperCase())) return false;
+      const rowType = (r.unitType || "").toUpperCase();
+      // Exclude commercial for residential properties
+      if (isResidentialProp && COMMERCIAL_TYPES.has(rowType)) return false;
+      if (!rowType) return false;
+      // Type filter
+      if (zapTypes && !zapTypes.includes(rowType)) return false;
+      // Area filter
       if (propArea && r.area) {
         const a = parseFloat(r.area);
         if (a > 0 && Math.abs(a - propArea) / propArea > 0.5) return false;
