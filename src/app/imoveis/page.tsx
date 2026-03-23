@@ -1664,6 +1664,7 @@ function ImoveisPageInner() {
             {expandedRent === p.id && (
               <RentPopup
                 propertyId={p.id}
+                months={globalPeriod}
                 onClose={() => setExpandedRent(null)}
               />
             )}
