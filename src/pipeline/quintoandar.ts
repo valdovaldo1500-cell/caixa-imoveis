@@ -240,12 +240,14 @@ export async function calculateQAMarketValues(): Promise<{ updated: number }> {
     if (saleComparables.length < 3) saleComparables = filterListings(bairroSaleListings);
     // Step 3: city + type + area
     if (saleComparables.length < 3) saleComparables = filterListings(citySaleListings);
-    // Step 4: city + residential only + area (no specific type, but exclude commercial)
+    // Step 4: city + same category + area (no specific type, but never mix commercial/residential)
     if (saleComparables.length < 3) {
       saleComparables = citySaleListings.filter((row) => {
         const rowType = (row.unitType || "").toUpperCase();
-        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
         if (!rowType) return false;
+        // Never mix: residential property excludes commercial types, commercial excludes residential
+        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
+        if (!isResidential && !COMMERCIAL_TYPES.has(rowType)) return false;
         if (propArea && row.area) {
           const rowArea = parseFloat(row.area);
           if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.5) return false;
@@ -253,7 +255,6 @@ export async function calculateQAMarketValues(): Promise<{ updated: number }> {
         return true;
       });
     }
-    // NO absolute fallback — never mix commercial with residential
 
     // Rental: same cascade
     let rentalComparables = filterListings(bairroRentalListings, true);
