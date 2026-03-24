@@ -1,0 +1,833 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import NavHeader from "@/components/NavHeader";
+
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+interface Property {
+  propertyId: number;
+  caixaId: string;
+  cidade: string;
+  bairro: string | null;
+  endereco: string | null;
+  cep: string | null;
+  preco: string | null;
+  valorAvaliacao: string | null;
+  desconto: string | null;
+  aceitaFinanciamento: boolean;
+  descricao: string | null;
+  modalidadeVenda: string | null;
+  tipoImovel: string | null;
+  quartos: number | null;
+  vagas: number | null;
+  banheiros: number | null;
+  areaTotalM2: string | null;
+  areaPrivativaM2: string | null;
+  lat: string | null;
+  lng: string | null;
+  score: string | null;
+  scoreDetails: Record<string, number> | null;
+  fotoUrl: string | null;
+  linkCaixa: string | null;
+  crimeRate: string | null;
+  marketValue: string | null;
+  marketValuePerM2: string | null;
+  marketRentValue: string | null;
+  comparablesCount: number | null;
+  comparablesTier1Count: number | null;
+  comparablesTier2Count: number | null;
+  zapMarketValue: string | null;
+  zapMarketValuePerM2: string | null;
+  zapRentValue: string | null;
+  zapComparablesCount: number | null;
+  qaMarketValue: string | null;
+  qaRentValue: string | null;
+  qaComparablesCount: number | null;
+  dataQualityFlag: string | null;
+  firstSeenAt: string | null;
+  lastSeenAt: string | null;
+  removedAt: string | null;
+  notes: string | null;
+}
+
+interface Analysis {
+  prop: Property;
+  area: number;
+  purchasePrice: number;
+  appraisedValue: number;
+  bestMarketValue: number;
+  marketSource: string;
+  totalComparables: number;
+  monthlyRent: number;
+  rentSource: string;
+  renoLight: number;
+  renoMedium: number;
+  renoHeavy: number;
+  txCostBuy: number;
+  txCostSell: number;
+  // Flip scenarios
+  flipConservative: { totalInvest: number; salePrice: number; profit: number; roi: number; months: number };
+  flipModerate: { totalInvest: number; salePrice: number; profit: number; roi: number; months: number };
+  flipOptimistic: { totalInvest: number; salePrice: number; profit: number; roi: number; months: number };
+  // Rental
+  rentalYieldGross: number;
+  paybackMonths: number;
+  // Risk
+  riskRating: string;
+  riskColor: string;
+  riskFactors: string[];
+  dataConfidence: string;
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function n(v: string | number | null | undefined): number {
+  if (v === null || v === undefined || v === "") return 0;
+  return Number(v);
+}
+
+function brl(v: number): string {
+  return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 }).format(v);
+}
+
+function pct(v: number): string {
+  return `${v.toFixed(1)}%`;
+}
+
+function getScoreGrade(score: number): { label: string; color: string } {
+  if (score >= 85) return { label: "A+", color: "bg-green-600" };
+  if (score >= 75) return { label: "A", color: "bg-green-600" };
+  if (score >= 65) return { label: "B+", color: "bg-yellow-600" };
+  if (score >= 55) return { label: "B", color: "bg-yellow-600" };
+  if (score >= 40) return { label: "C", color: "bg-orange-600" };
+  return { label: "D", color: "bg-red-600" };
+}
+
+function getRiskBadge(rating: string): { bg: string; text: string } {
+  switch (rating) {
+    case "EXCELENTE": return { bg: "bg-green-900/60 border-green-500", text: "text-green-300" };
+    case "BOM": return { bg: "bg-emerald-900/60 border-emerald-500", text: "text-emerald-300" };
+    case "MODERADO": return { bg: "bg-yellow-900/60 border-yellow-500", text: "text-yellow-300" };
+    case "ARRISCADO": return { bg: "bg-orange-900/60 border-orange-500", text: "text-orange-300" };
+    case "ALTO RISCO": return { bg: "bg-red-900/60 border-red-500", text: "text-red-300" };
+    default: return { bg: "bg-zinc-800 border-zinc-600", text: "text-zinc-300" };
+  }
+}
+
+// ─── Market data benchmarks (from research) ─────────────────────────────────
+
+const MARKET_RENTS: Record<string, Record<string, { apt: number; casa: number; sala: number; terreno: number }>> = {
+  CANOAS: {
+    "RIO BRANCO": { apt: 1140, casa: 1800, sala: 1200, terreno: 0 },
+    _default: { apt: 1400, casa: 2000, sala: 1500, terreno: 0 },
+  },
+  CACHOEIRINHA: {
+    "VILA VISTA ALEGRE": { apt: 1730, casa: 2800, sala: 1200, terreno: 0 },
+    _default: { apt: 1500, casa: 2500, sala: 1200, terreno: 0 },
+  },
+  CHARQUEADAS: {
+    _default: { apt: 800, casa: 1200, sala: 800, terreno: 0 },
+  },
+  "NOVO HAMBURGO": {
+    GUARANI: { apt: 2159, casa: 3827, sala: 1500, terreno: 0 },
+    _default: { apt: 1962, casa: 3000, sala: 1500, terreno: 0 },
+  },
+  "PORTO ALEGRE": {
+    "CENTRO HISTORICO": { apt: 1800, casa: 2500, sala: 2500, terreno: 0 },
+    _default: { apt: 2500, casa: 3500, sala: 3000, terreno: 0 },
+  },
+  "SAO LEOPOLDO": {
+    "SANTOS DUMONT": { apt: 1190, casa: 1700, sala: 1200, terreno: 0 },
+    CENTRO: { apt: 1965, casa: 2263, sala: 1634, terreno: 0 },
+    _default: { apt: 1500, casa: 2000, sala: 1400, terreno: 0 },
+  },
+  "SAPUCAIA DO SUL": {
+    VARGAS: { apt: 1649, casa: 925, sala: 1000, terreno: 0 },
+    _default: { apt: 1141, casa: 1200, sala: 1000, terreno: 0 },
+  },
+};
+
+const MARKET_PRICES_M2: Record<string, Record<string, { apt: number; casa: number; sala: number; terreno: number }>> = {
+  CANOAS: {
+    "RIO BRANCO": { apt: 3914, casa: 3769, sala: 3500, terreno: 800 },
+    _default: { apt: 4545, casa: 4000, sala: 4000, terreno: 900 },
+  },
+  CACHOEIRINHA: {
+    "VILA VISTA ALEGRE": { apt: 4181, casa: 1800, sala: 2500, terreno: 800 },
+    _default: { apt: 4000, casa: 2000, sala: 2500, terreno: 800 },
+  },
+  CHARQUEADAS: {
+    _default: { apt: 2500, casa: 2150, sala: 2000, terreno: 500 },
+  },
+  "NOVO HAMBURGO": {
+    GUARANI: { apt: 5627, casa: 4762, sala: 4000, terreno: 750 },
+    _default: { apt: 3863, casa: 3500, sala: 3500, terreno: 700 },
+  },
+  "PORTO ALEGRE": {
+    "CENTRO HISTORICO": { apt: 6154, casa: 5000, sala: 3614, terreno: 2000 },
+    _default: { apt: 7000, casa: 5500, sala: 5000, terreno: 3000 },
+  },
+  "SAO LEOPOLDO": {
+    "SANTOS DUMONT": { apt: 2887, casa: 3554, sala: 2500, terreno: 600 },
+    CENTRO: { apt: 4696, casa: 3548, sala: 4612, terreno: 700 },
+    _default: { apt: 3132, casa: 3000, sala: 3000, terreno: 600 },
+  },
+  "SAPUCAIA DO SUL": {
+    VARGAS: { apt: 3782, casa: 4686, sala: 3000, terreno: 553 },
+    _default: { apt: 3686, casa: 3500, sala: 3000, terreno: 500 },
+  },
+};
+
+function getTypeKey(tipo: string | null): "apt" | "casa" | "sala" | "terreno" {
+  if (!tipo) return "casa";
+  const t = tipo.toUpperCase();
+  if (t.includes("APART") || t.includes("KITNET")) return "apt";
+  if (t.includes("SALA") || t.includes("COMERCIAL") || t.includes("LOJA")) return "sala";
+  if (t.includes("TERRENO") || t.includes("LOTE")) return "terreno";
+  return "casa";
+}
+
+function getMarketRent(cidade: string, bairro: string | null, tipo: string | null): number {
+  const c = cidade.toUpperCase();
+  const b = (bairro || "").toUpperCase();
+  const tk = getTypeKey(tipo);
+  const cityData = MARKET_RENTS[c];
+  if (!cityData) return 1000;
+  const bairroData = cityData[b] || cityData._default;
+  if (!bairroData) return 1000;
+  return bairroData[tk];
+}
+
+function getMarketPriceM2(cidade: string, bairro: string | null, tipo: string | null): number {
+  const c = cidade.toUpperCase();
+  const b = (bairro || "").toUpperCase();
+  const tk = getTypeKey(tipo);
+  const cityData = MARKET_PRICES_M2[c];
+  if (!cityData) return 3000;
+  const bairroData = cityData[b] || cityData._default;
+  if (!bairroData) return 3000;
+  return bairroData[tk];
+}
+
+function getLiquidity(cidade: string): "alta" | "media" | "baixa" {
+  const c = cidade.toUpperCase();
+  if (c.includes("PORTO ALEGRE") || c.includes("CANOAS")) return "alta";
+  if (c.includes("SAO LEOPOLDO") || c.includes("NOVO HAMBURGO") || c.includes("CACHOEIRINHA") || c.includes("SAPUCAIA")) return "media";
+  return "baixa";
+}
+
+// ─── Analysis engine ─────────────────────────────────────────────────────────
+
+function analyze(prop: Property): Analysis {
+  const purchasePrice = n(prop.preco);
+  const appraisedValue = n(prop.valorAvaliacao);
+  const area = n(prop.areaPrivativaM2) || n(prop.areaTotalM2) || 50;
+  const typeKey = getTypeKey(prop.tipoImovel);
+
+  // Best market value: prefer ITBI (real transactions), then ZAP, then QA, then benchmark
+  let bestMarketValue = 0;
+  let marketSource = "";
+  let totalComparables = 0;
+
+  const itbiVal = n(prop.marketValue);
+  const zapVal = n(prop.zapMarketValue);
+  const qaVal = n(prop.qaMarketValue);
+  const itbiComps = (prop.comparablesTier1Count || 0) + (prop.comparablesTier2Count || 0);
+  const zapComps = prop.zapComparablesCount || 0;
+  const qaComps = prop.qaComparablesCount || 0;
+
+  if (itbiVal > 0 && itbiComps >= 5) {
+    bestMarketValue = itbiVal;
+    marketSource = `ITBI (${itbiComps} transacoes reais)`;
+    totalComparables = itbiComps;
+  } else if (zapVal > 0 && zapComps >= 3) {
+    bestMarketValue = zapVal;
+    marketSource = `ZAP (${zapComps} anuncios)`;
+    totalComparables = zapComps;
+  } else if (qaVal > 0 && qaComps >= 3) {
+    bestMarketValue = qaVal;
+    marketSource = `QuintoAndar (${qaComps} anuncios)`;
+    totalComparables = qaComps;
+  } else {
+    // Fallback to benchmark
+    const m2price = getMarketPriceM2(prop.cidade, prop.bairro, prop.tipoImovel);
+    bestMarketValue = m2price * area;
+    marketSource = "Estimativa de mercado (benchmark)";
+    totalComparables = 0;
+  }
+
+  // If we also have secondary sources, pick the highest confidence
+  // but cap market value at a reasonable multiple of appraised value
+  if (bestMarketValue > appraisedValue * 3 && appraisedValue > 0) {
+    bestMarketValue = appraisedValue * 1.5; // likely data issue
+    marketSource += " (ajustado)";
+  }
+
+  // Rent: prefer ZAP rent, then QA rent, then ITBI rent, then benchmark
+  let monthlyRent = 0;
+  let rentSource = "";
+  const zapRent = n(prop.zapRentValue);
+  const qaRent = n(prop.qaRentValue);
+  const itbiRent = n(prop.marketRentValue);
+
+  if (zapRent > 0) { monthlyRent = zapRent; rentSource = "ZAP"; }
+  else if (qaRent > 0) { monthlyRent = qaRent; rentSource = "QuintoAndar"; }
+  else if (itbiRent > 0) { monthlyRent = itbiRent; rentSource = "ITBI"; }
+  else { monthlyRent = getMarketRent(prop.cidade, prop.bairro, prop.tipoImovel); rentSource = "Estimativa"; }
+
+  // Renovation costs (per m2, CUB/RS Feb 2026 derived)
+  const renoLight = area * 700;
+  const renoMedium = area * 1200;
+  const renoHeavy = area * 1800;
+
+  // Transaction costs
+  const txCostBuy = purchasePrice * 0.04; // ITBI 2% + escritura ~1% + registro ~1%
+  const txCostSell = bestMarketValue * 0.055; // Corretagem 5.5%
+
+  // Flip scenarios
+  const flipMonthsBase = getLiquidity(prop.cidade) === "alta" ? 8 : getLiquidity(prop.cidade) === "media" ? 14 : 24;
+
+  const flipConservative = (() => {
+    const reno = renoLight;
+    const totalInvest = purchasePrice + reno + txCostBuy;
+    const salePrice = bestMarketValue * 0.85; // sell 15% below market
+    const profit = salePrice - totalInvest - (salePrice * 0.055);
+    const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
+    return { totalInvest, salePrice, profit, roi, months: flipMonthsBase + 4 };
+  })();
+
+  const flipModerate = (() => {
+    const reno = renoMedium;
+    const totalInvest = purchasePrice + reno + txCostBuy;
+    const salePrice = bestMarketValue * 0.95; // sell 5% below market
+    const profit = salePrice - totalInvest - (salePrice * 0.055);
+    const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
+    return { totalInvest, salePrice, profit, roi, months: flipMonthsBase + 2 };
+  })();
+
+  const flipOptimistic = (() => {
+    const reno = renoLight;
+    const totalInvest = purchasePrice + reno + txCostBuy;
+    const salePrice = bestMarketValue; // sell at market
+    const profit = salePrice - totalInvest - (salePrice * 0.055);
+    const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
+    return { totalInvest, salePrice, profit, roi, months: flipMonthsBase };
+  })();
+
+  // Rental yield
+  const totalInvestRental = purchasePrice + renoLight + txCostBuy;
+  const annualRent = monthlyRent * 12;
+  const rentalYieldGross = totalInvestRental > 0 ? (annualRent / totalInvestRental) * 100 : 0;
+  const paybackMonths = monthlyRent > 0 ? Math.ceil(totalInvestRental / monthlyRent) : 999;
+
+  // Risk assessment
+  const riskFactors: string[] = [];
+  let riskScore = 0;
+
+  // Liquidity
+  const liq = getLiquidity(prop.cidade);
+  if (liq === "baixa") { riskScore += 30; riskFactors.push("Mercado com baixa liquidez"); }
+  else if (liq === "media") { riskScore += 10; riskFactors.push("Liquidez moderada"); }
+
+  // Financing
+  if (!prop.aceitaFinanciamento) { riskScore += 10; riskFactors.push("Sem financiamento (pagamento a vista)"); }
+
+  // Data confidence
+  if (totalComparables === 0) { riskScore += 20; riskFactors.push("Sem comparaveis (estimativa)"); }
+  else if (totalComparables < 5) { riskScore += 10; riskFactors.push(`Poucos comparaveis (${totalComparables})`); }
+
+  // Crime
+  const crime = n(prop.crimeRate);
+  if (crime > 7000) { riskScore += 15; riskFactors.push(`Criminalidade alta (${crime.toFixed(0)}/100k)`); }
+  else if (crime > 5000) { riskScore += 5; riskFactors.push(`Criminalidade moderada (${crime.toFixed(0)}/100k)`); }
+
+  // Renovation scope
+  if (area > 200) { riskScore += 10; riskFactors.push(`Area grande (${area.toFixed(0)}m2) — reforma cara`); }
+
+  // Property type
+  if (typeKey === "terreno") { riskScore += 5; riskFactors.push("Terreno — sem renda imediata"); }
+
+  // Discount vs market
+  const discountVsMarket = bestMarketValue > 0 ? ((bestMarketValue - purchasePrice) / bestMarketValue) * 100 : 0;
+  if (discountVsMarket < 30) { riskScore += 15; riskFactors.push(`Desconto baixo vs mercado (${discountVsMarket.toFixed(0)}%)`); }
+
+  let riskRating: string;
+  let riskColor: string;
+  if (riskScore <= 10) { riskRating = "EXCELENTE"; riskColor = "green"; }
+  else if (riskScore <= 25) { riskRating = "BOM"; riskColor = "emerald"; }
+  else if (riskScore <= 45) { riskRating = "MODERADO"; riskColor = "yellow"; }
+  else if (riskScore <= 65) { riskRating = "ARRISCADO"; riskColor = "orange"; }
+  else { riskRating = "ALTO RISCO"; riskColor = "red"; }
+
+  // Data confidence
+  let dataConfidence: string;
+  if (totalComparables >= 50) dataConfidence = "Alta";
+  else if (totalComparables >= 10) dataConfidence = "Boa";
+  else if (totalComparables >= 3) dataConfidence = "Moderada";
+  else dataConfidence = "Baixa";
+
+  return {
+    prop,
+    area,
+    purchasePrice,
+    appraisedValue,
+    bestMarketValue,
+    marketSource,
+    totalComparables,
+    monthlyRent,
+    rentSource,
+    renoLight,
+    renoMedium,
+    renoHeavy,
+    txCostBuy,
+    txCostSell,
+    flipConservative,
+    flipModerate,
+    flipOptimistic,
+    rentalYieldGross,
+    paybackMonths,
+    riskRating,
+    riskColor,
+    riskFactors,
+    dataConfidence,
+  };
+}
+
+// ─── Components ──────────────────────────────────────────────────────────────
+
+function ScenarioRow({ label, data, accent }: { label: string; data: Analysis["flipConservative"]; accent: string }) {
+  return (
+    <tr className="border-b border-zinc-800">
+      <td className="py-2 pr-3 text-sm text-zinc-400">{label}</td>
+      <td className="py-2 px-3 text-sm text-right">{brl(data.totalInvest)}</td>
+      <td className="py-2 px-3 text-sm text-right">{brl(data.salePrice)}</td>
+      <td className={`py-2 px-3 text-sm text-right font-semibold ${data.profit > 0 ? accent : "text-red-400"}`}>
+        {brl(data.profit)}
+      </td>
+      <td className={`py-2 px-3 text-sm text-right font-semibold ${data.roi > 0 ? accent : "text-red-400"}`}>
+        {pct(data.roi)}
+      </td>
+      <td className="py-2 pl-3 text-sm text-right text-zinc-400">{data.months} meses</td>
+    </tr>
+  );
+}
+
+function PropertyCard({ a, rank }: { a: Analysis; rank: number }) {
+  const [expanded, setExpanded] = useState(rank <= 3);
+  const p = a.prop;
+  const scoreGrade = p.score ? getScoreGrade(Number(p.score)) : null;
+  const riskBadge = getRiskBadge(a.riskRating);
+  const discountVsMarket = a.bestMarketValue > 0 ? ((a.bestMarketValue - a.purchasePrice) / a.bestMarketValue) * 100 : 0;
+
+  return (
+    <div className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden">
+      {/* Header */}
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full flex items-center gap-3 p-4 hover:bg-zinc-800/50 transition-colors text-left"
+      >
+        {/* Rank */}
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-sm font-bold text-zinc-300">
+          {rank}
+        </div>
+
+        {/* Photo */}
+        {p.fotoUrl && (
+          <img
+            src={p.fotoUrl}
+            alt=""
+            className="w-16 h-12 object-cover rounded flex-shrink-0"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+          />
+        )}
+
+        {/* Info */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-white font-medium text-sm truncate">
+              {p.cidade} — {p.bairro || "—"}
+            </span>
+            {scoreGrade && (
+              <span className={`px-1.5 py-0.5 rounded text-xs font-bold ${scoreGrade.color} text-white`}>
+                {scoreGrade.label}
+              </span>
+            )}
+            <span className={`px-2 py-0.5 rounded text-xs font-bold border ${riskBadge.bg} ${riskBadge.text}`}>
+              {a.riskRating}
+            </span>
+            {p.aceitaFinanciamento && (
+              <span className="px-1.5 py-0.5 rounded text-xs bg-blue-900/60 text-blue-300 border border-blue-500">
+                Financia
+              </span>
+            )}
+          </div>
+          <p className="text-xs text-zinc-500 truncate mt-0.5">
+            {p.tipoImovel} &middot; {p.endereco} &middot; {a.area.toFixed(0)}m²
+            {p.quartos ? ` &middot; ${p.quartos}q` : ""}
+            {p.vagas ? ` &middot; ${p.vagas}v` : ""}
+          </p>
+        </div>
+
+        {/* Price summary */}
+        <div className="flex-shrink-0 text-right hidden sm:block">
+          <div className="text-sm font-bold text-emerald-400">{brl(a.purchasePrice)}</div>
+          <div className="text-xs text-zinc-500">Mercado: {brl(a.bestMarketValue)}</div>
+        </div>
+
+        {/* ROI badge */}
+        <div className="flex-shrink-0 text-right">
+          <div className={`text-lg font-black ${a.flipModerate.roi > 50 ? "text-green-400" : a.flipModerate.roi > 20 ? "text-yellow-400" : "text-red-400"}`}>
+            {pct(a.flipModerate.roi)}
+          </div>
+          <div className="text-[10px] text-zinc-500 uppercase tracking-wider">ROI flip</div>
+        </div>
+
+        {/* Chevron */}
+        <svg className={`w-5 h-5 text-zinc-500 transition-transform flex-shrink-0 ${expanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {/* Expanded details */}
+      {expanded && (
+        <div className="border-t border-zinc-800 p-4 space-y-5">
+          {/* Mobile price */}
+          <div className="sm:hidden flex justify-between items-center">
+            <span className="text-sm text-zinc-400">Preco Caixa</span>
+            <span className="text-sm font-bold text-emerald-400">{brl(a.purchasePrice)}</span>
+          </div>
+
+          {/* ── Valuation comparison ── */}
+          <div>
+            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Comparativo de Valores</h4>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <ValueBox label="Preco Caixa" value={brl(a.purchasePrice)} sub={`${brl(a.purchasePrice / a.area)}/m²`} color="text-emerald-400" />
+              <ValueBox label="Avaliacao Caixa" value={brl(a.appraisedValue)} sub={`Desc. ${pct(n(p.desconto))}`} color="text-zinc-300" />
+              <ValueBox label={`Mercado (${a.marketSource.split(" (")[0]})`} value={brl(a.bestMarketValue)} sub={`${brl(a.bestMarketValue / a.area)}/m² · ${a.totalComparables} comps`} color="text-blue-400" />
+              <ValueBox label="Desconto vs Mercado" value={pct(discountVsMarket)} sub={`Economia: ${brl(a.bestMarketValue - a.purchasePrice)}`} color={discountVsMarket > 40 ? "text-green-400" : discountVsMarket > 25 ? "text-yellow-400" : "text-red-400"} />
+            </div>
+          </div>
+
+          {/* ── Market sources breakdown ── */}
+          {(n(p.marketValue) > 0 || n(p.zapMarketValue) > 0 || n(p.qaMarketValue) > 0) && (
+            <div>
+              <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Fontes de Mercado</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                {n(p.marketValue) > 0 && (
+                  <div className="bg-zinc-800/50 rounded p-2">
+                    <div className="text-xs text-zinc-500">ITBI (transacoes reais)</div>
+                    <div className="text-sm font-medium text-white">{brl(n(p.marketValue))}</div>
+                    <div className="text-xs text-zinc-500">{n(p.marketValuePerM2) > 0 ? `${brl(n(p.marketValuePerM2))}/m²` : ""} &middot; {(p.comparablesTier1Count || 0) + (p.comparablesTier2Count || 0)} comps</div>
+                  </div>
+                )}
+                {n(p.zapMarketValue) > 0 && (
+                  <div className="bg-zinc-800/50 rounded p-2">
+                    <div className="text-xs text-zinc-500">ZAP Imoveis</div>
+                    <div className="text-sm font-medium text-white">{brl(n(p.zapMarketValue))}</div>
+                    <div className="text-xs text-zinc-500">{n(p.zapMarketValuePerM2) > 0 ? `${brl(n(p.zapMarketValuePerM2))}/m²` : ""} &middot; {p.zapComparablesCount || 0} comps</div>
+                  </div>
+                )}
+                {n(p.qaMarketValue) > 0 && (
+                  <div className="bg-zinc-800/50 rounded p-2">
+                    <div className="text-xs text-zinc-500">QuintoAndar</div>
+                    <div className="text-sm font-medium text-white">{brl(n(p.qaMarketValue))}</div>
+                    <div className="text-xs text-zinc-500">{p.qaComparablesCount || 0} comps</div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ── Renovation estimates ── */}
+          <div>
+            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Custo de Reforma ({a.area.toFixed(0)}m²)</h4>
+            <div className="grid grid-cols-3 gap-3">
+              <ValueBox label="Leve (R$700/m²)" value={brl(a.renoLight)} sub="Pintura, piso, eletrica" color="text-green-400" />
+              <ValueBox label="Media (R$1.200/m²)" value={brl(a.renoMedium)} sub="+ banheiros, cozinha" color="text-yellow-400" />
+              <ValueBox label="Pesada (R$1.800/m²)" value={brl(a.renoHeavy)} sub="Reforma completa" color="text-red-400" />
+            </div>
+          </div>
+
+          {/* ── Flip analysis ── */}
+          <div>
+            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Cenarios de Flip (Revenda)</h4>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-zinc-700">
+                    <th className="py-2 pr-3 text-left text-xs text-zinc-500 font-medium">Cenario</th>
+                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium">Investimento</th>
+                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium">Venda</th>
+                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium">Lucro</th>
+                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium">ROI</th>
+                    <th className="py-2 pl-3 text-right text-xs text-zinc-500 font-medium">Prazo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ScenarioRow label="Conservador" data={a.flipConservative} accent="text-emerald-400" />
+                  <ScenarioRow label="Moderado" data={a.flipModerate} accent="text-green-400" />
+                  <ScenarioRow label="Otimista" data={a.flipOptimistic} accent="text-green-300" />
+                </tbody>
+              </table>
+            </div>
+            <p className="text-[10px] text-zinc-600 mt-1">
+              * Conservador: reforma leve + venda 15% abaixo do mercado. Moderado: reforma media + venda 5% abaixo. Otimista: reforma leve + venda ao preco de mercado. Todos incluem ITBI (2%), escritura, registro e corretagem (5,5%).
+            </p>
+          </div>
+
+          {/* ── Rental analysis ── */}
+          <div>
+            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Analise de Aluguel</h4>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <ValueBox label="Aluguel Mensal" value={brl(a.monthlyRent)} sub={`Fonte: ${a.rentSource}`} color="text-blue-400" />
+              <ValueBox label="Yield Bruto Anual" value={pct(a.rentalYieldGross)} sub={`${brl(a.monthlyRent * 12)}/ano`} color={a.rentalYieldGross > 10 ? "text-green-400" : a.rentalYieldGross > 7 ? "text-yellow-400" : "text-red-400"} />
+              <ValueBox label="Payback" value={`${a.paybackMonths} meses`} sub={`${(a.paybackMonths / 12).toFixed(1)} anos`} color="text-zinc-300" />
+              <ValueBox label="Investimento Total" value={brl(a.purchasePrice + a.renoLight + a.txCostBuy)} sub="Compra + reforma leve + custos" color="text-zinc-300" />
+            </div>
+          </div>
+
+          {/* ── Risk assessment ── */}
+          <div>
+            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Avaliacao de Risco</h4>
+            <div className="flex items-start gap-4">
+              <div className={`px-4 py-2 rounded-lg border ${riskBadge.bg} ${riskBadge.text}`}>
+                <div className="text-lg font-black">{a.riskRating}</div>
+                <div className="text-[10px] uppercase tracking-wider opacity-70">Confianca: {a.dataConfidence}</div>
+              </div>
+              <ul className="flex-1 space-y-1">
+                {a.riskFactors.map((f, i) => (
+                  <li key={i} className="text-xs text-zinc-400 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 flex-shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* ── Transaction costs ── */}
+          <div>
+            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Custos de Transacao</h4>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <ValueBox label="ITBI (2%)" value={brl(a.purchasePrice * 0.02)} sub="Imposto de transmissao" color="text-zinc-300" />
+              <ValueBox label="Escritura + Registro" value={brl(a.purchasePrice * 0.02)} sub="~2% (cartorio)" color="text-zinc-300" />
+              <ValueBox label="Corretagem (venda)" value={brl(a.txCostSell)} sub="5,5% do preco de venda" color="text-zinc-300" />
+              <ValueBox label="Total Custos" value={brl(a.txCostBuy + a.txCostSell)} sub="Compra + venda" color="text-orange-400" />
+            </div>
+          </div>
+
+          {/* ── Links ── */}
+          <div className="flex gap-3 flex-wrap">
+            <Link
+              href={`/imoveis/${p.propertyId}`}
+              className="text-xs px-3 py-1.5 rounded bg-zinc-800 text-zinc-300 hover:bg-zinc-700 transition-colors"
+            >
+              Ver detalhes no app
+            </Link>
+            {p.linkCaixa && (
+              <a
+                href={p.linkCaixa}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs px-3 py-1.5 rounded bg-zinc-800 text-zinc-300 hover:bg-zinc-700 transition-colors"
+              >
+                Ver no site da Caixa
+              </a>
+            )}
+            {p.lat && p.lng && (
+              <a
+                href={`https://www.google.com/maps/@${p.lat},${p.lng},17z`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs px-3 py-1.5 rounded bg-zinc-800 text-zinc-300 hover:bg-zinc-700 transition-colors"
+              >
+                Google Maps
+              </a>
+            )}
+            {p.lat && p.lng && (
+              <a
+                href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${p.lat},${p.lng}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs px-3 py-1.5 rounded bg-zinc-800 text-zinc-300 hover:bg-zinc-700 transition-colors"
+              >
+                Street View
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ValueBox({ label, value, sub, color }: { label: string; value: string; sub: string; color: string }) {
+  return (
+    <div className="bg-zinc-800/50 rounded p-2.5">
+      <div className="text-[10px] text-zinc-500 uppercase tracking-wider">{label}</div>
+      <div className={`text-base font-bold ${color} mt-0.5`}>{value}</div>
+      <div className="text-[10px] text-zinc-500 mt-0.5">{sub}</div>
+    </div>
+  );
+}
+
+// ─── Main page ───────────────────────────────────────────────────────────────
+
+export default function InvestimentosPage() {
+  const [analyses, setAnalyses] = useState<Analysis[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<"roi" | "rental" | "profit" | "price" | "risk">("roi");
+
+  useEffect(() => {
+    fetch("/api/investimentos", { credentials: "include" })
+      .then((r) => {
+        if (r.status === 403) throw new Error("Acesso restrito.");
+        if (!r.ok) throw new Error("Erro ao carregar dados");
+        return r.json();
+      })
+      .then((data: Property[]) => {
+        const results = data.map(analyze);
+        setAnalyses(results);
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const sorted = [...analyses].sort((a, b) => {
+    switch (sortBy) {
+      case "roi": return b.flipModerate.roi - a.flipModerate.roi;
+      case "rental": return b.rentalYieldGross - a.rentalYieldGross;
+      case "profit": return b.flipModerate.profit - a.flipModerate.profit;
+      case "price": return a.purchasePrice - b.purchasePrice;
+      case "risk": {
+        const riskOrder: Record<string, number> = { "EXCELENTE": 0, "BOM": 1, "MODERADO": 2, "ARRISCADO": 3, "ALTO RISCO": 4 };
+        return (riskOrder[a.riskRating] ?? 5) - (riskOrder[b.riskRating] ?? 5);
+      }
+      default: return 0;
+    }
+  });
+
+  // Portfolio summary
+  const totalCapital = analyses.reduce((s, a) => s + a.purchasePrice + a.renoLight + a.txCostBuy, 0);
+  const totalProfit = analyses.reduce((s, a) => s + a.flipModerate.profit, 0);
+  const avgRoi = analyses.length > 0 ? analyses.reduce((s, a) => s + a.flipModerate.roi, 0) / analyses.length : 0;
+  const avgYield = analyses.length > 0 ? analyses.reduce((s, a) => s + a.rentalYieldGross, 0) / analyses.length : 0;
+  const totalMonthlyRent = analyses.reduce((s, a) => s + a.monthlyRent, 0);
+
+  return (
+    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      <NavHeader />
+      <main className="max-w-6xl mx-auto px-4 py-6 space-y-6">
+        <div>
+          <h1 className="text-xl font-bold">Analise de Investimento</h1>
+          <p className="text-sm text-zinc-500 mt-1">
+            {analyses.length} imoveis selecionados &middot; Dados de mercado: ZAP, QuintoAndar, ITBI POA &middot; CUB/RS Fev 2026
+          </p>
+        </div>
+
+        {loading && (
+          <div className="flex justify-center py-20">
+            <div className="animate-spin w-8 h-8 border-2 border-zinc-600 border-t-white rounded-full" />
+          </div>
+        )}
+
+        {error && (
+          <div className="bg-red-900/30 border border-red-800 rounded-lg p-4 text-red-300 text-sm">{error}</div>
+        )}
+
+        {!loading && !error && analyses.length > 0 && (
+          <>
+            {/* Portfolio summary */}
+            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+              <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">Resumo do Portfolio</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                <ValueBox label="Capital Necessario" value={brl(totalCapital)} sub="Compra + reforma leve + custos" color="text-white" />
+                <ValueBox label="Lucro Total (flip)" value={brl(totalProfit)} sub="Cenario moderado" color={totalProfit > 0 ? "text-green-400" : "text-red-400"} />
+                <ValueBox label="ROI Medio" value={pct(avgRoi)} sub="Cenario moderado" color={avgRoi > 30 ? "text-green-400" : "text-yellow-400"} />
+                <ValueBox label="Yield Medio" value={pct(avgYield)} sub="Aluguel bruto anual" color={avgYield > 8 ? "text-green-400" : "text-yellow-400"} />
+                <ValueBox label="Renda Mensal" value={brl(totalMonthlyRent)} sub={`${brl(totalMonthlyRent * 12)}/ano`} color="text-blue-400" />
+              </div>
+            </div>
+
+            {/* Top picks */}
+            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+              <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">Recomendacoes — Comprar Primeiro</h2>
+              <div className="space-y-2">
+                {[...analyses]
+                  .sort((a, b) => {
+                    // Weight: ROI 40%, data confidence 30%, risk 30%
+                    const scoreA = a.flipModerate.roi * 0.4 + a.totalComparables * 0.3 + (100 - ["EXCELENTE","BOM","MODERADO","ARRISCADO","ALTO RISCO"].indexOf(a.riskRating) * 25) * 0.3;
+                    const scoreB = b.flipModerate.roi * 0.4 + b.totalComparables * 0.3 + (100 - ["EXCELENTE","BOM","MODERADO","ARRISCADO","ALTO RISCO"].indexOf(b.riskRating) * 25) * 0.3;
+                    return scoreB - scoreA;
+                  })
+                  .slice(0, 3)
+                  .map((a, i) => {
+                    const badge = getRiskBadge(a.riskRating);
+                    return (
+                      <div key={i} className="flex items-center gap-3 text-sm">
+                        <span className="w-6 h-6 rounded-full bg-green-900 text-green-300 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                          {i + 1}
+                        </span>
+                        <span className="text-white font-medium">
+                          #{a.prop.propertyId} {a.prop.cidade} — {a.prop.bairro}
+                        </span>
+                        <span className="text-zinc-500">{a.prop.tipoImovel}</span>
+                        <span className="text-emerald-400 font-semibold">{brl(a.purchasePrice)}</span>
+                        <span className="text-green-400">ROI {pct(a.flipModerate.roi)}</span>
+                        <span className={`px-1.5 py-0.5 rounded text-[10px] border ${badge.bg} ${badge.text}`}>{a.riskRating}</span>
+                        <span className="text-zinc-500 text-xs">({a.totalComparables} comps)</span>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+
+            {/* Sort controls */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-xs text-zinc-500">Ordenar por:</span>
+              {([
+                ["roi", "Maior ROI"],
+                ["profit", "Maior Lucro"],
+                ["rental", "Maior Yield"],
+                ["price", "Menor Preco"],
+                ["risk", "Menor Risco"],
+              ] as [string, string][]).map(([key, label]) => (
+                <button
+                  key={key}
+                  onClick={() => setSortBy(key as typeof sortBy)}
+                  className={`px-3 py-1 rounded text-xs transition-colors ${
+                    sortBy === key
+                      ? "bg-zinc-700 text-white font-medium"
+                      : "bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            {/* Property cards */}
+            <div className="space-y-3">
+              {sorted.map((a, i) => (
+                <PropertyCard key={a.prop.propertyId} a={a} rank={i + 1} />
+              ))}
+            </div>
+
+            {/* Methodology note */}
+            <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-4 text-xs text-zinc-500 space-y-1">
+              <h4 className="font-semibold text-zinc-400">Metodologia</h4>
+              <p><strong>Valor de mercado:</strong> Prioridade: ITBI (transacoes reais POA) &gt; ZAP Imoveis &gt; QuintoAndar &gt; Benchmark do bairro. Valores ITBI sao os mais confiaveis pois refletem precos reais pagos.</p>
+              <p><strong>Reforma:</strong> Baseado no CUB/RS (Sinduscon-RS, Fev 2026). Leve: R$700/m², Media: R$1.200/m², Pesada: R$1.800/m². Pos-enchente 2024 pode haver premium de 10-15%.</p>
+              <p><strong>Custos:</strong> ITBI 2% + escritura/registro ~2% na compra. Corretagem 5,5% na venda. IR sobre ganho de capital (15%) nao incluido (isento se reinvestir em 180 dias).</p>
+              <p><strong>Prazos:</strong> Liquidez alta (POA, Canoas): 8-12 meses. Media (SL, NH, Sapucaia): 14-16 meses. Baixa (Charqueadas): 24+ meses. Inclui compra (2-3 meses) + reforma + venda.</p>
+              <p><strong>Riscos nao modelados:</strong> Ocupacao do imovel (pode adicionar 6-24 meses de desocupacao judicial), estado real da construcao, dividas condominiais, IPTU atrasado.</p>
+            </div>
+          </>
+        )}
+      </main>
+    </div>
+  );
+}
