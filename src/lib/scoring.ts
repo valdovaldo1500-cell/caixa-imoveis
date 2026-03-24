@@ -129,9 +129,9 @@ export function computeScoreBreakdown(
     areaValueScore = Math.max(0, Math.min(100, (1 - pricePerM2 / cityStats.avgPricePerM2) * 100 + 50));
   }
 
-  // 6. Days on market (5%)
+  // 6. Days on market (5%) — newer listings score higher (fewer days = better)
   const daysSinceFirstSeen = (Date.now() - property.firstSeenAt.getTime()) / (1000 * 60 * 60 * 24);
-  const daysOnMarketScore = Math.min(100, (daysSinceFirstSeen / 90) * 100);
+  const daysOnMarketScore = Math.max(0, 100 - (daysSinceFirstSeen / 90) * 100);
 
   // 7. Crime safety (10%)
   const crimeSafetyScore = scoreCrimeSafety(property.crimeRate);
