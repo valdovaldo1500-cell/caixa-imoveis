@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
       .from(favorites)
       .innerJoin(properties, eq(favorites.propertyId, properties.id))
       .where(eq(favorites.username, ALLOWED_USER))
-      .orderBy(properties.score);
+      .orderBy(desc(properties.score));
 
     return NextResponse.json(rows);
   } catch (err) {
