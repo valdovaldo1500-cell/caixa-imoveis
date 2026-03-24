@@ -533,6 +533,7 @@ export async function getZapComparables(propertyId: number, _months: number = 12
 
   const zapTypes = getZapUnitTypes(prop.tipoImovel, prop.descricao);
   const isResidentialProp = !zapTypes || !zapTypes.some(t => COMMERCIAL_TYPES.has(t));
+  const propPreco = prop.preco ? parseFloat(prop.preco) : null;
 
   type ZapRow = typeof zapListings.$inferSelect;
 
@@ -544,6 +545,9 @@ export async function getZapComparables(propertyId: number, _months: number = 12
       if (!rowType) return false;
       // Type filter: must be in same type group
       if (zapTypes && !zapTypes.includes(rowType)) return false;
+      // Exclude Caixa resale listings: ZAP price ≤ 120% of Caixa price
+      const rowPrice = parseFloat(r.price || "0");
+      if (propPreco && rowPrice > 0 && rowPrice <= propPreco * 1.2) return false;
       // Area filter
       if (propArea && r.area) {
         const a = parseFloat(r.area);
