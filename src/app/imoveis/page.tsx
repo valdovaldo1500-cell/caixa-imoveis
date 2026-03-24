@@ -1826,7 +1826,7 @@ function ImoveisPageInner() {
                   className={`cursor-pointer hover:underline text-left ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
                 >
                   {formatBRL(p.zapMarketValue)}
-                  {p.zapComparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span> : null}
+                  {p.zapComparablesCount ? <span className={`text-xs ml-1 ${p.zapComparablesCount <= 2 ? "text-orange-500" : "text-zinc-600"}`}>({p.zapComparablesCount})</span> : null}
                 </button>
               );
             })() : (
@@ -1917,7 +1917,7 @@ function ImoveisPageInner() {
               >
                 {formatBRL(p.zapRentValue)}
                 <span className="text-zinc-600 text-xs">/mês</span>
-                {p.zapComparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.zapComparablesCount})</span> : null}
+                {p.zapComparablesCount ? <span className={`text-xs ml-1 ${p.zapComparablesCount <= 2 ? "text-orange-500" : "text-zinc-600"}`}>({p.zapComparablesCount})</span> : null}
               </button>
             ) : (
               <span className="text-zinc-600">—</span>
