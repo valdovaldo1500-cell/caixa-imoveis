@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getPropertyComparables } from "@/pipeline/itbi";
 import { getZapComparables, getZapRentalComparables } from "@/pipeline/zap";
+import { getQAComparables } from "@/pipeline/quintoandar";
 
 export async function GET(
   request: NextRequest,
@@ -18,10 +19,11 @@ export async function GET(
   const months = monthsParam ? Math.max(1, parseInt(monthsParam, 10)) : 12;
 
   try {
-    const [itbiResult, zapResult, zapRentals] = await Promise.all([
+    const [itbiResult, zapResult, zapRentals, qaResult] = await Promise.all([
       getPropertyComparables(propertyId, months),
       getZapComparables(propertyId, months),
       getZapRentalComparables(propertyId, months),
+      getQAComparables(propertyId),
     ]);
 
     if (!itbiResult) {
@@ -32,6 +34,7 @@ export async function GET(
       ...itbiResult,
       zapListings: zapResult,
       zapRentals,
+      qaListings: qaResult,
     });
   } catch (err) {
     console.error("Comparables route error:", err);
