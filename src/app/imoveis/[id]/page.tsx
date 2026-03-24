@@ -295,7 +295,23 @@ function analyzeProperty(prop: Property): InvAnalysis {
   if (zapRent > 0) { monthlyRent = zapRent; rentSource = "ZAP"; }
   else if (qaRent > 0) { monthlyRent = qaRent; rentSource = "QuintoAndar"; }
   else if (itbiRent > 0) { monthlyRent = itbiRent; rentSource = "ITBI"; }
-  else { monthlyRent = getMarketRent(prop.cidade, prop.bairro, prop.tipoImovel); rentSource = "Estimativa"; }
+  else {
+    // Use hardcoded table if available, otherwise estimate from area
+    const tablRent = getMarketRent(prop.cidade, prop.bairro, prop.tipoImovel);
+    if (tablRent !== 1000) {
+      monthlyRent = tablRent;
+      rentSource = "Estimativa (tabela)";
+    } else if (area > 0) {
+      // Rough RS estimate: R$15-20/m2 for apt, R$12-15/m2 for casa
+      const typeK = getTypeKey(prop.tipoImovel);
+      const rentPerM2 = typeK === "apt" ? 17 : typeK === "casa" ? 13 : typeK === "sala" ? 25 : 10;
+      monthlyRent = Math.round(area * rentPerM2);
+      rentSource = `Estimativa (R$${rentPerM2}/m²)`;
+    } else {
+      monthlyRent = 1000;
+      rentSource = "Estimativa genérica";
+    }
+  }
 
   const renoLight = area * 700;
   const renoMedium = area * 1200;
