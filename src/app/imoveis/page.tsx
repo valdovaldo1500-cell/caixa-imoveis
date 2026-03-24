@@ -1803,6 +1803,23 @@ function ImoveisPageInner() {
         );
       }
 
+      case "adicionado": {
+        if (!p.firstSeenAt) return <TableCell key={colId} className="text-zinc-600 text-xs">—</TableCell>;
+        const d = new Date(p.firstSeenAt);
+        const now = new Date();
+        const diffDays = Math.floor((now.getTime() - d.getTime()) / 86400000);
+        const label = diffDays === 0 ? "Hoje" : diffDays === 1 ? "Ontem" : `${diffDays}d`;
+        const dateStr = d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit" });
+        return (
+          <TableCell key={colId} className="text-xs text-zinc-400" title={dateStr}>
+            <span className={diffDays <= 1 ? "text-green-400 font-medium" : diffDays <= 7 ? "text-blue-400" : ""}>
+              {label}
+            </span>
+            <span className="text-zinc-600 ml-1">{dateStr}</span>
+          </TableCell>
+        );
+      }
+
       default:
         return <TableCell key={colId} />;
     }
