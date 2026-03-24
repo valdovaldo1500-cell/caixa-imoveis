@@ -1434,12 +1434,26 @@ function ImoveisPageInner() {
           </TableCell>
         );
 
-      case "tipo":
+      case "tipo": {
+        const flagLabel: Record<string, string> = {
+          suspicious_area: "Area suspeita (valor pode estar incorreto)",
+          suspicious_price: "Preco/m\u00b2 suspeito (< R$ 100/m\u00b2)",
+          suspicious_discount: "Desconto suspeito (> 95%)",
+        };
+        const flagText = p.dataQualityFlag ? flagLabel[p.dataQualityFlag] ?? p.dataQualityFlag : null;
         return (
           <TableCell key={colId} className="text-zinc-400 text-xs">
-            {p.tipoImovel || p.descricao || "—"}
+            <span className="flex items-center gap-1">
+              {p.tipoImovel || p.descricao || "\u2014"}
+              {flagText && (
+                <span title={flagText} className="text-yellow-400 shrink-0">
+                  <AlertTriangle className="w-3 h-3" />
+                </span>
+              )}
+            </span>
           </TableCell>
         );
+      }
 
       case "preco":
         return (
