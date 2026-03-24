@@ -516,6 +516,7 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12 }:
           <>
             <p className="text-xs text-zinc-500 mb-2">
               {listingComps.length} anúncios comparáveis
+              {showQA && <span className="text-orange-500 ml-1">(5ºAndar tende +25% vs mercado)</span>}
             </p>
             <table className="w-full text-xs">
               <thead>
