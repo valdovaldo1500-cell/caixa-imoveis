@@ -748,9 +748,11 @@ function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose }: { preco: 
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, onClose);
 
-  // Acquisition costs (Brazilian real estate)
-  const itbiRate = 0.03; // 3% ITBI tax
-  const registroRate = 0.01; // ~1% cartório/registro
+  const SELIC = 14.25; // Current Selic rate (Mar 2025)
+
+  // Acquisition costs
+  const itbiRate = 0.03;
+  const registroRate = 0.01;
   const itbiCost = preco * itbiRate;
   const registroCost = preco * registroRate;
   const totalAcquisition = preco + itbiCost + registroCost;
@@ -759,35 +761,44 @@ function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose }: { preco: 
   const aluguelAnual = aluguelMensal * 12;
 
   // Ongoing costs (annual)
-  const vacancyRate = 0.08; // 8% vacancy (1 month/year)
-  const adminRate = 0.10; // 10% property management fee
-  const manutencaoRate = 0.01; // 1% of price for maintenance/year
-  const iptuBase = valorAvaliacao > 0 ? valorAvaliacao : preco; // IPTU based on assessed value
-  const iptuRate = 0.006; // ~0.6% of assessed value (POA average)
+  const vacancyRate = 0.083;
+  const adminRate = 0.10;
+  const manutencaoRate = 0.005;
+  const iptuBase = valorAvaliacao > 0 ? valorAvaliacao : preco;
+  const iptuRate = 0.005;
   const iptuCost = iptuBase * iptuRate;
 
   const vacancyCost = aluguelAnual * vacancyRate;
   const adminCost = aluguelAnual * adminRate;
   const manutencaoCost = preco * manutencaoRate;
-  const totalCostAnual = vacancyCost + adminCost + manutencaoCost + iptuCost;
 
+  // IR on rental income (progressive table 2025)
+  let irAnual = 0;
+  if (aluguelMensal > 6227) irAnual = (aluguelMensal * 0.275 - 963.17) * 12;
+  else if (aluguelMensal > 4664) irAnual = (aluguelMensal * 0.225 - 651.73) * 12;
+  else if (aluguelMensal > 3751) irAnual = (aluguelMensal * 0.15 - 370.40) * 12;
+  else if (aluguelMensal > 2428) irAnual = (aluguelMensal * 0.075 - 89.10) * 12;
+
+  const totalCostAnual = vacancyCost + adminCost + manutencaoCost + iptuCost + irAnual;
   const receitaLiquida = aluguelAnual - totalCostAnual;
 
   const yieldBruto = (aluguelAnual / preco) * 100;
-  const yieldBrutoAquisicao = (aluguelAnual / totalAcquisition) * 100;
   const yieldLiquido = (receitaLiquida / totalAcquisition) * 100;
+  const spreadVsSelic = yieldLiquido - SELIC;
+  const paybackMonths = receitaLiquida > 0 ? Math.round(totalAcquisition / (receitaLiquida / 12)) : null;
+  const selicReturn = totalAcquisition * (SELIC / 100);
 
   const fmtBRL = (v: number) => `R$ ${Math.round(v).toLocaleString("pt-BR")}`;
   const yieldColor = (y: number) => y >= 8 ? "text-green-400" : y >= 5 ? "text-yellow-400" : "text-red-400";
 
   return (
-    <div ref={ref} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 border border-zinc-700 rounded-lg shadow-xl p-3 w-[340px] text-left">
+    <div ref={ref} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 border border-zinc-700 rounded-lg shadow-xl p-3 w-[360px] max-h-[520px] overflow-auto text-left">
       <div className="flex justify-between items-center mb-2">
-        <span className="text-xs font-semibold text-zinc-300">Análise de Yield</span>
+        <span className="text-xs font-semibold text-zinc-300">Análise de Investimento</span>
         <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
       </div>
 
-      <div className="text-xs space-y-3">
+      <div className="text-xs space-y-2.5">
         {/* Acquisition */}
         <div>
           <p className="text-zinc-500 font-semibold mb-1">Custo de Aquisição</p>
@@ -810,24 +821,38 @@ function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose }: { preco: 
 
         {/* Costs */}
         <div>
-          <p className="text-zinc-500 font-semibold mb-1">Custos Anuais Estimados</p>
+          <p className="text-zinc-500 font-semibold mb-1">Custos Anuais</p>
           <div className="space-y-0.5 text-zinc-400">
-            <div className="flex justify-between"><span>Vacância (8%)</span><span>- {fmtBRL(vacancyCost)}</span></div>
+            <div className="flex justify-between"><span>Vacância (8,3% — 1 mês/ano)</span><span>- {fmtBRL(vacancyCost)}</span></div>
             <div className="flex justify-between"><span>Administração (10%)</span><span>- {fmtBRL(adminCost)}</span></div>
-            <div className="flex justify-between"><span>Manutenção (1% preço)</span><span>- {fmtBRL(manutencaoCost)}</span></div>
-            <div className="flex justify-between"><span>IPTU (~0,6% {valorAvaliacao > 0 ? "avaliação" : "preço"})</span><span>- {fmtBRL(iptuCost)}</span></div>
+            <div className="flex justify-between"><span>Manutenção (0,5%)</span><span>- {fmtBRL(manutencaoCost)}</span></div>
+            <div className="flex justify-between"><span>IPTU (~0,5% {valorAvaliacao > 0 ? "avaliação" : "preço"})</span><span>- {fmtBRL(iptuCost)}</span></div>
+            <div className="flex justify-between"><span>IR aluguel</span><span>{irAnual > 0 ? `- ${fmtBRL(irAnual)}` : "Isento (< R$2.428)"}</span></div>
             <div className="flex justify-between border-t border-zinc-800 pt-0.5 font-medium text-zinc-200"><span>Receita líquida anual</span><span>{fmtBRL(receitaLiquida)}</span></div>
           </div>
         </div>
 
-        {/* Yields */}
+        {/* Yields + Benchmark */}
         <div className="bg-zinc-800 rounded p-2 space-y-1">
-          <div className="flex justify-between"><span className="text-zinc-400">Yield bruto (s/ preço)</span><span className={`font-medium ${yieldColor(yieldBruto)}`}>{yieldBruto.toFixed(1)}%</span></div>
-          <div className="flex justify-between"><span className="text-zinc-400">Yield bruto (s/ aquisição)</span><span className={`font-medium ${yieldColor(yieldBrutoAquisicao)}`}>{yieldBrutoAquisicao.toFixed(1)}%</span></div>
+          <div className="flex justify-between"><span className="text-zinc-400">Yield bruto</span><span className={`font-medium ${yieldColor(yieldBruto)}`}>{yieldBruto.toFixed(1)}%</span></div>
           <div className="flex justify-between border-t border-zinc-700 pt-1"><span className="text-zinc-300 font-semibold">Yield líquido</span><span className={`font-bold ${yieldColor(yieldLiquido)}`}>{yieldLiquido.toFixed(1)}%</span></div>
+          <div className="flex justify-between"><span className="text-zinc-500">Selic (referência)</span><span className="text-zinc-500">{SELIC}%</span></div>
+          <div className="flex justify-between"><span className="text-zinc-400">Spread vs. Selic</span><span className={`font-medium ${spreadVsSelic >= 0 ? "text-green-400" : "text-red-400"}`}>{spreadVsSelic >= 0 ? "+" : ""}{spreadVsSelic.toFixed(1)} p.p.</span></div>
         </div>
 
-        <p className="text-[10px] text-zinc-600">Não inclui condomínio ou IR. IPTU estimado (~0,6% média POA).</p>
+        {/* Comparison + Payback */}
+        <div className="space-y-1 text-zinc-400">
+          <div className="flex justify-between"><span>Mesmo valor no Tesouro Selic:</span><span className="text-zinc-300">{fmtBRL(selicReturn)}/ano</span></div>
+          <div className="flex justify-between"><span>Renda líquida do aluguel:</span><span className={receitaLiquida > selicReturn ? "text-green-400" : "text-red-400"}>{fmtBRL(receitaLiquida)}/ano</span></div>
+          {paybackMonths && <div className="flex justify-between"><span>Payback</span><span className="text-zinc-300">{Math.floor(paybackMonths / 12)} anos e {paybackMonths % 12} meses</span></div>}
+        </div>
+
+        {/* Verdict */}
+        <div className={`rounded p-2 text-center font-semibold ${spreadVsSelic >= 0 ? "bg-green-950 text-green-400" : spreadVsSelic >= -3 ? "bg-yellow-950 text-yellow-400" : "bg-red-950 text-red-400"}`}>
+          {spreadVsSelic >= 0 ? "Rende mais que Selic — bom investimento" : spreadVsSelic >= -3 ? "Próximo da Selic — considere valorização" : "Rende menos que Selic — cuidado"}
+        </div>
+
+        <p className="text-[10px] text-zinc-600">Não inclui condomínio. IPTU e IR estimados. Selic: {SELIC}% (Mar/2025).</p>
       </div>
     </div>
   );
