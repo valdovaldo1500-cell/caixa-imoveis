@@ -116,7 +116,16 @@ export async function runPipeline(): Promise<PipelineResult> {
       }
     }
 
-    // 4. Mark removals — properties not in today's CSV
+    // 4. Run data quality checks on all active properties
+    try {
+      await runDataQualityChecks();
+    } catch (err) {
+      result.errors.push(
+        `Data quality check error: ${err instanceof Error ? err.message : String(err)}`
+      );
+    }
+
+    // 5. Mark removals — properties not in today's CSV
     if (seenIds.length > 0) {
       const removeResult = await db
         .update(properties)
