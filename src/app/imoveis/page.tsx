@@ -41,6 +41,8 @@ interface Property {
   marketRentValue: string | null;
   comparablesCount: number | null;
   areaPrivativaM2: string | null;
+  areaTotalM2: string | null;
+  quartos: number | null;
   zapMarketValue: string | null;
   zapMarketValuePerM2: string | null;
   zapRentValue: string | null;
