@@ -632,13 +632,20 @@ function RentPopup({ propertyId, onClose, months = 12, propertyPrice = 0 }: { pr
 
       {/* Summary card */}
       <div className="text-xs text-zinc-400 space-y-1 mb-3 bg-zinc-800 rounded p-2">
-        {hasZapRentals ? (
-          <>
-            <p>Mediana aluguel ZAP: <span className="text-green-400 font-medium">{formatBRL(zapMedianRent)}/mês</span></p>
-            <p>Aluguel anual estimado: <span className="text-zinc-200 font-medium">{formatBRL(zapMedianRent * 12)}/ano</span></p>
-            <p className="text-zinc-500">{zapRentals.length} imóvel{zapRentals.length !== 1 ? "is" : ""} comparável{zapRentals.length !== 1 ? "is" : ""} encontrado{zapRentals.length !== 1 ? "s" : ""}</p>
-          </>
-        ) : (
+        {hasZapRentals ? (() => {
+          const annualRent = zapMedianRent * 12;
+          const yieldPct = propertyPrice > 0 ? (annualRent / propertyPrice) * 100 : null;
+          return (
+            <>
+              <p>Mediana aluguel ZAP: <span className="text-green-400 font-medium">{formatBRL(zapMedianRent)}/mês</span></p>
+              <p>Aluguel anual estimado: <span className="text-zinc-200 font-medium">{formatBRL(annualRent)}/ano</span></p>
+              {yieldPct !== null && (
+                <p>Yield anual: <span className={`font-medium ${yieldPct >= 8 ? "text-green-400" : yieldPct >= 5 ? "text-yellow-400" : "text-zinc-200"}`}>{yieldPct.toFixed(1)}%</span></p>
+              )}
+              <p className="text-zinc-500">{zapRentals.length} imóvel{zapRentals.length !== 1 ? "is" : ""} comparável{zapRentals.length !== 1 ? "is" : ""} encontrado{zapRentals.length !== 1 ? "s" : ""}</p>
+            </>
+          );
+        })() : (
           <>
             <p>Valor de mercado: <span className="text-zinc-200 font-medium">{formatBRL(marketValue)}</span></p>
             <p>Yield mensal: <span className="text-zinc-200 font-medium">0,5%</span></p>
