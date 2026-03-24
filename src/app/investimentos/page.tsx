@@ -1084,7 +1084,24 @@ function MarketValuePopup({ a, onClose, source }: { a: Analysis; onClose: () => 
           (() => {
             const listings = source === "qa" ? qaComps : zapComps;
             const label = source === "qa" ? "QuintoAndar" : "ZAP";
-            return listings.length === 0 ? <p className="text-zinc-500">Sem anuncios {label}</p> : (
+            const hasPrecomputed = source === "qa" ? n(a.prop.qaMarketValue) > 0 : n(a.prop.zapMarketValue) > 0;
+            return listings.length === 0 ? (
+              hasPrecomputed ? (
+                <div className="space-y-2">
+                  <div className="bg-zinc-800 rounded p-2.5 space-y-1 text-xs text-zinc-400">
+                    <div className="flex justify-between"><span>Valor estimado ({label})</span><span className="text-zinc-200 font-medium">{brl(source === "qa" ? n(a.prop.qaMarketValue) : n(a.prop.zapMarketValue))}</span></div>
+                    <div className="flex justify-between"><span>Comparaveis usados</span><span className="text-zinc-200">{source === "qa" ? a.prop.qaComparablesCount : a.prop.zapComparablesCount}</span></div>
+                    {source === "qa" && n(a.prop.qaRentValue) > 0 && (
+                      <div className="flex justify-between"><span>Aluguel estimado</span><span className="text-green-400">{brl(n(a.prop.qaRentValue))}/mes</span></div>
+                    )}
+                    {source === "zap" && n(a.prop.zapMarketValuePerM2) > 0 && (
+                      <div className="flex justify-between"><span>Preco/m²</span><span className="text-zinc-200">{brl(n(a.prop.zapMarketValuePerM2))}</span></div>
+                    )}
+                  </div>
+                  <p className="text-zinc-500 text-[10px]">Valores calculados durante o pipeline. Listagens individuais indisponiveis para visualizacao (possivel diferenca de acentuacao no bairro).</p>
+                </div>
+              ) : <p className="text-zinc-500">Sem anuncios {label}</p>
+            ) : (
               <>
                 <p className="text-zinc-500 mb-2">{listings.length} anuncios {label}</p>
                 <table className="w-full">
