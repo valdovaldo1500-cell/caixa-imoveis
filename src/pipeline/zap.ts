@@ -481,7 +481,8 @@ export async function getZapComparables(propertyId: number, _months: number = 12
   if (!prop) return null;
 
   const cityKey = normalizeCidade(prop.cidade);
-  const bairroKey = (prop.bairro || "").toUpperCase().trim();
+  // Normalize bairro: strip accents + uppercase to match ZAP listings which may have accents
+  const bairroKey = normalizeName(prop.bairro || "");
   const propArea =
     prop.areaPrivativaM2 && parseFloat(prop.areaPrivativaM2) > 0
       ? parseFloat(prop.areaPrivativaM2)
@@ -492,13 +493,15 @@ export async function getZapComparables(propertyId: number, _months: number = 12
   const zapTypes = getZapUnitTypes(prop.tipoImovel, prop.descricao);
   const isResidentialProp = !zapTypes || !zapTypes.some(t => COMMERCIAL_TYPES.has(t));
 
+  type ZapRow = typeof zapListings.$inferSelect;
+
   function filterRows(rows: ZapRow[]): ZapRow[] {
     return rows.filter((r) => {
       const rowType = (r.unitType || "").toUpperCase();
       // Exclude commercial for residential properties
       if (isResidentialProp && COMMERCIAL_TYPES.has(rowType)) return false;
       if (!rowType) return false;
-      // Type filter
+      // Type filter: must be in same type group
       if (zapTypes && !zapTypes.includes(rowType)) return false;
       // Area filter
       if (propArea && r.area) {
@@ -508,8 +511,6 @@ export async function getZapComparables(propertyId: number, _months: number = 12
       return true;
     });
   }
-
-  type ZapRow = typeof zapListings.$inferSelect;
 
   // Query city sale + rental listings
   const [citySale, cityRental] = await Promise.all([
@@ -533,11 +534,12 @@ export async function getZapComparables(propertyId: number, _months: number = 12
       ),
   ]);
 
+  // Normalize bairro on ZAP side too (ZAP has accented bairros, properties may not)
   const bairroSale = bairroKey
-    ? citySale.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+    ? citySale.filter((r) => normalizeName(r.bairro || "") === bairroKey)
     : [];
   const bairroRental = bairroKey
-    ? cityRental.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+    ? cityRental.filter((r) => normalizeName(r.bairro || "") === bairroKey)
     : [];
 
   // Bairro-only matching — no city-wide fallback (different bairro = different price)
