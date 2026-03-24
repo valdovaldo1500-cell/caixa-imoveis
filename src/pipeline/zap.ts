@@ -253,10 +253,10 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
     const cityRentalListings = rentalByCity.get(cityKey) || [];
 
     const bairroSaleListings = bairroKey
-      ? citySaleListings.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+      ? citySaleListings.filter((r) => normalizeName(r.bairro || "") === bairroKey)
       : [];
     const bairroRentalListings = bairroKey
-      ? cityRentalListings.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+      ? cityRentalListings.filter((r) => normalizeName(r.bairro || "") === bairroKey)
       : [];
 
     // Step 1: bairro + type + area + bedrooms (strict)
