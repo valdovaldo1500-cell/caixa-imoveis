@@ -103,6 +103,7 @@ const ALL_COLUMNS = [
   { id: "zapM2", label: "R$/m² ZAP", defaultVisible: false, defaultWidth: 80 },
   { id: "qaValor", label: "5ºAndar", defaultVisible: true, defaultWidth: 100 },
   { id: "aluguel", label: "Aluguel", defaultVisible: true, defaultWidth: 95 },
+  { id: "yield", label: "Yield", defaultVisible: true, defaultWidth: 60 },
   { id: "link", label: "Link", defaultVisible: true, defaultWidth: 40 },
   { id: "distancia", label: "Dist. POA", defaultVisible: false, defaultWidth: 70 },
   { id: "adicionado", label: "Adicionado", defaultVisible: true, sortKey: "first_seen", defaultWidth: 85 },
