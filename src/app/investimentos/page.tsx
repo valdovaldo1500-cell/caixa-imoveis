@@ -497,9 +497,10 @@ function generateSummary(a: Analysis): string {
   return summary;
 }
 
-function PropertyCard({ a, rank }: { a: Analysis; rank: number }) {
+function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemove: (favoriteId: number, propertyId: number) => void }) {
   const [expanded, setExpanded] = useState(rank <= 3);
   const [popup, setPopup] = useState<string | null>(null);
+  const [removing, setRemoving] = useState(false);
   const p = a.prop;
   const scoreGrade = p.score ? getScoreGrade(Number(p.score)) : null;
   const riskBadge = getRiskBadge(a.riskRating);
