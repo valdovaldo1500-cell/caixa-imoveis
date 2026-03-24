@@ -3,6 +3,7 @@ import { properties, priceHistory, pipelineRuns } from "@/lib/db/schema";
 import { eq, sql, isNull, notInArray } from "drizzle-orm";
 import { downloadCSV } from "./download-csv";
 import { parseCSV } from "./parse-csv";
+import { runDataQualityChecks } from "./data-quality";
 
 export interface PipelineResult {
   total: number;
