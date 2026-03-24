@@ -397,3 +397,53 @@ export async function getQAComparables(propertyId: number) {
         : null,
   };
 }
+
+export async function getQARentalComparables(propertyId: number) {
+  const prop = await db
+    .select({
+      cidade: properties.cidade,
+      bairro: properties.bairro,
+      tipoImovel: properties.tipoImovel,
+      descricao: properties.descricao,
+    })
+    .from(properties)
+    .where(eq(properties.id, propertyId))
+    .limit(1);
+
+  if (prop.length === 0) return null;
+  const p = prop[0];
+
+  const cityKey = normalizeCidade(p.cidade);
+  const bairroKey = normalizeCidade(p.bairro || "");
+  const qaTypes = getQAUnitTypes(p.tipoImovel, p.descricao);
+
+  const allRental = await db
+    .select()
+    .from(qaListings)
+    .where(eq(qaListings.business, "RENTAL"));
+
+  const bairroRentals = allRental.filter(
+    (r) => normalizeCidade(r.cidade || "") === cityKey && normalizeCidade(r.bairro || "") === bairroKey
+  );
+
+  // Filter by type if possible, fallback to all bairro
+  let comparables = qaTypes
+    ? bairroRentals.filter((r) => qaTypes.includes((r.unitType || "").toUpperCase()))
+    : bairroRentals;
+  if (comparables.length < 3) comparables = bairroRentals;
+
+  const prices = comparables.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
+
+  return {
+    comparables: comparables.map((r) => ({
+      bairro: r.bairro,
+      unitType: r.unitType,
+      price: parseFloat(r.price || "0"),
+      area: parseFloat(r.area || "0"),
+      pricePerM2: parseFloat(r.pricePerM2 || "0"),
+      bedrooms: r.bedrooms,
+      listingUrl: r.listingUrl,
+    })),
+    medianRent: median(prices),
+  };
+}
