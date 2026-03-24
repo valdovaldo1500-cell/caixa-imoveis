@@ -678,13 +678,299 @@ function PropertyCard({ a, rank }: { a: Analysis; rank: number }) {
   );
 }
 
-function ValueBox({ label, value, sub, color }: { label: string; value: string; sub: string; color: string }) {
+function ValueBox({ label, value, sub, color, onClick }: { label: string; value: string; sub: string; color: string; onClick?: () => void }) {
   return (
-    <div className="bg-zinc-800/50 rounded p-2.5">
+    <div
+      className={`bg-zinc-800/50 rounded p-2.5 ${onClick ? "cursor-pointer hover:bg-zinc-700/50 hover:ring-1 hover:ring-zinc-600 transition-all" : ""}`}
+      onClick={onClick}
+    >
       <div className="text-[10px] text-zinc-500 uppercase tracking-wider">{label}</div>
-      <div className={`text-base font-bold ${color} mt-0.5`}>{value}</div>
+      <div className={`text-base font-bold ${color} mt-0.5 ${onClick ? "underline decoration-dotted underline-offset-2" : ""}`}>{value}</div>
       <div className="text-[10px] text-zinc-500 mt-0.5">{sub}</div>
     </div>
+  );
+}
+
+// ─── Popups ──────────────────────────────────────────────────────────────────
+
+interface PopupProps { onClose: () => void; children: React.ReactNode; title: string; width?: string }
+
+function Popup({ onClose, children, title, width = "w-[420px]" }: PopupProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, onClose);
+  return (
+    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
+      <div ref={ref} className={`${width} max-h-[80vh] overflow-auto bg-zinc-950 border border-zinc-700 rounded-xl shadow-2xl p-4`} onClick={(e) => e.stopPropagation()}>
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-sm font-semibold text-zinc-200">{title}</span>
+          <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-lg leading-none">&times;</button>
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function RentDetailPopup({ a, onClose }: { a: Analysis; onClose: () => void }) {
+  const [comps, setComps] = useState<{ zapRentals?: { comparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }>; medianRent: number }; methodology?: { estimatedRent: number } } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`/api/properties/${a.prop.propertyId}/comparables?months=12`, { credentials: "include" })
+      .then((r) => r.json())
+      .then((d) => setComps(d))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [a.prop.propertyId]);
+
+  const rentals = comps?.zapRentals?.comparables || [];
+  const hasZap = rentals.length > 0;
+
+  return (
+    <Popup onClose={onClose} title="Detalhes do Aluguel Estimado" width="w-[520px]">
+      <div className="text-xs space-y-3">
+        <div className="bg-zinc-800 rounded p-2.5 space-y-1">
+          <div className="flex justify-between text-zinc-400"><span>Aluguel mensal estimado</span><span className="text-green-400 font-semibold text-sm">{brl(a.monthlyRent)}/mes</span></div>
+          <div className="flex justify-between text-zinc-400"><span>Fonte</span><span className="text-zinc-200">{a.rentSource}</span></div>
+          <div className="flex justify-between text-zinc-400"><span>Aluguel anual</span><span className="text-zinc-200">{brl(a.monthlyRent * 12)}</span></div>
+          <div className="flex justify-between text-zinc-400"><span>Yield bruto sobre investimento</span><span className={`font-semibold ${a.rentalYieldGross > 10 ? "text-green-400" : a.rentalYieldGross > 7 ? "text-yellow-400" : "text-red-400"}`}>{pct(a.rentalYieldGross)} a.a.</span></div>
+        </div>
+
+        {loading ? (
+          <p className="text-zinc-500">Carregando comparaveis...</p>
+        ) : hasZap ? (
+          <>
+            <p className="text-zinc-500">{rentals.length} alugueis similares encontrados no ZAP:</p>
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="text-zinc-500 border-b border-zinc-800">
+                  <th className="text-left py-1 pr-2">Bairro</th>
+                  <th className="text-left py-1 pr-2">Tipo</th>
+                  <th className="text-right py-1 pr-2">Aluguel</th>
+                  <th className="text-right py-1 pr-2">Area</th>
+                  <th className="text-right py-1 pr-2">Qtos</th>
+                  <th className="text-right py-1">Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rentals.map((r, i) => (
+                  <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
+                    <td className="py-1 pr-2 text-zinc-300 max-w-[100px] truncate">{r.bairro || "—"}</td>
+                    <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate">{r.unitType || "—"}</td>
+                    <td className="py-1 pr-2 text-right text-green-400 font-medium">{brl(r.price)}</td>
+                    <td className="py-1 pr-2 text-right text-zinc-400">{r.area > 0 ? `${Math.round(r.area)}m²` : "—"}</td>
+                    <td className="py-1 pr-2 text-right text-zinc-400">{r.bedrooms ?? "—"}</td>
+                    <td className="py-1 text-right">
+                      {r.listingUrl ? <a href={r.listingUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">ver</a> : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        ) : (
+          <p className="text-zinc-500">Sem alugueis comparaveis no ZAP. Valor estimado via benchmark do bairro ({a.prop.cidade} — {a.prop.bairro}).</p>
+        )}
+      </div>
+    </Popup>
+  );
+}
+
+function YieldDetailPopup({ a, onClose }: { a: Analysis; onClose: () => void }) {
+  const preco = a.purchasePrice;
+  const aluguelMensal = a.monthlyRent;
+  const valorAvaliacao = a.appraisedValue;
+
+  const itbiCost = preco * 0.02;
+  const escrituraCost = preco * 0.01;
+  const registroCost = preco * 0.01;
+  const totalAcquisition = preco + a.renoLight + itbiCost + escrituraCost + registroCost;
+
+  const aluguelAnual = aluguelMensal * 12;
+  const vacancyCost = aluguelAnual * 0.08;
+  const adminCost = aluguelAnual * 0.10;
+  const manutencaoCost = preco * 0.01;
+  const iptuBase = valorAvaliacao > 0 ? valorAvaliacao : preco;
+  const iptuCost = iptuBase * 0.006;
+  const totalCostAnual = vacancyCost + adminCost + manutencaoCost + iptuCost;
+  const receitaLiquida = aluguelAnual - totalCostAnual;
+
+  const yieldBruto = (aluguelAnual / totalAcquisition) * 100;
+  const yieldLiquido = (receitaLiquida / totalAcquisition) * 100;
+  const paybackBruto = Math.ceil(totalAcquisition / aluguelMensal);
+  const paybackLiquido = receitaLiquida > 0 ? Math.ceil(totalAcquisition / (receitaLiquida / 12)) : 999;
+
+  const yieldColor = (y: number) => y >= 8 ? "text-green-400" : y >= 5 ? "text-yellow-400" : "text-red-400";
+
+  return (
+    <Popup onClose={onClose} title="Analise Completa de Yield">
+      <div className="text-xs space-y-3">
+        <div>
+          <p className="text-zinc-500 font-semibold mb-1">Custo de Aquisicao</p>
+          <div className="space-y-0.5 text-zinc-400">
+            <div className="flex justify-between"><span>Preco Caixa</span><span className="text-zinc-200">{brl(preco)}</span></div>
+            <div className="flex justify-between"><span>Reforma leve ({a.area.toFixed(0)}m² x R$700)</span><span>{brl(a.renoLight)}</span></div>
+            <div className="flex justify-between"><span>ITBI (2%)</span><span>{brl(itbiCost)}</span></div>
+            <div className="flex justify-between"><span>Escritura (~1%)</span><span>{brl(escrituraCost)}</span></div>
+            <div className="flex justify-between"><span>Registro (~1%)</span><span>{brl(registroCost)}</span></div>
+            <div className="flex justify-between border-t border-zinc-800 pt-0.5 font-medium text-zinc-200"><span>Total Investido</span><span>{brl(totalAcquisition)}</span></div>
+          </div>
+        </div>
+
+        <div>
+          <p className="text-zinc-500 font-semibold mb-1">Receita Anual</p>
+          <div className="space-y-0.5 text-zinc-400">
+            <div className="flex justify-between"><span>Aluguel mensal ({a.rentSource})</span><span className="text-green-400">{brl(aluguelMensal)}/mes</span></div>
+            <div className="flex justify-between font-medium text-zinc-200"><span>Receita bruta anual</span><span>{brl(aluguelAnual)}</span></div>
+          </div>
+        </div>
+
+        <div>
+          <p className="text-zinc-500 font-semibold mb-1">Custos Anuais</p>
+          <div className="space-y-0.5 text-zinc-400">
+            <div className="flex justify-between"><span>Vacancia (8% — ~1 mes/ano)</span><span>- {brl(vacancyCost)}</span></div>
+            <div className="flex justify-between"><span>Administracao (10%)</span><span>- {brl(adminCost)}</span></div>
+            <div className="flex justify-between"><span>Manutencao (1% preco)</span><span>- {brl(manutencaoCost)}</span></div>
+            <div className="flex justify-between"><span>IPTU (~0,6% {valorAvaliacao > 0 ? "avaliacao" : "preco"})</span><span>- {brl(iptuCost)}</span></div>
+            <div className="flex justify-between border-t border-zinc-800 pt-0.5"><span className="font-medium text-zinc-200">Receita liquida anual</span><span className={`font-medium ${receitaLiquida > 0 ? "text-green-400" : "text-red-400"}`}>{brl(receitaLiquida)}</span></div>
+          </div>
+        </div>
+
+        <div className="bg-zinc-800 rounded p-2.5 space-y-1">
+          <div className="flex justify-between"><span className="text-zinc-400">Yield bruto anual</span><span className={`font-semibold ${yieldColor(yieldBruto)}`}>{yieldBruto.toFixed(1)}%</span></div>
+          <div className="flex justify-between"><span className="text-zinc-400">Yield liquido anual</span><span className={`font-semibold ${yieldColor(yieldLiquido)}`}>{yieldLiquido.toFixed(1)}%</span></div>
+          <div className="flex justify-between"><span className="text-zinc-400">Payback bruto</span><span className="text-zinc-200">{paybackBruto} meses ({(paybackBruto / 12).toFixed(1)} anos)</span></div>
+          <div className="flex justify-between"><span className="text-zinc-400">Payback liquido</span><span className="text-zinc-200">{paybackLiquido} meses ({(paybackLiquido / 12).toFixed(1)} anos)</span></div>
+        </div>
+      </div>
+    </Popup>
+  );
+}
+
+function InvestmentDetailPopup({ a, onClose }: { a: Analysis; onClose: () => void }) {
+  return (
+    <Popup onClose={onClose} title="Composicao do Investimento Total">
+      <div className="text-xs space-y-3">
+        <div>
+          <p className="text-zinc-500 font-semibold mb-1">Cenario: Reforma Leve</p>
+          <div className="space-y-0.5 text-zinc-400">
+            <div className="flex justify-between"><span>Preco Caixa</span><span className="text-zinc-200">{brl(a.purchasePrice)}</span></div>
+            <div className="flex justify-between"><span>Reforma leve ({a.area.toFixed(0)}m² x R$700/m²)</span><span>{brl(a.renoLight)}</span></div>
+            <div className="flex justify-between"><span>ITBI (2%)</span><span>{brl(a.purchasePrice * 0.02)}</span></div>
+            <div className="flex justify-between"><span>Escritura (~1%)</span><span>{brl(a.purchasePrice * 0.01)}</span></div>
+            <div className="flex justify-between"><span>Registro (~1%)</span><span>{brl(a.purchasePrice * 0.01)}</span></div>
+            <div className="flex justify-between border-t border-zinc-800 pt-1 font-medium text-white text-sm"><span>Total</span><span>{brl(a.purchasePrice + a.renoLight + a.txCostBuy)}</span></div>
+          </div>
+        </div>
+        <div>
+          <p className="text-zinc-500 font-semibold mb-1">Outros Cenarios</p>
+          <div className="space-y-0.5 text-zinc-400">
+            <div className="flex justify-between"><span>Com reforma media</span><span className="text-zinc-200">{brl(a.purchasePrice + a.renoMedium + a.txCostBuy)}</span></div>
+            <div className="flex justify-between"><span>Com reforma pesada</span><span className="text-zinc-200">{brl(a.purchasePrice + a.renoHeavy + a.txCostBuy)}</span></div>
+            <div className="flex justify-between"><span>Sem reforma</span><span className="text-zinc-200">{brl(a.purchasePrice + a.txCostBuy)}</span></div>
+          </div>
+        </div>
+      </div>
+    </Popup>
+  );
+}
+
+function MarketValuePopup({ a, onClose, source }: { a: Analysis; onClose: () => void; source: "itbi" | "zap" | "qa" }) {
+  const [comps, setComps] = useState<{
+    tier1?: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string }>; count: number };
+    tier2?: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string }>; count: number };
+    zapListings?: { saleComparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }> };
+    qaListings?: { saleComparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }> };
+  } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`/api/properties/${a.prop.propertyId}/comparables?months=12`, { credentials: "include" })
+      .then((r) => r.json())
+      .then((d) => setComps(d))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [a.prop.propertyId]);
+
+  const titles: Record<string, string> = { itbi: "Transacoes ITBI Reais", zap: "Anuncios ZAP Imoveis", qa: "Anuncios QuintoAndar" };
+
+  const itbiComps = comps ? ((comps.tier1?.count || 0) > 0 ? comps.tier1!.comparables : comps.tier2?.comparables || []) : [];
+  const zapComps = comps?.zapListings?.saleComparables || [];
+  const qaComps = comps?.qaListings?.saleComparables || [];
+
+  return (
+    <Popup onClose={onClose} title={titles[source]} width="w-[540px]">
+      <div className="text-xs">
+        {loading ? (
+          <p className="text-zinc-500">Carregando comparaveis...</p>
+        ) : source === "itbi" ? (
+          itbiComps.length === 0 ? <p className="text-zinc-500">Sem transacoes ITBI</p> : (
+            <>
+              <p className="text-zinc-500 mb-2">{itbiComps.length} transacoes reais em POA</p>
+              <table className="w-full">
+                <thead>
+                  <tr className="text-zinc-500 border-b border-zinc-800">
+                    <th className="text-left py-1 pr-2">Endereco</th>
+                    <th className="text-right py-1 pr-2">Valor</th>
+                    <th className="text-right py-1 pr-2">Area</th>
+                    <th className="text-right py-1">R$/m²</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {itbiComps.slice(0, 15).map((c, i) => (
+                    <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
+                      <td className="py-1 pr-2 text-zinc-300 max-w-[200px] truncate" title={`${c.logradouro}, ${c.nEndereco} — ${c.bairro} (${c.dataEstimativa?.slice(0, 10)})`}>
+                        {c.logradouro}, {c.nEndereco} <span className="text-zinc-600">{c.dataEstimativa?.slice(0, 10)}</span>
+                      </td>
+                      <td className="py-1 pr-2 text-right text-zinc-300">{brl(c.baseCalculo)}</td>
+                      <td className="py-1 pr-2 text-right text-zinc-400">{c.areaConstrPrivativa}m²</td>
+                      <td className="py-1 text-right text-zinc-300 font-medium">R$ {Math.round(c.precoM2).toLocaleString("pt-BR")}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {itbiComps.length > 15 && <p className="text-zinc-500 mt-1">+{itbiComps.length - 15} transacoes</p>}
+            </>
+          )
+        ) : (
+          (() => {
+            const listings = source === "qa" ? qaComps : zapComps;
+            const label = source === "qa" ? "QuintoAndar" : "ZAP";
+            return listings.length === 0 ? <p className="text-zinc-500">Sem anuncios {label}</p> : (
+              <>
+                <p className="text-zinc-500 mb-2">{listings.length} anuncios {label}</p>
+                <table className="w-full">
+                  <thead>
+                    <tr className="text-zinc-500 border-b border-zinc-800">
+                      <th className="text-left py-1 pr-2">Bairro</th>
+                      <th className="text-left py-1 pr-2">Tipo</th>
+                      <th className="text-right py-1 pr-2">Preco</th>
+                      <th className="text-right py-1 pr-2">Area</th>
+                      <th className="text-right py-1 pr-2">R$/m²</th>
+                      <th className="text-right py-1">Link</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {listings.slice(0, 20).map((c, i) => (
+                      <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
+                        <td className="py-1 pr-2 text-zinc-300 max-w-[100px] truncate">{c.bairro || "—"}</td>
+                        <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate">{c.unitType || "—"}</td>
+                        <td className="py-1 pr-2 text-right text-zinc-300">{brl(c.price)}</td>
+                        <td className="py-1 pr-2 text-right text-zinc-400">{c.area > 0 ? `${Math.round(c.area)}m²` : "—"}</td>
+                        <td className="py-1 pr-2 text-right text-zinc-300 font-medium">R$ {Math.round(c.pricePerM2).toLocaleString("pt-BR")}</td>
+                        <td className="py-1 text-right">
+                          {c.listingUrl ? <a href={c.listingUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">ver</a> : "—"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            );
+          })()
+        )}
+      </div>
+    </Popup>
   );
 }
 
