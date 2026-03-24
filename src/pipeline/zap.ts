@@ -115,25 +115,39 @@ export async function importZapData(
   return { imported, skipped, errors };
 }
 
-// Map Caixa property types to ZAP unit types (Portuguese — matching DB values)
-const CAIXA_TO_ZAP_TYPES: Record<string, string[]> = {
-  apartamento: ["APARTAMENTO", "COBERTURA", "KITNET"],
-  casa: ["CASA", "SOBRADO"],
-  terreno: ["LOTE", "TERRENO"],
-  lote: ["LOTE", "TERRENO"],
-  comercial: ["SALA", "LOJA"],
-  loja: ["LOJA", "SALA"],
-};
+// APT group: all apartment-like residential types in ZAP
+const APT_TYPES = new Set(["APARTAMENTO", "COBERTURA", "KITNET", "FLAT", "LOFT", "STUDIO"]);
+// CASA group: house-like residential types in ZAP
+const CASA_TYPES = new Set(["CASA", "SOBRADO", "CHALET"]);
+// Commercial types — always EXCLUDED from residential comparables
+const COMMERCIAL_TYPES = new Set(["SALA", "LOJA", "LOTE", "TERRENO", "GALPAO", "PREDIO", "PONTO COMERCIAL"]);
 
-// Commercial types to EXCLUDE from residential comparables
-const COMMERCIAL_TYPES = new Set(["SALA", "LOJA", "LOTE", "TERRENO"]);
-
-function getZapUnitTypes(tipoImovel: string | null, descricao: string | null): string[] | null {
-  const src = (tipoImovel || descricao || "").toLowerCase();
-  for (const [key, types] of Object.entries(CAIXA_TO_ZAP_TYPES)) {
-    if (src.includes(key)) return types;
+// Derive allowed ZAP unit types from a Caixa property's tipoImovel field.
+// Returns an array of allowed ZAP unit_type values, or null if unknown (skip property).
+function getZapUnitTypes(tipoImovel: string | null, _descricao: string | null): string[] | null {
+  const src = normalizeName(tipoImovel || "");
+  // APT group
+  if (src === "APARTAMENTO" || src === "COBERTURA" || src === "KITNET" ||
+      src === "FLAT" || src === "LOFT" || src === "STUDIO") {
+    return Array.from(APT_TYPES);
   }
-  return null; // null means no type filter (use all)
+  // CASA group — includes Sobrado (which is a house variant)
+  if (src === "CASA" || src === "SOBRADO" || src === "CHALET") {
+    return Array.from(CASA_TYPES);
+  }
+  // Commercial / land types — we still record their mapping so scoring can use it,
+  // but they are excluded from residential comparables at a higher level.
+  if (src === "TERRENO" || src === "LOTE" || src === "GLEBA" ||
+      src === "GLEBA URBANA" || src === "IMOVEL RURAL") {
+    return ["LOTE", "TERRENO"];
+  }
+  if (src === "SALA" || src === "LOJA" || src === "COMERCIAL" ||
+      src === "GALPAO" || src === "PREDIO" || src === "GALPAO" ||
+      src === "PONTO COMERCIAL") {
+    return ["SALA", "LOJA", "GALPAO", "PREDIO"];
+  }
+  // Unknown type — return null so caller can skip or handle gracefully
+  return null;
 }
 
 export async function calculateZapMarketValues(): Promise<{ updated: number }> {
