@@ -781,7 +781,7 @@ function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemo
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <ValueBox label="Aluguel Mensal" value={brl(a.monthlyRent)} sub={`Fonte: ${a.rentSource}`} color="text-blue-400" onClick={() => setPopup("rent")} />
               <ValueBox label="Yield Bruto Anual" value={pct(a.rentalYieldGross)} sub={`${brl(a.monthlyRent * 12)}/ano`} color={a.rentalYieldGross > 10 ? "text-green-400" : a.rentalYieldGross > 7 ? "text-yellow-400" : "text-red-400"} onClick={() => setPopup("yield")} />
-              <ValueBox label="Payback" value={`${a.paybackMonths} meses`} sub={`${(a.paybackMonths / 12).toFixed(1)} anos`} color="text-zinc-300" onClick={() => setPopup("yield")} />
+              <ValueBox label="Payback" value={a.paybackMonths >= 999 ? "N/A" : `${a.paybackMonths} meses`} sub={a.paybackMonths >= 999 ? "Sem aluguel estimado" : `${(a.paybackMonths / 12).toFixed(1)} anos`} color="text-zinc-300" onClick={() => setPopup("yield")} />
               <ValueBox label="Investimento Total" value={brl(a.purchasePrice + a.renoLight + a.txCostBuy)} sub="Compra + reforma leve + custos" color="text-zinc-300" onClick={() => setPopup("invest")} />
             </div>
           </div>
