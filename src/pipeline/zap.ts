@@ -190,6 +190,7 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
       tipoImovel: properties.tipoImovel,
       descricao: properties.descricao,
       quartos: properties.quartos,
+      preco: properties.preco,
       areaPrivativaM2: properties.areaPrivativaM2,
       areaTotalM2: properties.areaTotalM2,
       dataQualityFlag: properties.dataQualityFlag,
