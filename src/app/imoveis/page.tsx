@@ -743,14 +743,13 @@ function RentPopup({ propertyId, onClose, months = 12, propertyPrice = 0 }: { pr
   );
 }
 
-function YieldPopup({ preco, aluguelMensal, onClose }: { preco: number; aluguelMensal: number; onClose: () => void }) {
+function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose }: { preco: number; aluguelMensal: number; valorAvaliacao: number; onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, onClose);
 
   // Acquisition costs (Brazilian real estate)
   const itbiRate = 0.03; // 3% ITBI tax
   const registroRate = 0.01; // ~1% cartório/registro
-  const comissaoRate = 0.0; // Caixa doesn't charge buyer commission on leilão/venda direta
   const itbiCost = preco * itbiRate;
   const registroCost = preco * registroRate;
   const totalAcquisition = preco + itbiCost + registroCost;
@@ -762,11 +761,14 @@ function YieldPopup({ preco, aluguelMensal, onClose }: { preco: number; aluguelM
   const vacancyRate = 0.08; // 8% vacancy (1 month/year)
   const adminRate = 0.10; // 10% property management fee
   const manutencaoRate = 0.01; // 1% of price for maintenance/year
+  const iptuBase = valorAvaliacao > 0 ? valorAvaliacao : preco; // IPTU based on assessed value
+  const iptuRate = 0.006; // ~0.6% of assessed value (POA average)
+  const iptuCost = iptuBase * iptuRate;
 
   const vacancyCost = aluguelAnual * vacancyRate;
   const adminCost = aluguelAnual * adminRate;
   const manutencaoCost = preco * manutencaoRate;
-  const totalCostAnual = vacancyCost + adminCost + manutencaoCost;
+  const totalCostAnual = vacancyCost + adminCost + manutencaoCost + iptuCost;
 
   const receitaLiquida = aluguelAnual - totalCostAnual;
 
