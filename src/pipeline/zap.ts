@@ -564,10 +564,10 @@ export async function getZapComparables(propertyId: number, _months: number = 12
 
   // Bairro-only matching — no city-wide fallback (different bairro = different price)
   let saleComps = filterRows(bairroSale);
-  // No city-wide fallback
+  // Remove outliers (Caixa repossession resale ads with artificially low prices)
+  saleComps = removeOutliers(saleComps, (r) => parseFloat(r.pricePerM2 || "0"));
 
   let rentalComps = filterRows(bairroRental);
-  // No city-wide fallback
 
   const salePm2 = saleComps.map((r) => parseFloat(r.pricePerM2 || "0")).filter((v) => v > 0);
   const rentalPrices = rentalComps.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
