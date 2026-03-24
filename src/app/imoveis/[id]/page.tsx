@@ -1321,6 +1321,7 @@ export default function PropertyDetailPage() {
                             <th className="py-1.5 px-2 text-right text-zinc-500 font-medium">Venda</th>
                             <th className="py-1.5 px-2 text-right text-zinc-500 font-medium">Lucro</th>
                             <th className="py-1.5 px-2 text-right text-zinc-500 font-medium">ROI</th>
+                            <th className="py-1.5 px-2 text-right text-zinc-500 font-medium">ROI/ano</th>
                             <th className="py-1.5 pl-2 text-right text-zinc-500 font-medium">Prazo</th>
                           </tr>
                         </thead>
