@@ -51,6 +51,7 @@ interface Property {
   fotoUrl: string | null;
   lat: string | null;
   lng: string | null;
+  dataQualityFlag: string | null;
 }
 
 interface Pagination {
