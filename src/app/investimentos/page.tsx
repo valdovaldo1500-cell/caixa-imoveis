@@ -1035,9 +1035,14 @@ function MarketValuePopup({ a, onClose, source }: { a: Analysis; onClose: () => 
       .finally(() => setLoading(false));
   }, [a.prop.propertyId]);
 
-  const titles: Record<string, string> = { itbi: "Transacoes ITBI Reais", zap: "Anuncios ZAP Imoveis", qa: "Anuncios QuintoAndar" };
+  const usedTier1 = (comps?.tier1?.count || 0) > 0;
+  const titles: Record<string, string> = {
+    itbi: usedTier1 ? "Transacoes ITBI Reais (ultimos 12 meses)" : "Transacoes ITBI Reais (ultimos 18 meses)",
+    zap: "Anuncios ZAP Imoveis",
+    qa: "Anuncios QuintoAndar",
+  };
 
-  const itbiComps = comps ? ((comps.tier1?.count || 0) > 0 ? comps.tier1!.comparables : comps.tier2?.comparables || []) : [];
+  const itbiComps = comps ? (usedTier1 ? comps.tier1!.comparables : comps.tier2?.comparables || []) : [];
   const zapComps = comps?.zapListings?.saleComparables || [];
   const qaComps = comps?.qaListings?.saleComparables || [];
 
