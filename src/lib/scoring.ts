@@ -13,6 +13,49 @@ export interface ScoreBreakdown {
   total: number;           // weighted sum 0-100
 }
 
+// Per-factor detail stored in DB and consumed by ScoreBar component
+export interface ScoreFactorDetail {
+  score: number;    // 0-100 raw factor score
+  weight: number;   // factor weight (0-1)
+  weighted: number; // score * weight
+}
+
+export interface ScoreDetails {
+  discount: ScoreFactorDetail;
+  priceEfficiency: ScoreFactorDetail;
+  financing: ScoreFactorDetail;
+  propertyType: ScoreFactorDetail;
+  areaValue: ScoreFactorDetail;
+  daysOnMarket: ScoreFactorDetail;
+  crimeSafety: ScoreFactorDetail;
+  total: number;
+}
+
+const FACTOR_WEIGHTS: Record<keyof Omit<ScoreBreakdown, "total">, number> = {
+  discount: 0.25,
+  priceEfficiency: 0.20,
+  financing: 0.15,
+  propertyType: 0.10,
+  areaValue: 0.15,
+  daysOnMarket: 0.05,
+  crimeSafety: 0.10,
+};
+
+function breakdownToDetails(breakdown: ScoreBreakdown): ScoreDetails {
+  const factors = Object.keys(FACTOR_WEIGHTS) as Array<keyof typeof FACTOR_WEIGHTS>;
+  const details: Partial<ScoreDetails> = { total: breakdown.total };
+  for (const key of factors) {
+    const score = breakdown[key];
+    const weight = FACTOR_WEIGHTS[key];
+    (details as Record<string, ScoreFactorDetail>)[key] = {
+      score: Math.round(score * 100) / 100,
+      weight,
+      weighted: Math.round(score * weight * 100) / 100,
+    };
+  }
+  return details as ScoreDetails;
+}
+
 // Extract numeric area from description strings like:
 // "Casa, 0.00 de área total, 146.57 de área privativa, 285.20 de área do terreno"
 export function parseAreaFromDescricao(descricao: string | null): number | null {
