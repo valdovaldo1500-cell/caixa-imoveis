@@ -258,7 +258,7 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
     const isResidential = !zapTypes.some(t => COMMERCIAL_TYPES.has(t));
 
     // Helper to filter ZAP listings for this property
-    function filterListings(listings: ZapRow[], strict = false): ZapRow[] {
+    function filterListings(listings: ZapRow[], strict = false, isSale = true): ZapRow[] {
       return listings.filter((row) => {
         const rowType = (row.unitType || "").toUpperCase();
         // Always exclude commercial types for residential properties
@@ -267,10 +267,11 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
         if (!rowType) return false;
         // Type filter
         if (zapTypes && !zapTypes.includes(rowType)) return false;
-        // Exclude Caixa resale listings: ZAP price ≤ 120% of Caixa price means
-        // it's likely the same property listed by a bank reseller, not a market comparable
-        const rowPrice = parseFloat(row.price || "0");
-        if (propPreco && rowPrice > 0 && rowPrice <= propPreco * 1.2) return false;
+        // Exclude Caixa resale listings (SALE only): ZAP price ≤ 120% of Caixa price
+        if (isSale) {
+          const rowPrice = parseFloat(row.price || "0");
+          if (propPreco && rowPrice > 0 && rowPrice <= propPreco * 1.2) return false;
+        }
         // Area filter: ±50% if we have area
         if (propArea && row.area) {
           const rowArea = parseFloat(row.area);
