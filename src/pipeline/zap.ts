@@ -27,6 +27,21 @@ function median(values: number[]): number | null {
     : sorted[mid];
 }
 
+/**
+ * Remove price outliers using IQR method.
+ * Filters out listings with R$/m² below Q1 - 1.5*IQR.
+ * This catches Caixa repossession resale ads that have artificially low prices.
+ */
+function removeOutliers<T>(listings: T[], getPricePerM2: (item: T) => number): T[] {
+  if (listings.length < 5) return listings; // too few to detect outliers
+  const prices = listings.map(getPricePerM2).sort((a, b) => a - b);
+  const q1 = prices[Math.floor(prices.length * 0.25)];
+  const q3 = prices[Math.floor(prices.length * 0.75)];
+  const iqr = q3 - q1;
+  const lowerBound = q1 - 1.5 * iqr;
+  return listings.filter((item) => getPricePerM2(item) >= lowerBound);
+}
+
 // Normalize a name for comparison: strip accents and uppercase
 function normalizeName(name: string): string {
   return name
