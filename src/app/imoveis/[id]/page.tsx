@@ -707,8 +707,14 @@ export default function PropertyDetailPage() {
                 </Badge>
               </div>
               <div>
-                <span className="text-zinc-500">Primeira vez visto: </span>
+                <span className="text-zinc-500">Adicionado ao site: </span>
                 <span className="text-zinc-200">{formatDate(property.firstSeenAt)}</span>
+                {(() => {
+                  const days = Math.floor((Date.now() - new Date(property.firstSeenAt).getTime()) / 86400000);
+                  return <span className={`ml-2 text-xs ${days <= 1 ? "text-green-400" : days <= 7 ? "text-blue-400" : "text-zinc-500"}`}>
+                    ({days === 0 ? "hoje" : days === 1 ? "ontem" : `${days} dias`})
+                  </span>;
+                })()}
               </div>
               <div>
                 <span className="text-zinc-500">Última atualização: </span>
