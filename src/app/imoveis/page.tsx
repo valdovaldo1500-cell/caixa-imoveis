@@ -89,7 +89,7 @@ const ALL_COLUMNS = [
   { id: "foto", label: "Foto", defaultVisible: true, defaultWidth: 90 },
   { id: "actions", label: "", defaultVisible: true, defaultWidth: 70 },
   { id: "cidade", label: "Cidade", defaultVisible: true, sortKey: "cidade" },
-  { id: "bairro", label: "Bairro", defaultVisible: true },
+  { id: "bairro", label: "Bairro", defaultVisible: true, sortKey: "bairro" },
   { id: "tipo", label: "Tipo", defaultVisible: true, defaultWidth: 90 },
   { id: "preco", label: "Preço", defaultVisible: true, sortKey: "preco", defaultWidth: 100 },
   { id: "precoM2", label: "R$/m²", defaultVisible: true, defaultWidth: 75 },
