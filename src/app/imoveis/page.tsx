@@ -1728,19 +1728,25 @@ function ImoveisPageInner() {
 
       case "qaValor":
         return (
-          <TableCell key={colId} className="text-right">
+          <TableCell key={colId} className="text-right relative">
             {p.qaMarketValue && p.preco ? (() => {
               const mv = parseFloat(p.qaMarketValue);
               const preco = parseFloat(p.preco);
               const isGoodDeal = preco < mv;
               return (
-                <span className={isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}>
+                <button
+                  onClick={() => setExpandedComparables(expandedComparables === "qa:" + p.id ? null : "qa:" + p.id)}
+                  className={`cursor-pointer hover:underline ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
+                >
                   {formatBRL(p.qaMarketValue)}
                   {p.qaComparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.qaComparablesCount})</span> : null}
-                </span>
+                </button>
               );
             })() : (
               <span className="text-zinc-600">—</span>
+            )}
+            {expandedComparables === "qa:" + p.id && (
+              <ComparablesPopup propertyId={p.id} source="qa" months={globalPeriod} onClose={() => setExpandedComparables(null)} />
             )}
           </TableCell>
         );
