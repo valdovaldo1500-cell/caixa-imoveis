@@ -47,7 +47,7 @@ export default function NavHeader() {
 
         {/* Desktop nav */}
         <nav className="hidden sm:flex items-center gap-1">
-          {NAV_LINKS.map(({ href, label }) => {
+          {NAV_LINKS.filter((l) => !l.restrictTo || l.restrictTo === username).map(({ href, label }) => {
             const isActive =
               href === "/"
                 ? pathname === "/"
