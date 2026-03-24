@@ -28,13 +28,9 @@ export default function NavHeader() {
       .catch(() => {});
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
-    } catch {
-      // ignore network errors
-    }
-    window.location.href = "/login";
+  const handleLogout = () => {
+    // Navigate directly to logout endpoint which clears cookie + redirects to /login
+    window.location.href = "/api/auth/logout";
   };
 
   return (
