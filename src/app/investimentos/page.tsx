@@ -674,31 +674,54 @@ function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemo
           </div>
 
           {/* ── Flip analysis ── */}
-          <div>
-            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Cenarios de Flip (Revenda)</h4>
-            <div className="overflow-x-auto -mx-4 px-4">
-              <table className="min-w-[600px] w-full text-sm">
-                <thead>
-                  <tr className="border-b border-zinc-700">
-                    <th className="py-2 pr-3 text-left text-xs text-zinc-500 font-medium whitespace-nowrap">Cenario</th>
-                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Investimento</th>
-                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Venda</th>
-                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Lucro</th>
-                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">ROI</th>
-                    <th className="py-2 pl-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Prazo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ScenarioRow label="Conservador" data={a.flipConservative} accent="text-emerald-400" />
-                  <ScenarioRow label="Moderado" data={a.flipModerate} accent="text-green-400" />
-                  <ScenarioRow label="Otimista" data={a.flipOptimistic} accent="text-green-300" />
-                </tbody>
-              </table>
-            </div>
-            <p className="text-[10px] text-zinc-600 mt-1">
-              * Conservador: reforma leve + venda 15% abaixo do mercado. Moderado: reforma media + venda 5% abaixo. Otimista: reforma leve + venda ao preco de mercado. Todos incluem ITBI (2%), escritura, registro e corretagem (5,5%).
-            </p>
-          </div>
+          {(() => {
+            const flip = computeFlipScenarios(a, renoLevel);
+            return (
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Cenarios de Flip (Revenda)</h4>
+                  <div className="flex items-center gap-1">
+                    <span className="text-[10px] text-zinc-500 mr-1">Reforma:</span>
+                    {(["light", "medium", "heavy"] as const).map((lvl) => (
+                      <button
+                        key={lvl}
+                        onClick={() => setRenoLevel(lvl)}
+                        className={`px-2 py-0.5 rounded text-[10px] transition-colors ${
+                          renoLevel === lvl
+                            ? "bg-zinc-700 text-white font-medium"
+                            : "bg-zinc-800/50 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
+                        }`}
+                      >
+                        {lvl === "light" ? "Leve" : lvl === "medium" ? "Media" : "Pesada"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="overflow-x-auto -mx-4 px-4">
+                  <table className="min-w-[600px] w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-zinc-700">
+                        <th className="py-2 pr-3 text-left text-xs text-zinc-500 font-medium whitespace-nowrap">Cenario</th>
+                        <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Investimento</th>
+                        <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Venda</th>
+                        <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Lucro</th>
+                        <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">ROI</th>
+                        <th className="py-2 pl-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Prazo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ScenarioRow label="Conservador" data={flip.conservative} accent="text-emerald-400" />
+                      <ScenarioRow label="Moderado" data={flip.moderate} accent="text-green-400" />
+                      <ScenarioRow label="Otimista" data={flip.optimistic} accent="text-green-300" />
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-[10px] text-zinc-600 mt-1">
+                  * Reforma {RENO_LABELS[renoLevel]}. Conservador: venda 15% abaixo do mercado. Moderado: venda 5% abaixo. Otimista: venda ao preco de mercado. Todos incluem ITBI (2%), escritura, registro e corretagem (5,5%).
+                </p>
+              </div>
+            );
+          })()}
 
           {/* ── Rental analysis ── */}
           <div>
