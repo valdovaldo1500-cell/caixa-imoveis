@@ -437,8 +437,9 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
 
   function matchesFallback(r: ZapRow): boolean {
     const rowType = (r.unitType || "").toUpperCase();
-    // Exclude commercial for residential
+    // Never mix commercial with residential
     if (isResProp && COMMERCIAL_TYPES.has(rowType)) return false;
+    if (!isResProp && !COMMERCIAL_TYPES.has(rowType)) return false;
     if (!rowType) return false;
     // Type is mandatory in fallback — must be same group
     if (zapTypes && !zapTypes.includes(rowType)) return false;
