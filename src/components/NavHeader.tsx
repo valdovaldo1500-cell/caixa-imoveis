@@ -29,7 +29,11 @@ export default function NavHeader() {
   }, []);
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
+    try {
+      await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
+    } catch {
+      // ignore network errors
+    }
     window.location.href = "/login";
   };
 
