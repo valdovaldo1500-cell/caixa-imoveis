@@ -139,7 +139,6 @@ export function computeScoreBreakdown(
 
   // 2. Price efficiency (20%)
   // Use ITBI market value first, then ZAP market value, then city average price
-  const preco = parseFloat(property.preco ?? "0") || 0;
   let priceEfficiencyScore = 50; // neutral default
   const itbiMarketValue = parseFloat(property.marketValue ?? "0") || 0;
   const zapMarketValue = parseFloat(property.zapMarketValue ?? "0") || 0;
