@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, Eye, EyeOff, MessageSquare, Bell, BellOff, Settings2, X, ChevronDown, Save, Trash2 } from "lucide-react";
+import { Star, Eye, EyeOff, MessageSquare, Bell, BellOff, Settings2, X, ChevronDown, Save, Trash2, AlertTriangle } from "lucide-react";
 import {
   Table,
   TableBody,
