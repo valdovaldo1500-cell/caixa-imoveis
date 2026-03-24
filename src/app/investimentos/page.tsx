@@ -1052,8 +1052,8 @@ function InvestmentDetailPopup({ a, onClose }: { a: Analysis; onClose: () => voi
 
 function MarketValuePopup({ a, onClose, source }: { a: Analysis; onClose: () => void; source: "itbi" | "zap" | "qa" }) {
   const [comps, setComps] = useState<{
-    tier1?: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string }>; count: number };
-    tier2?: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string }>; count: number };
+    tier1?: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string; finalidadeConstrucao: string }>; count: number };
+    tier2?: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string; finalidadeConstrucao: string }>; count: number };
     zapListings?: { saleComparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }> };
     qaListings?: { saleComparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }> };
   } | null>(null);
