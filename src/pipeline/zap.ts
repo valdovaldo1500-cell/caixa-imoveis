@@ -595,7 +595,7 @@ export async function getZapComparables(propertyId: number, _months: number = 12
   // Remove outliers (Caixa repossession resale ads with artificially low prices)
   saleComps = removeOutliers(saleComps, (r) => parseFloat(r.pricePerM2 || "0"));
 
-  let rentalComps = filterRows(bairroRental);
+  let rentalComps = filterRows(bairroRental, false);
 
   const salePm2 = saleComps.map((r) => parseFloat(r.pricePerM2 || "0")).filter((v) => v > 0);
   const rentalPrices = rentalComps.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
