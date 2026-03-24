@@ -115,6 +115,7 @@ export function computeScoreBreakdown(
   property: {
     desconto: string | null;
     preco: string | null;
+    valorAvaliacao: string | null;
     aceitaFinanciamento: boolean | null;
     descricao: string | null;
     tipoImovel: string | null;
