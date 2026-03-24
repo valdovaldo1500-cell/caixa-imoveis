@@ -126,7 +126,8 @@ interface ComparablesResult {
 
 function n(v: string | number | null | undefined): number {
   if (v === null || v === undefined || v === "") return 0;
-  return Number(v);
+  const result = Number(v);
+  return isNaN(result) ? 0 : result;
 }
 
 function brl(v: number): string {
