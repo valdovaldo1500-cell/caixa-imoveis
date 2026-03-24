@@ -373,6 +373,8 @@ export async function getQAComparables(propertyId: number) {
 
   let comparables = filterListings(bairroListings, true);
   if (comparables.length < 3) comparables = filterListings(bairroListings);
+  // Fallback: all bairro listings (no type/area filter) before going city-wide
+  if (comparables.length < 3 && bairroListings.length >= 3) comparables = bairroListings;
   if (comparables.length < 3) comparables = filterListings(cityListings);
 
   return {
