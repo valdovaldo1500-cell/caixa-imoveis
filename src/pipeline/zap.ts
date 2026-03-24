@@ -412,8 +412,9 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
 
   function matchesStrict(r: ZapRow): boolean {
     const rowType = (r.unitType || "").toUpperCase();
-    // Exclude commercial for residential
+    // Never mix commercial with residential
     if (isResProp && COMMERCIAL_TYPES.has(rowType)) return false;
+    if (!isResProp && !COMMERCIAL_TYPES.has(rowType)) return false;
     if (!rowType) return false;
     // Type filter: must be in same type group
     if (zapTypes && !zapTypes.includes(rowType)) return false;
