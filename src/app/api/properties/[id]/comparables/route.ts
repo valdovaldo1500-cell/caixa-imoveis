@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getPropertyComparables } from "@/pipeline/itbi";
 import { getZapComparables, getZapRentalComparables } from "@/pipeline/zap";
-import { getQAComparables } from "@/pipeline/quintoandar";
+import { getQAComparables, getQARentalComparables } from "@/pipeline/quintoandar";
 
 export async function GET(
   request: NextRequest,
