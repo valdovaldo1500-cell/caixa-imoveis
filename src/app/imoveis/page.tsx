@@ -1023,6 +1023,10 @@ function ImoveisPageInner() {
         const parsed = JSON.parse(cols) as string[];
         const validIds = new Set(ALL_COLUMNS.map((c) => c.id as string));
         const filtered = parsed.filter((id) => validIds.has(id));
+        // Auto-add new default-visible columns that weren't in the saved set
+        const savedSet = new Set(filtered);
+        const newCols = ALL_COLUMNS.filter((c) => c.defaultVisible && !savedSet.has(c.id as string)).map((c) => c.id as string);
+        if (newCols.length > 0) filtered.push(...newCols);
         if (filtered.length > 0) setVisibleColumns(filtered);
       }
     } catch {
