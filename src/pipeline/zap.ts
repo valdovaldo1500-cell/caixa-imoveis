@@ -27,13 +27,18 @@ function median(values: number[]): number | null {
     : sorted[mid];
 }
 
-// Normalize city name for comparison: strip accents and uppercase
-function normalizeCidade(name: string): string {
+// Normalize a name for comparison: strip accents and uppercase
+function normalizeName(name: string): string {
   return name
     .toUpperCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .trim();
+}
+
+// Keep backward-compatible alias
+function normalizeCidade(name: string): string {
+  return normalizeName(name);
 }
 
 export async function importZapData(
