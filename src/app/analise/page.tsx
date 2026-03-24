@@ -23,6 +23,8 @@ interface StatsData {
   byDiscount: { range: string; count: number }[];
   byModalidade: { modalidade: string; count: number }[];
   priceDistribution: { range: string; count: number }[];
+  yieldDistribution?: { range: string; count: number }[];
+  scoreDistribution?: { range: string; count: number }[];
 }
 
 const PIE_COLORS = [
