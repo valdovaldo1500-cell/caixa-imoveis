@@ -311,7 +311,7 @@ function computeFlipScenariosWithLiquidity(inv: InvAnalysis, cidade: string, ren
   const totalInvest = inv.purchasePrice + reno + inv.txCostBuy;
   const liq = getLiquidity(cidade);
   const baseMonths = liq === "alta" ? 8 : liq === "media" ? 14 : 24;
-  const base = targetValue ?? inv.bestMarketValue;
+  const base = (targetValue && targetValue > 0) ? targetValue : inv.bestMarketValue;
 
   const make = (saleMult: number, extraMonths: number) => {
     const salePrice = base * saleMult;
