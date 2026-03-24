@@ -111,12 +111,68 @@ export async function GET() {
       ) t
     `);
 
+    // Yield distribution (gross annual yield from ZAP rent)
+    const yieldDistribution = await db.execute(sql`
+      SELECT range, count FROM (
+        SELECT
+          CASE
+            WHEN ${properties.zapRentValue} IS NULL OR ${properties.preco}::numeric <= 0 THEN 'Sem dados'
+            WHEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 < 5 THEN '0-5%'
+            WHEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 < 8 THEN '5-8%'
+            WHEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 < 10 THEN '8-10%'
+            WHEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 < 15 THEN '10-15%'
+            WHEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 < 20 THEN '15-20%'
+            ELSE '20%+'
+          END as range,
+          count(*)::int as count,
+          min(CASE
+            WHEN ${properties.zapRentValue} IS NULL OR ${properties.preco}::numeric <= 0 THEN 99
+            WHEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 < 5 THEN 0
+            WHEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 < 8 THEN 1
+            WHEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 < 10 THEN 2
+            WHEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 < 15 THEN 3
+            WHEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 < 20 THEN 4
+            ELSE 5
+          END) as sort_order
+        FROM ${properties}
+        WHERE ${properties.removedAt} IS NULL
+        GROUP BY range
+        ORDER BY sort_order
+      ) t
+    `);
+
+    // Score distribution
+    const scoreDistribution = await db.execute(sql`
+      SELECT range, count FROM (
+        SELECT
+          CASE
+            WHEN ${properties.score} IS NULL THEN 'N/D'
+            WHEN ${properties.score} < 20 THEN '0-20'
+            WHEN ${properties.score} < 40 THEN '20-40'
+            WHEN ${properties.score} < 60 THEN '40-60'
+            WHEN ${properties.score} < 80 THEN '60-80'
+            ELSE '80-100'
+          END as range,
+          count(*)::int as count,
+          min(CASE
+            WHEN ${properties.score} IS NULL THEN 99
+            ELSE floor(${properties.score}::numeric / 20)
+          END) as sort_order
+        FROM ${properties}
+        WHERE ${properties.removedAt} IS NULL
+        GROUP BY range
+        ORDER BY sort_order
+      ) t
+    `);
+
     return NextResponse.json({
       byCity,
       byType,
       byDiscount,
       byModalidade,
       priceDistribution,
+      yieldDistribution,
+      scoreDistribution,
     });
   } catch (error) {
     console.error("Stats API error:", error);
