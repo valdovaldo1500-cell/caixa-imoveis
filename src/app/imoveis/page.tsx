@@ -1505,18 +1505,19 @@ function ImoveisPageInner() {
           </TableCell>
         );
 
-      case "area": {
-        const area = p.areaPrivativaM2 && parseFloat(p.areaPrivativaM2) > 0
-          ? parseFloat(p.areaPrivativaM2)
-          : p.areaTotalM2 && parseFloat(p.areaTotalM2) > 0
-            ? parseFloat(p.areaTotalM2)
-            : null;
+      case "areaPriv":
         return (
           <TableCell key={colId} className="text-right text-zinc-400">
-            {area ? `${Math.round(area)}` : "—"}
+            {p.areaPrivativaM2 && parseFloat(p.areaPrivativaM2) > 0 ? Math.round(parseFloat(p.areaPrivativaM2)) : "—"}
           </TableCell>
         );
-      }
+
+      case "areaTotal":
+        return (
+          <TableCell key={colId} className="text-right text-zinc-400">
+            {p.areaTotalM2 && parseFloat(p.areaTotalM2) > 0 ? Math.round(parseFloat(p.areaTotalM2)) : "—"}
+          </TableCell>
+        );
 
       case "desconto":
         return (
