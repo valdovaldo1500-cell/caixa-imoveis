@@ -885,22 +885,24 @@ function Popup({ onClose, children, title, width = "w-[420px]" }: PopupProps) {
 }
 
 function RentDetailPopup({ a, onClose }: { a: Analysis; onClose: () => void }) {
-  const [comps, setComps] = useState<{ zapRentals?: { comparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }>; medianRent: number }; methodology?: { estimatedRent: number } } | null>(null);
+  type RentalRow = { bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null; source: string };
+  const [allRentals, setAllRentals] = useState<RentalRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`/api/properties/${a.prop.propertyId}/comparables?months=12`, { credentials: "include" })
       .then((r) => r.json())
-      .then((d) => setComps(d))
+      .then((d) => {
+        const zap = (d.zapRentals?.comparables || []).map((r: Omit<RentalRow, "source">) => ({ ...r, source: "ZAP" }));
+        const qa = (d.qaRentals?.comparables || []).map((r: Omit<RentalRow, "source">) => ({ ...r, source: "5ºAndar" }));
+        setAllRentals([...zap, ...qa].sort((a, b) => a.price - b.price));
+      })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, [a.prop.propertyId]);
 
-  const rentals = comps?.zapRentals?.comparables || [];
-  const hasZap = rentals.length > 0;
-
   return (
-    <Popup onClose={onClose} title="Detalhes do Aluguel Estimado" width="w-[520px]">
+    <Popup onClose={onClose} title="Alugueis Comparaveis (ZAP + 5ºAndar)" width="w-[560px]">
       <div className="text-xs space-y-3">
         <div className="bg-zinc-800 rounded p-2.5 space-y-1">
           <div className="flex justify-between text-zinc-400"><span>Aluguel mensal estimado</span><span className="text-green-400 font-semibold text-sm">{brl(a.monthlyRent)}/mes</span></div>
@@ -911,13 +913,13 @@ function RentDetailPopup({ a, onClose }: { a: Analysis; onClose: () => void }) {
 
         {loading ? (
           <p className="text-zinc-500">Carregando comparaveis...</p>
-        ) : hasZap ? (
+        ) : allRentals.length > 0 ? (
           <>
-            <p className="text-zinc-500">{rentals.length} alugueis similares encontrados no ZAP:</p>
+            <p className="text-zinc-500">{allRentals.length} alugueis no mesmo bairro ({a.prop.bairro}):</p>
             <table className="w-full text-xs">
               <thead>
                 <tr className="text-zinc-500 border-b border-zinc-800">
-                  <th className="text-left py-1 pr-2">Bairro</th>
+                  <th className="text-left py-1 pr-2">Fonte</th>
                   <th className="text-left py-1 pr-2">Tipo</th>
                   <th className="text-right py-1 pr-2">Aluguel</th>
                   <th className="text-right py-1 pr-2">Area</th>
@@ -926,9 +928,9 @@ function RentDetailPopup({ a, onClose }: { a: Analysis; onClose: () => void }) {
                 </tr>
               </thead>
               <tbody>
-                {rentals.map((r, i) => (
+                {allRentals.map((r, i) => (
                   <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
-                    <td className="py-1 pr-2 text-zinc-300 max-w-[100px] truncate">{r.bairro || "—"}</td>
+                    <td className={`py-1 pr-2 text-xs font-medium ${r.source === "ZAP" ? "text-orange-400" : "text-purple-400"}`}>{r.source}</td>
                     <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate">{r.unitType || "—"}</td>
                     <td className="py-1 pr-2 text-right text-green-400 font-medium">{brl(r.price)}</td>
                     <td className="py-1 pr-2 text-right text-zinc-400">{r.area > 0 ? `${Math.round(r.area)}m²` : "—"}</td>
@@ -942,7 +944,7 @@ function RentDetailPopup({ a, onClose }: { a: Analysis; onClose: () => void }) {
             </table>
           </>
         ) : (
-          <p className="text-zinc-500">Sem alugueis comparaveis no ZAP. Valor estimado via benchmark do bairro ({a.prop.cidade} — {a.prop.bairro}).</p>
+          <p className="text-zinc-500">Sem alugueis comparaveis. Valor estimado via benchmark do bairro ({a.prop.cidade} — {a.prop.bairro}).</p>
         )}
       </div>
     </Popup>
