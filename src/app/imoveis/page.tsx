@@ -1923,6 +1923,7 @@ function ImoveisPageInner() {
               <YieldPopup
                 preco={precoVal}
                 aluguelMensal={rentVal}
+                valorAvaliacao={p.valorAvaliacao ? parseFloat(p.valorAvaliacao) : 0}
                 onClose={() => setExpandedYield(null)}
               />
             )}
