@@ -216,7 +216,8 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
     }
 
     const zapTypes = getZapUnitTypes(prop.tipoImovel, prop.descricao);
-    const bairroKey = (prop.bairro || "").toUpperCase().trim();
+    // Normalize bairro: strip accents + uppercase so it matches ZAP listings which may have accents
+    const bairroKey = normalizeName(prop.bairro || "");
 
     const propQuartos = prop.quartos;
     const isResidential = !zapTypes || !zapTypes.some(t => COMMERCIAL_TYPES.has(t));
