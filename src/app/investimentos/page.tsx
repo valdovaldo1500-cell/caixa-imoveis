@@ -497,14 +497,15 @@ function generateSummary(a: Analysis): string {
   return summary;
 }
 
-function computeFlipScenarios(a: Analysis, renoLevel: "light" | "medium" | "heavy") {
+function computeFlipScenarios(a: Analysis, renoLevel: "light" | "medium" | "heavy", targetValue?: number) {
   const reno = renoLevel === "light" ? a.renoLight : renoLevel === "medium" ? a.renoMedium : a.renoHeavy;
   const totalInvest = a.purchasePrice + reno + a.txCostBuy;
   const liq = getLiquidity(a.prop.cidade);
   const baseMonths = liq === "alta" ? 8 : liq === "media" ? 14 : 24;
+  const base = targetValue ?? a.bestMarketValue;
 
   const make = (saleMult: number, extraMonths: number) => {
-    const salePrice = a.bestMarketValue * saleMult;
+    const salePrice = base * saleMult;
     const profit = salePrice - totalInvest - (salePrice * 0.055);
     const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
     return { totalInvest, salePrice, profit, roi, months: baseMonths + extraMonths };
