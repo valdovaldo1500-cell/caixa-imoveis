@@ -1077,6 +1077,15 @@ export default function InvestimentosPage() {
   const [error, setError] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<"roi" | "rental" | "profit" | "price" | "risk">("roi");
 
+  const handleRemove = useCallback((favoriteId: number, propertyId: number) => {
+    fetch(`/api/favorites/${favoriteId}`, { method: "DELETE", credentials: "include" })
+      .then((r) => {
+        if (!r.ok) throw new Error("Erro ao remover");
+        setAnalyses((prev) => prev.filter((a) => a.prop.propertyId !== propertyId));
+      })
+      .catch((err) => alert(err.message));
+  }, []);
+
   useEffect(() => {
     fetch("/api/investimentos", { credentials: "include" })
       .then((r) => {
