@@ -309,9 +309,9 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
     // Remove outliers (Caixa repossession resale ads with artificially low prices)
     saleComparables = removeOutliers(saleComparables, (r) => parseFloat(r.pricePerM2 || "0"));
 
-    // Rental: same — bairro only
-    let rentalComparables = filterListings(bairroRentalListings, true);
-    if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings);
+    // Rental: same — bairro only (isSale=false to skip Caixa price filter)
+    let rentalComparables = filterListings(bairroRentalListings, true, false);
+    if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings, false, false);
 
     // Calculate median R$/m² from sale comparables
     const salePricesPerM2 = saleComparables
