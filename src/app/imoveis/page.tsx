@@ -483,8 +483,11 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12 }:
 
   const itbiComps = data ? (data.tier1.count > 0 ? data.tier1.comparables : data.tier2.comparables) : [];
   const zapComps = data?.zapListings?.saleComparables || [];
+  const qaComps = data?.qaListings?.saleComparables || [];
   const showZap = source === "zap";
-  const title = showZap ? "Anúncios ZAP usados no cálculo" : "Transações ITBI usadas no cálculo";
+  const showQA = source === "qa";
+  const listingComps = showQA ? qaComps : zapComps;
+  const title = showQA ? "Anúncios 5ºAndar usados no cálculo" : showZap ? "Anúncios ZAP usados no cálculo" : "Transações ITBI usadas no cálculo";
 
   return (
     <div ref={ref} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 backdrop-blur-sm border border-zinc-700 rounded-lg shadow-xl p-3 w-[480px] max-h-[400px] overflow-auto text-left">
