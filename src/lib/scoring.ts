@@ -253,7 +253,7 @@ export async function calculateScores(): Promise<{ scored: number; avgScore: num
 
   // Calculate and batch-update scores
   let totalScore = 0;
-  const updates: Array<{ id: number; score: number; details: ScoreBreakdown }> = [];
+  const updates: Array<{ id: number; score: number; details: ScoreDetails }> = [];
 
   for (const row of rows) {
     const stats = cityStats.get(row.cidade) ?? { avgPrice: 0, avgPricePerM2: 0 };
@@ -274,7 +274,7 @@ export async function calculateScores(): Promise<{ scored: number; avgScore: num
       stats
     );
 
-    updates.push({ id: row.id, score: breakdown.total, details: breakdown });
+    updates.push({ id: row.id, score: breakdown.total, details: breakdownToDetails(breakdown) });
     totalScore += breakdown.total;
   }
 
