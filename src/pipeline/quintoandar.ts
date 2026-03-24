@@ -350,7 +350,7 @@ export async function getQAComparables(propertyId: number) {
     (r) => normalizeCidade(r.cidade || "") === cityKey
   );
   const bairroListings = bairroKey
-    ? cityListings.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+    ? cityListings.filter((r) => normalizeCidade(r.bairro || "") === bairroKey)
     : [];
 
   type QARow = (typeof allSale)[0];
