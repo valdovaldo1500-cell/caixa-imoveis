@@ -221,6 +221,44 @@ export default async function DashboardPage() {
                 <p className="text-2xl font-bold">{stats.withGeo}</p>
               </CardContent>
             </Card>
+
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs text-zinc-400 font-normal">
+                  Yield Médio Bruto
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className={`text-2xl font-bold ${parseFloat(stats.avgYield) >= 8 ? "text-green-400" : "text-yellow-400"}`}>
+                  {stats.avgYield}%
+                </p>
+                <p className="text-[10px] text-zinc-500">Selic: 14,25%</p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs text-zinc-400 font-normal">
+                  Yield &gt; Selic
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-green-400">{stats.beatsSelic}</p>
+                <p className="text-[10px] text-zinc-500">Yield bruto &gt; 14,25%</p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs text-zinc-400 font-normal">
+                  Com Valor Mercado
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold">{stats.withMarketValue}</p>
+                <p className="text-[10px] text-zinc-500">ITBI, ZAP ou 5ºAndar</p>
+              </CardContent>
+            </Card>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
