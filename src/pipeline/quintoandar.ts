@@ -227,10 +227,10 @@ export async function calculateQAMarketValues(): Promise<{ updated: number }> {
     const cityRentalListings = rentalByCity.get(cityKey) || [];
 
     const bairroSaleListings = bairroKey
-      ? citySaleListings.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+      ? citySaleListings.filter((r) => normalizeCidade(r.bairro || "") === bairroKey)
       : [];
     const bairroRentalListings = bairroKey
-      ? cityRentalListings.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+      ? cityRentalListings.filter((r) => normalizeCidade(r.bairro || "") === bairroKey)
       : [];
 
     // Step 1: bairro + type + area (strict with bedrooms)
