@@ -355,7 +355,10 @@ function computeFlipScenariosWithLiquidity(inv: InvAnalysis, cidade: string, ren
     const salePrice = base * saleMult;
     const profit = salePrice - totalInvest - salePrice * 0.055;
     const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
-    return { totalInvest, salePrice, profit, roi, months: baseMonths + extraMonths };
+    const months = baseMonths + extraMonths;
+    // Annualized ROI: (1 + ROI)^(12/months) - 1
+    const roiAnnual = months > 0 && roi > -100 ? (Math.pow(1 + roi / 100, 12 / months) - 1) * 100 : 0;
+    return { totalInvest, salePrice, profit, roi, roiAnnual, months };
   };
 
   return { conservative: make(0.85, 4), moderate: make(0.95, 2), optimistic: make(1.0, 0), reno };
