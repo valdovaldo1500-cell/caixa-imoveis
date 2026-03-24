@@ -1906,6 +1906,20 @@ function ImoveisPageInner() {
           </TableCell>
         );
 
+      case "qaAluguel":
+        return (
+          <TableCell key={colId} className="text-right">
+            {p.qaRentValue ? (
+              <span className="text-zinc-300">
+                {formatBRL(p.qaRentValue)}
+                <span className="text-zinc-600 text-xs">/mês</span>
+              </span>
+            ) : (
+              <span className="text-zinc-600">—</span>
+            )}
+          </TableCell>
+        );
+
       case "yield": {
         const rentVal = p.zapRentValue ? parseFloat(p.zapRentValue) : 0;
         const precoVal = p.preco ? parseFloat(p.preco) : 0;
