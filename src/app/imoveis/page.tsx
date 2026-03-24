@@ -1909,8 +1909,20 @@ function ImoveisPageInner() {
         const yieldPct = (rentVal * 12 / precoVal) * 100;
         const color = yieldPct >= 8 ? "text-green-400 font-medium" : yieldPct >= 5 ? "text-yellow-400" : "text-zinc-400";
         return (
-          <TableCell key={colId} className={`text-right ${color}`}>
-            {yieldPct.toFixed(1)}%
+          <TableCell key={colId} className={`text-right relative ${color}`}>
+            <button
+              onClick={() => setExpandedYield(expandedYield === p.id ? null : p.id)}
+              className="cursor-pointer hover:underline"
+            >
+              {yieldPct.toFixed(1)}%
+            </button>
+            {expandedYield === p.id && (
+              <YieldPopup
+                preco={precoVal}
+                aluguelMensal={rentVal}
+                onClose={() => setExpandedYield(null)}
+              />
+            )}
           </TableCell>
         );
       }
