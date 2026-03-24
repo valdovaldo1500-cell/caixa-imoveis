@@ -191,6 +191,11 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
           ? parseFloat(prop.areaTotalM2)
           : null;
 
+    // Skip ZAP calculation for properties with suspicious area — area is unreliable
+    if (prop.dataQualityFlag === "suspicious_area") {
+      continue;
+    }
+
     const zapTypes = getZapUnitTypes(prop.tipoImovel, prop.descricao);
     const bairroKey = (prop.bairro || "").toUpperCase().trim();
 
