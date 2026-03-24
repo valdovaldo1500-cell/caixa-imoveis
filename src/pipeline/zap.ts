@@ -216,11 +216,14 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
     }
 
     const zapTypes = getZapUnitTypes(prop.tipoImovel, prop.descricao);
+    // Skip if we can't determine the type — prevents cross-type contamination
+    if (zapTypes === null) continue;
+
     // Normalize bairro: strip accents + uppercase so it matches ZAP listings which may have accents
     const bairroKey = normalizeName(prop.bairro || "");
 
     const propQuartos = prop.quartos;
-    const isResidential = !zapTypes || !zapTypes.some(t => COMMERCIAL_TYPES.has(t));
+    const isResidential = !zapTypes.some(t => COMMERCIAL_TYPES.has(t));
 
     // Helper to filter ZAP listings for this property
     function filterListings(listings: ZapRow[], strict = false): ZapRow[] {
