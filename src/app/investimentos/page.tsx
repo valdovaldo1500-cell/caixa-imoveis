@@ -720,6 +720,35 @@ function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemo
                 <p className="text-[10px] text-zinc-600 mt-1">
                   * Reforma {RENO_LABELS[renoLevel]}. Conservador: venda 15% abaixo do mercado. Moderado: venda 5% abaixo. Otimista: venda ao preco de mercado. Todos incluem ITBI (2%), escritura, registro e corretagem (5,5%).
                 </p>
+
+                {/* Sub-table: flip based on Caixa appraised value */}
+                {a.appraisedValue > 0 && a.appraisedValue !== a.bestMarketValue && (() => {
+                  const flipAval = computeFlipScenarios(a, renoLevel, a.appraisedValue);
+                  return (
+                    <div className="mt-3 pt-3 border-t border-zinc-800/50">
+                      <p className="text-[10px] text-zinc-500 mb-1.5">Sob valor de avaliacao Caixa ({brl(a.appraisedValue)})</p>
+                      <div className="overflow-x-auto -mx-4 px-4">
+                        <table className="min-w-[600px] w-full text-sm">
+                          <thead>
+                            <tr className="border-b border-zinc-700">
+                              <th className="py-1.5 pr-3 text-left text-xs text-zinc-500 font-medium whitespace-nowrap">Cenario</th>
+                              <th className="py-1.5 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Investimento</th>
+                              <th className="py-1.5 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Venda</th>
+                              <th className="py-1.5 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Lucro</th>
+                              <th className="py-1.5 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">ROI</th>
+                              <th className="py-1.5 pl-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Prazo</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ScenarioRow label="Conservador" data={flipAval.conservative} accent="text-emerald-400" />
+                            <ScenarioRow label="Moderado" data={flipAval.moderate} accent="text-green-400" />
+                            <ScenarioRow label="Otimista" data={flipAval.optimistic} accent="text-green-300" />
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             );
           })()}
