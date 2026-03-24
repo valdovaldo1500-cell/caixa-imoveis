@@ -1206,6 +1206,11 @@ export default function InvestimentosPage() {
       case "roi": return b.flipModerate.roi - a.flipModerate.roi;
       case "rental": return b.rentalYieldGross - a.rentalYieldGross;
       case "profit": return b.flipModerate.profit - a.flipModerate.profit;
+      case "profit_aval": {
+        const profitA = computeFlipScenarios(a, "light", a.appraisedValue).moderate.profit;
+        const profitB = computeFlipScenarios(b, "light", b.appraisedValue).moderate.profit;
+        return profitB - profitA;
+      }
       case "price": return a.purchasePrice - b.purchasePrice;
       case "risk": {
         const riskOrder: Record<string, number> = { "EXCELENTE": 0, "BOM": 1, "MODERADO": 2, "ARRISCADO": 3, "ALTO RISCO": 4 };
