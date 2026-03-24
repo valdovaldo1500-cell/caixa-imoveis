@@ -1777,6 +1777,19 @@ function ImoveisPageInner() {
           </TableCell>
         );
 
+      case "yield": {
+        const rentVal = p.zapRentValue ? parseFloat(p.zapRentValue) : 0;
+        const precoVal = p.preco ? parseFloat(p.preco) : 0;
+        if (!rentVal || !precoVal) return <TableCell key={colId} className="text-zinc-600 text-right">—</TableCell>;
+        const yieldPct = (rentVal * 12 / precoVal) * 100;
+        const color = yieldPct >= 8 ? "text-green-400 font-medium" : yieldPct >= 5 ? "text-yellow-400" : "text-zinc-400";
+        return (
+          <TableCell key={colId} className={`text-right ${color}`}>
+            {yieldPct.toFixed(1)}%
+          </TableCell>
+        );
+      }
+
       case "link":
         return (
           <TableCell key={colId}>
