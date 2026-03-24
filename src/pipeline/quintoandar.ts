@@ -192,7 +192,7 @@ export async function calculateQAMarketValues(): Promise<{ updated: number }> {
           : null;
 
     const qaTypes = getQAUnitTypes(prop.tipoImovel, prop.descricao);
-    const bairroKey = (prop.bairro || "").toUpperCase().trim();
+    const bairroKey = normalizeCidade(prop.bairro || "");
     const propQuartos = prop.quartos;
     const isResidential = !qaTypes || !qaTypes.some(t => COMMERCIAL_TYPES.has(t));
 
