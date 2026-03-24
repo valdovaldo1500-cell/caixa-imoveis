@@ -131,12 +131,13 @@ export async function GET(request: NextRequest) {
   let orderSql: ReturnType<typeof sql>;
   if (tsQuery && sort === "desconto") {
     // When searching without explicit sort override, order by relevance then desconto
-    orderSql = sql`ts_rank(${properties.searchVector}, ${tsQuery}) DESC NULLS LAST, ${properties.desconto} DESC NULLS LAST`;
+    orderSql = sql`ts_rank(${properties.searchVector}, ${tsQuery}) DESC NULLS LAST, ${properties.desconto} DESC NULLS LAST, ${properties.id} ASC`;
   } else {
+    // Always add id as tiebreaker to prevent pagination duplicates
     orderSql =
       order === "asc"
-        ? sql`${sortCol} ASC NULLS LAST`
-        : sql`${sortCol} DESC NULLS LAST`;
+        ? sql`${sortCol} ASC NULLS LAST, ${properties.id} ASC`
+        : sql`${sortCol} DESC NULLS LAST, ${properties.id} ASC`;
   }
 
   const [data, countResult] = await Promise.all([
