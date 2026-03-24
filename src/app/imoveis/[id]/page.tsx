@@ -896,14 +896,24 @@ export default function PropertyDetailPage() {
                 </div>
               )}
               {property.lat && property.lng && (
-                <a
-                  href={`https://maps.google.com/?q=${property.lat},${property.lng}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 text-xs mt-1"
-                >
-                  Ver no Google Maps ↗
-                </a>
+                <div className="flex items-center gap-3 mt-1">
+                  <a
+                    href={`https://maps.google.com/?q=${property.lat},${property.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 text-xs"
+                  >
+                    Ver no Google Maps ↗
+                  </a>
+                  <a
+                    href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${property.lat},${property.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 text-xs"
+                  >
+                    Street View ↗
+                  </a>
+                </div>
               )}
             </CardContent>
           </Card>
