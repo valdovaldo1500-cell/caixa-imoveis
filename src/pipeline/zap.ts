@@ -143,6 +143,7 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
       quartos: properties.quartos,
       areaPrivativaM2: properties.areaPrivativaM2,
       areaTotalM2: properties.areaTotalM2,
+      dataQualityFlag: properties.dataQualityFlag,
     })
     .from(properties)
     .where(isNull(properties.removedAt));
