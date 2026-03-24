@@ -501,14 +501,14 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12 }:
       </div>
       {loading ? (
         <p className="text-xs text-zinc-500">Carregando...</p>
-      ) : showZap ? (
-        /* ZAP listings */
-        zapComps.length === 0 ? (
-          <p className="text-xs text-zinc-500">Nenhum anúncio ZAP encontrado</p>
+      ) : (showZap || showQA) ? (
+        /* ZAP / QA listings */
+        listingComps.length === 0 ? (
+          <p className="text-xs text-zinc-500">Nenhum anúncio {showQA ? "5ºAndar" : "ZAP"} encontrado</p>
         ) : (
           <>
             <p className="text-xs text-zinc-500 mb-2">
-              {zapComps.length} anúncios comparáveis
+              {listingComps.length} anúncios comparáveis
             </p>
             <table className="w-full text-xs">
               <thead>
