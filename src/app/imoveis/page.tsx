@@ -743,6 +743,92 @@ function RentPopup({ propertyId, onClose, months = 12, propertyPrice = 0 }: { pr
   );
 }
 
+function YieldPopup({ preco, aluguelMensal, onClose }: { preco: number; aluguelMensal: number; onClose: () => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, onClose);
+
+  // Acquisition costs (Brazilian real estate)
+  const itbiRate = 0.03; // 3% ITBI tax
+  const registroRate = 0.01; // ~1% cartório/registro
+  const comissaoRate = 0.0; // Caixa doesn't charge buyer commission on leilão/venda direta
+  const itbiCost = preco * itbiRate;
+  const registroCost = preco * registroRate;
+  const totalAcquisition = preco + itbiCost + registroCost;
+
+  // Annual rental income
+  const aluguelAnual = aluguelMensal * 12;
+
+  // Ongoing costs (annual)
+  const vacancyRate = 0.08; // 8% vacancy (1 month/year)
+  const adminRate = 0.10; // 10% property management fee
+  const manutencaoRate = 0.01; // 1% of price for maintenance/year
+
+  const vacancyCost = aluguelAnual * vacancyRate;
+  const adminCost = aluguelAnual * adminRate;
+  const manutencaoCost = preco * manutencaoRate;
+  const totalCostAnual = vacancyCost + adminCost + manutencaoCost;
+
+  const receitaLiquida = aluguelAnual - totalCostAnual;
+
+  const yieldBruto = (aluguelAnual / preco) * 100;
+  const yieldBrutoAquisicao = (aluguelAnual / totalAcquisition) * 100;
+  const yieldLiquido = (receitaLiquida / totalAcquisition) * 100;
+
+  const fmtBRL = (v: number) => `R$ ${Math.round(v).toLocaleString("pt-BR")}`;
+  const yieldColor = (y: number) => y >= 8 ? "text-green-400" : y >= 5 ? "text-yellow-400" : "text-red-400";
+
+  return (
+    <div ref={ref} className="absolute right-0 top-full mt-1 z-[100] bg-zinc-950 border border-zinc-700 rounded-lg shadow-xl p-3 w-[340px] text-left">
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-xs font-semibold text-zinc-300">Análise de Yield</span>
+        <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
+      </div>
+
+      <div className="text-xs space-y-3">
+        {/* Acquisition */}
+        <div>
+          <p className="text-zinc-500 font-semibold mb-1">Custo de Aquisição</p>
+          <div className="space-y-0.5 text-zinc-400">
+            <div className="flex justify-between"><span>Preço Caixa</span><span className="text-zinc-200">{fmtBRL(preco)}</span></div>
+            <div className="flex justify-between"><span>ITBI (3%)</span><span>{fmtBRL(itbiCost)}</span></div>
+            <div className="flex justify-between"><span>Registro/Cartório (~1%)</span><span>{fmtBRL(registroCost)}</span></div>
+            <div className="flex justify-between border-t border-zinc-800 pt-0.5 font-medium text-zinc-200"><span>Total Aquisição</span><span>{fmtBRL(totalAcquisition)}</span></div>
+          </div>
+        </div>
+
+        {/* Revenue */}
+        <div>
+          <p className="text-zinc-500 font-semibold mb-1">Receita Anual</p>
+          <div className="space-y-0.5 text-zinc-400">
+            <div className="flex justify-between"><span>Aluguel mensal (ZAP)</span><span className="text-green-400">{fmtBRL(aluguelMensal)}/mês</span></div>
+            <div className="flex justify-between font-medium text-zinc-200"><span>Receita bruta anual</span><span>{fmtBRL(aluguelAnual)}/ano</span></div>
+          </div>
+        </div>
+
+        {/* Costs */}
+        <div>
+          <p className="text-zinc-500 font-semibold mb-1">Custos Anuais Estimados</p>
+          <div className="space-y-0.5 text-zinc-400">
+            <div className="flex justify-between"><span>Vacância (8%)</span><span>- {fmtBRL(vacancyCost)}</span></div>
+            <div className="flex justify-between"><span>Administração (10%)</span><span>- {fmtBRL(adminCost)}</span></div>
+            <div className="flex justify-between"><span>Manutenção (1% preço)</span><span>- {fmtBRL(manutencaoCost)}</span></div>
+            <div className="flex justify-between border-t border-zinc-800 pt-0.5 font-medium text-zinc-200"><span>Receita líquida anual</span><span>{fmtBRL(receitaLiquida)}</span></div>
+          </div>
+        </div>
+
+        {/* Yields */}
+        <div className="bg-zinc-800 rounded p-2 space-y-1">
+          <div className="flex justify-between"><span className="text-zinc-400">Yield bruto (s/ preço)</span><span className={`font-medium ${yieldColor(yieldBruto)}`}>{yieldBruto.toFixed(1)}%</span></div>
+          <div className="flex justify-between"><span className="text-zinc-400">Yield bruto (s/ aquisição)</span><span className={`font-medium ${yieldColor(yieldBrutoAquisicao)}`}>{yieldBrutoAquisicao.toFixed(1)}%</span></div>
+          <div className="flex justify-between border-t border-zinc-700 pt-1"><span className="text-zinc-300 font-semibold">Yield líquido</span><span className={`font-bold ${yieldColor(yieldLiquido)}`}>{yieldLiquido.toFixed(1)}%</span></div>
+        </div>
+
+        <p className="text-[10px] text-zinc-600">Não inclui IPTU, condomínio ou IR. Valores estimados.</p>
+      </div>
+    </div>
+  );
+}
+
 function NotePopup({
   propertyId,
   initialNote,
