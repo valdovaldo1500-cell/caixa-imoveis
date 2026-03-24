@@ -1175,7 +1175,7 @@ export default function InvestimentosPage() {
   const [analyses, setAnalyses] = useState<Analysis[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<"roi" | "rental" | "profit" | "price" | "risk">("roi");
+  const [sortBy, setSortBy] = useState<"roi" | "rental" | "profit" | "profit_aval" | "price" | "risk">("roi");
 
   const handleRemove = useCallback((favoriteId: number, propertyId: number) => {
     fetch(`/api/favorites/${favoriteId}`, { method: "DELETE", credentials: "include" })
