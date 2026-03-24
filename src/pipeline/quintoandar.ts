@@ -260,12 +260,13 @@ export async function calculateQAMarketValues(): Promise<{ updated: number }> {
     let rentalComparables = filterListings(bairroRentalListings, true);
     if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings);
     if (rentalComparables.length < 3) rentalComparables = filterListings(cityRentalListings);
-    // Step 4: city residential only
+    // Step 4: city same category only (never mix commercial/residential)
     if (rentalComparables.length < 3) {
       rentalComparables = cityRentalListings.filter((row) => {
         const rowType = (row.unitType || "").toUpperCase();
-        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
         if (!rowType) return false;
+        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
+        if (!isResidential && !COMMERCIAL_TYPES.has(rowType)) return false;
         if (propArea && row.area) {
           const rowArea = parseFloat(row.area);
           if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.5) return false;
