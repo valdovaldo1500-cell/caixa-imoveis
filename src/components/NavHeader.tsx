@@ -119,7 +119,7 @@ export default function NavHeader() {
       {/* Mobile dropdown */}
       {menuOpen && (
         <nav className="sm:hidden border-t border-zinc-800 py-2 px-4 flex flex-col gap-1">
-          {NAV_LINKS.map(({ href, label }) => {
+          {NAV_LINKS.filter((l) => !l.restrictTo || l.restrictTo === username).map(({ href, label }) => {
             const isActive =
               href === "/" ? pathname === "/" : pathname.startsWith(href);
             return (
