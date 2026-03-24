@@ -429,8 +429,76 @@ function ScenarioRow({ label, data, accent }: { label: string; data: Analysis["f
   );
 }
 
+function generateSummary(a: Analysis): string {
+  const p = a.prop;
+  const typeKey = getTypeKey(p.tipoImovel);
+  const liq = getLiquidity(p.cidade);
+  const discountVsMarket = a.bestMarketValue > 0 ? ((a.bestMarketValue - a.purchasePrice) / a.bestMarketValue) * 100 : 0;
+
+  let summary = "";
+
+  // Opening assessment
+  if (a.flipModerate.roi > 80) {
+    summary += `Oportunidade excepcional. `;
+  } else if (a.flipModerate.roi > 40) {
+    summary += `Bom potencial de valorizacao. `;
+  } else if (a.flipModerate.roi > 15) {
+    summary += `Retorno moderado. `;
+  } else if (a.flipModerate.roi > 0) {
+    summary += `Margem apertada. `;
+  } else {
+    summary += `Investimento arriscado — ROI negativo no cenario moderado. `;
+  }
+
+  // Property specifics
+  summary += `${p.tipoImovel || "Imovel"} de ${a.area.toFixed(0)}m² em ${p.cidade}/${p.bairro || "—"}, `;
+  summary += `comprando a ${brl(a.purchasePrice)} (${pct(discountVsMarket)} abaixo do mercado). `;
+
+  // Best strategy
+  if (a.rentalYieldGross > 12 && a.flipModerate.roi > 30) {
+    summary += `Dupla estrategia viavel: alugar a ${brl(a.monthlyRent)}/mes (yield ${pct(a.rentalYieldGross)}) enquanto valoriza, ou flip com lucro de ${brl(a.flipModerate.profit)}. `;
+  } else if (a.rentalYieldGross > 10) {
+    summary += `Melhor como renda passiva — yield de ${pct(a.rentalYieldGross)} com aluguel de ${brl(a.monthlyRent)}/mes, payback em ${(a.paybackMonths / 12).toFixed(1)} anos. `;
+  } else if (a.flipModerate.roi > 30) {
+    summary += `Melhor para flip — lucro estimado de ${brl(a.flipModerate.profit)} em ~${a.flipModerate.months} meses. `;
+  } else if (typeKey === "terreno") {
+    summary += `Terreno sem receita imediata — lucro depende de revenda ou construcao. `;
+  } else {
+    summary += `Margens baixas em ambos cenarios (flip e aluguel). `;
+  }
+
+  // Risk warnings
+  if (!p.aceitaFinanciamento) {
+    summary += `Exige pagamento a vista. `;
+  }
+  if (liq === "baixa") {
+    summary += `Mercado muito iliquido — revenda pode levar 24+ meses. `;
+  }
+  if (a.totalComparables === 0) {
+    summary += `Sem dados de comparaveis — estimativa de mercado tem baixa confianca. `;
+  }
+  if (n(p.crimeRate) > 7000) {
+    summary += `Zona com criminalidade alta, pode dificultar aluguel/venda. `;
+  }
+  if (a.area > 200) {
+    summary += `Area grande implica custo de reforma elevado (${brl(a.renoLight)}-${brl(a.renoHeavy)}). `;
+  }
+
+  // Data confidence
+  if (a.totalComparables >= 50) {
+    summary += `Alta confianca nos dados (${a.totalComparables} comparaveis).`;
+  } else if (a.totalComparables >= 10) {
+    summary += `Boa base de dados (${a.totalComparables} comparaveis).`;
+  } else if (a.totalComparables > 0) {
+    summary += `Poucos comparaveis (${a.totalComparables}) — valores podem variar.`;
+  }
+
+  return summary;
+}
+
 function PropertyCard({ a, rank }: { a: Analysis; rank: number }) {
   const [expanded, setExpanded] = useState(rank <= 3);
+  const [popup, setPopup] = useState<string | null>(null);
   const p = a.prop;
   const scoreGrade = p.score ? getScoreGrade(Number(p.score)) : null;
   const riskBadge = getRiskBadge(a.riskRating);
@@ -438,6 +506,14 @@ function PropertyCard({ a, rank }: { a: Analysis; rank: number }) {
 
   return (
     <div className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden">
+      {/* Popups */}
+      {popup === "rent" && <RentDetailPopup a={a} onClose={() => setPopup(null)} />}
+      {popup === "yield" && <YieldDetailPopup a={a} onClose={() => setPopup(null)} />}
+      {popup === "invest" && <InvestmentDetailPopup a={a} onClose={() => setPopup(null)} />}
+      {popup === "itbi" && <MarketValuePopup a={a} onClose={() => setPopup(null)} source="itbi" />}
+      {popup === "zap" && <MarketValuePopup a={a} onClose={() => setPopup(null)} source="zap" />}
+      {popup === "qa" && <MarketValuePopup a={a} onClose={() => setPopup(null)} source="qa" />}
+
       {/* Header */}
       <button
         onClick={() => setExpanded(!expanded)}
@@ -508,6 +584,11 @@ function PropertyCard({ a, rank }: { a: Analysis; rank: number }) {
       {/* Expanded details */}
       {expanded && (
         <div className="border-t border-zinc-800 p-4 space-y-5">
+          {/* ── AI Summary ── */}
+          <div className="bg-zinc-800/40 border border-zinc-700/50 rounded-lg p-3">
+            <p className="text-xs text-zinc-300 leading-relaxed">{generateSummary(a)}</p>
+          </div>
+
           {/* Mobile price */}
           <div className="sm:hidden flex justify-between items-center">
             <span className="text-sm text-zinc-400">Preco Caixa</span>
@@ -520,7 +601,7 @@ function PropertyCard({ a, rank }: { a: Analysis; rank: number }) {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <ValueBox label="Preco Caixa" value={brl(a.purchasePrice)} sub={`${brl(a.purchasePrice / a.area)}/m²`} color="text-emerald-400" />
               <ValueBox label="Avaliacao Caixa" value={brl(a.appraisedValue)} sub={`Desc. ${pct(n(p.desconto))}`} color="text-zinc-300" />
-              <ValueBox label={`Mercado (${a.marketSource.split(" (")[0]})`} value={brl(a.bestMarketValue)} sub={`${brl(a.bestMarketValue / a.area)}/m² · ${a.totalComparables} comps`} color="text-blue-400" />
+              <ValueBox label={`Mercado (${a.marketSource.split(" (")[0]})`} value={brl(a.bestMarketValue)} sub={`${brl(a.bestMarketValue / a.area)}/m² · ${a.totalComparables} comps`} color="text-blue-400" onClick={() => setPopup(a.marketSource.startsWith("ITBI") ? "itbi" : a.marketSource.startsWith("ZAP") ? "zap" : a.marketSource.startsWith("Quinto") ? "qa" : null)} />
               <ValueBox label="Desconto vs Mercado" value={pct(discountVsMarket)} sub={`Economia: ${brl(a.bestMarketValue - a.purchasePrice)}`} color={discountVsMarket > 40 ? "text-green-400" : discountVsMarket > 25 ? "text-yellow-400" : "text-red-400"} />
             </div>
           </div>
@@ -528,26 +609,26 @@ function PropertyCard({ a, rank }: { a: Analysis; rank: number }) {
           {/* ── Market sources breakdown ── */}
           {(n(p.marketValue) > 0 || n(p.zapMarketValue) > 0 || n(p.qaMarketValue) > 0) && (
             <div>
-              <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Fontes de Mercado</h4>
+              <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Fontes de Mercado <span className="text-zinc-600 normal-case font-normal">(clique para ver comparaveis)</span></h4>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {n(p.marketValue) > 0 && (
-                  <div className="bg-zinc-800/50 rounded p-2">
+                  <div className="bg-zinc-800/50 rounded p-2 cursor-pointer hover:bg-zinc-700/50 hover:ring-1 hover:ring-zinc-600 transition-all" onClick={() => setPopup("itbi")}>
                     <div className="text-xs text-zinc-500">ITBI (transacoes reais)</div>
-                    <div className="text-sm font-medium text-white">{brl(n(p.marketValue))}</div>
+                    <div className="text-sm font-medium text-white underline decoration-dotted underline-offset-2">{brl(n(p.marketValue))}</div>
                     <div className="text-xs text-zinc-500">{n(p.marketValuePerM2) > 0 ? `${brl(n(p.marketValuePerM2))}/m²` : ""} &middot; {(p.comparablesTier1Count || 0) + (p.comparablesTier2Count || 0)} comps</div>
                   </div>
                 )}
                 {n(p.zapMarketValue) > 0 && (
-                  <div className="bg-zinc-800/50 rounded p-2">
+                  <div className="bg-zinc-800/50 rounded p-2 cursor-pointer hover:bg-zinc-700/50 hover:ring-1 hover:ring-zinc-600 transition-all" onClick={() => setPopup("zap")}>
                     <div className="text-xs text-zinc-500">ZAP Imoveis</div>
-                    <div className="text-sm font-medium text-white">{brl(n(p.zapMarketValue))}</div>
+                    <div className="text-sm font-medium text-white underline decoration-dotted underline-offset-2">{brl(n(p.zapMarketValue))}</div>
                     <div className="text-xs text-zinc-500">{n(p.zapMarketValuePerM2) > 0 ? `${brl(n(p.zapMarketValuePerM2))}/m²` : ""} &middot; {p.zapComparablesCount || 0} comps</div>
                   </div>
                 )}
                 {n(p.qaMarketValue) > 0 && (
-                  <div className="bg-zinc-800/50 rounded p-2">
+                  <div className="bg-zinc-800/50 rounded p-2 cursor-pointer hover:bg-zinc-700/50 hover:ring-1 hover:ring-zinc-600 transition-all" onClick={() => setPopup("qa")}>
                     <div className="text-xs text-zinc-500">QuintoAndar</div>
-                    <div className="text-sm font-medium text-white">{brl(n(p.qaMarketValue))}</div>
+                    <div className="text-sm font-medium text-white underline decoration-dotted underline-offset-2">{brl(n(p.qaMarketValue))}</div>
                     <div className="text-xs text-zinc-500">{p.qaComparablesCount || 0} comps</div>
                   </div>
                 )}
@@ -568,16 +649,16 @@ function PropertyCard({ a, rank }: { a: Analysis; rank: number }) {
           {/* ── Flip analysis ── */}
           <div>
             <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Cenarios de Flip (Revenda)</h4>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+            <div className="overflow-x-auto -mx-4 px-4">
+              <table className="min-w-[600px] w-full text-sm">
                 <thead>
                   <tr className="border-b border-zinc-700">
-                    <th className="py-2 pr-3 text-left text-xs text-zinc-500 font-medium">Cenario</th>
-                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium">Investimento</th>
-                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium">Venda</th>
-                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium">Lucro</th>
-                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium">ROI</th>
-                    <th className="py-2 pl-3 text-right text-xs text-zinc-500 font-medium">Prazo</th>
+                    <th className="py-2 pr-3 text-left text-xs text-zinc-500 font-medium whitespace-nowrap">Cenario</th>
+                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Investimento</th>
+                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Venda</th>
+                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Lucro</th>
+                    <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">ROI</th>
+                    <th className="py-2 pl-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Prazo</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -594,12 +675,12 @@ function PropertyCard({ a, rank }: { a: Analysis; rank: number }) {
 
           {/* ── Rental analysis ── */}
           <div>
-            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Analise de Aluguel</h4>
+            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Analise de Aluguel <span className="text-zinc-600 normal-case font-normal">(clique para detalhes)</span></h4>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <ValueBox label="Aluguel Mensal" value={brl(a.monthlyRent)} sub={`Fonte: ${a.rentSource}`} color="text-blue-400" />
-              <ValueBox label="Yield Bruto Anual" value={pct(a.rentalYieldGross)} sub={`${brl(a.monthlyRent * 12)}/ano`} color={a.rentalYieldGross > 10 ? "text-green-400" : a.rentalYieldGross > 7 ? "text-yellow-400" : "text-red-400"} />
-              <ValueBox label="Payback" value={`${a.paybackMonths} meses`} sub={`${(a.paybackMonths / 12).toFixed(1)} anos`} color="text-zinc-300" />
-              <ValueBox label="Investimento Total" value={brl(a.purchasePrice + a.renoLight + a.txCostBuy)} sub="Compra + reforma leve + custos" color="text-zinc-300" />
+              <ValueBox label="Aluguel Mensal" value={brl(a.monthlyRent)} sub={`Fonte: ${a.rentSource}`} color="text-blue-400" onClick={() => setPopup("rent")} />
+              <ValueBox label="Yield Bruto Anual" value={pct(a.rentalYieldGross)} sub={`${brl(a.monthlyRent * 12)}/ano`} color={a.rentalYieldGross > 10 ? "text-green-400" : a.rentalYieldGross > 7 ? "text-yellow-400" : "text-red-400"} onClick={() => setPopup("yield")} />
+              <ValueBox label="Payback" value={`${a.paybackMonths} meses`} sub={`${(a.paybackMonths / 12).toFixed(1)} anos`} color="text-zinc-300" onClick={() => setPopup("yield")} />
+              <ValueBox label="Investimento Total" value={brl(a.purchasePrice + a.renoLight + a.txCostBuy)} sub="Compra + reforma leve + custos" color="text-zinc-300" onClick={() => setPopup("invest")} />
             </div>
           </div>
 
