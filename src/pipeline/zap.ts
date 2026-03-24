@@ -284,6 +284,9 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
     // NO city-wide fallback for sale — different bairro = different price
     // If no bairro match, no ZAP sale value (better no value than wrong value)
 
+    // Remove outliers (Caixa repossession resale ads with artificially low prices)
+    saleComparables = removeOutliers(saleComparables, (r) => parseFloat(r.pricePerM2 || "0"));
+
     // Rental: same — bairro only
     let rentalComparables = filterListings(bairroRentalListings, true);
     if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings);
