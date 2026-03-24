@@ -128,8 +128,14 @@ export function computeScoreBreakdown(
   cityStats: CityStats
 ): ScoreBreakdown {
   // 1. Discount score (25%)
-  const discountPct = parseFloat(property.desconto ?? "0") || 0;
-  const discountScore = Math.min(100, (discountPct / 60) * 100);
+  // For Leilão SFI properties where preco > avaliacao, compute real discount (negative)
+  const preco = parseFloat(property.preco ?? "0") || 0;
+  const avaliacao = parseFloat(property.valorAvaliacao ?? "0") || 0;
+  let discountPct = parseFloat(property.desconto ?? "0") || 0;
+  if (discountPct === 0 && preco > 0 && avaliacao > 0 && preco > avaliacao) {
+    discountPct = ((avaliacao - preco) / avaliacao) * 100; // negative discount
+  }
+  const discountScore = Math.max(0, Math.min(100, (discountPct / 60) * 100));
 
   // 2. Price efficiency (20%)
   // Use ITBI market value first, then ZAP market value, then city average price
