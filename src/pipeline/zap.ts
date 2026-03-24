@@ -345,7 +345,8 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
   if (!prop) return { comparables: [], medianRent: 0, count: 0 };
 
   const cityKey = normalizeCidade(prop.cidade);
-  const bairroKey = (prop.bairro || "").toUpperCase().trim();
+  // Normalize bairro: strip accents + uppercase to match ZAP listings which may have accents
+  const bairroKey = normalizeName(prop.bairro || "");
   const propArea =
     prop.areaPrivativaM2 && parseFloat(prop.areaPrivativaM2) > 0
       ? parseFloat(prop.areaPrivativaM2)
@@ -374,7 +375,7 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
     // Exclude commercial for residential
     if (isResProp && COMMERCIAL_TYPES.has(rowType)) return false;
     if (!rowType) return false;
-    // Type filter
+    // Type filter: must be in same type group
     if (zapTypes && !zapTypes.includes(rowType)) return false;
     // Area ±30%
     if (propArea && r.area) {
@@ -385,9 +386,10 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
     if (propQuartos !== null && r.bedrooms !== null) {
       if (Math.abs(r.bedrooms - propQuartos) > 1) return false;
     }
-    // Bairro ilike match
+    // Bairro match (accent-normalized)
     if (bairroKey && r.bairro) {
-      if (!r.bairro.toUpperCase().includes(bairroKey) && !bairroKey.includes(r.bairro.toUpperCase())) return false;
+      const rBairro = normalizeName(r.bairro);
+      if (rBairro !== bairroKey) return false;
     }
     return true;
   }
@@ -397,7 +399,7 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
     // Exclude commercial for residential
     if (isResProp && COMMERCIAL_TYPES.has(rowType)) return false;
     if (!rowType) return false;
-    // Type is mandatory in fallback
+    // Type is mandatory in fallback — must be same group
     if (zapTypes && !zapTypes.includes(rowType)) return false;
     // Area ±50% (relaxed from strict's ±30%)
     if (propArea && r.area) {
@@ -416,10 +418,10 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
   // Bairro-only — no city-wide fallback (different bairro = different rent)
   let matched = cityRental.filter(matchesStrict);
   if (matched.length < 3) {
-    // Relaxed bairro match (same bairro, relaxed area/bedrooms)
+    // Relaxed bairro match (same bairro accent-normalized, relaxed area/bedrooms)
     matched = cityRental.filter(matchesFallback).filter(r => {
       if (bairroKey && r.bairro) {
-        return r.bairro.toUpperCase().includes(bairroKey) || bairroKey.includes(r.bairro.toUpperCase());
+        return normalizeName(r.bairro) === bairroKey;
       }
       return false;
     });
