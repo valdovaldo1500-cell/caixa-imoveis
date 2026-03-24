@@ -308,3 +308,90 @@ export async function calculateQAMarketValues(): Promise<{ updated: number }> {
 
   return { updated };
 }
+
+/**
+ * Get QA (5ºAndar) sale comparables for a given property — used by the popup.
+ */
+export async function getQAComparables(propertyId: number) {
+  const prop = await db
+    .select({
+      cidade: properties.cidade,
+      bairro: properties.bairro,
+      tipoImovel: properties.tipoImovel,
+      descricao: properties.descricao,
+      quartos: properties.quartos,
+      areaPrivativaM2: properties.areaPrivativaM2,
+      areaTotalM2: properties.areaTotalM2,
+    })
+    .from(properties)
+    .where(eq(properties.id, propertyId))
+    .limit(1);
+
+  if (prop.length === 0) return null;
+  const p = prop[0];
+
+  const cityKey = normalizeCidade(p.cidade);
+  const bairroKey = (p.bairro || "").toUpperCase().trim();
+  const qaTypes = getQAUnitTypes(p.tipoImovel, p.descricao);
+  const propArea =
+    p.areaPrivativaM2 && parseFloat(p.areaPrivativaM2) > 0
+      ? parseFloat(p.areaPrivativaM2)
+      : p.areaTotalM2 && parseFloat(p.areaTotalM2) > 0
+        ? parseFloat(p.areaTotalM2)
+        : null;
+  const isResidential = !qaTypes || !qaTypes.some(t => COMMERCIAL_TYPES.has(t));
+
+  const allSale = await db
+    .select()
+    .from(qaListings)
+    .where(eq(qaListings.business, "SALE"));
+
+  const cityListings = allSale.filter(
+    (r) => normalizeCidade(r.cidade || "") === cityKey
+  );
+  const bairroListings = bairroKey
+    ? cityListings.filter((r) => (r.bairro || "").toUpperCase().trim() === bairroKey)
+    : [];
+
+  type QARow = (typeof allSale)[0];
+  function filterListings(listings: QARow[], strict = false): QARow[] {
+    return listings.filter((row) => {
+      const rowType = (row.unitType || "").toUpperCase();
+      if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
+      if (!rowType) return false;
+      if (qaTypes && !qaTypes.includes(rowType)) return false;
+      if (propArea && row.area) {
+        const rowArea = parseFloat(row.area);
+        if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > (strict ? 0.3 : 0.5)) return false;
+      }
+      if (strict && p.quartos !== null && row.bedrooms !== null) {
+        if (Math.abs(row.bedrooms - p.quartos) > 1) return false;
+      }
+      return true;
+    });
+  }
+
+  let comparables = filterListings(bairroListings, true);
+  if (comparables.length < 3) comparables = filterListings(bairroListings);
+  if (comparables.length < 3) comparables = filterListings(cityListings);
+
+  return {
+    saleComparables: comparables.map((r) => ({
+      bairro: r.bairro,
+      unitType: r.unitType,
+      price: parseFloat(r.price || "0"),
+      area: parseFloat(r.area || "0"),
+      pricePerM2: parseFloat(r.pricePerM2 || "0"),
+      bedrooms: r.bedrooms,
+      listingUrl: r.listingUrl,
+    })),
+    medianSalePricePerM2:
+      comparables.length > 0
+        ? median(
+            comparables
+              .map((r) => parseFloat(r.pricePerM2 || "0"))
+              .filter((v) => v > 0)
+          )
+        : null,
+  };
+}
