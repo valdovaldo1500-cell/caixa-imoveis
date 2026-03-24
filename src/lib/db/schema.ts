@@ -72,6 +72,7 @@ export const properties = pgTable(
     qaRentValue: decimal("qa_rent_value", { precision: 10, scale: 2 }),
     qaComparablesCount: integer("qa_comparables_count"),
     qaUpdatedAt: timestamp("qa_updated_at"),
+    dataQualityFlag: varchar("data_quality_flag", { length: 20 }), // null = OK, 'suspicious_area', 'suspicious_price', 'suspicious_discount'
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
     searchVector: tsvector("search_vector"),
