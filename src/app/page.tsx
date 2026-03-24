@@ -98,6 +98,9 @@ async function getStats() {
     newToday: newToday?.count ?? 0,
     removedToday: removedToday?.count ?? 0,
     withGeo: withGeo?.count ?? 0,
+    avgYield: avgYield?.avg ?? "0",
+    beatsSelic: beatsSelic?.count ?? 0,
+    withMarketValue: withMarketValue?.count ?? 0,
     topCidades,
     byTipo,
   };
