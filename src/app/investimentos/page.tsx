@@ -1065,7 +1065,7 @@ function MarketValuePopup({ a, onClose, source }: { a: Analysis; onClose: () => 
                   </tr>
                 </thead>
                 <tbody>
-                  {itbiComps.slice(0, 15).map((c, i) => (
+                  {itbiComps.map((c, i) => (
                     <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
                       <td className="py-1 pr-2 text-zinc-300 max-w-[200px] truncate" title={`${c.logradouro}, ${c.nEndereco} — ${c.bairro} (${c.dataEstimativa?.slice(0, 10)})`}>
                         {c.logradouro}, {c.nEndereco} <span className="text-zinc-600">{c.dataEstimativa?.slice(0, 10)}</span>
