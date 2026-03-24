@@ -19,11 +19,12 @@ export async function GET(
   const months = monthsParam ? Math.max(1, parseInt(monthsParam, 10)) : 12;
 
   try {
-    const [itbiResult, zapResult, zapRentals, qaResult] = await Promise.all([
+    const [itbiResult, zapResult, zapRentals, qaResult, qaRentals] = await Promise.all([
       getPropertyComparables(propertyId, months),
       getZapComparables(propertyId, months),
       getZapRentalComparables(propertyId, months),
       getQAComparables(propertyId),
+      getQARentalComparables(propertyId),
     ]);
 
     if (!itbiResult) {
