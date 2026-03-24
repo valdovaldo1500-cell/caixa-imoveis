@@ -1411,6 +1411,28 @@ export default function PropertyDetailPage() {
                         <div className="text-[10px] text-zinc-500">Compra + reforma leve + custos</div>
                       </div>
                     </div>
+                    {/* Selic comparison */}
+                    {inv.rentalYieldGross > 0 && (() => {
+                      const SELIC = 14.25;
+                      const totalInvest = inv.purchasePrice + inv.renoLight + inv.txCostBuy;
+                      const selicReturn = totalInvest * (SELIC / 100);
+                      const rentReturn = inv.monthlyRent * 12;
+                      const spread = inv.rentalYieldGross - SELIC;
+                      return (
+                        <div className={`rounded-lg p-2.5 mt-2 border ${spread >= 0 ? "bg-green-950/30 border-green-900/50" : spread >= -3 ? "bg-yellow-950/30 border-yellow-900/50" : "bg-red-950/30 border-red-900/50"}`}>
+                          <div className="flex justify-between items-center text-xs">
+                            <span className="text-zinc-400">vs. Tesouro Selic ({SELIC}%)</span>
+                            <span className={`font-bold ${spread >= 0 ? "text-green-400" : spread >= -3 ? "text-yellow-400" : "text-red-400"}`}>
+                              {spread >= 0 ? "+" : ""}{spread.toFixed(1)} p.p.
+                            </span>
+                          </div>
+                          <div className="flex justify-between text-[10px] text-zinc-500 mt-1">
+                            <span>Selic: {brl(selicReturn)}/ano</span>
+                            <span>Aluguel: {brl(rentReturn)}/ano</span>
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
 
                   {/* Risk assessment */}
