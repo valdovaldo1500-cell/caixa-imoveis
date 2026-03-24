@@ -28,17 +28,32 @@ function median(values: number[]): number | null {
 }
 
 /**
- * Remove price outliers using IQR method.
- * Filters out listings with R$/m² below Q1 - 1.5*IQR.
- * This catches Caixa repossession resale ads that have artificially low prices.
+ * Remove price outliers — catches Caixa repossession resale ads.
+ * Two-pass filter:
+ * 1. IQR method: remove listings below Q1 - 1.5*IQR
+ * 2. Median check: remove listings below 50% of the median R$/m²
+ * Bank resellers (Mater Imóveis, Antonio Brasil, etc.) list Caixa properties
+ * at 30-50% of market value, contaminating comparables.
  */
 function removeOutliers<T>(listings: T[], getPricePerM2: (item: T) => number): T[] {
-  if (listings.length < 5) return listings; // too few to detect outliers
-  const prices = listings.map(getPricePerM2).sort((a, b) => a - b);
+  if (listings.length < 4) return listings; // too few to detect outliers
+  const prices = listings.map(getPricePerM2).filter((p) => p > 0).sort((a, b) => a - b);
+  if (prices.length < 4) return listings;
+
+  // IQR filter
   const q1 = prices[Math.floor(prices.length * 0.25)];
   const q3 = prices[Math.floor(prices.length * 0.75)];
   const iqr = q3 - q1;
-  const lowerBound = q1 - 1.5 * iqr;
+  const iqrLowerBound = q1 - 1.5 * iqr;
+
+  // Median-based filter: anything below 50% of median is suspicious
+  const mid = Math.floor(prices.length / 2);
+  const medianVal = prices.length % 2 === 0 ? (prices[mid - 1] + prices[mid]) / 2 : prices[mid];
+  const medianLowerBound = medianVal * 0.5;
+
+  // Use the more aggressive of the two bounds
+  const lowerBound = Math.max(iqrLowerBound, medianLowerBound);
+
   return listings.filter((item) => getPricePerM2(item) >= lowerBound);
 }
 
