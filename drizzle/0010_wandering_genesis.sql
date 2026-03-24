@@ -1,0 +1,1 @@
+ALTER TABLE "properties" ADD COLUMN "data_quality_flag" varchar(20);

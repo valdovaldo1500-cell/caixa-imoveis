@@ -30,7 +30,7 @@ export default function NavHeader() {
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
-    router.replace("/login");
+    window.location.href = "/login";
   };
 
   return (

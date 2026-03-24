@@ -71,6 +71,13 @@
       "when": 1774302225831,
       "tag": "0009_ambiguous_omega_sentinel",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1774347493440,
+      "tag": "0010_wandering_genesis",
+      "breakpoints": true
     }
   ]
 }
