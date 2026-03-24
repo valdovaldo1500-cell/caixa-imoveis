@@ -826,7 +826,7 @@ function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose }: { preco: 
           <div className="flex justify-between border-t border-zinc-700 pt-1"><span className="text-zinc-300 font-semibold">Yield líquido</span><span className={`font-bold ${yieldColor(yieldLiquido)}`}>{yieldLiquido.toFixed(1)}%</span></div>
         </div>
 
-        <p className="text-[10px] text-zinc-600">Não inclui IPTU, condomínio ou IR. Valores estimados.</p>
+        <p className="text-[10px] text-zinc-600">Não inclui condomínio ou IR. IPTU estimado (~0,6% média POA).</p>
       </div>
     </div>
   );
