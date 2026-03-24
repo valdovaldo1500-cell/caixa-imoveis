@@ -22,6 +22,7 @@ function useClickOutside(ref: React.RefObject<HTMLElement | null>, handler: () =
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 interface Property {
+  favoriteId: number;
   propertyId: number;
   caixaId: string;
   cidade: string;
