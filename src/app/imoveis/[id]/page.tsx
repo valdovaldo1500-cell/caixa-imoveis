@@ -1153,6 +1153,260 @@ export default function PropertyDetailPage() {
             </Card>
           )}
 
+          {/* ── ZAP + QuintoAndar Market Values ──────────────────────────── */}
+          {(property.zapMarketValue || property.qaMarketValue) && (() => {
+            const itbiVal = n(property.marketValue);
+            const zapVal = n(property.zapMarketValue);
+            const qaVal = n(property.qaMarketValue);
+            return (
+              <Card className="bg-zinc-900 border-zinc-800">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium text-zinc-400">Valores de Mercado Comparados</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-3 gap-3">
+                    {/* ITBI */}
+                    <div className="bg-zinc-800/50 rounded p-2.5">
+                      <div className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">ITBI</div>
+                      {itbiVal > 0 ? (
+                        <>
+                          <div className="text-sm font-bold text-blue-400">{brl(itbiVal)}</div>
+                          {property.marketValuePerM2 && <div className="text-[10px] text-zinc-500 mt-0.5">{brl(n(property.marketValuePerM2))}/m²</div>}
+                          {property.marketRentValue && <div className="text-[10px] text-zinc-500">Aluguel: {brl(n(property.marketRentValue))}/mês</div>}
+                          <div className="text-[10px] text-zinc-600">{(property.comparablesTier1Count || 0) + (property.comparablesTier2Count || 0)} comps</div>
+                        </>
+                      ) : <div className="text-xs text-zinc-600">—</div>}
+                    </div>
+                    {/* ZAP */}
+                    <div className="bg-zinc-800/50 rounded p-2.5">
+                      <div className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">ZAP Imóveis</div>
+                      {zapVal > 0 ? (
+                        <>
+                          <div className="text-sm font-bold text-emerald-400">{brl(zapVal)}</div>
+                          {property.zapMarketValuePerM2 && <div className="text-[10px] text-zinc-500 mt-0.5">{brl(n(property.zapMarketValuePerM2))}/m²</div>}
+                          {property.zapRentValue && <div className="text-[10px] text-zinc-500">Aluguel: {brl(n(property.zapRentValue))}/mês</div>}
+                          <div className="text-[10px] text-zinc-600">{property.zapComparablesCount || 0} comps</div>
+                        </>
+                      ) : <div className="text-xs text-zinc-600">—</div>}
+                    </div>
+                    {/* QuintoAndar */}
+                    <div className="bg-zinc-800/50 rounded p-2.5">
+                      <div className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">QuintoAndar</div>
+                      {qaVal > 0 ? (
+                        <>
+                          <div className="text-sm font-bold text-violet-400">{brl(qaVal)}</div>
+                          <div className="text-[10px] text-zinc-500 mt-0.5">&nbsp;</div>
+                          {property.qaRentValue && <div className="text-[10px] text-zinc-500">Aluguel: {brl(n(property.qaRentValue))}/mês</div>}
+                          <div className="text-[10px] text-zinc-600">{property.qaComparablesCount || 0} comps</div>
+                        </>
+                      ) : <div className="text-xs text-zinc-600">—</div>}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })()}
+
+          {/* ── Investment Analysis ────────────────────────────────────────── */}
+          {(() => {
+            const inv = analyzeProperty(property);
+            if (inv.purchasePrice === 0) return null;
+            const flip = computeFlipScenariosWithLiquidity(inv, property.cidade, renoLevel);
+            const discountVsMarket = inv.bestMarketValue > 0 ? ((inv.bestMarketValue - inv.purchasePrice) / inv.bestMarketValue) * 100 : 0;
+            const riskColors: Record<string, { bg: string; text: string }> = {
+              EXCELENTE: { bg: "bg-green-900/60 border-green-500", text: "text-green-300" },
+              BOM: { bg: "bg-emerald-900/60 border-emerald-500", text: "text-emerald-300" },
+              MODERADO: { bg: "bg-yellow-900/60 border-yellow-500", text: "text-yellow-300" },
+              ARRISCADO: { bg: "bg-orange-900/60 border-orange-500", text: "text-orange-300" },
+              "ALTO RISCO": { bg: "bg-red-900/60 border-red-500", text: "text-red-300" },
+            };
+            const riskBadge = riskColors[inv.riskRating] ?? { bg: "bg-zinc-800 border-zinc-600", text: "text-zinc-300" };
+
+            return (
+              <Card className="bg-zinc-900 border-zinc-800">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium text-zinc-400">
+                    Análise de Investimento
+                    <span className="text-xs text-zinc-600 ml-2 font-normal">Fonte: {inv.marketSource}</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-5">
+
+                  {/* Custo de reforma */}
+                  <div>
+                    <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Custo de Reforma ({inv.area.toFixed(0)}m²)</h4>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="bg-zinc-800/50 rounded p-2">
+                        <div className="text-[10px] text-zinc-500">Leve (R$700/m²)</div>
+                        <div className="text-sm font-bold text-green-400">{brl(inv.renoLight)}</div>
+                        <div className="text-[10px] text-zinc-600">Pintura, piso, elét.</div>
+                      </div>
+                      <div className="bg-zinc-800/50 rounded p-2">
+                        <div className="text-[10px] text-zinc-500">Média (R$1.200/m²)</div>
+                        <div className="text-sm font-bold text-yellow-400">{brl(inv.renoMedium)}</div>
+                        <div className="text-[10px] text-zinc-600">+ banheiros, cozinha</div>
+                      </div>
+                      <div className="bg-zinc-800/50 rounded p-2">
+                        <div className="text-[10px] text-zinc-500">Pesada (R$1.800/m²)</div>
+                        <div className="text-sm font-bold text-red-400">{brl(inv.renoHeavy)}</div>
+                        <div className="text-[10px] text-zinc-600">Reforma completa</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Flip scenarios */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+                        Cenários de Flip — Mercado ({inv.marketSource.split(" (")[0]})
+                      </h4>
+                      <div className="flex items-center gap-1">
+                        <span className="text-[10px] text-zinc-500 mr-1">Reforma:</span>
+                        {(["light", "medium", "heavy"] as const).map((lvl) => (
+                          <button
+                            key={lvl}
+                            onClick={() => setRenoLevel(lvl)}
+                            className={`px-2 py-0.5 rounded text-[10px] transition-colors ${
+                              renoLevel === lvl
+                                ? "bg-zinc-700 text-white font-medium"
+                                : "bg-zinc-800/50 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
+                            }`}
+                          >
+                            {lvl === "light" ? "Leve" : lvl === "medium" ? "Média" : "Pesada"}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="min-w-[520px] w-full text-xs">
+                        <thead>
+                          <tr className="border-b border-zinc-700">
+                            <th className="py-1.5 pr-3 text-left text-zinc-500 font-medium">Cenário</th>
+                            <th className="py-1.5 px-2 text-right text-zinc-500 font-medium">Investimento</th>
+                            <th className="py-1.5 px-2 text-right text-zinc-500 font-medium">Venda</th>
+                            <th className="py-1.5 px-2 text-right text-zinc-500 font-medium">Lucro</th>
+                            <th className="py-1.5 px-2 text-right text-zinc-500 font-medium">ROI</th>
+                            <th className="py-1.5 pl-2 text-right text-zinc-500 font-medium">Prazo</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {[
+                            { label: "Conservador (−15%)", data: flip.conservative, accent: "text-emerald-400" },
+                            { label: "Moderado (−5%)", data: flip.moderate, accent: "text-green-400" },
+                            { label: "Otimista (mercado)", data: flip.optimistic, accent: "text-green-300" },
+                          ].map(({ label, data, accent }) => (
+                            <tr key={label} className="border-b border-zinc-800">
+                              <td className="py-1.5 pr-3 text-zinc-400">{label}</td>
+                              <td className="py-1.5 px-2 text-right">{brl(data.totalInvest)}</td>
+                              <td className="py-1.5 px-2 text-right">{brl(data.salePrice)}</td>
+                              <td className={`py-1.5 px-2 text-right font-semibold ${data.profit > 0 ? accent : "text-red-400"}`}>{brl(data.profit)}</td>
+                              <td className={`py-1.5 px-2 text-right font-semibold ${data.roi > 0 ? accent : "text-red-400"}`}>{pctFmt(data.roi)}</td>
+                              <td className="py-1.5 pl-2 text-right text-zinc-400">{data.months}m</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className="text-[10px] text-zinc-600 mt-1">
+                      Inclui ITBI (2%), escritura/registro e corretagem (5,5%). Desconto vs mercado: {pctFmt(discountVsMarket)}.
+                    </p>
+
+                    {/* Flip sob valor de avaliação Caixa */}
+                    {inv.appraisedValue > 0 && inv.appraisedValue !== inv.bestMarketValue && (() => {
+                      const flipAval = computeFlipScenariosWithLiquidity(inv, property.cidade, renoLevel, inv.appraisedValue);
+                      return (
+                        <div className="mt-3 pt-3 border-t border-zinc-800/50">
+                          <p className="text-[10px] text-zinc-500 mb-2">Sob valor de avaliação Caixa ({brl(inv.appraisedValue)})</p>
+                          <div className="overflow-x-auto">
+                            <table className="min-w-[520px] w-full text-xs">
+                              <thead>
+                                <tr className="border-b border-zinc-700">
+                                  <th className="py-1 pr-3 text-left text-zinc-500 font-medium">Cenário</th>
+                                  <th className="py-1 px-2 text-right text-zinc-500 font-medium">Investimento</th>
+                                  <th className="py-1 px-2 text-right text-zinc-500 font-medium">Venda</th>
+                                  <th className="py-1 px-2 text-right text-zinc-500 font-medium">Lucro</th>
+                                  <th className="py-1 px-2 text-right text-zinc-500 font-medium">ROI</th>
+                                  <th className="py-1 pl-2 text-right text-zinc-500 font-medium">Prazo</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {[
+                                  { label: "Conservador", data: flipAval.conservative, accent: "text-emerald-400" },
+                                  { label: "Moderado", data: flipAval.moderate, accent: "text-green-400" },
+                                  { label: "Otimista", data: flipAval.optimistic, accent: "text-green-300" },
+                                ].map(({ label, data, accent }) => (
+                                  <tr key={label} className="border-b border-zinc-800">
+                                    <td className="py-1 pr-3 text-zinc-400">{label}</td>
+                                    <td className="py-1 px-2 text-right">{brl(data.totalInvest)}</td>
+                                    <td className="py-1 px-2 text-right">{brl(data.salePrice)}</td>
+                                    <td className={`py-1 px-2 text-right font-semibold ${data.profit > 0 ? accent : "text-red-400"}`}>{brl(data.profit)}</td>
+                                    <td className={`py-1 px-2 text-right font-semibold ${data.roi > 0 ? accent : "text-red-400"}`}>{pctFmt(data.roi)}</td>
+                                    <td className="py-1 pl-2 text-right text-zinc-400">{data.months}m</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+
+                  {/* Rental analysis */}
+                  <div>
+                    <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Análise de Aluguel</h4>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="bg-zinc-800/50 rounded p-2.5">
+                        <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Aluguel Mensal</div>
+                        <div className="text-base font-bold text-blue-400 mt-0.5">{brl(inv.monthlyRent)}</div>
+                        <div className="text-[10px] text-zinc-500">Fonte: {inv.rentSource}</div>
+                      </div>
+                      <div className="bg-zinc-800/50 rounded p-2.5">
+                        <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Yield Bruto Anual</div>
+                        <div className={`text-base font-bold mt-0.5 ${inv.rentalYieldGross > 10 ? "text-green-400" : inv.rentalYieldGross > 7 ? "text-yellow-400" : "text-red-400"}`}>
+                          {pctFmt(inv.rentalYieldGross)}
+                        </div>
+                        <div className="text-[10px] text-zinc-500">{brl(inv.monthlyRent * 12)}/ano</div>
+                      </div>
+                      <div className="bg-zinc-800/50 rounded p-2.5">
+                        <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Payback</div>
+                        <div className="text-base font-bold text-zinc-300 mt-0.5">{inv.paybackMonths} meses</div>
+                        <div className="text-[10px] text-zinc-500">{(inv.paybackMonths / 12).toFixed(1)} anos</div>
+                      </div>
+                      <div className="bg-zinc-800/50 rounded p-2.5">
+                        <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Investimento Total</div>
+                        <div className="text-base font-bold text-zinc-300 mt-0.5">{brl(inv.purchasePrice + inv.renoLight + inv.txCostBuy)}</div>
+                        <div className="text-[10px] text-zinc-500">Compra + reforma leve + custos</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Risk assessment */}
+                  <div>
+                    <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Avaliação de Risco</h4>
+                    <div className="flex items-start gap-3">
+                      <div className={`px-3 py-2 rounded-lg border ${riskBadge.bg} ${riskBadge.text} shrink-0`}>
+                        <div className="text-base font-black">{inv.riskRating}</div>
+                        <div className="text-[10px] uppercase tracking-wider opacity-70">Conf: {inv.dataConfidence}</div>
+                      </div>
+                      <ul className="flex-1 space-y-1 pt-1">
+                        {inv.riskFactors.map((f, i) => (
+                          <li key={i} className="text-xs text-zinc-400 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 shrink-0" />
+                            {f}
+                          </li>
+                        ))}
+                        {inv.riskFactors.length === 0 && (
+                          <li className="text-xs text-green-400">Sem fatores de risco significativos</li>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })()}
+
           {/* Crime rate */}
           {crimeRate !== null && (
             <Card className="bg-zinc-900 border-zinc-800">
