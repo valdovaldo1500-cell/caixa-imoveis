@@ -717,7 +717,19 @@ function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemo
           </div>
 
           {/* ── Links ── */}
-          <div className="flex gap-3 flex-wrap">
+          <div className="flex gap-3 flex-wrap items-center">
+            <button
+              onClick={() => {
+                if (removing) return;
+                if (!confirm("Remover este imovel dos favoritos?")) return;
+                setRemoving(true);
+                onRemove(p.favoriteId, p.propertyId);
+              }}
+              disabled={removing}
+              className="text-xs px-3 py-1.5 rounded bg-red-900/40 text-red-400 hover:bg-red-900/70 border border-red-800/50 transition-colors disabled:opacity-50"
+            >
+              {removing ? "Removendo..." : "Remover dos favoritos"}
+            </button>
             <Link
               href={`/imoveis/${p.propertyId}`}
               className="text-xs px-3 py-1.5 rounded bg-zinc-800 text-zinc-300 hover:bg-zinc-700 transition-colors"
