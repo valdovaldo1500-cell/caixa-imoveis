@@ -331,7 +331,7 @@ export async function getQAComparables(propertyId: number) {
   const p = prop[0];
 
   const cityKey = normalizeCidade(p.cidade);
-  const bairroKey = (p.bairro || "").toUpperCase().trim();
+  const bairroKey = normalizeCidade(p.bairro || "");
   const qaTypes = getQAUnitTypes(p.tipoImovel, p.descricao);
   const propArea =
     p.areaPrivativaM2 && parseFloat(p.areaPrivativaM2) > 0
