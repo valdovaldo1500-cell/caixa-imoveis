@@ -1301,6 +1301,7 @@ export default function InvestimentosPage() {
               {([
                 ["roi", "Maior ROI"],
                 ["profit", "Maior Lucro"],
+                ["profit_aval", "Maior Lucro Aval. Caixa"],
                 ["rental", "Maior Yield"],
                 ["price", "Menor Preco"],
                 ["risk", "Menor Risco"],
