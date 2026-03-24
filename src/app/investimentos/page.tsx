@@ -1208,7 +1208,7 @@ export default function InvestimentosPage() {
             {/* Property cards */}
             <div className="space-y-3">
               {sorted.map((a, i) => (
-                <PropertyCard key={a.prop.propertyId} a={a} rank={i + 1} />
+                <PropertyCard key={a.prop.propertyId} a={a} rank={i + 1} onRemove={handleRemove} />
               ))}
             </div>
 
