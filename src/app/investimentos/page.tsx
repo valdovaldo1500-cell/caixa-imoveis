@@ -315,7 +315,7 @@ function analyze(prop: Property): Analysis {
   })();
 
   const flipModerate = (() => {
-    const reno = renoMedium;
+    const reno = renoLight;
     const totalInvest = purchasePrice + reno + txCostBuy;
     const salePrice = bestMarketValue * 0.95; // sell 5% below market
     const profit = salePrice - totalInvest - (salePrice * 0.055);
