@@ -459,13 +459,14 @@ function SavedFiltersDropdown({
 // ---------------------------------------------------------------------------
 // Popups
 // ---------------------------------------------------------------------------
-function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12 }: { propertyId: number; onClose: () => void; source?: "itbi" | "zap"; months?: number }) {
+function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12 }: { propertyId: number; onClose: () => void; source?: "itbi" | "zap" | "qa"; months?: number }) {
   const [data, setData] = useState<{
     property: { bairro: string; tipoImovel: string; areaPrivativaM2: string };
     tier1: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string; finalidadeConstrucao: string }>; medianPrecoM2: number; count: number };
     tier2: { comparables: Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string; finalidadeConstrucao: string }>; medianPrecoM2: number; count: number };
     methodology: { estimatedValue: number; medianPrecoM2: number; usedTier: number };
     zapListings?: { saleComparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }>; medianSalePricePerM2: number | null };
+    qaListings?: { saleComparables: Array<{ bairro: string | null; unitType: string | null; price: number; area: number; pricePerM2: number; bedrooms: number | null; listingUrl: string | null }>; medianSalePricePerM2: number | null };
   } | null>(null);
   const [loading, setLoading] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
