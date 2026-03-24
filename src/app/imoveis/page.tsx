@@ -105,6 +105,7 @@ const ALL_COLUMNS = [
   { id: "aluguel", label: "Aluguel", defaultVisible: true, defaultWidth: 95 },
   { id: "link", label: "Link", defaultVisible: true, defaultWidth: 40 },
   { id: "distancia", label: "Dist. POA", defaultVisible: false, defaultWidth: 70 },
+  { id: "adicionado", label: "Adicionado", defaultVisible: true, sortKey: "first_seen", defaultWidth: 85 },
 ] as const;
 
 type ColumnId = typeof ALL_COLUMNS[number]["id"];
