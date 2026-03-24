@@ -299,6 +299,69 @@ export default function AnalisePage() {
               </CardContent>
             </Card>
           </div>
+
+          {/* Investment charts row */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Yield distribution */}
+            {data.yieldDistribution && data.yieldDistribution.length > 0 && (
+              <Card className="bg-zinc-900 border-zinc-800">
+                <CardHeader>
+                  <CardTitle className="text-lg">Distribuição de Yield Bruto</CardTitle>
+                  <p className="text-xs text-zinc-500">Aluguel anual / preço Caixa (Selic: 14,25%)</p>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={data.yieldDistribution}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
+                      <XAxis
+                        dataKey="range"
+                        tick={{ fill: "#a1a1aa", fontSize: 11 }}
+                        tickLine={false}
+                        axisLine={false}
+                      />
+                      <YAxis tick={{ fill: "#a1a1aa", fontSize: 11 }} tickLine={false} axisLine={false} />
+                      <Tooltip contentStyle={TOOLTIP_STYLE} formatter={(value) => [Number(value), "Imóveis"]} />
+                      <Bar dataKey="count" radius={[3, 3, 0, 0]}>
+                        {data.yieldDistribution.map((entry, i) => (
+                          <Cell key={i} fill={entry.range.startsWith("Sem") ? "#52525b" : entry.range === "0-5%" ? "#ef4444" : entry.range === "5-8%" ? "#f59e0b" : "#22c55e"} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Score distribution */}
+            {data.scoreDistribution && data.scoreDistribution.length > 0 && (
+              <Card className="bg-zinc-900 border-zinc-800">
+                <CardHeader>
+                  <CardTitle className="text-lg">Distribuição de Score</CardTitle>
+                  <p className="text-xs text-zinc-500">Score composto (0-100)</p>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={data.scoreDistribution}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
+                      <XAxis
+                        dataKey="range"
+                        tick={{ fill: "#a1a1aa", fontSize: 11 }}
+                        tickLine={false}
+                        axisLine={false}
+                      />
+                      <YAxis tick={{ fill: "#a1a1aa", fontSize: 11 }} tickLine={false} axisLine={false} />
+                      <Tooltip contentStyle={TOOLTIP_STYLE} formatter={(value) => [Number(value), "Imóveis"]} />
+                      <Bar dataKey="count" radius={[3, 3, 0, 0]}>
+                        {data.scoreDistribution.map((entry, i) => (
+                          <Cell key={i} fill={entry.range === "80-100" ? "#22c55e" : entry.range === "60-80" ? "#34d399" : entry.range === "40-60" ? "#60a5fa" : entry.range === "20-40" ? "#f59e0b" : "#ef4444"} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
       )}
       </div>
