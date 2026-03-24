@@ -1363,6 +1363,7 @@ export default function PropertyDetailPage() {
                                   <th className="py-1 px-2 text-right text-zinc-500 font-medium">Venda</th>
                                   <th className="py-1 px-2 text-right text-zinc-500 font-medium">Lucro</th>
                                   <th className="py-1 px-2 text-right text-zinc-500 font-medium">ROI</th>
+                                  <th className="py-1 px-2 text-right text-zinc-500 font-medium">ROI/ano</th>
                                   <th className="py-1 pl-2 text-right text-zinc-500 font-medium">Prazo</th>
                                 </tr>
                               </thead>
@@ -1378,6 +1379,7 @@ export default function PropertyDetailPage() {
                                     <td className="py-1 px-2 text-right">{brl(data.salePrice)}</td>
                                     <td className={`py-1 px-2 text-right font-semibold ${data.profit > 0 ? accent : "text-red-400"}`}>{brl(data.profit)}</td>
                                     <td className={`py-1 px-2 text-right font-semibold ${data.roi > 0 ? accent : "text-red-400"}`}>{pctFmt(data.roi)}</td>
+                                    <td className={`py-1 px-2 text-right ${data.roiAnnual > 14.25 ? "text-green-400 font-semibold" : data.roiAnnual > 0 ? "text-zinc-300" : "text-red-400"}`}>{pctFmt(data.roiAnnual)}</td>
                                     <td className="py-1 pl-2 text-right text-zinc-400">{data.months}m</td>
                                   </tr>
                                 ))}
