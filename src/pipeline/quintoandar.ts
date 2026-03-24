@@ -427,11 +427,21 @@ export async function getQARentalComparables(propertyId: number) {
     (r) => normalizeCidade(r.cidade || "") === cityKey && normalizeCidade(r.bairro || "") === bairroKey
   );
 
-  // Filter by type if possible, fallback to all bairro
+  // Filter by type — never mix commercial with residential
+  const isResidential = !qaTypes || !qaTypes.some(t => COMMERCIAL_TYPES.has(t));
   let comparables = qaTypes
     ? bairroRentals.filter((r) => qaTypes.includes((r.unitType || "").toUpperCase()))
     : bairroRentals;
-  if (comparables.length < 3) comparables = bairroRentals;
+  // Fallback: same category only (residential or commercial), never cross
+  if (comparables.length < 3) {
+    comparables = bairroRentals.filter((r) => {
+      const rowType = (r.unitType || "").toUpperCase();
+      if (!rowType) return false;
+      if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
+      if (!isResidential && !COMMERCIAL_TYPES.has(rowType)) return false;
+      return true;
+    });
+  }
 
   const prices = comparables.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
 
