@@ -1309,6 +1309,7 @@ export default function InvestimentosPage() {
               <span className="text-xs text-zinc-500">Ordenar por:</span>
               {([
                 ["roi", "Maior ROI"],
+                ["roi_aval", "Maior ROI Caixa"],
                 ["profit", "Maior Lucro"],
                 ["profit_aval", "Maior Lucro Aval. Caixa"],
                 ["rental", "Maior Yield"],
