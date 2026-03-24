@@ -305,23 +305,6 @@ function analyzeProperty(prop: Property): InvAnalysis {
   };
 }
 
-function computeFlipScenarios(inv: InvAnalysis, renoLevel: "light" | "medium" | "heavy", targetValue?: number) {
-  const reno = renoLevel === "light" ? inv.renoLight : renoLevel === "medium" ? inv.renoMedium : inv.renoHeavy;
-  const totalInvest = inv.purchasePrice + reno + inv.txCostBuy;
-  const liq = getLiquidity("");
-  const baseMonths = inv.purchasePrice > 0 ? (inv.bestMarketValue > 0 ? 14 : 24) : 24;
-  const base = targetValue ?? inv.bestMarketValue;
-
-  const make = (saleMult: number, extraMonths: number) => {
-    const salePrice = base * saleMult;
-    const profit = salePrice - totalInvest - salePrice * 0.055;
-    const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
-    return { totalInvest, salePrice, profit, roi, months: baseMonths + extraMonths };
-  };
-
-  return { conservative: make(0.85, 4), moderate: make(0.95, 2), optimistic: make(1.0, 0), reno };
-}
-
 function computeFlipScenariosWithLiquidity(inv: InvAnalysis, cidade: string, renoLevel: "light" | "medium" | "heavy", targetValue?: number) {
   const reno = renoLevel === "light" ? inv.renoLight : renoLevel === "medium" ? inv.renoMedium : inv.renoHeavy;
   const totalInvest = inv.purchasePrice + reno + inv.txCostBuy;
