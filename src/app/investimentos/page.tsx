@@ -1091,6 +1091,7 @@ function MarketValuePopup({ a, onClose, source }: { a: Analysis; onClose: () => 
                 <thead>
                   <tr className="text-zinc-500 border-b border-zinc-800">
                     <th className="text-left py-1 pr-2">Endereco</th>
+                    <th className="text-left py-1 pr-2">Tipo</th>
                     <th className="text-right py-1 pr-2">Valor</th>
                     <th className="text-right py-1 pr-2">Area</th>
                     <th className="text-right py-1">R$/m²</th>
@@ -1099,9 +1100,10 @@ function MarketValuePopup({ a, onClose, source }: { a: Analysis; onClose: () => 
                 <tbody>
                   {itbiComps.map((c, i) => (
                     <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
-                      <td className="py-1 pr-2 text-zinc-300 max-w-[200px] truncate" title={`${c.logradouro}, ${c.nEndereco} — ${c.bairro} (${c.dataEstimativa?.slice(0, 10)})`}>
+                      <td className="py-1 pr-2 text-zinc-300 max-w-[180px] truncate" title={`${c.logradouro}, ${c.nEndereco} — ${c.bairro} (${c.dataEstimativa?.slice(0, 10)})`}>
                         {c.logradouro}, {c.nEndereco} <span className="text-zinc-600">{c.dataEstimativa?.slice(0, 10)}</span>
                       </td>
+                      <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate">{c.finalidadeConstrucao || "—"}</td>
                       <td className="py-1 pr-2 text-right text-zinc-300">{brl(c.baseCalculo)}</td>
                       <td className="py-1 pr-2 text-right text-zinc-400">{c.areaConstrPrivativa}m²</td>
                       <td className="py-1 text-right text-zinc-300 font-medium">R$ {Math.round(c.precoM2).toLocaleString("pt-BR")}</td>
