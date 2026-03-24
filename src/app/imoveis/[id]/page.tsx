@@ -155,23 +155,61 @@ function getLiquidity(cidade: string): "alta" | "media" | "baixa" {
 }
 
 const MARKET_RENTS: Record<string, Record<string, { apt: number; casa: number; sala: number; terreno: number }>> = {
-  CANOAS: { _default: { apt: 1400, casa: 2000, sala: 1500, terreno: 0 } },
-  CACHOEIRINHA: { _default: { apt: 1500, casa: 2500, sala: 1200, terreno: 0 } },
+  CANOAS: {
+    "RIO BRANCO": { apt: 1140, casa: 1800, sala: 1200, terreno: 0 },
+    _default: { apt: 1400, casa: 2000, sala: 1500, terreno: 0 },
+  },
+  CACHOEIRINHA: {
+    "VILA VISTA ALEGRE": { apt: 1730, casa: 2800, sala: 1200, terreno: 0 },
+    _default: { apt: 1500, casa: 2500, sala: 1200, terreno: 0 },
+  },
   CHARQUEADAS: { _default: { apt: 800, casa: 1200, sala: 800, terreno: 0 } },
-  "NOVO HAMBURGO": { _default: { apt: 1962, casa: 3000, sala: 1500, terreno: 0 } },
-  "PORTO ALEGRE": { _default: { apt: 2500, casa: 3500, sala: 3000, terreno: 0 } },
-  "SAO LEOPOLDO": { _default: { apt: 1500, casa: 2000, sala: 1400, terreno: 0 } },
-  "SAPUCAIA DO SUL": { _default: { apt: 1141, casa: 1200, sala: 1000, terreno: 0 } },
+  "NOVO HAMBURGO": {
+    GUARANI: { apt: 2159, casa: 3827, sala: 1500, terreno: 0 },
+    _default: { apt: 1962, casa: 3000, sala: 1500, terreno: 0 },
+  },
+  "PORTO ALEGRE": {
+    "CENTRO HISTORICO": { apt: 1800, casa: 2500, sala: 2500, terreno: 0 },
+    _default: { apt: 2500, casa: 3500, sala: 3000, terreno: 0 },
+  },
+  "SAO LEOPOLDO": {
+    "SANTOS DUMONT": { apt: 1190, casa: 1700, sala: 1200, terreno: 0 },
+    CENTRO: { apt: 1965, casa: 2263, sala: 1634, terreno: 0 },
+    _default: { apt: 1500, casa: 2000, sala: 1400, terreno: 0 },
+  },
+  "SAPUCAIA DO SUL": {
+    VARGAS: { apt: 1649, casa: 925, sala: 1000, terreno: 0 },
+    _default: { apt: 1141, casa: 1200, sala: 1000, terreno: 0 },
+  },
 };
 
 const MARKET_PRICES_M2: Record<string, Record<string, { apt: number; casa: number; sala: number; terreno: number }>> = {
-  CANOAS: { _default: { apt: 4545, casa: 4000, sala: 4000, terreno: 900 } },
-  CACHOEIRINHA: { _default: { apt: 4000, casa: 2000, sala: 2500, terreno: 800 } },
+  CANOAS: {
+    "RIO BRANCO": { apt: 3914, casa: 3769, sala: 3500, terreno: 800 },
+    _default: { apt: 4545, casa: 4000, sala: 4000, terreno: 900 },
+  },
+  CACHOEIRINHA: {
+    "VILA VISTA ALEGRE": { apt: 4181, casa: 1800, sala: 2500, terreno: 800 },
+    _default: { apt: 4000, casa: 2000, sala: 2500, terreno: 800 },
+  },
   CHARQUEADAS: { _default: { apt: 2500, casa: 2150, sala: 2000, terreno: 500 } },
-  "NOVO HAMBURGO": { _default: { apt: 3863, casa: 3500, sala: 3500, terreno: 700 } },
-  "PORTO ALEGRE": { _default: { apt: 7000, casa: 5500, sala: 5000, terreno: 3000 } },
-  "SAO LEOPOLDO": { _default: { apt: 3132, casa: 3000, sala: 3000, terreno: 600 } },
-  "SAPUCAIA DO SUL": { _default: { apt: 3686, casa: 3500, sala: 3000, terreno: 500 } },
+  "NOVO HAMBURGO": {
+    GUARANI: { apt: 5627, casa: 4762, sala: 4000, terreno: 750 },
+    _default: { apt: 3863, casa: 3500, sala: 3500, terreno: 700 },
+  },
+  "PORTO ALEGRE": {
+    "CENTRO HISTORICO": { apt: 6154, casa: 5000, sala: 3614, terreno: 2000 },
+    _default: { apt: 7000, casa: 5500, sala: 5000, terreno: 3000 },
+  },
+  "SAO LEOPOLDO": {
+    "SANTOS DUMONT": { apt: 2887, casa: 3554, sala: 2500, terreno: 600 },
+    CENTRO: { apt: 4696, casa: 3548, sala: 4612, terreno: 700 },
+    _default: { apt: 3132, casa: 3000, sala: 3000, terreno: 600 },
+  },
+  "SAPUCAIA DO SUL": {
+    VARGAS: { apt: 3782, casa: 4686, sala: 3000, terreno: 553 },
+    _default: { apt: 3686, casa: 3500, sala: 3000, terreno: 500 },
+  },
 };
 
 function getMarketRent(cidade: string, bairro: string | null, tipo: string | null): number {
