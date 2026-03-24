@@ -1,1 +1,1 @@
-ALTER TABLE "properties" ADD COLUMN "data_quality_flag" varchar(20);
+ALTER TABLE "properties" ADD COLUMN IF NOT EXISTS "data_quality_flag" varchar(20);
