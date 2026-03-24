@@ -595,6 +595,27 @@ function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemo
           <div className="text-xs text-zinc-500">Mercado: {brl(a.bestMarketValue)}</div>
         </div>
 
+        {/* Metrics badges */}
+        <div className="flex-shrink-0 text-right hidden sm:flex items-center gap-3">
+          <div>
+            <div className={`text-sm font-bold ${a.rentalYieldGross > 10 ? "text-blue-400" : a.rentalYieldGross > 7 ? "text-blue-300" : "text-zinc-400"}`}>
+              {pct(a.rentalYieldGross)}
+            </div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Yield</div>
+          </div>
+          {a.appraisedValue > 0 && (() => {
+            const roiAval = computeFlipScenarios(a, "light", a.appraisedValue).moderate.roi;
+            return (
+              <div>
+                <div className={`text-sm font-bold ${roiAval > 20 ? "text-amber-400" : roiAval > 0 ? "text-amber-300" : "text-red-400"}`}>
+                  {pct(roiAval)}
+                </div>
+                <div className="text-[10px] text-zinc-500 uppercase tracking-wider">ROI Aval.</div>
+              </div>
+            );
+          })()}
+        </div>
+
         {/* ROI badge */}
         <div className="flex-shrink-0 text-right">
           <div className={`text-lg font-black ${a.flipModerate.roi > 50 ? "text-green-400" : a.flipModerate.roi > 20 ? "text-yellow-400" : "text-red-400"}`}>
