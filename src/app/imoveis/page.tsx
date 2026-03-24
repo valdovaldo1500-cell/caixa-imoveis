@@ -814,6 +814,7 @@ function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose }: { preco: 
             <div className="flex justify-between"><span>Vacância (8%)</span><span>- {fmtBRL(vacancyCost)}</span></div>
             <div className="flex justify-between"><span>Administração (10%)</span><span>- {fmtBRL(adminCost)}</span></div>
             <div className="flex justify-between"><span>Manutenção (1% preço)</span><span>- {fmtBRL(manutencaoCost)}</span></div>
+            <div className="flex justify-between"><span>IPTU (~0,6% {valorAvaliacao > 0 ? "avaliação" : "preço"})</span><span>- {fmtBRL(iptuCost)}</span></div>
             <div className="flex justify-between border-t border-zinc-800 pt-0.5 font-medium text-zinc-200"><span>Receita líquida anual</span><span>{fmtBRL(receitaLiquida)}</span></div>
           </div>
         </div>
