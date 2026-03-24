@@ -1279,7 +1279,21 @@ function ImoveisPageInner() {
     const newSort = col;
     setSort(newSort);
     setOrder(newOrder);
-    syncUrl({ sort: newSort, order: newOrder });
+    // Build URL directly to avoid stale-closure issues with syncUrl
+    const params = new URLSearchParams();
+    if (newSort && newSort !== "desconto") params.set("sort", newSort);
+    if (newOrder && newOrder !== "desc") params.set("order", newOrder);
+    if (search) params.set("q", search);
+    if (filterCidades.length > 0) params.set("cidade", filterCidades.join(","));
+    if (filterTipos.length > 0) params.set("tipo", filterTipos.join(","));
+    if (filterModalidades.length > 0) params.set("modalidade", filterModalidades.join(","));
+    if (filterDescontoMin) params.set("desconto_min", filterDescontoMin);
+    if (filterPrecoMax) params.set("preco_max", filterPrecoMax);
+    if (filterPrecoMin) params.set("preco_min", filterPrecoMin);
+    if (filterDistancia) params.set("max_distance", filterDistancia);
+    if (!showHidden) params.set("hidden", "false");
+    const qs = params.toString();
+    router.replace(qs ? `/imoveis?${qs}` : "/imoveis", { scroll: false });
   };
 
   const sortIcon = (col: string) => {
