@@ -122,6 +122,223 @@ interface ComparablesResult {
   };
 }
 
+// ─── Investment analysis helpers ──────────────────────────────────────────────
+
+function n(v: string | number | null | undefined): number {
+  if (v === null || v === undefined || v === "") return 0;
+  return Number(v);
+}
+
+function brl(v: number): string {
+  return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 }).format(v);
+}
+
+function pctFmt(v: number): string {
+  return `${v.toFixed(1)}%`;
+}
+
+function getTypeKey(tipo: string | null): "apt" | "casa" | "sala" | "terreno" {
+  if (!tipo) return "casa";
+  const t = tipo.toUpperCase();
+  if (t.includes("APART") || t.includes("KITNET")) return "apt";
+  if (t.includes("SALA") || t.includes("COMERCIAL") || t.includes("LOJA")) return "sala";
+  if (t.includes("TERRENO") || t.includes("LOTE")) return "terreno";
+  return "casa";
+}
+
+function getLiquidity(cidade: string): "alta" | "media" | "baixa" {
+  const c = cidade.toUpperCase();
+  if (c.includes("PORTO ALEGRE") || c.includes("CANOAS")) return "alta";
+  if (c.includes("SAO LEOPOLDO") || c.includes("NOVO HAMBURGO") || c.includes("CACHOEIRINHA") || c.includes("SAPUCAIA")) return "media";
+  return "baixa";
+}
+
+const MARKET_RENTS: Record<string, Record<string, { apt: number; casa: number; sala: number; terreno: number }>> = {
+  CANOAS: { _default: { apt: 1400, casa: 2000, sala: 1500, terreno: 0 } },
+  CACHOEIRINHA: { _default: { apt: 1500, casa: 2500, sala: 1200, terreno: 0 } },
+  CHARQUEADAS: { _default: { apt: 800, casa: 1200, sala: 800, terreno: 0 } },
+  "NOVO HAMBURGO": { _default: { apt: 1962, casa: 3000, sala: 1500, terreno: 0 } },
+  "PORTO ALEGRE": { _default: { apt: 2500, casa: 3500, sala: 3000, terreno: 0 } },
+  "SAO LEOPOLDO": { _default: { apt: 1500, casa: 2000, sala: 1400, terreno: 0 } },
+  "SAPUCAIA DO SUL": { _default: { apt: 1141, casa: 1200, sala: 1000, terreno: 0 } },
+};
+
+const MARKET_PRICES_M2: Record<string, Record<string, { apt: number; casa: number; sala: number; terreno: number }>> = {
+  CANOAS: { _default: { apt: 4545, casa: 4000, sala: 4000, terreno: 900 } },
+  CACHOEIRINHA: { _default: { apt: 4000, casa: 2000, sala: 2500, terreno: 800 } },
+  CHARQUEADAS: { _default: { apt: 2500, casa: 2150, sala: 2000, terreno: 500 } },
+  "NOVO HAMBURGO": { _default: { apt: 3863, casa: 3500, sala: 3500, terreno: 700 } },
+  "PORTO ALEGRE": { _default: { apt: 7000, casa: 5500, sala: 5000, terreno: 3000 } },
+  "SAO LEOPOLDO": { _default: { apt: 3132, casa: 3000, sala: 3000, terreno: 600 } },
+  "SAPUCAIA DO SUL": { _default: { apt: 3686, casa: 3500, sala: 3000, terreno: 500 } },
+};
+
+function getMarketRent(cidade: string, bairro: string | null, tipo: string | null): number {
+  const c = cidade.toUpperCase();
+  const b = (bairro || "").toUpperCase();
+  const tk = getTypeKey(tipo);
+  const cityData = MARKET_RENTS[c];
+  if (!cityData) return 1000;
+  const bairroData = cityData[b] || cityData._default;
+  if (!bairroData) return 1000;
+  return bairroData[tk];
+}
+
+function getMarketPriceM2(cidade: string, bairro: string | null, tipo: string | null): number {
+  const c = cidade.toUpperCase();
+  const b = (bairro || "").toUpperCase();
+  const tk = getTypeKey(tipo);
+  const cityData = MARKET_PRICES_M2[c];
+  if (!cityData) return 3000;
+  const bairroData = cityData[b] || cityData._default;
+  if (!bairroData) return 3000;
+  return bairroData[tk];
+}
+
+interface InvAnalysis {
+  area: number;
+  purchasePrice: number;
+  appraisedValue: number;
+  bestMarketValue: number;
+  marketSource: string;
+  totalComparables: number;
+  monthlyRent: number;
+  rentSource: string;
+  renoLight: number;
+  renoMedium: number;
+  renoHeavy: number;
+  txCostBuy: number;
+  txCostSell: number;
+  rentalYieldGross: number;
+  paybackMonths: number;
+  riskRating: string;
+  riskFactors: string[];
+  dataConfidence: string;
+}
+
+function analyzeProperty(prop: Property): InvAnalysis {
+  const purchasePrice = n(prop.preco);
+  const appraisedValue = n(prop.valorAvaliacao);
+  const area = n(prop.areaPrivativaM2) || n(prop.areaTotalM2) || 50;
+
+  const itbiVal = n(prop.marketValue);
+  const zapVal = n(prop.zapMarketValue);
+  const qaVal = n(prop.qaMarketValue);
+  const itbiComps = (prop.comparablesTier1Count || 0) + (prop.comparablesTier2Count || 0);
+  const zapComps = prop.zapComparablesCount || 0;
+  const qaComps = prop.qaComparablesCount || 0;
+
+  let bestMarketValue = 0;
+  let marketSource = "";
+  let totalComparables = 0;
+
+  if (itbiVal > 0 && itbiComps >= 5) {
+    bestMarketValue = itbiVal; marketSource = `ITBI (${itbiComps} transacoes)`; totalComparables = itbiComps;
+  } else if (zapVal > 0 && zapComps >= 3) {
+    bestMarketValue = zapVal; marketSource = `ZAP (${zapComps} anuncios)`; totalComparables = zapComps;
+  } else if (qaVal > 0 && qaComps >= 3) {
+    bestMarketValue = qaVal; marketSource = `QuintoAndar (${qaComps} anuncios)`; totalComparables = qaComps;
+  } else {
+    bestMarketValue = getMarketPriceM2(prop.cidade, prop.bairro, prop.tipoImovel) * area;
+    marketSource = "Estimativa (benchmark)";
+  }
+
+  if (bestMarketValue > appraisedValue * 3 && appraisedValue > 0) {
+    bestMarketValue = appraisedValue * 1.5;
+    marketSource += " (ajustado)";
+  }
+
+  const zapRent = n(prop.zapRentValue);
+  const qaRent = n(prop.qaRentValue);
+  const itbiRent = n(prop.marketRentValue);
+  let monthlyRent = 0;
+  let rentSource = "";
+  if (zapRent > 0) { monthlyRent = zapRent; rentSource = "ZAP"; }
+  else if (qaRent > 0) { monthlyRent = qaRent; rentSource = "QuintoAndar"; }
+  else if (itbiRent > 0) { monthlyRent = itbiRent; rentSource = "ITBI"; }
+  else { monthlyRent = getMarketRent(prop.cidade, prop.bairro, prop.tipoImovel); rentSource = "Estimativa"; }
+
+  const renoLight = area * 700;
+  const renoMedium = area * 1200;
+  const renoHeavy = area * 1800;
+  const txCostBuy = purchasePrice * 0.04;
+  const txCostSell = bestMarketValue * 0.055;
+
+  const totalInvestRental = purchasePrice + renoLight + txCostBuy;
+  const annualRent = monthlyRent * 12;
+  const rentalYieldGross = totalInvestRental > 0 ? (annualRent / totalInvestRental) * 100 : 0;
+  const paybackMonths = monthlyRent > 0 ? Math.ceil(totalInvestRental / monthlyRent) : 999;
+
+  const riskFactors: string[] = [];
+  let riskScore = 0;
+  const liq = getLiquidity(prop.cidade);
+  if (liq === "baixa") { riskScore += 30; riskFactors.push("Mercado com baixa liquidez"); }
+  else if (liq === "media") { riskScore += 10; riskFactors.push("Liquidez moderada"); }
+  if (!prop.aceitaFinanciamento) { riskScore += 10; riskFactors.push("Sem financiamento (pagamento a vista)"); }
+  if (totalComparables === 0) { riskScore += 20; riskFactors.push("Sem comparaveis (estimativa)"); }
+  else if (totalComparables < 5) { riskScore += 10; riskFactors.push(`Poucos comparaveis (${totalComparables})`); }
+  const crime = n(prop.crimeRate);
+  if (crime > 7000) { riskScore += 15; riskFactors.push(`Criminalidade alta (${crime.toFixed(0)}/100k)`); }
+  else if (crime > 5000) { riskScore += 5; riskFactors.push(`Criminalidade moderada (${crime.toFixed(0)}/100k)`); }
+  if (area > 200) { riskScore += 10; riskFactors.push(`Area grande (${area.toFixed(0)}m²) — reforma cara`); }
+  if (getTypeKey(prop.tipoImovel) === "terreno") { riskScore += 5; riskFactors.push("Terreno — sem renda imediata"); }
+  const discountVsMarket = bestMarketValue > 0 ? ((bestMarketValue - purchasePrice) / bestMarketValue) * 100 : 0;
+  if (discountVsMarket < 30) { riskScore += 15; riskFactors.push(`Desconto baixo vs mercado (${discountVsMarket.toFixed(0)}%)`); }
+
+  let riskRating: string;
+  if (riskScore <= 10) riskRating = "EXCELENTE";
+  else if (riskScore <= 25) riskRating = "BOM";
+  else if (riskScore <= 45) riskRating = "MODERADO";
+  else if (riskScore <= 65) riskRating = "ARRISCADO";
+  else riskRating = "ALTO RISCO";
+
+  let dataConfidence: string;
+  if (totalComparables >= 50) dataConfidence = "Alta";
+  else if (totalComparables >= 10) dataConfidence = "Boa";
+  else if (totalComparables >= 3) dataConfidence = "Moderada";
+  else dataConfidence = "Baixa";
+
+  return {
+    area, purchasePrice, appraisedValue, bestMarketValue, marketSource, totalComparables,
+    monthlyRent, rentSource, renoLight, renoMedium, renoHeavy, txCostBuy, txCostSell,
+    rentalYieldGross, paybackMonths, riskRating, riskFactors, dataConfidence,
+  };
+}
+
+function computeFlipScenarios(inv: InvAnalysis, renoLevel: "light" | "medium" | "heavy", targetValue?: number) {
+  const reno = renoLevel === "light" ? inv.renoLight : renoLevel === "medium" ? inv.renoMedium : inv.renoHeavy;
+  const totalInvest = inv.purchasePrice + reno + inv.txCostBuy;
+  const liq = getLiquidity("");
+  const baseMonths = inv.purchasePrice > 0 ? (inv.bestMarketValue > 0 ? 14 : 24) : 24;
+  const base = targetValue ?? inv.bestMarketValue;
+
+  const make = (saleMult: number, extraMonths: number) => {
+    const salePrice = base * saleMult;
+    const profit = salePrice - totalInvest - salePrice * 0.055;
+    const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
+    return { totalInvest, salePrice, profit, roi, months: baseMonths + extraMonths };
+  };
+
+  return { conservative: make(0.85, 4), moderate: make(0.95, 2), optimistic: make(1.0, 0), reno };
+}
+
+function computeFlipScenariosWithLiquidity(inv: InvAnalysis, cidade: string, renoLevel: "light" | "medium" | "heavy", targetValue?: number) {
+  const reno = renoLevel === "light" ? inv.renoLight : renoLevel === "medium" ? inv.renoMedium : inv.renoHeavy;
+  const totalInvest = inv.purchasePrice + reno + inv.txCostBuy;
+  const liq = getLiquidity(cidade);
+  const baseMonths = liq === "alta" ? 8 : liq === "media" ? 14 : 24;
+  const base = targetValue ?? inv.bestMarketValue;
+
+  const make = (saleMult: number, extraMonths: number) => {
+    const salePrice = base * saleMult;
+    const profit = salePrice - totalInvest - salePrice * 0.055;
+    const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
+    return { totalInvest, salePrice, profit, roi, months: baseMonths + extraMonths };
+  };
+
+  return { conservative: make(0.85, 4), moderate: make(0.95, 2), optimistic: make(1.0, 0), reno };
+}
+
 // ─── Score helpers ─────────────────────────────────────────────────────────────
 
 function getScoreGrade(score: number): { label: string; color: string } {
