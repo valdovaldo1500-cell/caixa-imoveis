@@ -1402,8 +1402,8 @@ export default function PropertyDetailPage() {
                       </div>
                       <div className="bg-zinc-800/50 rounded p-2.5">
                         <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Payback</div>
-                        <div className="text-base font-bold text-zinc-300 mt-0.5">{inv.paybackMonths} meses</div>
-                        <div className="text-[10px] text-zinc-500">{(inv.paybackMonths / 12).toFixed(1)} anos</div>
+                        <div className="text-base font-bold text-zinc-300 mt-0.5">{inv.paybackMonths >= 999 ? "N/A" : `${inv.paybackMonths} meses`}</div>
+                        <div className="text-[10px] text-zinc-500">{inv.paybackMonths >= 999 ? "Sem aluguel estimado" : `${(inv.paybackMonths / 12).toFixed(1)} anos`}</div>
                       </div>
                       <div className="bg-zinc-800/50 rounded p-2.5">
                         <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Investimento Total</div>
