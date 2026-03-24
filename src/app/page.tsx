@@ -45,6 +45,28 @@ async function getStats() {
       sql`${properties.lat} IS NOT NULL AND ${properties.removedAt} IS NULL`
     );
 
+  // Investment KPIs
+  const [avgYield] = await db
+    .select({
+      avg: sql<string>`round(avg(CASE WHEN ${properties.zapRentValue}::numeric > 0 AND ${properties.preco}::numeric > 0 THEN (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 ELSE NULL END)::numeric, 1)`,
+    })
+    .from(properties)
+    .where(isNull(properties.removedAt));
+
+  const [beatsSelic] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(properties)
+    .where(
+      sql`${properties.removedAt} IS NULL AND ${properties.zapRentValue}::numeric > 0 AND ${properties.preco}::numeric > 0 AND (${properties.zapRentValue}::numeric * 12 / ${properties.preco}::numeric) * 100 > 14.25`
+    );
+
+  const [withMarketValue] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(properties)
+    .where(
+      sql`${properties.removedAt} IS NULL AND (${properties.zapMarketValue} IS NOT NULL OR ${properties.marketValue} IS NOT NULL OR ${properties.qaMarketValue} IS NOT NULL)`
+    );
+
   const topCidades = await db
     .select({
       cidade: properties.cidade,
