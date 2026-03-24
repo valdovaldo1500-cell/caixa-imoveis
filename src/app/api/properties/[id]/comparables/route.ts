@@ -36,6 +36,7 @@ export async function GET(
       zapListings: zapResult,
       zapRentals,
       qaListings: qaResult,
+      qaRentals,
     });
   } catch (err) {
     console.error("Comparables route error:", err);
