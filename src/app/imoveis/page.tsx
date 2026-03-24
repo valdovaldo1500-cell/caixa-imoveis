@@ -846,6 +846,7 @@ function ImoveisPageInner() {
   const [favorited, setFavorited] = useState<Record<number, number>>({});
   const [expandedComparables, setExpandedComparables] = useState<string | null>(null); // "colId:propId"
   const [expandedRent, setExpandedRent] = useState<number | null>(null);
+  const [expandedYield, setExpandedYield] = useState<number | null>(null);
   const [expandedScore, setExpandedScore] = useState<number | null>(null);
   const [hiddenIds, setHiddenIds] = useState<Set<number>>(new Set());
   const [showHidden, setShowHidden] = useState(true);
