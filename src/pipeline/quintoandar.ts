@@ -43,9 +43,9 @@ const CAIXA_TO_QA_TYPES: Record<string, string[]> = {
   casa: ["CASA", "SOBRADO", "CASACONDOMINIO"],
   terreno: ["LOTE", "TERRENO"],
   lote: ["LOTE", "TERRENO"],
-  comercial: ["SALA", "LOJA", "STUDIOOUKITCHENETTE", "APARTAMENTO"],
-  sala: ["SALA", "LOJA", "STUDIOOUKITCHENETTE", "APARTAMENTO"],
-  loja: ["LOJA", "SALA", "STUDIOOUKITCHENETTE"],
+  comercial: ["SALA", "LOJA"],
+  sala: ["SALA", "LOJA"],
+  loja: ["LOJA", "SALA"],
 };
 
 // Commercial types to EXCLUDE from residential comparables
