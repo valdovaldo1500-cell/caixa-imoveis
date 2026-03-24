@@ -64,6 +64,14 @@ interface Property {
   comparablesCount: number | null;
   comparablesTier1Count: number | null;
   comparablesTier2Count: number | null;
+  // ZAP + QuintoAndar market data
+  zapMarketValue: string | null;
+  zapMarketValuePerM2: string | null;
+  zapRentValue: string | null;
+  zapComparablesCount: number | null;
+  qaMarketValue: string | null;
+  qaRentValue: string | null;
+  qaComparablesCount: number | null;
 }
 
 interface PriceHistoryEntry {
