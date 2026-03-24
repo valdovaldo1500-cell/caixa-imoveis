@@ -646,7 +646,9 @@ function RentPopup({ propertyId, onClose, months = 12, propertyPrice = 0 }: { pr
               <p>Mediana aluguel ZAP: <span className="text-green-400 font-medium">{formatBRL(zapMedianRent)}/mês</span></p>
               <p>Aluguel anual estimado: <span className="text-zinc-200 font-medium">{formatBRL(annualRent)}/ano</span></p>
               {yieldPct !== null && (
-                <p>Yield anual: <span className={`font-medium ${yieldPct >= 8 ? "text-green-400" : yieldPct >= 5 ? "text-yellow-400" : "text-zinc-200"}`}>{yieldPct.toFixed(1)}%</span></p>
+                <>
+                  <p>Yield bruto: <span className={`font-medium ${yieldPct >= 8 ? "text-green-400" : yieldPct >= 5 ? "text-yellow-400" : "text-zinc-200"}`}>{yieldPct.toFixed(1)}%</span> <span className="text-zinc-600">(Selic: 14,25%)</span></p>
+                </>
               )}
               <p className="text-zinc-500">{zapRentals.length} imóvel{zapRentals.length !== 1 ? "is" : ""} comparável{zapRentals.length !== 1 ? "is" : ""} encontrado{zapRentals.length !== 1 ? "s" : ""}</p>
             </>
