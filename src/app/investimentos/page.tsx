@@ -497,10 +497,35 @@ function generateSummary(a: Analysis): string {
   return summary;
 }
 
+function computeFlipScenarios(a: Analysis, renoLevel: "light" | "medium" | "heavy") {
+  const reno = renoLevel === "light" ? a.renoLight : renoLevel === "medium" ? a.renoMedium : a.renoHeavy;
+  const totalInvest = a.purchasePrice + reno + a.txCostBuy;
+  const liq = getLiquidity(a.prop.cidade);
+  const baseMonths = liq === "alta" ? 8 : liq === "media" ? 14 : 24;
+
+  const make = (saleMult: number, extraMonths: number) => {
+    const salePrice = a.bestMarketValue * saleMult;
+    const profit = salePrice - totalInvest - (salePrice * 0.055);
+    const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
+    return { totalInvest, salePrice, profit, roi, months: baseMonths + extraMonths };
+  };
+
+  return {
+    conservative: make(0.85, 4),
+    moderate: make(0.95, 2),
+    optimistic: make(1.0, 0),
+    reno,
+    totalInvestRental: totalInvest,
+  };
+}
+
+const RENO_LABELS: Record<string, string> = { light: "Leve (R$700/m²)", medium: "Media (R$1.200/m²)", heavy: "Pesada (R$1.800/m²)" };
+
 function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemove: (favoriteId: number, propertyId: number) => void }) {
   const [expanded, setExpanded] = useState(rank <= 3);
   const [popup, setPopup] = useState<string | null>(null);
   const [removing, setRemoving] = useState(false);
+  const [renoLevel, setRenoLevel] = useState<"light" | "medium" | "heavy">("light");
   const p = a.prop;
   const scoreGrade = p.score ? getScoreGrade(Number(p.score)) : null;
   const riskBadge = getRiskBadge(a.riskRating);
