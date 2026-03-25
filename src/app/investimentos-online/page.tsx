@@ -550,6 +550,37 @@ const EXPERT_ASSESSMENTS = [
     recommendation: "CLOSE. Initially kept as a budget pick based on last month's spike, but the verified 9-month trend shows -35% profit decline. One good month doesn't make a trend. The overall direction is down. At $27K the absolute risk is low, but there are better uses for that money.",
     aiPlan: "N/A — recommended to close this listing.",
   },
+  {
+    id: "92246",
+    name: "Ace Hoops YouTube (WNBA)",
+    verdict: "STRONG BUY",
+    verdictColor: "emerald",
+    price: "$70,599",
+    monthlyProfit: "$3,070",
+    annualROI: "52%",
+    trendProfit: "+17%",
+    trendTraffic: "896K views/mo",
+    highlights: [
+      "WNBA coverage — one of the fastest growing sports leagues globally",
+      "896K monthly views, 235K average views per video — exceptional engagement",
+      "8:02 average watch time — high RPM potential",
+      "Profit growing 17%, revenue growing 15% — verified upward trend",
+      "Super cheap production: €70/video (Filipino freelancers + AI voiceover)",
+      "Price dropped to $70K from $86K — seller motivated",
+      "23x multiple with growth = undervalued",
+      "Caitlin Clark effect driving massive audience interest",
+    ],
+    risks: [
+      "Only 19 months old — limited track record",
+      "93% algorithm-dependent (Browse 60% + Suggested 34%)",
+      "Seasonal business — WNBA season drives most revenue",
+      "Sports commentary niche — trends can shift with player popularity",
+      "Seller owns competing men's basketball channel",
+      "100% YouTube AdSense — no revenue diversification yet",
+    ],
+    recommendation: "The WNBA is experiencing unprecedented growth driven by the Caitlin Clark effect. This channel is perfectly positioned in a growing niche with incredible engagement (235K avg views/video). At $70K (price already dropped from $86K), this is undervalued for a growing channel. Production costs are dirt cheap (€70/video). Offer $60-65K. The seasonal nature means you'll have quieter months, but the off-season content (trades, draft, player narratives) fills the gap. Pair with another non-seasonal business for year-round income.",
+    aiPlan: "Claude writes all commentary scripts based on WNBA game results, player stories, and trending topics. Filipino freelancers handle editing (€40), scripting review (€20), and clipping (€10). AI generates voiceovers. Owner reviews final videos and thumbnails. 6hrs/week in-season, 3hrs off-season. Growth: expand to college basketball, add sponsorships.",
+  },
 ];
 
 export default function InvestimentosOnlinePage() {
