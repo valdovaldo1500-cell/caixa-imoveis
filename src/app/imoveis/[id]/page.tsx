@@ -625,13 +625,14 @@ export default function PropertyDetailPage() {
       const data = await res.json();
       setProperty(data);
 
-      // Fetch history, comparables, favorite status, and note in parallel
-      const [histRes, compRes, favRes, noteRes, hideRes] = await Promise.all([
+      // Fetch history, comparables, favorite status, note, and AI analysis in parallel
+      const [histRes, compRes, favRes, noteRes, hideRes, aiRes] = await Promise.all([
         fetch(`/api/properties/${id}/history`, { credentials: "include" }),
         fetch(`/api/properties/${id}/comparables`, { credentials: "include" }),
         fetch(`/api/properties/${id}/favorite`, { credentials: "include" }),
         fetch(`/api/properties/${id}/notes`, { credentials: "include" }),
         fetch(`/api/properties/${id}/hide`, { credentials: "include" }),
+        fetch(`/api/properties/${id}/analysis`, { credentials: "include" }),
       ]);
 
       if (histRes.ok) {
