@@ -267,6 +267,7 @@ export async function calculateScores(): Promise<{ scored: number; avgScore: num
       {
         desconto: row.desconto,
         preco: row.preco,
+        valorAvaliacao: row.valorAvaliacao,
         aceitaFinanciamento: row.aceitaFinanciamento,
         descricao: row.descricao,
         tipoImovel: row.tipoImovel,
