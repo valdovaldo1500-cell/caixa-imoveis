@@ -491,8 +491,8 @@ export default function InvestimentosOnlinePage() {
                   <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Real Estate (Caixa)</div>
                   <div className="text-lg font-bold text-white">£100K invested</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li className="text-amber-400 font-medium">→ ~R$1,200/month rental</li>
-                    <li>Annual yield: ~7-8%</li>
+                    <li className="text-amber-400 font-medium">→ ~R$3,500-5,000/month rental</li>
+                    <li>Annual yield: ~7-9% (on market value)</li>
                     <li>ITBI: 2-3%, registro 1.5%</li>
                     <li className="text-emerald-400">Capital gains: 30-60% discount</li>
                     <li className="text-emerald-400">Risk: Lower (tangible asset)</li>
