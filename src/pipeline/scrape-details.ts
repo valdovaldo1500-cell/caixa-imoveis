@@ -2,7 +2,7 @@ import { execFileSync } from "child_process";
 import * as cheerio from "cheerio";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { isNull, and, eq, isNotNull } from "drizzle-orm";
+import { isNull, and, eq } from "drizzle-orm";
 
 export interface ScrapedDetails {
   tipoImovel: string | null;
