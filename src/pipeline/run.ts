@@ -93,21 +93,35 @@ export async function runPipeline(): Promise<PipelineResult> {
             result.priceChanges++;
           }
 
+          // Only update fields that may change; always touch lastSeenAt
+          const updateSet: Record<string, unknown> = {
+            lastSeenAt: new Date(),
+            removedAt: null, // Mark as active again if it was removed
+          };
+
+          // Check if any field actually changed before setting updatedAt
+          const oldDesc = row.desconto ? parseFloat(row.desconto) : null;
+          const newDesc = p.desconto;
+          const dataChanged =
+            oldPreco !== newPreco ||
+            oldDesc !== newDesc ||
+            row.preco !== (p.preco?.toString() ?? null);
+
+          if (dataChanged) {
+            updateSet.preco = p.preco?.toString() ?? null;
+            updateSet.valorAvaliacao = p.valorAvaliacao?.toString() ?? null;
+            updateSet.desconto = p.desconto?.toString() ?? null;
+            updateSet.modalidadeVenda = p.modalidadeVenda || null;
+            updateSet.linkCaixa = p.linkCaixa || null;
+            updateSet.aceitaFinanciamento = p.aceitaFinanciamento;
+            updateSet.updatedAt = new Date();
+            result.updated++;
+          }
+
           await db
             .update(properties)
-            .set({
-              preco: p.preco?.toString() ?? null,
-              valorAvaliacao: p.valorAvaliacao?.toString() ?? null,
-              desconto: p.desconto?.toString() ?? null,
-              modalidadeVenda: p.modalidadeVenda || null,
-              linkCaixa: p.linkCaixa || null,
-              aceitaFinanciamento: p.aceitaFinanciamento,
-              lastSeenAt: new Date(),
-              removedAt: null, // Mark as active again if it was removed
-              updatedAt: new Date(),
-            })
+            .set(updateSet)
             .where(eq(properties.caixaId, p.caixaId));
-          result.updated++;
         }
       } catch (err) {
         result.errors.push(
