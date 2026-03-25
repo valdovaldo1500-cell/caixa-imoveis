@@ -868,7 +868,7 @@ function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose }: { preco: 
           })}
         </div>
 
-        <p className="text-[10px] text-zinc-600">Não inclui condomínio. IPTU e IR estimados. Selic: {SELIC}% (Mar/2025).</p>
+        <p className="text-[10px] text-zinc-600">Condomínio: pago pelo inquilino. IPTU e IR estimados. Selic: {SELIC}% (Mar/2025).</p>
       </div>
     </div>
   );
