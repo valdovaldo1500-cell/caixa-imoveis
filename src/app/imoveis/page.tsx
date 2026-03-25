@@ -1909,6 +1909,7 @@ function ImoveisPageInner() {
                   className={`cursor-pointer hover:underline ${isGoodDeal ? "text-green-400 font-medium" : "text-zinc-400"}`}
                 >
                   {formatBRL(p.qaMarketValue)}
+                  <span className="text-[10px] text-zinc-500 ml-1">(ajust.)</span>
                   {p.qaComparablesCount ? <span className="text-xs text-zinc-600 ml-1">({p.qaComparablesCount})</span> : null}
                 </button>
               );
