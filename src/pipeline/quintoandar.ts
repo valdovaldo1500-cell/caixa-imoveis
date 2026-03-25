@@ -298,7 +298,7 @@ export async function calculateQAMarketValues(): Promise<{ updated: number }> {
     await db
       .update(properties)
       .set({
-        qaMarketValue: qaMarketValue !== null ? qaMarketValue.toFixed(2) : null,
+        qaMarketValue: qaMarketValue !== null ? (qaMarketValue * 0.80).toFixed(2) : null,
         qaRentValue: medianRent !== null ? medianRent.toFixed(2) : null,
         qaComparablesCount: saleComparables.length > 0 ? saleComparables.length : null,
         qaUpdatedAt: now,
