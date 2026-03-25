@@ -855,6 +855,17 @@ function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose }: { preco: 
           {spreadVsSelic >= 0 ? "Rende mais que Selic — bom investimento" : spreadVsSelic >= -3 ? "Próximo da Selic — considere valorização" : "Rende menos que Selic — cuidado"}
         </div>
 
+        {/* Sensitivity */}
+        <div className="text-[10px] text-zinc-500">
+          <span className="font-medium">Sensibilidade vacância: </span>
+          {[5, 8.3, 15].map((vr) => {
+            const vc = aluguelAnual * (vr / 100);
+            const net = aluguelAnual - vc - adminCost - manutencaoCost - iptuCost - irAnual;
+            const y = (net / totalAcquisition) * 100;
+            return <span key={vr} className={`mr-2 ${y >= SELIC ? "text-green-500" : y >= 0 ? "text-zinc-400" : "text-red-400"}`}>{vr}%→{y.toFixed(1)}%</span>;
+          })}
+        </div>
+
         <p className="text-[10px] text-zinc-600">Não inclui condomínio. IPTU e IR estimados. Selic: {SELIC}% (Mar/2025).</p>
       </div>
     </div>
