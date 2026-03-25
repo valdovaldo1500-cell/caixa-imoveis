@@ -292,15 +292,30 @@ function analyze(prop: Property): Analysis {
   if (zapRent > 0) { monthlyRent = zapRent; rentSource = "ZAP"; }
   else if (qaRent > 0) { monthlyRent = qaRent; rentSource = "QuintoAndar"; }
   else if (itbiRent > 0) { monthlyRent = itbiRent; rentSource = "ITBI"; }
-  else { monthlyRent = getMarketRent(prop.cidade, prop.bairro, prop.tipoImovel); rentSource = "Estimativa"; }
+  else {
+    const tablRent = getMarketRent(prop.cidade, prop.bairro, prop.tipoImovel);
+    if (tablRent !== 1000) {
+      monthlyRent = tablRent;
+      rentSource = "Estimativa (tabela)";
+    } else if (area > 0) {
+      const typeK = getTypeKey(prop.tipoImovel);
+      const rentPerM2 = typeK === "apt" ? 17 : typeK === "casa" ? 13 : typeK === "sala" ? 25 : 10;
+      monthlyRent = Math.round(area * rentPerM2);
+      rentSource = `Estimativa (R$${rentPerM2}/m²)`;
+    } else {
+      monthlyRent = 1000;
+      rentSource = "Estimativa generica";
+    }
+  }
 
   // Renovation costs (per m2, CUB/RS Feb 2026 derived)
   const renoLight = area * 700;
   const renoMedium = area * 1200;
   const renoHeavy = area * 1800;
 
-  // Transaction costs
-  const txCostBuy = purchasePrice * 0.04; // ITBI 2% + escritura ~1% + registro ~1%
+  // Transaction costs — POA ITBI = 3%, RS interior = 2%. Add ~1.5% for escritura+registro
+  const itbiRate = prop.cidade.toUpperCase() === "PORTO ALEGRE" ? 0.03 : 0.02;
+  const txCostBuy = purchasePrice * (itbiRate + 0.015);
   const txCostSell = bestMarketValue * 0.055; // Corretagem 5.5%
 
   // Flip scenarios
