@@ -230,6 +230,64 @@ export async function scrapeNewProperties(limit = 20): Promise<{
   return result;
 }
 
+/**
+ * Re-scrapes apartments with missing quartos data.
+ * Only updates the `quartos` and `detailScrapedAt` fields — leaves all
+ * other existing values untouched.
+ */
+export async function rescrapeForMissingQuartos(): Promise<{
+  updated: number;
+  errors: string[];
+}> {
+  const result = { updated: 0, errors: [] as string[] };
+
+  const pending = await db
+    .select({
+      id: properties.id,
+      caixaId: properties.caixaId,
+      linkCaixa: properties.linkCaixa,
+    })
+    .from(properties)
+    .where(
+      and(
+        isNull(properties.quartos),
+        eq(properties.tipoImovel, "Apartamento"),
+        isNull(properties.removedAt)
+      )
+    );
+
+  for (let i = 0; i < pending.length; i++) {
+    const prop = pending[i];
+
+    if (i > 0) {
+      await sleep(2000);
+    }
+
+    try {
+      const details = scrapePropertyDetails({
+        caixaId: prop.caixaId,
+        linkCaixa: prop.linkCaixa,
+      });
+
+      await db
+        .update(properties)
+        .set({
+          quartos: details.quartos,
+          detailScrapedAt: new Date(),
+          updatedAt: new Date(),
+        })
+        .where(eq(properties.id, prop.id));
+
+      result.updated++;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      result.errors.push(`${prop.caixaId}: ${msg}`);
+    }
+  }
+
+  return result;
+}
+
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
