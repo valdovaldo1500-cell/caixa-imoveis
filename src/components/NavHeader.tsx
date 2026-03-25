@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: "/mapa", label: "Mapa" },
   { href: "/favoritos", label: "Favoritos" },
   { href: "/investimentos", label: "Investimentos", restrictTo: "isilva" },
+  { href: "/investimentos-online", label: "Online Biz", restrictTo: "isilva" },
 ];
 
 export default function NavHeader() {
