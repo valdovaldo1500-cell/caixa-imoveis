@@ -165,6 +165,7 @@ export default function AnalisePage() {
                         const entry = props as unknown as Record<string, unknown>;
                         const tipo = String(entry["tipo"] ?? "");
                         const pct = typeof props.percent === "number" ? props.percent : 0;
+                        if (pct < 0.03) return ""; // hide labels for slices < 3%
                         return `${truncate(tipo, 12)} ${(pct * 100).toFixed(0)}%`;
                       }}
                       labelLine={{ stroke: "#52525b" }}
