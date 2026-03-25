@@ -1468,7 +1468,7 @@ export const empireFlippersListings: EFListing[] = [
   })(),
   // 79
   (() => {
-    const a = 80, r = 48, rs = roiScore(roi(126545, 4218)), e: 75;
+    const a = 80, r = 48, rs = roiScore(roi(126545, 4218));
     const e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
