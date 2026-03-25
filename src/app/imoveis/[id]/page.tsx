@@ -656,6 +656,10 @@ export default function PropertyDetailPage() {
         setNoteDraft(existingNote);
         setNoteLoaded(true);
       }
+      if (aiRes.ok) {
+        const aiData = await aiRes.json() as { analysis: string | null };
+        if (aiData.analysis) setAiAnalysis(aiData.analysis);
+      }
     } catch {
       setNotFound(true);
     } finally {
