@@ -831,7 +831,7 @@ function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemo
           <div>
             <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Custos de Transacao</h4>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <ValueBox label="ITBI (2%)" value={brl(a.purchasePrice * 0.02)} sub="Imposto de transmissao" color="text-zinc-300" />
+              <ValueBox label={`ITBI (${a.prop.cidade.toUpperCase() === "PORTO ALEGRE" ? "3" : "2"}%)`} value={brl(a.purchasePrice * (a.prop.cidade.toUpperCase() === "PORTO ALEGRE" ? 0.03 : 0.02))} sub="Imposto de transmissao" color="text-zinc-300" />
               <ValueBox label="Escritura + Registro" value={brl(a.purchasePrice * 0.02)} sub="~2% (cartorio)" color="text-zinc-300" />
               <ValueBox label="Corretagem (venda)" value={brl(a.txCostSell)} sub="5,5% do preco de venda" color="text-zinc-300" />
               <ValueBox label="Total Custos" value={brl(a.txCostBuy + a.txCostSell)} sub="Compra + venda" color="text-orange-400" />
