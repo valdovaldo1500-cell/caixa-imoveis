@@ -1253,11 +1253,11 @@ export default function PropertyDetailPage() {
                     </div>
                     {/* QuintoAndar */}
                     <div className="bg-zinc-800/50 rounded p-2.5">
-                      <div className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">QuintoAndar</div>
+                      <div className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">5ºANDAR (ajust.)</div>
                       {qaVal > 0 ? (
                         <>
                           <div className="text-sm font-bold text-violet-400">{brl(qaVal)}</div>
-                          <div className="text-[10px] text-zinc-500 mt-0.5">&nbsp;</div>
+                          <div className="text-[10px] text-zinc-500 mt-0.5">Original: {brl(qaVal / 0.8)}</div>
                           {property.qaRentValue && <div className="text-[10px] text-zinc-500">Aluguel: {brl(n(property.qaRentValue))}/mês</div>}
                           <div className="text-[10px] text-zinc-600">{property.qaComparablesCount || 0} comps</div>
                         </>
