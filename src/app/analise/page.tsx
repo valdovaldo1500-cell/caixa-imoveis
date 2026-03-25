@@ -113,10 +113,10 @@ export default function AnalisePage() {
               <CardTitle className="text-lg">Top 15 Cidades por Quantidade</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={380}>
                 <BarChart
                   data={data.byCity}
-                  margin={{ top: 4, right: 16, left: 0, bottom: 60 }}
+                  margin={{ top: 4, right: 16, left: 0, bottom: 70 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
                   <XAxis
