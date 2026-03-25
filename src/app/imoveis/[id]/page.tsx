@@ -1550,9 +1550,9 @@ export default function PropertyDetailPage() {
                     setAiLoading(true);
                     try {
                       const res = await fetch(`/api/properties/${property.id}/analysis`, { method: "POST", credentials: "include" });
-                      const data = await res.json() as { analysis?: string | null };
-                      setAiAnalysis(data.analysis || "Erro ao gerar análise");
-                    } catch { setAiAnalysis("Erro de conexão"); }
+                      const data = await res.json() as { analysis?: string | null; message?: string };
+                      setAiAnalysis(data.analysis || data.message || "Analise ainda nao gerada. Execute o script localmente.");
+                    } catch { setAiAnalysis("Erro de conexao"); }
                     finally { setAiLoading(false); }
                   }}
                   className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-3 py-1 rounded border border-zinc-700"
