@@ -749,6 +749,7 @@ function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemo
                         <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Venda</th>
                         <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Lucro</th>
                         <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">ROI</th>
+                        <th className="py-2 px-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">ROI/ano</th>
                         <th className="py-2 pl-3 text-right text-xs text-zinc-500 font-medium whitespace-nowrap">Prazo</th>
                       </tr>
                     </thead>
