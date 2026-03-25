@@ -1026,10 +1026,11 @@ function YieldDetailPopup({ a, onClose }: { a: Analysis; onClose: () => void }) 
   const preco = a.purchasePrice;
   const aluguelMensal = a.monthlyRent;
   const valorAvaliacao = a.appraisedValue;
+  const ir = a.itbiRate;
 
-  const itbiCost = preco * 0.02;
+  const itbiCost = preco * ir;
   const escrituraCost = preco * 0.01;
-  const registroCost = preco * 0.01;
+  const registroCost = preco * 0.005;
   const totalAcquisition = preco + a.renoLight + itbiCost + escrituraCost + registroCost;
 
   const aluguelAnual = aluguelMensal * 12;
@@ -1040,53 +1041,62 @@ function YieldDetailPopup({ a, onClose }: { a: Analysis; onClose: () => void }) 
   const iptuCost = iptuBase * 0.006;
   const totalCostAnual = vacancyCost + adminCost + manutencaoCost + iptuCost;
   const receitaLiquida = aluguelAnual - totalCostAnual;
+  const receitaMensal = receitaLiquida / 12;
 
-  const yieldBruto = (aluguelAnual / totalAcquisition) * 100;
-  const yieldLiquido = (receitaLiquida / totalAcquisition) * 100;
-  const paybackBruto = Math.ceil(totalAcquisition / aluguelMensal);
-  const paybackLiquido = receitaLiquida > 0 ? Math.ceil(totalAcquisition / (receitaLiquida / 12)) : 999;
+  const yieldBruto = totalAcquisition > 0 ? (aluguelAnual / totalAcquisition) * 100 : 0;
+  const yieldLiquido = totalAcquisition > 0 ? (receitaLiquida / totalAcquisition) * 100 : 0;
+  const yieldBrutoMensal = yieldBruto / 12;
+  const yieldLiquidoMensal = yieldLiquido / 12;
+  const paybackBruto = aluguelMensal > 0 ? Math.ceil(totalAcquisition / aluguelMensal) : 999;
+  const paybackLiquido = receitaMensal > 0 ? Math.ceil(totalAcquisition / receitaMensal) : 999;
 
   const yieldColor = (y: number) => y >= 8 ? "text-green-400" : y >= 5 ? "text-yellow-400" : "text-red-400";
 
   return (
-    <Popup onClose={onClose} title="Analise Completa de Yield">
+    <Popup onClose={onClose} title="Analise Completa de Yield" width="w-[460px]">
       <div className="text-xs space-y-3">
         <div>
           <p className="text-zinc-500 font-semibold mb-1">Custo de Aquisicao</p>
           <div className="space-y-0.5 text-zinc-400">
             <div className="flex justify-between"><span>Preco Caixa</span><span className="text-zinc-200">{brl(preco)}</span></div>
             <div className="flex justify-between"><span>Reforma leve ({a.area.toFixed(0)}m² x R$700)</span><span>{brl(a.renoLight)}</span></div>
-            <div className="flex justify-between"><span>ITBI (2%)</span><span>{brl(itbiCost)}</span></div>
+            <div className="flex justify-between"><span>ITBI ({(ir * 100).toFixed(0)}% — {a.prop.cidade})</span><span>{brl(itbiCost)}</span></div>
             <div className="flex justify-between"><span>Escritura (~1%)</span><span>{brl(escrituraCost)}</span></div>
-            <div className="flex justify-between"><span>Registro (~1%)</span><span>{brl(registroCost)}</span></div>
+            <div className="flex justify-between"><span>Registro (~0,5%)</span><span>{brl(registroCost)}</span></div>
             <div className="flex justify-between border-t border-zinc-800 pt-0.5 font-medium text-zinc-200"><span>Total Investido</span><span>{brl(totalAcquisition)}</span></div>
           </div>
         </div>
 
         <div>
-          <p className="text-zinc-500 font-semibold mb-1">Receita Anual</p>
+          <p className="text-zinc-500 font-semibold mb-1">Receita Mensal</p>
           <div className="space-y-0.5 text-zinc-400">
-            <div className="flex justify-between"><span>Aluguel mensal ({a.rentSource})</span><span className="text-green-400">{brl(aluguelMensal)}/mes</span></div>
-            <div className="flex justify-between font-medium text-zinc-200"><span>Receita bruta anual</span><span>{brl(aluguelAnual)}</span></div>
+            <div className="flex justify-between"><span>Aluguel bruto ({a.rentSource})</span><span className="text-blue-400">{brl(aluguelMensal)}/mes</span></div>
+            <div className="flex justify-between"><span>Vacancia (8%)</span><span>- {brl(vacancyCost / 12)}</span></div>
+            <div className="flex justify-between"><span>Administracao imobiliaria (10%)</span><span>- {brl(adminCost / 12)}</span></div>
+            <div className="flex justify-between"><span>Manutencao (1% preco/ano)</span><span>- {brl(manutencaoCost / 12)}</span></div>
+            <div className="flex justify-between"><span>IPTU (~0,6% {valorAvaliacao > 0 ? "avaliacao" : "preco"}/ano)</span><span>- {brl(iptuCost / 12)}</span></div>
+            <div className="flex justify-between border-t border-zinc-800 pt-0.5 font-medium">
+              <span className="text-zinc-200">Renda liquida mensal</span>
+              <span className={receitaMensal > 0 ? "text-green-400" : "text-red-400"}>{brl(receitaMensal)}/mes</span>
+            </div>
+            <div className="flex justify-between font-medium text-zinc-200"><span>Renda liquida anual</span><span>{brl(receitaLiquida)}/ano</span></div>
           </div>
         </div>
 
-        <div>
-          <p className="text-zinc-500 font-semibold mb-1">Custos Anuais</p>
-          <div className="space-y-0.5 text-zinc-400">
-            <div className="flex justify-between"><span>Vacancia (8% — ~1 mes/ano)</span><span>- {brl(vacancyCost)}</span></div>
-            <div className="flex justify-between"><span>Administracao (10%)</span><span>- {brl(adminCost)}</span></div>
-            <div className="flex justify-between"><span>Manutencao (1% preco)</span><span>- {brl(manutencaoCost)}</span></div>
-            <div className="flex justify-between"><span>IPTU (~0,6% {valorAvaliacao > 0 ? "avaliacao" : "preco"})</span><span>- {brl(iptuCost)}</span></div>
-            <div className="flex justify-between border-t border-zinc-800 pt-0.5"><span className="font-medium text-zinc-200">Receita liquida anual</span><span className={`font-medium ${receitaLiquida > 0 ? "text-green-400" : "text-red-400"}`}>{brl(receitaLiquida)}</span></div>
-          </div>
-        </div>
-
-        <div className="bg-zinc-800 rounded p-2.5 space-y-1">
+        <div className="bg-zinc-800 rounded p-2.5 space-y-1.5">
+          <p className="text-zinc-500 font-semibold mb-0.5">Yields</p>
+          <div className="flex justify-between"><span className="text-zinc-400">Yield bruto mensal</span><span className="text-zinc-200">{brl(aluguelMensal)} ({yieldBrutoMensal.toFixed(2)}%)</span></div>
           <div className="flex justify-between"><span className="text-zinc-400">Yield bruto anual</span><span className={`font-semibold ${yieldColor(yieldBruto)}`}>{yieldBruto.toFixed(1)}%</span></div>
+          <div className="flex justify-between"><span className="text-zinc-400">Yield liquido mensal</span><span className={receitaMensal > 0 ? "text-green-400" : "text-red-400"}>{brl(receitaMensal)} ({yieldLiquidoMensal.toFixed(2)}%)</span></div>
           <div className="flex justify-between"><span className="text-zinc-400">Yield liquido anual</span><span className={`font-semibold ${yieldColor(yieldLiquido)}`}>{yieldLiquido.toFixed(1)}%</span></div>
-          <div className="flex justify-between"><span className="text-zinc-400">Payback bruto</span><span className="text-zinc-200">{paybackBruto} meses ({(paybackBruto / 12).toFixed(1)} anos)</span></div>
-          <div className="flex justify-between"><span className="text-zinc-400">Payback liquido</span><span className="text-zinc-200">{paybackLiquido} meses ({(paybackLiquido / 12).toFixed(1)} anos)</span></div>
+          <div className="border-t border-zinc-700 pt-1 mt-1">
+            <div className="flex justify-between"><span className="text-zinc-400">Payback bruto</span><span className="text-zinc-200">{paybackBruto >= 999 ? "N/A" : `${paybackBruto}m (${(paybackBruto / 12).toFixed(1)} anos)`}</span></div>
+            <div className="flex justify-between"><span className="text-zinc-400">Payback liquido</span><span className="text-zinc-200">{paybackLiquido >= 999 ? "N/A" : `${paybackLiquido}m (${(paybackLiquido / 12).toFixed(1)} anos)`}</span></div>
+          </div>
+          <div className="border-t border-zinc-700 pt-1 mt-1">
+            <div className="flex justify-between"><span className="text-zinc-400">Selic (referencia)</span><span className="text-zinc-300">14,25% a.a. / 1,12% a.m.</span></div>
+            <div className="flex justify-between"><span className="text-zinc-400">Yield liq. vs Selic</span><span className={yieldLiquido > 14.25 ? "text-green-400 font-semibold" : "text-red-400"}>{yieldLiquido > 14.25 ? "ACIMA" : "ABAIXO"} ({(yieldLiquido - 14.25).toFixed(1)}pp)</span></div>
+          </div>
         </div>
       </div>
     </Popup>
