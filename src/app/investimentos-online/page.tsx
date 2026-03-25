@@ -462,8 +462,8 @@ export default function InvestimentosOnlinePage() {
               />
               <KpiCard
                 label="vs Real Estate"
-                value="~45% vs ~7%"
-                sub="Online avg ROI vs BR rental yield"
+                value="~45% vs ~8%"
+                sub="Online avg ROI vs BR rental yield (on market value)"
                 icon={TrendingUp}
                 color="emerald"
               />
