@@ -89,7 +89,13 @@ interface Analysis {
   flipOptimistic: { totalInvest: number; salePrice: number; profit: number; roi: number; months: number };
   // Rental
   rentalYieldGross: number;
+  rentalYieldNet: number;
+  monthlyNetIncome: number;
+  monthlyGrossYieldPct: number;
+  monthlyNetYieldPct: number;
+  annualCosts: number;
   paybackMonths: number;
+  itbiRate: number;
   // Risk
   riskRating: string;
   riskColor: string;
