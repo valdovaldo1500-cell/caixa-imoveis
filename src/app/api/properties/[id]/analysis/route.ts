@@ -4,21 +4,27 @@ import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
-// POST: return cached AI analysis (generation runs locally via caixa-ai-analysis.sh)
+const BRIDGE_URL = "http://host.docker.internal:9876/analyze";
+const PIPELINE_TOKEN = process.env.PIPELINE_TOKEN || "caixa-pipeline-2026-rs-secret";
+
 export async function POST(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
   const propertyId = parseInt(id, 10);
-  if (isNaN(propertyId)) {
+  if (isNaN(propertyId) || propertyId <= 0) {
     return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
   }
 
+  const force = request.nextUrl.searchParams.get("force") === "true";
+
+  // Check cache
   const [prop] = await db
     .select({
       aiAnalysis: properties.aiAnalysis,
       aiAnalysisAt: properties.aiAnalysisAt,
+      updatedAt: properties.updatedAt,
     })
     .from(properties)
     .where(eq(properties.id, propertyId))
@@ -26,14 +32,46 @@ export async function POST(
 
   if (!prop) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  if (prop.aiAnalysis) {
-    return NextResponse.json({ analysis: prop.aiAnalysis, generatedAt: prop.aiAnalysisAt, cached: true });
+  // Return cached if fresh
+  if (!force && prop.aiAnalysis && prop.aiAnalysisAt && prop.updatedAt && prop.aiAnalysisAt >= prop.updatedAt) {
+    return NextResponse.json({ analysis: prop.aiAnalysis, cached: true });
   }
 
-  return NextResponse.json(
-    { analysis: null, message: "Analise ainda nao gerada. Execute: ~/scripts/caixa-ai-analysis.sh " + id },
-    { status: 202 }
-  );
+  // Call host-level bridge
+  try {
+    const bridgeRes = await fetch(BRIDGE_URL, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${PIPELINE_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ propertyId }),
+      signal: AbortSignal.timeout(90000),
+    });
+
+    const data = await bridgeRes.json() as { analysis?: string; error?: string; busy?: boolean };
+
+    if (data.busy) {
+      return NextResponse.json({ analysis: null, message: "Analise em processamento. Tente novamente em 1 minuto." }, { status: 202 });
+    }
+
+    if (data.analysis) {
+      // Bridge already saved to DB, just return
+      return NextResponse.json({ analysis: data.analysis, cached: false });
+    }
+
+    return NextResponse.json({ error: data.error || "Bridge returned no analysis", analysis: null }, { status: 500 });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("AI analysis bridge error:", msg);
+
+    // Fallback: return cached even if stale
+    if (prop.aiAnalysis) {
+      return NextResponse.json({ analysis: prop.aiAnalysis, cached: true, stale: true });
+    }
+
+    return NextResponse.json({ error: "Servico de analise indisponivel", analysis: null }, { status: 503 });
+  }
 }
 
 // GET: return cached analysis
