@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { isNull, and, eq } from "drizzle-orm";
+import { isNull, and, eq, sql, isNotNull } from "drizzle-orm";
 
 const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
 const USER_AGENT = "CaixaImoveisRS/1.0 (imoveis.crimebrasil.com.br)";
