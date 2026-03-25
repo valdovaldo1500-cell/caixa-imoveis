@@ -782,7 +782,8 @@ function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose }: { preco: 
   else if (aluguelMensal > 3751) irAnual = (aluguelMensal * 0.15 - 370.40) * 12;
   else if (aluguelMensal > 2428) irAnual = (aluguelMensal * 0.075 - 89.10) * 12;
 
-  const totalCostAnual = vacancyCost + adminCost + manutencaoCost + iptuCost + irAnual;
+  const onboardingCost = aluguelMensal; // 1 month lost while finding tenant, amortized in year 1
+  const totalCostAnual = vacancyCost + adminCost + manutencaoCost + iptuCost + irAnual + onboardingCost;
   const receitaLiquida = aluguelAnual - totalCostAnual;
 
   const yieldBruto = (aluguelAnual / preco) * 100;
