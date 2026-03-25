@@ -504,7 +504,7 @@ export default function InvestimentosOnlinePage() {
                   <ul className="text-xs text-zinc-400 space-y-1">
                     <li className="text-emerald-400 font-medium">£60K online biz + £40K property</li>
                     <li>Online: ~£2-2.4K/month</li>
-                    <li>Property: ~R$500/month + capital gain</li>
+                    <li>Property: ~R$1,500-2,000/month + capital gain</li>
                     <li className="text-emerald-400">Diversified income streams</li>
                     <li className="text-emerald-400">Best risk-adjusted return</li>
                   </ul>
