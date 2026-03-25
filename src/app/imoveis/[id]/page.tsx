@@ -1437,6 +1437,12 @@ export default function PropertyDetailPage() {
                       </div>
                     </div>
                     {/* Selic comparison */}
+                    {/* IR note */}
+                    {inv.monthlyRent > 0 && (
+                      <div className="text-[10px] text-zinc-500 mt-1">
+                        IR aluguel: {inv.monthlyRent <= 2428 ? <span className="text-green-500">Isento (abaixo de R$2.428/mês)</span> : <span className="text-yellow-500">Tributável ({inv.monthlyRent <= 3751 ? "7,5%" : inv.monthlyRent <= 4664 ? "15%" : "22,5%"} sobre excedente)</span>}
+                      </div>
+                    )}
                     {inv.rentalYieldGross > 0 && (() => {
                       const SELIC = 14.25;
                       const totalInvest = inv.purchasePrice + inv.renoLight + inv.txCostBuy;
