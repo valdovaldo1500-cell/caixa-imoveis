@@ -1535,6 +1535,42 @@ export default function PropertyDetailPage() {
             </Card>
           )}
 
+          {/* AI Analysis */}
+          <Card className="bg-zinc-900 border-zinc-800">
+            <CardHeader className="pb-3">
+              <div className="flex justify-between items-center">
+                <CardTitle className="text-sm font-medium text-zinc-400">Análise do Especialista (IA)</CardTitle>
+                <button
+                  onClick={async () => {
+                    setAiLoading(true);
+                    try {
+                      const res = await fetch(`/api/properties/${property.id}/analysis`, { method: "POST", credentials: "include" });
+                      const data = await res.json() as { analysis?: string | null };
+                      setAiAnalysis(data.analysis || "Erro ao gerar análise");
+                    } catch { setAiAnalysis("Erro de conexão"); }
+                    finally { setAiLoading(false); }
+                  }}
+                  className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-3 py-1 rounded border border-zinc-700"
+                >
+                  {aiLoading ? "Gerando..." : aiAnalysis ? "Regenerar" : "Gerar Análise"}
+                </button>
+              </div>
+            </CardHeader>
+            {(aiAnalysis || aiLoading) && (
+              <CardContent>
+                {aiLoading ? (
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-4 w-5/6" />
+                  </div>
+                ) : (
+                  <p className="text-sm text-zinc-300 whitespace-pre-wrap leading-relaxed">{aiAnalysis}</p>
+                )}
+              </CardContent>
+            )}
+          </Card>
+
           {/* Price history chart */}
           {chartData.length > 1 && (
             <Card className="bg-zinc-900 border-zinc-800">
