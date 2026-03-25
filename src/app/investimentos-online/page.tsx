@@ -35,7 +35,7 @@ import {
 } from "lucide-react";
 import type { EFListing } from "@/data/empire-flippers-listings";
 
-const UPDATED_AT = "March 25, 2026";
+const UPDATED_AT = "March 25, 2026 (23:10 update)";
 const BUDGET_USD = 160000;
 
 type SortKey =
