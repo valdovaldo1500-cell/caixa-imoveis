@@ -823,10 +823,14 @@ function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemo
           {/* ── Rental analysis ── */}
           <div>
             <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Analise de Aluguel <span className="text-zinc-600 normal-case font-normal">(clique para detalhes)</span></h4>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <ValueBox label={`Aluguel Mensal${a.rentSource.includes("Estimativa") ? " ⚠" : ""}`} value={brl(a.monthlyRent)} sub={`Fonte: ${a.rentSource}`} color={a.rentSource.includes("Estimativa") ? "text-orange-400" : "text-blue-400"} onClick={() => setPopup("rent")} />
-              <ValueBox label="Yield Bruto Anual" value={pct(a.rentalYieldGross)} sub={`${brl(a.monthlyRent * 12)}/ano`} color={a.rentalYieldGross > 10 ? "text-green-400" : a.rentalYieldGross > 7 ? "text-yellow-400" : "text-red-400"} onClick={() => setPopup("yield")} />
-              <ValueBox label="Payback" value={a.paybackMonths >= 999 ? "N/A" : `${a.paybackMonths} meses`} sub={a.paybackMonths >= 999 ? "Sem aluguel estimado" : `${(a.paybackMonths / 12).toFixed(1)} anos`} color="text-zinc-300" onClick={() => setPopup("yield")} />
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <ValueBox label={`Aluguel Bruto${a.rentSource.includes("Estimativa") ? " ⚠" : ""}`} value={brl(a.monthlyRent)} sub={`Fonte: ${a.rentSource}`} color={a.rentSource.includes("Estimativa") ? "text-orange-400" : "text-blue-400"} onClick={() => setPopup("rent")} />
+              <ValueBox label="Renda Liquida Mensal" value={brl(a.monthlyNetIncome)} sub={`${pct(a.monthlyNetYieldPct)}/mes · Custos: ${brl(a.annualCosts / 12)}/mes`} color={a.monthlyNetIncome > 0 ? "text-green-400" : "text-red-400"} onClick={() => setPopup("yield")} />
+              <ValueBox label="Yield Liquido Anual" value={pct(a.rentalYieldNet)} sub={`Bruto: ${pct(a.rentalYieldGross)} · Liq: ${brl(a.monthlyNetIncome * 12)}/ano`} color={a.rentalYieldNet > 8 ? "text-green-400" : a.rentalYieldNet > 5 ? "text-yellow-400" : "text-red-400"} onClick={() => setPopup("yield")} />
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-2">
+              <ValueBox label="Custos Anuais" value={brl(a.annualCosts)} sub="Vacancia 8% + Admin 10% + IPTU + Manut." color="text-orange-400" onClick={() => setPopup("yield")} />
+              <ValueBox label="Payback (liquido)" value={a.paybackMonths >= 999 ? "N/A" : `${a.paybackMonths} meses`} sub={a.paybackMonths >= 999 ? "Sem aluguel estimado" : `${(a.paybackMonths / 12).toFixed(1)} anos`} color="text-zinc-300" onClick={() => setPopup("yield")} />
               <ValueBox label="Investimento Total" value={brl(a.purchasePrice + a.renoLight + a.txCostBuy)} sub="Compra + reforma leve + custos" color="text-zinc-300" onClick={() => setPopup("invest")} />
             </div>
           </div>
