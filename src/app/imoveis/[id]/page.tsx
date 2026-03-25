@@ -666,6 +666,15 @@ export default function PropertyDetailPage() {
     fetchProperty();
   }, [fetchProperty]);
 
+  useEffect(() => {
+    if (property?.id) {
+      fetch(`/api/properties/${property.id}/analysis`, { credentials: "include" })
+        .then(r => r.json())
+        .then((d: { analysis?: string | null }) => { if (d.analysis) setAiAnalysis(d.analysis); })
+        .catch(() => {});
+    }
+  }, [property?.id]);
+
   const toggleFavorite = async () => {
     if (favoriteLoading) return;
     setFavoriteLoading(true);
