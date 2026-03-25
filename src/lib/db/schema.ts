@@ -188,10 +188,12 @@ export const zapListings = pgTable("zap_listings", {
   parkingSpaces: integer("parking_spaces"),
   listingUrl: text("listing_url"),
   condoFee: decimal("condo_fee", { precision: 10, scale: 2 }),
+  source: varchar("source", { length: 20 }).default("zap"), // "zap" or "vivareal"
   createdAt: timestamp("created_at").defaultNow(),
 }, (table) => [
   index("idx_zap_cidade_bairro").on(table.cidade, table.bairro),
   index("idx_zap_business").on(table.business),
+  index("idx_zap_source").on(table.source),
 ]);
 
 export const qaListings = pgTable("qa_listings", {
