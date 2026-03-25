@@ -364,19 +364,28 @@ function analyzeProperty(prop: Property): InvAnalysis {
 
 function computeFlipScenariosWithLiquidity(inv: InvAnalysis, cidade: string, renoLevel: "light" | "medium" | "heavy", targetValue?: number) {
   const reno = renoLevel === "light" ? inv.renoLight : renoLevel === "medium" ? inv.renoMedium : inv.renoHeavy;
-  const totalInvest = inv.purchasePrice + reno + inv.txCostBuy;
   const liq = getLiquidity(cidade);
   const baseMonths = liq === "alta" ? 8 : liq === "media" ? 14 : 24;
   const base = (targetValue && targetValue > 0) ? targetValue : inv.bestMarketValue;
+
+  // Renovation months by level
+  const renoMonths = renoLevel === "light" ? 1 : renoLevel === "medium" ? 2 : 4;
+
+  // Holding cost during renovation: IPTU for renoMonths
+  const iptuBase = inv.appraisedValue > 0 ? inv.appraisedValue : inv.purchasePrice;
+  const iptuHoldingCost = (iptuBase * 0.005 / 12) * renoMonths;
+
+  const totalInvest = inv.purchasePrice + reno + inv.txCostBuy + iptuHoldingCost;
 
   const make = (saleMult: number, extraMonths: number) => {
     const salePrice = base * saleMult;
     const profit = salePrice - totalInvest - salePrice * 0.055;
     const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
-    const months = baseMonths + extraMonths;
+    const saleMonths = baseMonths + extraMonths;
+    const months = renoMonths + saleMonths;
     // Annualized ROI: (1 + ROI)^(12/months) - 1
     const roiAnnual = months > 0 && roi > -100 ? (Math.pow(1 + roi / 100, 12 / months) - 1) * 100 : 0;
-    return { totalInvest, salePrice, profit, roi, roiAnnual, months };
+    return { totalInvest, salePrice, profit, roi, roiAnnual, months, renoMonths, saleMonths };
   };
 
   return { conservative: make(0.85, 4), moderate: make(0.95, 2), optimistic: make(1.0, 0), reno };
