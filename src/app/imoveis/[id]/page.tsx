@@ -1414,9 +1414,9 @@ export default function PropertyDetailPage() {
                     <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Análise de Aluguel</h4>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="bg-zinc-800/50 rounded p-2.5">
-                        <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Aluguel Mensal</div>
-                        <div className="text-base font-bold text-blue-400 mt-0.5">{brl(inv.monthlyRent)}</div>
-                        <div className="text-[10px] text-zinc-500">Fonte: {inv.rentSource}</div>
+                        <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Aluguel Mensal{inv.rentSource.includes("Estimativa") ? " ⚠" : ""}</div>
+                        <div className={`text-base font-bold mt-0.5 ${inv.rentSource.includes("Estimativa") ? "text-orange-400" : "text-blue-400"}`}>{brl(inv.monthlyRent)}</div>
+                        <div className={`text-[10px] ${inv.rentSource.includes("Estimativa") ? "text-orange-400/70" : "text-zinc-500"}`}>Fonte: {inv.rentSource}</div>
                       </div>
                       <div className="bg-zinc-800/50 rounded p-2.5">
                         <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Yield Bruto Anual</div>
