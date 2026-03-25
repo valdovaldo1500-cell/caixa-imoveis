@@ -17,6 +17,9 @@ services:
       NEXT_PUBLIC_HCAPTCHA_SITE_KEY: ${HCAPTCHA_SITE_KEY}
       RESEND_API_KEY: ${RESEND_API_KEY}
       NOTIFICATION_EMAIL: ${NOTIFICATION_EMAIL}
+      PIPELINE_TOKEN: ${PIPELINE_TOKEN:-caixa-pipeline-2026-rs-secret}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
     networks:
       - default
