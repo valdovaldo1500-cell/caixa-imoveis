@@ -711,6 +711,130 @@ export default function InvestimentosOnlinePage() {
               </section>
             )}
 
+            {/* Expert AI Assessment */}
+            <section>
+              <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-violet-400" />
+                Expert Investment Analysis
+              </h2>
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                {EXPERT_ASSESSMENTS.map((a) => {
+                  const verdictBg =
+                    a.verdictColor === "emerald" ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" :
+                    a.verdictColor === "blue" ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" :
+                    "bg-amber-500/20 text-amber-400 border border-amber-500/30";
+                  const trendProfitUp = a.trendProfit.startsWith("+");
+                  const trendProfitDown = a.trendProfit.startsWith("-");
+                  const trendTrafficUp = a.trendTraffic.startsWith("+");
+                  const trendTrafficDown = a.trendTraffic.startsWith("-");
+                  return (
+                    <div key={a.id} className="bg-zinc-800 border border-zinc-700 rounded-xl p-5 flex flex-col gap-4">
+                      {/* Header */}
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <span className="text-sm font-mono text-zinc-500">#{a.id}</span>
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${verdictBg}`}>{a.verdict}</span>
+                          </div>
+                          <h3 className="text-white font-semibold text-base leading-tight">{a.name}</h3>
+                        </div>
+                        <a
+                          href={`https://app.empireflippers.com/listing/${a.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-zinc-500 hover:text-white transition-colors shrink-0"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </div>
+
+                      {/* Stats */}
+                      <div className="grid grid-cols-3 gap-3 text-center">
+                        <div className="bg-zinc-900 rounded-lg p-2">
+                          <div className="text-xs text-zinc-500 mb-0.5">Price</div>
+                          <div className="text-sm font-bold text-white">{a.price}</div>
+                        </div>
+                        <div className="bg-zinc-900 rounded-lg p-2">
+                          <div className="text-xs text-zinc-500 mb-0.5">Profit/mo</div>
+                          <div className="text-sm font-bold text-emerald-400">{a.monthlyProfit}</div>
+                        </div>
+                        <div className="bg-zinc-900 rounded-lg p-2">
+                          <div className="text-xs text-zinc-500 mb-0.5">Annual ROI</div>
+                          <div className="text-sm font-bold text-blue-400">{a.annualROI}</div>
+                        </div>
+                      </div>
+
+                      {/* Trend indicators */}
+                      <div className="flex gap-4 text-xs">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-zinc-500">Profit trend:</span>
+                          <span className={trendProfitUp ? "text-emerald-400 font-semibold flex items-center gap-0.5" : trendProfitDown ? "text-red-400 font-semibold flex items-center gap-0.5" : "text-zinc-400 font-semibold"}>
+                            {trendProfitUp && <ChevronUp className="w-3 h-3" />}
+                            {trendProfitDown && <ChevronDown className="w-3 h-3" />}
+                            {a.trendProfit}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-zinc-500">Traffic:</span>
+                          <span className={trendTrafficUp ? "text-emerald-400 font-semibold flex items-center gap-0.5" : trendTrafficDown ? "text-red-400 font-semibold flex items-center gap-0.5" : "text-zinc-400 font-semibold"}>
+                            {trendTrafficUp && <ChevronUp className="w-3 h-3" />}
+                            {trendTrafficDown && <ChevronDown className="w-3 h-3" />}
+                            {a.trendTraffic}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Highlights + Risks */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <div className="text-xs text-emerald-400 font-medium mb-1.5 flex items-center gap-1">
+                            <CheckCircle2 className="w-3 h-3" /> Highlights
+                          </div>
+                          <ul className="space-y-1">
+                            {a.highlights.map((h, i) => (
+                              <li key={i} className="text-xs text-zinc-400 flex gap-1.5">
+                                <span className="text-emerald-500 shrink-0 mt-0.5">+</span>
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <div className="text-xs text-red-400 font-medium mb-1.5 flex items-center gap-1">
+                            <XCircle className="w-3 h-3" /> Risks
+                          </div>
+                          <ul className="space-y-1">
+                            {a.risks.map((r, i) => (
+                              <li key={i} className="text-xs text-zinc-400 flex gap-1.5">
+                                <span className="text-red-500 shrink-0 mt-0.5">-</span>
+                                {r}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+
+                      {/* Recommendation */}
+                      <div className="text-xs text-zinc-300 bg-zinc-900 rounded-lg p-3 border border-zinc-600">
+                        <div className="text-blue-400 font-semibold mb-1 flex items-center gap-1">
+                          <ShieldCheck className="w-3 h-3" /> Investment Recommendation
+                        </div>
+                        {a.recommendation}
+                      </div>
+
+                      {/* AI Plan */}
+                      <div className="text-xs text-zinc-300 bg-zinc-900 rounded-lg p-3 border border-violet-500/30">
+                        <div className="text-violet-400 font-semibold mb-1 flex items-center gap-1">
+                          <Bot className="w-3 h-3" /> AI+VA Operating Plan
+                        </div>
+                        {a.aiPlan}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+
             {/* Charts */}
             <section>
               <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
