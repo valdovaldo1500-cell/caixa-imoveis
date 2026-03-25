@@ -1338,7 +1338,7 @@ export default function PropertyDetailPage() {
                       ) : <div className="text-xs text-zinc-600">—</div>}
                     </div>
                     {/* ZAP */}
-                    <div className="bg-zinc-800/50 rounded p-2.5">
+                    <div className={`bg-zinc-800/50 rounded p-2.5 ${zapVal > 0 ? "cursor-pointer hover:bg-zinc-700/50 hover:ring-1 hover:ring-zinc-600 transition-all" : ""}`} onClick={() => zapVal > 0 && setCompsPopup("zap")}>
                       <div className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">ZAP Imóveis</div>
                       {zapVal > 0 ? (
                         <>
