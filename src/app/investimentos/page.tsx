@@ -524,7 +524,9 @@ function computeFlipScenarios(a: Analysis, renoLevel: "light" | "medium" | "heav
     const salePrice = base * saleMult;
     const profit = salePrice - totalInvest - (salePrice * 0.055);
     const roi = totalInvest > 0 ? (profit / totalInvest) * 100 : 0;
-    return { totalInvest, salePrice, profit, roi, months: baseMonths + extraMonths };
+    const months = baseMonths + extraMonths;
+    const roiAnnual = months > 0 && roi > -100 ? (Math.pow(1 + roi / 100, 12 / months) - 1) * 100 : 0;
+    return { totalInvest, salePrice, profit, roi, roiAnnual, months };
   };
 
   return {
