@@ -610,6 +610,8 @@ export default function PropertyDetailPage() {
   const [noteSaving, setNoteSaving] = useState(false);
   const [noteLoaded, setNoteLoaded] = useState(false);
   const [renoLevel, setRenoLevel] = useState<"light" | "medium" | "heavy">("light");
+  const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
 
   const fetchProperty = useCallback(async () => {
     if (!id) return;
