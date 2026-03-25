@@ -612,6 +612,7 @@ export default function PropertyDetailPage() {
   const [renoLevel, setRenoLevel] = useState<"light" | "medium" | "heavy">("light");
   const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
+  const [compsPopup, setCompsPopup] = useState<"itbi" | "zap" | "qa" | null>(null);
 
   const fetchProperty = useCallback(async () => {
     if (!id) return;
