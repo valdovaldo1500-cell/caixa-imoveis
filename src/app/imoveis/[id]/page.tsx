@@ -301,7 +301,7 @@ function CompsModal({ propertyId, source, onClose }: { propertyId: number; sourc
                   <td className="py-1 pr-2 text-zinc-300 max-w-[180px] truncate">{String(c.logradouro || "")}, {String(c.nEndereco || "")} <span className="text-zinc-600">{String(c.dataEstimativa || "").slice(0, 10)}</span></td>
                   <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate">{String(c.finalidadeConstrucao || "—")}</td>
                   <td className="py-1 pr-2 text-right text-zinc-300">{brl(Number(c.baseCalculo || 0))}</td>
-                  <td className="py-1 pr-2 text-right text-zinc-400">{c.areaConstrPrivativa}m²</td>
+                  <td className="py-1 pr-2 text-right text-zinc-400">{String(c.areaConstrPrivativa || "—")}m²</td>
                   <td className="py-1 text-right text-zinc-300 font-medium">R$ {Math.round(Number(c.precoM2 || 0)).toLocaleString("pt-BR")}</td>
                 </tr>
               ))}</tbody>
