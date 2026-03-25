@@ -601,8 +601,8 @@ export default function InvestimentosOnlinePage() {
                         outerRadius={85}
                         paddingAngle={2}
                         dataKey="value"
-                        label={({ name, percent }) =>
-                          percent > 0.06 ? `${(percent * 100).toFixed(0)}%` : ""
+                        label={({ percent }: { percent?: number }) =>
+                          (percent ?? 0) > 0.06 ? `${((percent ?? 0) * 100).toFixed(0)}%` : ""
                         }
                         labelLine={false}
                       >
