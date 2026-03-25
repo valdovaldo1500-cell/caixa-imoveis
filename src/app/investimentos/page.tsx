@@ -429,7 +429,7 @@ function analyze(prop: Property): Analysis {
 
 // ─── Components ──────────────────────────────────────────────────────────────
 
-function ScenarioRow({ label, data, accent }: { label: string; data: Analysis["flipConservative"]; accent: string }) {
+function ScenarioRow({ label, data, accent }: { label: string; data: { totalInvest: number; salePrice: number; profit: number; roi: number; roiAnnual: number; months: number }; accent: string }) {
   return (
     <tr className="border-b border-zinc-800">
       <td className="py-2 pr-3 text-sm text-zinc-400">{label}</td>
@@ -441,7 +441,10 @@ function ScenarioRow({ label, data, accent }: { label: string; data: Analysis["f
       <td className={`py-2 px-3 text-sm text-right font-semibold ${data.roi > 0 ? accent : "text-red-400"}`}>
         {pct(data.roi)}
       </td>
-      <td className="py-2 pl-3 text-sm text-right text-zinc-400">{data.months} meses</td>
+      <td className={`py-2 px-3 text-sm text-right ${data.roiAnnual > 14.25 ? "text-green-400 font-semibold" : data.roiAnnual > 0 ? "text-zinc-300" : "text-red-400"}`}>
+        {pct(data.roiAnnual)}
+      </td>
+      <td className="py-2 pl-3 text-sm text-right text-zinc-400">{data.months}m</td>
     </tr>
   );
 }
