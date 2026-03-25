@@ -354,11 +354,22 @@ function analyze(prop: Property): Analysis {
     return { totalInvest, salePrice, profit, roi, months: flipMonthsBase };
   })();
 
-  // Rental yield
+  // Rental yield — net of ongoing costs
   const totalInvestRental = purchasePrice + renoLight + txCostBuy;
   const annualRent = monthlyRent * 12;
+  const vacancyCost = annualRent * 0.08; // 1 month/year
+  const adminCost = annualRent * 0.10; // property management
+  const manutencaoCost = purchasePrice * 0.01; // 1% of price
+  const iptuBase = appraisedValue > 0 ? appraisedValue : purchasePrice;
+  const iptuCost = iptuBase * 0.006; // ~0.6%
+  const annualCosts = vacancyCost + adminCost + manutencaoCost + iptuCost;
+  const annualNetIncome = annualRent - annualCosts;
+  const monthlyNetIncome = annualNetIncome / 12;
   const rentalYieldGross = totalInvestRental > 0 ? (annualRent / totalInvestRental) * 100 : 0;
-  const paybackMonths = monthlyRent > 0 ? Math.ceil(totalInvestRental / monthlyRent) : 999;
+  const rentalYieldNet = totalInvestRental > 0 ? (annualNetIncome / totalInvestRental) * 100 : 0;
+  const monthlyGrossYieldPct = rentalYieldGross / 12;
+  const monthlyNetYieldPct = rentalYieldNet / 12;
+  const paybackMonths = monthlyNetIncome > 0 ? Math.ceil(totalInvestRental / monthlyNetIncome) : 999;
 
   // Risk assessment
   const riskFactors: string[] = [];
