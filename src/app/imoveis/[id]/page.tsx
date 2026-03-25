@@ -255,6 +255,87 @@ interface InvAnalysis {
   dataConfidence: string;
 }
 
+function CompsModal({ propertyId, source, onClose }: { propertyId: number; source: "itbi" | "zap" | "qa"; onClose: () => void }) {
+  const [data, setData] = useState<Record<string, unknown> | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`/api/properties/${propertyId}/comparables?months=12`, { credentials: "include" })
+      .then((r) => r.json())
+      .then((d) => setData(d))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [propertyId]);
+
+  const itbiComps = data ? (((data.tier1 as { count?: number })?.count || 0) > 0
+    ? ((data.tier1 as { comparables: Array<Record<string, unknown>> }).comparables || [])
+    : ((data.tier2 as { comparables: Array<Record<string, unknown>> })?.comparables || [])) : [];
+  const zapComps = (data?.zapListings as { saleComparables?: Array<Record<string, unknown>> })?.saleComparables || [];
+  const qaComps = (data?.qaListings as { saleComparables?: Array<Record<string, unknown>> })?.saleComparables || [];
+  const usedTier1 = ((data?.tier1 as { count?: number })?.count || 0) > 0;
+  const titles: Record<string, string> = {
+    itbi: usedTier1 ? "Transacoes ITBI (ultimos 12 meses)" : "Transacoes ITBI (ultimos 18 meses)",
+    zap: "Anuncios ZAP Imoveis",
+    qa: "Anuncios QuintoAndar",
+  };
+
+  return (
+    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
+      <div className="w-[540px] max-h-[80vh] overflow-auto bg-zinc-950 border border-zinc-700 rounded-xl shadow-2xl p-4" onClick={(e) => e.stopPropagation()}>
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-sm font-semibold text-zinc-200">{titles[source]}</span>
+          <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-lg">&times;</button>
+        </div>
+        {loading ? <p className="text-xs text-zinc-500">Carregando...</p> : source === "itbi" ? (
+          itbiComps.length === 0 ? <p className="text-xs text-zinc-500">Sem transacoes ITBI</p> : (
+            <table className="w-full text-xs">
+              <thead><tr className="text-zinc-500 border-b border-zinc-800">
+                <th className="text-left py-1 pr-2">Endereco</th>
+                <th className="text-left py-1 pr-2">Tipo</th>
+                <th className="text-right py-1 pr-2">Valor</th>
+                <th className="text-right py-1 pr-2">Area</th>
+                <th className="text-right py-1">R$/m²</th>
+              </tr></thead>
+              <tbody>{itbiComps.map((c: Record<string, unknown>, i: number) => (
+                <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
+                  <td className="py-1 pr-2 text-zinc-300 max-w-[180px] truncate">{String(c.logradouro || "")}, {String(c.nEndereco || "")} <span className="text-zinc-600">{String(c.dataEstimativa || "").slice(0, 10)}</span></td>
+                  <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate">{String(c.finalidadeConstrucao || "—")}</td>
+                  <td className="py-1 pr-2 text-right text-zinc-300">{brl(Number(c.baseCalculo || 0))}</td>
+                  <td className="py-1 pr-2 text-right text-zinc-400">{c.areaConstrPrivativa}m²</td>
+                  <td className="py-1 text-right text-zinc-300 font-medium">R$ {Math.round(Number(c.precoM2 || 0)).toLocaleString("pt-BR")}</td>
+                </tr>
+              ))}</tbody>
+            </table>
+          )
+        ) : (() => {
+          const listings = source === "qa" ? qaComps : zapComps;
+          const label = source === "qa" ? "QuintoAndar" : "ZAP";
+          return listings.length === 0 ? <p className="text-xs text-zinc-500">Sem anuncios {label}</p> : (
+            <table className="w-full text-xs">
+              <thead><tr className="text-zinc-500 border-b border-zinc-800">
+                <th className="text-left py-1 pr-2">Bairro</th>
+                <th className="text-left py-1 pr-2">Tipo</th>
+                <th className="text-right py-1 pr-2">Preco</th>
+                <th className="text-right py-1 pr-2">Area</th>
+                <th className="text-right py-1">R$/m²</th>
+              </tr></thead>
+              <tbody>{listings.map((c: Record<string, unknown>, i: number) => (
+                <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
+                  <td className="py-1 pr-2 text-zinc-300 max-w-[100px] truncate">{String(c.bairro || "—")}</td>
+                  <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate">{String(c.unitType || "—")}</td>
+                  <td className="py-1 pr-2 text-right text-zinc-300">{brl(Number(c.price || 0))}</td>
+                  <td className="py-1 pr-2 text-right text-zinc-400">{Number(c.area) > 0 ? `${Math.round(Number(c.area))}m²` : "—"}</td>
+                  <td className="py-1 text-right text-zinc-300 font-medium">R$ {Math.round(Number(c.pricePerM2 || 0)).toLocaleString("pt-BR")}</td>
+                </tr>
+              ))}</tbody>
+            </table>
+          );
+        })()}
+      </div>
+    </div>
+  );
+}
+
 function analyzeProperty(prop: Property): InvAnalysis {
   const purchasePrice = n(prop.preco);
   const appraisedValue = n(prop.valorAvaliacao);
