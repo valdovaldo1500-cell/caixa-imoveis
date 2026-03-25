@@ -489,13 +489,13 @@ export default function InvestimentosOnlinePage() {
                 </div>
                 <div className="bg-zinc-800 border border-amber-500/30 rounded-xl p-4 space-y-2">
                   <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Real Estate (Caixa)</div>
-                  <div className="text-lg font-bold text-white">£100K invested</div>
+                  <div className="text-lg font-bold text-white">£100K invested (≈ R$640K)</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li className="text-amber-400 font-medium">→ ~R$3,500-5,000/month rental</li>
-                    <li>Annual yield: ~7-9% (on market value)</li>
-                    <li>ITBI: 2-3%, registro 1.5%</li>
-                    <li className="text-emerald-400">Capital gains: 30-60% discount</li>
-                    <li className="text-emerald-400">Risk: Lower (tangible asset)</li>
+                    <li className="text-amber-400 font-medium">→ ~R$3,500-5,000/month rental (gross)</li>
+                    <li>Buy at 30-60% below market value</li>
+                    <li className="text-emerald-400">Capital gains: flip for R$200-400K profit (6-12mo)</li>
+                    <li>Annual yield: 7-9% rental + 30-60% capital gains</li>
+                    <li className="text-emerald-400">Risk: Lower (tangible asset, auction discount)</li>
                   </ul>
                 </div>
                 <div className="bg-zinc-800 border border-emerald-500/30 rounded-xl p-4 space-y-2">
@@ -503,10 +503,10 @@ export default function InvestimentosOnlinePage() {
                   <div className="text-lg font-bold text-white">£100K split</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
                     <li className="text-emerald-400 font-medium">£60K online biz + £40K property</li>
-                    <li>Online: ~£2-2.4K/month</li>
-                    <li>Property: ~R$1,500-2,000/month + capital gain</li>
-                    <li className="text-emerald-400">Diversified income streams</li>
-                    <li className="text-emerald-400">Best risk-adjusted return</li>
+                    <li>Online: ~£2-2.4K/month cash flow</li>
+                    <li className="text-emerald-400">Property flip: R$100-200K profit in 6-12mo</li>
+                    <li>Property rental: ~R$1,500-2,000/month</li>
+                    <li className="text-emerald-400">Diversified: cash flow + capital gains</li>
                   </ul>
                 </div>
                 <div className="bg-zinc-800 border border-zinc-600 rounded-xl p-4 space-y-2">
