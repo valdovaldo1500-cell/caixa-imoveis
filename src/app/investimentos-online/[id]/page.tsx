@@ -26,6 +26,7 @@ import {
 import type { EFListing } from "@/data/empire-flippers-listings";
 import type { ExpertAssessment } from "@/data/expert-assessments";
 import { EXPERT_ASSESSMENTS } from "@/data/expert-assessments";
+import { DUE_DILIGENCE_CHECKLIST, PORTFOLIO_SCENARIOS } from "@/data/portfolio-analysis";
 import { NEGOTIATION_STRATEGIES, ACQUISITION_TIMELINE } from "@/data/portfolio-analysis";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
