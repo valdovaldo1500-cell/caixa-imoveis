@@ -71,8 +71,8 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     ],
     risks: [
       "Revenue DECLINING: peaked Jan 25 at $5,058/mo, now ~$3,428 (Dec 25) — 33% drop",
-      "Last 6-month avg ~$3,389 vs EF-quoted 12-mo avg (~$4,200) — EF number overstates",
-      "Asking $93K at 24x on inflated average — real multiple on current run rate is ~27x",
+      "Last 6-month avg ~$3,389 vs EF-quoted 12-mo avg (~$3,900) — EF number overstates current reality",
+      "Asking $93K at 24x (EF basis ~$3,900/mo) — real multiple on current $3,428 run rate is ~27x",
       "YouTube algorithm single-platform dependency",
       "Tech tutorial niche faces AI disruption risk (ChatGPT renders tutorials obsolete faster)",
       "Close to budget limit if combined with Ace Hoops",
