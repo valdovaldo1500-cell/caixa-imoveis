@@ -526,6 +526,115 @@ export default function InvestimentosOnlinePage() {
               </div>
             </section>
 
+            {/* Portfolio Recommendations */}
+            <section>
+              <h2 className="text-base font-semibold text-white mb-1 flex items-center gap-2">
+                <DollarSign className="w-4 h-4 text-emerald-400" />
+                Portfolio Options — £100K Budget Scenarios
+              </h2>
+              <p className="text-xs text-zinc-500 mb-3">
+                Negotiation targets assume 10-15% below asking for stable/declining, 5-8% for high-growth. All prices in USD. £1 ≈ $1.27.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                {/* Option A */}
+                <div className="bg-zinc-800 border border-zinc-600 rounded-xl p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Option A — Conservative</div>
+                    <span className="text-xs bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full">Lower risk</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white">soberish.co + Caixa Property</div>
+                  <ul className="text-xs text-zinc-400 space-y-1">
+                    <li>• soberish.co: ask $68K → <span className="text-emerald-400">target $58K (~£46K)</span></li>
+                    <li>• Caixa auction property: <span className="text-amber-400">~£54K remainder</span></li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£1,620/mo online + R$2,500-3,500 rental</li>
+                    <li>soberish: ▴15% growing, 33x, health/wellness evergreen</li>
+                    <li className="text-zinc-500">Caixa: buy 30-60% below market, flip for capital gains</li>
+                  </ul>
+                </div>
+
+                {/* Option B — RECOMMENDED */}
+                <div className="bg-zinc-800 border border-emerald-500/60 rounded-xl p-4 space-y-2 ring-1 ring-emerald-500/20">
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs font-bold text-emerald-400 uppercase tracking-wide">Option B ⭐ Recommended</div>
+                    <span className="text-xs bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-full">Best balance</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white">soberish.co + Quick Shift + Caixa</div>
+                  <ul className="text-xs text-zinc-400 space-y-1">
+                    <li>• soberish.co: ask $68K → <span className="text-emerald-400">target $55K (~£43K)</span></li>
+                    <li>• Quick Shift YT: ask $45K → <span className="text-emerald-400">target $38K (~£30K)</span></li>
+                    <li>• Caixa auction property: <span className="text-amber-400">~£27K remainder</span></li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£4,100/mo online (combined)</li>
+                    <li>Diversified: 2 niches (wellness + auto) + tangible asset</li>
+                    <li className="text-zinc-500">Quick Shift ▾5% but underpriced at 14x — recovery upside</li>
+                  </ul>
+                </div>
+
+                {/* Option C */}
+                <div className="bg-zinc-800 border border-blue-500/30 rounded-xl p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs font-bold text-blue-400 uppercase tracking-wide">Option C — YouTube Duo</div>
+                    <span className="text-xs bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded-full">Higher upside</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white">Ace Hoops + Quick Shift</div>
+                  <ul className="text-xs text-zinc-400 space-y-1">
+                    <li>• Ace Hoops WNBA: ask $71K → <span className="text-emerald-400">target $65K (~£51K)</span></li>
+                    <li>• Quick Shift YT: ask $45K → <span className="text-emerald-400">target $38K (~£30K)</span></li>
+                    <li>• Total: ~$103K (~£81K) — leaves £19K buffer/Caixa</li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£4,940/mo combined</li>
+                    <li>Ace Hoops: ▴17% growing, WNBA trend, shorts revenue</li>
+                    <li className="text-amber-400">Risk: both YouTube — platform concentration</li>
+                  </ul>
+                </div>
+
+                {/* Option D */}
+                <div className="bg-zinc-800 border border-violet-500/30 rounded-xl p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs font-bold text-violet-400 uppercase tracking-wide">Option D — High Growth</div>
+                    <span className="text-xs bg-violet-900/40 text-violet-300 px-2 py-0.5 rounded-full">Max upside</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white">Alex Griffin YT alone</div>
+                  <ul className="text-xs text-zinc-400 space-y-1">
+                    <li>• Alex Griffin: ask $95K → <span className="text-emerald-400">target $85K (~£67K)</span></li>
+                    <li>• Leaves £33K for Caixa property</li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£4,165/mo + Caixa rental</li>
+                    <li>▴91% profit growth — fastest growing in shortlist</li>
+                    <li className="text-amber-400">Risk: Family Guy parody — copyright exposure</li>
+                    <li className="text-zinc-500">1 channel dependency — platform risk</li>
+                  </ul>
+                </div>
+
+                {/* Option E */}
+                <div className="bg-zinc-800 border border-amber-500/30 rounded-xl p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Option E — SaaS + YouTube</div>
+                    <span className="text-xs bg-amber-900/40 text-amber-300 px-2 py-0.5 rounded-full">Diversified</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white">photopacks.ai + Quick Shift</div>
+                  <ul className="text-xs text-zinc-400 space-y-1">
+                    <li>• photopacks.ai: ask $76K → <span className="text-emerald-400">target $68K (~£54K)</span></li>
+                    <li>• Quick Shift YT: ask $45K → <span className="text-emerald-400">target $38K (~£30K)</span></li>
+                    <li>• Total: ~$106K (~£83K) — leaves £17K buffer</li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£4,390/mo combined</li>
+                    <li>photopacks.ai: ▴30% growing, subscription SaaS, recurring revenue</li>
+                    <li className="text-zinc-500">SaaS+YouTube = different monetization models</li>
+                  </ul>
+                </div>
+
+                {/* Decision Summary */}
+                <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-4 space-y-2">
+                  <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Decision Factors</div>
+                  <ul className="text-xs text-zinc-400 space-y-1.5">
+                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span>VA <span className="text-white">manages operations</span> — you oversee strategy only</span></li>
+                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span><span className="text-white">Option B</span> is most resilient: 2 niches + tangible asset</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>YouTube channels need <span className="text-white">content schedule continuity</span></span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>All EF listings: <span className="text-white">negotiate 60-day earnout</span> to verify P&amp;L</span></li>
+                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>Verified trends (Active Unlocks) override pre-unlock data</span></li>
+                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>£/$ rate risk — all businesses earn in USD</span></li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
             {/* Top Picks */}
             {topPicks.length > 0 && (
               <section>
