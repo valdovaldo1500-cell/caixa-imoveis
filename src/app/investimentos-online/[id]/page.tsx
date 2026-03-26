@@ -1126,6 +1126,92 @@ export default function InvestimentosOnlineDetailPage() {
                 </SectionCard>
               );
             })()}
+
+            {/* ── Section 13: 90-Day Post-Acquisition Plan ───────────────── */}
+            {data.assessment && data.assessment.verdictColor !== "red" && (() => {
+              const phases = [
+                { label: "Week 1", days: [1, 7], color: "emerald" },
+                { label: "Month 1", days: [8, 30], color: "blue" },
+                { label: "Month 2", days: [31, 60], color: "amber" },
+                { label: "Month 3", days: [61, 90], color: "violet" },
+              ] as const;
+              const getPhase = (day: number) => {
+                if (day <= 7) return "Week 1";
+                if (day <= 30) return "Month 1";
+                if (day <= 60) return "Month 2";
+                return "Month 3";
+              };
+              const milestones = POST_ACQUISITION_PLAN.filter(
+                (m) => m.listing === "all" || m.listing === id
+              );
+              const phaseColorMap: Record<string, { header: string; dot: string; badge: string }> = {
+                "Week 1": {
+                  header: "text-emerald-400",
+                  dot: "bg-emerald-500/30 border-emerald-500",
+                  badge: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30",
+                },
+                "Month 1": {
+                  header: "text-blue-400",
+                  dot: "bg-blue-500/30 border-blue-500",
+                  badge: "bg-blue-500/15 text-blue-400 border border-blue-500/30",
+                },
+                "Month 2": {
+                  header: "text-amber-400",
+                  dot: "bg-amber-500/30 border-amber-500",
+                  badge: "bg-amber-500/15 text-amber-400 border border-amber-500/30",
+                },
+                "Month 3": {
+                  header: "text-violet-400",
+                  dot: "bg-violet-500/30 border-violet-500",
+                  badge: "bg-violet-500/15 text-violet-400 border border-violet-500/30",
+                },
+              };
+              return (
+                <SectionCard icon={Clock} title="90-Day Post-Acquisition Plan" iconColor="text-emerald-400">
+                  <div className="space-y-6">
+                    {phases.map((phase) => {
+                      const items = milestones.filter((m) => getPhase(m.day) === phase.label);
+                      if (items.length === 0) return null;
+                      const colors = phaseColorMap[phase.label];
+                      return (
+                        <div key={phase.label}>
+                          <p className={`text-xs font-semibold uppercase tracking-wider mb-3 ${colors.header}`}>
+                            {phase.label}
+                          </p>
+                          <div className="relative">
+                            <div className="absolute left-[52px] top-2 bottom-2 w-px bg-zinc-700" />
+                            <div className="space-y-4">
+                              {items.map((m, idx) => (
+                                <div key={idx} className="flex items-start gap-3">
+                                  {/* Day badge */}
+                                  <div className="w-10 shrink-0 text-right">
+                                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${colors.badge}`}>
+                                      D{m.day}
+                                    </span>
+                                  </div>
+                                  {/* Dot */}
+                                  <div className={`relative z-10 shrink-0 mt-1.5 w-3 h-3 rounded-full border-2 ${colors.dot}`} />
+                                  {/* Content */}
+                                  <div className="flex-1 pb-0.5">
+                                    <p className="text-sm font-medium text-white leading-snug">{m.task}</p>
+                                    <p className="text-xs text-zinc-400 mt-0.5 leading-relaxed">{m.details}</p>
+                                    {m.listing !== "all" && (
+                                      <span className="inline-block mt-1 text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-500 border border-zinc-700">
+                                        #{m.listing}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </SectionCard>
+              );
+            })()}
           </div>
         )}
       </main>
