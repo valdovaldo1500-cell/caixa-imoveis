@@ -1,0 +1,134 @@
+{
+  "listingId": "92246",
+  "channelName": "Ace Hoops",
+  "channelHandle": "@AceHoopszn",
+  "channelUrl": "https://www.youtube.com/@AceHoopszn",
+  "niche": "WNBA / women's basketball commentary & highlights",
+  "description": "YouTube channel producing commentary-led video essays about women's professional basketball (WNBA). Covers trending storylines, game moments, and player narratives. AI voiceovers + 3 Philippine-based freelancers handle full production. Seller spends 6 hours/week overseeing quality. Strong algorithm recommendation performance (94% Browse + Suggested traffic).",
+  "monetization": "YouTube AdSense (100%). Affiliate revenue estimated but excluded from EF valuation.",
+  "price": 70599,
+  "monthlyProfit": 3070,
+  "monthlyRevenue": 3391,
+  "profitMargin": 91,
+  "multiple": 23,
+  "pricingPeriod": "12 Months",
+  "firstMadeMoney": "August 2024",
+  "age": "1 year 7 months",
+  "workPerWeek": "6 hours avg (8 in-season May-Sep, 3-4 off-season Oct-Apr)",
+  "registeredIn": "Netherlands",
+  "customerMarkets": ["United States", "Philippines", "Canada"],
+
+  "verifiedTrends": {
+    "profitTrend": "+17%",
+    "period": "9 months"
+  },
+
+  "verifiedPnL": {
+    "lastMonthRevenue": 3007.53,
+    "lastMonthProfit": 2688.53,
+    "twelveMonthRevenue": 40697.24,
+    "twelveMonthProfit": 36834.24
+  },
+
+  "channelStats": {
+    "subscribers": 23000,
+    "totalVideos": 81,
+    "totalViews": 19120874,
+    "avgViewsPerVideo": 236060,
+    "avgWatchTime": "8:02",
+    "monthlyViews": 896035,
+    "subscribersGainedPerMonth": 779,
+    "trafficSources": {
+      "browseFeatures": "60.3%",
+      "suggestedVideos": "33.9%",
+      "youtubeSearch": "3.0%",
+      "directOrUnknown": "2%"
+    },
+    "trafficSourceVolume_12mo": {
+      "browseFeatures": "7.4M views",
+      "suggestedVideos": "4.1M views",
+      "youTubeSearch": "370.1K views",
+      "direct": "185.8K views"
+    }
+  },
+
+  "topVideos": [
+    { "title": "Every Time Caitlin Clark Has SHUTDOWN Angel Reese in the WNBA 🔥 - The Movie (2025)", "views": 1974442 },
+    { "title": "Caitlin Clark SHUTS UP Angel Reese And BOOING CROWD With CAREER High 🔥", "views": 1529953 },
+    { "title": "When Caitlin Clark BROKE Steph Curry's RECORD For Three Pointers 🔥", "views": 1502239 },
+    { "title": "Caitlin Clark SHOCKS The World In Team USA Return With Double-Double 🔥", "views": 11971, "note": "most recent, 14 days old" }
+  ],
+
+  "productionWorkflow": {
+    "step1": "Identify trending topic/storyline from WNBA news cycle",
+    "step2": "Brief scriptwriter (Philippines, €20/script)",
+    "step3": "Script sent to AI voiceover tool (no human VO artist)",
+    "step4": "Clipper/researcher sources relevant game footage (Philippines, €10/video)",
+    "step5": "Editor assembles video (Philippines, €40/video)",
+    "step6": "Owner reviews edit, requests changes, approves",
+    "step7": "Upload to YouTube and schedule",
+    "step8": "Review analytics periodically",
+    "totalProductionCost": "~€70 per video",
+    "videosPerMonth": "~4-6 during season",
+    "monthlyProductionCost": "~€280-420/month"
+  },
+
+  "sellerQandA": {
+    "trafficDeclineExplanation": "Traffic and revenue fluctuations are mainly driven by seasonality and trending topics within the niche. Videos tied to high-interest players, news cycles, and major events naturally generate spikes, while off-season periods tend to be more stable. This is typical for content-driven YouTube channels.",
+    "employees": "There are no formal employees. The channel operates with independent freelancers for editing and production when needed. This structure keeps the business flexible and easy to scale.",
+    "growthOpportunities": "Growth could come from increasing upload consistency, expanding topic coverage within the niche, and further optimizing thumbnails and titles. There is also room to build a broader brand around the channel and explore additional monetization methods.",
+    "whySelling": "Wants to explore other opportunities.",
+    "training": "30 days email support and/or calls.",
+    "affiliateNote": "Seller owns a men's basketball channel (same sport). Uses shared affiliate links across both — affiliate revenue for this channel is estimated only, excluded from EF valuation."
+  },
+
+  "earningsAnalysis": {
+    "trend": "Growing +17% profit over 9 months — slower than other finalists but steady",
+    "seasonal": "WNBA season May-September. Off-season (Oct-April) has lower traffic and revenue.",
+    "caitlinClarkConcentration": "RISK: Top 3 videos by views are all about Caitlin Clark. If she retires, gets injured, or engagement moves on, channel could decline.",
+    "affiliateRevenue": "Excluded from EF valuation due to shared links with seller's other channel. Adds positive uncertainty.",
+    "monthlyRange": "Seasonal variation expected — likely $1,500-2,000 off-season vs $4,000+ during peak season"
+  },
+
+  "trafficAnalysis": {
+    "summary": "94% algorithm-driven (Browse + Suggested). Strong recommendation signal — channel punches above its weight.",
+    "dependency": "HIGH — 94% YouTube algorithm. If recommendation signals drop, revenue could drop immediately.",
+    "avgViews": "236,060 per video average — very high for 23K subscriber channel",
+    "viewsVsSubscribers": "Channel gets 896K monthly views with only 23K subs — exceptional recommendation ratio",
+    "searchTraffic": "Only 3% YouTube search — very low keyword targeting. Growth lever available."
+  },
+
+  "seasonalityRisk": {
+    "severity": "MEDIUM",
+    "wnbaSeason": "May through September (5 months)",
+    "offSeason": "October through April (7 months)",
+    "mitigation": "Seller says off-season is 'more stable' — evergreen content (all-time moments, comparisons, history) continues performing year-round",
+    "offSeasonContent": "College basketball (March Madness), pre-season predictions, player analysis keep channel active"
+  },
+
+  "risks": [
+    "100% YouTube AdSense — zero revenue diversification",
+    "94% algorithm-dependent traffic — any recommendation signal change is immediately felt",
+    "Caitlin Clark concentration — 3 of top 3 videos are about her. Overexposed to single player.",
+    "WNBA seasonal niche — off-season Oct-April may see 40-60% revenue drop",
+    "Only 23K subscribers — small audience, heavy reliance on Browse/Suggested to reach viewers",
+    "No formal contracts with Philippine freelancers — could leave after sale",
+    "Netherlands registration — business transfer may have administrative complexity",
+    "Seller uses shared affiliate links with another channel — affiliate revenue figure is estimated"
+  ],
+
+  "opportunities": [
+    "Add sponsorships — extremely viable at current view count (product integrations, brand deals)",
+    "Expand coverage beyond WNBA to college basketball, international women's leagues",
+    "Increase search traffic — only 3% from search now. Target more keyword-optimized titles.",
+    "Create evergreen content (player rankings, all-time moments) for off-season revenue stability",
+    "Add Patreon/membership for superfans",
+    "Repurpose clips into Shorts for subscriber growth",
+    "YouTube channel is already optimized for automation — ideal for AI+VA model"
+  ],
+
+  "screenshots": {
+    "listingOverview": "ss_40253o0od",
+    "sellerQAs": "ss_5662pgh8a"
+  }
+}
