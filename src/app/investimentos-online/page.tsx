@@ -380,6 +380,17 @@ export default function InvestimentosOnlinePage() {
     "90541", // culinary blog — Google algo victim, Feb 26: $477/mo
     "89555", // photopacks.ai — traffic -78% crash
     "91138", // oakleyforum.com — 76% bot traffic, revenue -49%
+    "92062", // entertainment YouTube — extreme volatility ($0–$13K)
+    "88899", // YouTube product reviews — crashing, "fair use" risk
+    "83071", // content site — 90% profit collapse in 12mo
+    "83260", // Amazon Merch+KDP — 36x, 59% margin, platform risk
+    "87216", // SaaS web dev — too small ($1,121/mo)
+    "89017", // KDP books — 8mo old, AI-written, dying
+    "85655", // coupons YouTube — 30hrs/wk full-time job
+    "83091", // KDP planners — 70% from 1 book, concentration risk
+    "92299", // AI music gifts — $103K overpriced for 1yr old
+    "90674", // video game assets — dead, Feb $230
+    "90449", // removed from EF marketplace
   ]);
 
   const topPicks = useMemo(
