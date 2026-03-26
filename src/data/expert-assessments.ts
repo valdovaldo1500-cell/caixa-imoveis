@@ -192,7 +192,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "RPM crashed from $11.21 (Jul 24) to $2.52 (Feb 26) — real traffic is ~343K not 1.4M page views",
       "Revenue down 49%: $7,078/mo (Jul 24) to $3,606/mo (Feb 26)",
       "Declining ~12% every 6 months — clear downward trend",
-      "$127K asking price = 35x multiple on declining metrics — wildly overpriced",
+      "$127K asking price = 38x multiple on declining metrics — wildly overpriced",
       "PayPal/Stripe subscription transfer complications — risk of heavy subscriber churn",
       "66% Direct traffic = classic bot signature (real users come from search/referral)",
       "Oakley brand niche is narrow — limited growth ceiling",
