@@ -415,7 +415,7 @@ export const POST_ACQUISITION_PLAN: PostAcquisitionMilestone[] = [
   { day: 60, task: "Month 2 P&L review + strategy adjustment", details: "Full financial review. Decide whether to increase/decrease publishing. Adjust AI prompts based on performance.", listing: "all" },
 
   // Month 3 (Days 61-90)
-  { day: 65, task: "WNBA season launch", details: "May 2026: season starts. Execute pre-planned content calendar. Monitor daily revenue.", listing: "92246" },
+  { day: 65, task: "Mid-season review: optimize Ace Hoops content", details: "WNBA season is ~2 months in. Review top-performing videos, double down on winning formats. Adjust AI prompts.", listing: "92246" },
   { day: 75, task: "Apply learnings from publishing cadence experiment", details: "Roll out successful changes to all tech channels. Drop unsuccessful experiments.", listing: "90544" },
   { day: 90, task: "Seller support window closes", details: "Final questions to seller. Document all remaining tribal knowledge. Full operational independence.", listing: "all" },
   { day: 90, task: "Quarter 1 comprehensive review", details: "Full P&L analysis. Calculate actual ROI vs projections. Decision: continue, expand, or adjust strategy.", listing: "all" },
