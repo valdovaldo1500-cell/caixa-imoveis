@@ -223,7 +223,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "$60K price fits easily in budget as standalone or paired with Ace Hoops",
     ],
     risks: [
-      "Revenue declining: recent 3-month avg $2,146 vs EF-quoted $2,603 (-18%)",
+      "Revenue declining: recent 3-month avg $1,962 vs EF-quoted $2,603 (-25%)",
       "Only 50 published videos — small content library",
       "Less than 1 video/month current cadence — growth requires more publishing",
       "YouTube algorithm dependency",
