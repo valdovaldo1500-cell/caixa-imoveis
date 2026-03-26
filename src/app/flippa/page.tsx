@@ -698,13 +698,13 @@ export default function FlippaPage() {
                     <div className="text-xs font-bold text-emerald-400 uppercase tracking-wide">Option A — All-In Online</div>
                     <span className="text-xs bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-full">Max cash flow</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">2× Flippa Top Picks (TBD)</div>
+                  <div className="text-sm font-semibold text-white">2× Strong Picks (Budget: ~$80K each)</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• Target: 2 assets ~$70-80K each</li>
-                    <li>• Combined budget: $150-160K</li>
-                    <li className="text-emerald-400 font-medium">Monthly target: ~$5-6K/mo combined</li>
-                    <li>Focus on SaaS or Newsletter for recurring revenue</li>
-                    <li className="text-zinc-500">Caveat: depends on finding 2 quality assets simultaneously</li>
+                    <li>• e.g. #11735360 ($17K) + #12193746 ($92K) = $109K total</li>
+                    <li>• Leaves $50K+ reserve for improvements/VA</li>
+                    <li className="text-emerald-400 font-medium">Monthly target: ~$4-5K/mo combined</li>
+                    <li>Diversified: Content + Amazon FBA hedge</li>
+                    <li className="text-zinc-500">Negotiate: ask for 60-day earnout on each</li>
                   </ul>
                 </div>
 
