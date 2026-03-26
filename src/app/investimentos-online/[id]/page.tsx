@@ -624,7 +624,6 @@ export default function InvestimentosOnlineDetailPage() {
                   <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-3">
                     <p className="text-xs text-zinc-400">
                       <span className="text-emerald-400 font-medium">Total VA budget estimate: </span>
-                      ${VA_PLANS[id].reduce((acc) => acc, 0) && ""}
                       {VA_PLANS[id].map(v => v.costPerMonth).join(" + ")}
                     </p>
                     <p className="text-xs text-zinc-500 mt-1">
