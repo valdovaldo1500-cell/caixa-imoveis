@@ -413,7 +413,7 @@ export default function InvestimentosOnlineDetailPage() {
                             color: "#fff",
                             fontSize: "12px",
                           }}
-                          formatter={(value: number) => [`$${value.toLocaleString()}`, "Profit"]}
+                          formatter={(value) => [`$${Number(value).toLocaleString()}`, "Profit"]}
                           labelStyle={{ color: "#a1a1aa" }}
                         />
                         <Line
