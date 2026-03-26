@@ -531,7 +531,10 @@ export default function InvestimentosOnlinePage() {
               <div className="mt-3 text-xs text-zinc-500 border-t border-zinc-700/50 pt-3">
                 <span className="text-red-400 font-medium">Do NOT buy: </span>
                 #92180 ahoyvietnam.com (Anthony&apos;s personal brand, 27K followers know him) ·
-                #92105 homemadegraceful (Pinterest 92% dependency + female persona embedded in content — can&apos;t swap writer)
+                #92105 homemadegraceful (Pinterest 92% + female persona — can&apos;t swap writer) ·
+                #89555 photopacks.ai at asking price (traffic -78% crash Nov 25, profit -37% from peak — only viable at $45-50K) ·
+                #84353 tech education (89% traffic drop, revenue collapsed) ·
+                #90541 culinary blog (Google algo victim, Feb 26: $477/mo)
               </div>
             </section>
 
