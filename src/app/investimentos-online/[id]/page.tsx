@@ -968,9 +968,10 @@ export default function InvestimentosOnlineDetailPage() {
                 </div>
               </div>
             </SectionCard>
+            )}
 
             {/* ── Section 11: Due Diligence Checklist ───────────────────── */}
-            {(() => {
+            {data.assessment && data.assessment.verdictColor !== "red" && (() => {
               const categories = Array.from(new Set(DUE_DILIGENCE_CHECKLIST.map((i) => i.category)));
               const doneCount = DUE_DILIGENCE_CHECKLIST.filter((i) => i.status === "done").length;
               const totalCount = DUE_DILIGENCE_CHECKLIST.filter((i) => i.status !== "not-applicable").length;
