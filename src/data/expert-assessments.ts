@@ -198,7 +198,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "Oakley brand niche is narrow — limited growth ceiling",
     ],
     recommendation:
-      "DO NOT BUY. The traffic 'growth' is fake — bot/spam traffic from China and Singapore that the seller admits to. RPM crashed from $11 to $2.50, proving the new traffic generates no ad revenue. Real human traffic is estimated at ~343K page views (down from 632K in Jul 24 = 46% real traffic decline). Revenue has fallen 49% in 18 months ($7,078 to $3,606). At $127K asking price, this is a 35x multiple on a declining asset — walk away.",
+      "DO NOT BUY. The traffic 'growth' is fake — bot/spam traffic from China and Singapore that the seller admits to. RPM crashed from $11 to $2.50, proving the new traffic generates no ad revenue. Real human traffic is estimated at ~343K page views (down from 632K in Jul 24 = 46% real traffic decline). Revenue has fallen 49% in 18 months ($7,078 to $3,606). At $127K asking price, this is a 38x multiple on a declining asset — walk away.",
     aiPlan:
       "N/A — eliminated from consideration.",
   },
