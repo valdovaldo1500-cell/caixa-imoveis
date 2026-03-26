@@ -37,7 +37,7 @@ import {
 import type { EFListing } from "@/data/empire-flippers-listings";
 import { EXPERT_ASSESSMENTS } from "@/data/expert-assessments";
 
-const UPDATED_AT = "March 26, 2026 (final analysis — 4 finalists with full due diligence)";
+const UPDATED_AT = "March 26, 2026 (final analysis — verified earnings data, 2 core picks + 1 conditional)";
 const BUDGET_USD = 160000;
 
 type SortKey =
