@@ -894,6 +894,66 @@ export default function InvestimentosOnlinePage() {
               </div>
             </section>
 
+            {/* Portfolio Sensitivity Analysis */}
+            <section>
+              <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-amber-400" />
+                Portfolio Sensitivity Analysis
+              </h2>
+              <div className="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-zinc-900 border-b border-zinc-700">
+                        <th className="px-4 py-3 text-left font-medium text-zinc-400">Scenario</th>
+                        <th className="px-4 py-3 text-right font-medium text-zinc-400">Revenue Change</th>
+                        <th className="px-4 py-3 text-right font-medium text-zinc-400">Monthly Profit</th>
+                        <th className="px-4 py-3 text-right font-medium text-zinc-400">Annual ROI</th>
+                        <th className="px-4 py-3 text-right font-medium text-zinc-400">Payback (mo)</th>
+                        <th className="px-4 py-3 text-left font-medium text-zinc-400">Verdict</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {SENSITIVITY_ANALYSIS.map((s, i) => {
+                        const isBase = s.revenueChange === 0;
+                        const roiColor = s.annualROI > 40 ? "text-emerald-400" : s.annualROI >= 20 ? "text-blue-400" : "text-amber-400";
+                        const revColor = s.revenueChange > 0 ? "text-emerald-400" : s.revenueChange < 0 ? "text-red-400" : "text-zinc-400";
+                        const rowBg = isBase
+                          ? "bg-zinc-700/50 border-b border-zinc-600"
+                          : `${i % 2 === 0 ? "bg-zinc-900" : "bg-zinc-950"} border-b border-zinc-800`;
+                        return (
+                          <tr key={i} className={rowBg}>
+                            <td className={`px-4 py-2.5 font-medium ${isBase ? "text-white" : "text-zinc-300"}`}>
+                              {s.name}
+                              {isBase && <span className="ml-2 text-[10px] bg-zinc-600 text-zinc-300 px-1.5 py-0.5 rounded-full font-semibold uppercase tracking-wide">Base</span>}
+                            </td>
+                            <td className={`px-4 py-2.5 text-right font-semibold ${revColor}`}>
+                              {s.revenueChange > 0 ? `+${s.revenueChange}%` : s.revenueChange === 0 ? "—" : `${s.revenueChange}%`}
+                            </td>
+                            <td className="px-4 py-2.5 text-right font-semibold text-white">
+                              ${s.monthlyProfit.toLocaleString()}
+                            </td>
+                            <td className={`px-4 py-2.5 text-right font-bold ${roiColor}`}>
+                              {s.annualROI.toFixed(1)}%
+                            </td>
+                            <td className="px-4 py-2.5 text-right text-zinc-300">
+                              {s.paybackMonths}
+                            </td>
+                            <td className="px-4 py-2.5 text-zinc-400 max-w-xs">
+                              {s.verdict}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="px-4 py-3 border-t border-zinc-700 text-xs text-zinc-500">
+                  Based on primary portfolio: Ace Hoops ($62K) + 3× Tech YouTube ($79K) = $141K total investment
+                </div>
+              </div>
+            </section>
+
             {/* Caixa vs Online Business Comparison */}
             {caixaProps.length > 0 && (
               <section>
