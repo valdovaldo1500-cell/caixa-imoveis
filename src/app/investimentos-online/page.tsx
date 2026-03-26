@@ -686,7 +686,7 @@ export default function InvestimentosOnlinePage() {
                 {/* Option D — Tech YouTube only */}
                 <div className="bg-zinc-800 border border-zinc-600 rounded-xl p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Option D — Single Asset</div>
+                    <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Option C — Single Asset</div>
                     <span className="text-xs bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full">Wait for better picks</span>
                   </div>
                   <div className="text-sm font-semibold text-white">3× Tech YouTube only</div>
