@@ -766,7 +766,7 @@ export default function InvestimentosOnlineDetailPage() {
                           {a.trendProfit}
                         </td>
                         <td className="text-right py-2 px-2 text-zinc-400">
-                          {Math.round(parseFloat(a.price.replace(/[$,]/g, "")) / parseFloat(a.monthlyProfit.replace(/[$,]/g, "")))}x
+                          {(() => { const p = parseFloat(a.price.replace(/[$,]/g, "")); const m = parseFloat(a.monthlyProfit.replace(/[$,]/g, "")); return isFinite(p / m) ? `${Math.round(p / m)}x` : "—"; })()}
                         </td>
                         <td className="pl-2 py-2">
                           <VerdictBadge verdict={a.verdict.length > 15 ? a.verdict.slice(0, 15) + "…" : a.verdict} color={a.verdictColor} />
