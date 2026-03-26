@@ -940,6 +940,7 @@ export default function InvestimentosOnlineDetailPage() {
             })()}
 
             {/* ── Acquisition Timeline ───────────────────────────────────── */}
+            {data.assessment && data.assessment.verdictColor !== "red" && (
             <SectionCard
               icon={Clock}
               title="Acquisition Timeline"
