@@ -365,8 +365,24 @@ export default function InvestimentosOnlinePage() {
     return l;
   }, [listings, filterRec, filterCat, filterStatus, sortKey, sortDir]);
 
+  // IDs eliminated after verified earnings analysis (Chart.js data extraction, March 2026)
+  const ELIMINATED_IDS = new Set([
+    "92105", // homemadegraceful — female persona + Pinterest 92%
+    "92180", // ahoyvietnam — personal brand (Anthony)
+    "92295", // Alex Griffin — Family Guy copyright
+    "88055", // Pinterest sobriety blog
+    "92391", // personal brand confirmed
+    "86127", // 74% Pinterest, 35hrs/wk
+    "86318", // single technician Canada
+    "91137", // 20hrs storytelling
+    "90535", // paid ads, seller competing
+    "84353", // tech education — 89% traffic drop, collapsed
+    "90541", // culinary blog — Google algo victim, Feb 26: $477/mo
+    "89555", // photopacks.ai — traffic -78% crash
+  ]);
+
   const topPicks = useMemo(
-    () => listings.filter((l) => l.recommendation === "top_pick" && l.status !== "pending_sold"),
+    () => listings.filter((l) => l.recommendation === "top_pick" && l.status !== "pending_sold" && !ELIMINATED_IDS.has(l.id)),
     [listings]
   );
   const manageable = listings.filter((l) => l.aiManageable);
