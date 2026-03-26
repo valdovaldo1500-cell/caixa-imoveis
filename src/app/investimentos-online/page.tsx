@@ -669,7 +669,7 @@ export default function InvestimentosOnlinePage() {
                 {/* Option C */}
                 <div className="bg-zinc-800 border border-amber-500/30 rounded-xl p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Option C — Conservative</div>
+                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Option B — Conservative</div>
                     <span className="text-xs bg-amber-900/40 text-amber-300 px-2 py-0.5 rounded-full">Lower risk</span>
                   </div>
                   <div className="text-sm font-semibold text-white">Ace Hoops + Caixa Property</div>
