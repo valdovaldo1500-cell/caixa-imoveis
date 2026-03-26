@@ -298,9 +298,35 @@ function TopPickCard({ listing }: { listing: EFListing }) {
 type SortDir = "desc" | "asc";
 
 
+interface CaixaProp {
+  caixaId: string;
+  cidade: string;
+  bairro: string | null;
+  tipoImovel: string | null;
+  quartos: number | null;
+  vagas: number | null;
+  areaTotalM2: number | null;
+  preco: number;
+  precoUsd: number;
+  desconto: number;
+  score: number;
+  aceitaFinanciamento: boolean | null;
+  modalidadeVenda: string | null;
+  linkCaixa: string | null;
+  marketValue: number | null;
+  grossMonthlyRentBrl: number;
+  netMonthlyRentBrl: number;
+  netMonthlyRentUsd: number;
+  annualNetYieldPct: number;
+  equityGainAtPurchasePct: number;
+  totalCapitalBrl: number;
+  totalCapitalUsd: number;
+}
+
 export default function InvestimentosOnlinePage() {
   const [listings, setListings] = useState<EFListing[]>([]);
   const [loading, setLoading] = useState(true);
+  const [caixaProps, setCaixaProps] = useState<CaixaProp[]>([]);
   const [filterRec, setFilterRec] = useState<string>("all");
   const [filterCat, setFilterCat] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("for_sale");
@@ -315,6 +341,15 @@ export default function InvestimentosOnlinePage() {
       })
       .catch(console.error)
       .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/investimentos-online/caixa-top", { credentials: "include" })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.properties) setCaixaProps(d.properties);
+      })
+      .catch(console.error);
   }, []);
 
   const filtered = useMemo(() => {
