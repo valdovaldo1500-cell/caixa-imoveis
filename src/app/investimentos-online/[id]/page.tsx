@@ -813,12 +813,12 @@ export default function InvestimentosOnlineDetailPage() {
                   <p>3× Tech YouTube — faceless, 10K videos, 1hr/wk, negotiate to $79K</p>
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-2.5">
-                  <p className="text-zinc-300 font-medium mb-1">Lowest owner time</p>
-                  <p>Tech YouTube — ~1hr/week (fully outsourced production)</p>
+                  <p className="text-zinc-300 font-medium mb-1">Alternative if #90544 fails</p>
+                  <p>#91304 Faceless Tutorials — $60K, 2hrs/wk, 94% margin, AI-scriptable</p>
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-2.5">
-                  <p className="text-zinc-300 font-medium mb-1">Biggest risk mitigated</p>
-                  <p>All remaining picks are faceless — no personal brand dependency</p>
+                  <p className="text-zinc-300 font-medium mb-1">18 listings analyzed, 14 eliminated</p>
+                  <p>All surviving picks are faceless YouTube — no personal brand risk</p>
                 </div>
               </div>
             </SectionCard>
