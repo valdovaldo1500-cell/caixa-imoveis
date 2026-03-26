@@ -109,7 +109,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "Fast-moving AI space — product may be commoditised within 12-18 months",
     ],
     recommendation:
-      "Verified data (Chart.js) shows traffic crashed 78% in November 2025 — from 49K sessions in Oct to ~11K in Nov-Feb. This is not a blip. The SaaS subscription model has buffered revenue so far ($3,965 peak → $2,513 now), but without new signups the churn will accelerate. At $76,200 asking price, the 32x multiple on declining metrics is unjustifiable. Pass unless you can negotiate to $45-50K (~19-20x on current run rate) AND you have a clear customer acquisition plan. Only consider if Ace Hoops and Tech YouTube aren't available.",
+      "Verified data (Chart.js) shows traffic crashed 78% in November 2025 — from 49K sessions in Oct to ~11K in Nov-Feb. This is not a blip. The SaaS subscription model has buffered revenue so far ($3,965 peak → $2,513 now), but without new signups the churn will accelerate. At $76,200 asking price, the 30x multiple on declining metrics is unjustifiable. Pass unless you can negotiate to $45-50K (~18-20x on current run rate) AND you have a clear customer acquisition plan. Only consider if Ace Hoops and Tech YouTube aren't available.",
     aiPlan:
       "If purchased at $45-50K: Claude handles customer support. VA manages Reddit marketing and social channels. Buyer maintains Django/AWS stack. Priority: rebuild SEO traffic and add B2B outreach. 5hrs/week.",
   },
