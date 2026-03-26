@@ -486,24 +486,24 @@ export default function InvestimentosOnlinePage() {
 
               <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
                 <div className="bg-zinc-900/60 rounded-xl p-3">
-                  <div className="text-xs text-zinc-500 mb-0.5">Ace Hoops price</div>
-                  <div className="text-base font-bold text-white">$70,599</div>
-                  <div className="text-xs text-zinc-500">~£56K · target $62K (~£49K)</div>
+                  <div className="text-xs text-zinc-500 mb-0.5">Ace Hoops target</div>
+                  <div className="text-base font-bold text-white">$62K</div>
+                  <div className="text-xs text-zinc-500">ask $70,599 → negotiate (~£49K)</div>
                 </div>
                 <div className="bg-zinc-900/60 rounded-xl p-3">
-                  <div className="text-xs text-zinc-500 mb-0.5">Annual ROI</div>
-                  <div className="text-base font-bold text-emerald-400">52%</div>
-                  <div className="text-xs text-zinc-500">$3,070/mo profit · verified ▴17%</div>
+                  <div className="text-xs text-zinc-500 mb-0.5">Tech YouTube target</div>
+                  <div className="text-base font-bold text-blue-400">$79K</div>
+                  <div className="text-xs text-zinc-500">ask $93,608 → negotiate (~£62K)</div>
                 </div>
                 <div className="bg-zinc-900/60 rounded-xl p-3">
-                  <div className="text-xs text-zinc-500 mb-0.5">Remaining budget</div>
-                  <div className="text-base font-bold text-blue-400">~£51K</div>
-                  <div className="text-xs text-zinc-500">photopacks.ai OR Caixa property</div>
+                  <div className="text-xs text-zinc-500 mb-0.5">Combined total</div>
+                  <div className="text-base font-bold text-emerald-400">~$141K</div>
+                  <div className="text-xs text-zinc-500">~£111K — within $160K budget</div>
                 </div>
                 <div className="bg-zinc-900/60 rounded-xl p-3">
                   <div className="text-xs text-zinc-500 mb-0.5">Owner Time</div>
-                  <div className="text-base font-bold text-violet-400">~3–6 hrs/wk</div>
-                  <div className="text-xs text-zinc-500">Filipino freelancers handle production</div>
+                  <div className="text-base font-bold text-violet-400">~4–7 hrs/wk</div>
+                  <div className="text-xs text-zinc-500">AI scripts + VA production both channels</div>
                 </div>
               </div>
 
