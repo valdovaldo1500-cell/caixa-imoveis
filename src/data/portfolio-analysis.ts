@@ -189,7 +189,7 @@ export const PORTFOLIO_SCENARIOS: PortfolioScenario[] = [
     totalHoursPerWeek: 5,
     correlationRisk: "high", // both YouTube
     description:
-      "Best risk-adjusted return. Ace Hoops provides seasonal upside (WNBA May-Oct peak $5,444/mo), Tech YouTube provides year-round base income ($3,428/mo). Both faceless, AI-manageable. Combined off-season: ~$4,100/mo. Combined peak season: ~$8,900/mo. Total budget: $141K of $160K, leaving $19K buffer for operating expenses and growth investments.",
+      "Best risk-adjusted return. Ace Hoops provides seasonal upside (WNBA May-Oct peak $5,444/mo), Tech YouTube provides year-round base income ($3,428/mo). Both faceless, AI-manageable. Combined off-season: ~$5,300/mo. Combined peak season: ~$8,900/mo. Total budget: $141K of $160K, leaving $19K buffer for operating expenses and growth investments.",
   },
   {
     name: "Alternative: Ace Hoops + Faceless Tutorials",
