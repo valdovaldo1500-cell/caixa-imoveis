@@ -19,15 +19,38 @@
   "customerMarkets": ["United States", "Philippines", "Canada"],
 
   "verifiedTrends": {
-    "profitTrend": "+17%",
-    "period": "9 months"
+    "profitTrend": "Seasonal — grew $1,609 (Nov 24) to $5,444 (Aug 25 WNBA peak), Feb 26 off-season $2,689",
+    "period": "19 months (Nov 2024 – Feb 2026)",
+    "yoyOffSeason": "Nov -24%, Dec +26%, Jan -34%, Feb +2% — mixed but essentially flat off-season YoY",
+    "note": "Pattern is SEASONAL not declining. Buy in March = full 2026 season ahead."
   },
 
   "verifiedPnL": {
-    "lastMonthRevenue": 3007.53,
     "lastMonthProfit": 2688.53,
-    "twelveMonthRevenue": 40697.24,
-    "twelveMonthProfit": 36834.24
+    "lastMonthRevenue": 3007.53,
+    "peakMonthProfit": 5443.89,
+    "peakMonth": "August 2025",
+    "chartDataExtracted": "2025-03-26",
+    "monthlyProfitHistory": {
+      "Nov 2024": 1609.32,
+      "Dec 2024": 1948.17,
+      "Jan 2025": 2431.48,
+      "Feb 2025": 2636.95,
+      "Mar 2025": 3985.90,
+      "Apr 2025": 2702.23,
+      "May 2025": 3005.21,
+      "Jun 2025": 4046.47,
+      "Jul 2025": 4344.63,
+      "Aug 2025": 5443.89,
+      "Sep 2025": 3584.95,
+      "Oct 2025": 1730.59,
+      "Nov 2025": 1229.56,
+      "Dec 2025": 2460.80,
+      "Jan 2026": 1611.48,
+      "Feb 2026": 2688.53
+    },
+    "twelveMonthProfit": 36834.24,
+    "twelveMonthRevenue": 40697.24
   },
 
   "channelStats": {
