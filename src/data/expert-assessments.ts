@@ -208,9 +208,9 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     verdict: "BUY IF NEGOTIATED",
     verdictColor: "blue",
     price: "$59,863",
-    monthlyProfit: "$2,146",
-    annualROI: "43%",
-    trendProfit: "-18% from 12mo avg",
+    monthlyProfit: "$1,962",
+    annualROI: "39%",
+    trendProfit: "-25% from 12mo avg",
     trendTraffic: "70K+ subscribers",
     highlights: [
       "FACELESS channel — no personal brand risk, any operator can run this",
