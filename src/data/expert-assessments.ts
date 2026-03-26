@@ -16,6 +16,37 @@ export interface ExpertAssessment {
 
 export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
+    id: "92180",
+    name: "ahoyvietnam.com",
+    verdict: "CAUTION — PERSONAL BRAND",
+    verdictColor: "amber",
+    price: "$86,459",
+    monthlyProfit: "$2,790",
+    annualROI: "39%",
+    trendProfit: "+41%",
+    trendTraffic: "+581%",
+    highlights: [
+      "581% traffic growth — strongest growth trajectory of all finalists",
+      "86.6% Google organic search traffic — best quality traffic source",
+      "27,000+ Facebook group members across 3 Vietnam travel communities",
+      "Display ads not yet implemented — adding Mediavine/Ezoic could add $1,000-2,000/mo immediately",
+      "89% profit margin, US-registered, clean transfer",
+      "Vietnam tourism is a rapidly growing market",
+    ],
+    risks: [
+      "CRITICAL: Personal brand — seller 'Anthony' (US expat in Vietnam) is the face of the site with his photo, bio, and Google Local Guide credentials throughout",
+      "27K Facebook group members know Anthony personally — community could disengage after sale",
+      "Affiliate accounts not transferable — buyer must create own accounts before transfer",
+      "Revenue recognized on accrual basis — travel cancellations apply conservative adjustment",
+      "15hrs/week for solo ops (content writing + 3 Facebook group moderation)",
+      "Single-destination niche (Vietnam only) — concentration risk",
+    ],
+    recommendation:
+      "Strong SEO fundamentals, exceptional growth, and untapped monetization (no display ads yet). BUT the site is built around the seller's personal identity as 'Anthony', a US expat living in Da Nang. His face, bio, and Google Local Guide credibility are central to the site's authority. The 27K Facebook group members follow HIM. A new owner without Vietnam residency will struggle to maintain community authenticity. Consider only if you're comfortable rebranding the site or hiring a Vietnam-based writer as the new face. Negotiate to $70-75K given transition complexity.",
+    aiPlan:
+      "VA moderates Facebook groups (2hrs/day). Claude writes new travel guides in a neutral editorial style (removing personal pronouns, phasing out Anthony's persona). VA replies to comments and group posts. Owner manages affiliate account setup and site rebrand (1-2 month transition period). Display ads added in month 1. Target: 5hrs/week owner time post-transition.",
+  },
+  {
     id: "92105",
     name: "homemadegraceful.com",
     verdict: "STRONG BUY",
