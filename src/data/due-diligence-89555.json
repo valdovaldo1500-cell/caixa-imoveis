@@ -18,14 +18,42 @@
   "customerMarkets": ["United States", "Singapore", "India"],
 
   "verifiedTrends": {
-    "profitTrend": "+30%",
-    "trafficTrend": "+64%",
-    "period": "9 months"
+    "profitTrend": "DECLINING — down 37% from Feb 25 peak ($3,965) to Feb 26 ($2,513)",
+    "trafficTrend": "CRASHED — from 48,984 sessions (Oct 25) to ~10,717 (Feb 26), -78%",
+    "period": "26 months verified via Chart.js extraction (Jan 2024 – Feb 2026)",
+    "note": "Previous EF-quoted +30%/+64% was based on earlier trend window. Current data shows clear decline."
   },
 
   "verifiedPnL": {
+    "chartDataExtracted": "2025-03-26",
     "lastMonthRevenue": 2512.68,
-    "lastMonthProfit": 2349.75,
+    "lastMonthProfit": 2512.68,
+    "peakMonthProfit": 3965.26,
+    "peakMonth": "February 2025",
+    "monthlyProfitHistory": {
+      "Jan 2025": 3374.98,
+      "Feb 2025": 3965.26,
+      "Mar 2025": 3446.99,
+      "Apr 2025": 3629.66,
+      "May 2025": 2425.04,
+      "Jun 2025": 2310.66,
+      "Jul 2025": 2728.22,
+      "Aug 2025": 3438.80,
+      "Sep 2025": 3246.44,
+      "Oct 2025": 1517.31,
+      "Nov 2025": 3254.34,
+      "Dec 2025": 2757.97,
+      "Jan 2026": 1762.63,
+      "Feb 2026": 2512.68
+    },
+    "trafficHistory": {
+      "Jan 2025": 32938,
+      "Oct 2025": 48984,
+      "Nov 2025": 10701,
+      "Dec 2025": 11434,
+      "Jan 2026": 12110,
+      "Feb 2026": 10717
+    },
     "twelveMonthRevenue": 33030.74,
     "twelveMonthProfit": 28574.83
   },
