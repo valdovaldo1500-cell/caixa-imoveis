@@ -369,6 +369,96 @@ export default function InvestimentosOnlineDetailPage() {
               </div>
             </SectionCard>
 
+            {/* ── Monthly Earnings Trend ─────────────────────────────────── */}
+            {(() => {
+              const fin = LISTING_FINANCIALS.find((f) => f.id === id);
+              if (!fin) return null;
+              const history = fin.monthlyProfitHistory;
+              const profits = history.map((h) => h.profit);
+              const highest = Math.max(...profits);
+              const lowest = Math.min(...profits);
+              const average = Math.round(profits.reduce((a, b) => a + b, 0) / profits.length);
+              const firstHalf = profits.slice(0, Math.floor(profits.length / 2));
+              const secondHalf = profits.slice(Math.floor(profits.length / 2));
+              const firstAvg = firstHalf.reduce((a, b) => a + b, 0) / firstHalf.length;
+              const secondAvg = secondHalf.reduce((a, b) => a + b, 0) / secondHalf.length;
+              const trendUp = secondAvg > firstAvg * 1.05;
+              const trendDown = secondAvg < firstAvg * 0.95;
+              const highestMonth = history.find((h) => h.profit === highest)!.month;
+              const lowestMonth = history.find((h) => h.profit === lowest)!.month;
+              return (
+                <SectionCard icon={LineChart} title="Monthly Earnings Trend" iconColor="text-emerald-400">
+                  <div className="space-y-4">
+                    <ResponsiveContainer width="100%" height={250}>
+                      <RechartsLineChart data={history} margin={{ top: 5, right: 10, left: 10, bottom: 30 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
+                        <XAxis
+                          dataKey="month"
+                          tick={{ fill: "#71717a", fontSize: 11 }}
+                          angle={-45}
+                          textAnchor="end"
+                          interval={0}
+                          height={50}
+                        />
+                        <YAxis
+                          tick={{ fill: "#71717a", fontSize: 11 }}
+                          tickFormatter={(v: number) => `$${v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v}`}
+                          width={50}
+                        />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: "#27272a",
+                            border: "1px solid #3f3f46",
+                            borderRadius: "8px",
+                            color: "#fff",
+                            fontSize: "12px",
+                          }}
+                          formatter={(value: number) => [`$${value.toLocaleString()}`, "Profit"]}
+                          labelStyle={{ color: "#a1a1aa" }}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="profit"
+                          stroke="#34d399"
+                          strokeWidth={2}
+                          dot={{ r: 4, fill: "#34d399", strokeWidth: 0 }}
+                          activeDot={{ r: 6, fill: "#34d399" }}
+                        />
+                      </RechartsLineChart>
+                    </ResponsiveContainer>
+
+                    {/* Key stats */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <div className="bg-zinc-900 rounded-lg p-3">
+                        <div className="text-xs text-zinc-500 mb-1">Peak Month</div>
+                        <div className="text-sm font-semibold text-emerald-400">${highest.toLocaleString()}</div>
+                        <div className="text-xs text-zinc-600 mt-0.5">{highestMonth}</div>
+                      </div>
+                      <div className="bg-zinc-900 rounded-lg p-3">
+                        <div className="text-xs text-zinc-500 mb-1">Lowest Month</div>
+                        <div className="text-sm font-semibold text-red-400">${lowest.toLocaleString()}</div>
+                        <div className="text-xs text-zinc-600 mt-0.5">{lowestMonth}</div>
+                      </div>
+                      <div className="bg-zinc-900 rounded-lg p-3">
+                        <div className="text-xs text-zinc-500 mb-1">Average / mo</div>
+                        <div className="text-sm font-semibold text-zinc-200">${average.toLocaleString()}</div>
+                        <div className="text-xs text-zinc-600 mt-0.5">{history.length} months</div>
+                      </div>
+                      <div className="bg-zinc-900 rounded-lg p-3">
+                        <div className="text-xs text-zinc-500 mb-1">Trend</div>
+                        <div className={`text-sm font-semibold ${trendUp ? "text-emerald-400" : trendDown ? "text-red-400" : "text-zinc-400"}`}>
+                          {trendUp ? "Growing" : trendDown ? "Declining" : "Stable"}
+                        </div>
+                        <div className="text-xs text-zinc-600 mt-0.5">
+                          {trendUp ? `+${Math.round(((secondAvg - firstAvg) / firstAvg) * 100)}%` : trendDown ? `${Math.round(((secondAvg - firstAvg) / firstAvg) * 100)}%` : "Flat"}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Section 2: Financial Performance ──────────────────────── */}
             <SectionCard
               icon={BarChart2}

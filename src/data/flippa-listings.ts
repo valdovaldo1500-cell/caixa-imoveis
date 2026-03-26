@@ -79,7 +79,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12101579",
-      title: "Ecommerce Store Established eCommerce business in Fishing & Outdoor industry with $39K revenue and 4",
+      title: "Established eCommerce business in Fishing & Outdoor industry with $39K revenue and 44% profit margin",
       niche: "Sports and Outdoor",
       price: 74110,
       monthlyProfit: 2952,
@@ -120,7 +120,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12567523",
-      title: "Ecommerce Store Established jewellery supplies ecom business generating ~$90k annual owner profit, w",
+      title: "Established jewellery supplies ecom business generating ~$90k annual owner profit, with 68% repeat c",
       niche: "Design and Style",
       price: 68489,
       monthlyProfit: 5474,
@@ -162,7 +162,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "11735360",
-      title: "Website Homesteading blog + ebooks. $8k/yr, proven SEO rankings, 5–15k sessions/mo. One focused owne",
+      title: "Homesteading blog + ebooks. $8k/yr, proven SEO rankings, 5–15k sessions/mo. One focused owner could ",
       niche: "Lifestyle",
       price: 17000,
       monthlyProfit: 538,
@@ -202,7 +202,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12668926",
-      title: "Ecommerce Store High-margin Canadian beard brand since 2018 ($30K+ yearly revenue, ~$20K profit), wi",
+      title: "High-margin Canadian beard brand since 2018 ($30K+ yearly revenue, ~$20K profit), with brand collabo",
       niche: "Health and Beauty",
       price: 50000,
       monthlyProfit: 1201,
@@ -242,7 +242,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12641977",
-      title: "Ecommerce Store Established 10-year jewelry brand with $70K annual revenue across markets, Shopify &",
+      title: "Established 10-year jewelry brand with $70K annual revenue across markets, Shopify & wholesale. Incl",
       niche: "Design and Style",
       price: 42239,
       monthlyProfit: 2489,
@@ -284,7 +284,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12651448",
-      title: "Website A 2-year-old cryptocurrency news platform delivering updates, market insights, and the lates",
+      title: "A 2-year-old cryptocurrency news platform delivering updates, market insights, and the latest airdro",
       niche: "General Knowledge",
       price: 83610,
       monthlyProfit: 3147,
@@ -324,7 +324,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12267830",
-      title: "Ecommerce Store 7 years old SEO-driven Shopify baby float niche site with organic traffic, dropshipp",
+      title: "7 years old SEO-driven Shopify baby float niche site with organic traffic, dropshipping supplier, Am",
       niche: "Hobbies and Games",
       price: 118000,
       monthlyProfit: 3956,
@@ -365,7 +365,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12274806",
-      title: "Ecommerce Store Leader in online pet lifestyle products with strong revenue and profit margins. Esta",
+      title: "Leader in online pet lifestyle products with strong revenue and profit margins. Established brand wi",
       niche: "Lifestyle",
       price: 140000,
       monthlyProfit: 8219,
@@ -406,7 +406,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12268481",
-      title: "Ecommerce Store 8-year-old D2C Leather Belt Brand | €300k+ Revenue (2024) | High-Margin & Automated ",
+      title: "8-year-old D2C Leather Belt Brand | €300k+ Revenue (2024) | High-Margin & Automated Shopify Model",
       niche: "Design and Style",
       price: 89359,
       monthlyProfit: 3843,
@@ -447,7 +447,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12264167",
-      title: "FBA Storefront 6 yo Amazon FBA | 2 Brands | 470k€ in revenue (2025) | Lean operation (8h per week)",
+      title: "6 yo Amazon FBA | 2 Brands | 470k€ in revenue (2025) | Lean operation (8h per week)",
       niche: "Health and Beauty",
       price: 239924,
       monthlyProfit: 8130,
@@ -488,7 +488,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12259051",
-      title: "Ecommerce Store Electric guitar bridge E-Com Business w/ 20 year track record. 68% profit margin, $1",
+      title: "Electric guitar bridge E-Com Business w/ 20 year track record. 68% profit margin, $100k+ in annual r",
       niche: "Business",
       price: 192000,
       monthlyProfit: 5116,
@@ -528,7 +528,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "11981836",
-      title: "Ecommerce Store 6-Year-Old Automated Brand selling Premium Outdoor Gear|$800K+ Lifetime Revenue|14K+",
+      title: "6-Year-Old Automated Brand selling Premium Outdoor Gear|$800K+ Lifetime Revenue|14K+ Emails|72% Gros",
       niche: "Sports and Outdoor",
       price: 215100,
       monthlyProfit: 5566,
@@ -568,7 +568,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12012923",
-      title: "Ecommerce Store Shopify eCommerce Business Selling Modern Soft Play & Toys for Kids $3.7M+ Sales, Hi",
+      title: "Shopify eCommerce Business Selling Modern Soft Play & Toys for Kids $3.7M+ Sales, High AOV, Strong R",
       niche: "Lifestyle",
       price: 99613,
       monthlyProfit: 6811,
@@ -610,7 +610,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12193746",
-      title: "FBA Storefront 10 years old Amazon FBA Hair beauty Brand | 247k€ in revenue | 40k€ EBITDA | Self ope",
+      title: "10 years old Amazon FBA Hair beauty Brand | 247k€ in revenue | 40k€ EBITDA | Self operated with very",
       niche: "Health and Beauty",
       price: 91854,
       monthlyProfit: 3761,
@@ -651,7 +651,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12273753",
-      title: "SaaS 10 year established UK vehicle intelligence platform with B2C, B2B, C2B, content and affiliate ",
+      title: "10 year established UK vehicle intelligence platform with B2C, B2B, C2B, content and affiliate reven",
       niche: "Automotive",
       price: 660281,
       monthlyProfit: 8264,
@@ -692,7 +692,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12669306",
-      title: "iOS and Android App This app offers practice tests and resources for the UK citizenship test, helpin",
+      title: "This app offers practice tests and resources for the UK citizenship test, helping users study and pr",
       niche: "Education",
       price: 1000000,
       monthlyProfit: 18350,
@@ -731,7 +731,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12640827",
-      title: "Ecommerce Store An Approaching 3 Year Old Digital Product Store Selling In the Spiritual Niche. Tota",
+      title: "An Approaching 3 Year Old Digital Product Store Selling In the Spiritual Niche. Total Revenue $3.3M ",
       niche: "Lifestyle",
       price: 399999,
       monthlyProfit: 32821,
@@ -772,7 +772,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12525555",
-      title: "Website High-performing content site portfolio in education and software reviews. Featuring strategi",
+      title: "High-performing content site portfolio in education and software reviews. Featuring strategic alignm",
       niche: "Education",
       price: 348800,
       monthlyProfit: 9454,
@@ -814,7 +814,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12302331",
-      title: "FBA Storefront Amazon FBA Baby Brand | €2.62M TTM Revenue, €345K net profit | 50%+ Organic Sales | 5",
+      title: "Amazon FBA Baby Brand | €2.62M TTM Revenue, €345K net profit | 50%+ Organic Sales | 5 EU Markets | P",
       niche: "Lifestyle",
       price: 1663725,
       monthlyProfit: 33512,
@@ -854,7 +854,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12285937",
-      title: "Crypto App Highly profitable regulated trading platform with a Mauritius license ~15,000 MAUs, 1,500",
+      title: "Highly profitable regulated trading platform with a Mauritius license ~15,000 MAUs, 1,500 DAUs, live",
       niche: "Business",
       price: 6500000,
       monthlyProfit: 248203,
@@ -895,7 +895,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12296287",
-      title: "Ecommerce Store D2C Wall Art Ecom | £1.14M revenue, £207k SDE (18%), 212% Growth | 4.7x ROAS | Zero ",
+      title: "D2C Wall Art Ecom | £1.14M revenue, £207k SDE (18%), 212% Growth | 4.7x ROAS | Zero Inventory Dropsh",
       niche: "Home and Garden",
       price: 621594,
       monthlyProfit: 23484,
@@ -937,7 +937,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12080201",
-      title: "Ecommerce Store Profitable Shopify DTC brand selling custom business stamps; $816K TTM revenue, $128",
+      title: "Profitable Shopify DTC brand selling custom business stamps; $816K TTM revenue, $128 AOV, $137 LTV, ",
       niche: "Business",
       price: 845500,
       monthlyProfit: 21313,
@@ -976,7 +976,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12287693",
-      title: "Ecommerce Store High Margin and Established DTC phone case brand | 60% YoY Growth | 30% Customer Ret",
+      title: "High Margin and Established DTC phone case brand | 60% YoY Growth | 30% Customer Return Rate | 80%+ ",
       niche: "Electronics",
       price: 3000000,
       monthlyProfit: 69889,
@@ -1016,7 +1016,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "11993671",
-      title: "Marketing Agency Profitable, remote digital marketing agency with strong margins, established team, ",
+      title: "Profitable, remote digital marketing agency with strong margins, established team, and 20–30% growth",
       niche: "Design and Style",
       price: 337364,
       monthlyProfit: 16804,
@@ -1057,7 +1057,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "11767983",
-      title: "Ecommerce Store Established 30+ Year Skincare Brand At Top Luxury Retailers & Online. Exponential Gr",
+      title: "Established 30+ Year Skincare Brand At Top Luxury Retailers & Online. Exponential Growth Potential. ",
       niche: "Health and Beauty",
       price: 900000,
       monthlyProfit: 26110,
@@ -1097,7 +1097,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12249202",
-      title: "FBA Storefront Category-leading Amazon FBA home-safety brand selling primarily in the US market. A h",
+      title: "Category-leading Amazon FBA home-safety brand selling primarily in the US market. A hands-off, highl",
       niche: "Home and Garden",
       price: 1922197,
       monthlyProfit: 50432,
@@ -1137,7 +1137,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "11342703",
-      title: "Service Business AI-driven agency with an existing MNC client. $400k+ recurring revenue paid 12 mont",
+      title: "AI-driven agency with an existing MNC client. $400k+ recurring revenue paid 12 months in advance. Ex",
       niche: "Business",
       price: 388996,
       monthlyProfit: 7753,
@@ -1178,7 +1178,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12231660",
-      title: "FBA Storefront A turnkey, scalable FBA Amazon business with strong sales, premium products, unique d",
+      title: "A turnkey, scalable FBA Amazon business with strong sales, premium products, unique designs, $90k+ i",
       niche: "Lifestyle",
       price: 450000,
       monthlyProfit: 10247,
@@ -1216,7 +1216,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12203869",
-      title: "Marketing Agency A premium boutique email and SMS automation powerhouse agency with 81% profit margi",
+      title: "A premium boutique email and SMS automation powerhouse agency with 81% profit margin, high LTV of AU",
       niche: "Business",
       price: 655768,
       monthlyProfit: 23296,
@@ -1255,7 +1255,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "11259011",
-      title: "Marketplace Profitable talent booking platform connecting vetted fashion models and creators with br",
+      title: "Profitable talent booking platform connecting vetted fashion models and creators with brands for pai",
       niche: "Internet",
       price: 3810000,
       monthlyProfit: 28511,
@@ -1295,7 +1295,7 @@ export const flippaListings: FlippaListing[] = [
     const aiM = a >= 65;
     return {
       id: "12084379",
-      title: "Service Business Established and reputable design-driven merch powerhouse with 60% repeat revenue, g",
+      title: "Established and reputable design-driven merch powerhouse with 60% repeat revenue, global brand clien",
       niche: "Design and Style",
       price: 700000,
       monthlyProfit: 17166,
