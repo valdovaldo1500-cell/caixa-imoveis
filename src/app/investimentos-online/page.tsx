@@ -909,8 +909,8 @@ export default function InvestimentosOnlinePage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* Online Business Finalists */}
-                      {EXPERT_ASSESSMENTS.map((a, i) => {
+                      {/* Online Business Finalists (exclude eliminated) */}
+                      {EXPERT_ASSESSMENTS.filter((a) => a.verdictColor !== "red").map((a, i) => {
                         const priceNum = parseFloat(a.price.replace(/[$,]/g, ""));
                         const profitNum = parseFloat(a.monthlyProfit.replace(/[$,]/g, ""));
                         const roiNum = parseFloat(a.annualROI.replace("%", ""));
