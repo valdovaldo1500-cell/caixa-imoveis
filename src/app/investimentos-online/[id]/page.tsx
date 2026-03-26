@@ -780,20 +780,20 @@ export default function InvestimentosOnlineDetailPage() {
               {/* Key differentiators */}
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-zinc-400">
                 <div className="bg-zinc-900 rounded-lg p-2.5">
-                  <p className="text-zinc-300 font-medium mb-1">Best traffic quality</p>
-                  <p>ahoyvietnam.com — 86.6% Google organic search</p>
+                  <p className="text-zinc-300 font-medium mb-1">Core pick</p>
+                  <p>Ace Hoops WNBA — seasonal growth, faceless, €70/video production</p>
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-2.5">
-                  <p className="text-zinc-300 font-medium mb-1">Best traffic diversification</p>
-                  <p>photopacks.ai — 7+ traffic channels, no source &gt;30%</p>
+                  <p className="text-zinc-300 font-medium mb-1">Second pick</p>
+                  <p>3× Tech YouTube — faceless, 10K videos, 1hr/wk, negotiate to $79K</p>
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-2.5">
-                  <p className="text-zinc-300 font-medium mb-1">Lowest hours/week</p>
-                  <p>Ace Hoops — 6hrs/week with full contractor team</p>
+                  <p className="text-zinc-300 font-medium mb-1">Lowest owner time</p>
+                  <p>Tech YouTube — ~1hr/week (fully outsourced production)</p>
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-2.5">
-                  <p className="text-zinc-300 font-medium mb-1">Best growth rate</p>
-                  <p>ahoyvietnam.com — +581% traffic, +41% profit (9 months)</p>
+                  <p className="text-zinc-300 font-medium mb-1">Biggest risk mitigated</p>
+                  <p>All remaining picks are faceless — no personal brand dependency</p>
                 </div>
               </div>
             </SectionCard>
