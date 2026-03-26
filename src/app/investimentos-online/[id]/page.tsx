@@ -863,6 +863,110 @@ export default function InvestimentosOnlineDetailPage() {
               )}
             </SectionCard>
 
+            {/* ── Negotiation Playbook ───────────────────────────────────── */}
+            {(() => {
+              const neg = NEGOTIATION_STRATEGIES.find((n) => n.listingId === id);
+              if (!neg) return null;
+              return (
+                <SectionCard
+                  icon={Target}
+                  title="Negotiation Playbook"
+                  iconColor="text-emerald-400"
+                >
+                  <div className="space-y-5">
+                    {/* Price flow */}
+                    <div>
+                      <p className="text-xs text-zinc-500 uppercase tracking-wider font-medium mb-3">Price Summary</p>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <div className="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-center min-w-[90px]">
+                          <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Asking</p>
+                          <p className="text-sm font-semibold text-zinc-300">{fmt(neg.askingPrice)}</p>
+                        </div>
+                        <span className="text-zinc-600 text-lg font-light">→</span>
+                        <div className="bg-zinc-900 border border-emerald-500/30 rounded-lg px-3 py-2 text-center min-w-[90px]">
+                          <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Opening Offer</p>
+                          <p className="text-sm font-semibold text-emerald-400">{fmt(neg.openingOffer)}</p>
+                        </div>
+                        <span className="text-zinc-600 text-lg font-light">→</span>
+                        <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-lg px-3 py-2 text-center min-w-[90px]">
+                          <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Target Settle</p>
+                          <p className="text-sm font-bold text-emerald-300">{fmt(neg.targetSettle)}</p>
+                        </div>
+                        <span className="text-zinc-600 text-lg font-light">→</span>
+                        <div className="bg-zinc-900 border border-red-500/30 rounded-lg px-3 py-2 text-center min-w-[90px]">
+                          <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Walk Away</p>
+                          <p className="text-sm font-semibold text-red-400">{fmt(neg.walkAway)}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Leverage points */}
+                    <div>
+                      <p className="text-xs text-zinc-500 uppercase tracking-wider font-medium mb-2">Leverage Points</p>
+                      <ul className="space-y-1.5">
+                        {neg.leverage.map((point, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-zinc-300">
+                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                            {point}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Timing */}
+                    <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3">
+                      <p className="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Timing</p>
+                      <p className="text-sm text-zinc-300 leading-relaxed">{neg.timing}</p>
+                    </div>
+
+                    {/* Step-by-step sequence */}
+                    <div>
+                      <p className="text-xs text-zinc-500 uppercase tracking-wider font-medium mb-2">Step-by-Step Sequence</p>
+                      <ol className="space-y-2">
+                        {neg.sequence.map((step, i) => (
+                          <li key={i} className="flex items-start gap-3 text-sm text-zinc-300">
+                            <span className="shrink-0 w-5 h-5 rounded-full bg-zinc-700 text-zinc-300 text-xs font-bold flex items-center justify-center mt-0.5">
+                              {i + 1}
+                            </span>
+                            <span>{step.replace(/^\d+\.\s*/, "")}</span>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
+            {/* ── Acquisition Timeline ───────────────────────────────────── */}
+            <SectionCard
+              icon={Clock}
+              title="Acquisition Timeline"
+              iconColor="text-blue-400"
+            >
+              <div className="relative">
+                {/* Vertical connecting line */}
+                <div className="absolute left-[72px] top-3 bottom-3 w-px bg-zinc-700" />
+                <div className="space-y-5">
+                  {ACQUISITION_TIMELINE.map((step, i) => (
+                    <div key={i} className="flex items-start gap-4">
+                      {/* Date */}
+                      <div className="w-16 shrink-0 text-right">
+                        <span className="text-xs text-zinc-500 leading-tight">{step.date}</span>
+                      </div>
+                      {/* Dot */}
+                      <div className="relative z-10 shrink-0 mt-1.5 w-3 h-3 rounded-full bg-zinc-700 border-2 border-zinc-500" />
+                      {/* Content */}
+                      <div className="flex-1 pb-1">
+                        <p className="text-sm font-medium text-white leading-snug">{step.action}</p>
+                        <p className="text-xs text-zinc-400 mt-0.5 leading-relaxed">{step.details}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </SectionCard>
+
             {/* ── Section 11: Due Diligence Checklist ───────────────────── */}
             {(() => {
               const categories = Array.from(new Set(DUE_DILIGENCE_CHECKLIST.map((i) => i.category)));
