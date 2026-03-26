@@ -104,7 +104,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "CRITICAL: Traffic crashed from 48,984 sessions (Oct 25) to ~10,717 (Feb 26) — 78% drop",
       "Profit declining: peak Feb 25 $3,965 → Feb 26 $2,513 (-37%)",
       "New customer acquisition drying up — subscriptions will churn without new signups",
-      "32x multiple at asking price is expensive for a business in traffic free-fall",
+      "30x multiple at asking price is expensive for a business in traffic free-fall",
       "AI headshot market is extremely competitive (Dreamwave, HeadShotPro, LinkedIn native tools)",
       "Fast-moving AI space — product may be commoditised within 12-18 months",
     ],
