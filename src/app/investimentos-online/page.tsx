@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import Link from "next/link";
 import NavHeader from "@/components/NavHeader";
 import {
   ScatterChart,
