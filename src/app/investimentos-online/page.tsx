@@ -652,68 +652,67 @@ export default function InvestimentosOnlinePage() {
                 <div className="bg-zinc-800 border border-emerald-500/60 rounded-xl p-4 space-y-2 ring-1 ring-emerald-500/20">
                   <div className="flex items-center justify-between">
                     <div className="text-xs font-bold text-emerald-400 uppercase tracking-wide">Option A ⭐ Recommended</div>
-                    <span className="text-xs bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-full">Best balance</span>
+                    <span className="text-xs bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-full">Pure YouTube play</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">Ace Hoops + homemadegraceful</div>
+                  <div className="text-sm font-semibold text-white">Ace Hoops + 3× Tech YouTube</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
                     <li>• Ace Hoops WNBA: ask $70,599 → <span className="text-emerald-400">target $62K (~£49K)</span></li>
-                    <li>• homemadegraceful: ask $78,487 → <span className="text-emerald-400">target $68K (~£54K)</span></li>
-                    <li>• Total: ~$130K (~£103K)</li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~£4,700/mo combined (~£2,400 + £2,300)</li>
-                    <li>Both STRONG BUY — diversified traffic (YouTube vs Pinterest)</li>
-                    <li>Avg ROI 48% — different platform risk profiles</li>
-                    <li className="text-zinc-500">Seasonal offset: WNBA peaks when Homemade is stable year-round</li>
+                    <li>• 3× Tech YouTube: ask $93,608 → <span className="text-emerald-400">target $79K (~£62K)</span></li>
+                    <li>• Total: ~$141K (~£111K) — within $160K budget</li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£4,900/mo in-season, ~£3,900 off-season</li>
+                    <li>Both faceless — AI scripts + VA production, no persona risk</li>
+                    <li>Tech YouTube offsets Ace Hoops seasonality (year-round revenue)</li>
+                    <li className="text-zinc-500">Caveat: Tech YouTube declining — must negotiate hard to $79K max</li>
                   </ul>
                 </div>
 
                 {/* Option B */}
                 <div className="bg-zinc-800 border border-blue-500/30 rounded-xl p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-blue-400 uppercase tracking-wide">Option B — SaaS + Content</div>
-                    <span className="text-xs bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded-full">Lower platform risk</span>
+                    <div className="text-xs font-bold text-blue-400 uppercase tracking-wide">Option B — YouTube + SaaS</div>
+                    <span className="text-xs bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded-full">Platform diversification</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">photopacks.ai + homemadegraceful</div>
+                  <div className="text-sm font-semibold text-white">Ace Hoops + photopacks.ai (heavily discounted)</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• photopacks.ai: ask $76,200 → <span className="text-emerald-400">target $65K (~£51K)</span></li>
-                    <li>• homemadegraceful: ask $78,487 → <span className="text-emerald-400">target $68K (~£54K)</span></li>
-                    <li>• Total: ~$133K (~£105K)</li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~£4,200/mo combined (~£1,900 + £2,300)</li>
-                    <li>SaaS + Pinterest: no YouTube algorithm dependency</li>
-                    <li className="text-zinc-500">photopacks.ai needs Django/AWS technical skills</li>
+                    <li>• Ace Hoops WNBA: ask $70,599 → <span className="text-emerald-400">target $62K (~£49K)</span></li>
+                    <li>• photopacks.ai: ask $76,200 → <span className="text-amber-400">must get $45-50K (~£36-39K)</span></li>
+                    <li>• Total: ~$107-112K (~£84-88K) — under budget</li>
+                    <li className="text-amber-400 font-medium">Monthly: ~£2,100 + ~£1,600 = ~£3,700 (but SaaS declining)</li>
+                    <li>YouTube + SaaS diversifies platform risk</li>
+                    <li className="text-red-400 text-xs">⚠ photopacks.ai: traffic -78% crash. Only at $45-50K max.</li>
                   </ul>
                 </div>
 
                 {/* Option C */}
                 <div className="bg-zinc-800 border border-amber-500/30 rounded-xl p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Option C — YouTube + SaaS</div>
-                    <span className="text-xs bg-amber-900/40 text-amber-300 px-2 py-0.5 rounded-full">On-budget</span>
-                  </div>
-                  <div className="text-sm font-semibold text-white">Ace Hoops + photopacks.ai</div>
-                  <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• Ace Hoops WNBA: ask $70,599 → <span className="text-emerald-400">target $62K (~£49K)</span></li>
-                    <li>• photopacks.ai: ask $76,200 → <span className="text-emerald-400">target $65K (~£51K)</span></li>
-                    <li>• Total: ~$127K (~£100K) — exactly on budget</li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~£4,300/mo combined (~£2,400 + £1,900)</li>
-                    <li>YouTube + SaaS = no content overlap, different skill sets</li>
-                    <li className="text-zinc-500">SaaS requires technical maintenance (Python/Django stack)</li>
-                  </ul>
-                </div>
-
-                {/* Option D — single + Caixa */}
-                <div className="bg-zinc-800 border border-zinc-600 rounded-xl p-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Option D — Conservative</div>
-                    <span className="text-xs bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full">Lower risk</span>
+                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Option C — Conservative</div>
+                    <span className="text-xs bg-amber-900/40 text-amber-300 px-2 py-0.5 rounded-full">Lower risk</span>
                   </div>
                   <div className="text-sm font-semibold text-white">Ace Hoops + Caixa Property</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
                     <li>• Ace Hoops WNBA: ask $70,599 → <span className="text-emerald-400">target $62K (~£49K)</span></li>
                     <li>• Caixa imóvel (POA): <span className="text-amber-400">~£12-15K (R$75K-90K)</span></li>
-                    <li>• Leaves £36-39K in reserve/savings</li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~£2,400 online + ~£130-200 aluguel</li>
-                    <li>Tangible asset hedge against online business risk</li>
-                    <li className="text-zinc-500">Immediate equity: buy at 40-55% below market value</li>
+                    <li>• Leaves ~£36-39K in reserve</li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£2,100 online + ~£130-200 aluguel</li>
+                    <li>Tangible asset hedge against digital platform risk</li>
+                    <li className="text-zinc-500">Immediate equity: buy Caixa at 40-55% below market value</li>
+                  </ul>
+                </div>
+
+                {/* Option D — Tech YouTube only */}
+                <div className="bg-zinc-800 border border-zinc-600 rounded-xl p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Option D — Single Asset</div>
+                    <span className="text-xs bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full">Wait for better picks</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white">3× Tech YouTube only</div>
+                  <ul className="text-xs text-zinc-400 space-y-1">
+                    <li>• 3× Tech YouTube: ask $93,608 → <span className="text-emerald-400">target $79K (~£62K)</span></li>
+                    <li>• Remaining ~£64K: monitor EF for new listings</li>
+                    <li className="text-blue-400 font-medium">Monthly: ~£2,700/mo year-round (no seasonality)</li>
+                    <li>Lower total commitment — wait for Ace Hoops 2026 season data</li>
+                    <li className="text-zinc-500">Tech YouTube is declining — buy only if negotiated hard</li>
                   </ul>
                 </div>
 
@@ -721,13 +720,13 @@ export default function InvestimentosOnlinePage() {
                 <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-4 space-y-2 md:col-span-2 xl:col-span-2">
                   <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Decision Factors</div>
                   <ul className="text-xs text-zinc-400 space-y-1.5">
-                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span><span className="text-white">Option A</span> recommended: 2 STRONG BUY picks, diversified platforms, combined $6K/mo profit</span></li>
-                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span>VA manages daily operations (~£500/mo) — you oversee strategy only (~5hrs/week)</span></li>
-                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Ace Hoops: WNBA season drives peak revenue — plan for off-season content gap</span></li>
-                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>ahoyvietnam.com (#92180) is CAUTION — personal brand, don&apos;t buy without rebrand plan</span></li>
-                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>All EF listings: <span className="text-white">negotiate 60-day earnout</span> + verify P&amp;L via bank statements</span></li>
-                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>Verified trend data (Active Unlocks) — both picks have confirmed upward trends</span></li>
-                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>£/$ rate risk — all businesses earn in USD (currently favourable for GBP holders)</span></li>
+                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span><span className="text-white">Option A recommended</span>: both faceless, AI-managed, complementary seasonality, ~£4,900/mo in-season</span></li>
+                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span>Tech YouTube offsets Ace Hoops off-season dip — year-round income floor</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Tech YouTube MUST be negotiated to $79K max — current run rate $3,389/mo makes asking $93K unjustifiable</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Ace Hoops: 2026 WNBA season starts May — buying March = full season ahead</span></li>
+                    <li className="flex gap-2"><span className="text-red-400">✗</span><span>photopacks.ai at asking price: DO NOT BUY — traffic crashed 78%, 32x on declining metrics</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Both picks: negotiate 60-day earnout + verify P&amp;L via bank statements before closing</span></li>
+                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>All earnings verified via Chart.js extraction from EF Active Unlocks (March 26, 2026)</span></li>
                   </ul>
                 </div>
               </div>
