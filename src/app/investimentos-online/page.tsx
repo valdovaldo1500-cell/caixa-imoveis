@@ -551,7 +551,8 @@ export default function InvestimentosOnlinePage() {
                 #92105 homemadegraceful (Pinterest 92% + female persona — can&apos;t swap writer) ·
                 #89555 photopacks.ai at asking price (traffic -78% crash Nov 25, profit -37% from peak — only viable at $45-50K) ·
                 #84353 tech education (89% traffic drop, revenue collapsed) ·
-                #90541 culinary blog (Google algo victim, Feb 26: $477/mo)
+                #90541 culinary blog (Google algo victim, Feb 26: $477/mo) ·
+                #91138 oakleyforum.com (76% bot traffic, revenue -49%, RPM crashed $11→$2.50)
               </div>
             </section>
 
