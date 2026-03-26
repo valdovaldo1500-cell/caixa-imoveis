@@ -727,7 +727,7 @@ export default function InvestimentosOnlineDetailPage() {
             {/* ── Section 9: Head-to-Head Comparison ────────────────────── */}
             <SectionCard
               icon={Swords}
-              title="Head-to-Head — All 4 Finalists"
+              title="Head-to-Head — All Assessed Listings"
               iconColor="text-blue-400"
             >
               <div className="overflow-x-auto -mx-1">
