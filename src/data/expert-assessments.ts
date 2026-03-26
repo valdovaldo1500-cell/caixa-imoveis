@@ -32,7 +32,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "Verified Chart.js data: grew $1,609 (Nov 24) → $5,444 (Aug 25 WNBA peak)",
       "Super cheap production: €70/video (Filipino freelancers + AI voiceover)",
       "Price dropped to $70K from $86K — seller motivated",
-      "23x multiple on seasonal average = undervalued",
+      "24x multiple on $2,900/mo average = undervalued vs 28-36x market norm",
       "Caitlin Clark effect driving massive audience interest",
       "Off-season (Feb 26): $2,689/mo — within expected range for March off-season",
     ],
