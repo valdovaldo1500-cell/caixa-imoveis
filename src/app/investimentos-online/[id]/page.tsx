@@ -20,15 +20,22 @@ import {
   Lightbulb,
   Swords,
   Target,
+  DollarSign,
+  Clock,
 } from "lucide-react";
 import type { EFListing } from "@/data/empire-flippers-listings";
 import type { ExpertAssessment } from "@/data/expert-assessments";
+import { EXPERT_ASSESSMENTS } from "@/data/expert-assessments";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DD = Record<string, any>;
 
 interface DetailData {
   listing: EFListing;
   assessment: ExpertAssessment | null;
+  dueDiligence: DD | null;
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -125,13 +132,42 @@ function SectionCard({
   );
 }
 
-function PlaceholderContent({ text }: { text: string }) {
+function TrafficBar({ label, pct, color }: { label: string; pct: string; color: string }) {
+  const numPct = parseFloat(pct.replace("%", ""));
   return (
-    <div className="flex items-center justify-center h-24 rounded-lg border border-dashed border-zinc-600 bg-zinc-900/50">
-      <span className="text-xs text-zinc-500 italic">{text}</span>
+    <div className="space-y-1">
+      <div className="flex justify-between text-xs">
+        <span className="text-zinc-400">{label}</span>
+        <span className="text-zinc-300 font-medium">{pct}</span>
+      </div>
+      <div className="h-1.5 bg-zinc-700 rounded-full overflow-hidden">
+        <div className={`h-full ${color} rounded-full`} style={{ width: `${Math.min(numPct, 100)}%` }} />
+      </div>
     </div>
   );
 }
+
+// VA cost tables per business type
+const VA_PLANS: Record<string, { role: string; tasks: string; hoursPerWeek: number; costPerMonth: string }[]> = {
+  "92105": [
+    { role: "Content VA (Philippines)", tasks: "Write home decor blog posts with AI assistance, format and publish to WordPress", hoursPerWeek: 20, costPerMonth: "$400–600" },
+    { role: "Pinterest VA (Philippines)", tasks: "Create pins in Canva, schedule via Tailwind, manage boards, monitor analytics", hoursPerWeek: 10, costPerMonth: "$200–300" },
+  ],
+  "92180": [
+    { role: "Community Manager VA", tasks: "Moderate 3 Facebook groups (27K members), reply to comments, post weekly content, handle spam", hoursPerWeek: 14, costPerMonth: "$350–500" },
+    { role: "Content VA", tasks: "Write new Vietnam travel guides in neutral editorial style, update existing articles, keyword research", hoursPerWeek: 10, costPerMonth: "$300–450" },
+  ],
+  "89555": [
+    { role: "Customer Support VA", tasks: "Reply to customer emails, handle refund requests, process orders, FAQ management", hoursPerWeek: 5, costPerMonth: "$150–250" },
+    { role: "Marketing VA", tasks: "Reddit marketing (proprietary system), social media posts (Instagram, TikTok), email campaigns", hoursPerWeek: 10, costPerMonth: "$300–400" },
+    { role: "Part-time Dev (Upwork)", tasks: "Bug fixes, infrastructure maintenance, feature updates — on demand", hoursPerWeek: 2, costPerMonth: "$200–400" },
+  ],
+  "92246": [
+    { role: "Scriptwriter (Philippines)", tasks: "Write WNBA commentary scripts based on news and game highlights", hoursPerWeek: 3, costPerMonth: "€80–120 (per script)" },
+    { role: "Video Editor (Philippines)", tasks: "Assemble clips, AI voiceover sync, captions, thumbnails", hoursPerWeek: 5, costPerMonth: "€40/video" },
+    { role: "Clipper/Researcher (Philippines)", tasks: "Source game footage, identify key moments, add timestamp links to scripts", hoursPerWeek: 2, costPerMonth: "€10/video" },
+  ],
+};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -154,6 +190,8 @@ export default function InvestimentosOnlineDetailPage() {
       .catch((e: Error) => setError(e.message))
       .finally(() => setLoading(false));
   }, [id]);
+
+  const dd = data?.dueDiligence ?? null;
 
   return (
     <div className="flex flex-col min-h-screen bg-zinc-950 text-zinc-100">
@@ -303,13 +341,30 @@ export default function InvestimentosOnlineDetailPage() {
               title="What This Business Does"
               iconColor="text-blue-400"
             >
-              {data.listing.description ? (
+              <div className="space-y-3">
                 <p className="text-sm text-zinc-300 leading-relaxed">
-                  {data.listing.description}
+                  {dd?.description ?? data.listing.description ?? "No description available."}
                 </p>
-              ) : (
-                <PlaceholderContent text="Business description — content coming soon" />
-              )}
+                {dd?.assetsIncluded && Array.isArray(dd.assetsIncluded) && (
+                  <div>
+                    <p className="text-xs text-zinc-500 font-medium mb-1.5">Assets Included in Sale</p>
+                    <ul className="space-y-1">
+                      {dd.assetsIncluded.map((asset: string, i: number) => (
+                        <li key={i} className="text-xs text-zinc-400 flex gap-1.5">
+                          <span className="text-blue-400 shrink-0">✓</span>
+                          {asset}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {dd?.siteAssessment?.personalBrand && (
+                  <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-amber-400 mb-1">⚠ Personal Brand Warning</p>
+                    <p className="text-xs text-zinc-400">{dd.siteAssessment.personalBrandNote}</p>
+                  </div>
+                )}
+              </div>
             </SectionCard>
 
             {/* ── Section 2: Financial Performance ──────────────────────── */}
@@ -318,30 +373,26 @@ export default function InvestimentosOnlineDetailPage() {
               title="Financial Performance"
               iconColor="text-emerald-400"
             >
-              <div className="space-y-3">
-                {/* Current numbers from listing data */}
+              <div className="space-y-4">
+                {/* Current numbers */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
                   <div className="bg-zinc-900 rounded-lg p-3">
                     <div className="text-xs text-zinc-500 mb-1">Monthly Revenue</div>
                     <div className="font-semibold text-white">
-                      {fmtMo(data.listing.monthlyRevenue)}
+                      {dd?.verifiedPnL ? `$${dd.verifiedPnL.lastMonthRevenue?.toLocaleString()}` : fmtMo(data.listing.monthlyRevenue)}
                     </div>
                   </div>
                   <div className="bg-zinc-900 rounded-lg p-3">
                     <div className="text-xs text-zinc-500 mb-1">Monthly Profit</div>
                     <div className="font-semibold text-emerald-400">
-                      {fmtMo(data.listing.monthlyProfit)}
+                      {dd?.verifiedPnL ? `$${dd.verifiedPnL.lastMonthProfit?.toLocaleString()}` : fmtMo(data.listing.monthlyProfit)}
                     </div>
                   </div>
                   <div className="bg-zinc-900 rounded-lg p-3">
                     <div className="text-xs text-zinc-500 mb-1">Profit Margin</div>
                     <div className="font-semibold text-blue-400">
-                      {data.listing.monthlyRevenue > 0
-                        ? `${Math.round(
-                            (data.listing.monthlyProfit /
-                              data.listing.monthlyRevenue) *
-                              100
-                          )}%`
+                      {dd?.profitMargin ? `${dd.profitMargin}%` : data.listing.monthlyRevenue > 0
+                        ? `${Math.round((data.listing.monthlyProfit / data.listing.monthlyRevenue) * 100)}%`
                         : "—"}
                     </div>
                   </div>
@@ -378,7 +429,37 @@ export default function InvestimentosOnlineDetailPage() {
                     </>
                   )}
                 </div>
-                <PlaceholderContent text="P&L charts — content coming soon" />
+
+                {/* 12-month totals */}
+                {dd?.verifiedPnL && (
+                  <div className="bg-zinc-900 rounded-lg p-3">
+                    <p className="text-xs text-zinc-500 font-medium mb-2">Verified 12-Month P&L</p>
+                    <div className="grid grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <div className="text-xs text-zinc-500">12-Mo Revenue</div>
+                        <div className="font-semibold text-white">${dd.verifiedPnL.twelveMonthRevenue?.toLocaleString()}</div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-zinc-500">12-Mo Profit</div>
+                        <div className="font-semibold text-emerald-400">${dd.verifiedPnL.twelveMonthProfit?.toLocaleString()}</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Earnings analysis narrative */}
+                {dd?.earningsAnalysis && (
+                  <div className="space-y-1.5 text-xs text-zinc-400">
+                    {dd.earningsAnalysis.trend && <p><span className="text-zinc-300 font-medium">Trend:</span> {dd.earningsAnalysis.trend}</p>}
+                    {dd.earningsAnalysis.seasonal && <p><span className="text-zinc-300 font-medium">Seasonality:</span> {dd.earningsAnalysis.seasonal}</p>}
+                    {dd.earningsAnalysis.untappedRevenue && (
+                      <p className="text-emerald-400/80"><span className="font-medium">Untapped:</span> {dd.earningsAnalysis.untappedRevenue}</p>
+                    )}
+                    {dd.earningsAnalysis.noRecurring && (
+                      <p className="text-amber-400/80"><span className="font-medium">Note:</span> {dd.earningsAnalysis.noRecurring}</p>
+                    )}
+                  </div>
+                )}
               </div>
             </SectionCard>
 
@@ -388,7 +469,56 @@ export default function InvestimentosOnlineDetailPage() {
               title="Traffic & Growth Analysis"
               iconColor="text-violet-400"
             >
-              <PlaceholderContent text="Traffic charts — content coming soon" />
+              {dd?.trafficBreakdown ? (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    {Object.entries(dd.trafficBreakdown as Record<string, string>).map(([key, val]) => {
+                      const label = key.replace(/([A-Z])/g, " $1").replace(/_/g, " ").replace(/^\w/, (c) => c.toUpperCase());
+                      const numPct = parseFloat(String(val).replace("%", ""));
+                      const color = numPct > 40 ? "bg-violet-500" : numPct > 20 ? "bg-blue-500" : numPct > 10 ? "bg-emerald-500" : "bg-zinc-500";
+                      return <TrafficBar key={key} label={label} pct={String(val)} color={color} />;
+                    })}
+                  </div>
+                  {dd.trafficAnalysis && (
+                    <div className="space-y-1.5 text-xs text-zinc-400">
+                      {dd.trafficAnalysis.summary && <p><span className="text-zinc-300 font-medium">Summary:</span> {dd.trafficAnalysis.summary}</p>}
+                      {dd.trafficAnalysis.growth && <p><span className="text-zinc-300 font-medium">Growth:</span> {dd.trafficAnalysis.growth}</p>}
+                      {dd.trafficAnalysis.dependency && (
+                        <p className={dd.trafficAnalysis.dependency.startsWith("CRITICAL") ? "text-red-400/80" : dd.trafficAnalysis.dependency.startsWith("LOW") ? "text-emerald-400/80" : "text-amber-400/80"}>
+                          <span className="font-medium">Dependency:</span> {dd.trafficAnalysis.dependency}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ) : dd?.channelStats?.trafficSources ? (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    {Object.entries(dd.channelStats.trafficSources as Record<string, string>).map(([key, val]) => {
+                      const label = key.replace(/([A-Z])/g, " $1").replace(/^\w/, (c) => c.toUpperCase());
+                      const numPct = parseFloat(String(val).replace("%", ""));
+                      const color = numPct > 50 ? "bg-violet-500" : numPct > 25 ? "bg-blue-500" : "bg-zinc-500";
+                      return <TrafficBar key={key} label={label} pct={String(val)} color={color} />;
+                    })}
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+                    <div className="bg-zinc-900 rounded-lg p-3">
+                      <div className="text-xs text-zinc-500 mb-1">Subscribers</div>
+                      <div className="font-semibold text-white">{dd.channelStats.subscribers?.toLocaleString()}</div>
+                    </div>
+                    <div className="bg-zinc-900 rounded-lg p-3">
+                      <div className="text-xs text-zinc-500 mb-1">Monthly Views</div>
+                      <div className="font-semibold text-white">{dd.channelStats.monthlyViews?.toLocaleString()}</div>
+                    </div>
+                    <div className="bg-zinc-900 rounded-lg p-3">
+                      <div className="text-xs text-zinc-500 mb-1">Avg View Duration</div>
+                      <div className="font-semibold text-white">{dd.channelStats.avgWatchTime}</div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-zinc-400">Traffic data not available for this listing.</p>
+              )}
             </SectionCard>
 
             {/* ── Section 4: Seller Due Diligence ───────────────────────── */}
@@ -397,7 +527,26 @@ export default function InvestimentosOnlineDetailPage() {
               title="Seller Due Diligence"
               iconColor="text-amber-400"
             >
-              <PlaceholderContent text="Q&A findings — content coming soon" />
+              {dd?.sellerQandA ? (
+                <div className="space-y-3">
+                  {Object.entries(dd.sellerQandA as Record<string, string>).map(([q, a]) => {
+                    if (!a || a === "UNANSWERED") return (
+                      <div key={q} className="border-b border-zinc-700 pb-2 last:border-0">
+                        <p className="text-xs font-medium text-zinc-400 capitalize mb-0.5">{q.replace(/([A-Z])/g, " $1")}</p>
+                        <p className="text-xs text-zinc-600 italic">Unanswered</p>
+                      </div>
+                    );
+                    return (
+                      <div key={q} className="border-b border-zinc-700 pb-2 last:border-0">
+                        <p className="text-xs font-medium text-zinc-400 capitalize mb-0.5">{q.replace(/([A-Z])/g, " $1")}</p>
+                        <p className="text-xs text-zinc-300">{a}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-sm text-zinc-400">No seller Q&A data available for this listing.</p>
+              )}
             </SectionCard>
 
             {/* ── Section 5: Operational Playbook ───────────────────────── */}
@@ -406,19 +555,50 @@ export default function InvestimentosOnlineDetailPage() {
               title="Operational Playbook"
               iconColor="text-blue-400"
             >
-              {data.assessment?.aiPlan ? (
-                <div className="space-y-3">
+              <div className="space-y-4">
+                {data.assessment?.aiPlan && (
                   <div className="bg-zinc-900 rounded-lg p-3 border border-violet-500/30">
                     <div className="text-xs text-violet-400 font-semibold mb-1 flex items-center gap-1">
                       <Bot className="w-3 h-3" /> AI+VA Operating Plan
                     </div>
                     <p className="text-sm text-zinc-300">{data.assessment.aiPlan}</p>
                   </div>
-                  <PlaceholderContent text="Weekly schedule breakdown — content coming soon" />
+                )}
+
+                {/* Production workflow for YouTube channels */}
+                {dd?.productionWorkflow && (
+                  <div>
+                    <p className="text-xs text-zinc-500 font-medium mb-2">Production Workflow (Step by Step)</p>
+                    <ol className="space-y-1.5">
+                      {Object.entries(dd.productionWorkflow as Record<string, string>)
+                        .filter(([k]) => k.startsWith("step"))
+                        .map(([k, v]) => (
+                          <li key={k} className="text-xs text-zinc-400 flex gap-2">
+                            <span className="text-blue-400 shrink-0 font-mono w-8">
+                              {k.replace("step", "S")}
+                            </span>
+                            {v}
+                          </li>
+                        ))}
+                    </ol>
+                    {dd.productionWorkflow.totalProductionCost && (
+                      <p className="text-xs text-zinc-500 mt-2">
+                        <span className="text-zinc-400 font-medium">Cost per video:</span> {dd.productionWorkflow.totalProductionCost}
+                        {dd.productionWorkflow.videosPerMonth && ` · ${dd.productionWorkflow.videosPerMonth}`}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Hours required */}
+                <div className="flex items-center gap-2 text-xs text-zinc-400 bg-zinc-900 rounded-lg p-2.5">
+                  <Clock className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                  <span>
+                    <span className="text-zinc-300 font-medium">Time commitment:</span>{" "}
+                    {dd?.workPerWeek ?? data.listing.workPerWeek ?? "Not specified"}
+                  </span>
                 </div>
-              ) : (
-                <PlaceholderContent text="Weekly schedule — content coming soon" />
-              )}
+              </div>
             </SectionCard>
 
             {/* ── Section 6: VA Requirements & Costs ────────────────────── */}
@@ -427,7 +607,34 @@ export default function InvestimentosOnlineDetailPage() {
               title="VA Requirements & Costs"
               iconColor="text-emerald-400"
             >
-              <PlaceholderContent text="VA breakdown — content coming soon" />
+              {VA_PLANS[id] ? (
+                <div className="space-y-3">
+                  {VA_PLANS[id].map((va, i) => (
+                    <div key={i} className="bg-zinc-900 rounded-lg p-3">
+                      <div className="flex items-start justify-between gap-2 mb-1">
+                        <p className="text-sm font-medium text-zinc-200">{va.role}</p>
+                        <span className="text-xs text-emerald-400 font-mono shrink-0">{va.costPerMonth}/mo</span>
+                      </div>
+                      <p className="text-xs text-zinc-400">{va.tasks}</p>
+                      <p className="text-xs text-zinc-600 mt-1 flex items-center gap-1">
+                        <Clock className="w-3 h-3" /> ~{va.hoursPerWeek}hrs/week
+                      </p>
+                    </div>
+                  ))}
+                  <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-3">
+                    <p className="text-xs text-zinc-400">
+                      <span className="text-emerald-400 font-medium">Total VA budget estimate: </span>
+                      ${VA_PLANS[id].reduce((acc) => acc, 0) && ""}
+                      {VA_PLANS[id].map(v => v.costPerMonth).join(" + ")}
+                    </p>
+                    <p className="text-xs text-zinc-500 mt-1">
+                      Sourced via OnlineJobs.ph (Philippines VAs) and Upwork (dev). Rates are market estimates for 2026.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-zinc-400">VA cost breakdown not available for this listing.</p>
+              )}
             </SectionCard>
 
             {/* ── Section 7: Risk Assessment ────────────────────────────── */}
@@ -456,7 +663,7 @@ export default function InvestimentosOnlineDetailPage() {
                       <XCircle className="w-3 h-3" /> Risks
                     </div>
                     <ul className="space-y-1.5">
-                      {data.assessment.risks.map((r, i) => (
+                      {(dd?.risks ?? data.assessment.risks).map((r: string, i: number) => (
                         <li key={i} className="text-xs text-zinc-400 flex gap-1.5">
                           <span className="text-red-500 shrink-0 mt-0.5">-</span>
                           {r}
@@ -503,16 +710,99 @@ export default function InvestimentosOnlineDetailPage() {
               title="Growth Opportunities"
               iconColor="text-amber-400"
             >
-              <PlaceholderContent text="Growth plan — content coming soon" />
+              {dd?.opportunities && Array.isArray(dd.opportunities) ? (
+                <ul className="space-y-2">
+                  {dd.opportunities.map((opp: string, i: number) => (
+                    <li key={i} className="text-sm text-zinc-300 flex gap-2">
+                      <span className="text-amber-400 shrink-0 mt-0.5">→</span>
+                      {opp}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul className="space-y-2">
+                  {data.listing.reasonsFor.map((r, i) => (
+                    <li key={i} className="text-sm text-zinc-300 flex gap-2">
+                      <span className="text-amber-400 shrink-0 mt-0.5">→</span>
+                      {r}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </SectionCard>
 
             {/* ── Section 9: Head-to-Head Comparison ────────────────────── */}
             <SectionCard
               icon={Swords}
-              title="Head-to-Head Comparison"
+              title="Head-to-Head — All 4 Finalists"
               iconColor="text-blue-400"
             >
-              <PlaceholderContent text="Comparison table — content coming soon" />
+              <div className="overflow-x-auto -mx-1">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-zinc-700">
+                      <th className="text-left text-zinc-500 font-medium pb-2 pr-4">Business</th>
+                      <th className="text-right text-zinc-500 font-medium pb-2 px-2">Price</th>
+                      <th className="text-right text-zinc-500 font-medium pb-2 px-2">Profit/mo</th>
+                      <th className="text-right text-zinc-500 font-medium pb-2 px-2">ROI</th>
+                      <th className="text-right text-zinc-500 font-medium pb-2 px-2">Profit ▲</th>
+                      <th className="text-right text-zinc-500 font-medium pb-2 px-2">Multiple</th>
+                      <th className="text-left text-zinc-500 font-medium pb-2 pl-2">Verdict</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {EXPERT_ASSESSMENTS.map((a) => (
+                      <tr
+                        key={a.id}
+                        className={`border-b border-zinc-800 last:border-0 ${a.id === id ? "bg-zinc-700/20" : ""}`}
+                      >
+                        <td className="py-2 pr-4">
+                          <Link
+                            href={`/investimentos-online/${a.id}`}
+                            className={`hover:underline ${a.id === id ? "text-white font-semibold" : "text-zinc-400 hover:text-zinc-200"}`}
+                          >
+                            {a.name}
+                          </Link>
+                          {a.id === id && <span className="ml-1.5 text-zinc-600">← you are here</span>}
+                        </td>
+                        <td className="text-right py-2 px-2 text-zinc-300">{a.price}</td>
+                        <td className="text-right py-2 px-2 text-emerald-400">{a.monthlyProfit}</td>
+                        <td className="text-right py-2 px-2 text-blue-400">{a.annualROI}</td>
+                        <td className={`text-right py-2 px-2 font-medium ${a.trendProfit.startsWith("+") ? "text-emerald-400" : a.trendProfit.startsWith("-") ? "text-red-400" : "text-zinc-400"}`}>
+                          {a.trendProfit}
+                        </td>
+                        <td className="text-right py-2 px-2 text-zinc-400">
+                          {/* Multiple from assessment price + profit */}
+                          {Math.round(parseFloat(a.price.replace(/[$,]/g, "")) / parseFloat(a.monthlyProfit.replace(/[$,]/g, "")))}x
+                        </td>
+                        <td className="pl-2 py-2">
+                          <VerdictBadge verdict={a.verdict.length > 15 ? a.verdict.slice(0, 15) + "…" : a.verdict} color={a.verdictColor} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Key differentiators */}
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-zinc-400">
+                <div className="bg-zinc-900 rounded-lg p-2.5">
+                  <p className="text-zinc-300 font-medium mb-1">Best traffic quality</p>
+                  <p>ahoyvietnam.com — 86.6% Google organic search</p>
+                </div>
+                <div className="bg-zinc-900 rounded-lg p-2.5">
+                  <p className="text-zinc-300 font-medium mb-1">Best traffic diversification</p>
+                  <p>photopacks.ai — 7+ traffic channels, no source &gt;30%</p>
+                </div>
+                <div className="bg-zinc-900 rounded-lg p-2.5">
+                  <p className="text-zinc-300 font-medium mb-1">Lowest hours/week</p>
+                  <p>Ace Hoops — 6hrs/week with full contractor team</p>
+                </div>
+                <div className="bg-zinc-900 rounded-lg p-2.5">
+                  <p className="text-zinc-300 font-medium mb-1">Best growth rate</p>
+                  <p>ahoyvietnam.com — +581% traffic, +41% profit (9 months)</p>
+                </div>
+              </div>
             </SectionCard>
 
             {/* ── Section 10: Investment Recommendation ─────────────────── */}
@@ -522,23 +812,36 @@ export default function InvestimentosOnlineDetailPage() {
               iconColor="text-emerald-400"
             >
               {data.assessment?.recommendation ? (
-                <div className="bg-zinc-900 rounded-lg p-4 border border-zinc-600">
-                  <div className="flex items-center gap-2 mb-2">
-                    <ShieldCheck className="w-4 h-4 text-blue-400" />
-                    <span className="text-sm font-semibold text-blue-400">
-                      Final Verdict
-                    </span>
-                    <VerdictBadge
-                      verdict={data.assessment.verdict}
-                      color={data.assessment.verdictColor}
-                    />
+                <div className="space-y-4">
+                  <div className="bg-zinc-900 rounded-lg p-4 border border-zinc-600">
+                    <div className="flex items-center gap-2 mb-2">
+                      <ShieldCheck className="w-4 h-4 text-blue-400" />
+                      <span className="text-sm font-semibold text-blue-400">
+                        Final Verdict
+                      </span>
+                      <VerdictBadge
+                        verdict={data.assessment.verdict}
+                        color={data.assessment.verdictColor}
+                      />
+                    </div>
+                    <p className="text-sm text-zinc-300 leading-relaxed">
+                      {data.assessment.recommendation}
+                    </p>
                   </div>
-                  <p className="text-sm text-zinc-300 leading-relaxed">
-                    {data.assessment.recommendation}
-                  </p>
+
+                  {/* Negotiation target */}
+                  {data.assessment.recommendation.match(/\$[\d,]+K/) && (
+                    <div className="flex items-center gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-3">
+                      <DollarSign className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <p className="text-xs text-zinc-300">
+                        <span className="text-emerald-400 font-medium">Negotiation target: </span>
+                        {data.assessment.recommendation.match(/(?:Negotiate|Offer|negotiate)\s+(?:to\s+)?(\$[\d,K–]+)/)?.[1] ?? "See recommendation above"}
+                      </p>
+                    </div>
+                  )}
                 </div>
               ) : (
-                <PlaceholderContent text="Final verdict — content coming soon" />
+                <p className="text-sm text-zinc-400">No investment recommendation available for this listing.</p>
               )}
             </SectionCard>
           </div>
