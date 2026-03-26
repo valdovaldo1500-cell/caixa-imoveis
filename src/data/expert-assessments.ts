@@ -254,7 +254,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "69% profit margin",
     ],
     risks: [
-      "CRITICAL: Revenue declining 60% — peak $12,314 (May 25) → $2,919 (Feb 26)",
+      "CRITICAL: Revenue declining 76% — peak $12,314 (May 25) → $2,919 (Feb 26)",
       "Political content = YouTube demonetization risk (restricted ads, limited advertisers)",
       "Only 16 months old — started Oct 2024, $0 first month",
       "Owner does voiceovers — changing voice could alienate audience",
