@@ -689,7 +689,7 @@ export default function FlippaPage() {
                 Portfolio Options — $160K Budget Scenarios
               </h2>
               <p className="text-xs text-zinc-500 mb-3">
-                Placeholder scenarios — will be updated with real Flippa picks after data collection. Flippa typically allows more negotiation than Empire Flippers (direct seller contact).
+                Based on {listings.length} screened listings. Flippa allows direct seller contact for more aggressive negotiation than broker platforms.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
                 {/* Option A */}
