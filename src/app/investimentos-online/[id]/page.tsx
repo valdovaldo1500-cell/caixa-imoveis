@@ -595,7 +595,7 @@ export default function InvestimentosOnlineDetailPage() {
                   <Clock className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
                   <span>
                     <span className="text-zinc-300 font-medium">Time commitment:</span>{" "}
-                    {dd?.workPerWeek ?? data.listing.workPerWeek ?? "Not specified"}
+                    {dd?.workPerWeek ?? "Not specified"}
                   </span>
                 </div>
               </div>
