@@ -39,7 +39,7 @@ import {
 import type { FlippaListing } from "@/data/flippa-listings";
 import { flippaExpertAssessments } from "@/data/flippa-expert-assessments";
 
-const UPDATED_AT = "March 26, 2026 (placeholder — real listings to be added)";
+const UPDATED_AT = "March 26, 2026";
 const BUDGET_USD = 160000;
 
 type SortKey =
