@@ -195,10 +195,10 @@ export const PORTFOLIO_SCENARIOS: PortfolioScenario[] = [
     name: "Alternative: Ace Hoops + Faceless Tutorials",
     listings: ["92246", "91304"],
     totalCost: 112000, // $62K + $50K target prices
-    monthlyProfit: 4826, // $2,689 + $2,137 avg
-    annualProfit: 57912,
-    annualROI: 51.7,
-    paybackMonths: 23,
+    monthlyProfit: 4651, // $2,689 + $1,962 avg3mo
+    annualProfit: 55812,
+    annualROI: 49.8,
+    paybackMonths: 24,
     irr: 46.5,
     npv10: 33400,
     npv15: 25200,
