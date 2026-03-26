@@ -981,7 +981,7 @@ export default function InvestimentosOnlineDetailPage() {
                       <div className="flex-1 h-2 bg-zinc-700 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-emerald-500 rounded-full transition-all"
-                          style={{ width: `${Math.round((doneCount / totalCount) * 100)}%` }}
+                          style={{ width: `${totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0}%` }}
                         />
                       </div>
                       <span className="text-xs text-zinc-400 shrink-0">
