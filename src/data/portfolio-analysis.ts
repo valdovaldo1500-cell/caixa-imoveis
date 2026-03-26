@@ -475,10 +475,10 @@ export const SENSITIVITY_ANALYSIS: SensitivityScenario[] = [
   },
   {
     name: "Catastrophic: one channel demonetized",
-    revenueChange: -50, // lose Ace Hoops entirely
-    monthlyProfit: 3059,
-    annualROI: 26.0,
-    paybackMonths: 46,
+    revenueChange: -44, // lose Ace Hoops entirely ($2,689/$6,117 = 44%)
+    monthlyProfit: 3428,
+    annualROI: 29.2,
+    paybackMonths: 41,
     verdict: "Survivable — Tech YouTube alone at $3,428/mo covers portfolio. Sell Ace Hoops channel",
   },
 ];
