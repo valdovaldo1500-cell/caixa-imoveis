@@ -863,6 +863,166 @@ export default function InvestimentosOnlineDetailPage() {
                 <p className="text-sm text-zinc-400">No investment recommendation available for this listing.</p>
               )}
             </SectionCard>
+
+            {/* ── Section 11: Due Diligence Checklist ───────────────────── */}
+            {(() => {
+              const categories = Array.from(new Set(DUE_DILIGENCE_CHECKLIST.map((i) => i.category)));
+              const doneCount = DUE_DILIGENCE_CHECKLIST.filter((i) => i.status === "done").length;
+              const totalCount = DUE_DILIGENCE_CHECKLIST.filter((i) => i.status !== "not-applicable").length;
+              return (
+                <SectionCard icon={ShieldCheck} title="Due Diligence Checklist" iconColor="text-blue-400">
+                  <div className="space-y-5">
+                    {/* Progress summary */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-1 h-2 bg-zinc-700 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-emerald-500 rounded-full transition-all"
+                          style={{ width: `${Math.round((doneCount / totalCount) * 100)}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-zinc-400 shrink-0">
+                        <span className="text-emerald-400 font-semibold">{doneCount}</span> of{" "}
+                        <span className="font-semibold text-zinc-300">{totalCount}</span> completed
+                      </span>
+                    </div>
+
+                    {/* Items grouped by category */}
+                    {categories.map((cat) => (
+                      <div key={cat}>
+                        <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">{cat}</p>
+                        <div className="space-y-2">
+                          {DUE_DILIGENCE_CHECKLIST.filter((item) => item.category === cat).map((item, idx) => {
+                            const statusIcon =
+                              item.status === "done" ? (
+                                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                              ) : item.status === "pending" ? (
+                                <span className="w-4 h-4 rounded-full border-2 border-amber-400 shrink-0 mt-0.5 inline-block" />
+                              ) : (
+                                <span className="w-4 h-4 rounded-full border-2 border-zinc-600 shrink-0 mt-0.5 inline-block" />
+                              );
+                            const priorityBadge =
+                              item.priority === "critical" ? (
+                                <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30 shrink-0">CRITICAL</span>
+                              ) : item.priority === "important" ? (
+                                <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 shrink-0">IMPORTANT</span>
+                              ) : (
+                                <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-zinc-700 text-zinc-500 border border-zinc-600 shrink-0">NICE-TO-HAVE</span>
+                              );
+                            return (
+                              <div key={idx} className="bg-zinc-900 rounded-lg p-3">
+                                <div className="flex items-start gap-2">
+                                  {statusIcon}
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-start gap-2 flex-wrap">
+                                      <p className={`text-xs flex-1 ${item.status === "done" ? "text-zinc-400 line-through" : item.status === "not-applicable" ? "text-zinc-600" : "text-zinc-300"}`}>
+                                        {item.item}
+                                      </p>
+                                      {priorityBadge}
+                                    </div>
+                                    {item.notes && (
+                                      <p className="text-[11px] text-zinc-600 mt-1 leading-relaxed">{item.notes}</p>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
+            {/* ── Section 12: Portfolio Risk Analysis ───────────────────── */}
+            {(() => {
+              const scenario = PORTFOLIO_SCENARIOS.find((p) => p.listings.includes(id));
+              if (!scenario) return null;
+              const corrColor =
+                scenario.correlationRisk === "high"
+                  ? "bg-red-500/20 text-red-400 border border-red-500/30"
+                  : scenario.correlationRisk === "medium"
+                  ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+                  : "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+              return (
+                <SectionCard icon={BarChart2} title="Portfolio Risk Analysis" iconColor="text-violet-400">
+                  <div className="space-y-4">
+                    {/* Scenario name + description */}
+                    <div className="bg-zinc-900 rounded-lg p-3">
+                      <div className="flex items-center gap-2 flex-wrap mb-2">
+                        <p className="text-sm font-semibold text-zinc-200">{scenario.name}</p>
+                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${corrColor}`}>
+                          {scenario.correlationRisk.toUpperCase()} CORRELATION
+                        </span>
+                      </div>
+                      <p className="text-xs text-zinc-400 leading-relaxed">{scenario.description}</p>
+                    </div>
+
+                    {/* Key metrics row */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <div className="bg-zinc-900 rounded-lg p-3 text-center">
+                        <div className="text-xs text-zinc-500 mb-1">Total Cost</div>
+                        <div className="text-base font-bold text-white">${(scenario.totalCost / 1000).toFixed(0)}K</div>
+                      </div>
+                      <div className="bg-zinc-900 rounded-lg p-3 text-center">
+                        <div className="text-xs text-zinc-500 mb-1">Monthly Profit</div>
+                        <div className="text-base font-bold text-emerald-400">${scenario.monthlyProfit.toLocaleString()}</div>
+                      </div>
+                      <div className="bg-zinc-900 rounded-lg p-3 text-center">
+                        <div className="text-xs text-zinc-500 mb-1">Annual ROI</div>
+                        <div className="text-base font-bold text-blue-400">{scenario.annualROI}%</div>
+                      </div>
+                      <div className="bg-zinc-900 rounded-lg p-3 text-center">
+                        <div className="text-xs text-zinc-500 mb-1">Payback</div>
+                        <div className="text-base font-bold text-zinc-300">{scenario.paybackMonths} mo</div>
+                      </div>
+                    </div>
+
+                    {/* Worst vs Best case */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="bg-red-500/5 border border-red-500/20 rounded-lg p-3">
+                        <p className="text-xs font-semibold text-red-400 mb-2">Worst Case (-30% revenue)</p>
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-xs">
+                            <span className="text-zinc-500">Monthly profit</span>
+                            <span className="text-zinc-300 font-medium">${scenario.worstCase.monthlyProfit.toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between text-xs">
+                            <span className="text-zinc-500">Annual ROI</span>
+                            <span className="text-red-400 font-medium">{scenario.worstCase.annualROI}%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-3">
+                        <p className="text-xs font-semibold text-emerald-400 mb-2">Best Case (peak season)</p>
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-xs">
+                            <span className="text-zinc-500">Monthly profit</span>
+                            <span className="text-zinc-300 font-medium">${scenario.bestCase.monthlyProfit.toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between text-xs">
+                            <span className="text-zinc-500">Annual ROI</span>
+                            <span className="text-emerald-400 font-medium">{scenario.bestCase.annualROI}%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Correlation risk explanation */}
+                    {scenario.correlationRisk === "high" && (
+                      <div className="bg-red-500/5 border border-red-500/20 rounded-lg p-3 flex gap-2">
+                        <AlertTriangle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                        <p className="text-xs text-zinc-400">
+                          <span className="text-red-400 font-medium">High correlation risk: </span>
+                          Both listings in this portfolio are YouTube channels. A platform-wide algorithm change or policy update would impact all holdings simultaneously.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </SectionCard>
+              );
+            })()}
           </div>
         )}
       </main>
