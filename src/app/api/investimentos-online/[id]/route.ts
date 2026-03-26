@@ -7,6 +7,7 @@ import dd92180 from "@/data/due-diligence-92180.json";
 import dd92105 from "@/data/due-diligence-92105.json";
 import dd89555 from "@/data/due-diligence-89555.json";
 import dd92246 from "@/data/due-diligence-92246.json";
+import dd90544 from "@/data/due-diligence-90544.json";
 
 const ALLOWED_USER = "isilva";
 
@@ -15,6 +16,7 @@ const DUE_DILIGENCE: Record<string, unknown> = {
   "92105": dd92105,
   "89555": dd89555,
   "92246": dd92246,
+  "90544": dd90544,
 };
 
 export async function GET(
