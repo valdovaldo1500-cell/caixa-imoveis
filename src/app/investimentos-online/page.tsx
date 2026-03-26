@@ -822,7 +822,9 @@ export default function InvestimentosOnlinePage() {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {topPicks.map((l) => (
-                    <TopPickCard key={l.id} listing={l} />
+                    <Link key={l.id} href={`/investimentos-online/${l.id}`} className="block hover:opacity-90 transition-opacity">
+                      <TopPickCard listing={l} />
+                    </Link>
                   ))}
                 </div>
               </section>
