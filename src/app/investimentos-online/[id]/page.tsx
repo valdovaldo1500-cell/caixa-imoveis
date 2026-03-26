@@ -720,14 +720,7 @@ export default function InvestimentosOnlineDetailPage() {
                   ))}
                 </ul>
               ) : (
-                <ul className="space-y-2">
-                  {data.listing.reasonsFor.map((r, i) => (
-                    <li key={i} className="text-sm text-zinc-300 flex gap-2">
-                      <span className="text-amber-400 shrink-0 mt-0.5">→</span>
-                      {r}
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-sm text-zinc-500 italic">Detailed growth analysis not yet available for this listing. See the main dashboard for verified picks.</p>
               )}
             </SectionCard>
 
