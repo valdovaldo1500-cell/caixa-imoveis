@@ -1,0 +1,81 @@
+{
+  "listingId": "90544",
+  "channelName": "3× Faceless Tech YouTube",
+  "niche": "Technology tutorials / digital media (3 separate channels)",
+  "description": "Three faceless YouTube channels producing tech tutorial content (screen recordings + AI voiceover). Launched in late 2022. Topics span general tech, software tutorials, and digital tools. No face, no persona — fully interchangeable operators. ~10,000 total published videos. Owner spends ~1hr/week.",
+  "monetization": "YouTube AdSense (100%). ~85% profit margin.",
+  "price": 93608,
+  "monthlyProfit": 3900,
+  "monthlyRevenue": 4589,
+  "profitMargin": 85,
+  "multiple": 24,
+  "pricingPeriod": "12 Months",
+  "firstMadeMoney": "2022",
+  "age": "~3 years",
+  "workPerWeek": "~1 hour",
+  "registeredIn": "Unknown",
+
+  "verifiedTrends": {
+    "profitTrend": "-33% from Jan 2025 peak",
+    "period": "12 months verified via Chart.js extraction",
+    "note": "EF-quoted 12-month average overstates current run rate — use last 6-month avg for valuation"
+  },
+
+  "verifiedPnL": {
+    "chartDataExtracted": "2025-03-26",
+    "monthlyData": {
+      "Jan 2025": 5058,
+      "Dec 2025": 3428,
+      "last6MonthAvg": 3389,
+      "twelveMonthAvg": 3900,
+      "note": "Peak Jan 25 $5,058 → Dec 25 $3,428. 6-month avg ~$3,389 vs EF 12-month avg $3,900. EF average is inflated by the early peak."
+    }
+  },
+
+  "channelStats": {
+    "totalVideos": 10000,
+    "channels": 3,
+    "format": "Screen recording + AI voiceover — no face, no persona",
+    "niche": "Tech tutorials — Python, AI tools, software, digital media"
+  },
+
+  "earningsAnalysis": {
+    "trend": "DECLINING — down 33% from Jan 2025 peak ($5,058) to Dec 2025 ($3,428)",
+    "fairValueMultiple": "23x on current $3,389/month run rate = ~$78K fair value",
+    "askingMultipleOnCurrent": "27.6x — overstated given decline",
+    "negotiationTarget": "$72K offer, $79K settle",
+    "note": "Decline likely due to AI disruption of tech tutorial niche — ChatGPT/Perplexity answers many how-to queries without needing a video"
+  },
+
+  "sellerQandA": {
+    "workRequired": "~1 hour per week — fully outsourced production",
+    "transferAssets": "All 3 YouTube channels + AdSense account + content creation workflow",
+    "growthOpportunities": "Expand to new AI tool tutorials, increase upload frequency, add memberships"
+  },
+
+  "risks": [
+    "Revenue DECLINING 33% from Jan 2025 peak — trend is down, not flat",
+    "AI disruption risk: tech tutorial niche is most vulnerable to ChatGPT/Perplexity replacing video tutorials",
+    "100% YouTube AdSense — no revenue diversification",
+    "EF-quoted 12-month average ($3,900) overstates current $3,389/month run rate by 15%",
+    "Asking $93K = 27.6x on current run rate — expensive for a declining asset",
+    "Tech niche may face accelerating competition from AI-native content creators",
+    "3 channels = 3x algorithm dependency risk (any one channel demonetized hits 33% of revenue)"
+  ],
+
+  "opportunities": [
+    "10,000 existing videos = massive long-tail traffic library with compounding effect",
+    "Pivot to AI tool tutorials (fastest-growing tech sub-niche) to reverse decline",
+    "Add YouTube memberships + sponsorships — easy at current view volume",
+    "3-channel structure diversifies algorithm risk vs single channel",
+    "Fully faceless — any AI can script, any operator can run",
+    "Expand to Shorts for additional AdSense revenue stream"
+  ],
+
+  "negotiationStrategy": {
+    "offerPrice": 72000,
+    "settlePrice": 79000,
+    "justification": "Current 6-month average is $3,389/month, not the EF-quoted $3,900. Fair value at 23x = $77,947. Declining trend justifies further discount. Target $79K max.",
+    "walkAwayConditions": "Walk if seller insists on >$82K or if verified data shows accelerating decline in Jan-Feb 2026"
+  }
+}
