@@ -85,8 +85,8 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "89555",
     name: "photopacks.ai (SaaS)",
-    verdict: "CAUTION — DECLINING",
-    verdictColor: "amber",
+    verdict: "DO NOT BUY — DECLINING",
+    verdictColor: "red",
     price: "$76,200",
     monthlyProfit: "$2,513",
     annualROI: "40%",
