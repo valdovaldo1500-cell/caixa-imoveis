@@ -518,14 +518,16 @@ export default function FlippaPage() {
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Analysis Status</span>
-                    <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">Collecting Data</span>
+                    <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">{listings.length} Listings Analyzed</span>
                   </div>
                   <h2 className="text-xl font-bold text-white mb-1">
-                    Flippa Deal Sourcing — Top Picks TBD
+                    Flippa Deal Sourcing — {topPicks.length > 0 ? `${topPicks.length} Top Pick${topPicks.length > 1 ? "s" : ""} Identified` : "No Top Picks in Budget"}
                   </h2>
                   <p className="text-sm text-zinc-400 max-w-3xl">
-                    Premium deal sourcing from Flippa.com marketplace. Analysis in progress — real listings will replace placeholders once data collection is complete. Focus: AI+VA manageable businesses with verified financials within $160K budget.
-                    Target categories: <span className="text-emerald-400 font-semibold">SaaS, Newsletter, Content/Ads, Digital Products</span> with strong recurring revenue.
+                    {topPicks.length > 0
+                      ? <>Screened {listings.length} active Flippa listings. Found <span className="text-emerald-400 font-semibold">{topPicks.length} top pick{topPicks.length > 1 ? "s" : ""}</span> scoring ≥75 with AI+VA manageability within $160K budget. Best ROI: <span className="text-emerald-400 font-semibold">{bestRoi ? `${annualRoi(bestRoi.price, bestRoi.monthlyProfit)?.toFixed(0)}%/yr` : "—"}</span> on #{bestRoi?.id}. Focus: AI+VA manageable businesses with verified financials.</>
+                      : <>Screened {listings.length} Flippa listings. No listings met all top-pick criteria (score ≥75 + AI manageable + ≤$160K). <span className="text-amber-400 font-semibold">{listings.filter(l => l.recommendation === "strong").length} Strong picks</span> available as alternatives. Target: SaaS, Newsletter, Content/Ads with recurring revenue.</>
+                    }
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-1 shrink-0">
