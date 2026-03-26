@@ -470,11 +470,11 @@ export default function InvestimentosOnlinePage() {
                     <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">March 26, 2026</span>
                   </div>
                   <h2 className="text-xl font-bold text-white mb-1">
-                    BUY: Ace Hoops WNBA (#92246) — core pick
+                    BUY: Ace Hoops WNBA (#92246) + 3× Tech YouTube (#90544)
                   </h2>
                   <p className="text-sm text-zinc-400 max-w-3xl">
-                    The only finalist with no personal brand risk, no single-platform dependency, and verified 52% ROI. YouTube algorithm risk is offset by growing WNBA trend + €70/video production cost.
-                    Second pick: <span className="text-blue-400 font-semibold">#89555 photopacks.ai</span> if you have Python/Django comfort — no persona, SaaS revenue, diversified traffic.
+                    Both faceless, fully AI+VA manageable, no personal brand risk. Ace Hoops is seasonal (WNBA May–Oct) and growing; Tech YouTube is year-round but declining — buy only after negotiating from $94K to ~$79K. Combined total ~$141K within $160K budget.
+                    Avoid: <span className="text-red-400 font-semibold">#89555 photopacks.ai</span> (traffic -78%, declining) · <span className="text-red-400 font-semibold">#92105 homemadegraceful</span> (female persona + Pinterest 92%) · <span className="text-red-400 font-semibold">#92180 ahoyvietnam</span> (personal brand).
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-1 shrink-0">
