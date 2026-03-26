@@ -1154,21 +1154,34 @@ export default function InvestimentosOnlinePage() {
                           }`}
                         >
                           <td className="px-3 py-2 font-mono">
-                            <a
-                              href={`https://app.empireflippers.com/listing/${l.id}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-400 hover:text-blue-300 flex items-center gap-1"
-                            >
-                              {l.id}
-                              <ExternalLink className="w-3 h-3 opacity-50" />
-                            </a>
+                            <div className="flex items-center gap-1.5">
+                              <Link
+                                href={`/investimentos-online/${l.id}`}
+                                className="text-zinc-300 hover:text-white font-mono transition-colors"
+                              >
+                                {l.id}
+                              </Link>
+                              <a
+                                href={`https://app.empireflippers.com/listing/${l.id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-zinc-600 hover:text-blue-400 transition-colors"
+                              >
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            </div>
                             {isPending && (
                               <span className="text-zinc-600 block text-[10px]">pending</span>
                             )}
                           </td>
                           <td className="px-3 py-2 max-w-[140px]">
-                            <div className="text-zinc-200 truncate" title={l.niche}>{l.niche}</div>
+                            <Link
+                              href={`/investimentos-online/${l.id}`}
+                              className="text-zinc-200 hover:text-white transition-colors truncate block"
+                              title={l.niche}
+                            >
+                              {l.niche}
+                            </Link>
                             <div className="text-zinc-600 text-[10px]">{CAT_LABELS[l.category]}</div>
                           </td>
                           <td className="px-3 py-2 text-zinc-400 max-w-[120px]">
