@@ -736,8 +736,8 @@ export default function InvestimentosOnlinePage() {
               <section>
                 <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
                   <Star className="w-4 h-4 text-emerald-400" />
-                  Top Picks — AI+VA Manageable, Within Budget
-                  <span className="text-xs text-zinc-500 font-normal">({topPicks.length} listings)</span>
+                  Remaining Candidates — Not Yet Eliminated
+                  <span className="text-xs text-zinc-500 font-normal">({topPicks.length} still standing after deep-dive analysis)</span>
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {topPicks.map((l) => (
