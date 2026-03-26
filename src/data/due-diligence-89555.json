@@ -1,0 +1,139 @@
+{
+  "listingId": "89555",
+  "siteName": "photopacks.ai",
+  "siteUrl": "https://www.photopacks.ai/",
+  "niche": "AI headshots & photo packs (digital product / SaaS)",
+  "description": "AI-powered digital product business generating professional headshots and photo packs. One-time purchase model attracting 100-150 customers per month. 4,400+ total orders since inception. No paid marketing — grows via SEO and Reddit marketing. Built on Python/Django backend + Next.js frontend, deployed on AWS/GCP with Docker.",
+  "monetization": "One-time purchase (digital products — AI headshot packs). No subscription.",
+  "price": 76200,
+  "monthlyProfit": 2381,
+  "monthlyRevenue": 2753,
+  "profitMargin": 86,
+  "multiple": 32,
+  "pricingPeriod": "12 Months",
+  "firstMadeMoney": "February 2024",
+  "age": "2 years 1 month",
+  "workPerWeek": "10 hours (customer service, marketing, infrastructure maintenance)",
+  "registeredIn": "United States",
+  "customerMarkets": ["United States", "Singapore", "India"],
+
+  "verifiedTrends": {
+    "profitTrend": "+30%",
+    "trafficTrend": "+64%",
+    "period": "9 months"
+  },
+
+  "verifiedPnL": {
+    "lastMonthRevenue": 2512.68,
+    "lastMonthProfit": 2349.75,
+    "twelveMonthRevenue": 33030.74,
+    "twelveMonthProfit": 28574.83
+  },
+
+  "trafficBreakdown": {
+    "email": "30.08%",
+    "direct": "25.47%",
+    "paidSearch": "10.14%",
+    "organicSearch": "8.23%",
+    "referral_reddit": "8.1%",
+    "organicSocial": "5.89%",
+    "organicShopping": "5.03%",
+    "display": "2.66%",
+    "unassigned": "3.2%"
+  },
+
+  "seoData": {
+    "authorityScore": 22,
+    "referringDomains": 695,
+    "backlinks": 31605,
+    "doFollowPercent": 86,
+    "organicKeywords": 812,
+    "topKeywords": [
+      { "keyword": "ai pro headshots", "position": 9 },
+      { "keyword": "ai headshot generator", "position": 18 },
+      { "keyword": "photopacks ai", "position": 1 },
+      { "keyword": "free ai headshot generator", "position": 19 },
+      { "keyword": "ai pro headshots", "position": 13 }
+    ]
+  },
+
+  "techStack": {
+    "backend": "Python (Django)",
+    "frontend": "React (Next.js)",
+    "infrastructure": "Docker + AWS (also runs on GCP)",
+    "techRisk": "MODERATE — requires developer for maintenance, bug fixes, and infrastructure. Not suitable for non-technical buyer unless dev is outsourced."
+  },
+
+  "assetsIncluded": [
+    "Primary domain photopacks.ai + all content",
+    "Secondary domains (301 redirects)",
+    "Social media accounts (Facebook, Instagram, TikTok)",
+    "Email list",
+    "Full frontend + backend source code",
+    "Technical documentation",
+    "Reddit marketing documentation"
+  ],
+
+  "sellerQandA": {
+    "trafficDeclineExplanation": "UNANSWERED — no Q&A section on this listing",
+    "employees": "No employees. Seller is solo operator.",
+    "whySelling": "Starting graduate school in 2026, wants more free time.",
+    "training": "30 days custom support for smooth transition.",
+    "penalties": "UNANSWERED",
+    "redditMarketing": "Has proprietary Reddit marketing system with documentation included in sale. Details provided to serious buyers only.",
+    "techNote": "Infrastructure runs on both AWS and GCP — Docker-based deployment."
+  },
+
+  "earningsAnalysis": {
+    "trend": "Growing but not hockey stick — steady +30% profit over 9 months",
+    "businessModel": "One-time purchase — no recurring revenue. Each month requires new customer acquisition.",
+    "monthlyCustomers": "100-150 customers/month, average order ~$18-25",
+    "totalOrders": "4,400+ since inception (Feb 2024)",
+    "margin": "86% — low operating costs (AWS hosting, minimal marketing)",
+    "noRecurring": "IMPORTANT: No subscription model means revenue is not predictable. Each month starts at $0."
+  },
+
+  "trafficAnalysis": {
+    "bestInClass": true,
+    "summary": "Most diversified traffic of all 4 finalists — no single source dominates",
+    "email": "30% email traffic suggests strong list. Convertkit used for email marketing.",
+    "direct": "25% direct — high brand recognition and repeat visitors",
+    "paidSearch": "10% Google Ads — suggests paid channels are profitable",
+    "organicSearch": "8% organic — growing but still small. Big upside if SEO is prioritized.",
+    "reddit": "8% referral — proprietary Reddit marketing system is a key asset",
+    "dependency": "LOW — traffic is spread across 7+ channels, no single point of failure"
+  },
+
+  "competitiveRisk": {
+    "severity": "MEDIUM-HIGH",
+    "details": "AI headshot space is extremely competitive. Competitors: dreamwave.ai, headshotmaster.io, drheadshot.com, headshot.kiwi. Market is growing but also filling with well-funded players.",
+    "differentiation": "photopacks.ai focuses on photo PACKS (multiple looks/styles) vs single headshots. Reddit community + SEO defensibility.",
+    "aiRisk": "AI image generation capabilities are rapidly improving and commoditizing. Entry barrier is low."
+  },
+
+  "risks": [
+    "No recurring revenue — one-time purchase model requires constant new customer acquisition",
+    "Highly competitive AI headshot space with well-funded competitors",
+    "Tech maintenance required — Python/Django + Docker/AWS not suitable for non-technical owner",
+    "AI image generation is fast-moving and commoditizing (low moat)",
+    "Google algorithm changes could hurt the 8% organic search traffic",
+    "Seller starting grad school — may not have time to assist post-sale",
+    "Revenue model requires 100-150 new customers every month to maintain income",
+    "32x multiple based on 12-month average — high multiple for a one-time purchase business"
+  ],
+
+  "opportunities": [
+    "Add a subscription model (monthly credit system) to create recurring revenue",
+    "Expand SEO aggressively — only 812 organic keywords, huge room to grow",
+    "B2B outbound marketing — sell to HR teams, LinkedIn coaches, recruiters",
+    "Expand product line (LinkedIn banners, resume photos, team headshots packages)",
+    "Build affiliate program to leverage Reddit/influencer networks",
+    "Increase prices — AI headshots command premium, may be underpriced",
+    "Email list monetization — 30% email traffic means strong list, can upsell/cross-sell"
+  ],
+
+  "screenshots": {
+    "listingOverview": "ss_27491jys0",
+    "listingOverview2": "ss_5112sxzdf"
+  }
+}
