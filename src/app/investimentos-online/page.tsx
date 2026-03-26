@@ -666,23 +666,6 @@ export default function InvestimentosOnlinePage() {
                   </ul>
                 </div>
 
-                {/* Option B */}
-                <div className="bg-zinc-800 border border-blue-500/30 rounded-xl p-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-blue-400 uppercase tracking-wide">Option B — YouTube + SaaS</div>
-                    <span className="text-xs bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded-full">Platform diversification</span>
-                  </div>
-                  <div className="text-sm font-semibold text-white">Ace Hoops + photopacks.ai (heavily discounted)</div>
-                  <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• Ace Hoops WNBA: ask $70,599 → <span className="text-emerald-400">target $62K (~£49K)</span></li>
-                    <li>• photopacks.ai: ask $76,200 → <span className="text-amber-400">must get $45-50K (~£36-39K)</span></li>
-                    <li>• Total: ~$107-112K (~£84-88K) — under budget</li>
-                    <li className="text-amber-400 font-medium">Monthly: ~£2,100 + ~£1,600 = ~£3,700 (but SaaS declining)</li>
-                    <li>YouTube + SaaS diversifies platform risk</li>
-                    <li className="text-red-400 text-xs">⚠ photopacks.ai: traffic -78% crash. Only at $45-50K max.</li>
-                  </ul>
-                </div>
-
                 {/* Option C */}
                 <div className="bg-zinc-800 border border-amber-500/30 rounded-xl p-4 space-y-2">
                   <div className="flex items-center justify-between">
