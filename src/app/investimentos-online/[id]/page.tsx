@@ -792,7 +792,7 @@ export default function InvestimentosOnlineDetailPage() {
                         <td className="text-right py-1.5 px-2 text-zinc-600 text-[11px]">{a.annualROI}</td>
                         <td className="text-right py-1.5 px-2 text-red-400/50 text-[11px]">{a.trendProfit}</td>
                         <td className="text-right py-1.5 px-2 text-zinc-600 text-[11px]">
-                          {Math.round(parseFloat(a.price.replace(/[$,]/g, "")) / parseFloat(a.monthlyProfit.replace(/[$,]/g, "")))}x
+                          {(() => { const p = parseFloat(a.price.replace(/[$,]/g, "")); const m = parseFloat(a.monthlyProfit.replace(/[$,]/g, "")); return isFinite(p / m) ? `${Math.round(p / m)}x` : "—"; })()}
                         </td>
                         <td className="pl-2 py-1.5">
                           <span className="text-red-400/60 text-[10px]">ELIMINATED</span>
