@@ -269,7 +269,7 @@ export const NEGOTIATION_STRATEGIES: NegotiationStrategy[] = [
     walkAway: 85000,
     leverage: [
       "Revenue declining 33% from Jan 25 peak — clear downward trend",
-      "EF 12-month average ($4,200) overstates current run rate ($3,428) by 22%",
+      "EF 12-month average (~$3,900) overstates current run rate ($3,428) by 14%",
       "Tech tutorial niche faces AI disruption — ChatGPT makes tutorials less valuable",
       "At $93K, the real multiple on current run rate is 27x — market average is 23-25x",
       "Buyer has AI/tech expertise to manage — offer expertise as non-monetary value",
