@@ -744,7 +744,7 @@ export default function InvestimentosOnlineDetailPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {EXPERT_ASSESSMENTS.map((a) => (
+                    {EXPERT_ASSESSMENTS.filter((a) => a.verdictColor !== "red").map((a) => (
                       <tr
                         key={a.id}
                         className={`border-b border-zinc-800 last:border-0 ${a.id === id ? "bg-zinc-700/20" : ""}`}
@@ -765,11 +765,36 @@ export default function InvestimentosOnlineDetailPage() {
                           {a.trendProfit}
                         </td>
                         <td className="text-right py-2 px-2 text-zinc-400">
-                          {/* Multiple from assessment price + profit */}
                           {Math.round(parseFloat(a.price.replace(/[$,]/g, "")) / parseFloat(a.monthlyProfit.replace(/[$,]/g, "")))}x
                         </td>
                         <td className="pl-2 py-2">
                           <VerdictBadge verdict={a.verdict.length > 15 ? a.verdict.slice(0, 15) + "…" : a.verdict} color={a.verdictColor} />
+                        </td>
+                      </tr>
+                    ))}
+                    <tr><td colSpan={7} className="pt-3 pb-1 text-zinc-600 text-[10px] uppercase tracking-wider font-medium">Eliminated ({EXPERT_ASSESSMENTS.filter((a) => a.verdictColor === "red").length})</td></tr>
+                    {EXPERT_ASSESSMENTS.filter((a) => a.verdictColor === "red").map((a) => (
+                      <tr
+                        key={a.id}
+                        className={`border-b border-zinc-800/50 last:border-0 opacity-50 ${a.id === id ? "bg-zinc-700/20 opacity-100" : ""}`}
+                      >
+                        <td className="py-1.5 pr-4">
+                          <Link
+                            href={`/investimentos-online/${a.id}`}
+                            className="text-zinc-500 hover:text-zinc-400 hover:underline text-[11px]"
+                          >
+                            {a.name}
+                          </Link>
+                        </td>
+                        <td className="text-right py-1.5 px-2 text-zinc-600 text-[11px]">{a.price}</td>
+                        <td className="text-right py-1.5 px-2 text-zinc-600 text-[11px]">{a.monthlyProfit}</td>
+                        <td className="text-right py-1.5 px-2 text-zinc-600 text-[11px]">{a.annualROI}</td>
+                        <td className="text-right py-1.5 px-2 text-red-400/50 text-[11px]">{a.trendProfit}</td>
+                        <td className="text-right py-1.5 px-2 text-zinc-600 text-[11px]">
+                          {Math.round(parseFloat(a.price.replace(/[$,]/g, "")) / parseFloat(a.monthlyProfit.replace(/[$,]/g, "")))}x
+                        </td>
+                        <td className="pl-2 py-1.5">
+                          <span className="text-red-400/60 text-[10px]">ELIMINATED</span>
                         </td>
                       </tr>
                     ))}
