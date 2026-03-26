@@ -819,6 +819,148 @@ export default function InvestimentosOnlinePage() {
               </div>
             </section>
 
+            {/* Caixa vs Online Business Comparison */}
+            {caixaProps.length > 0 && (
+              <section>
+                <h2 className="text-base font-semibold text-white mb-1 flex items-center gap-2">
+                  <DollarSign className="w-4 h-4 text-amber-400" />
+                  Real Estate vs Online Business — Side-by-Side
+                </h2>
+                <p className="text-xs text-zinc-500 mb-3">
+                  Top Caixa Imóveis RS properties (by score) vs the 4 online finalists. Rental yields estimated at 0.55%/mo of market value, net of vacancy 8.3%, admin 10%, IPTU+maint 1%/yr. Acquisition includes ITBI+registro (~4–4.5%). Rate: R$5.80/USD.
+                </p>
+
+                {/* Comparison Table */}
+                <div className="overflow-x-auto rounded-xl border border-zinc-800 mb-4">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-zinc-800 border-b border-zinc-700">
+                        <th className="px-3 py-2.5 text-left font-medium text-zinc-400">Asset</th>
+                        <th className="px-3 py-2.5 text-left font-medium text-zinc-400">Type</th>
+                        <th className="px-3 py-2.5 text-right font-medium text-zinc-400">Price (USD)</th>
+                        <th className="px-3 py-2.5 text-right font-medium text-zinc-400">Income/mo (USD)</th>
+                        <th className="px-3 py-2.5 text-right font-medium text-zinc-400">Annual Yield</th>
+                        <th className="px-3 py-2.5 text-center font-medium text-zinc-400">Currency</th>
+                        <th className="px-3 py-2.5 text-center font-medium text-zinc-400">Effort</th>
+                        <th className="px-3 py-2.5 text-center font-medium text-zinc-400">Score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* Online Business Finalists */}
+                      {EXPERT_ASSESSMENTS.map((a, i) => {
+                        const priceNum = parseFloat(a.price.replace(/[$,]/g, ""));
+                        const profitNum = parseFloat(a.monthlyProfit.replace(/[$,]/g, ""));
+                        const roiNum = parseFloat(a.annualROI.replace("%", ""));
+                        const isAmber = a.verdictColor === "amber";
+                        return (
+                          <tr key={a.id} className={`${i % 2 === 0 ? "bg-zinc-900" : "bg-zinc-950"} border-b border-zinc-800`}>
+                            <td className="px-3 py-2 font-medium text-white">
+                              <a href={`https://app.empireflippers.com/listing/${a.id}`} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors flex items-center gap-1">
+                                {a.name}
+                                <ExternalLink className="w-2.5 h-2.5 text-zinc-600" />
+                              </a>
+                            </td>
+                            <td className="px-3 py-2 text-zinc-400">Online Business</td>
+                            <td className="px-3 py-2 text-right font-semibold text-white">{a.price}</td>
+                            <td className="px-3 py-2 text-right font-semibold text-emerald-400">{a.monthlyProfit}</td>
+                            <td className="px-3 py-2 text-right">
+                              <span className={`font-bold ${roiNum >= 44 ? "text-emerald-400" : roiNum >= 37 ? "text-blue-400" : "text-amber-400"}`}>
+                                {a.annualROI}
+                              </span>
+                            </td>
+                            <td className="px-3 py-2 text-center text-blue-400 font-medium">USD</td>
+                            <td className="px-3 py-2 text-center text-zinc-400">Low (AI+VA)</td>
+                            <td className="px-3 py-2 text-center">
+                              <span className={`px-2 py-0.5 rounded-full font-semibold text-xs ${isAmber ? "bg-amber-500/20 text-amber-400" : "bg-emerald-500/20 text-emerald-400"}`}>
+                                {a.verdict.split(" — ")[0]}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                      {/* Divider */}
+                      <tr className="bg-zinc-800/60">
+                        <td colSpan={8} className="px-3 py-1.5 text-xs text-zinc-500 font-medium tracking-wide uppercase text-center">
+                          ↓ Top Caixa Imóveis RS Properties (rental income estimated)
+                        </td>
+                      </tr>
+                      {/* Caixa Properties */}
+                      {caixaProps.slice(0, 6).map((p, i) => {
+                        const yieldColor = p.annualNetYieldPct >= 10 ? "text-emerald-400" : p.annualNetYieldPct >= 7 ? "text-blue-400" : "text-amber-400";
+                        return (
+                          <tr key={p.caixaId} className={`${i % 2 === 0 ? "bg-zinc-900" : "bg-zinc-950"} border-b border-zinc-800`}>
+                            <td className="px-3 py-2 font-medium text-white">
+                              {p.linkCaixa ? (
+                                <a href={p.linkCaixa} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors flex items-center gap-1">
+                                  {p.bairro ?? p.cidade}
+                                  <ExternalLink className="w-2.5 h-2.5 text-zinc-600" />
+                                </a>
+                              ) : (p.bairro ?? p.cidade)}
+                              <div className="text-zinc-600 text-[10px]">{p.cidade} · {p.tipoImovel} {p.quartos ? `${p.quartos}Q` : ""}</div>
+                            </td>
+                            <td className="px-3 py-2 text-zinc-400">Imóvel Caixa</td>
+                            <td className="px-3 py-2 text-right">
+                              <div className="font-semibold text-white">${p.precoUsd.toLocaleString()}</div>
+                              <div className="text-zinc-600 text-[10px]">R${p.preco.toLocaleString("pt-BR", { maximumFractionDigits: 0 })} · -{p.desconto.toFixed(0)}% desc.</div>
+                            </td>
+                            <td className="px-3 py-2 text-right">
+                              <div className="font-semibold text-amber-400">${p.netMonthlyRentUsd.toLocaleString()}</div>
+                              <div className="text-zinc-600 text-[10px]">R${p.netMonthlyRentBrl.toLocaleString()} est.</div>
+                            </td>
+                            <td className="px-3 py-2 text-right">
+                              <span className={`font-bold ${yieldColor}`}>{p.annualNetYieldPct.toFixed(1)}%</span>
+                              <div className="text-zinc-600 text-[10px]">+{p.equityGainAtPurchasePct.toFixed(0)}% equity</div>
+                            </td>
+                            <td className="px-3 py-2 text-center text-amber-400 font-medium">BRL ⚠</td>
+                            <td className="px-3 py-2 text-center text-zinc-400">Very Low</td>
+                            <td className="px-3 py-2 text-center">
+                              <span className="px-2 py-0.5 rounded-full font-semibold text-xs bg-zinc-700 text-zinc-300">
+                                {p.score.toFixed(0)}/100
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Key tradeoffs summary */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div className="bg-zinc-800/60 border border-emerald-500/20 rounded-xl p-4">
+                    <div className="text-xs font-bold text-emerald-400 uppercase tracking-wide mb-2">Online Business — Pros</div>
+                    <ul className="text-xs text-zinc-400 space-y-1">
+                      <li className="flex gap-1.5"><span className="text-emerald-500 shrink-0">+</span>3–5× higher annual ROI (37–52% vs 7–11%)</li>
+                      <li className="flex gap-1.5"><span className="text-emerald-500 shrink-0">+</span>Income in USD (stronger currency than BRL)</li>
+                      <li className="flex gap-1.5"><span className="text-emerald-500 shrink-0">+</span>No ITBI, notary, or physical management costs</li>
+                      <li className="flex gap-1.5"><span className="text-emerald-500 shrink-0">+</span>Fully AI+VA manageable — zero physical presence</li>
+                      <li className="flex gap-1.5"><span className="text-emerald-500 shrink-0">+</span>Growth upside — can scale with content/SEO</li>
+                    </ul>
+                  </div>
+                  <div className="bg-zinc-800/60 border border-amber-500/20 rounded-xl p-4">
+                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wide mb-2">Online Business — Cons</div>
+                    <ul className="text-xs text-zinc-400 space-y-1">
+                      <li className="flex gap-1.5"><span className="text-amber-500 shrink-0">!</span>No tangible collateral — no asset to hold if fails</li>
+                      <li className="flex gap-1.5"><span className="text-amber-500 shrink-0">!</span>Algorithm changes can wipe traffic overnight</li>
+                      <li className="flex gap-1.5"><span className="text-amber-500 shrink-0">!</span>EF listings: 70%+ are declining — selection risk</li>
+                      <li className="flex gap-1.5"><span className="text-amber-500 shrink-0">!</span>Revenue can drop to zero — no floor value</li>
+                      <li className="flex gap-1.5"><span className="text-amber-500 shrink-0">!</span>Shorter track records (18–24 months typical)</li>
+                    </ul>
+                  </div>
+                  <div className="bg-zinc-800/60 border border-blue-500/20 rounded-xl p-4">
+                    <div className="text-xs font-bold text-blue-400 uppercase tracking-wide mb-2">Real Estate — Unique Advantages</div>
+                    <ul className="text-xs text-zinc-400 space-y-1">
+                      <li className="flex gap-1.5"><span className="text-blue-500 shrink-0">i</span>Instant equity: buy at 40–55% below market</li>
+                      <li className="flex gap-1.5"><span className="text-blue-500 shrink-0">i</span>Tangible asset — floor value even if income stops</li>
+                      <li className="flex gap-1.5"><span className="text-blue-500 shrink-0">i</span>Can leverage (Caixa financing accepted on most)</li>
+                      <li className="flex gap-1.5"><span className="text-blue-500 shrink-0">i</span>Capital appreciation over time (RS market)</li>
+                      <li className="flex gap-1.5"><span className="text-amber-500 shrink-0">!</span>BRL currency risk if measuring in GBP/USD</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            )}
+
             {/* Charts */}
             <section>
               <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
