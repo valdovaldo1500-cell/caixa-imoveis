@@ -37,7 +37,7 @@ import {
 import type { EFListing } from "@/data/empire-flippers-listings";
 import { EXPERT_ASSESSMENTS } from "@/data/expert-assessments";
 
-const UPDATED_AT = "March 25, 2026 (23:10 update)";
+const UPDATED_AT = "March 26, 2026 (final analysis — 7 verified picks)";
 const BUDGET_USD = 160000;
 
 type SortKey =
