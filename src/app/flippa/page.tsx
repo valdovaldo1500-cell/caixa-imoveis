@@ -716,7 +716,7 @@ export default function FlippaPage() {
                   </div>
                   <div className="text-sm font-semibold text-white">1× Flippa Pick + Caixa Property</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• Flippa pick: ~$100K (TBD)</li>
+                    <li>• Flippa pick: e.g. #12274806 Ecommerce ($140K, 70% ROI)</li>
                     <li>• Caixa imóvel (POA): ~$35K (R$200K)</li>
                     <li>• Leaves ~$25K in reserve</li>
                     <li className="text-emerald-400 font-medium">Monthly: ~$2.5-3K online + BRL rental income</li>
