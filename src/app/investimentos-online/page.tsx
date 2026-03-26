@@ -852,10 +852,17 @@ export default function InvestimentosOnlinePage() {
                       <div className="flex items-start justify-between gap-2">
                         <div>
                           <div className="flex items-center gap-2 mb-1 flex-wrap">
-                            <span className="text-sm font-mono text-zinc-500">#{a.id}</span>
+                            <Link
+                              href={`/investimentos-online/${a.id}`}
+                              className="text-sm font-mono text-zinc-500 hover:text-zinc-300 transition-colors"
+                            >
+                              #{a.id}
+                            </Link>
                             <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${verdictBg}`}>{a.verdict}</span>
                           </div>
-                          <h3 className="text-white font-semibold text-base leading-tight">{a.name}</h3>
+                          <Link href={`/investimentos-online/${a.id}`} className="hover:text-zinc-300 transition-colors">
+                            <h3 className="text-white font-semibold text-base leading-tight">{a.name}</h3>
+                          </Link>
                         </div>
                         <a
                           href={`https://app.empireflippers.com/listing/${a.id}`}
