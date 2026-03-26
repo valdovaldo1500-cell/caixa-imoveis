@@ -847,13 +847,13 @@ export default function InvestimentosOnlineDetailPage() {
                     </p>
                   </div>
 
-                  {/* Negotiation target */}
-                  {data.assessment.recommendation.match(/\$[\d,]+K/) && (
+                  {/* Negotiation target — only for actionable picks */}
+                  {data.assessment.verdictColor !== "red" && data.assessment.recommendation.match(/(?:Offer|negotiate)\s+\$[\d,K]+/) && (
                     <div className="flex items-center gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-3">
                       <DollarSign className="w-4 h-4 text-emerald-400 shrink-0" />
                       <p className="text-xs text-zinc-300">
                         <span className="text-emerald-400 font-medium">Negotiation target: </span>
-                        {data.assessment.recommendation.match(/(?:Negotiate|Offer|negotiate)\s+(?:to\s+)?(\$[\d,K–]+)/)?.[1] ?? "See recommendation above"}
+                        {data.assessment.recommendation.match(/(?:Negotiate|Offer|negotiate)\s+(?:to\s+)?(\$[\d,K–]+)/)?.[1]?.replace(/,$/, "") ?? "See recommendation above"}
                       </p>
                     </div>
                   )}
