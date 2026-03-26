@@ -1297,7 +1297,11 @@ export default function InvestimentosOnlinePage() {
                           </td>
                           <td className="px-3 py-2 text-zinc-400">{l.evergreenScore}</td>
                           <td className="px-3 py-2">
-                            <RecBadge rec={l.recommendation} />
+                            {ELIMINATED_IDS.has(l.id) ? (
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-red-500/10 text-red-400/70 border border-red-500/20">Eliminated</span>
+                            ) : (
+                              <RecBadge rec={l.recommendation} />
+                            )}
                           </td>
                           <td className="px-3 py-2">
                             {l.aiManageable ? (
