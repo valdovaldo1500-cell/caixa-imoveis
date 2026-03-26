@@ -243,7 +243,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     price: "$60,007",
     monthlyProfit: "$3,787",
     annualROI: "76%",
-    trendProfit: "-60% from May 25 peak",
+    trendProfit: "-76% from May 25 peak",
     trendTraffic: "US 80%+, age 45+",
     highlights: [
       "12x multiple — cheapest listing reviewed by far",
