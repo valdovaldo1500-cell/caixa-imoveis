@@ -571,100 +571,86 @@ export default function InvestimentosOnlinePage() {
                 Negotiation targets assume 10-15% below asking for stable/declining, 5-8% for high-growth. All prices in USD. £1 ≈ $1.27.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-                {/* Option A */}
-                <div className="bg-zinc-800 border border-zinc-600 rounded-xl p-4 space-y-2">
+                {/* Option A — RECOMMENDED */}
+                <div className="bg-zinc-800 border border-emerald-500/60 rounded-xl p-4 space-y-2 ring-1 ring-emerald-500/20">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Option A — Conservative</div>
-                    <span className="text-xs bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full">Lower risk</span>
+                    <div className="text-xs font-bold text-emerald-400 uppercase tracking-wide">Option A ⭐ Recommended</div>
+                    <span className="text-xs bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-full">Best balance</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">soberish.co + Caixa Property</div>
+                  <div className="text-sm font-semibold text-white">Ace Hoops + homemadegraceful</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• soberish.co: ask $68K → <span className="text-emerald-400">target $58K (~£46K)</span></li>
-                    <li>• Caixa auction property: <span className="text-amber-400">~£54K remainder</span></li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~£1,620/mo online + R$2,500-3,500 rental</li>
-                    <li>soberish: ▴15% growing, 33x, health/wellness evergreen</li>
-                    <li className="text-zinc-500">Caixa: buy 30-60% below market, flip for capital gains</li>
+                    <li>• Ace Hoops WNBA: ask $70,599 → <span className="text-emerald-400">target $62K (~£49K)</span></li>
+                    <li>• homemadegraceful: ask $78,487 → <span className="text-emerald-400">target $68K (~£54K)</span></li>
+                    <li>• Total: ~$130K (~£103K)</li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£4,700/mo combined (~£2,400 + £2,300)</li>
+                    <li>Both STRONG BUY — diversified traffic (YouTube vs Pinterest)</li>
+                    <li>Avg ROI 48% — different platform risk profiles</li>
+                    <li className="text-zinc-500">Seasonal offset: WNBA peaks when Homemade is stable year-round</li>
                   </ul>
                 </div>
 
-                {/* Option B — RECOMMENDED */}
-                <div className="bg-zinc-800 border border-emerald-500/60 rounded-xl p-4 space-y-2 ring-1 ring-emerald-500/20">
+                {/* Option B */}
+                <div className="bg-zinc-800 border border-blue-500/30 rounded-xl p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-emerald-400 uppercase tracking-wide">Option B ⭐ Recommended</div>
-                    <span className="text-xs bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-full">Best balance</span>
+                    <div className="text-xs font-bold text-blue-400 uppercase tracking-wide">Option B — SaaS + Content</div>
+                    <span className="text-xs bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded-full">Lower platform risk</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">soberish.co + Quick Shift + Caixa</div>
+                  <div className="text-sm font-semibold text-white">photopacks.ai + homemadegraceful</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• soberish.co: ask $68K → <span className="text-emerald-400">target $55K (~£43K)</span></li>
-                    <li>• Quick Shift YT: ask $45K → <span className="text-emerald-400">target $38K (~£30K)</span></li>
-                    <li>• Caixa auction property: <span className="text-amber-400">~£27K remainder</span></li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~£4,100/mo online (combined)</li>
-                    <li>Diversified: 2 niches (wellness + auto) + tangible asset</li>
-                    <li className="text-zinc-500">Quick Shift ▾5% but underpriced at 14x — recovery upside</li>
+                    <li>• photopacks.ai: ask $76,200 → <span className="text-emerald-400">target $65K (~£51K)</span></li>
+                    <li>• homemadegraceful: ask $78,487 → <span className="text-emerald-400">target $68K (~£54K)</span></li>
+                    <li>• Total: ~$133K (~£105K)</li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£4,200/mo combined (~£1,900 + £2,300)</li>
+                    <li>SaaS + Pinterest: no YouTube algorithm dependency</li>
+                    <li className="text-zinc-500">photopacks.ai needs Django/AWS technical skills</li>
                   </ul>
                 </div>
 
                 {/* Option C */}
-                <div className="bg-zinc-800 border border-blue-500/30 rounded-xl p-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-blue-400 uppercase tracking-wide">Option C — YouTube Duo</div>
-                    <span className="text-xs bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded-full">Higher upside</span>
-                  </div>
-                  <div className="text-sm font-semibold text-white">Ace Hoops + Quick Shift</div>
-                  <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• Ace Hoops WNBA: ask $71K → <span className="text-emerald-400">target $65K (~£51K)</span></li>
-                    <li>• Quick Shift YT: ask $45K → <span className="text-emerald-400">target $38K (~£30K)</span></li>
-                    <li>• Total: ~$103K (~£81K) — leaves £19K buffer/Caixa</li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~£4,940/mo combined</li>
-                    <li>Ace Hoops: ▴17% growing, WNBA trend, shorts revenue</li>
-                    <li className="text-amber-400">Risk: both YouTube — platform concentration</li>
-                  </ul>
-                </div>
-
-                {/* Option D */}
-                <div className="bg-zinc-800 border border-violet-500/30 rounded-xl p-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-violet-400 uppercase tracking-wide">Option D — High Growth</div>
-                    <span className="text-xs bg-violet-900/40 text-violet-300 px-2 py-0.5 rounded-full">Max upside</span>
-                  </div>
-                  <div className="text-sm font-semibold text-white">Alex Griffin YT alone</div>
-                  <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• Alex Griffin: ask $95K → <span className="text-emerald-400">target $85K (~£67K)</span></li>
-                    <li>• Leaves £33K for Caixa property</li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~£4,165/mo + Caixa rental</li>
-                    <li>▴91% profit growth — fastest growing in shortlist</li>
-                    <li className="text-amber-400">Risk: Family Guy parody — copyright exposure</li>
-                    <li className="text-zinc-500">1 channel dependency — platform risk</li>
-                  </ul>
-                </div>
-
-                {/* Option E */}
                 <div className="bg-zinc-800 border border-amber-500/30 rounded-xl p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Option E — SaaS + YouTube</div>
-                    <span className="text-xs bg-amber-900/40 text-amber-300 px-2 py-0.5 rounded-full">Diversified</span>
+                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Option C — YouTube + SaaS</div>
+                    <span className="text-xs bg-amber-900/40 text-amber-300 px-2 py-0.5 rounded-full">On-budget</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">photopacks.ai + Quick Shift</div>
+                  <div className="text-sm font-semibold text-white">Ace Hoops + photopacks.ai</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• photopacks.ai: ask $76K → <span className="text-emerald-400">target $68K (~£54K)</span></li>
-                    <li>• Quick Shift YT: ask $45K → <span className="text-emerald-400">target $38K (~£30K)</span></li>
-                    <li>• Total: ~$106K (~£83K) — leaves £17K buffer</li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~£4,390/mo combined</li>
-                    <li>photopacks.ai: ▴30% growing, subscription SaaS, recurring revenue</li>
-                    <li className="text-zinc-500">SaaS+YouTube = different monetization models</li>
+                    <li>• Ace Hoops WNBA: ask $70,599 → <span className="text-emerald-400">target $62K (~£49K)</span></li>
+                    <li>• photopacks.ai: ask $76,200 → <span className="text-emerald-400">target $65K (~£51K)</span></li>
+                    <li>• Total: ~$127K (~£100K) — exactly on budget</li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£4,300/mo combined (~£2,400 + £1,900)</li>
+                    <li>YouTube + SaaS = no content overlap, different skill sets</li>
+                    <li className="text-zinc-500">SaaS requires technical maintenance (Python/Django stack)</li>
+                  </ul>
+                </div>
+
+                {/* Option D — single + Caixa */}
+                <div className="bg-zinc-800 border border-zinc-600 rounded-xl p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Option D — Conservative</div>
+                    <span className="text-xs bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full">Lower risk</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white">Ace Hoops + Caixa Property</div>
+                  <ul className="text-xs text-zinc-400 space-y-1">
+                    <li>• Ace Hoops WNBA: ask $70,599 → <span className="text-emerald-400">target $62K (~£49K)</span></li>
+                    <li>• Caixa imóvel (POA): <span className="text-amber-400">~£12-15K (R$75K-90K)</span></li>
+                    <li>• Leaves £36-39K in reserve/savings</li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£2,400 online + ~£130-200 aluguel</li>
+                    <li>Tangible asset hedge against online business risk</li>
+                    <li className="text-zinc-500">Immediate equity: buy at 40-55% below market value</li>
                   </ul>
                 </div>
 
                 {/* Decision Summary */}
-                <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-4 space-y-2">
+                <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-4 space-y-2 md:col-span-2 xl:col-span-2">
                   <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Decision Factors</div>
                   <ul className="text-xs text-zinc-400 space-y-1.5">
-                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span>VA <span className="text-white">manages operations</span> — you oversee strategy only</span></li>
-                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span><span className="text-white">Option B</span> is most resilient: 2 niches + tangible asset</span></li>
-                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>YouTube channels need <span className="text-white">content schedule continuity</span></span></li>
-                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>All EF listings: <span className="text-white">negotiate 60-day earnout</span> to verify P&amp;L</span></li>
-                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>Verified trends (Active Unlocks) override pre-unlock data</span></li>
-                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>£/$ rate risk — all businesses earn in USD</span></li>
+                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span><span className="text-white">Option A</span> recommended: 2 STRONG BUY picks, diversified platforms, combined $6K/mo profit</span></li>
+                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span>VA manages daily operations (~£500/mo) — you oversee strategy only (~5hrs/week)</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Ace Hoops: WNBA season drives peak revenue — plan for off-season content gap</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>ahoyvietnam.com (#92180) is CAUTION — personal brand, don&apos;t buy without rebrand plan</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>All EF listings: <span className="text-white">negotiate 60-day earnout</span> + verify P&amp;L via bank statements</span></li>
+                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>Verified trend data (Active Unlocks) — both picks have confirmed upward trends</span></li>
+                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>£/$ rate risk — all businesses earn in USD (currently favourable for GBP holders)</span></li>
                   </ul>
                 </div>
               </div>
