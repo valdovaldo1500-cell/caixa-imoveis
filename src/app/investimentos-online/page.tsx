@@ -470,66 +470,67 @@ export default function InvestimentosOnlinePage() {
                     <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">March 26, 2026</span>
                   </div>
                   <h2 className="text-xl font-bold text-white mb-1">
-                    BUY: Ace Hoops WNBA (#92246) + homemadegraceful (#92105)
+                    BUY: Ace Hoops WNBA (#92246) — core pick
                   </h2>
                   <p className="text-sm text-zinc-400 max-w-3xl">
-                    Two STRONG BUY listings with verified upward trends, different traffic platforms (YouTube vs Pinterest), and combined profit of <span className="text-emerald-400 font-semibold">~$6,000/month (~£4,700)</span>. Both are fully AI+VA manageable with no physical presence required.
+                    The only finalist with no personal brand risk, no single-platform dependency, and verified 52% ROI. YouTube algorithm risk is offset by growing WNBA trend + €70/video production cost.
+                    Second pick: <span className="text-blue-400 font-semibold">#89555 photopacks.ai</span> if you have Python/Django comfort — no persona, SaaS revenue, diversified traffic.
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-1 shrink-0">
-                  <div className="text-3xl font-bold text-white">£4,700<span className="text-base text-zinc-400 font-normal">/mo</span></div>
-                  <div className="text-xs text-emerald-400">after VA costs (~£500/mo)</div>
-                  <div className="text-xs text-zinc-500">net: ~£4,200/mo</div>
+                  <div className="text-3xl font-bold text-white">£2,400<span className="text-base text-zinc-400 font-normal">/mo</span></div>
+                  <div className="text-xs text-emerald-400">Ace Hoops alone (net after VA)</div>
+                  <div className="text-xs text-zinc-500">+£1,900/mo if add photopacks.ai</div>
                 </div>
               </div>
 
               <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
                 <div className="bg-zinc-900/60 rounded-xl p-3">
-                  <div className="text-xs text-zinc-500 mb-0.5">Total Capital</div>
-                  <div className="text-base font-bold text-white">~$130K</div>
-                  <div className="text-xs text-zinc-500">~£103K · negotiate to $62K+$68K</div>
+                  <div className="text-xs text-zinc-500 mb-0.5">Ace Hoops price</div>
+                  <div className="text-base font-bold text-white">$70,599</div>
+                  <div className="text-xs text-zinc-500">~£56K · target $62K (~£49K)</div>
                 </div>
                 <div className="bg-zinc-900/60 rounded-xl p-3">
-                  <div className="text-xs text-zinc-500 mb-0.5">Blended Annual ROI</div>
-                  <div className="text-base font-bold text-emerald-400">~48%</div>
-                  <div className="text-xs text-zinc-500">Ace 52% + Homemade 44%</div>
+                  <div className="text-xs text-zinc-500 mb-0.5">Annual ROI</div>
+                  <div className="text-base font-bold text-emerald-400">52%</div>
+                  <div className="text-xs text-zinc-500">$3,070/mo profit · verified ▴17%</div>
                 </div>
                 <div className="bg-zinc-900/60 rounded-xl p-3">
-                  <div className="text-xs text-zinc-500 mb-0.5">Payback Period</div>
-                  <div className="text-base font-bold text-blue-400">~2.1 years</div>
-                  <div className="text-xs text-zinc-500">vs 12+ years for RE rental</div>
+                  <div className="text-xs text-zinc-500 mb-0.5">Remaining budget</div>
+                  <div className="text-base font-bold text-blue-400">~£51K</div>
+                  <div className="text-xs text-zinc-500">photopacks.ai OR Caixa property</div>
                 </div>
                 <div className="bg-zinc-900/60 rounded-xl p-3">
                   <div className="text-xs text-zinc-500 mb-0.5">Owner Time</div>
-                  <div className="text-base font-bold text-violet-400">~5–8 hrs/wk</div>
-                  <div className="text-xs text-zinc-500">VA handles daily ops on both</div>
+                  <div className="text-base font-bold text-violet-400">~3–6 hrs/wk</div>
+                  <div className="text-xs text-zinc-500">Filipino freelancers handle production</div>
                 </div>
               </div>
 
               <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
-                  <div className="text-xs font-semibold text-emerald-400 mb-2">Negotiation Targets</div>
+                  <div className="text-xs font-semibold text-emerald-400 mb-2">Negotiation — Ace Hoops</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li className="flex justify-between"><span>#92246 Ace Hoops — ask $70,599</span><span className="text-emerald-400 font-semibold">→ offer $60K, settle $62K</span></li>
-                    <li className="flex justify-between"><span>#92105 homemadegraceful — ask $78,487</span><span className="text-emerald-400 font-semibold">→ offer $63K, settle $68K</span></li>
-                    <li className="flex justify-between pt-1 border-t border-zinc-700 mt-1"><span className="text-zinc-300">Total if both at target</span><span className="text-white font-semibold">~$130K (~£103K)</span></li>
+                    <li className="flex justify-between"><span>#92246 — ask $70,599</span><span className="text-emerald-400 font-semibold">→ offer $60K, settle $62K</span></li>
+                    <li className="flex justify-between"><span className="text-zinc-500">If adding photopacks.ai</span><span className="text-blue-400 font-semibold">→ offer $60K, settle $65K</span></li>
+                    <li className="flex justify-between pt-1 border-t border-zinc-700 mt-1"><span className="text-zinc-300">Ace Hoops only</span><span className="text-white font-semibold">~$62K (~£49K)</span></li>
                   </ul>
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-amber-400 mb-2">Conditions Before Closing</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
                     <li className="flex gap-1.5"><span className="text-amber-400 shrink-0">!</span>Request 60-day earnout — verify P&amp;L via bank statements</li>
-                    <li className="flex gap-1.5"><span className="text-amber-400 shrink-0">!</span>Confirm Ace Hoops AdSense account is transferable</li>
-                    <li className="flex gap-1.5"><span className="text-amber-400 shrink-0">!</span>Confirm Mediavine account and Pinterest access transfer for Homemade</li>
-                    <li className="flex gap-1.5"><span className="text-zinc-500 shrink-0">✓</span>Hire Philippines VA before close — handover overlap period</li>
+                    <li className="flex gap-1.5"><span className="text-amber-400 shrink-0">!</span>Confirm AdSense account is transferable (YouTube policy)</li>
+                    <li className="flex gap-1.5"><span className="text-amber-400 shrink-0">!</span>Confirm Filipino freelancers willing to continue post-sale</li>
+                    <li className="flex gap-1.5"><span className="text-zinc-500 shrink-0">✓</span>Off-season plan: NBA draft, player trades, college basketball content</li>
                   </ul>
                 </div>
               </div>
 
               <div className="mt-3 text-xs text-zinc-500 border-t border-zinc-700/50 pt-3">
                 <span className="text-red-400 font-medium">Do NOT buy: </span>
-                #92180 ahoyvietnam.com (personal brand — 27K Facebook followers know &apos;Anthony&apos; personally) ·
-                #89555 photopacks.ai (requires Django/AWS tech skills, AI headshot market increasingly competitive)
+                #92180 ahoyvietnam.com (Anthony&apos;s personal brand, 27K followers know him) ·
+                #92105 homemadegraceful (Pinterest 92% dependency + female persona embedded in content — can&apos;t swap writer)
               </div>
             </section>
 
