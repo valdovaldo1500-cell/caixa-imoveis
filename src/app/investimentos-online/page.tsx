@@ -758,7 +758,7 @@ export default function InvestimentosOnlinePage() {
                 Expert Investment Analysis
               </h2>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-                {EXPERT_ASSESSMENTS.map((a) => {
+                {EXPERT_ASSESSMENTS.filter((a) => a.verdictColor !== "red").map((a) => {
                   const verdictBg =
                     a.verdictColor === "emerald" ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" :
                     a.verdictColor === "blue" ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" :
