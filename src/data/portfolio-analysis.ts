@@ -161,7 +161,7 @@ export const LISTING_FINANCIALS: ListingFinancials[] = [
     ],
     avg12mo: 2603,
     avg6mo: 2172,
-    avg3mo: 2146,
+    avg3mo: 1962, // Oct 25 ($1,733) + Jan 26 ($2,415) + Feb 26 ($1,737) / 3
     currentRunRate: 1737,
     profitMargin: 0.94,
     hoursPerWeek: 2,
