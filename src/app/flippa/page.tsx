@@ -749,7 +749,7 @@ export default function FlippaPage() {
                     <li className="flex gap-2"><span className="text-amber-400">!</span><span>Verification quality varies on Flippa — prioritize "Flippa Verified" listings only</span></li>
                     <li className="flex gap-2"><span className="text-amber-400">!</span><span>Always request 60-day earnout and independent P&amp;L verification before closing</span></li>
                     <li className="flex gap-2"><span className="text-red-400">✗</span><span>Avoid auction listings unless budget allows overbidding — set a hard stop at $160K all-in</span></li>
-                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>Final picks will be updated once real listing data is collected from Flippa marketplace</span></li>
+                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>Always negotiate: Flippa's direct seller model means 10-20% below ask is common on aged listings</span></li>
                   </ul>
                 </div>
               </div>
