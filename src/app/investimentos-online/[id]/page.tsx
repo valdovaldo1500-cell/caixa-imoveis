@@ -2615,7 +2615,9 @@ Best regards,
             })()}
 
             {/* ── Content Performance Projections ──────────────────────────── */}
-            {data.assessment && data.assessment.verdictColor !== "red" && fin && (() => {
+            {data.assessment && data.assessment.verdictColor !== "red" && (() => {
+              const fin = LISTING_FINANCIALS.find((f) => f.id === id);
+              if (!fin) return null;
               type ScenarioMonth = { month: string; bull: number; base: number; bear: number };
               const PROJECTION_DATA: Record<string, ScenarioMonth[]> = {
                 "92246": (() => {
