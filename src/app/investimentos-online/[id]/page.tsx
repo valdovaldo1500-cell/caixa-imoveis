@@ -194,6 +194,24 @@ export default function InvestimentosOnlineDetailPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
+  useEffect(() => {
+    if (!id) return;
+    try {
+      const stored = localStorage.getItem(`dd-checklist-${id}`);
+      if (stored) setDdChecked(new Set(JSON.parse(stored)));
+    } catch { /* ignore */ }
+  }, [id]);
+
+  const toggleDdItem = (itemName: string) => {
+    setDdChecked((prev) => {
+      const next = new Set(prev);
+      if (next.has(itemName)) next.delete(itemName);
+      else next.add(itemName);
+      localStorage.setItem(`dd-checklist-${id}`, JSON.stringify([...next]));
+      return next;
+    });
+  };
+
   const dd = data?.dueDiligence ?? null;
 
   return (
