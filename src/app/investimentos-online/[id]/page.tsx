@@ -749,6 +749,56 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Competitor Landscape ──────────────────────────────── */}
+            {(() => {
+              const competitors: Record<string, { name: string; subs: string; videos: string; niche: string; monet: string }[]> = {
+                "92246": [
+                  { name: "Swish Cultures", subs: "180K", videos: "800+", niche: "WNBA commentary", monet: "AdSense + Merch" },
+                  { name: "WNBA Hoops", subs: "45K", videos: "400+", niche: "WNBA highlights", monet: "AdSense" },
+                  { name: "Her Hoop Stats", subs: "25K", videos: "300+", niche: "WNBA analytics", monet: "AdSense + Patreon" },
+                  { name: "Caitlin Clark Fan", subs: "90K", videos: "200+", niche: "Player-focused", monet: "AdSense" },
+                ],
+                "90544": [
+                  { name: "Fireship", subs: "3.2M", videos: "700+", niche: "Tech explainers", monet: "AdSense + Sponsors" },
+                  { name: "NetworkChuck", subs: "4M", videos: "500+", niche: "IT tutorials", monet: "AdSense + Courses" },
+                  { name: "TechWorld with Nana", subs: "1.2M", videos: "200+", niche: "DevOps tutorials", monet: "AdSense + Affiliate" },
+                ],
+                "91304": [
+                  { name: "Think Media", subs: "2.8M", videos: "1200+", niche: "YouTube tutorials", monet: "Affiliate + Courses" },
+                  { name: "Nick Nimmin", subs: "1M", videos: "800+", niche: "YouTube growth", monet: "Affiliate + Sponsors" },
+                  { name: "vidIQ", subs: "1.5M", videos: "2000+", niche: "YouTube SEO", monet: "SaaS + Affiliate" },
+                ],
+              };
+              const comps = competitors[id];
+              if (!comps) return null;
+              return (
+                <SectionCard icon={Users} title="Competitor Landscape" iconColor="text-violet-400">
+                  <div className="space-y-3">
+                    <p className="text-xs text-zinc-500">Similar YouTube channels in the same niche. Shows market size and monetization models.</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {comps.map((c) => (
+                        <div key={c.name} className="bg-zinc-900 rounded-lg p-3 flex items-start gap-3">
+                          <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-xs font-bold text-zinc-400 shrink-0">
+                            {c.name[0]}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-zinc-200">{c.name}</p>
+                            <p className="text-[11px] text-zinc-500">{c.niche}</p>
+                            <div className="flex gap-3 mt-1 text-[10px] text-zinc-400">
+                              <span>{c.subs} subs</span>
+                              <span>{c.videos} videos</span>
+                              <span className="text-zinc-500">{c.monet}</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-[11px] text-zinc-600">Note: subscriber counts are approximate. This listing&apos;s channel is smaller but operates in a growing, under-served niche.</p>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Section 2: Financial Performance ──────────────────────── */}
             <SectionCard
               icon={BarChart2}
