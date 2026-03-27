@@ -1264,6 +1264,45 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── LOI Template ──────────────────────────────────────────── */}
+            {(() => {
+              const fin = LISTING_FINANCIALS.find((f) => f.id === id);
+              const neg = NEGOTIATION_STRATEGIES.find((n) => n.listingId === id);
+              if (!fin || !neg || !data?.assessment || data.assessment.verdictColor === "red") return null;
+              const loiText = `Dear Empire Flippers Team,
+
+I am writing to express my interest in acquiring Listing #${id} ("${fin.name}") currently listed at $${fin.askingPrice.toLocaleString()}.
+
+OFFER DETAILS:
+- Offer Price: $${neg.openingOffer.toLocaleString()} USD
+- Earnout: 60-day performance-based earnout period
+- Conditions: Subject to verification of P&L via bank statements, confirmation of transferable accounts (AdSense, affiliate programs), and 30-day seller training/handover
+
+RATIONALE:
+Based on my analysis, the 3-month average monthly profit of $${fin.avg3mo.toLocaleString()} represents the current run rate, which is ${Math.round(((fin.avg12mo - fin.avg3mo) / fin.avg12mo) * 100)}% below the 12-month average of $${fin.avg12mo.toLocaleString()}. My offer of $${neg.openingOffer.toLocaleString()} reflects a ${Math.round(fin.avg3mo > 0 ? neg.openingOffer / fin.avg3mo : 0)}x multiple on current earnings, which I believe is fair given the declining revenue trend.
+
+I am a serious buyer with funds available and can proceed with due diligence immediately upon acceptance.
+
+Best regards,
+[Your Name]`;
+              return (
+                <SectionCard icon={DollarSign} title="Letter of Intent Template" iconColor="text-emerald-400">
+                  <div className="space-y-3">
+                    <p className="text-xs text-zinc-500">Pre-filled LOI based on negotiation strategy. Copy and customize before sending.</p>
+                    <div className="bg-zinc-900 rounded-lg p-4 font-mono text-xs text-zinc-300 whitespace-pre-wrap leading-relaxed border border-zinc-800 max-h-64 overflow-y-auto">
+                      {loiText}
+                    </div>
+                    <button
+                      onClick={() => { navigator.clipboard.writeText(loiText); }}
+                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg transition-colors"
+                    >
+                      Copy to Clipboard
+                    </button>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Acquisition Timeline ───────────────────────────────────── */}
             {data.assessment && data.assessment.verdictColor !== "red" && (
             <SectionCard
