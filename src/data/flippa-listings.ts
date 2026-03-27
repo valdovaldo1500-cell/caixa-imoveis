@@ -38,6 +38,12 @@ export interface FlippaListing {
     | "subscription"
     | "app"
     | "newsletter";
+  // Verified P&L fields — only present when monthly_pnl was scraped
+  verifiedPnL: boolean;
+  profitConsistency?: "excellent" | "good" | "moderate" | "volatile" | "terrible";
+  revenueTrend?: number; // percentage change first→last month, e.g. +12 or -39
+  monthlyProfitRange?: string; // e.g. "£6.2K–£8.9K"
+  cvPercent?: number; // coefficient of variation of monthly profit
 }
 
 // Helper: annual ROI % given price + monthlyProfit
