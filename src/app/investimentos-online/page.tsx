@@ -2498,7 +2498,7 @@ export default function InvestimentosOnlinePage() {
               <div>
                 <p className="text-sm font-semibold uppercase tracking-wider text-emerald-400 mb-3">Phase 1 — Due Diligence (Week 1-2)</p>
                 {[
-                  { n: 1, text: "Request P&L access via EF buyer portal for #92246 and #90544" },
+                  { n: 1, text: "Request P&L access via EF buyer portal for #92246 and #91304" },
                   { n: 2, text: "Verify YouTube Analytics screenshots match stated revenue" },
                   { n: 3, text: "Confirm Google AdSense account transfer process with EF" },
                   { n: 4, text: "Check channel for any active copyright strikes or community guidelines warnings" },
