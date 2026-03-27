@@ -2585,7 +2585,8 @@ export default function InvestimentosOnlinePage() {
                   />
                   <Tooltip
                     contentStyle={{ background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8, color: "#fff" }}
-                    formatter={(value: string | number | (string | number)[], name: string | number) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    formatter={(value: any, name: any) => {
                       const labels: Record<string, string> = {
                         primary: "Primary Portfolio ($141K)",
                         alternative: "Alternative Portfolio ($112K)",
