@@ -3286,6 +3286,81 @@ export default function InvestimentosOnlinePage() {
               })()}
             </div>
 
+            {/* Investment FAQ */}
+            <section className="space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-zinc-700 text-zinc-200 text-xs font-bold shrink-0">?</span>
+                <h3 className="text-sm font-semibold text-zinc-200">Investment FAQ</h3>
+              </div>
+              <div className="space-y-2">
+                {[
+                  {
+                    q: "How does Empire Flippers verify the financial data?",
+                    a: "EF requires sellers to connect their analytics, payment processors, and bank accounts. Revenue and profit data is independently verified by EF's vetting team. Listings show 12+ months of verified financial history extracted directly from platform APIs.",
+                  },
+                  {
+                    q: "What happens during the migration process?",
+                    a: "After closing, EF's migration team handles the transfer of all assets: YouTube channels, AdSense accounts, domains, and social media. The process typically takes 7-14 business days. Both buyer and seller work with a dedicated migration specialist.",
+                  },
+                  {
+                    q: "How much time do I actually need to invest?",
+                    a: "For this portfolio: ~5 hours/week total (4 hrs Ace Hoops + 1 hr Tech YouTube). With VA support and AI automation, this can drop to ~2 hours/week for oversight only. The channels are designed for hands-off operation.",
+                  },
+                  {
+                    q: "What if YouTube changes its algorithm?",
+                    a: "Algorithm changes are the #1 risk. Mitigation: diversify across niches (sports + tech), focus on evergreen content, build email lists and off-platform presence. Our portfolio's -60% stress test still shows 20.8% ROI.",
+                  },
+                  {
+                    q: "Can I negotiate below the asking price?",
+                    a: "Yes, EF listings are negotiable. Our analysis targets 11-16% below asking. Key leverage: declining trends, seasonal patterns, market multiples below average. EF brokers expect negotiation.",
+                  },
+                  {
+                    q: "What are the tax implications for non-US buyers?",
+                    a: "YouTube/AdSense income is US-sourced. Non-US buyers need a W-8BEN form for reduced withholding (0-15% depending on tax treaty). Consider a US LLC (Wyoming recommended, $300 setup) for liability protection.",
+                  },
+                  {
+                    q: "What if a channel gets demonetized?",
+                    a: "Risk exists but is low for established channels. Mitigation: review channel history for strikes, diversify revenue (affiliate, sponsorships), maintain content quality standards. EF provides 30-day post-sale support.",
+                  },
+                  {
+                    q: "How liquid is this investment?",
+                    a: "You can re-list on EF at any time. YouTube channels with proven revenue typically sell within 30-60 days. Our exit strategy analysis shows 43-203% ROI potential depending on hold period.",
+                  },
+                  {
+                    q: "Should I buy both channels simultaneously?",
+                    a: "Recommended approach: close Ace Hoops first (simpler, single channel), then Tech YouTube 2-4 weeks later. This allows focused migration and learning before the second acquisition.",
+                  },
+                  {
+                    q: "What's the worst-case scenario?",
+                    a: "Catastrophic case (-60% revenue): monthly profit drops to $2,447, still yields 20.8% annual ROI. Even losing one channel entirely, the other covers operating costs. Total loss is extremely unlikely with established channels.",
+                  },
+                ].map(({ q, a }, idx) => {
+                  const isOpen = faqOpen[idx] ?? false;
+                  return (
+                    <div key={idx} className="bg-zinc-800/50 rounded-lg overflow-hidden">
+                      <button
+                        className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-zinc-800 transition-colors cursor-pointer"
+                        onClick={() => setFaqOpen(prev => ({ ...prev, [idx]: !isOpen }))}
+                      >
+                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-zinc-700 text-zinc-300 text-xs font-bold shrink-0">
+                          {idx + 1}
+                        </span>
+                        <span className="text-white font-medium text-sm flex-1">{q}</span>
+                        {isOpen
+                          ? <ChevronUp className="w-4 h-4 text-zinc-400 shrink-0" />
+                          : <ChevronDown className="w-4 h-4 text-zinc-400 shrink-0" />}
+                      </button>
+                      {isOpen && (
+                        <div className="px-4 pb-3 pt-0">
+                          <p className="text-zinc-400 text-sm leading-relaxed pl-9">{a}</p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+
             {/* Key Assumptions & Model Inputs */}
             <section className="space-y-3">
               <div className="flex items-center gap-2">
