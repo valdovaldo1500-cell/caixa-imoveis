@@ -1642,6 +1642,45 @@ Best regards,
               );
             })()}
 
+            {/* ── Content Calendar (92246 only) ─────────────────────── */}
+            {id === "92246" && data?.assessment && data.assessment.verdictColor !== "red" && (
+              <SectionCard icon={Clock} title="Weekly Content Calendar — WNBA Season" iconColor="text-blue-400">
+                <div className="space-y-4">
+                  <p className="text-xs text-zinc-500">Recommended publishing schedule during WNBA season (May-Oct). AI-scripted, VA-produced, 4-6 videos/week.</p>
+                  <div className="grid grid-cols-7 gap-1.5">
+                    {[
+                      { day: "Mon", type: "Game Recap", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
+                      { day: "Tue", type: "Player Spotlight", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
+                      { day: "Wed", type: "News & Trades", color: "bg-amber-500/20 text-amber-400 border-amber-500/30" },
+                      { day: "Thu", type: "Game Preview", color: "bg-violet-500/20 text-violet-400 border-violet-500/30" },
+                      { day: "Fri", type: "Rankings/Lists", color: "bg-pink-500/20 text-pink-400 border-pink-500/30" },
+                      { day: "Sat", type: "Game Recap", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
+                      { day: "Sun", type: "Week Wrap-Up", color: "bg-zinc-700/50 text-zinc-400 border-zinc-600" },
+                    ].map((slot) => (
+                      <div key={slot.day} className={`rounded-lg p-2 text-center border ${slot.color}`}>
+                        <p className="text-[10px] font-bold uppercase tracking-wider mb-1">{slot.day}</p>
+                        <p className="text-[10px] leading-tight">{slot.type}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <div className="bg-zinc-900 rounded-lg p-3">
+                      <p className="text-zinc-500 mb-1">Production</p>
+                      <p className="text-zinc-300">AI writes script → Clipper finds footage → Editor assembles → Upload</p>
+                    </div>
+                    <div className="bg-zinc-900 rounded-lg p-3">
+                      <p className="text-zinc-500 mb-1">Your time</p>
+                      <p className="text-zinc-300">~30 min/day: review scripts, approve edits, check analytics</p>
+                    </div>
+                    <div className="bg-zinc-900 rounded-lg p-3">
+                      <p className="text-zinc-500 mb-1">Off-season (Nov-Apr)</p>
+                      <p className="text-zinc-300">2 videos/week: draft picks, trades, college basketball crossovers</p>
+                    </div>
+                  </div>
+                </div>
+              </SectionCard>
+            )}
+
             {/* ── Section 13: 90-Day Post-Acquisition Plan ───────────────── */}
             {data.assessment && data.assessment.verdictColor !== "red" && (() => {
               const phases = [
