@@ -778,11 +778,11 @@ export default function InvestimentosOnlinePage() {
 
               <div className="mt-3 text-xs text-zinc-500 border-t border-zinc-700/50 pt-3">
                 <span className="text-red-400 font-medium">Do NOT buy: </span>
+                #90544 3× Tech YouTube (recent videos 0 views, not AI voiceover, hidden freelancer costs — dying) ·
                 #92180 ahoyvietnam.com (Anthony&apos;s personal brand, 27K followers know him) ·
                 #92105 homemadegraceful (Pinterest 92% + female persona — can&apos;t swap writer) ·
-                #89555 photopacks.ai at asking price (traffic -78% crash Nov 25, profit -37% from peak — only viable at $45-50K) ·
+                #89555 photopacks.ai at asking price (traffic -78% crash Nov 25, profit -37% from peak) ·
                 #84353 tech education (89% traffic drop, revenue collapsed) ·
-                #90541 culinary blog (Google algo victim, Feb 26: $477/mo) ·
                 #91138 oakleyforum.com (76% bot traffic, revenue -49%, RPM crashed $11→$2.50)
               </div>
             </section>
