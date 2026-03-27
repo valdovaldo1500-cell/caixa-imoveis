@@ -303,7 +303,7 @@ export const DUE_DILIGENCE_CHECKLIST: DueDiligenceItem[] = [
     item: "Verify affiliate earnings via affiliate dashboard screen share",
     priority: "critical",
     status: "pending",
-    notes: "For #90544 and #91304 — verify affiliate program accounts are transferable",
+    notes: "For #91304 — verify affiliate program accounts are transferable",
   },
   {
     category: "Financial Verification",
