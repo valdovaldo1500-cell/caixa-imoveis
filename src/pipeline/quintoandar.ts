@@ -36,6 +36,17 @@ function normalizeCidade(name: string): string {
     .trim();
 }
 
+// Normalize bairro: remove accents, articles (DE, DO, DA, DOS, DAS), trim
+// Same logic as itbi.ts normBairro for consistent fuzzy matching
+function normBairro(name: string): string {
+  return name
+    .toUpperCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/\b(DE|DO|DA|DOS|DAS|E)\b/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 // Map Caixa property types to QA unit types (Portuguese — QA uses title-cased types uppercased)
 // QA types observed: APARTAMENTO, CASA, CASACONDOMINIO, STUDIOOUKITCHENETTE, COBERTURA
 const CAIXA_TO_QA_TYPES: Record<string, string[]> = {
