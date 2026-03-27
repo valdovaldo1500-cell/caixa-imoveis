@@ -1002,7 +1002,7 @@ export default function InvestimentosOnlineDetailPage() {
                     <span className="bg-emerald-500/10 text-emerald-400 text-sm font-semibold px-3 py-1 rounded">
                       {totalMin}–{totalMax}%
                     </span>
-                    <span className="text-zinc-500 text-xs">(combined maximum across all strategies)</span>
+                    <span className="text-zinc-500 text-xs">(range across individual strategies)</span>
                   </div>
                 </div>
               );
