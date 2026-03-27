@@ -2614,6 +2614,159 @@ Best regards,
               );
             })()}
 
+            {/* ── Monetization Strategy Comparison ────────────────────────── */}
+            {data.assessment && data.assessment.verdictColor !== "red" && (() => {
+              type MonetizationRow = {
+                strategy: string;
+                current: string;
+                currentPct?: number;
+                potential: string;
+                uplift: string;
+                upliftLevel: "high" | "medium" | "baseline";
+                isCurrent: boolean;
+              };
+              type MonetizationData = {
+                rows: MonetizationRow[];
+                totalCurrent: string;
+                totalPotentialLow: number;
+                totalPotentialHigh: number;
+                totalUpliftLow: number;
+                totalUpliftHigh: number;
+              };
+              const MONETIZATION_DATA: Record<string, MonetizationData> = {
+                "92246": {
+                  rows: [
+                    { strategy: "AdSense", current: "$3,043/mo", currentPct: 100, potential: "$3,043/mo", uplift: "baseline", upliftLevel: "baseline", isCurrent: true },
+                    { strategy: "Affiliate (sports gear)", current: "$0", currentPct: 0, potential: "$400–600/mo", uplift: "+15–20%", upliftLevel: "medium", isCurrent: false },
+                    { strategy: "Sponsorships", current: "$0", currentPct: 0, potential: "$500–1,000/mo", uplift: "+16–33%", upliftLevel: "high", isCurrent: false },
+                    { strategy: "Merch (print-on-demand)", current: "$0", currentPct: 0, potential: "$200–400/mo", uplift: "+7–13%", upliftLevel: "medium", isCurrent: false },
+                    { strategy: "Community (memberships)", current: "$0", currentPct: 0, potential: "$100–300/mo", uplift: "+3–10%", upliftLevel: "medium", isCurrent: false },
+                  ],
+                  totalCurrent: "$3,043",
+                  totalPotentialLow: 4243,
+                  totalPotentialHigh: 5343,
+                  totalUpliftLow: 39,
+                  totalUpliftHigh: 76,
+                },
+                "90544": {
+                  rows: [
+                    { strategy: "AdSense", current: "$3,185/mo", currentPct: 85, potential: "$3,185/mo", uplift: "baseline", upliftLevel: "baseline", isCurrent: true },
+                    { strategy: "Affiliate (tech products)", current: "$561/mo", currentPct: 15, potential: "$800–1,200/mo", uplift: "+6–17%", upliftLevel: "medium", isCurrent: true },
+                    { strategy: "Digital courses", current: "$0", currentPct: 0, potential: "$500–1,000/mo", uplift: "+13–27%", upliftLevel: "high", isCurrent: false },
+                    { strategy: "Sponsorships", current: "$0", currentPct: 0, potential: "$300–600/mo", uplift: "+8–16%", upliftLevel: "medium", isCurrent: false },
+                    { strategy: "AI tools directory", current: "$0", currentPct: 0, potential: "$200–400/mo", uplift: "+5–11%", upliftLevel: "medium", isCurrent: false },
+                  ],
+                  totalCurrent: "$3,746",
+                  totalPotentialLow: 4985,
+                  totalPotentialHigh: 6385,
+                  totalUpliftLow: 33,
+                  totalUpliftHigh: 70,
+                },
+                "91304": {
+                  rows: [
+                    { strategy: "AdSense", current: "$1,632/mo", currentPct: 94, potential: "$1,632/mo", uplift: "baseline", upliftLevel: "baseline", isCurrent: true },
+                    { strategy: "Affiliate", current: "$105/mo", currentPct: 6, potential: "$300–500/mo", uplift: "+11–23%", upliftLevel: "medium", isCurrent: true },
+                    { strategy: "Templates / presets", current: "$0", currentPct: 0, potential: "$200–500/mo", uplift: "+11–29%", upliftLevel: "high", isCurrent: false },
+                    { strategy: "Online courses", current: "$0", currentPct: 0, potential: "$300–600/mo", uplift: "+17–35%", upliftLevel: "high", isCurrent: false },
+                  ],
+                  totalCurrent: "$1,737",
+                  totalPotentialLow: 2432,
+                  totalPotentialHigh: 3232,
+                  totalUpliftLow: 40,
+                  totalUpliftHigh: 86,
+                },
+              };
+              const monet = MONETIZATION_DATA[id];
+              if (!monet) return null;
+              // Build stacked bar segments for current revenue
+              const currentRows = monet.rows.filter((r) => r.isCurrent && (r.currentPct ?? 0) > 0);
+              const barColors = ["#10b981", "#3b82f6", "#f59e0b", "#8b5cf6", "#ec4899"];
+              return (
+                <SectionCard icon={Lightbulb} title="Monetization Strategy Comparison" iconColor="text-emerald-400">
+                  <div className="space-y-5">
+                    {/* Current revenue bar */}
+                    {currentRows.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide">Current Revenue Mix</p>
+                        <div className="flex rounded overflow-hidden h-5 w-full">
+                          {currentRows.map((r, i) => (
+                            <div
+                              key={r.strategy}
+                              style={{ width: `${r.currentPct ?? 0}%`, backgroundColor: barColors[i % barColors.length] }}
+                              className="transition-all"
+                              title={`${r.strategy}: ${r.currentPct}%`}
+                            />
+                          ))}
+                        </div>
+                        <div className="flex flex-wrap gap-x-4 gap-y-1">
+                          {currentRows.map((r, i) => (
+                            <div key={r.strategy} className="flex items-center gap-1.5 text-xs text-zinc-400">
+                              <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: barColors[i % barColors.length] }} />
+                              {r.strategy} — {r.currentPct}%
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {/* Strategy table */}
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm border-collapse">
+                        <thead>
+                          <tr className="text-xs text-zinc-500 uppercase tracking-wide border-b border-zinc-700">
+                            <th className="text-left py-2 pr-4 font-medium">Strategy</th>
+                            <th className="text-right py-2 px-3 font-medium">Current</th>
+                            <th className="text-right py-2 px-3 font-medium">Potential</th>
+                            <th className="text-right py-2 pl-3 font-medium">Uplift</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {monet.rows.map((row, idx) => (
+                            <tr
+                              key={row.strategy}
+                              className={idx % 2 === 0 ? "bg-zinc-800/50" : "bg-transparent"}
+                            >
+                              <td className="py-2.5 pr-4 text-zinc-300 flex items-center gap-2">
+                                {row.isCurrent ? (
+                                  <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block flex-shrink-0" />
+                                ) : (
+                                  <span className="w-2 h-2 rounded-full border border-zinc-500 inline-block flex-shrink-0" />
+                                )}
+                                {row.strategy}
+                              </td>
+                              <td className="py-2.5 px-3 text-right text-zinc-400 tabular-nums">{row.current}</td>
+                              <td className="py-2.5 px-3 text-right text-zinc-200 tabular-nums">{row.potential}</td>
+                              <td className="py-2.5 pl-3 text-right">
+                                {row.upliftLevel === "baseline" ? (
+                                  <span className="text-xs text-zinc-500">baseline</span>
+                                ) : row.upliftLevel === "high" ? (
+                                  <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-emerald-500/20 text-emerald-400">{row.uplift}</span>
+                                ) : (
+                                  <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-amber-500/20 text-amber-400">{row.uplift}</span>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    {/* Total potential */}
+                    <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                      <div className="space-y-0.5">
+                        <p className="text-xs text-zinc-500 uppercase tracking-wide font-medium">Total Monthly Revenue Potential</p>
+                        <p className="text-lg font-bold text-emerald-400">
+                          ${monet.totalPotentialLow.toLocaleString()} – ${monet.totalPotentialHigh.toLocaleString()}/mo
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-zinc-500">vs. current {monet.totalCurrent}</p>
+                        <p className="text-sm font-semibold text-emerald-400">+{monet.totalUpliftLow}–{monet.totalUpliftHigh}% upside</p>
+                      </div>
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Content Performance Projections ──────────────────────────── */}
             {data.assessment && data.assessment.verdictColor !== "red" && (() => {
               const fin = LISTING_FINANCIALS.find((f) => f.id === id);
