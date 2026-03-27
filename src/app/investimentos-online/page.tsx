@@ -2557,6 +2557,221 @@ export default function InvestimentosOnlinePage() {
               </div>
             </div>
 
+            {/* Total Acquisition Cost Breakdown */}
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+              <div className="flex items-center gap-2 mb-6">
+                <DollarSign className="w-5 h-5 text-emerald-400" />
+                <h3 className="text-base font-semibold text-white">Total Acquisition Cost Breakdown</h3>
+                <span className="ml-auto text-xs text-zinc-500 bg-zinc-800 px-2 py-0.5 rounded-full">2-channel portfolio</span>
+              </div>
+
+              {/* Stacked Horizontal Bar Chart */}
+              <div className="mb-6">
+                <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3">Cost composition per channel</p>
+                <ResponsiveContainer width="100%" height={180}>
+                  <BarChart
+                    layout="vertical"
+                    data={[
+                      {
+                        name: "Ace Hoops #92246",
+                        listingPrice: 62,
+                        migration: 0.5,
+                        shared: 0.85,
+                        recurring6mo: 3.3,
+                      },
+                      {
+                        name: "Tech YouTube #90544",
+                        listingPrice: 79,
+                        migration: 0.5,
+                        shared: 0.85,
+                        recurring6mo: 3.3,
+                      },
+                    ]}
+                    margin={{ top: 0, right: 20, left: 10, bottom: 0 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" horizontal={false} />
+                    <XAxis
+                      type="number"
+                      tick={{ fill: "#a1a1aa", fontSize: 11 }}
+                      tickFormatter={(v: number) => `$${v}K`}
+                      domain={[0, 95]}
+                    />
+                    <YAxis
+                      type="category"
+                      dataKey="name"
+                      tick={{ fill: "#a1a1aa", fontSize: 11 }}
+                      width={145}
+                    />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: "#18181b", border: "1px solid #3f3f46", borderRadius: 8 }}
+                      labelStyle={{ color: "#fff", fontWeight: 600, marginBottom: 4 }}
+                      itemStyle={{ color: "#a1a1aa", fontSize: 12 }}
+                      formatter={(value: number, name: string) => {
+                        const labels: Record<string, string> = {
+                          listingPrice: "Listing Price",
+                          migration: "Migration Setup",
+                          shared: "Shared One-Time",
+                          recurring6mo: "6-Mo Operating",
+                        };
+                        return [`$${(value * 1000).toLocaleString()}`, labels[name] ?? name];
+                      }}
+                    />
+                    <Legend
+                      wrapperStyle={{ fontSize: 11, color: "#a1a1aa" }}
+                      formatter={(value: string) => {
+                        const labels: Record<string, string> = {
+                          listingPrice: "Listing Price",
+                          migration: "Migration Setup",
+                          shared: "Shared One-Time",
+                          recurring6mo: "6-Mo Operating",
+                        };
+                        return labels[value] ?? value;
+                      }}
+                    />
+                    <Bar dataKey="listingPrice" stackId="a" fill="#10b981" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="migration" stackId="a" fill="#3b82f6" />
+                    <Bar dataKey="shared" stackId="a" fill="#f59e0b" />
+                    <Bar dataKey="recurring6mo" stackId="a" fill="#71717a" radius={[0, 4, 4, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Summary Cards */}
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
+                  <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Acquisition Cost</p>
+                  <p className="text-2xl font-bold text-emerald-400">$142,000</p>
+                  <p className="text-xs text-zinc-500 mt-1">listing prices combined</p>
+                </div>
+                <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
+                  <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Setup Costs</p>
+                  <p className="text-2xl font-bold text-blue-400">$2,700</p>
+                  <p className="text-xs text-zinc-500 mt-1">migration + shared one-time</p>
+                </div>
+                <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
+                  <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">6-Month Operating</p>
+                  <p className="text-2xl font-bold text-amber-400">$6,600</p>
+                  <p className="text-xs text-zinc-500 mt-1">$1,100/mo × 6 months</p>
+                </div>
+              </div>
+
+              {/* Cost Detail Table */}
+              <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
+                <div className="bg-zinc-800/30 rounded-lg p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-3">Ace Hoops #92246</p>
+                  {[
+                    { label: "Listing price", value: "$62,000" },
+                    { label: "EF Success Fee", value: "$0", note: "included" },
+                    { label: "EF Migration Fee", value: "$0" },
+                    { label: "Migration setup", value: "$500", note: "AdSense transfer" },
+                  ].map(({ label, value, note }) => (
+                    <div key={label} className="flex justify-between items-center py-1.5 border-b border-zinc-700/40">
+                      <span className="text-zinc-400">{label}{note && <span className="text-zinc-600 ml-1 text-xs">({note})</span>}</span>
+                      <span className="text-zinc-200 font-medium">{value}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between items-center pt-2 mt-1">
+                    <span className="text-zinc-300 font-semibold">Subtotal</span>
+                    <span className="text-emerald-400 font-bold">$62,500</span>
+                  </div>
+                </div>
+                <div className="bg-zinc-800/30 rounded-lg p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-blue-400 mb-3">Tech YouTube #90544</p>
+                  {[
+                    { label: "Listing price", value: "$79,000" },
+                    { label: "EF Migration Fee", value: "$0" },
+                    { label: "Migration setup", value: "$500" },
+                  ].map(({ label, value, note }) => (
+                    <div key={label} className="flex justify-between items-center py-1.5 border-b border-zinc-700/40">
+                      <span className="text-zinc-400">{label}{note && <span className="text-zinc-600 ml-1 text-xs">({note})</span>}</span>
+                      <span className="text-zinc-200 font-medium">{value}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between items-center pt-2 mt-1">
+                    <span className="text-zinc-300 font-semibold">Subtotal</span>
+                    <span className="text-blue-400 font-bold">$79,500</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Shared + Monthly Costs */}
+              <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
+                <div className="bg-zinc-800/30 rounded-lg p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-amber-400 mb-3">Shared One-Time Costs</p>
+                  {[
+                    { label: "LLC formation (Wyoming)", value: "$300" },
+                    { label: "EIN registration", value: "$0" },
+                    { label: "Business bank account", value: "$0" },
+                    { label: "VA hiring/training (mo 1)", value: "$600" },
+                    { label: "AI tools setup (mo 1)", value: "$100" },
+                    { label: "Thumbnail design templates", value: "$200" },
+                    { label: "Content planning/strategy audit", value: "$500" },
+                  ].map(({ label, value }) => (
+                    <div key={label} className="flex justify-between items-center py-1.5 border-b border-zinc-700/40">
+                      <span className="text-zinc-400">{label}</span>
+                      <span className="text-zinc-200 font-medium">{value}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between items-center pt-2 mt-1">
+                    <span className="text-zinc-300 font-semibold">Shared subtotal</span>
+                    <span className="text-amber-400 font-bold">$1,700</span>
+                  </div>
+                </div>
+                <div className="bg-zinc-800/30 rounded-lg p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-3">Monthly Recurring Costs</p>
+                  {[
+                    { label: "VAs (2 part-time)", value: "$800" },
+                    { label: "AI tools (script gen, thumbnails)", value: "$100" },
+                    { label: "Accounting/bookkeeping", value: "$150" },
+                    { label: "Misc (hosting, domains, etc.)", value: "$50" },
+                  ].map(({ label, value }) => (
+                    <div key={label} className="flex justify-between items-center py-1.5 border-b border-zinc-700/40">
+                      <span className="text-zinc-400">{label}</span>
+                      <span className="text-zinc-200 font-medium">{value}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between items-center pt-2 mt-1">
+                    <span className="text-zinc-300 font-semibold">Monthly total</span>
+                    <span className="text-zinc-300 font-bold">$1,100</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Total Capital Required Progress Bar */}
+              <div className="bg-zinc-800/50 rounded-xl p-5 border border-zinc-700/50">
+                <div className="flex items-baseline justify-between mb-3">
+                  <div>
+                    <span className="text-xs text-zinc-500 uppercase tracking-wider">Total Capital Required</span>
+                    <p className="text-3xl font-extrabold text-white mt-0.5">$151,300</p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs text-zinc-500 uppercase tracking-wider">Budget</span>
+                    <p className="text-xl font-bold text-zinc-400 mt-0.5">$160,000</p>
+                  </div>
+                </div>
+                <div className="relative w-full h-4 bg-zinc-700 rounded-full overflow-hidden mb-3">
+                  <div
+                    className="absolute left-0 top-0 h-full bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-l-full"
+                    style={{ width: "94.6%" }}
+                  />
+                  <div
+                    className="absolute top-0 h-full bg-emerald-400/30"
+                    style={{ left: "94.6%", right: 0 }}
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                    <span className="text-sm text-zinc-400">Capital deployed — <span className="text-white font-semibold">94.6%</span></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-emerald-400/40 border border-emerald-400" />
+                    <span className="text-sm text-emerald-400 font-bold">$8,700 buffer remaining</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* YouTube Industry Benchmarks */}
             <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <div className="flex items-center gap-2 mb-6">
