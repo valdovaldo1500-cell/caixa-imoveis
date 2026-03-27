@@ -1043,6 +1043,130 @@ export default function InvestimentosOnlinePage() {
             {/* Portfolio Correlation Analysis */}
             <PortfolioCorrelationSection />
 
+            {/* Portfolio Allocation Optimizer */}
+            <section>
+              <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-emerald-400" />
+                Portfolio Allocation Optimizer
+              </h2>
+              <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 space-y-6">
+                {/* Scenario cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Scenario A — Conservative */}
+                  <div className="bg-zinc-800/50 rounded-lg p-5 border border-zinc-700/50 flex flex-col gap-3">
+                    <div>
+                      <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Scenario A</span>
+                      <h3 className="text-sm font-bold text-white mt-0.5">Conservative <span className="text-zinc-400 font-normal">(current plan)</span></h3>
+                    </div>
+                    <ul className="text-xs space-y-1 text-zinc-300">
+                      <li className="flex justify-between"><span className="text-blue-400 font-medium">Ace Hoops</span><span>$62K <span className="text-zinc-500">(44%)</span></span></li>
+                      <li className="flex justify-between"><span className="text-purple-400 font-medium">Tech YouTube</span><span>$79K <span className="text-zinc-500">(56%)</span></span></li>
+                      <li className="flex justify-between border-t border-zinc-700 pt-1 mt-1"><span className="text-zinc-400">Total deployed</span><span className="text-white font-semibold">$141K</span></li>
+                      <li className="flex justify-between"><span className="text-zinc-400">Cash reserve</span><span className="text-emerald-400 font-semibold">$19K</span></li>
+                    </ul>
+                    <div className="border-t border-zinc-700 pt-3 space-y-1">
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Expected monthly</span><span className="text-emerald-400 font-bold">$5,189</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Portfolio ROI</span><span className="text-emerald-400 font-bold">~52%</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Risk</span><span className="text-amber-400">Medium</span></div>
+                      <p className="text-xs text-zinc-500 pt-1">Seasonal dependency on WNBA calendar.</p>
+                    </div>
+                  </div>
+
+                  {/* Scenario B — Aggressive */}
+                  <div className="bg-zinc-800/50 rounded-lg p-5 border border-zinc-700/50 flex flex-col gap-3">
+                    <div>
+                      <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Scenario B</span>
+                      <h3 className="text-sm font-bold text-white mt-0.5">Aggressive</h3>
+                    </div>
+                    <ul className="text-xs space-y-1 text-zinc-300">
+                      <li className="flex justify-between"><span className="text-blue-400 font-medium">Ace Hoops</span><span>$55K <span className="text-zinc-500">(34%)</span></span></li>
+                      <li className="flex justify-between"><span className="text-purple-400 font-medium">Tech YouTube</span><span>$70K <span className="text-zinc-500">(44%)</span></span></li>
+                      <li className="flex justify-between"><span className="text-amber-400 font-medium">Faceless Tutorials</span><span>$35K <span className="text-zinc-500">(22%)</span></span></li>
+                      <li className="flex justify-between border-t border-zinc-700 pt-1 mt-1"><span className="text-zinc-400">Total deployed</span><span className="text-white font-semibold">$160K</span></li>
+                      <li className="flex justify-between"><span className="text-zinc-400">Cash reserve</span><span className="text-red-400 font-semibold">$0</span></li>
+                    </ul>
+                    <div className="border-t border-zinc-700 pt-3 space-y-1">
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Expected monthly</span><span className="text-emerald-400 font-bold">$7,135</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Portfolio ROI</span><span className="text-emerald-400 font-bold">~68%</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Risk</span><span className="text-red-400">Higher</span></div>
+                      <p className="text-xs text-zinc-500 pt-1">No cash buffer · 3 properties to manage.</p>
+                    </div>
+                  </div>
+
+                  {/* Scenario C — Balanced (recommended) */}
+                  <div className="bg-zinc-800/50 rounded-lg p-5 border border-emerald-500/50 flex flex-col gap-3 relative">
+                    <span className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full px-2 py-0.5">Recommended</span>
+                    <div>
+                      <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Scenario C</span>
+                      <h3 className="text-sm font-bold text-white mt-0.5">Balanced</h3>
+                    </div>
+                    <ul className="text-xs space-y-1 text-zinc-300">
+                      <li className="flex justify-between"><span className="text-blue-400 font-medium">Ace Hoops</span><span>$55K <span className="text-zinc-500">(37%)</span></span></li>
+                      <li className="flex justify-between"><span className="text-purple-400 font-medium">Tech YouTube</span><span>$70K <span className="text-zinc-500">(47%)</span></span></li>
+                      <li className="flex justify-between"><span className="text-gray-400 font-medium">Cash reserve</span><span>$35K <span className="text-zinc-500">(23%)</span></span></li>
+                      <li className="flex justify-between border-t border-zinc-700 pt-1 mt-1"><span className="text-zinc-400">Total deployed</span><span className="text-white font-semibold">$125K</span></li>
+                      <li className="flex justify-between"><span className="text-zinc-400">Cash reserve</span><span className="text-emerald-400 font-semibold">$35K</span></li>
+                    </ul>
+                    <div className="border-t border-zinc-700 pt-3 space-y-1">
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Expected monthly</span><span className="text-emerald-400 font-bold">$4,850</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Portfolio ROI</span><span className="text-emerald-400 font-bold">~46%</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Risk</span><span className="text-emerald-400">Lower</span></div>
+                      <p className="text-xs text-zinc-500 pt-1">Cash buffer for growth &amp; emergencies.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stacked bar chart */}
+                <div>
+                  <p className="text-xs text-zinc-500 mb-3 uppercase tracking-widest font-medium">Allocation Breakdown by Scenario</p>
+                  <ResponsiveContainer width="100%" height={180}>
+                    <BarChart
+                      layout="vertical"
+                      data={[
+                        { scenario: "A — Conservative", aceHoops: 62, techYT: 79, tutorials: 0, cash: 19 },
+                        { scenario: "B — Aggressive",   aceHoops: 55, techYT: 70, tutorials: 35, cash: 0 },
+                        { scenario: "C — Balanced",     aceHoops: 55, techYT: 70, tutorials: 0, cash: 35 },
+                      ]}
+                      margin={{ top: 4, right: 20, left: 4, bottom: 4 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" horizontal={false} />
+                      <XAxis type="number" tick={{ fill: "#a1a1aa", fontSize: 11 }} tickFormatter={(v: number) => `$${v}K`} domain={[0, 180]} />
+                      <YAxis type="category" dataKey="scenario" tick={{ fill: "#a1a1aa", fontSize: 11 }} width={120} />
+                      <Tooltip
+                        contentStyle={{ backgroundColor: "#18181b", border: "1px solid #3f3f46", borderRadius: "8px" }}
+                        labelStyle={{ color: "#fff", fontWeight: 600, fontSize: 12 }}
+                        formatter={(value: number, name: string) => {
+                          const labels: Record<string, string> = { aceHoops: "Ace Hoops", techYT: "Tech YouTube", tutorials: "Faceless Tutorials", cash: "Cash Reserve" };
+                          return [`$${value}K`, labels[name] ?? name];
+                        }}
+                      />
+                      <Legend
+                        iconType="circle"
+                        iconSize={8}
+                        wrapperStyle={{ fontSize: 11, color: "#a1a1aa" }}
+                        formatter={(value: string) => {
+                          const labels: Record<string, string> = { aceHoops: "Ace Hoops", techYT: "Tech YouTube", tutorials: "Faceless Tutorials", cash: "Cash Reserve" };
+                          return labels[value] ?? value;
+                        }}
+                      />
+                      <Bar dataKey="aceHoops" stackId="a" fill="#3b82f6" radius={[0, 0, 0, 0]} />
+                      <Bar dataKey="techYT"   stackId="a" fill="#8b5cf6" />
+                      <Bar dataKey="tutorials" stackId="a" fill="#f59e0b" />
+                      <Bar dataKey="cash"     stackId="a" fill="#6b7280" radius={[0, 4, 4, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                {/* Recommendation box */}
+                <div className="border border-emerald-500/40 bg-emerald-500/5 rounded-lg p-4">
+                  <p className="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1">Recommendation</p>
+                  <p className="text-sm text-zinc-300 leading-relaxed">
+                    <span className="font-semibold text-white">Scenario C (Balanced)</span> is recommended for first-time acquirers. The $35K cash reserve provides runway for content optimization, VA hiring, and unexpected platform changes. Once both channels are stabilized (3–6 months), redeploy cash into a third acquisition.
+                  </p>
+                </div>
+              </div>
+            </section>
+
             {/* Top Picks */}
             {topPicks.length > 0 && (
               <section>
