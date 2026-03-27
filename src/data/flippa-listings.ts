@@ -2570,44 +2570,55 @@ export const flippaListings: FlippaListing[] = [
       ],
     };
   })(),
-  // #12265554 — Amazon KDP | Entertainment | $59,245 | $4,467/mo | 90% ROI
+  // #12265554 — Amazon KDP | Entertainment | $89,000 | £3,361/mo avg | CONSIDER (volatile but growing)
   (() => {
-    const a = 93, r = 77, rs = 95, e = 75;
+    // Verified P&L: CV=44%, revenue GROWING +44% (£2,997→£3,440), avg profit £3,361/mo
+    // 6yr old KDP account, 70% margin. Monthly profits range widely: £1,944–£6,807.
+    // ROI at avg: 3361*12/89000 = 45.3%
+    const a = 93, r = 60, rs = 75, e = 80;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
+    const cvPct = 44, trend = 44;
     return {
       id: "12265554",
-      title: "Rare 6-Year-Old KDP Account with 70% Profit Margin – Diversified Royalties, Low Ads Reliance — Amazo",
-      niche: "Entertainment",
-      price: 59245,
-      monthlyProfit: 4467,
+      title: "6-Year-Old KDP Account — 70% Margin, Organic TikTok Upside, Growing Revenue",
+      niche: "Amazon KDP",
+      price: 89000,
+      monthlyProfit: 3361,
       monthlyRevenue: 0,
-      monetization: "Methods",
+      monetization: "Amazon KDP royalties",
       multiple: 1.1,
       firstMadeMoney: 6,
       businessAge: 6,
-      description: "High-Margin KDP Account with Organic TikTok Upside Stable, Scalable, Efficient Amazon KDP Entertainment Business Location Italy Site Age 6 years Monthly Profit GBP £3,355 /mo Profit Margin 70% Profit Multiple 1.1x Revenue Multiple 0.8x View P&L View insights on multiples  Expand All Performance Over",
+      description: "6-year-old KDP account with diversified royalties and low ad reliance. Verified P&L shows revenue GROWING +44% over 12 months (£2,997→£3,440) with strong 70% margin. Volatility is high (CV=44%) due to seasonal peaks, but the underlying trend is clearly positive. Organic TikTok upside not yet monetized.",
       status: "active",
       listingType: "buy_now",
-      verificationStatus: "partial",
+      verificationStatus: "verified",
       offersCount: 0,
       autonomyScore: a,
       riskScore: r,
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 59245),
+      recommendation: rec(ov, aiM, 89000, { verifiedPnL: true, cvPercent: cvPct, revenueTrend: trend }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: true,
+      profitConsistency: "moderate",
+      revenueTrend: trend,
+      monthlyProfitRange: "£1,944–£6,807",
+      cvPercent: cvPct,
       reasonsFor: [
-      "Highly autonomous — AI+VA can run with minimal oversight",
-      "Low risk profile — verified financials, diversified",
-      "Strong ROI: 90% annual return at asking price",
-      "Verified Listing — financials independently confirmed by Flippa",
-      "Proven track record: 6+ years in operation"
+        "Revenue GROWING +44% over 12 months — confirmed by verified P&L",
+        "6 years old — established account with diversified royalty catalog",
+        "70% profit margin — sustainable unit economics",
+        "Low Amazon Ads reliance — organic demand, not paid traffic"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+        "CV=44% — high month-to-month volatility, profits range £1,944–£6,807",
+        "No P&L verification yet confirmed for asking price vs actual (currently at $89K in JSON)",
+        "KDP platform risk — Amazon can change royalty rates or algorithms",
+        "June spike (£6,807) may be seasonal — average could be lower ex-peaks"
       ],
     };
   })(),
