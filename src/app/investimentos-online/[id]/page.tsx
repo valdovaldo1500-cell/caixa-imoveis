@@ -2053,11 +2053,11 @@ export default function InvestimentosOnlineDetailPage() {
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-2.5">
                   <p className="text-zinc-300 font-medium mb-1">Second pick</p>
-                  <p>3× Tech YouTube — faceless, 10K videos, 1hr/wk, negotiate to $79K</p>
+                  <p>#91304 Faceless Tutorials — $60K ask, negotiate to $45K, 2hrs/wk, 94% margin, AI-scriptable</p>
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-2.5">
-                  <p className="text-zinc-300 font-medium mb-1">Alternative if #90544 fails</p>
-                  <p>#91304 Faceless Tutorials — $60K, 2hrs/wk, 94% margin, AI-scriptable</p>
+                  <p className="text-zinc-300 font-medium mb-1">Eliminated</p>
+                  <p>#90544 3× Tech YouTube — recent videos 0 views, not AI voiceover, hidden freelancer costs</p>
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-2.5">
                   <p className="text-zinc-300 font-medium mb-1">18 listings analyzed, 14 eliminated</p>
