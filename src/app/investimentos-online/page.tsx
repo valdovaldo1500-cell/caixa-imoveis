@@ -739,14 +739,14 @@ export default function InvestimentosOnlinePage() {
                   <div className="text-xs text-zinc-500">ask $70,599 → negotiate (~£49K)</div>
                 </div>
                 <div className="bg-zinc-900/60 rounded-xl p-3">
-                  <div className="text-xs text-zinc-500 mb-0.5">Tech YouTube target</div>
-                  <div className="text-base font-bold text-blue-400">$79K</div>
-                  <div className="text-xs text-zinc-500">ask $93,608 → negotiate (~£62K)</div>
+                  <div className="text-xs text-zinc-500 mb-0.5">Faceless Tutorials target</div>
+                  <div className="text-base font-bold text-blue-400">$45K</div>
+                  <div className="text-xs text-zinc-500">ask $59,863 → negotiate (~£36K)</div>
                 </div>
                 <div className="bg-zinc-900/60 rounded-xl p-3">
                   <div className="text-xs text-zinc-500 mb-0.5">Combined total</div>
-                  <div className="text-base font-bold text-emerald-400">~$141K</div>
-                  <div className="text-xs text-zinc-500">~£111K — within $160K budget</div>
+                  <div className="text-base font-bold text-emerald-400">~$107K</div>
+                  <div className="text-xs text-zinc-500">~£84K — well within $160K budget</div>
                 </div>
                 <div className="bg-zinc-900/60 rounded-xl p-3">
                   <div className="text-xs text-zinc-500 mb-0.5">Owner Time</div>
