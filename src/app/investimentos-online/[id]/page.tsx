@@ -2776,7 +2776,8 @@ Best regards,
                               ))}
                             </Pie>
                             <Tooltip
-                              formatter={(v: number) => [`${v}%`, ""]}
+                              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                              formatter={(v: any) => [`${v}%`, ""]}
                               contentStyle={{ background: "#27272a", border: "1px solid #3f3f46", borderRadius: 8, fontSize: 11 }}
                             />
                             <Legend
