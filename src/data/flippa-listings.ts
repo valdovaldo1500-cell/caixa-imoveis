@@ -712,23 +712,27 @@ export const flippaListings: FlippaListing[] = [
       ],
     };
   })(),
-  // #12275568 — YouTube Channel | Entertainment | $149,000 | $2,967/mo | 24% ROI
+  // #12275568 — YouTube Channel | Entertainment | $149,000 | £2,232/mo avg | AVOID (overpriced + declining)
   (() => {
-    const a = 92, r = 95, rs = 50, e = 68;
+    // Verified P&L: CV=23%, revenue DECLINING -39% (£2,538→£1,580), avg profit £2,232/mo
+    // 347K subs, 182M views. Revenue declining steadily month over month.
+    // ROI at avg: 2232*12/149000 = 18% — badly overpriced at 1.8x multiple with declining revenue.
+    const a = 92, r = 50, rs = 50, e = 40;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
+    const cvPct = 23, trend = -39;
     return {
       id: "12275568",
-      title: "YouTube Channel - Entertainment",
+      title: "YouTube Channel — 347K Subs, 182M Views, 95% Margin",
       niche: "Entertainment",
       price: 149000,
-      monthlyProfit: 2967,
+      monthlyProfit: 2232,
       monthlyRevenue: 0,
-      monetization: "Ads",
+      monetization: "YouTube Ads",
       multiple: 1.8,
       firstMadeMoney: 5,
       businessAge: 5,
-      description: "YouTube Channel business in Entertainment",
+      description: "5-year-old YouTube channel with 347K subscribers and 182M views. Verified P&L confirms 95% margin but revenue declining 39% over 12 months — from £2,538 (Mar 2025) to £1,580 (Feb 2026). At current trajectory, asking $149K for ~£1.5K/mo profit = 12% ROI. Badly overpriced.",
       status: "active",
       listingType: "buy_now",
       verificationStatus: "verified",
@@ -738,18 +742,25 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 149000),
+      recommendation: rec(ov, aiM, 149000, { verifiedPnL: true, cvPercent: cvPct, revenueTrend: trend }),
       aiManageable: aiM,
-      category: "content_ads",
+      category: "youtube",
+      verifiedPnL: true,
+      profitConsistency: "good",
+      revenueTrend: trend,
+      monthlyProfitRange: "£1,430–£2,969",
+      cvPercent: cvPct,
       reasonsFor: [
-      "Highly autonomous — AI+VA can run with minimal oversight",
-      "Low risk profile — verified financials, diversified",
-      "Verified Listing — financials independently confirmed by Flippa",
-      "Proven track record: 5+ years in operation",
-      "Managed by Flippa — additional due diligence and broker support"
+        "347K subscribers and 182M views — significant audience asset",
+        "CV=23% — relatively consistent profit month-to-month",
+        "95% profit margin — essentially zero expenses",
+        "5 years old — established channel with track record"
       ],
       reasonsAgainst: [
-      "Further due diligence required before commitment"
+        "Revenue declined 39% over 12 months — from £2,538 to £1,580 consistently falling",
+        "At current £1,480/mo profit, $149K asking price = 12% ROI — far below Selic (14.25%)",
+        "Overpriced at 1.8x multiple given declining trajectory — fair value closer to $80K",
+        "YouTube algorithm changes could accelerate decline further"
       ],
     };
   })(),
