@@ -718,11 +718,11 @@ export default function InvestimentosOnlinePage() {
                     <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">March 26, 2026</span>
                   </div>
                   <h2 className="text-xl font-bold text-white mb-1">
-                    BUY: Ace Hoops WNBA (#92246) + 3× Tech YouTube (#90544)
+                    BUY: Ace Hoops WNBA (#92246) + Faceless YouTube Tutorials (#91304)
                   </h2>
                   <p className="text-sm text-zinc-400 max-w-3xl">
-                    Both faceless, fully AI+VA manageable, no personal brand risk. Ace Hoops is seasonal (WNBA May–Oct) and growing; Tech YouTube is year-round but declining — buy only after negotiating from $94K to ~$79K. Combined total ~$141K within $160K budget.
-                    Avoid: <span className="text-red-400 font-semibold">#89555 photopacks.ai</span> (traffic -78%, declining) · <span className="text-red-400 font-semibold">#92105 homemadegraceful</span> (female persona + Pinterest 92%) · <span className="text-red-400 font-semibold">#92180 ahoyvietnam</span> (personal brand).
+                    Both faceless, fully AI+VA manageable, no personal brand risk. Ace Hoops is seasonal (WNBA May–Oct) and growing; Faceless Tutorials is year-round with 94% margin — negotiate from $60K to ~$45K. Combined total ~$107K well within $160K budget.
+                    Avoid: <span className="text-red-400 font-semibold">#90544 3× Tech YouTube</span> (recent videos 0 views, not AI voiceover, hidden freelancer costs) · <span className="text-red-400 font-semibold">#89555 photopacks.ai</span> (traffic -78%, declining) · <span className="text-red-400 font-semibold">#92180 ahoyvietnam</span> (personal brand).
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-1 shrink-0">
