@@ -2585,13 +2585,14 @@ export default function InvestimentosOnlinePage() {
                   />
                   <Tooltip
                     contentStyle={{ background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8, color: "#fff" }}
-                    formatter={(value: number, name: string) => {
+                    formatter={(value: string | number | (string | number)[], name: string | number) => {
                       const labels: Record<string, string> = {
                         primary: "Primary Portfolio ($141K)",
                         alternative: "Alternative Portfolio ($112K)",
                         sp500: "S&P 500 Benchmark",
                       };
-                      return [`${value}%`, labels[name] ?? name];
+                      const key = String(name);
+                      return [`${value}%`, labels[key] ?? key];
                     }}
                   />
                   <Legend
