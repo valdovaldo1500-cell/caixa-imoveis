@@ -1562,7 +1562,7 @@ export default function InvestimentosOnlineDetailPage() {
             })()}
 
             {/* ── Competitor Landscape ──────────────────────────────── */}
-            {(() => {
+            {data?.assessment && data.assessment.verdictColor !== "red" && (() => {
               const competitors: Record<string, { name: string; subs: string; videos: string; niche: string; monet: string }[]> = {
                 "92246": [
                   { name: "Swish Cultures", subs: "180K", videos: "800+", niche: "WNBA commentary", monet: "AdSense + Merch" },
