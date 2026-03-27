@@ -1556,6 +1556,92 @@ Best regards,
               );
             })()}
 
+            {/* ── Exit Strategy ─────────────────────────────────────── */}
+            {(() => {
+              const fin = LISTING_FINANCIALS.find((f) => f.id === id);
+              if (!fin || !data?.assessment || data.assessment.verdictColor === "red") return null;
+              const buyPrice = fin.targetPrice;
+              const monthlyProfit = fin.avg3mo;
+              const efMultiples = { yr1: 30, yr2: 34, yr3: 38 };
+              const scenarios = [
+                {
+                  label: "Year 1",
+                  months: 12,
+                  growthRate: 0,
+                  multiple: efMultiples.yr1,
+                },
+                {
+                  label: "Year 2",
+                  months: 24,
+                  growthRate: 0.1,
+                  multiple: efMultiples.yr2,
+                },
+                {
+                  label: "Year 3",
+                  months: 36,
+                  growthRate: 0.2,
+                  multiple: efMultiples.yr3,
+                },
+              ];
+              return (
+                <SectionCard icon={TrendingUp} title="Exit Strategy — Resale Projections" iconColor="text-violet-400">
+                  <div className="space-y-4">
+                    <p className="text-xs text-zinc-500">
+                      Estimated resale value based on EF marketplace multiples (30-38x monthly profit).
+                      Growth assumptions: 0% yr1, 10% yr2, 20% yr3 (content optimization + SEO).
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {scenarios.map((s) => {
+                        const grownProfit = Math.round(monthlyProfit * (1 + s.growthRate));
+                        const resaleValue = grownProfit * s.multiple;
+                        const cashFlow = grownProfit * s.months;
+                        const totalReturn = cashFlow + resaleValue - buyPrice;
+                        const totalROI = Math.round((totalReturn / buyPrice) * 100);
+                        return (
+                          <div key={s.label} className="bg-zinc-900 rounded-lg p-4 space-y-3">
+                            <p className="text-sm font-semibold text-zinc-200">{s.label} Exit</p>
+                            <div className="space-y-1.5">
+                              <div className="flex justify-between text-xs">
+                                <span className="text-zinc-500">Monthly profit</span>
+                                <span className="text-zinc-300">${grownProfit.toLocaleString()}</span>
+                              </div>
+                              <div className="flex justify-between text-xs">
+                                <span className="text-zinc-500">Cash flow ({s.months}mo)</span>
+                                <span className="text-zinc-300">${cashFlow.toLocaleString()}</span>
+                              </div>
+                              <div className="flex justify-between text-xs">
+                                <span className="text-zinc-500">Resale ({s.multiple}x)</span>
+                                <span className="text-emerald-400 font-semibold">${resaleValue.toLocaleString()}</span>
+                              </div>
+                              <div className="border-t border-zinc-800 my-1" />
+                              <div className="flex justify-between text-xs">
+                                <span className="text-zinc-500">Total return</span>
+                                <span className="text-white font-bold">${totalReturn.toLocaleString()}</span>
+                              </div>
+                              <div className="flex justify-between text-xs">
+                                <span className="text-zinc-500">Total ROI</span>
+                                <span className={`font-bold ${totalROI > 100 ? "text-emerald-400" : totalROI > 50 ? "text-blue-400" : "text-amber-400"}`}>
+                                  {totalROI}%
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-3">
+                      <p className="text-xs text-zinc-400">
+                        <span className="text-amber-400 font-semibold">Hold vs Flip:</span>{" "}
+                        {monthlyProfit * 36 + monthlyProfit * 1.2 * efMultiples.yr3 > buyPrice * 3
+                          ? "Strong hold candidate — cumulative cash flow + exit value significantly exceeds purchase price."
+                          : "Consider flipping after Year 2 if growth targets are met. Re-invest proceeds into higher-growth assets."}
+                      </p>
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Section 13: 90-Day Post-Acquisition Plan ───────────────── */}
             {data.assessment && data.assessment.verdictColor !== "red" && (() => {
               const phases = [
