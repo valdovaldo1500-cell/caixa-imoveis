@@ -695,6 +695,60 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Revenue Source Breakdown ──────────────────────────── */}
+            {(() => {
+              const revenueData: Record<string, { name: string; value: number; color: string }[]> = {
+                "92246": [
+                  { name: "YouTube AdSense", value: 65, color: "#ef4444" },
+                  { name: "Affiliate", value: 25, color: "#3b82f6" },
+                  { name: "Sponsorship", value: 10, color: "#f59e0b" },
+                ],
+                "90544": [
+                  { name: "YouTube AdSense", value: 12, color: "#ef4444" },
+                  { name: "Affiliate", value: 88, color: "#3b82f6" },
+                ],
+                "91304": [
+                  { name: "Affiliate", value: 88, color: "#3b82f6" },
+                  { name: "YouTube AdSense", value: 12, color: "#ef4444" },
+                ],
+              };
+              const sources = revenueData[id];
+              if (!sources) return null;
+              const primarySource = sources.reduce((a, b) => (a.value > b.value ? a : b));
+              const diversified = sources.length >= 3 || primarySource.value < 70;
+              return (
+                <SectionCard icon={BarChart2} title="Revenue Source Breakdown" iconColor="text-blue-400">
+                  <div className="flex flex-col sm:flex-row items-center gap-6">
+                    <ResponsiveContainer width={200} height={200}>
+                      <PieChart>
+                        <Pie data={sources} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={2}>
+                          {sources.map((s, i) => (
+                            <Cell key={i} fill={s.color} />
+                          ))}
+                        </Pie>
+                        <Tooltip
+                          contentStyle={{ backgroundColor: "#27272a", border: "1px solid #3f3f46", borderRadius: "8px", color: "#fff", fontSize: "12px" }}
+                          formatter={(value) => [`${value}%`, ""]}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                    <div className="space-y-3 flex-1">
+                      {sources.map((s) => (
+                        <div key={s.name} className="flex items-center gap-3">
+                          <span className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: s.color }} />
+                          <span className="text-sm text-zinc-300 flex-1">{s.name}</span>
+                          <span className="text-sm font-semibold text-zinc-200">{s.value}%</span>
+                        </div>
+                      ))}
+                      <div className={`mt-2 text-xs px-2 py-1 rounded inline-block ${diversified ? "bg-emerald-500/10 text-emerald-400" : "bg-amber-500/10 text-amber-400"}`}>
+                        {diversified ? "Diversified revenue" : `Concentrated: ${primarySource.value}% from ${primarySource.name}`}
+                      </div>
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Section 2: Financial Performance ──────────────────────── */}
             <SectionCard
               icon={BarChart2}
