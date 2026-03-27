@@ -478,6 +478,87 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── 12-Month Cash Flow Projection ───────────────────────── */}
+            {(() => {
+              const fin = LISTING_FINANCIALS.find((f) => f.id === id);
+              if (!fin) return null;
+              const history = fin.monthlyProfitHistory;
+              const lastProfit = history[history.length - 1].profit;
+              const avg3 = fin.avg3mo;
+              const isSeasonal = fin.seasonality === "high";
+              const months = ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"];
+              const seasonalMultipliers: Record<string, number> = {
+                May: 1.8, Jun: 2.0, Jul: 2.3, Aug: 2.5, Sep: 1.9, Oct: 1.5,
+                Nov: 0.6, Dec: 1.0, Jan: 0.5, Feb: 1.0, Mar: 0.7, Apr: 0.8,
+              };
+              const projData = months.map((m, i) => {
+                const base = isSeasonal ? avg3 * (seasonalMultipliers[m] ?? 1) : avg3;
+                return {
+                  month: `${m} ${i >= 10 ? "27" : "26"}`,
+                  base: Math.round(base),
+                  bear: Math.round(base * 0.7),
+                  bull: Math.round(base * 1.25),
+                };
+              });
+              const totalBase = projData.reduce((s, d) => s + d.base, 0);
+              const totalBear = projData.reduce((s, d) => s + d.bear, 0);
+              const totalBull = projData.reduce((s, d) => s + d.bull, 0);
+              return (
+                <SectionCard icon={LineChart} title="12-Month Cash Flow Projection" iconColor="text-blue-400">
+                  <div className="space-y-4">
+                    <p className="text-xs text-zinc-500">
+                      Forward projection from current 3-month average (${avg3.toLocaleString()}/mo).
+                      {isSeasonal && " Seasonal multipliers applied based on WNBA calendar."}
+                    </p>
+                    <ResponsiveContainer width="100%" height={250}>
+                      <ComposedChart data={projData} margin={{ top: 5, right: 10, left: 10, bottom: 30 }}>
+                        <defs>
+                          <linearGradient id="bearFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#ef4444" stopOpacity={0.1} />
+                            <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+                          </linearGradient>
+                          <linearGradient id="bullFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#22c55e" stopOpacity={0.1} />
+                            <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
+                        <XAxis dataKey="month" tick={{ fill: "#71717a", fontSize: 10 }} angle={-45} textAnchor="end" interval={0} height={50} />
+                        <YAxis tick={{ fill: "#71717a", fontSize: 11 }} tickFormatter={(v: number) => `$${v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v}`} width={50} />
+                        <Tooltip
+                          contentStyle={{ backgroundColor: "#27272a", border: "1px solid #3f3f46", borderRadius: "8px", color: "#fff", fontSize: "12px" }}
+                          formatter={(value: number, name: string) => [`$${value.toLocaleString()}`, name === "base" ? "Base Case" : name === "bear" ? "Bear (−30%)" : "Bull (+25%)"]}
+                          labelStyle={{ color: "#a1a1aa" }}
+                        />
+                        <Area type="monotone" dataKey="bull" stroke="transparent" fill="url(#bullFill)" />
+                        <Area type="monotone" dataKey="bear" stroke="transparent" fill="url(#bearFill)" />
+                        <Line type="monotone" dataKey="bull" stroke="#22c55e" strokeWidth={1} strokeDasharray="4 4" dot={false} name="bull" />
+                        <Line type="monotone" dataKey="base" stroke="#3b82f6" strokeWidth={2} dot={{ r: 3, fill: "#3b82f6", strokeWidth: 0 }} name="base" />
+                        <Line type="monotone" dataKey="bear" stroke="#ef4444" strokeWidth={1} strokeDasharray="4 4" dot={false} name="bear" />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="bg-zinc-900 rounded-lg p-3 text-center">
+                        <div className="text-xs text-red-400 mb-1">Bear (−30%)</div>
+                        <div className="text-sm font-semibold text-zinc-300">${totalBear.toLocaleString()}</div>
+                        <div className="text-xs text-zinc-600">${Math.round(totalBear / 12).toLocaleString()}/mo avg</div>
+                      </div>
+                      <div className="bg-zinc-900 rounded-lg p-3 text-center ring-1 ring-blue-500/30">
+                        <div className="text-xs text-blue-400 mb-1">Base Case</div>
+                        <div className="text-sm font-semibold text-white">${totalBase.toLocaleString()}</div>
+                        <div className="text-xs text-zinc-600">${Math.round(totalBase / 12).toLocaleString()}/mo avg</div>
+                      </div>
+                      <div className="bg-zinc-900 rounded-lg p-3 text-center">
+                        <div className="text-xs text-emerald-400 mb-1">Bull (+25%)</div>
+                        <div className="text-sm font-semibold text-zinc-300">${totalBull.toLocaleString()}</div>
+                        <div className="text-xs text-zinc-600">${Math.round(totalBull / 12).toLocaleString()}/mo avg</div>
+                      </div>
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Section 2: Financial Performance ──────────────────────── */}
             <SectionCard
               icon={BarChart2}
