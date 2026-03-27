@@ -261,7 +261,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "CRITICAL: Revenue declining 76% — peak $12,314 (May 25) → $2,919 (Feb 26)",
       "Political content = YouTube demonetization risk (restricted ads, limited advertisers)",
       "Only 16 months old — started Oct 2024, $0 first month",
-      "Owner does voiceovers — changing voice could alienate audience",
+      "Voiceover outsourced to freelancers — transferable workflow",
       "10hrs/week — more work than other picks",
       "Content from 'public sources' — potential copyright/fair use claims",
       "US political niche — dependent on current political climate, audience mood",
