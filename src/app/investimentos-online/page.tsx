@@ -1199,7 +1199,7 @@ export default function InvestimentosOnlinePage() {
                         iconSize={8}
                         wrapperStyle={{ fontSize: 11, color: "#a1a1aa" }}
                         formatter={(value: string) => {
-                          const labels: Record<string, string> = { aceHoops: "Ace Hoops", techYT: "Tech YouTube", tutorials: "Faceless Tutorials", cash: "Cash Reserve" };
+                          const labels: Record<string, string> = { aceHoops: "Ace Hoops", tutorials: "Faceless Tutorials", thirdAcq: "3rd Acquisition", cash: "Cash Reserve" };
                           return labels[value] ?? value;
                         }}
                       />
