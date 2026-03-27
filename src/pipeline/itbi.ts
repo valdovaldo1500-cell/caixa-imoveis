@@ -2,6 +2,16 @@ import { db } from "@/lib/db";
 import { itbiTransactions, properties } from "@/lib/db/schema";
 import { eq, sql, isNull, and, gte, ilike } from "drizzle-orm";
 
+// Normalize bairro: remove accents, articles (DE, DO, DA, DOS, DAS), trim
+function normBairro(name: string): string {
+  return name
+    .toUpperCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/\b(DE|DO|DA|DOS|DAS|E)\b/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 const ITBI_URLS: Record<number, string> = {
   2024: "https://dadosabertos.poa.br/dataset/dd8ee5be-06f4-4107-a3bf-5e15aebba6c1/resource/4947bed6-6be6-40e6-a120-42957e745da5/download/itbi-2024.csv",
   2025: "https://dadosabertos.poa.br/dataset/dd8ee5be-06f4-4107-a3bf-5e15aebba6c1/resource/e46f56f3-ac8a-4513-b155-5d3038a275b2/download/itbi-2025.csv",
