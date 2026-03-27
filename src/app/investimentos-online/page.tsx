@@ -1277,7 +1277,7 @@ export default function InvestimentosOnlinePage() {
                         <td className="py-4 pr-4 font-bold text-white text-base">Overall Score</td>
                         {[
                           { score: "3.5/5", color: "text-amber-400" },
-                          { score: "3.75/5", color: "text-emerald-400" },
+                          { score: "ELIM.", color: "text-red-400 opacity-40" },
                           { score: "3.0/5", color: "text-amber-400" },
                         ].map(({ score, color }, i) => (
                           <td key={i} className="py-4 px-4 text-center">
