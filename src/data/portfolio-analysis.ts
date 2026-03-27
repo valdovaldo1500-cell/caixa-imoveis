@@ -522,7 +522,7 @@ export const SENSITIVITY_ANALYSIS: SensitivityScenario[] = [
 
 export const ACQUISITION_TIMELINE = [
   { date: "Mar 26-31", action: "Submit offers", details: "Ace Hoops $55K, Faceless Tutorials #91304 $40K via EF platform" },
-  { date: "Apr 1-7", action: "Negotiate", details: "Counter-offers, target Ace Hoops $62K, Tech YouTube $79K" },
+  { date: "Apr 1-7", action: "Negotiate", details: "Counter-offers, target Ace Hoops $62K, Faceless Tutorials $45K" },
   { date: "Apr 7-14", action: "Due diligence", details: "YouTube Studio verification, P&L review, freelancer interviews" },
   { date: "Apr 14-21", action: "Sign LOI + deposit", details: "EF escrow deposit (typically 5-10% of purchase price)" },
   { date: "Apr 21 - May 5", action: "Migration period", details: "EF facilitates channel transfer, account migrations, freelancer introductions" },
