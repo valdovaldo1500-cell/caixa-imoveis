@@ -565,7 +565,7 @@ export async function getPropertyComparables(propertyId: number, months: number 
 
   if (!prop) return null;
 
-  const bairroKey = (prop.bairro || "").toUpperCase().trim();
+  const bairroKey = normBairro(prop.bairro || "");
   const itbiTypes = getItbiTypes(prop.tipoImovel || prop.descricao);
   const exactItbiType = itbiTypes[0] ?? null;
   const propArea = prop.areaPrivativaM2
@@ -581,17 +581,26 @@ export async function getPropertyComparables(propertyId: number, months: number 
   const cutoffTier1 = new Date();
   cutoffTier1.setMonth(cutoffTier1.getMonth() - tier1Months);
 
-  const allTx = await db
+  const rawTx = await db
     .select()
     .from(itbiTransactions)
     .where(
       and(
         gte(itbiTransactions.dataEstimativa, cutoffTier2),
         sql`${itbiTransactions.baseCalculo}::numeric > 10000`,
-        sql`${itbiTransactions.areaConstrPrivativa}::numeric > 0`,
-        sql`upper(${itbiTransactions.bairro}) = ${bairroKey}`
+        sql`${itbiTransactions.areaConstrPrivativa}::numeric > 0`
       )
     );
+
+  // Filter by bairro in JS using the same normBairro + fuzzy logic as calculateMarketValues
+  let allTx = rawTx.filter((tx) => normBairro(tx.bairro || "") === bairroKey);
+  // Fuzzy fallback: try partial match if exact normalized match fails
+  if (allTx.length === 0 && bairroKey.length > 3) {
+    allTx = rawTx.filter((tx) => {
+      const k = normBairro(tx.bairro || "");
+      return k.includes(bairroKey) || bairroKey.includes(k);
+    });
+  }
 
   // Tier 1 — exact type, area ±25%, within requested months
   const tier1Tx = allTx.filter((tx) => {
