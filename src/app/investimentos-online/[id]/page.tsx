@@ -1018,6 +1018,163 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Team Cost Calculator ──────────────────────────────── */}
+            {(() => {
+              if (!data?.assessment || data.assessment.verdictColor === "red") return null;
+              if (teamRoles.length === 0) return null;
+              const fin = LISTING_FINANCIALS.find((f) => f.id === id);
+              const monthlyRevenue = fin?.avg3mo ?? 0;
+
+              const totalTeamCost = teamRoles.reduce((sum, r) => sum + r.rate, 0);
+              const netProfit = monthlyRevenue - totalTeamCost;
+              const margin = monthlyRevenue > 0 ? Math.round((netProfit / monthlyRevenue) * 100) : 0;
+              const teamPct = monthlyRevenue > 0 ? Math.min(100, Math.round((totalTeamCost / monthlyRevenue) * 100)) : 0;
+              const netPct = 100 - teamPct;
+
+              const PRESETS: Record<string, TeamRole[]> = {
+                "92246": [
+                  { role: "Video Editor", rate: 400, hoursPerWeek: 20 },
+                  { role: "Content Researcher", rate: 300, hoursPerWeek: 10 },
+                  { role: "Thumbnail Designer", rate: 150, hoursPerWeek: 10 },
+                ],
+                "90544": [
+                  { role: "Video Editor", rate: 500, hoursPerWeek: 20 },
+                  { role: "Scriptwriter", rate: 200, hoursPerWeek: 10 },
+                  { role: "Automation Maintainer", rate: 400, hoursPerWeek: 10 },
+                ],
+                "91304": [
+                  { role: "Video Editor", rate: 350, hoursPerWeek: 20 },
+                  { role: "Scriptwriter", rate: 400, hoursPerWeek: 20 },
+                  { role: "SEO Specialist", rate: 200, hoursPerWeek: 10 },
+                ],
+              };
+
+              const applyPreset = (preset: "solo" | "lean" | "full") => {
+                if (preset === "solo") {
+                  setTeamRoles(teamRoles.map((r) => ({ ...r, rate: 0, hoursPerWeek: 0 })));
+                } else if (preset === "lean") {
+                  const base = PRESETS[id] ?? teamRoles;
+                  setTeamRoles(base.slice(0, 1).map((r) => ({ ...r, rate: Math.round(r.rate * 0.6) })));
+                } else {
+                  setTeamRoles(PRESETS[id] ?? teamRoles);
+                }
+              };
+
+              return (
+                <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+                  <h3 className="text-lg font-semibold text-white mb-2">Team Cost Calculator</h3>
+                  <p className="text-zinc-400 text-sm mb-4">Estimate your monthly operational costs with a VA team</p>
+
+                  {/* Preset buttons */}
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    <button
+                      onClick={() => applyPreset("solo")}
+                      className="text-xs px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 transition-colors"
+                    >
+                      Solo Operator — $0/mo
+                    </button>
+                    <button
+                      onClick={() => applyPreset("lean")}
+                      className="text-xs px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 transition-colors"
+                    >
+                      Lean Team
+                    </button>
+                    <button
+                      onClick={() => applyPreset("full")}
+                      className="text-xs px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition-colors"
+                    >
+                      Full Team
+                    </button>
+                  </div>
+
+                  {/* Role cards */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                    {teamRoles.map((role, i) => (
+                      <div key={i} className="bg-zinc-800/50 rounded-lg p-4 space-y-3">
+                        <p className="text-white text-sm font-medium">{role.role}</p>
+                        <div>
+                          <label className="text-zinc-500 text-xs mb-1 block">Monthly Rate ($)</label>
+                          <input
+                            type="number"
+                            min={0}
+                            value={role.rate}
+                            onChange={(e) => {
+                              const val = Math.max(0, Number(e.target.value));
+                              setTeamRoles((prev) => prev.map((r, idx) => idx === i ? { ...r, rate: val } : r));
+                            }}
+                            className="bg-zinc-700 border border-zinc-600 rounded px-3 py-1.5 text-white text-sm w-full focus:outline-none focus:border-emerald-500/60"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-zinc-500 text-xs mb-1 block">Hours / Week</label>
+                          <select
+                            value={role.hoursPerWeek}
+                            onChange={(e) => {
+                              const val = Number(e.target.value);
+                              setTeamRoles((prev) => prev.map((r, idx) => idx === i ? { ...r, hoursPerWeek: val } : r));
+                            }}
+                            className="bg-zinc-700 border border-zinc-600 rounded px-3 py-1.5 text-white text-sm w-full focus:outline-none focus:border-emerald-500/60"
+                          >
+                            {[10, 20, 30, 40].map((h) => (
+                              <option key={h} value={h}>{h} hrs/week</option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Summary */}
+                  <div className="bg-zinc-800/50 rounded-lg p-4 space-y-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+                      <div>
+                        <p className="text-zinc-500 text-xs mb-0.5">Team Cost/mo</p>
+                        <p className="text-red-400 font-bold text-base">−${totalTeamCost.toLocaleString()}</p>
+                      </div>
+                      <div>
+                        <p className="text-zinc-500 text-xs mb-0.5">Revenue/mo (3mo avg)</p>
+                        <p className="text-zinc-300 font-semibold text-base">${monthlyRevenue.toLocaleString()}</p>
+                      </div>
+                      <div>
+                        <p className="text-zinc-500 text-xs mb-0.5">Net Profit/mo</p>
+                        <p className={`font-bold text-base ${netProfit >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                          {netProfit >= 0 ? "+" : ""}${netProfit.toLocaleString()}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-zinc-500 text-xs mb-0.5">Profit Margin</p>
+                        <p className={`font-bold text-base ${margin >= 60 ? "text-emerald-400" : margin >= 30 ? "text-amber-400" : "text-red-400"}`}>
+                          {margin}%
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Stacked bar */}
+                    {monthlyRevenue > 0 && (
+                      <div className="space-y-1 pt-1">
+                        <div className="flex h-3 rounded-full overflow-hidden">
+                          <div
+                            className="bg-red-500/60 transition-all duration-300"
+                            style={{ width: `${teamPct}%` }}
+                            title={`Team cost: ${teamPct}%`}
+                          />
+                          <div
+                            className={`transition-all duration-300 ${netProfit >= 0 ? "bg-emerald-500/60" : "bg-zinc-700"}`}
+                            style={{ width: `${Math.max(0, netPct)}%` }}
+                            title={`Net profit: ${netPct}%`}
+                          />
+                        </div>
+                        <div className="flex gap-4 text-xs text-zinc-500">
+                          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500/60 inline-block" />Team cost ({teamPct}%)</span>
+                          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500/60 inline-block" />Net profit ({Math.max(0, netPct)}%)</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* ── Competitor Landscape ──────────────────────────────── */}
             {(() => {
               const competitors: Record<string, { name: string; subs: string; videos: string; niche: string; monet: string }[]> = {
