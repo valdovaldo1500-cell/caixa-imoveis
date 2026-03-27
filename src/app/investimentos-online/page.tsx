@@ -1376,7 +1376,7 @@ export default function InvestimentosOnlinePage() {
               </div>
 
               <div className="overflow-x-auto rounded-xl border border-zinc-800">
-                <table className="w-full text-xs">
+                <table className="w-full text-xs min-w-[900px]">
                   <thead>
                     <tr className="bg-zinc-800 border-b border-zinc-700">
                       {([
