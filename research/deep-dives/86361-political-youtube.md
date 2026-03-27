@@ -32,13 +32,30 @@ The 12x multiple screams 'high risk' — and the data confirms it. Revenue crash
 N/A — too risky for a passive investment strategy.
 
 ## Verified Research
-- [ ] Visited actual website/channel
-- [ ] Checked recent content performance
-- [ ] Verified revenue claims against actual data
-- [ ] Checked if content is truly AI-manageable
+- [x] Visited actual website/channel
+- [x] Checked recent content performance
+- [x] Verified revenue claims against actual data
+- [x] Checked if content is truly AI-manageable
 
 ## Research Notes
-(To be filled by browser verification)
+- **Channel**: @WokeBlasters2024 ("Woke Blasters"), 54.7K subscribers, 496 videos
+- **UNLOCKED on 2026-03-27**
+- **Content**: 100% re-purposed Bill Maher / TV show clips with "BREAKING" labels
+- **CONFIRMED "fair use" risk** — entire channel is clipped TV content
+- **Voiceover OUTSOURCED** to freelancers (NOT owner as previously assessed)
+- **EF avg profit**: $5,001/mo (higher than our $3,787 assessment which used 3-month average)
+- **EXTREME volatility confirmed on YouTube**:
+  - 13 hours ago: Democrats Hollywood Strategy — 2.7K views
+  - 1 day ago: Against Bernie Sanders — 10K views
+  - 2 days ago: Done With Oscars — 1.4K views
+  - 3 days ago: DESTROYS Woke Hollywood — 51K views
+  - 7 days ago: Against AOC — 205K views (viral hit)
+  - 8 days ago: Woke Identity — 5K views
+- **Upload cadence**: ~1 video/day (very active production)
+- **Revenue driver**: Viral hits. Most videos get 1K-16K, occasional 50K-205K+ spikes
+- **Key risk**: One copyright strike from Bill Maher's network could destroy the channel
+- **Work**: 10 hours/week (was correctly assessed)
+- **Country**: Finland (seller)
 
 ## Last Updated
 2026-03-27
