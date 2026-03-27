@@ -2685,7 +2685,7 @@ Best regards,
                           labelStyle={{ color: "#a1a1aa" }}
                         />
                         <Legend
-                          formatter={(value: string) =>
+                          formatter={(value) =>
                             value === "bull" ? "Bull" : value === "base" ? "Base" : "Bear"
                           }
                           wrapperStyle={{ fontSize: 12, color: "#a1a1aa" }}
