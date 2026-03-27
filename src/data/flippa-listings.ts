@@ -93,8 +93,9 @@ function rec(
     withinBudget
   ) return "top_pick";
 
-  // strong: verified CV<50 OR unverified with very strong signals
-  if (score >= 68 && (verified ? cv !== undefined && cv < 50 : true) && aiM) return "strong";
+  // strong: verified CV<50 AND revenue not declining >30%, OR unverified with very strong signals
+  const severeDecline = verified && trend !== undefined && trend < -30;
+  if (score >= 68 && (verified ? cv !== undefined && cv < 50 && !severeDecline : true) && aiM) return "strong";
 
   if (score >= 55) return "consider";
   return "avoid";
