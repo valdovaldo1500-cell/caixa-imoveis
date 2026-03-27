@@ -726,9 +726,9 @@ export default function InvestimentosOnlinePage() {
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-1 shrink-0">
-                  <div className="text-3xl font-bold text-white">£4,900<span className="text-base text-zinc-400 font-normal">/mo</span></div>
+                  <div className="text-3xl font-bold text-white">£3,900<span className="text-base text-zinc-400 font-normal">/mo</span></div>
                   <div className="text-xs text-emerald-400">Combined (in-season avg, net after VA)</div>
-                  <div className="text-xs text-zinc-500">£2,100 Ace + £2,800 Tech YT (off-season ~£3,900)</div>
+                  <div className="text-xs text-zinc-500">£2,100 Ace + £1,550 Faceless Tutorials (off-season ~£3,100)</div>
                 </div>
               </div>
 
