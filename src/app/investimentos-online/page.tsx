@@ -903,15 +903,15 @@ export default function InvestimentosOnlinePage() {
                     <div className="text-xs font-bold text-emerald-400 uppercase tracking-wide">Option A ⭐ Recommended</div>
                     <span className="text-xs bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-full">Pure YouTube play</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">Ace Hoops + 3× Tech YouTube</div>
+                  <div className="text-sm font-semibold text-white">Ace Hoops + Faceless Tutorials</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
                     <li>• Ace Hoops WNBA: ask $70,599 → <span className="text-emerald-400">target $62K (~£49K)</span></li>
-                    <li>• 3× Tech YouTube: ask $93,608 → <span className="text-emerald-400">target $79K (~£62K)</span></li>
-                    <li>• Total: ~$141K (~£111K) — within $160K budget</li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~£4,900/mo in-season, ~£3,900 off-season</li>
+                    <li>• Faceless Tutorials #91304: ask $60K → <span className="text-emerald-400">target $45K (~£35K)</span></li>
+                    <li>• Total: ~$107K (~£84K) — $53K cash reserve remaining</li>
+                    <li className="text-emerald-400 font-medium">Monthly: ~£3,900/mo in-season, ~£3,000 off-season</li>
                     <li>Both faceless — AI scripts + VA production, no persona risk</li>
-                    <li>Tech YouTube offsets Ace Hoops seasonality (year-round revenue)</li>
-                    <li className="text-zinc-500">Caveat: Tech YouTube declining — must negotiate hard to $79K max</li>
+                    <li>Faceless Tutorials provide year-round baseline income</li>
+                    <li className="text-zinc-500">Negotiate Tutorials to $45K max (from $60K asking)</li>
                   </ul>
                 </div>
 
