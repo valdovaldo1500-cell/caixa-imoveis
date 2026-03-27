@@ -1960,7 +1960,7 @@ export default function InvestimentosOnlinePage() {
                     { name: "AI Tools Review YT", price: 98000, monthlyProfit: 3800, multiple: 25.8, soldDate: "Jan 2026", type: "Comparable" },
                   ];
                   const ourPicks = [
-                    { name: "Ace Hoops (#92246)", price: 70599, monthlyProfit: 2900, multiple: 24.3, soldDate: "—", type: "Our Pick" },
+                    { name: "Ace Hoops (#92246)", price: 70599, monthlyProfit: 3070, multiple: 23.0, soldDate: "—", type: "Our Pick" },
                     { name: "Faceless Tutorials (#91304)", price: 59863, monthlyProfit: 1962, multiple: 23.0, soldDate: "—", type: "Our Pick" },
                   ];
 
