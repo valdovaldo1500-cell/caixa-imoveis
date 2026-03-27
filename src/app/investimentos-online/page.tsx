@@ -2277,7 +2277,7 @@ export default function InvestimentosOnlinePage() {
                 <div className="bg-zinc-800 rounded-lg p-4">
                   <p className="text-zinc-400 text-xs mb-1">Combined Revenue</p>
                   <p className="text-2xl font-bold text-white">$6,800</p>
-                  <p className="text-emerald-400 text-xs mt-1">vs $5,189 target <span className="font-semibold">+31%</span></p>
+                  <p className="text-emerald-400 text-xs mt-1">vs $6,117 target <span className="font-semibold">+11%</span></p>
                 </div>
                 <div className="bg-zinc-800 rounded-lg p-4">
                   <p className="text-zinc-400 text-xs mb-1">Total Expenses</p>
