@@ -65,11 +65,37 @@ function overall(a: number, r: number, roi: number, e: number): number {
   return Math.round(a * 0.40 + r * 0.25 + roi * 0.20 + e * 0.15);
 }
 
-function rec(score: number, aiM: boolean, price: number | null): "top_pick" | "strong" | "consider" | "avoid" {
+function rec(
+  score: number,
+  aiM: boolean,
+  price: number | null,
+  opts?: { verifiedPnL?: boolean; cvPercent?: number; revenueTrend?: number; hasLossMonth?: boolean }
+): "top_pick" | "strong" | "consider" | "avoid" {
   const budget = 160000;
   const withinBudget = price !== null && price <= budget;
-  if (score >= 75 && aiM && withinBudget) return "top_pick";
-  if (score >= 65 && aiM) return "strong";
+  const cv = opts?.cvPercent;
+  const trend = opts?.revenueTrend;
+  const verified = opts?.verifiedPnL;
+  const lossMonth = opts?.hasLossMonth;
+
+  // Hard avoids — regardless of score
+  if (verified && lossMonth) return "avoid";
+  if (verified && cv !== undefined && cv > 80) return "avoid";
+  if (verified && trend !== undefined && trend < -50) return "avoid";
+
+  // top_pick: ONLY verified P&L, CV<35, no loss months, revenue not declining >20%
+  if (
+    verified &&
+    cv !== undefined && cv < 35 &&
+    !lossMonth &&
+    (trend === undefined || trend > -20) &&
+    score >= 70 &&
+    withinBudget
+  ) return "top_pick";
+
+  // strong: verified CV<50 OR unverified with very strong signals
+  if (score >= 68 && (verified ? cv !== undefined && cv < 50 : true) && aiM) return "strong";
+
   if (score >= 55) return "consider";
   return "avoid";
 }
