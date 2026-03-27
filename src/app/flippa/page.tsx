@@ -530,7 +530,7 @@ export default function FlippaPage() {
                   </h2>
                   <p className="text-sm text-zinc-400 max-w-3xl">
                     {topPicks.length > 0
-                      ? <>Screened {listings.length} active Flippa listings. Found <span className="text-emerald-400 font-semibold">{topPicks.length} top pick{topPicks.length > 1 ? "s" : ""}</span> scoring ≥75 with AI+VA manageability within $160K budget. Best ROI: <span className="text-emerald-400 font-semibold">{bestRoi ? `${annualRoi(bestRoi.price, bestRoi.monthlyProfit)?.toFixed(0)}%/yr` : "—"}</span> on #{bestRoi?.id}. Focus: AI+VA manageable businesses with verified financials.</>
+                      ? <>Screened {listings.length} active Flippa listings. Found <span className="text-emerald-400 font-semibold">{verifiedTopPicks.length} verified</span> and <span className="text-amber-400 font-semibold">{unverifiedTopPicks.length} unverified top picks</span> within $160K budget. Best ROI: <span className="text-emerald-400 font-semibold">{bestRoi ? `${annualRoi(bestRoi.price, bestRoi.monthlyProfit)?.toFixed(0)}%/yr` : "—"}</span> on #{bestRoi?.id}. Unverified picks need P&amp;L verification before closing — request Stripe/PayPal exports or bank statements.</>
                       : <>Screened {listings.length} Flippa listings. No listings met all top-pick criteria (score ≥75 + AI manageable + ≤$160K). <span className="text-amber-400 font-semibold">{listings.filter(l => l.recommendation === "strong").length} Strong picks</span> available as alternatives. Target: SaaS, Newsletter, Content/Ads with recurring revenue.</>
                     }
                   </p>
