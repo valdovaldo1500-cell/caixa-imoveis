@@ -1035,32 +1035,14 @@ export default function InvestimentosOnlineDetailPage() {
               const teamPct = monthlyRevenue > 0 ? Math.min(100, Math.round((totalTeamCost / monthlyRevenue) * 100)) : 0;
               const netPct = 100 - teamPct;
 
-              const PRESETS: Record<string, TeamRole[]> = {
-                "92246": [
-                  { role: "Video Editor", rate: 400, hoursPerWeek: 20 },
-                  { role: "Content Researcher", rate: 300, hoursPerWeek: 10 },
-                  { role: "Thumbnail Designer", rate: 150, hoursPerWeek: 10 },
-                ],
-                "90544": [
-                  { role: "Video Editor", rate: 500, hoursPerWeek: 20 },
-                  { role: "Scriptwriter", rate: 200, hoursPerWeek: 10 },
-                  { role: "Automation Maintainer", rate: 400, hoursPerWeek: 10 },
-                ],
-                "91304": [
-                  { role: "Video Editor", rate: 350, hoursPerWeek: 20 },
-                  { role: "Scriptwriter", rate: 400, hoursPerWeek: 20 },
-                  { role: "SEO Specialist", rate: 200, hoursPerWeek: 10 },
-                ],
-              };
-
               const applyPreset = (preset: "solo" | "lean" | "full") => {
                 if (preset === "solo") {
                   setTeamRoles(teamRoles.map((r) => ({ ...r, rate: 0, hoursPerWeek: 0 })));
                 } else if (preset === "lean") {
-                  const base = PRESETS[id] ?? teamRoles;
+                  const base = DEFAULT_TEAM_ROLES[id] ?? teamRoles;
                   setTeamRoles(base.slice(0, 1).map((r) => ({ ...r, rate: Math.round(r.rate * 0.6) })));
                 } else {
-                  setTeamRoles(PRESETS[id] ?? teamRoles);
+                  setTeamRoles(DEFAULT_TEAM_ROLES[id] ?? teamRoles);
                 }
               };
 
