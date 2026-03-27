@@ -2772,7 +2772,7 @@ export default function InvestimentosOnlinePage() {
               <div className="grid grid-cols-3 gap-4 mb-6">
                 <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
                   <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Acquisition Cost</p>
-                  <p className="text-2xl font-bold text-emerald-400">$142,000</p>
+                  <p className="text-2xl font-bold text-emerald-400">$141,000</p>
                   <p className="text-xs text-zinc-500 mt-1">listing prices combined</p>
                 </div>
                 <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
