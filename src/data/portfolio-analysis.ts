@@ -471,8 +471,8 @@ export const SENSITIVITY_ANALYSIS: SensitivityScenario[] = [
   {
     name: "Bull case: WNBA peak + tech stable",
     revenueChange: 45, // WNBA in-season lifts portfolio
-    monthlyProfit: 8856,
-    annualROI: 75.4,
+    monthlyProfit: 8870,
+    annualROI: 75.5,
     paybackMonths: 16,
     verdict: "Exceptional return — full WNBA season drives portfolio to $106K annual profit",
   },
