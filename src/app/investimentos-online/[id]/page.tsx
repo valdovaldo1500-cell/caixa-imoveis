@@ -2681,10 +2681,7 @@ Best regards,
                             color: "#fff",
                             fontSize: "12px",
                           }}
-                          formatter={(value, name: string) => [
-                            `$${Number(value ?? 0).toLocaleString()}`,
-                            name === "bull" ? "Bull (+20%)" : name === "base" ? "Base" : "Bear (-25%)",
-                          ]}
+                          formatter={(value, name) => [`$${Number(value).toLocaleString()}`, name === "bull" ? "Bull (+20%)" : name === "base" ? "Base" : "Bear (−25%)"]}
                           labelStyle={{ color: "#a1a1aa" }}
                         />
                         <Legend
