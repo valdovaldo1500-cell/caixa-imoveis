@@ -2614,6 +2614,174 @@ Best regards,
               );
             })()}
 
+            {/* ── Channel Valuation Calculator ────────────────────────────── */}
+            {data.assessment && data.assessment.verdictColor !== "red" && (() => {
+              const fin = LISTING_FINANCIALS.find((f) => f.id === id);
+              if (!fin) return null;
+
+              // ── Method 1: Revenue Multiple ──
+              const multiples = [20, 24, 30, 36];
+              const askingMultiple = fin.askingPrice / fin.avg12mo;
+              const revenueVals = multiples.map((m) => ({ m, value: fin.avg12mo * m }));
+
+              // ── Method 2: DCF ──
+              const dcfRates = [0.10, 0.15, 0.20];
+              const annualDecline = 0.05;
+              const seasonalWeights: Record<number, number> = {
+                0: 0.6, 1: 0.7, 2: 0.7, 3: 0.7, 4: 1.4, 5: 1.6,
+                6: 1.8, 7: 1.9, 8: 1.5, 9: 1.2, 10: 0.55, 11: 0.85,
+              };
+              const monthlyProfit = fin.avg12mo * fin.profitMargin;
+              const dcfNPVs = dcfRates.map((r) => {
+                let npv = 0;
+                for (let mo = 0; mo < 36; mo++) {
+                  const yearFrac = Math.floor(mo / 12);
+                  const basePft = monthlyProfit * Math.pow(1 - annualDecline, yearFrac);
+                  const pft = fin.seasonality === "high"
+                    ? basePft * (seasonalWeights[mo % 12] ?? 1)
+                    : basePft;
+                  npv += pft / Math.pow(1 + r / 12, mo + 1);
+                }
+                return { r, npv: Math.round(npv) };
+              });
+
+              // ── Method 3: Comparable Sales ──
+              const efAvgMultiple = 24;
+              const efAvgMargin = 0.70;
+              const efAvgHours = 10;
+              const compFairValue = fin.avg12mo * efAvgMultiple;
+              const marginPremium = (fin.profitMargin - efAvgMargin) / efAvgMargin;
+              const hoursPremium = (efAvgHours - fin.hoursPerWeek) / efAvgHours;
+              const adjMultiple = efAvgMultiple * (1 + marginPremium * 0.3 + hoursPremium * 0.2);
+              const compAdjValue = Math.round(fin.avg12mo * adjMultiple);
+              const compDiscount = (compAdjValue - fin.askingPrice) / fin.askingPrice;
+
+              // ── Consensus ──
+              const midDCF = dcfNPVs[1].npv;
+              const midRevenue = fin.avg12mo * 24;
+              const consensus = Math.round((midDCF + midRevenue + compAdjValue) / 3);
+              const consensusDiff = (consensus - fin.askingPrice) / fin.askingPrice;
+
+              const colorClass = (val: number, ask: number) => {
+                const d = (val - ask) / ask;
+                if (d > 0.05) return "text-emerald-400";
+                if (d > -0.05) return "text-amber-400";
+                return "text-red-400";
+              };
+
+              return (
+                <SectionCard icon={DollarSign} title="Channel Valuation Calculator" iconColor="text-emerald-400">
+                  <div className="space-y-4">
+                    {/* 3-col grid */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+                      {/* Card 1: Revenue Multiple */}
+                      <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-4 space-y-3">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">Revenue Multiple</p>
+                        <p className="text-[11px] text-zinc-500">avg12mo × multiple</p>
+                        <div className="space-y-2">
+                          {revenueVals.map(({ m, value }) => {
+                            const isAsking = Math.abs(m - askingMultiple) < 3;
+                            return (
+                              <div key={m} className={`flex items-center justify-between rounded-lg px-3 py-2 ${isAsking ? "bg-zinc-700/60 ring-1 ring-zinc-500" : "bg-zinc-900/60"}`}>
+                                <span className="text-xs text-zinc-400">{m}× {m === 24 ? <span className="text-zinc-500">(EF avg)</span> : ""}</span>
+                                <span className={`text-sm font-bold ${colorClass(value, fin.askingPrice)}`}>
+                                  ${(value / 1000).toFixed(0)}K
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <p className="text-[11px] text-zinc-500">
+                          Asking = <span className="text-zinc-300">{askingMultiple.toFixed(1)}×</span>
+                        </p>
+                      </div>
+
+                      {/* Card 2: DCF */}
+                      <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-4 space-y-3">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">DCF (3-Year)</p>
+                        <p className="text-[11px] text-zinc-500">NPV of monthly profits, −5%/yr decline{fin.seasonality === "high" ? ", seasonal" : ""}</p>
+                        <div className="space-y-2">
+                          {dcfNPVs.map(({ r, npv }) => (
+                            <div key={r} className="flex items-center justify-between bg-zinc-900/60 rounded-lg px-3 py-2">
+                              <span className="text-xs text-zinc-400">{(r * 100).toFixed(0)}% discount</span>
+                              <span className={`text-sm font-bold ${colorClass(npv, fin.askingPrice)}`}>
+                                ${(npv / 1000).toFixed(0)}K
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="text-[11px] text-zinc-500">
+                          Base: <span className="text-zinc-300">${monthlyProfit.toFixed(0)}/mo profit</span>
+                        </p>
+                      </div>
+
+                      {/* Card 3: Comparable Sales */}
+                      <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl p-4 space-y-3">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">Comparable Sales</p>
+                        <p className="text-[11px] text-zinc-500">vs EF YouTube marketplace avg</p>
+                        <div className="space-y-2 text-xs">
+                          <div className="flex justify-between text-zinc-500">
+                            <span>Metric</span><span className="text-zinc-400">This / EF Avg</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-zinc-400">Margin</span>
+                            <span className={fin.profitMargin >= efAvgMargin ? "text-emerald-400" : "text-red-400"}>
+                              {(fin.profitMargin * 100).toFixed(0)}% / {(efAvgMargin * 100).toFixed(0)}%
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-zinc-400">Hours/wk</span>
+                            <span className={fin.hoursPerWeek <= efAvgHours ? "text-emerald-400" : "text-red-400"}>
+                              {fin.hoursPerWeek}h / {efAvgHours}h
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-zinc-400">Base value (24×)</span>
+                            <span className="text-zinc-300">${(compFairValue / 1000).toFixed(0)}K</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-zinc-400">Adj. multiple</span>
+                            <span className="text-zinc-300">{adjMultiple.toFixed(1)}×</span>
+                          </div>
+                        </div>
+                        <div className="bg-zinc-900/60 rounded-lg px-3 py-2 flex justify-between items-center">
+                          <span className="text-xs text-zinc-400">Adj. fair value</span>
+                          <span className={`text-sm font-bold ${colorClass(compAdjValue, fin.askingPrice)}`}>
+                            ${(compAdjValue / 1000).toFixed(0)}K
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-zinc-500">
+                          vs asking: <span className={compDiscount >= 0 ? "text-emerald-400" : "text-red-400"}>
+                            {compDiscount >= 0 ? "+" : ""}{(compDiscount * 100).toFixed(1)}%
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Consensus row */}
+                    <div className={`rounded-xl px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ${consensusDiff >= 0 ? "bg-emerald-500/10 border border-emerald-500/30" : "bg-amber-500/10 border border-amber-500/30"}`}>
+                      <div>
+                        <p className="text-xs text-zinc-400 mb-0.5">Consensus Fair Value</p>
+                        <p className={`text-2xl font-bold ${consensusDiff >= 0 ? "text-emerald-400" : "text-amber-400"}`}>
+                          ${(consensus / 1000).toFixed(0)}K
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-zinc-400 mb-0.5">vs Asking (${(fin.askingPrice / 1000).toFixed(0)}K)</p>
+                        <p className={`text-lg font-semibold ${consensusDiff >= 0 ? "text-emerald-400" : "text-amber-400"}`}>
+                          {consensusDiff >= 0 ? "+" : ""}{(consensusDiff * 100).toFixed(1)}%{" "}
+                          <span className="text-sm font-normal text-zinc-400">
+                            {consensusDiff >= 0 ? "below asking" : "above asking"}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Section 13: 90-Day Post-Acquisition Plan ───────────────── */}
             {data.assessment && data.assessment.verdictColor !== "red" && (() => {
               const phases = [
