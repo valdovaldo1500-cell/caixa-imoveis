@@ -559,6 +559,76 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Break-Even Analysis ────────────────────────────────── */}
+            {(() => {
+              const fin = LISTING_FINANCIALS.find((f) => f.id === id);
+              if (!fin) return null;
+              const price = fin.targetPrice;
+              const avg = fin.avg3mo;
+              const isSeasonal = fin.seasonality === "high";
+              const seasonalMult: Record<string, number> = {
+                May: 1.8, Jun: 2.0, Jul: 2.3, Aug: 2.5, Sep: 1.9, Oct: 1.5,
+                Nov: 0.6, Dec: 1.0, Jan: 0.5, Feb: 1.0, Mar: 0.7, Apr: 0.8,
+              };
+              const monthNames = ["Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb"];
+              const beData: { month: string; base: number; bear: number; bull: number }[] = [];
+              let cumBase = -price, cumBear = -price, cumBull = -price;
+              let breakBase = 0, breakBear = 0, breakBull = 0;
+              for (let i = 0; i < 36; i++) {
+                const m = monthNames[i % 12];
+                const yr = i < 10 ? "26" : i < 22 ? "27" : "28";
+                const base = isSeasonal ? avg * (seasonalMult[m] ?? 1) : avg;
+                cumBase += base;
+                cumBear += base * 0.7;
+                cumBull += base * 1.25;
+                if (!breakBase && cumBase >= 0) breakBase = i + 1;
+                if (!breakBear && cumBear >= 0) breakBear = i + 1;
+                if (!breakBull && cumBull >= 0) breakBull = i + 1;
+                beData.push({ month: `${m} ${yr}`, base: Math.round(cumBase), bear: Math.round(cumBear), bull: Math.round(cumBull) });
+              }
+              return (
+                <SectionCard icon={Target} title="Break-Even Analysis" iconColor="text-amber-400">
+                  <div className="space-y-4">
+                    <p className="text-xs text-zinc-500">
+                      Cumulative cash flow from acquisition at target price (${price.toLocaleString()}).
+                      Line crosses $0 = investment fully recovered.
+                    </p>
+                    <ResponsiveContainer width="100%" height={250}>
+                      <ComposedChart data={beData} margin={{ top: 5, right: 10, left: 10, bottom: 30 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
+                        <XAxis dataKey="month" tick={{ fill: "#71717a", fontSize: 9 }} angle={-45} textAnchor="end" interval={2} height={50} />
+                        <YAxis tick={{ fill: "#71717a", fontSize: 11 }} tickFormatter={(v: number) => `${v >= 0 ? "" : "-"}$${Math.abs(v) >= 1000 ? `${(Math.abs(v) / 1000).toFixed(0)}k` : Math.abs(v)}`} width={55} />
+                        <ReferenceLine y={0} stroke="#71717a" strokeDasharray="6 3" label={{ value: "Break-Even", fill: "#a1a1aa", fontSize: 10, position: "right" }} />
+                        <Tooltip
+                          contentStyle={{ backgroundColor: "#27272a", border: "1px solid #3f3f46", borderRadius: "8px", color: "#fff", fontSize: "12px" }}
+                          formatter={(value, name) => [`$${Number(value).toLocaleString()}`, name === "base" ? "Base" : name === "bear" ? "Bear" : "Bull"]}
+                          labelStyle={{ color: "#a1a1aa" }}
+                        />
+                        <Area type="monotone" dataKey="bull" stroke="transparent" fill="#22c55e" fillOpacity={0.05} />
+                        <Line type="monotone" dataKey="bull" stroke="#22c55e" strokeWidth={1} strokeDasharray="4 4" dot={false} />
+                        <Line type="monotone" dataKey="base" stroke="#3b82f6" strokeWidth={2} dot={false} />
+                        <Line type="monotone" dataKey="bear" stroke="#ef4444" strokeWidth={1} strokeDasharray="4 4" dot={false} />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="bg-zinc-900 rounded-lg p-3 text-center">
+                        <div className="text-xs text-red-400 mb-1">Bear (−30%)</div>
+                        <div className="text-sm font-semibold text-zinc-300">{breakBear ? `${breakBear} months` : ">36 mo"}</div>
+                      </div>
+                      <div className="bg-zinc-900 rounded-lg p-3 text-center ring-1 ring-blue-500/30">
+                        <div className="text-xs text-blue-400 mb-1">Base Case</div>
+                        <div className="text-sm font-semibold text-white">{breakBase ? `${breakBase} months` : ">36 mo"}</div>
+                      </div>
+                      <div className="bg-zinc-900 rounded-lg p-3 text-center">
+                        <div className="text-xs text-emerald-400 mb-1">Bull (+25%)</div>
+                        <div className="text-sm font-semibold text-zinc-300">{breakBull ? `${breakBull} months` : ">36 mo"}</div>
+                      </div>
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Section 2: Financial Performance ──────────────────────── */}
             <SectionCard
               icon={BarChart2}
