@@ -1338,7 +1338,7 @@ export default function PropertyDetailPage() {
                           <div className="text-sm font-bold text-blue-400">{brl(itbiVal)}</div>
                           {property.marketValuePerM2 && <div className="text-[10px] text-zinc-500 mt-0.5">{brl(n(property.marketValuePerM2))}/m²</div>}
                           {property.marketRentValue && <div className="text-[10px] text-zinc-500">Aluguel: {brl(n(property.marketRentValue))}/mês</div>}
-                          <div className="text-[10px] text-zinc-600">{(property.comparablesTier1Count || 0) + (property.comparablesTier2Count || 0)} comps</div>
+                          <div className="text-[10px] text-zinc-600">{property.comparablesTier1Count || property.comparablesCount || 0} comps</div>
                         </>
                       ) : <div className="text-xs text-zinc-600">—</div>}
                     </div>
