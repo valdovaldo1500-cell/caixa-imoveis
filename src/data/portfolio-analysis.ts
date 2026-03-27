@@ -103,7 +103,7 @@ export const LISTING_FINANCIALS: ListingFinancials[] = [
     avg3mo: 2115,
     currentRunRate: 2689,
     profitMargin: 0.89,
-    hoursPerWeek: 4,
+    hoursPerWeek: 6,
     platformRisk: "YouTube algorithm (93% Browse+Suggested)",
     seasonality: "high", // WNBA May-Oct
   },
