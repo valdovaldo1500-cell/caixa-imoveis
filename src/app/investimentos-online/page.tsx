@@ -2361,7 +2361,7 @@ export default function InvestimentosOnlinePage() {
                       contentStyle={{ backgroundColor: "#18181b", border: "1px solid #3f3f46", borderRadius: "8px" }}
                       labelStyle={{ color: "#e4e4e7", fontSize: 12 }}
                       itemStyle={{ color: "#10b981", fontSize: 12 }}
-                      formatter={(v: number) => [`$${v.toLocaleString()}`, "Net Profit"]}
+                      formatter={(v) => [`$${Number(v).toLocaleString()}`, "Net Profit"]}
                     />
                     <Area type="monotone" dataKey="profit" stroke="#10b981" strokeWidth={2} fill="url(#profitGradient)" dot={{ fill: "#10b981", r: 4 }} />
                   </AreaChart>
