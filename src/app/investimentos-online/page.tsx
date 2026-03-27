@@ -3066,6 +3066,126 @@ export default function InvestimentosOnlinePage() {
               })()}
             </div>
 
+            {/* Key Assumptions & Model Inputs */}
+            <section className="space-y-3">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+                <h3 className="text-sm font-semibold text-zinc-200">Key Assumptions &amp; Model Inputs</h3>
+              </div>
+              {[
+                {
+                  id: "revenue",
+                  color: "emerald",
+                  title: "Revenue Assumptions",
+                  summary: "EF-verified Chart.js data · trailing 12-mo · seasonal WNBA adjustments",
+                  bullets: [
+                    "All profit figures based on Empire Flippers verified Chart.js data",
+                    "avg12mo uses trailing 12 calendar months",
+                    "Seasonal adjustments for WNBA (May-Oct peak, Nov-Apr trough)",
+                    "-5% annual decline rate used in conservative projections",
+                    "No revenue is guaranteed — past performance ≠ future results",
+                  ],
+                },
+                {
+                  id: "valuation",
+                  color: "blue",
+                  title: "Valuation Assumptions",
+                  summary: "24x EF YouTube multiple · DCF 10/15/20% · Q4 2025 comps",
+                  bullets: [
+                    "EF YouTube average multiple: 24x monthly profit",
+                    "DCF discount rates: 10% (optimistic), 15% (moderate), 20% (conservative)",
+                    "Comparable sales based on Q4 2025 EF marketplace data",
+                    "Margin premium: 30% for margins above 80%",
+                    "Hours premium: 20% for sub-5 hrs/wk operations",
+                  ],
+                },
+                {
+                  id: "cost",
+                  color: "amber",
+                  title: "Cost Assumptions",
+                  summary: "$4-6/hr VA · $100/mo AI tools · $1,100/mo total operating",
+                  bullets: [
+                    "VA rates: $4-6/hr Philippines-based, part-time",
+                    "AI tools: $100/mo (ChatGPT, Midjourney, ElevenLabs)",
+                    "LLC formation: Wyoming ($300 standard filing)",
+                    "Migration costs: estimated $500 per channel transfer",
+                    "Monthly operating: $1,100/mo total (VAs + AI + accounting + misc)",
+                  ],
+                },
+                {
+                  id: "growth",
+                  color: "violet",
+                  title: "Growth Assumptions",
+                  summary: "Bull +20% seasonal · Base flat/-2%/mo · Bear -25% seasonal",
+                  bullets: [
+                    "Bull scenarios assume +20% (seasonal) to +5%/mo (steady)",
+                    "Base scenarios assume flat to -2%/mo (conservative)",
+                    "Bear scenarios assume -25% (seasonal) to -5%/mo (decline)",
+                    "Monetization diversification uplift: estimated 30-80% over 12-18 months",
+                    "Content quality must be maintained for all projections",
+                  ],
+                },
+                {
+                  id: "risk",
+                  color: "red",
+                  title: "Risk Factors Not Modeled",
+                  summary: "Algorithm changes · WNBA shifts · AI policy · currency · EF migration",
+                  bullets: [
+                    "YouTube algorithm changes (major updates ~2x/year)",
+                    "WNBA league changes (expansion, TV deals, scheduling)",
+                    "Competitor entry into niche",
+                    "AI content policy changes",
+                    "Currency fluctuations (ad revenue in USD)",
+                    "EF migration failure (rare but possible)",
+                  ],
+                },
+              ].map(({ id, color, title, summary, bullets }) => {
+                const isOpen = assumptionsOpen[id] ?? false;
+                const borderColor =
+                  color === "emerald" ? "border-emerald-500" :
+                  color === "blue" ? "border-blue-500" :
+                  color === "amber" ? "border-amber-500" :
+                  color === "violet" ? "border-violet-500" :
+                  "border-red-500";
+                const titleColor =
+                  color === "emerald" ? "text-emerald-400" :
+                  color === "blue" ? "text-blue-400" :
+                  color === "amber" ? "text-amber-400" :
+                  color === "violet" ? "text-violet-400" :
+                  "text-red-400";
+                return (
+                  <div key={id} className={`bg-zinc-800/50 rounded-lg border-l-2 ${borderColor}`}>
+                    <button
+                      className="w-full flex items-center justify-between px-4 py-3 text-left"
+                      onClick={() => setAssumptionsOpen((prev) => ({ ...prev, [id]: !isOpen }))}
+                    >
+                      <div className="flex flex-col gap-0.5">
+                        <span className={`text-xs font-semibold ${titleColor}`}>{title}</span>
+                        {!isOpen && (
+                          <span className="text-xs text-zinc-500">{summary}</span>
+                        )}
+                      </div>
+                      {isOpen ? (
+                        <ChevronUp className="w-4 h-4 text-zinc-400 shrink-0" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4 text-zinc-400 shrink-0" />
+                      )}
+                    </button>
+                    {isOpen && (
+                      <ul className="px-4 pb-3 space-y-1">
+                        {bullets.map((b, i) => (
+                          <li key={i} className="flex items-start gap-2 text-xs text-zinc-400">
+                            <span className="mt-1 shrink-0 w-1 h-1 rounded-full bg-zinc-500" />
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
+            </section>
+
             {/* Warning */}
             <section className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4">
               <div className="flex gap-2 items-start">
