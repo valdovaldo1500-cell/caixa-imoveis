@@ -268,7 +268,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "45+ US audience loyal to specific voices/perspectives — hard to transfer",
     ],
     recommendation:
-      "The 12x multiple screams 'high risk' — and the data confirms it. Revenue crashed 76% from the May 2025 peak ($12,314) to Feb 2026 ($2,919). Political YouTube is a demonetization minefield, and the owner's voice is part of the brand. The low multiple is the market correctly pricing in extreme risk. At $60K, the 3-month avg of $3,787 gives a 16x real multiple — not cheap enough to justify the risk. PASS unless you have political content expertise and can accept the volatility.",
+      "The 12x multiple screams 'high risk' — and the data confirms it. Revenue crashed 76% from the May 2025 peak ($12,314) to Feb 2026 ($2,919). Political YouTube is a demonetization minefield, and content sourced from 'public sources' carries real fair use copyright exposure. The low multiple is the market correctly pricing in extreme risk. At $60K, the 3-month avg of $3,787 gives a 16x real multiple — not cheap enough to justify the risk. PASS unless you have political content expertise and can accept the volatility.",
     aiPlan:
       "N/A — too risky for a passive investment strategy.",
   },
