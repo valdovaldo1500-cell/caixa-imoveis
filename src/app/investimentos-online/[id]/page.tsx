@@ -817,7 +817,7 @@ export default function InvestimentosOnlineDetailPage() {
               return (
                 <SectionCard icon={BarChart2} title="Revenue Source Breakdown" iconColor="text-blue-400">
                   <div className="flex flex-col sm:flex-row items-center gap-6">
-                    <ResponsiveContainer width={200} height={200}>
+                    <ResponsiveContainer width="100%" height={200}>
                       <PieChart>
                         <Pie data={sources} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={2}>
                           {sources.map((s, i) => (
