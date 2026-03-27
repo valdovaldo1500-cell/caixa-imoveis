@@ -928,6 +928,69 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Platform Risk Assessment ──────────────────────────── */}
+            {(() => {
+              const platformRisks: Record<string, { risk: string; severity: string; probability: string; impact: string; mitigation: string }[]> = {
+                "92246": [
+                  { risk: "Algorithm Change", severity: "High", probability: "Medium", impact: "YouTube could deprioritize sports highlight content in favor of long-form analysis", mitigation: "Diversify content mix: add analysis, predictions, and player profiles alongside highlights" },
+                  { risk: "WNBA Licensing Crackdown", severity: "Critical", probability: "Low", impact: "WNBA/NBA could issue takedowns on highlight content similar to NFL's approach", mitigation: "Shift to commentary/analysis (fair use), reduce pure highlight clips, build original content pipeline" },
+                  { risk: "Seasonal Revenue Volatility", severity: "High", probability: "Certain", impact: "Revenue drops 60-70% during Oct-Apr off-season", mitigation: "Build off-season content strategy: draft coverage, player news, WNBA expansion analysis, women's college basketball" },
+                  { risk: "Demonetization Risk", severity: "Medium", probability: "Low", impact: "Sports channels occasionally hit by 'reused content' policy", mitigation: "Add unique commentary voiceover, original graphics, maintain >50% original content ratio" },
+                  { risk: "Competitor Entry", severity: "Medium", probability: "High", impact: "Growing WNBA interest will attract new channels to the niche", mitigation: "First-mover advantage with 5,000+ video library, establish brand recognition before market saturates" },
+                ],
+                "90544": [
+                  { risk: "AI Content Detection", severity: "Critical", probability: "Medium", impact: "YouTube may penalize AI-generated or automated content in future policy updates", mitigation: "Gradually increase human-edited content, add unique value layers (testing, benchmarks), maintain quality threshold" },
+                  { risk: "Algorithm Shift to Shorts", severity: "High", probability: "High", impact: "YouTube increasingly favoring Shorts over long-form, could reduce long-form recommendations", mitigation: "Already launching Shorts strategy; convert best-performing long-form into Shorts format" },
+                  { risk: "Tech Niche Saturation", severity: "Medium", probability: "Medium", impact: "Tech tutorial/review space increasingly crowded with AI-assisted content creators", mitigation: "Focus on emerging niches (AI tools, automation), maintain upload velocity advantage" },
+                  { risk: "Single Platform Dependency", severity: "High", probability: "Low", impact: "YouTube policy change or account suspension affects all 3 channels simultaneously", mitigation: "Channels operate on separate Google accounts; begin cross-platform publishing to reduce concentration" },
+                  { risk: "CPM Compression", severity: "Medium", probability: "Medium", impact: "Tech ad market cyclical; recession could compress $8-12 CPM to $5-7", mitigation: "Diversify into affiliate revenue (currently 0%); tech products have strong affiliate commissions" },
+                ],
+                "91304": [
+                  { risk: "Continued Revenue Decline", severity: "Critical", probability: "High", impact: "15% decline trend may accelerate if content strategy isn't refreshed post-acquisition", mitigation: "Immediate SEO audit of top 100 videos, refresh thumbnails/titles, add trending tutorial topics" },
+                  { risk: "Reused Content Flags", severity: "High", probability: "Medium", impact: "Tutorial format may trigger YouTube's 'repetitious content' policy if too formulaic", mitigation: "Vary presentation styles, add unique examples, increase production quality" },
+                  { risk: "AI Tutorial Competition", severity: "High", probability: "High", impact: "ChatGPT and AI assistants replacing need for video tutorials in some categories", mitigation: "Focus on visual/hands-on tutorials that AI text can't replicate (design, video editing, hardware)" },
+                  { risk: "Subscriber Churn", severity: "Medium", probability: "Medium", impact: "Inactive subscribers reduce channel's algorithmic reach", mitigation: "Community posts, polls, and engagement-focused content to reactivate dormant subscribers" },
+                  { risk: "Niche Obsolescence", severity: "Medium", probability: "Low", impact: "Software/tool tutorials become outdated as products evolve", mitigation: "Maintain evergreen + trending content mix; retire outdated videos, redirect to updated versions" },
+                ],
+              };
+              const risks = platformRisks[id];
+              if (!risks || !data?.assessment || data.assessment.verdictColor === "red") return null;
+
+              const severityBorder = (s: string) => {
+                if (s === "Critical") return "border-red-500";
+                if (s === "High") return "border-amber-500";
+                return "border-yellow-500/50";
+              };
+              const severityBadge = (s: string) => {
+                if (s === "Critical") return "bg-red-500/10 text-red-400";
+                if (s === "High") return "bg-amber-500/10 text-amber-400";
+                return "bg-yellow-500/10 text-yellow-400";
+              };
+
+              return (
+                <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+                  <h3 className="text-lg font-semibold text-white mb-4">Platform Risk Assessment</h3>
+                  <div className="space-y-3">
+                    {risks.map((r) => (
+                      <div key={r.risk} className={`bg-zinc-800/50 rounded-lg p-4 border-l-4 ${severityBorder(r.severity)}`}>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-white font-semibold text-sm">{r.risk}</span>
+                          <span className={`text-xs px-2 py-0.5 rounded font-medium ${severityBadge(r.severity)}`}>{r.severity}</span>
+                          <span className="bg-zinc-700 text-zinc-300 text-xs px-2 py-0.5 rounded">{r.probability}</span>
+                        </div>
+                        <p className="text-zinc-400 text-sm mt-2">
+                          <span className="text-zinc-500">Impact: </span>{r.impact}
+                        </p>
+                        <p className="text-emerald-400/80 text-sm mt-1">
+                          <span className="text-zinc-500">Mitigation: </span>{r.mitigation}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* ── Competitor Landscape ──────────────────────────────── */}
             {(() => {
               const competitors: Record<string, { name: string; subs: string; videos: string; niche: string; monet: string }[]> = {
