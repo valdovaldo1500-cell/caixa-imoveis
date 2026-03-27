@@ -2386,6 +2386,95 @@ export default function InvestimentosOnlinePage() {
               </div>
             </div>
 
+            {/* Risk Mitigation Playbook */}
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+              <h3 className="text-lg font-semibold text-white mb-4">Risk Mitigation Playbook</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                {/* Platform Risk */}
+                <div className="bg-zinc-800/50 rounded-lg p-4 border-l-4 border-blue-500">
+                  <h4 className="text-sm font-semibold text-blue-400 mb-3">Platform Risk</h4>
+                  <ul className="space-y-2">
+                    {[
+                      "Set up 2nd YouTube channel as backup content repository",
+                      "Cross-publish to Rumble and TikTok within 30 days",
+                      "Enable email list collection via Beacons.ai on all channels",
+                      "Document all content in Google Drive (scripts, thumbnails, raw footage)",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-zinc-400 text-xs">
+                        <span className="text-blue-400 mt-0.5 shrink-0">○</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Revenue Risk */}
+                <div className="bg-zinc-800/50 rounded-lg p-4 border-l-4 border-emerald-500">
+                  <h4 className="text-sm font-semibold text-emerald-400 mb-3">Revenue Risk</h4>
+                  <ul className="space-y-2">
+                    {[
+                      "Diversify from 100% AdSense: add affiliate links by Month 2",
+                      "Build Patreon/membership tier for each channel",
+                      "Secure 2-3 sponsorship partnerships before WNBA season",
+                      "Create emergency content backlog (30 days of pre-scheduled videos)",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-zinc-400 text-xs">
+                        <span className="text-emerald-400 mt-0.5 shrink-0">○</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Operational Risk */}
+                <div className="bg-zinc-800/50 rounded-lg p-4 border-l-4 border-amber-500">
+                  <h4 className="text-sm font-semibold text-amber-400 mb-3">Operational Risk</h4>
+                  <ul className="space-y-2">
+                    {[
+                      "Create SOPs for all VA workflows within first 2 weeks",
+                      "Establish backup VA pipeline (2-3 pre-vetted candidates)",
+                      "Set up Slack/Discord for team communication",
+                      "Weekly automated reporting dashboard",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-zinc-400 text-xs">
+                        <span className="text-amber-400 mt-0.5 shrink-0">○</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Financial Risk */}
+                <div className="bg-zinc-800/50 rounded-lg p-4 border-l-4 border-purple-500">
+                  <h4 className="text-sm font-semibold text-purple-400 mb-3">Financial Risk</h4>
+                  <ul className="space-y-2">
+                    {[
+                      "Maintain 3-month operating reserve ($5,000 minimum)",
+                      "Set up separate business bank account for YouTube revenue",
+                      "Monthly P&L review vs projections",
+                      "Insurance: consider business interruption coverage",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-zinc-400 text-xs">
+                        <span className="text-purple-400 mt-0.5 shrink-0">○</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Risk Coverage Score */}
+              <div className="bg-zinc-800 rounded-lg px-4 py-3 flex items-center justify-between">
+                <span className="text-xs text-zinc-400 font-medium">Risk Coverage Score</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-32 h-1.5 bg-zinc-700 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-500 rounded-full" style={{ width: "93.75%" }} />
+                  </div>
+                  <span className="text-sm font-bold text-emerald-400">15/16 risks addressed by this playbook</span>
+                </div>
+              </div>
+            </div>
+
             {/* Next Steps & Action Plan */}
             <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <h3 className="text-lg font-semibold text-white mb-2">Next Steps &amp; Action Plan</h3>
