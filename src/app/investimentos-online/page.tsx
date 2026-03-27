@@ -1117,8 +1117,8 @@ export default function InvestimentosOnlinePage() {
                       <li className="flex justify-between"><span className="text-zinc-400">Cash reserve</span><span className="text-emerald-400 font-semibold">$19K</span></li>
                     </ul>
                     <div className="border-t border-zinc-700 pt-3 space-y-1">
-                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Expected monthly</span><span className="text-emerald-400 font-bold">$5,189</span></div>
-                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Portfolio ROI</span><span className="text-emerald-400 font-bold">~44%</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Expected monthly</span><span className="text-emerald-400 font-bold">$6,117</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Portfolio ROI</span><span className="text-emerald-400 font-bold">~52%</span></div>
                       <div className="flex justify-between text-xs"><span className="text-zinc-400">Risk</span><span className="text-amber-400">Medium</span></div>
                       <p className="text-xs text-zinc-500 pt-1">Seasonal dependency on WNBA calendar.</p>
                     </div>
