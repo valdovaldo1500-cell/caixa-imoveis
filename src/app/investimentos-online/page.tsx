@@ -2558,6 +2558,135 @@ export default function InvestimentosOnlinePage() {
               </div>
             </div>
 
+            {/* Acquisition Timeline */}
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+              <div className="flex items-center gap-2 mb-6">
+                <BarChart2 className="w-5 h-5 text-emerald-400" />
+                <h3 className="text-base font-semibold text-white">Acquisition Timeline</h3>
+                <span className="ml-auto text-xs text-zinc-500 bg-zinc-800 px-2 py-0.5 rounded-full">16-week roadmap</span>
+              </div>
+
+              {/* Desktop Gantt Chart */}
+              <div className="hidden md:block overflow-x-auto">
+                {/* Week headers */}
+                <div className="flex mb-3">
+                  <div className="w-40 flex-shrink-0" />
+                  <div className="flex-1 grid grid-cols-16 relative" style={{ display: 'grid', gridTemplateColumns: 'repeat(16, 1fr)' }}>
+                    {Array.from({ length: 16 }, (_, i) => (
+                      <div key={i} className="text-center text-xs text-zinc-500 font-mono">W{i + 1}</div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Current position marker + rows */}
+                <div className="relative">
+                  {/* Vertical "YOU ARE HERE" line at Week 1 */}
+                  <div
+                    className="absolute top-0 bottom-0 z-10 flex flex-col items-center pointer-events-none"
+                    style={{ left: 'calc(160px + (100% - 160px) / 16 * 0.5)' }}
+                  >
+                    <div className="w-px bg-emerald-400 h-full opacity-70" style={{ boxShadow: '0 0 6px #34d399' }} />
+                  </div>
+                  {/* "YOU ARE HERE" label */}
+                  <div
+                    className="absolute -top-7 z-20 flex flex-col items-center pointer-events-none"
+                    style={{ left: 'calc(160px + (100% - 160px) / 16 * 0.5 - 44px)' }}
+                  >
+                    <span className="text-[10px] text-emerald-400 font-semibold whitespace-nowrap flex items-center gap-1">
+                      <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      YOU ARE HERE
+                    </span>
+                  </div>
+
+                  {[
+                    { label: 'Research & Analysis', start: 0, end: 2,  color: 'emerald', current: true },
+                    { label: 'LOI Submission',       start: 1, end: 3,  color: 'blue',    current: false },
+                    { label: 'Negotiation',          start: 2, end: 5,  color: 'amber',   current: false },
+                    { label: 'Due Diligence',        start: 3, end: 7,  color: 'violet',  current: false },
+                    { label: 'Escrow & Legal',       start: 6, end: 9,  color: 'cyan',    current: false },
+                    { label: 'Asset Transfer',       start: 8, end: 11, color: 'pink',    current: false },
+                    { label: 'VA Onboarding',        start: 9, end: 12, color: 'orange',  current: false },
+                    { label: 'Optimization',         start: 11, end: 16, color: 'emerald', current: false },
+                  ].map(({ label, start, end, color, current }) => {
+                    const colorMap: Record<string, { bg: string; border: string; text: string }> = {
+                      emerald: { bg: 'rgba(52,211,153,0.20)', border: '#34d399', text: 'text-emerald-300' },
+                      blue:    { bg: 'rgba(96,165,250,0.20)', border: '#60a5fa', text: 'text-blue-300' },
+                      amber:   { bg: 'rgba(251,191,36,0.20)', border: '#fbbf24', text: 'text-amber-300' },
+                      violet:  { bg: 'rgba(167,139,250,0.20)', border: '#a78bfa', text: 'text-violet-300' },
+                      cyan:    { bg: 'rgba(34,211,238,0.20)', border: '#22d3ee', text: 'text-cyan-300' },
+                      pink:    { bg: 'rgba(244,114,182,0.20)', border: '#f472b6', text: 'text-pink-300' },
+                      orange:  { bg: 'rgba(251,146,60,0.20)', border: '#fb923c', text: 'text-orange-300' },
+                    };
+                    const c = colorMap[color] ?? colorMap['emerald'];
+                    const span = end - start;
+                    return (
+                      <div key={label} className="flex items-center mb-2">
+                        <div className="w-40 flex-shrink-0 pr-3">
+                          <span className={`text-xs font-medium ${current ? 'text-emerald-300' : 'text-zinc-400'} leading-tight`}>{label}</span>
+                        </div>
+                        <div className="flex-1 relative" style={{ display: 'grid', gridTemplateColumns: 'repeat(16, 1fr)', height: '28px' }}>
+                          <div
+                            className="rounded-full flex items-center px-2 text-xs font-semibold whitespace-nowrap overflow-hidden"
+                            style={{
+                              gridColumn: `${start + 1} / span ${span}`,
+                              background: c.bg,
+                              border: `1px solid ${c.border}`,
+                              color: c.border,
+                              fontSize: '10px',
+                            }}
+                          >
+                            W{start + 1}–W{end}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Mobile: stacked list */}
+              <div className="md:hidden space-y-3">
+                {[
+                  { label: 'Research & Analysis', weeks: 'W1–W2',  color: 'bg-emerald-400/20 border-emerald-400 text-emerald-300', current: true },
+                  { label: 'LOI Submission',       weeks: 'W2–W3',  color: 'bg-blue-400/20 border-blue-400 text-blue-300',          current: false },
+                  { label: 'Negotiation',          weeks: 'W3–W5',  color: 'bg-amber-400/20 border-amber-400 text-amber-300',        current: false },
+                  { label: 'Due Diligence',        weeks: 'W4–W7',  color: 'bg-violet-400/20 border-violet-400 text-violet-300',     current: false },
+                  { label: 'Escrow & Legal',       weeks: 'W7–W9',  color: 'bg-cyan-400/20 border-cyan-400 text-cyan-300',           current: false },
+                  { label: 'Asset Transfer',       weeks: 'W9–W11', color: 'bg-pink-400/20 border-pink-400 text-pink-300',           current: false },
+                  { label: 'VA Onboarding',        weeks: 'W10–W12', color: 'bg-orange-400/20 border-orange-400 text-orange-300',    current: false },
+                  { label: 'Optimization',         weeks: 'W12–W16', color: 'bg-emerald-400/20 border-emerald-400 text-emerald-300', current: false },
+                ].map(({ label, weeks, color, current }) => (
+                  <div key={label} className={`flex items-center justify-between px-3 py-2 rounded-lg border ${color}`}>
+                    <div className="flex items-center gap-2">
+                      {current && <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />}
+                      <span className="text-sm font-medium">{label}</span>
+                    </div>
+                    <span className="text-xs font-mono opacity-80">{weeks}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Key dates */}
+              <div className="mt-6 pt-4 border-t border-zinc-800">
+                <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3">Key Milestones</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {[
+                    { label: 'LOI Sent',        week: 'Week 2',  date: 'Apr 10, 2026', color: 'border-blue-500/40 bg-blue-500/10',    dot: 'bg-blue-400' },
+                    { label: 'Deal Closed',     week: 'Week 9',  date: 'May 29, 2026', color: 'border-emerald-500/40 bg-emerald-500/10', dot: 'bg-emerald-400' },
+                    { label: 'First Full Month', week: 'Week 12', date: 'June 2026',    color: 'border-amber-500/40 bg-amber-500/10',   dot: 'bg-amber-400' },
+                  ].map(({ label, week, date, color, dot }) => (
+                    <div key={label} className={`rounded-lg border p-3 ${color}`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className={`w-2 h-2 rounded-full ${dot}`} />
+                        <span className="text-xs font-semibold text-zinc-300">{label}</span>
+                      </div>
+                      <p className="text-[11px] text-zinc-500 font-mono">{week} · {date}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             {/* Total Acquisition Cost Breakdown */}
             <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <div className="flex items-center gap-2 mb-6">
