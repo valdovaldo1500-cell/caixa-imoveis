@@ -747,6 +747,112 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── YouTube Channel Analytics ─────────────────────────── */}
+            {(() => {
+              type YTData = {
+                avgViewsPerVideo: number;
+                subscriberGrowthRate: string;
+                uploadFrequency: string;
+                estimatedCPM: string;
+                totalVideos: string;
+                subscriberCount: string;
+                revenuePer1kViews: number;
+                monthlyViews: { month: string; views: number }[];
+              };
+              const ytData: Record<string, YTData> = {
+                "92246": {
+                  avgViewsPerVideo: 15000,
+                  subscriberGrowthRate: "~8%/month",
+                  uploadFrequency: "4–5 videos/day (season), 1–2/day (off-season)",
+                  estimatedCPM: "$4–6",
+                  totalVideos: "5,000+",
+                  subscriberCount: "~45,000",
+                  revenuePer1kViews: 5,
+                  monthlyViews: [
+                    { month: "Oct", views: 1800000 },
+                    { month: "Nov", views: 420000 },
+                    { month: "Dec", views: 280000 },
+                    { month: "Jan", views: 260000 },
+                    { month: "Feb", views: 310000 },
+                    { month: "Mar", views: 350000 },
+                  ],
+                },
+                "90544": {
+                  avgViewsPerVideo: 8000,
+                  subscriberGrowthRate: "~3%/month",
+                  uploadFrequency: "10+ videos/week (automated/faceless)",
+                  estimatedCPM: "$8–12",
+                  totalVideos: "10,000+",
+                  subscriberCount: "~120,000 combined",
+                  revenuePer1kViews: 10,
+                  monthlyViews: [
+                    { month: "Oct", views: 620000 },
+                    { month: "Nov", views: 640000 },
+                    { month: "Dec", views: 590000 },
+                    { month: "Jan", views: 660000 },
+                    { month: "Feb", views: 680000 },
+                    { month: "Mar", views: 710000 },
+                  ],
+                },
+                "91304": {
+                  avgViewsPerVideo: 5000,
+                  subscriberGrowthRate: "~5%/month",
+                  uploadFrequency: "3–4 videos/week",
+                  estimatedCPM: "$6–9",
+                  totalVideos: "800+",
+                  subscriberCount: "~35,000",
+                  revenuePer1kViews: 7,
+                  monthlyViews: [
+                    { month: "Oct", views: 310000 },
+                    { month: "Nov", views: 325000 },
+                    { month: "Dec", views: 298000 },
+                    { month: "Jan", views: 340000 },
+                    { month: "Feb", views: 355000 },
+                    { month: "Mar", views: 370000 },
+                  ],
+                },
+              };
+              const yt = ytData[id];
+              if (!yt || !data?.assessment || data.assessment.verdictColor === "red") return null;
+              const metrics = [
+                { label: "Subscribers", value: yt.subscriberCount },
+                { label: "Avg Views / Video", value: yt.avgViewsPerVideo.toLocaleString() },
+                { label: "Total Videos", value: yt.totalVideos },
+                { label: "Revenue / 1K Views", value: `$${yt.revenuePer1kViews}` },
+                { label: "Estimated CPM", value: yt.estimatedCPM },
+                { label: "Sub Growth Rate", value: yt.subscriberGrowthRate },
+                { label: "Upload Frequency", value: yt.uploadFrequency },
+              ];
+              return (
+                <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+                  <h3 className="text-lg font-semibold text-white mb-4">YouTube Channel Analytics</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
+                    {metrics.map((m) => (
+                      <div key={m.label} className="bg-zinc-800/50 rounded-lg p-4">
+                        <p className="text-zinc-400 text-sm mb-1">{m.label}</p>
+                        <p className="text-white text-xl font-bold leading-tight">{m.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <p className="text-xs text-zinc-500 mb-3">Estimated monthly views (last 6 months)</p>
+                    <ResponsiveContainer width="100%" height={160}>
+                      <BarChart data={yt.monthlyViews} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" vertical={false} />
+                        <XAxis dataKey="month" tick={{ fill: "#a1a1aa", fontSize: 11 }} axisLine={false} tickLine={false} />
+                        <YAxis tick={{ fill: "#a1a1aa", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v: number) => v >= 1000000 ? `${(v / 1000000).toFixed(1)}M` : v >= 1000 ? `${(v / 1000).toFixed(0)}K` : String(v)} width={42} />
+                        <Tooltip
+                          contentStyle={{ backgroundColor: "#27272a", border: "1px solid #3f3f46", borderRadius: "8px", color: "#fff", fontSize: "12px" }}
+                          formatter={(value: number) => [value >= 1000000 ? `${(value / 1000000).toFixed(2)}M` : `${(value / 1000).toFixed(0)}K`, "Views"]}
+                        />
+                        <Bar dataKey="views" fill="#10b981" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* ── Competitor Landscape ──────────────────────────────── */}
             {(() => {
               const competitors: Record<string, { name: string; subs: string; videos: string; niche: string; monet: string }[]> = {
