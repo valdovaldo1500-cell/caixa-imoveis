@@ -401,8 +401,8 @@ function PortfolioCorrelationSection() {
             <Tooltip
               contentStyle={{ background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8, fontSize: 12 }}
               labelStyle={{ color: "#e4e4e7" }}
-              formatter={(value: number, name: string) => [
-                `$${value.toLocaleString()}`,
+              formatter={(value, name) => [
+                typeof value === "number" ? `$${value.toLocaleString()}` : String(value),
                 name === "ace" ? "Ace Hoops" : name === "tech" ? "Tech YouTube" : "Combined",
               ]}
             />
