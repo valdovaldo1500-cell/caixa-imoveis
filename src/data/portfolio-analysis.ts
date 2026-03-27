@@ -403,7 +403,7 @@ export const POST_ACQUISITION_PLAN: PostAcquisitionMilestone[] = [
 
   // Week 2-4 (Days 8-30)
   { day: 10, task: "Publish first video using existing workflow", details: "Follow existing SOP exactly. Do not change anything yet. Verify quality matches previous output.", listing: "92246" },
-  { day: 10, task: "Audit all 3 tech channels", details: "Review content library, identify best-performing topics, note publishing cadence.", listing: "90544" },
+  { day: 10, task: "Audit Faceless Tutorials channel", details: "Review content library, identify best-performing topics, note publishing cadence.", listing: "91304" },
   { day: 14, task: "Set up Claude for script generation", details: "Create Claude prompts for WNBA commentary and tech tutorials. Test output quality.", listing: "all" },
   { day: 21, task: "Implement AI-assisted workflow", details: "Start using Claude for script drafts. Freelancers edit/refine. Measure time savings.", listing: "all" },
   { day: 30, task: "Month 1 P&L review", details: "Compare actual revenue to projections. Identify any concerning trends. Report to investment dashboard.", listing: "all" },
