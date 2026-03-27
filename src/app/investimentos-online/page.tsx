@@ -2328,7 +2328,7 @@ export default function InvestimentosOnlinePage() {
                       </tr>
                       <tr>
                         <td className="py-3 pr-4">
-                          <p className="text-white font-medium">Tech YouTube</p>
+                          <p className="text-white font-medium">Faceless Tutorials</p>
                           <p className="text-zinc-500 text-xs">Steady sponsorships</p>
                         </td>
                         <td className="text-right py-3 pr-4 text-white">$2,600</td>
