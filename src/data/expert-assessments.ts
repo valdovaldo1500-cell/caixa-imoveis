@@ -44,6 +44,8 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "Seller owns competing men's basketball channel",
       "100% YouTube AdSense — no revenue diversification yet",
       "YoY off-season: Nov -24%, Dec +26%, Jan -34%, Feb +2% — mixed signals on growth",
+      "Affiliate revenue shared with seller's competing men's basketball channel — cannot be separated during transfer",
+      "6 hours/week work required — more than initially assessed",
     ],
     recommendation:
       "Best single pick in the market. WNBA is experiencing unprecedented growth (Caitlin Clark effect). Verified data shows seasonal pattern: $1,609 (off-season) → $5,444 (in-season peak). This is NORMAL for a sports channel — not a declining business. Buying in March means you'll catch the full 2026 season starting May. Offer $55K, settle $62K. The seasonal nature requires a complementary non-seasonal business for year-round income stability. Pair with Faceless YouTube Tutorials (#91304) for a fully YouTube-native, AI-manageable portfolio within the $160K budget.",
