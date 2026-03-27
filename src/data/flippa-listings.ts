@@ -78,12 +78,12 @@ function rec(
   const verified = opts?.verifiedPnL;
   const lossMonth = opts?.hasLossMonth;
 
-  // Hard avoids — regardless of score
+  // Hard avoids — only for verified listings with clear red flags
   if (verified && lossMonth) return "avoid";
   if (verified && cv !== undefined && cv > 80) return "avoid";
   if (verified && trend !== undefined && trend < -50) return "avoid";
 
-  // top_pick: ONLY verified P&L, CV<35, no loss months, revenue not declining >20%
+  // TIER 1 — top_pick: verified P&L with strong consistency
   if (
     verified &&
     cv !== undefined && cv < 35 &&
@@ -93,9 +93,14 @@ function rec(
     withinBudget
   ) return "top_pick";
 
-  // strong: verified CV<50 AND revenue not declining >30%, OR unverified with very strong signals
+  // TIER 2 — top_pick: unverified but excellent metrics (high score, AI manageable, in budget)
+  // These are worth buying IF you request and verify P&L before closing
+  if (!verified && score >= 78 && aiM && withinBudget) return "top_pick";
+
+  // TIER 3 — strong: verified CV<50, or unverified with good score
   const severeDecline = verified && trend !== undefined && trend < -30;
-  if (score >= 68 && (verified ? cv !== undefined && cv < 50 && !severeDecline : true) && aiM) return "strong";
+  if (verified && score >= 65 && cv !== undefined && cv < 50 && !severeDecline && aiM) return "strong";
+  if (!verified && score >= 70 && aiM) return "strong";
 
   if (score >= 55) return "consider";
   return "avoid";
