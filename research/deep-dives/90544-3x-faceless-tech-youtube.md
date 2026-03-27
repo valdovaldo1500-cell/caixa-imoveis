@@ -33,22 +33,25 @@ Claude scripts tech tutorials based on trending topics (Python, AI tools, cybers
 ## Verified Research
 - [x] Visited actual website/channel — 2026-03-27
 - [x] Checked recent content performance — 2026-03-27
-- [ ] Verified revenue claims against actual data
+- [x] Verified revenue claims against actual data — 2026-03-27
 - [x] Checked if content is truly AI-manageable — 2026-03-27
 
 ## Research Notes
-**Verified 2026-03-27: Recent videos on Thrive Media channel get 0-2 views**
-
-- Top videos are 3 years old (350K–456K views) — old catalog drives ALL traffic
-- Average view duration: 0:55 minutes (extremely low — indicates poor audience retention)
-- Subscriber views: only 465/month out of 36.4K subscribers — subscribers are disengaged
-- Some thumbnails show real human faces — NOT fully faceless as advertised
-- Assets include "Freelancer Contract and Relationships" — real people dependencies, not pure AI
-- Monthly views (409K) almost entirely from YouTube Search on old content — no new growth engine
-- The 10,000+ video library creates an illusion of scale, but new uploads are effectively invisible
-- Channel appears to have been abandoned in terms of active audience growth
-
-**CONCLUSION: The "faceless tech YouTube" narrative is misleading. The channels are coasting on a 3-year-old back catalog with zero new audience traction. The 33% revenue decline will continue as old videos age out of the algorithm. DO NOT BUY at any price without renegotiating aggressively to reflect the dying trajectory.**
+- **Channel verified**: @Thrivemedia0 ("Thrive Media"), 36.4K subs, 5,261 videos
+- **CONFIRMED DYING** — verified 2026-03-27:
+  - Recent videos (3 hours old): 0-2 views each
+  - 8-day old videos: 7-181 views
+  - 11-day old videos: 43-89 views
+  - 13-day old videos: 67-512 views
+  - 2-week old videos: 152 views
+- **Old catalog drives ALL traffic**: Top videos from 3 YEARS ago (350K-456K views)
+- **NOT fully faceless**: Some thumbnails show real human faces (Shortn App review, OpenClaw comparisons)
+- **NOT AI voiceover**: Assets include "Freelancer Contract and Relationships" — real people needed
+- **Average view duration**: 0:55 minutes — extremely short
+- **Subscriber engagement dead**: Only 465 subscriber views/month from 36.4K subs
+- **Monthly views (409K) from YouTube Search on old evergreen content** — not from subscriber engagement
+- **Hidden costs**: Need to pay for narrators + screen recorders continuously
+- **User flagged these issues in previous conversation — we forgot after context compaction**
 
 ## Last Updated
 2026-03-27
