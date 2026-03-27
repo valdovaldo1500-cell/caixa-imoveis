@@ -288,24 +288,28 @@ function CompsModal({ propertyId, source, onClose }: { propertyId: number; sourc
         </div>
         {loading ? <p className="text-xs text-zinc-500">Carregando...</p> : source === "itbi" ? (
           itbiComps.length === 0 ? <p className="text-xs text-zinc-500">Sem transacoes ITBI</p> : (
-            <table className="w-full text-xs">
+            <div className="overflow-x-auto">
+            <table className="w-full text-xs whitespace-nowrap">
               <thead><tr className="text-zinc-500 border-b border-zinc-800">
-                <th className="text-left py-1 pr-2">Endereco</th>
-                <th className="text-left py-1 pr-2">Tipo</th>
-                <th className="text-right py-1 pr-2">Valor</th>
-                <th className="text-right py-1 pr-2">Area</th>
+                <th className="text-left py-1 pr-3">Endereco</th>
+                <th className="text-left py-1 pr-3">Tipo</th>
+                <th className="text-left py-1 pr-3">Data</th>
+                <th className="text-right py-1 pr-3">Valor</th>
+                <th className="text-right py-1 pr-3">Area</th>
                 <th className="text-right py-1">R$/m²</th>
               </tr></thead>
               <tbody>{itbiComps.map((c: Record<string, unknown>, i: number) => (
                 <tr key={i} className="border-b border-zinc-800/50 hover:bg-zinc-800/30">
-                  <td className="py-1 pr-2 text-zinc-300 max-w-[180px] truncate">{String(c.logradouro || "")}, {String(c.nEndereco || "")} <span className="text-zinc-600">{String(c.dataEstimativa || "").slice(0, 10)}</span></td>
-                  <td className="py-1 pr-2 text-zinc-400 max-w-[80px] truncate">{String(c.finalidadeConstrucao || "—")}</td>
-                  <td className="py-1 pr-2 text-right text-zinc-300">{brl(Number(c.baseCalculo || 0))}</td>
-                  <td className="py-1 pr-2 text-right text-zinc-400">{String(c.areaConstrPrivativa || "—")}m²</td>
+                  <td className="py-1 pr-3 text-zinc-300">{String(c.logradouro || "")}, {String(c.nEndereco || "")}{c.nUnidade ? ` / ${String(c.nUnidade)}` : ""}</td>
+                  <td className="py-1 pr-3 text-zinc-400">{String(c.finalidadeConstrucao || "—")}</td>
+                  <td className="py-1 pr-3 text-zinc-500">{String(c.dataEstimativa || "").slice(0, 10)}</td>
+                  <td className="py-1 pr-3 text-right text-zinc-300">{brl(Number(c.baseCalculo || 0))}</td>
+                  <td className="py-1 pr-3 text-right text-zinc-400">{String(c.areaConstrPrivativa || "—")}m²</td>
                   <td className="py-1 text-right text-zinc-300 font-medium">R$ {Math.round(Number(c.precoM2 || 0)).toLocaleString("pt-BR")}</td>
                 </tr>
               ))}</tbody>
             </table>
+            </div>
           )
         ) : (() => {
           const listings = source === "qa" ? qaComps : zapComps;
