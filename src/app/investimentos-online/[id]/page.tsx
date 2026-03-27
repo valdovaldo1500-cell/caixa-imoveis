@@ -866,7 +866,7 @@ export default function InvestimentosOnlineDetailPage() {
                   uploadFrequency: "4–5 videos/day (season), 1–2/day (off-season)",
                   estimatedCPM: "$4–6",
                   totalVideos: "5,000+",
-                  subscriberCount: "~45,000",
+                  subscriberCount: "~23,100",
                   revenuePer1kViews: 5,
                   monthlyViews: [
                     { month: "Oct", views: 1800000 },
