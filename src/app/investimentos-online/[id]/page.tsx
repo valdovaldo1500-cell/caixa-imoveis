@@ -417,7 +417,7 @@ export default function InvestimentosOnlineDetailPage() {
                           tick={{ fill: "#71717a", fontSize: 11 }}
                           angle={-45}
                           textAnchor="end"
-                          interval={0}
+                          interval="preserveStartEnd"
                           height={50}
                         />
                         <YAxis
