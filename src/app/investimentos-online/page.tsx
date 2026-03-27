@@ -938,13 +938,13 @@ export default function InvestimentosOnlinePage() {
                     <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Option C — Single Asset</div>
                     <span className="text-xs bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full">Wait for better picks</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">3× Tech YouTube only</div>
+                  <div className="text-sm font-semibold text-white">Faceless Tutorials only</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• 3× Tech YouTube: ask $93,608 → <span className="text-emerald-400">target $79K (~£62K)</span></li>
-                    <li>• Remaining ~£64K: monitor EF for new listings</li>
-                    <li className="text-blue-400 font-medium">Monthly: ~£2,700/mo year-round (no seasonality)</li>
+                    <li>• Faceless Tutorials #91304: ask $59,863 → <span className="text-emerald-400">target $45K (~£35K)</span></li>
+                    <li>• Remaining ~£91K: monitor EF for new listings</li>
+                    <li className="text-blue-400 font-medium">Monthly: ~£1,300/mo year-round (no seasonality)</li>
                     <li>Lower total commitment — wait for Ace Hoops 2026 season data</li>
-                    <li className="text-zinc-500">Tech YouTube is declining — buy only if negotiated hard</li>
+                    <li className="text-zinc-500">Faceless Tutorials is stable — negotiate to $45K before closing</li>
                   </ul>
                 </div>
 
