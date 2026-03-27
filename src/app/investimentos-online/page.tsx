@@ -550,6 +550,7 @@ export default function InvestimentosOnlinePage() {
   const [sortKey, setSortKey] = useState<SortKey>("overallScore");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [assumptionsOpen, setAssumptionsOpen] = useState<Record<string, boolean>>({});
+  const [faqOpen, setFaqOpen] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     fetch("/api/investimentos-online?status=all", { credentials: "include" })
