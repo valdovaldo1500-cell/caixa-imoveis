@@ -1258,23 +1258,20 @@ export default function InvestimentosOnlineDetailPage() {
                     {/* Price flow */}
                     <div>
                       <p className="text-xs text-zinc-500 uppercase tracking-wider font-medium mb-3">Price Summary</p>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <div className="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-center min-w-[90px]">
+                      <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center gap-2">
+                        <div className="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-center">
                           <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Asking</p>
                           <p className="text-sm font-semibold text-zinc-300">{fmt(neg.askingPrice)}</p>
                         </div>
-                        <span className="text-zinc-600 text-lg font-light">→</span>
-                        <div className="bg-zinc-900 border border-emerald-500/30 rounded-lg px-3 py-2 text-center min-w-[90px]">
+                        <div className="bg-zinc-900 border border-emerald-500/30 rounded-lg px-3 py-2 text-center">
                           <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Opening Offer</p>
                           <p className="text-sm font-semibold text-emerald-400">{fmt(neg.openingOffer)}</p>
                         </div>
-                        <span className="text-zinc-600 text-lg font-light">→</span>
-                        <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-lg px-3 py-2 text-center min-w-[90px]">
+                        <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-lg px-3 py-2 text-center">
                           <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Target Settle</p>
                           <p className="text-sm font-bold text-emerald-300">{fmt(neg.targetSettle)}</p>
                         </div>
-                        <span className="text-zinc-600 text-lg font-light">→</span>
-                        <div className="bg-zinc-900 border border-red-500/30 rounded-lg px-3 py-2 text-center min-w-[90px]">
+                        <div className="bg-zinc-900 border border-red-500/30 rounded-lg px-3 py-2 text-center">
                           <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Walk Away</p>
                           <p className="text-sm font-semibold text-red-400">{fmt(neg.walkAway)}</p>
                         </div>
