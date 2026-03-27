@@ -2558,6 +2558,94 @@ export default function InvestimentosOnlinePage() {
               </div>
             </div>
 
+            {/* Return on Investment Comparison */}
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+              <div className="flex items-center gap-2 mb-6">
+                <TrendingUp className="w-5 h-5 text-emerald-400" />
+                <h3 className="text-base font-semibold text-white">Return on Investment Comparison</h3>
+              </div>
+
+              <ResponsiveContainer width="100%" height={350}>
+                <BarChart
+                  data={[
+                    { period: "Year 1", primary: 52, alternative: 50, sp500: 10 },
+                    { period: "Year 2", primary: 110, alternative: 105, sp500: 21 },
+                    { period: "Year 3", primary: 175, alternative: 168, sp500: 33 },
+                  ]}
+                  margin={{ top: 24, right: 16, left: 0, bottom: 4 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
+                  <XAxis dataKey="period" tick={{ fill: "#a1a1aa", fontSize: 13 }} axisLine={false} tickLine={false} />
+                  <YAxis
+                    tick={{ fill: "#a1a1aa", fontSize: 12 }}
+                    axisLine={false}
+                    tickLine={false}
+                    tickFormatter={(v: number) => `${v}%`}
+                    domain={[0, 200]}
+                  />
+                  <Tooltip
+                    contentStyle={{ background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8, color: "#fff" }}
+                    formatter={(value: number, name: string) => {
+                      const labels: Record<string, string> = {
+                        primary: "Primary Portfolio ($141K)",
+                        alternative: "Alternative Portfolio ($112K)",
+                        sp500: "S&P 500 Benchmark",
+                      };
+                      return [`${value}%`, labels[name] ?? name];
+                    }}
+                  />
+                  <Legend
+                    formatter={(value: string) => {
+                      const labels: Record<string, string> = {
+                        primary: "Primary Portfolio ($141K)",
+                        alternative: "Alternative Portfolio ($112K)",
+                        sp500: "S&P 500 Benchmark",
+                      };
+                      return <span style={{ color: "#a1a1aa", fontSize: 12 }}>{labels[value] ?? value}</span>;
+                    }}
+                  />
+                  <Bar dataKey="primary" name="primary" fill="#10b981" radius={[4, 4, 0, 0]}>
+                    {[52, 110, 175].map((val, i) => (
+                      <Cell key={i} fill="#10b981" />
+                    ))}
+                  </Bar>
+                  <Bar dataKey="alternative" name="alternative" fill="#3b82f6" radius={[4, 4, 0, 0]}>
+                    {[50, 105, 168].map((val, i) => (
+                      <Cell key={i} fill="#3b82f6" />
+                    ))}
+                  </Bar>
+                  <Bar dataKey="sp500" name="sp500" fill="#71717a" radius={[4, 4, 0, 0]}>
+                    {[10, 21, 33].map((val, i) => (
+                      <Cell key={i} fill="#71717a" />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+
+              {/* Insight cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+                <div className="bg-zinc-800/60 rounded-lg p-4 border border-zinc-700/50">
+                  <span className="inline-block text-xs font-semibold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full mb-2">Emerald</span>
+                  <p className="text-2xl font-bold text-white">5.2× S&amp;P 500</p>
+                  <p className="text-sm text-zinc-400 mt-1">Year 1 primary vs S&amp;P 500 returns (52% vs 10%)</p>
+                </div>
+                <div className="bg-zinc-800/60 rounded-lg p-4 border border-zinc-700/50">
+                  <span className="inline-block text-xs font-semibold text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded-full mb-2">Payback</span>
+                  <p className="text-2xl font-bold text-white">23-Month</p>
+                  <p className="text-sm text-zinc-400 mt-1">Break-even on primary $141K portfolio</p>
+                </div>
+                <div className="bg-zinc-800/60 rounded-lg p-4 border border-zinc-700/50">
+                  <span className="inline-block text-xs font-semibold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full mb-2">Income</span>
+                  <p className="text-2xl font-bold text-white">$73K/yr</p>
+                  <p className="text-sm text-zinc-400 mt-1">Projected annual profit from primary portfolio</p>
+                </div>
+              </div>
+
+              <p className="text-xs text-zinc-500 mt-4">
+                ROI assumes target negotiated prices. Cumulative ROI assumes profits reinvested. S&amp;P 500 uses 10% historical average.
+              </p>
+            </div>
+
             {/* Acquisition Timeline */}
             <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <div className="flex items-center gap-2 mb-6">
