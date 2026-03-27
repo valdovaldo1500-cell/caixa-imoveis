@@ -952,13 +952,13 @@ export default function InvestimentosOnlinePage() {
                 <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-4 space-y-2 md:col-span-2 xl:col-span-2">
                   <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Decision Factors</div>
                   <ul className="text-xs text-zinc-400 space-y-1.5">
-                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span><span className="text-white">Option A recommended</span>: both faceless, AI-managed, complementary seasonality, ~£4,900/mo in-season</span></li>
-                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span>Tech YouTube offsets Ace Hoops off-season dip — year-round income floor</span></li>
-                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Tech YouTube MUST be negotiated to $79K max — current run rate $3,428/mo makes asking $93K unjustifiable</span></li>
+                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span><span className="text-white">Option A recommended</span>: both faceless, AI-managed, $107K total, $53K cash reserve remaining</span></li>
+                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span>Faceless Tutorials provide year-round baseline income — offsets Ace Hoops off-season dip</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Faceless Tutorials target $45K (from $60K asking) — negotiate 25% below asking before closing</span></li>
                     <li className="flex gap-2"><span className="text-amber-400">!</span><span>Ace Hoops: 2026 WNBA season starts May — buying March = full season ahead</span></li>
-                    <li className="flex gap-2"><span className="text-red-400">✗</span><span>photopacks.ai at asking price: DO NOT BUY — traffic crashed 78%, 32x on declining metrics</span></li>
+                    <li className="flex gap-2"><span className="text-red-400">✗</span><span>#90544 Tech YouTube ELIMINATED — declining revenue, 32x on degrading metrics; DO NOT BUY</span></li>
                     <li className="flex gap-2"><span className="text-amber-400">!</span><span>Both picks: negotiate 60-day earnout + verify P&amp;L via bank statements before closing</span></li>
-                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>All earnings verified via Chart.js extraction from EF Active Unlocks (March 26, 2026)</span></li>
+                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>All earnings verified via Chart.js extraction from EF Active Unlocks (March 27, 2026)</span></li>
                   </ul>
                 </div>
               </div>
