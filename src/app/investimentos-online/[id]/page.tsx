@@ -2801,7 +2801,8 @@ Best regards,
                             <XAxis type="number" hide domain={[0, 80]} />
                             <YAxis type="category" dataKey="label" tick={{ fill: "#a1a1aa", fontSize: 11 }} width={96} />
                             <Tooltip
-                              formatter={(v: number) => [`${v}%`, "Share"]}
+                              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                              formatter={(v: any) => [`${v}%`, "Share"]}
                               contentStyle={{ background: "#27272a", border: "1px solid #3f3f46", borderRadius: 8, fontSize: 11 }}
                               labelStyle={{ color: "#e4e4e7" }}
                             />
