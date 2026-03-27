@@ -185,7 +185,7 @@ export const PORTFOLIO_SCENARIOS: PortfolioScenario[] = [
     npv10: 41800, // NPV at 10% discount rate, 3 years
     npv15: 32100, // NPV at 15% discount rate, 3 years
     worstCase: { monthlyProfit: 4282, annualROI: 36.4 }, // -30% revenue
-    bestCase: { monthlyProfit: 8856, annualROI: 75.4 }, // WNBA peak + tech stable
+    bestCase: { monthlyProfit: 8870, annualROI: 75.5 }, // WNBA peak + tech stable
     totalHoursPerWeek: 5,
     correlationRisk: "high", // both YouTube
     description:
