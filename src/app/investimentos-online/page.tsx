@@ -2968,8 +2968,8 @@ export default function InvestimentosOnlinePage() {
                       {
                         metric: "Subscribers",
                         avg: "50K avg",
-                        ace: "~120K",
-                        tech: "~45K total (3 channels)",
+                        ace: "~45K",
+                        tech: "~120K total (3 channels)",
                         status: "Above avg",
                         statusColor: "emerald",
                       },
