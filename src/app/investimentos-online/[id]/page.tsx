@@ -699,9 +699,7 @@ export default function InvestimentosOnlineDetailPage() {
             {(() => {
               const revenueData: Record<string, { name: string; value: number; color: string }[]> = {
                 "92246": [
-                  { name: "YouTube AdSense", value: 65, color: "#ef4444" },
-                  { name: "Affiliate", value: 25, color: "#3b82f6" },
-                  { name: "Sponsorship", value: 10, color: "#f59e0b" },
+                  { name: "YouTube AdSense", value: 100, color: "#ef4444" },
                 ],
                 "90544": [
                   { name: "YouTube AdSense", value: 12, color: "#ef4444" },
