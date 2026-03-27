@@ -27,7 +27,7 @@ import type { EFListing } from "@/data/empire-flippers-listings";
 import type { ExpertAssessment } from "@/data/expert-assessments";
 import { EXPERT_ASSESSMENTS } from "@/data/expert-assessments";
 import { DUE_DILIGENCE_CHECKLIST, PORTFOLIO_SCENARIOS, NEGOTIATION_STRATEGIES, ACQUISITION_TIMELINE, POST_ACQUISITION_PLAN, LISTING_FINANCIALS } from "@/data/portfolio-analysis";
-import { LineChart as RechartsLineChart, Line, Area, ComposedChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ReferenceLine, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, PieChart, Pie, Cell } from "recharts";
+import { LineChart as RechartsLineChart, Line, Area, ComposedChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ReferenceLine, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, PieChart, Pie, Cell, BarChart, Bar } from "recharts";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
