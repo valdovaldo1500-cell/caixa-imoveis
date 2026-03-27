@@ -300,6 +300,170 @@ function TopPickCard({ listing }: { listing: EFListing }) {
 
 type SortDir = "desc" | "asc";
 
+function pearson(xs: number[], ys: number[]): number {
+  const n = xs.length;
+  if (n < 2) return 0;
+  const mx = xs.reduce((a, b) => a + b, 0) / n;
+  const my = ys.reduce((a, b) => a + b, 0) / n;
+  let num = 0, dx = 0, dy = 0;
+  for (let i = 0; i < n; i++) {
+    const ex = xs[i] - mx;
+    const ey = ys[i] - my;
+    num += ex * ey;
+    dx += ex * ex;
+    dy += ey * ey;
+  }
+  if (dx === 0 || dy === 0) return 0;
+  return num / Math.sqrt(dx * dy);
+}
+
+function PortfolioCorrelationSection() {
+  const aceHoops = LISTING_FINANCIALS.find((l) => l.id === "92246")!;
+  const techYT = LISTING_FINANCIALS.find((l) => l.id === "90544")!;
+
+  const aceMap = new Map(aceHoops.monthlyProfitHistory.map((d) => [d.month, d.profit]));
+  const techMap = new Map(techYT.monthlyProfitHistory.map((d) => [d.month, d.profit]));
+
+  const allMonths = Array.from(
+    new Set([
+      ...aceHoops.monthlyProfitHistory.map((d) => d.month),
+      ...techYT.monthlyProfitHistory.map((d) => d.month),
+    ])
+  );
+
+  const chartData = allMonths.map((month) => ({
+    month,
+    ace: aceMap.get(month) ?? null,
+    tech: techMap.get(month) ?? null,
+    combined:
+      aceMap.has(month) && techMap.has(month)
+        ? (aceMap.get(month)! + techMap.get(month)!)
+        : null,
+  }));
+
+  const overlapping = allMonths.filter((m) => aceMap.has(m) && techMap.has(m));
+  const aceVals = overlapping.map((m) => aceMap.get(m)!);
+  const techVals = overlapping.map((m) => techMap.get(m)!);
+  const r = pearson(aceVals, techVals);
+  const absR = Math.abs(r);
+
+  const badgeColor =
+    absR < 0.3
+      ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+      : absR <= 0.6
+      ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+      : "bg-red-500/20 text-red-400 border border-red-500/30";
+
+  const diversificationLabel =
+    absR < 0.3
+      ? "Low correlation — good diversification"
+      : absR <= 0.6
+      ? "Moderate correlation"
+      : "High correlation — limited diversification";
+
+  return (
+    <section>
+      <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+        <TrendingUp className="w-4 h-4 text-blue-400" />
+        Portfolio Correlation Analysis
+      </h2>
+      <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-5 space-y-4">
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-0.5 bg-emerald-400" />
+            <span className="text-xs text-zinc-400">Ace Hoops (#92246)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-0.5 bg-blue-400" />
+            <span className="text-xs text-zinc-400">Tech YouTube (#90544)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-0.5 bg-violet-400 border-dashed" style={{ borderTop: "2px dashed #a78bfa", height: 0 }} />
+            <span className="text-xs text-zinc-400">Combined</span>
+          </div>
+        </div>
+
+        <ResponsiveContainer width="100%" height={240}>
+          <LineChart data={chartData} margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
+            <XAxis
+              dataKey="month"
+              tick={{ fill: "#a1a1aa", fontSize: 10 }}
+              tickLine={false}
+              axisLine={{ stroke: "#52525b" }}
+            />
+            <YAxis
+              tick={{ fill: "#a1a1aa", fontSize: 10 }}
+              tickLine={false}
+              axisLine={{ stroke: "#52525b" }}
+              tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`}
+            />
+            <Tooltip
+              contentStyle={{ background: "#18181b", border: "1px solid #3f3f46", borderRadius: 8, fontSize: 12 }}
+              labelStyle={{ color: "#e4e4e7" }}
+              formatter={(value: number, name: string) => [
+                `$${value.toLocaleString()}`,
+                name === "ace" ? "Ace Hoops" : name === "tech" ? "Tech YouTube" : "Combined",
+              ]}
+            />
+            <Legend
+              formatter={(value) =>
+                value === "ace" ? "Ace Hoops" : value === "tech" ? "Tech YouTube" : "Combined"
+              }
+              wrapperStyle={{ fontSize: 11, color: "#a1a1aa" }}
+            />
+            <Line
+              type="monotone"
+              dataKey="ace"
+              stroke="#34d399"
+              strokeWidth={2}
+              dot={{ r: 3, fill: "#34d399" }}
+              connectNulls={false}
+            />
+            <Line
+              type="monotone"
+              dataKey="tech"
+              stroke="#60a5fa"
+              strokeWidth={2}
+              dot={{ r: 3, fill: "#60a5fa" }}
+              connectNulls={false}
+            />
+            <Line
+              type="monotone"
+              dataKey="combined"
+              stroke="#a78bfa"
+              strokeWidth={2}
+              strokeDasharray="5 3"
+              dot={{ r: 3, fill: "#a78bfa" }}
+              connectNulls={false}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+
+        <div className="flex flex-wrap gap-4 pt-2 border-t border-zinc-700">
+          <div className="flex flex-col gap-1">
+            <span className="text-xs text-zinc-500 uppercase tracking-wide font-medium">Pearson Correlation</span>
+            <div className="flex items-center gap-2">
+              <span className={`text-sm font-bold px-3 py-1 rounded-full ${badgeColor}`}>
+                r = {r.toFixed(2)}
+              </span>
+              <span className="text-xs text-zinc-400">{diversificationLabel}</span>
+            </div>
+            <span className="text-xs text-zinc-500">Computed over {overlapping.length} overlapping months</span>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="text-xs text-zinc-500 uppercase tracking-wide font-medium">Combined Monthly (overlap avg)</span>
+            <span className="text-sm font-bold text-violet-400">
+              ${Math.round(overlapping.reduce((sum, m) => sum + aceMap.get(m)! + techMap.get(m)!, 0) / overlapping.length).toLocaleString()}/mo avg
+            </span>
+            <span className="text-xs text-zinc-500">Peak combined: ${Math.max(...overlapping.map((m) => aceMap.get(m)! + techMap.get(m)!)).toLocaleString()}/mo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 
 interface CaixaProp {
   caixaId: string;
