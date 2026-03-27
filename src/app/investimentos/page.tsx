@@ -257,7 +257,7 @@ function analyze(prop: Property): Analysis {
   const itbiVal = n(prop.marketValue);
   const zapVal = n(prop.zapMarketValue);
   const qaVal = n(prop.qaMarketValue);
-  const itbiComps = (prop.comparablesTier1Count || 0) + (prop.comparablesTier2Count || 0);
+  const itbiComps = prop.comparablesCount || prop.comparablesTier1Count || 0;
   const zapComps = prop.zapComparablesCount || 0;
   const qaComps = prop.qaComparablesCount || 0;
 
