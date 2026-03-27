@@ -526,7 +526,7 @@ export default function FlippaPage() {
                     <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">{listings.length} Listings Analyzed</span>
                   </div>
                   <h2 className="text-xl font-bold text-white mb-1">
-                    Flippa Deal Sourcing — {topPicks.length > 0 ? `${topPicks.length} Top Pick${topPicks.length > 1 ? "s" : ""} Identified` : "No Top Picks in Budget"}
+                    Flippa Deal Sourcing — {topPicks.length > 0 ? `${topPicks.length} Top Pick${topPicks.length > 1 ? "s" : ""} (${verifiedTopPicks.length} verified, ${unverifiedTopPicks.length} pending due diligence)` : "No Top Picks in Budget"}
                   </h2>
                   <p className="text-sm text-zinc-400 max-w-3xl">
                     {topPicks.length > 0
