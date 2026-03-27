@@ -2802,8 +2802,8 @@ export default function InvestimentosOnlinePage() {
                         recurring6mo: 3.3,
                       },
                       {
-                        name: "Tech YouTube #90544",
-                        listingPrice: 79,
+                        name: "Faceless Tutorials #91304",
+                        listingPrice: 45,
                         migration: 0.5,
                         shared: 0.85,
                         recurring6mo: 3.3,
