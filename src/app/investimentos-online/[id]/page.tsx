@@ -771,7 +771,7 @@ export default function InvestimentosOnlineDetailPage() {
                       <span className={`text-sm font-semibold ${riskColor}`}>Overall: {avgRisk}/5 ({riskLabel})</span>
                     </div>
                     <div className="flex justify-center">
-                      <ResponsiveContainer width={350} height={280}>
+                      <ResponsiveContainer width="100%" height={280}>
                         <RadarChart data={profile} cx="50%" cy="50%" outerRadius="70%">
                           <PolarGrid stroke="#3f3f46" />
                           <PolarAngleAxis dataKey="dimension" tick={{ fill: "#a1a1aa", fontSize: 10 }} />
