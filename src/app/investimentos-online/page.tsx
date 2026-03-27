@@ -3011,7 +3011,7 @@ export default function InvestimentosOnlinePage() {
                       <th className="text-left px-4 py-3 text-zinc-300 font-semibold">Metric</th>
                       <th className="text-left px-4 py-3 text-zinc-300 font-semibold">EF YouTube Avg</th>
                       <th className="text-left px-4 py-3 text-zinc-300 font-semibold">Ace Hoops #92246</th>
-                      <th className="text-left px-4 py-3 text-zinc-300 font-semibold">Tech YT #90544</th>
+                      <th className="text-left px-4 py-3 text-zinc-300 font-semibold">Faceless Tutorials #91304</th>
                       <th className="text-left px-4 py-3 text-zinc-300 font-semibold">Status</th>
                     </tr>
                   </thead>
