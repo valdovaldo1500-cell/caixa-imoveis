@@ -876,6 +876,9 @@ export default function InvestimentosOnlinePage() {
               </div>
             </section>
 
+            {/* Portfolio Correlation Analysis */}
+            <PortfolioCorrelationSection />
+
             {/* Top Picks */}
             {topPicks.length > 0 && (
               <section>
