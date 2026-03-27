@@ -1146,9 +1146,9 @@ export default function InvestimentosOnlinePage() {
                       <h3 className="text-sm font-bold text-white mt-0.5">Balanced</h3>
                     </div>
                     <ul className="text-xs space-y-1 text-zinc-300">
-                      <li className="flex justify-between"><span className="text-blue-400 font-medium">Ace Hoops</span><span>$55K <span className="text-zinc-500">(37%)</span></span></li>
-                      <li className="flex justify-between"><span className="text-purple-400 font-medium">Tech YouTube</span><span>$70K <span className="text-zinc-500">(47%)</span></span></li>
-                      <li className="flex justify-between"><span className="text-gray-400 font-medium">Cash reserve</span><span>$35K <span className="text-zinc-500">(23%)</span></span></li>
+                      <li className="flex justify-between"><span className="text-blue-400 font-medium">Ace Hoops</span><span>$55K <span className="text-zinc-500">(34%)</span></span></li>
+                      <li className="flex justify-between"><span className="text-purple-400 font-medium">Tech YouTube</span><span>$70K <span className="text-zinc-500">(44%)</span></span></li>
+                      <li className="flex justify-between"><span className="text-gray-400 font-medium">Cash reserve</span><span>$35K <span className="text-zinc-500">(22%)</span></span></li>
                       <li className="flex justify-between border-t border-zinc-700 pt-1 mt-1"><span className="text-zinc-400">Total deployed</span><span className="text-white font-semibold">$125K</span></li>
                       <li className="flex justify-between"><span className="text-zinc-400">Cash reserve</span><span className="text-emerald-400 font-semibold">$35K</span></li>
                     </ul>
