@@ -3110,44 +3110,55 @@ export const flippaListings: FlippaListing[] = [
       ],
     };
   })(),
-  // #12300985 — Amazon KDP | Business | $96,000 | $7,611/mo | 95% ROI
+  // #12300985 — Amazon KDP | Exam Publishing | $120,000 | £5,726/mo avg | CONSIDER (volatile but stable avg)
   (() => {
-    const a = 93, r = 77, rs = 95, e = 75;
+    // Verified P&L: CV=50%, revenue stable/slightly growing +10% (£10,920→£8,442), avg profit £5,726/mo
+    // 6yr old, 72% margin, 13K email list. Big Oct spike (£11,542) inflates average.
+    // ROI at avg: 5726*12/120000 = 57.3%
+    const a = 93, r = 60, rs = 85, e = 80;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
+    const cvPct = 50, trend = 10;
     return {
       id: "12300985",
-      title: "Amazon KDP — Amazon KDP Store Profitable exam publishing brand with $127K revenue, $91K profit, 72% ",
-      niche: "Business",
-      price: 96000,
-      monthlyProfit: 7611,
+      title: "Exam Publishing Brand — $127K Revenue, $91K Profit, 72% Margin, 13K Email List",
+      niche: "Education / Publishing",
+      price: 120000,
+      monthlyProfit: 5726,
       monthlyRevenue: 0,
-      monetization: "Methods",
+      monetization: "Amazon KDP royalties + email funnel",
       multiple: 1.1,
       firstMadeMoney: 6,
       businessAge: 6,
-      description: "Profitable exam publishing brand with $127K revenue, $91K profit, 72% margins and 13K email list, powered by recurring demand and automated funnel Amazon KDP Business Business Location Italy Site Age 6 years Monthly Profit GBP £5,717 /mo Profit Margin 72% Profit Multiple 1.1x Revenue Multiple 0.8x V",
+      description: "6-year-old exam publishing brand with 13K email list and automated sales funnel. Verified P&L shows avg £5,726/mo but with CV=50% — driven by large spikes in Feb (£8,719) and Oct (£11,542). Revenue trend is broadly stable +10%. At $120K asking, 57% ROI on the average. Decent but volatile.",
       status: "active",
       listingType: "buy_now",
-      verificationStatus: "partial",
+      verificationStatus: "verified",
       offersCount: 0,
       autonomyScore: a,
       riskScore: r,
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 96000),
+      recommendation: rec(ov, aiM, 120000, { verifiedPnL: true, cvPercent: cvPct, revenueTrend: trend }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: true,
+      profitConsistency: "volatile",
+      revenueTrend: trend,
+      monthlyProfitRange: "£1,953–£11,542",
+      cvPercent: cvPct,
       reasonsFor: [
-      "Highly autonomous — AI+VA can run with minimal oversight",
-      "Low risk profile — verified financials, diversified",
-      "Strong ROI: 95% annual return at asking price",
-      "Verified Listing — financials independently confirmed by Flippa",
-      "Proven track record: 6+ years in operation"
+        "Avg £5,726/mo verified profit = 57% ROI at $120K asking price",
+        "13,000 email list with automated funnel — recurring demand from exam season cycles",
+        "6 years old — established publisher with catalog depth",
+        "72% margin — lean cost structure"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+        "CV=50% — extremely high volatility, profits range £1,953–£11,542 monthly",
+        "Oct spike (£11,542) and Feb spike (£8,719) inflate the average — median months closer to £4K",
+        "Exam publishing is niche with limited expansion paths outside certification market",
+        "Seasonal demand pattern creates cash flow unpredictability"
       ],
     };
   })(),
