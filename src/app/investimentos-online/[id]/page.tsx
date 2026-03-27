@@ -1082,35 +1082,40 @@ export default function InvestimentosOnlineDetailPage() {
             {/* ── Section 11: Due Diligence Checklist ───────────────────── */}
             {data.assessment && data.assessment.verdictColor !== "red" && (() => {
               const categories = Array.from(new Set(DUE_DILIGENCE_CHECKLIST.map((i) => i.category)));
-              const doneCount = DUE_DILIGENCE_CHECKLIST.filter((i) => i.status === "done").length;
-              const totalCount = DUE_DILIGENCE_CHECKLIST.filter((i) => i.status !== "not-applicable").length;
+              const applicableItems = DUE_DILIGENCE_CHECKLIST.filter((i) => i.status !== "not-applicable");
+              const doneCount = applicableItems.filter((i) => i.status === "done" || ddChecked.has(i.item)).length;
+              const totalCount = applicableItems.length;
+              const pct = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
               return (
                 <SectionCard icon={ShieldCheck} title="Due Diligence Checklist" iconColor="text-blue-400">
                   <div className="space-y-5">
-                    {/* Progress summary */}
                     <div className="flex items-center gap-3">
                       <div className="flex-1 h-2 bg-zinc-700 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-emerald-500 rounded-full transition-all"
-                          style={{ width: `${totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0}%` }}
+                          className="h-full bg-emerald-500 rounded-full transition-all duration-300"
+                          style={{ width: `${pct}%` }}
                         />
                       </div>
                       <span className="text-xs text-zinc-400 shrink-0">
                         <span className="text-emerald-400 font-semibold">{doneCount}</span> of{" "}
                         <span className="font-semibold text-zinc-300">{totalCount}</span> completed
+                        {pct === 100 && <span className="ml-1 text-emerald-400">✓</span>}
                       </span>
                     </div>
+                    <p className="text-[11px] text-zinc-600">Click items to mark as completed. Progress is saved locally.</p>
 
-                    {/* Items grouped by category */}
                     {categories.map((cat) => (
                       <div key={cat}>
                         <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">{cat}</p>
                         <div className="space-y-2">
                           {DUE_DILIGENCE_CHECKLIST.filter((item) => item.category === cat).map((item, idx) => {
+                            const isNA = item.status === "not-applicable";
+                            const isDone = item.status === "done" || ddChecked.has(item.item);
+                            const effectiveStatus = isNA ? "not-applicable" : isDone ? "done" : "pending";
                             const statusIcon =
-                              item.status === "done" ? (
+                              effectiveStatus === "done" ? (
                                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                              ) : item.status === "pending" ? (
+                              ) : effectiveStatus === "pending" ? (
                                 <span className="w-4 h-4 rounded-full border-2 border-amber-400 shrink-0 mt-0.5 inline-block" />
                               ) : (
                                 <span className="w-4 h-4 rounded-full border-2 border-zinc-600 shrink-0 mt-0.5 inline-block" />
@@ -1124,12 +1129,17 @@ export default function InvestimentosOnlineDetailPage() {
                                 <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-zinc-700 text-zinc-500 border border-zinc-600 shrink-0">NICE-TO-HAVE</span>
                               );
                             return (
-                              <div key={idx} className="bg-zinc-900 rounded-lg p-3">
+                              <button
+                                key={idx}
+                                onClick={() => !isNA && toggleDdItem(item.item)}
+                                disabled={isNA}
+                                className={`w-full text-left bg-zinc-900 rounded-lg p-3 transition-all duration-200 ${isNA ? "opacity-50 cursor-not-allowed" : "hover:bg-zinc-800 cursor-pointer hover:ring-1 hover:ring-zinc-700"}`}
+                              >
                                 <div className="flex items-start gap-2">
                                   {statusIcon}
                                   <div className="flex-1 min-w-0">
                                     <div className="flex items-start gap-2 flex-wrap">
-                                      <p className={`text-xs flex-1 ${item.status === "done" ? "text-zinc-400 line-through" : item.status === "not-applicable" ? "text-zinc-600" : "text-zinc-300"}`}>
+                                      <p className={`text-xs flex-1 ${effectiveStatus === "done" ? "text-zinc-400 line-through" : isNA ? "text-zinc-600" : "text-zinc-300"}`}>
                                         {item.item}
                                       </p>
                                       {priorityBadge}
@@ -1139,7 +1149,7 @@ export default function InvestimentosOnlineDetailPage() {
                                     )}
                                   </div>
                                 </div>
-                              </div>
+                              </button>
                             );
                           })}
                         </div>
