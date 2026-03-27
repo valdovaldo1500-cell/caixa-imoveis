@@ -1508,7 +1508,7 @@ export default function InvestimentosOnlinePage() {
                   </table>
                 </div>
                 <div className="px-4 py-3 border-t border-zinc-700 text-xs text-zinc-500">
-                  Based on primary portfolio: Ace Hoops ($62K) + 3× Tech YouTube ($79K) = $141K total investment
+                  Based on primary portfolio: Ace Hoops ($62K) + Faceless Tutorials ($45K) = $107K total investment
                 </div>
               </div>
             </section>
