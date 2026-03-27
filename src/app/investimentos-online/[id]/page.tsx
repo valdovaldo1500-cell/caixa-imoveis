@@ -1681,6 +1681,77 @@ Best regards,
               </SectionCard>
             )}
 
+            {/* ── Seasonal Revenue Heatmap ─────────────────────────── */}
+            {(() => {
+              const fin = LISTING_FINANCIALS.find((f) => f.id === id);
+              if (!fin || fin.seasonality !== "high") return null;
+              const monthOrder = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+              const byYear: Record<string, Record<string, number>> = {};
+              fin.monthlyProfitHistory.forEach((h) => {
+                const [m, y] = h.month.split(" ");
+                const year = `20${y}`;
+                if (!byYear[year]) byYear[year] = {};
+                byYear[year][m] = h.profit;
+              });
+              const years = Object.keys(byYear).sort();
+              const allProfits = fin.monthlyProfitHistory.map((h) => h.profit);
+              const maxProfit = Math.max(...allProfits);
+              const minProfit = Math.min(...allProfits);
+              const getColor = (val: number) => {
+                const ratio = (val - minProfit) / (maxProfit - minProfit || 1);
+                if (ratio > 0.8) return "bg-emerald-500/60 text-emerald-100";
+                if (ratio > 0.6) return "bg-emerald-500/30 text-emerald-300";
+                if (ratio > 0.4) return "bg-amber-500/30 text-amber-300";
+                if (ratio > 0.2) return "bg-amber-500/15 text-amber-400";
+                return "bg-red-500/20 text-red-400";
+              };
+              return (
+                <SectionCard icon={BarChart2} title="Seasonal Revenue Heatmap" iconColor="text-amber-400">
+                  <div className="space-y-3">
+                    <p className="text-xs text-zinc-500">Monthly profit by year. Green = peak season, red = off-season. WNBA runs May-Oct.</p>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-xs min-w-[500px]">
+                        <thead>
+                          <tr>
+                            <th className="text-left text-zinc-500 pb-2 pr-2">Year</th>
+                            {monthOrder.map((m) => (
+                              <th key={m} className="text-center text-zinc-500 pb-2 px-0.5 text-[10px]">{m}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {years.map((yr) => (
+                            <tr key={yr}>
+                              <td className="text-zinc-400 font-semibold pr-2 py-0.5">{yr}</td>
+                              {monthOrder.map((m) => {
+                                const val = byYear[yr][m];
+                                return (
+                                  <td key={m} className="px-0.5 py-0.5">
+                                    {val !== undefined ? (
+                                      <div className={`rounded px-1 py-1.5 text-center text-[10px] font-semibold ${getColor(val)}`}>
+                                        ${(val / 1000).toFixed(1)}k
+                                      </div>
+                                    ) : (
+                                      <div className="rounded px-1 py-1.5 text-center text-[10px] text-zinc-700">—</div>
+                                    )}
+                                  </td>
+                                );
+                              })}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-zinc-500">
+                      <span className="w-3 h-3 rounded bg-red-500/20 inline-block" /> Off-season
+                      <span className="w-3 h-3 rounded bg-amber-500/20 inline-block ml-2" /> Transition
+                      <span className="w-3 h-3 rounded bg-emerald-500/40 inline-block ml-2" /> Peak
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Section 13: 90-Day Post-Acquisition Plan ───────────────── */}
             {data.assessment && data.assessment.verdictColor !== "red" && (() => {
               const phases = [
