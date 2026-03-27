@@ -204,7 +204,7 @@ export async function calculateQAMarketValues(): Promise<{ updated: number }> {
           : null;
 
     const qaTypes = getQAUnitTypes(prop.tipoImovel, prop.descricao);
-    const bairroKey = normalizeCidade(prop.bairro || "");
+    const bairroKey = normBairro(prop.bairro || "");
     const propQuartos = prop.quartos;
     const isResidential = !qaTypes || !qaTypes.some(t => COMMERCIAL_TYPES.has(t));
 
@@ -234,57 +234,39 @@ export async function calculateQAMarketValues(): Promise<{ updated: number }> {
       });
     }
 
-    // Try bairro match first (preferred), then city-wide fallback
+    // Bairro-only matching — no city-wide fallback (different bairro = different price)
     const citySaleListings = saleByCity.get(cityKey) || [];
     const cityRentalListings = rentalByCity.get(cityKey) || [];
 
-    const bairroSaleListings = bairroKey
-      ? citySaleListings.filter((r) => normalizeCidade(r.bairro || "") === bairroKey)
+    // Exact bairro match + fuzzy fallback (same logic as ITBI)
+    let bairroSaleListings = bairroKey
+      ? citySaleListings.filter((r) => normBairro(r.bairro || "") === bairroKey)
       : [];
-    const bairroRentalListings = bairroKey
-      ? cityRentalListings.filter((r) => normalizeCidade(r.bairro || "") === bairroKey)
+    if (bairroSaleListings.length === 0 && bairroKey.length > 3) {
+      bairroSaleListings = citySaleListings.filter((r) => {
+        const k = normBairro(r.bairro || "");
+        return k.includes(bairroKey) || bairroKey.includes(k);
+      });
+    }
+    let bairroRentalListings = bairroKey
+      ? cityRentalListings.filter((r) => normBairro(r.bairro || "") === bairroKey)
       : [];
+    if (bairroRentalListings.length === 0 && bairroKey.length > 3) {
+      bairroRentalListings = cityRentalListings.filter((r) => {
+        const k = normBairro(r.bairro || "");
+        return k.includes(bairroKey) || bairroKey.includes(k);
+      });
+    }
 
     // Step 1: bairro + type + area (strict with bedrooms)
     let saleComparables = filterListings(bairroSaleListings, true);
     // Step 2: bairro + type + area (relaxed)
     if (saleComparables.length < 3) saleComparables = filterListings(bairroSaleListings);
-    // Step 3: city + type + area
-    if (saleComparables.length < 3) saleComparables = filterListings(citySaleListings);
-    // Step 4: city + same category + area (no specific type, but never mix commercial/residential)
-    if (saleComparables.length < 3) {
-      saleComparables = citySaleListings.filter((row) => {
-        const rowType = (row.unitType || "").toUpperCase();
-        if (!rowType) return false;
-        // Never mix: residential property excludes commercial types, commercial excludes residential
-        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
-        if (!isResidential && !COMMERCIAL_TYPES.has(rowType)) return false;
-        if (propArea && row.area) {
-          const rowArea = parseFloat(row.area);
-          if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.5) return false;
-        }
-        return true;
-      });
-    }
+    // NO city-wide fallback — different bairro = different price
 
-    // Rental: same cascade
+    // Rental: bairro only
     let rentalComparables = filterListings(bairroRentalListings, true);
     if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings);
-    if (rentalComparables.length < 3) rentalComparables = filterListings(cityRentalListings);
-    // Step 4: city same category only (never mix commercial/residential)
-    if (rentalComparables.length < 3) {
-      rentalComparables = cityRentalListings.filter((row) => {
-        const rowType = (row.unitType || "").toUpperCase();
-        if (!rowType) return false;
-        if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
-        if (!isResidential && !COMMERCIAL_TYPES.has(rowType)) return false;
-        if (propArea && row.area) {
-          const rowArea = parseFloat(row.area);
-          if (rowArea > 0 && Math.abs(rowArea - propArea) / propArea > 0.5) return false;
-        }
-        return true;
-      });
-    }
 
     // Calculate median R$/m² from sale comparables
     const salePricesPerM2 = saleComparables
