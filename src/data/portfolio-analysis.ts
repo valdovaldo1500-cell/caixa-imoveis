@@ -421,6 +421,41 @@ export const POST_ACQUISITION_PLAN: PostAcquisitionMilestone[] = [
   { day: 90, task: "Quarter 1 comprehensive review", details: "Full P&L analysis. Calculate actual ROI vs projections. Decision: continue, expand, or adjust strategy.", listing: "all" },
 ];
 
+// ─── Growth Opportunities ─────────────────────────────────────────────────────
+
+export interface GrowthOpportunity {
+  strategy: string;
+  description: string;
+  revenueUplift: string;
+  difficulty: "Low" | "Medium" | "High";
+  timeToImplement: string;
+  investment: string;
+}
+
+export const GROWTH_OPPORTUNITIES: Record<string, GrowthOpportunity[]> = {
+  "92246": [
+    { strategy: "Merchandise Store", description: "Launch branded Ace Hoops merch (t-shirts, hoodies, hats) targeting WNBA fans", revenueUplift: "15-25%", difficulty: "Medium", timeToImplement: "2-3 months", investment: "$2,000-5,000" },
+    { strategy: "Sponsorship Deals", description: "Secure sports betting and fantasy sports sponsorships during WNBA season", revenueUplift: "30-50%", difficulty: "Medium", timeToImplement: "1-2 months", investment: "$0 (outreach only)" },
+    { strategy: "Off-Season Content Pivot", description: "Add WNBA draft coverage, player interviews, and prediction content during off-season", revenueUplift: "20-35%", difficulty: "Low", timeToImplement: "1 month", investment: "$500-1,000" },
+    { strategy: "Multi-Platform Expansion", description: "Repurpose highlights to TikTok, Instagram Reels, and X/Twitter for additional ad revenue", revenueUplift: "10-20%", difficulty: "Low", timeToImplement: "1-2 weeks", investment: "$0-500" },
+    { strategy: "Membership/Patreon", description: "Premium analysis content, early predictions, and community access for hardcore fans", revenueUplift: "10-15%", difficulty: "Medium", timeToImplement: "1-2 months", investment: "$500" },
+  ],
+  "90544": [
+    { strategy: "Affiliate Marketing", description: "Add affiliate links for software/hardware reviewed in videos across all 3 channels", revenueUplift: "20-40%", difficulty: "Low", timeToImplement: "2 weeks", investment: "$0" },
+    { strategy: "Course/Tutorial Platform", description: "Bundle best-performing tutorials into paid courses on Udemy/Skillshare", revenueUplift: "15-30%", difficulty: "Medium", timeToImplement: "2-3 months", investment: "$1,000-3,000" },
+    { strategy: "Channel 4 Launch", description: "Launch a 4th faceless channel in adjacent niche (AI tools, productivity) using same automation pipeline", revenueUplift: "25-35%", difficulty: "Medium", timeToImplement: "3-4 months", investment: "$3,000-5,000" },
+    { strategy: "Shorts Strategy", description: "Cut existing long-form content into YouTube Shorts for the Shorts Fund and additional ad revenue", revenueUplift: "10-20%", difficulty: "Low", timeToImplement: "1-2 weeks", investment: "$0-500" },
+    { strategy: "Email List + Newsletter", description: "Build email list from video CTAs, monetize with tech affiliate newsletter", revenueUplift: "5-15%", difficulty: "Low", timeToImplement: "1 month", investment: "$0-200" },
+  ],
+  "91304": [
+    { strategy: "SEO Optimization", description: "Optimize titles, thumbnails, and tags for existing 800+ videos to recapture declining views", revenueUplift: "15-25%", difficulty: "Low", timeToImplement: "2-4 weeks", investment: "$0-500" },
+    { strategy: "Topic Expansion", description: "Expand into trending tutorial niches (AI tools, no-code platforms, automation)", revenueUplift: "20-35%", difficulty: "Medium", timeToImplement: "1-2 months", investment: "$500-1,500" },
+    { strategy: "Website + Blog", description: "Create companion blog with embedded videos for SEO traffic and display ad revenue", revenueUplift: "10-20%", difficulty: "Medium", timeToImplement: "2-3 months", investment: "$1,000-2,000" },
+    { strategy: "Affiliate Integration", description: "Add affiliate links for tools/software demonstrated in tutorials", revenueUplift: "15-25%", difficulty: "Low", timeToImplement: "1-2 weeks", investment: "$0" },
+    { strategy: "Upload Frequency Increase", description: "Scale from 3-4 to 7+ videos/week using VA team and AI-assisted scripting", revenueUplift: "30-50%", difficulty: "High", timeToImplement: "2-3 months", investment: "$2,000-4,000" },
+  ],
+};
+
 // ─── Sensitivity Analysis ─────────────────────────────────────────────────────
 
 export interface SensitivityScenario {
