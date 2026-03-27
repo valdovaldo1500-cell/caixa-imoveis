@@ -2614,6 +2614,138 @@ Best regards,
               );
             })()}
 
+            {/* ── AI Automation Blueprint ──────────────────────────────────── */}
+            {data.assessment && data.assessment.verdictColor !== "red" && (() => {
+              type AutomationRow = {
+                task: string;
+                current: string;
+                aiMethod: string;
+                timeSaved: string;
+                tools: string;
+              };
+              type AutomationData = {
+                rows: AutomationRow[];
+                totalCurrentHrs: string;
+                totalAiHrs: string;
+                totalSaved: string;
+                totalSavedPct: number;
+                automationLevel: "high" | "moderate";
+              };
+              const automationMap: Record<string, AutomationData> = {
+                "92246": {
+                  rows: [
+                    { task: "Script Writing",   current: "Manual (2hrs)",    aiMethod: "GPT-4 + game stats API",    timeSaved: "1h 30min", tools: "ChatGPT, NBA API" },
+                    { task: "Thumbnail Design", current: "Manual (1hr)",     aiMethod: "Midjourney + Canva templates", timeSaved: "45min",    tools: "Midjourney, Canva" },
+                    { task: "Video Editing",    current: "Manual (3hrs)",    aiMethod: "Auto-cut highlights",        timeSaved: "2hrs",     tools: "CapCut, Opus Clip" },
+                    { task: "Scheduling",       current: "Manual (30min)",   aiMethod: "Buffer auto-queue",          timeSaved: "25min",    tools: "Buffer" },
+                    { task: "Analytics Review", current: "Manual (1hr)",     aiMethod: "Dashboard auto-report",      timeSaved: "50min",    tools: "Custom dashboard" },
+                  ],
+                  totalCurrentHrs: "7.5hrs/week",
+                  totalAiHrs: "1.4hrs/week",
+                  totalSaved: "6.1hrs/week",
+                  totalSavedPct: 81,
+                  automationLevel: "high",
+                },
+                "90544": {
+                  rows: [
+                    { task: "Script Research",  current: "Manual research",  aiMethod: "Perplexity + auto-outline",  timeSaved: "45min",    tools: "Perplexity AI" },
+                    { task: "Script Writing",   current: "Manual",           aiMethod: "GPT-4 full draft",           timeSaved: "30min",    tools: "ChatGPT" },
+                    { task: "Voiceover",        current: "Human VO",         aiMethod: "ElevenLabs clone",           timeSaved: "20min",    tools: "ElevenLabs" },
+                    { task: "B-roll/Screen",    current: "Manual sourcing",  aiMethod: "Stock footage API",          timeSaved: "15min",    tools: "Pexels API" },
+                    { task: "Upload & SEO",     current: "Manual tags/desc", aiMethod: "vidIQ auto-optimize",        timeSaved: "10min",    tools: "vidIQ" },
+                  ],
+                  totalCurrentHrs: "2hrs/week",
+                  totalAiHrs: "20min/week",
+                  totalSaved: "1hr 40min/week",
+                  totalSavedPct: 83,
+                  automationLevel: "high",
+                },
+                "91304": {
+                  rows: [
+                    { task: "Tutorial Script",  current: "Manual",           aiMethod: "GPT-4 step-by-step",         timeSaved: "1hr",      tools: "ChatGPT" },
+                    { task: "Screen Recording", current: "Manual",           aiMethod: "Auto-annotate",              timeSaved: "30min",    tools: "OBS + ScreenPal" },
+                    { task: "Voiceover",        current: "Human VO",         aiMethod: "ElevenLabs",                 timeSaved: "20min",    tools: "ElevenLabs" },
+                    { task: "Editing",          current: "Manual cuts",      aiMethod: "Auto-trim silence",          timeSaved: "15min",    tools: "Descript" },
+                  ],
+                  totalCurrentHrs: "3hrs/week",
+                  totalAiHrs: "35min/week",
+                  totalSaved: "2hrs 25min/week",
+                  totalSavedPct: 81,
+                  automationLevel: "high",
+                },
+              };
+              const auto = automationMap[String(data.id)];
+              if (!auto) return null;
+              const accentColor = auto.automationLevel === "high" ? "emerald" : "blue";
+              return (
+                <SectionCard icon={Bot} title="AI Automation Blueprint" iconColor="text-emerald-400">
+                  <div className="space-y-4">
+                    {/* Table */}
+                    <div className="overflow-x-auto rounded-lg border border-zinc-700/50">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b border-zinc-700/50">
+                            <th className="text-left px-3 py-2 text-zinc-400 font-medium text-xs uppercase tracking-wide">Task</th>
+                            <th className="text-left px-3 py-2 text-zinc-400 font-medium text-xs uppercase tracking-wide">Current Method</th>
+                            <th className="text-left px-3 py-2 text-zinc-400 font-medium text-xs uppercase tracking-wide">AI Method</th>
+                            <th className="text-center px-3 py-2 text-zinc-400 font-medium text-xs uppercase tracking-wide">Time Saved</th>
+                            <th className="text-left px-3 py-2 text-zinc-400 font-medium text-xs uppercase tracking-wide">Tools</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {auto.rows.map((row, i) => (
+                            <tr key={i} className={`border-b border-zinc-700/30 ${i % 2 === 0 ? "bg-zinc-800/50" : "bg-zinc-800/20"}`}>
+                              <td className="px-3 py-2.5 text-zinc-200 font-medium">{row.task}</td>
+                              <td className="px-3 py-2.5 text-zinc-400 text-xs">{row.current}</td>
+                              <td className="px-3 py-2.5 text-zinc-300 text-xs">{row.aiMethod}</td>
+                              <td className="px-3 py-2.5 text-center">
+                                <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${accentColor === "emerald" ? "bg-emerald-500/20 text-emerald-300" : "bg-blue-500/20 text-blue-300"}`}>
+                                  -{row.timeSaved}
+                                </span>
+                              </td>
+                              <td className="px-3 py-2.5 text-zinc-500 text-xs">{row.tools}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/* Summary cards */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="bg-zinc-800/60 rounded-lg p-3 border border-zinc-700/40">
+                        <p className="text-xs text-zinc-500 mb-1">Without AI</p>
+                        <p className="text-lg font-bold text-zinc-200">{auto.totalCurrentHrs}</p>
+                      </div>
+                      <div className="bg-zinc-800/60 rounded-lg p-3 border border-zinc-700/40">
+                        <p className="text-xs text-zinc-500 mb-1">With AI</p>
+                        <p className="text-lg font-bold text-zinc-200">{auto.totalAiHrs}</p>
+                      </div>
+                      <div className={`rounded-lg p-3 border ${accentColor === "emerald" ? "bg-emerald-500/10 border-emerald-500/30" : "bg-blue-500/10 border-blue-500/30"}`}>
+                        <p className="text-xs text-zinc-400 mb-1">Time Saved</p>
+                        <p className={`text-lg font-bold ${accentColor === "emerald" ? "text-emerald-300" : "text-blue-300"}`}>{auto.totalSaved}</p>
+                      </div>
+                    </div>
+
+                    {/* Total savings banner */}
+                    <div className={`rounded-xl p-4 border flex flex-col sm:flex-row items-center justify-between gap-3 ${accentColor === "emerald" ? "bg-emerald-500/10 border-emerald-500/40" : "bg-blue-500/10 border-blue-500/40"}`}>
+                      <div className="flex items-center gap-3">
+                        <Bot className={`w-8 h-8 ${accentColor === "emerald" ? "text-emerald-400" : "text-blue-400"}`} />
+                        <div>
+                          <p className="text-xs text-zinc-400 uppercase tracking-wide">Total AI Time Savings</p>
+                          <p className={`text-3xl font-extrabold ${accentColor === "emerald" ? "text-emerald-300" : "text-blue-300"}`}>{auto.totalSavedPct}%</p>
+                        </div>
+                      </div>
+                      <div className="text-right sm:text-right text-center">
+                        <p className="text-xs text-zinc-400">Estimated AI tool cost</p>
+                        <p className="text-lg font-bold text-zinc-200">$100–200/mo</p>
+                        <p className="text-xs text-zinc-500 mt-0.5">for all tools combined</p>
+                      </div>
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Monetization Strategy Comparison ────────────────────────── */}
             {data.assessment && data.assessment.verdictColor !== "red" && (() => {
               type MonetizationRow = {
