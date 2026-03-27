@@ -843,7 +843,7 @@ export default function InvestimentosOnlineDetailPage() {
                         <YAxis tick={{ fill: "#a1a1aa", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v: number) => v >= 1000000 ? `${(v / 1000000).toFixed(1)}M` : v >= 1000 ? `${(v / 1000).toFixed(0)}K` : String(v)} width={42} />
                         <Tooltip
                           contentStyle={{ backgroundColor: "#27272a", border: "1px solid #3f3f46", borderRadius: "8px", color: "#fff", fontSize: "12px" }}
-                          formatter={(value: number) => [value >= 1000000 ? `${(value / 1000000).toFixed(2)}M` : `${(value / 1000).toFixed(0)}K`, "Views"]}
+                          formatter={(value) => [Number(value) >= 1000000 ? `${(Number(value) / 1000000).toFixed(2)}M` : `${(Number(value) / 1000).toFixed(0)}K`, "Views"]}
                         />
                         <Bar dataKey="views" fill="#10b981" radius={[4, 4, 0, 0]} />
                       </BarChart>
