@@ -540,9 +540,9 @@ export default function InvestimentosOnlinePage() {
                 <div>
                   <div className="text-xs font-semibold text-emerald-400 mb-2">Negotiation Targets</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li className="flex justify-between"><span>#92246 Ace Hoops — ask $70,599</span><span className="text-emerald-400 font-semibold">→ offer $55K, settle $62K</span></li>
-                    <li className="flex justify-between"><span>#90544 Tech YouTube — ask $93,608</span><span className="text-blue-400 font-semibold">→ offer $72K, settle $79K</span></li>
-                    <li className="flex justify-between pt-1 border-t border-zinc-700 mt-1"><span className="text-zinc-300">Combined total</span><span className="text-white font-semibold">~$141K (~£111K)</span></li>
+                    <li className="flex flex-wrap justify-between gap-1"><span>#92246 Ace Hoops — ask $70,599</span><span className="text-emerald-400 font-semibold">→ offer $55K, settle $62K</span></li>
+                    <li className="flex flex-wrap justify-between gap-1"><span>#90544 Tech YouTube — ask $93,608</span><span className="text-blue-400 font-semibold">→ offer $72K, settle $79K</span></li>
+                    <li className="flex flex-wrap justify-between gap-1 pt-1 border-t border-zinc-700 mt-1"><span className="text-zinc-300">Combined total</span><span className="text-white font-semibold">~$141K (~£111K)</span></li>
                   </ul>
                 </div>
                 <div>
