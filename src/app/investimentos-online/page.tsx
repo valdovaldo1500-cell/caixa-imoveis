@@ -425,7 +425,7 @@ function PortfolioCorrelationSection() {
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-0.5 bg-blue-400" />
-            <span className="text-xs text-zinc-400">Tech YouTube (#90544)</span>
+            <span className="text-xs text-zinc-400">Faceless Tutorials (#91304)</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-0.5 bg-violet-400 border-dashed" style={{ borderTop: "2px dashed #a78bfa", height: 0 }} />
