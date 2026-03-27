@@ -235,6 +235,11 @@ function TopPickCard({ listing }: { listing: FlippaListing }) {
           </div>
           <div className="flex items-center gap-2 flex-wrap mb-1">
             <VerificationBadge status={listing.verificationStatus} />
+            {listing.verifiedPnL ? (
+              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">P&amp;L Verified</span>
+            ) : (
+              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-zinc-700/50 text-zinc-500 border border-zinc-600/30">P&amp;L Unverified</span>
+            )}
             <ListingTypeBadge type={listing.listingType} />
           </div>
           <h3 className="text-white font-semibold text-base leading-tight">{listing.niche}</h3>
