@@ -2193,7 +2193,7 @@ OFFER DETAILS:
 - Conditions: Subject to verification of P&L via bank statements, confirmation of transferable accounts (AdSense, affiliate programs), and 30-day seller training/handover
 
 RATIONALE:
-Based on my analysis, the 3-month average monthly profit of $${fin.avg3mo.toLocaleString()} represents the current run rate, which is ${Math.round(((fin.avg12mo - fin.avg3mo) / fin.avg12mo) * 100)}% below the 12-month average of $${fin.avg12mo.toLocaleString()}. My offer of $${neg.openingOffer.toLocaleString()} reflects a ${Math.round(fin.avg3mo > 0 ? neg.openingOffer / fin.avg3mo : 0)}x multiple on current earnings, which I believe is fair given the current revenue trajectory.
+Based on my analysis, the current monthly run rate of $${fin.currentRunRate.toLocaleString()} is ${Math.round(((fin.avg12mo - fin.currentRunRate) / fin.avg12mo) * 100)}% below the 12-month average of $${fin.avg12mo.toLocaleString()}. My offer of $${neg.openingOffer.toLocaleString()} reflects a ${Math.round(fin.currentRunRate > 0 ? neg.openingOffer / fin.currentRunRate : 0)}x multiple on current earnings, which I believe is fair given the current revenue trajectory.
 
 I am a serious buyer with funds available and can proceed with due diligence immediately upon acceptance.
 
