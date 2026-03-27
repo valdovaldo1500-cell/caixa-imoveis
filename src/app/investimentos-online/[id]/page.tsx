@@ -3430,7 +3430,7 @@ Best regards,
                         <p className={`text-lg font-semibold ${consensusDiff >= 0 ? "text-emerald-400" : "text-amber-400"}`}>
                           {consensusDiff >= 0 ? "+" : ""}{(consensusDiff * 100).toFixed(1)}%{" "}
                           <span className="text-sm font-normal text-zinc-400">
-                            {consensusDiff >= 0 ? "below asking" : "above asking"}
+                            {consensusDiff >= 0 ? "above asking" : "below asking"}
                           </span>
                         </p>
                       </div>
