@@ -419,6 +419,8 @@ export default function FlippaPage() {
     () => listings.filter((l) => l.recommendation === "top_pick" && l.status !== "sold"),
     [listings]
   );
+  const verifiedTopPicks = topPicks.filter(l => l.verifiedPnL);
+  const unverifiedTopPicks = topPicks.filter(l => !l.verifiedPnL);
   const manageable = listings.filter((l) => l.aiManageable);
   const activeListings = listings.filter((l) => l.status === "active" || l.status === "auction");
   const beatSelicCount = useMemo(() => {
