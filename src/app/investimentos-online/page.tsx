@@ -1236,7 +1236,7 @@ export default function InvestimentosOnlinePage() {
                       {[
                         { factor: "Revenue Stability", scores: [2, 4, 3], notes: ["seasonal", "consistent", "declining"] },
                         { factor: "Growth Potential",  scores: [5, 3, 3], notes: ["WNBA boom", "steady", "needs work"] },
-                        { factor: "Operator Time Required", scores: [5, 4, 3], notes: ["1hr/wk", "2hrs/wk", "5hrs/wk"] },
+                        { factor: "Operator Time Required", scores: [4, 5, 4], notes: ["4hrs/wk", "1hr/wk", "2hrs/wk"] },
                         { factor: "Key-Person Risk",   scores: [4, 5, 5], notes: ["faceless", "fully automated", "faceless"] },
                         { factor: "Platform Diversification", scores: [1, 2, 1], notes: ["YouTube only", "YouTube only, 3 channels", "YouTube only"] },
                         { factor: "Price/Value Ratio", scores: [4, 5, 4], notes: ["below median multiple", "below replacement cost", "if negotiated"] },
