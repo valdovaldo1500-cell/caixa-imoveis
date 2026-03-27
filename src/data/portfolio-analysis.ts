@@ -159,8 +159,8 @@ export const LISTING_FINANCIALS: ListingFinancials[] = [
       { month: "Jan 26", profit: 2415 },
       { month: "Feb 26", profit: 1737 },
     ],
-    avg12mo: 2603,
-    avg6mo: 2172,
+    avg12mo: 2934, // Jul23-Feb26 12 pts = 35204/12
+    avg6mo: 2443, // Jan25-Feb26 6 pts = 14660/6
     avg3mo: 1962, // Oct 25 ($1,733) + Jan 26 ($2,415) + Feb 26 ($1,737) / 3
     currentRunRate: 1737,
     profitMargin: 0.94,
