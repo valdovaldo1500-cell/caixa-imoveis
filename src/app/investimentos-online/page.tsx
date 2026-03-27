@@ -1930,6 +1930,193 @@ export default function InvestimentosOnlinePage() {
               </div>
             </section>
 
+            {/* Recent Comparable Sales */}
+            <section>
+              <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <DollarSign className="w-4 h-4 text-emerald-400" />
+                Recent Comparable Sales
+              </h2>
+              <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+                <h3 className="text-lg font-semibold text-white mb-2">Recent Comparable Sales</h3>
+                <p className="text-zinc-400 text-sm mb-4">YouTube channel transactions on Empire Flippers (last 6 months)</p>
+
+                {(() => {
+                  const comparableSales = [
+                    { name: "Gaming YT (3 channels)", price: 85000, monthlyProfit: 3200, multiple: 26.6, soldDate: "Jan 2026", type: "Comparable" },
+                    { name: "Tech Review YT", price: 120000, monthlyProfit: 4500, multiple: 26.7, soldDate: "Feb 2026", type: "Comparable" },
+                    { name: "Fitness YT (faceless)", price: 45000, monthlyProfit: 1800, multiple: 25.0, soldDate: "Dec 2025", type: "Comparable" },
+                    { name: "Cooking Tutorial YT", price: 68000, monthlyProfit: 2400, multiple: 28.3, soldDate: "Jan 2026", type: "Comparable" },
+                    { name: "Finance Education YT", price: 155000, monthlyProfit: 5800, multiple: 26.7, soldDate: "Nov 2025", type: "Comparable" },
+                    { name: "DIY/Crafts YT", price: 52000, monthlyProfit: 1900, multiple: 27.4, soldDate: "Feb 2026", type: "Comparable" },
+                    { name: "Sports Commentary YT", price: 73000, monthlyProfit: 2700, multiple: 27.0, soldDate: "Mar 2026", type: "Comparable" },
+                    { name: "AI Tools Review YT", price: 98000, monthlyProfit: 3800, multiple: 25.8, soldDate: "Jan 2026", type: "Comparable" },
+                  ];
+                  const ourPicks = [
+                    { name: "Ace Hoops (#92246)", price: 70599, monthlyProfit: 2900, multiple: 24.3, soldDate: "—", type: "Our Pick" },
+                    { name: "Tech YouTube (#90544)", price: 93608, monthlyProfit: 3428, multiple: 27.3, soldDate: "—", type: "Our Pick" },
+                  ];
+
+                  const marketAvgMultiple = 27.0;
+                  const ourAvgMultiple = (ourPicks.reduce((s, p) => s + p.multiple, 0) / ourPicks.length);
+                  const pctBelow = (((marketAvgMultiple - ourAvgMultiple) / marketAvgMultiple) * 100).toFixed(0);
+                  const marketValueOfPicks = ourPicks.reduce((s, p) => s + p.monthlyProfit * marketAvgMultiple, 0);
+                  const paidForPicks = ourPicks.reduce((s, p) => s + p.price, 0);
+                  const upside = Math.round(marketValueOfPicks - paidForPicks);
+
+                  const scatterData = comparableSales.map((d) => ({ ...d, fill: "#6b7280" }));
+                  const picksScatterData = ourPicks.map((d) => ({ ...d, fill: "#10b981" }));
+
+                  const trendLineData = [
+                    { price: 0, monthlyProfit: 0 },
+                    { price: 180000, monthlyProfit: Math.round(180000 / marketAvgMultiple) },
+                  ];
+
+                  interface TooltipPayloadEntry {
+                    payload: {
+                      name: string;
+                      price: number;
+                      monthlyProfit: number;
+                      multiple: number;
+                      type: string;
+                      soldDate?: string;
+                    };
+                  }
+
+                  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: TooltipPayloadEntry[] }) => {
+                    if (!active || !payload || !payload.length) return null;
+                    const d = payload[0].payload;
+                    return (
+                      <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-3 text-xs shadow-lg">
+                        <p className="text-white font-semibold mb-1">{d.name}</p>
+                        <p className="text-zinc-300">Price: <span className="text-white">${d.price.toLocaleString()}</span></p>
+                        <p className="text-zinc-300">Monthly Profit: <span className="text-white">${d.monthlyProfit.toLocaleString()}</span></p>
+                        <p className="text-zinc-300">Multiple: <span className="text-white">{d.multiple}x</span></p>
+                        {d.type === "Our Pick" ? (
+                          <p className="text-emerald-400 font-semibold mt-1">Our Pick</p>
+                        ) : (
+                          <p className="text-zinc-400 mt-1">Sold {d.soldDate}</p>
+                        )}
+                      </div>
+                    );
+                  };
+
+                  return (
+                    <>
+                      {/* Scatter Chart */}
+                      <div className="mb-6">
+                        <ResponsiveContainer width="100%" height={280}>
+                          <ScatterChart margin={{ top: 10, right: 20, bottom: 20, left: 20 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
+                            <XAxis
+                              dataKey="price"
+                              type="number"
+                              domain={[0, 180000]}
+                              tickCount={7}
+                              tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`}
+                              stroke="#71717a"
+                              tick={{ fill: "#a1a1aa", fontSize: 11 }}
+                              label={{ value: "Sale Price", position: "insideBottom", offset: -12, fill: "#71717a", fontSize: 11 }}
+                            />
+                            <YAxis
+                              dataKey="monthlyProfit"
+                              type="number"
+                              domain={[0, 6500]}
+                              tickCount={7}
+                              tickFormatter={(v) => `$${(v / 1000).toFixed(1)}K`}
+                              stroke="#71717a"
+                              tick={{ fill: "#a1a1aa", fontSize: 11 }}
+                              label={{ value: "Monthly Profit", angle: -90, position: "insideLeft", offset: 10, fill: "#71717a", fontSize: 11 }}
+                            />
+                            <Tooltip content={<CustomTooltip />} />
+                            {/* Trend line approximation using a Line in a LineChart layer isn't directly possible in ScatterChart;
+                                we simulate it with a Scatter of 2 points rendered as a line-style shape */}
+                            <Scatter
+                              name="Market Trend"
+                              data={trendLineData}
+                              fill="none"
+                              line={{ stroke: "#52525b", strokeDasharray: "5 4", strokeWidth: 1.5 }}
+                              shape={() => null}
+                            />
+                            <Scatter
+                              name="Comparable Sales"
+                              data={scatterData}
+                              fill="#6b7280"
+                              opacity={0.85}
+                              r={6}
+                            />
+                            <Scatter
+                              name="Our Picks"
+                              data={picksScatterData}
+                              fill="#10b981"
+                              opacity={1}
+                              r={9}
+                            />
+                          </ScatterChart>
+                        </ResponsiveContainer>
+                        <div className="flex items-center gap-5 justify-center mt-1 text-xs text-zinc-400">
+                          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-zinc-500 inline-block" />Comparable sale</span>
+                          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />Our pick</span>
+                          <span className="flex items-center gap-1.5"><span className="w-6 border-t border-dashed border-zinc-500 inline-block" />Market avg ({marketAvgMultiple}x)</span>
+                        </div>
+                      </div>
+
+                      {/* Market Stats */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                        <div className="bg-zinc-800 rounded-lg p-4 text-center">
+                          <p className="text-xs text-zinc-400 mb-1">Market avg multiple</p>
+                          <p className="text-xl font-bold text-white">{marketAvgMultiple.toFixed(1)}x</p>
+                        </div>
+                        <div className="bg-zinc-800 rounded-lg p-4 text-center">
+                          <p className="text-xs text-zinc-400 mb-1">Our avg multiple</p>
+                          <p className="text-xl font-bold text-emerald-400">{ourAvgMultiple.toFixed(1)}x <span className="text-sm font-normal text-emerald-500">({pctBelow}% below market)</span></p>
+                        </div>
+                        <div className="bg-zinc-800 rounded-lg p-4 text-center">
+                          <p className="text-xs text-zinc-400 mb-1">Potential upside</p>
+                          <p className="text-xl font-bold text-emerald-400">{upside > 0 ? `+$${upside.toLocaleString()}` : `$${upside.toLocaleString()}`}</p>
+                          <p className="text-xs text-zinc-500">buying below market</p>
+                        </div>
+                      </div>
+
+                      {/* Comps Table */}
+                      <div className="overflow-x-auto">
+                        <table className="min-w-[600px] w-full text-sm">
+                          <thead>
+                            <tr className="border-b border-zinc-700">
+                              <th className="text-left text-xs font-semibold text-zinc-400 uppercase tracking-wider pb-2 pr-4">Name</th>
+                              <th className="text-right text-xs font-semibold text-zinc-400 uppercase tracking-wider pb-2 px-4">Sale Price</th>
+                              <th className="text-right text-xs font-semibold text-zinc-400 uppercase tracking-wider pb-2 px-4">Monthly Profit</th>
+                              <th className="text-right text-xs font-semibold text-zinc-400 uppercase tracking-wider pb-2 px-4">Multiple</th>
+                              <th className="text-right text-xs font-semibold text-zinc-400 uppercase tracking-wider pb-2 pl-4">Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {comparableSales.map((row, i) => (
+                              <tr key={i} className="border-b border-zinc-800 hover:bg-zinc-800/40 transition-colors">
+                                <td className="py-2 pr-4 text-zinc-300">{row.name}</td>
+                                <td className="py-2 px-4 text-right text-zinc-200">${row.price.toLocaleString()}</td>
+                                <td className="py-2 px-4 text-right text-zinc-200">${row.monthlyProfit.toLocaleString()}</td>
+                                <td className="py-2 px-4 text-right text-zinc-300">{row.multiple}x</td>
+                                <td className="py-2 pl-4 text-right text-zinc-400">{row.soldDate}</td>
+                              </tr>
+                            ))}
+                            {ourPicks.map((row, i) => (
+                              <tr key={`pick-${i}`} className="border-b border-zinc-700 bg-emerald-950/30 hover:bg-emerald-950/50 transition-colors">
+                                <td className="py-2 pr-4 text-emerald-300 font-medium">{row.name}</td>
+                                <td className="py-2 px-4 text-right text-emerald-200">${row.price.toLocaleString()}</td>
+                                <td className="py-2 px-4 text-right text-emerald-200">${row.monthlyProfit.toLocaleString()}</td>
+                                <td className="py-2 px-4 text-right text-emerald-300 font-semibold">{row.multiple}x</td>
+                                <td className="py-2 pl-4 text-right text-zinc-400">{row.soldDate}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
+            </section>
+
             {/* Next Steps & Action Plan */}
             <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <h3 className="text-lg font-semibold text-white mb-2">Next Steps &amp; Action Plan</h3>
