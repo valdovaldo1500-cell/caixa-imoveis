@@ -2337,23 +2337,26 @@ export const flippaListings: FlippaListing[] = [
       ],
     };
   })(),
-  // #12016298 — Content | Home and Garden | $50,000 | $1,761/mo | 42% ROI
+  // #12016298 — Content | SEO | $50,000 | £1,325/mo avg | AVOID
   (() => {
-    const a = 87, r = 82, rs = 75, e = 68;
+    // Verified P&L: CV=41%, revenue DECLINING -71% (£1,694→£493→£609), avg profit £1,325/mo
+    // Revenue cratered from £2K peak to £493 in Dec then slight recovery to £609 in Feb — still 71% below start
+    const a = 87, r = 30, rs = 50, e = 30;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
+    const cvPct = 41, trend = -71;
     return {
       id: "12016298",
-      title: "Content - Home and Garden",
-      niche: "Home and Garden",
+      title: "99%-Margin Content Site — 1.5M Sessions/Year, DA46, 11K Articles",
+      niche: "SEO / Content",
       price: 50000,
-      monthlyProfit: 1761,
+      monthlyProfit: 1325,
       monthlyRevenue: 0,
       monetization: "Affiliate Sales",
       multiple: 2.4,
       firstMadeMoney: 6,
       businessAge: 6,
-      description: "Content business in Home and Garden",
+      description: "6-year-old high-authority content site with 11K articles. Verified P&L shows revenue collapsing 71% — from £2,055 (May 2025) to £589 (Feb 2026). Site appears to have been hit by Google algorithm update. $50K for a dying traffic source.",
       status: "active",
       listingType: "buy_now",
       verificationStatus: "verified",
@@ -2363,18 +2366,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 50000),
+      recommendation: rec(ov, aiM, 50000, { verifiedPnL: true, cvPercent: cvPct, revenueTrend: trend }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: true,
+      profitConsistency: "moderate",
+      revenueTrend: trend,
+      monthlyProfitRange: "£473–£2,095",
+      cvPercent: cvPct,
       reasonsFor: [
-      "Highly autonomous — AI+VA can run with minimal oversight",
-      "Low risk profile — verified financials, diversified",
-      "Verified Listing — financials independently confirmed by Flippa",
-      "Proven track record: 6+ years in operation",
-      "Attractive 2.4x multiple — below market average of 3x"
+        "High domain authority (DA46) and 11K articles — significant SEO asset",
+        "99% profit margin — nearly zero expenses",
+        "6 years old with large backlink profile"
       ],
       reasonsAgainst: [
-      "Further due diligence required before commitment"
+        "Revenue declined 71% in 12 months — from £2,055 to £589 — classic Google algo hit",
+        "Current monthly profit ~£589 at asking price gives 14.2% ROI — not £1,325 claimed",
+        "Recovery from algorithm penalties is uncertain and often permanent",
+        "CV=41% — high volatility confirms traffic instability"
       ],
     };
   })(),
