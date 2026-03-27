@@ -1168,6 +1168,89 @@ export default function InvestimentosOnlinePage() {
               </div>
             </section>
 
+            {/* Investment Decision Matrix */}
+            <section>
+              <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-emerald-400" />
+                Investment Decision Matrix
+              </h2>
+              <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+                <h3 className="text-lg font-semibold text-white mb-2">Investment Decision Matrix</h3>
+                <p className="text-zinc-400 text-sm mb-4">Side-by-side comparison across 8 key decision factors</p>
+                <div className="overflow-x-auto">
+                  <table className="min-w-[700px] w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-zinc-700">
+                        <th className="text-left py-3 pr-4 font-medium text-zinc-400 w-48">Factor</th>
+                        <th className="text-center py-3 px-4 font-medium text-zinc-400">Ace Hoops<br /><span className="text-zinc-600 font-normal text-xs">#92246</span></th>
+                        <th className="text-center py-3 px-4 font-medium text-zinc-400">Tech YouTube<br /><span className="text-zinc-600 font-normal text-xs">#90544</span></th>
+                        <th className="text-center py-3 px-4 font-medium text-zinc-400">Faceless Tutorials<br /><span className="text-zinc-600 font-normal text-xs">#91304</span></th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-800">
+                      {[
+                        { factor: "Revenue Stability", scores: [2, 4, 3], notes: ["seasonal", "consistent", "declining"] },
+                        { factor: "Growth Potential",  scores: [5, 3, 3], notes: ["WNBA boom", "steady", "needs work"] },
+                        { factor: "Operator Time Required", scores: [5, 4, 3], notes: ["1hr/wk", "2hrs/wk", "5hrs/wk"] },
+                        { factor: "Key-Person Risk",   scores: [4, 5, 5], notes: ["faceless", "fully automated", "faceless"] },
+                        { factor: "Platform Diversification", scores: [1, 2, 1], notes: ["YouTube only", "YouTube only, 3 channels", "YouTube only"] },
+                        { factor: "Price/Value Ratio", scores: [4, 5, 4], notes: ["below median multiple", "below replacement cost", "if negotiated"] },
+                        { factor: "Content Moat",      scores: [3, 2, 2], notes: ["niche expertise", "replicable format", "replicable"] },
+                        { factor: "Scalability",       scores: [4, 5, 3], notes: ["VA-ready, seasonal scaling", "automation pipeline", "manual scaling"] },
+                      ].map(({ factor, scores, notes }) => (
+                        <tr key={factor} className="hover:bg-zinc-800/30 transition-colors">
+                          <td className="py-3 pr-4 text-zinc-300 font-medium">{factor}</td>
+                          {scores.map((score, i) => {
+                            const color = score >= 4 ? "bg-emerald-500" : score === 3 ? "bg-amber-500" : "bg-red-500";
+                            const textColor = score >= 4 ? "text-emerald-400" : score === 3 ? "text-amber-400" : "text-red-400";
+                            return (
+                              <td key={i} className="py-3 px-4 text-center">
+                                <div className="flex items-center justify-center gap-0.5 mb-1">
+                                  {Array.from({ length: 5 }).map((_, j) => (
+                                    <div
+                                      key={j}
+                                      className={`w-3 h-3 rounded-full ${j < score ? color : "bg-zinc-700"}`}
+                                    />
+                                  ))}
+                                </div>
+                                <span className={`text-xs ${textColor}`}>{notes[i]}</span>
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      ))}
+                      {/* Overall Score row */}
+                      <tr className="bg-zinc-800 border-t-2 border-zinc-600">
+                        <td className="py-4 pr-4 font-bold text-white text-base">Overall Score</td>
+                        {[
+                          { score: "3.5/5", color: "text-amber-400" },
+                          { score: "3.75/5", color: "text-emerald-400" },
+                          { score: "3.0/5", color: "text-amber-400" },
+                        ].map(({ score, color }, i) => (
+                          <td key={i} className="py-4 px-4 text-center">
+                            <span className={`text-lg font-bold ${color}`}>{score}</span>
+                          </td>
+                        ))}
+                      </tr>
+                      {/* Verdict row */}
+                      <tr className="border-t border-zinc-700">
+                        <td className="py-4 pr-4 font-bold text-white">Verdict</td>
+                        <td className="py-4 px-4 text-center">
+                          <span className="inline-block bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-md px-2 py-1 text-xs font-semibold">BUY — seasonal alpha play</span>
+                        </td>
+                        <td className="py-4 px-4 text-center">
+                          <span className="inline-block bg-emerald-500/20 text-emerald-300 border border-emerald-400/50 rounded-md px-2 py-1 text-xs font-bold ring-1 ring-emerald-400/30">STRONG BUY — best risk/reward</span>
+                        </td>
+                        <td className="py-4 px-4 text-center">
+                          <span className="inline-block bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-md px-2 py-1 text-xs font-semibold">BUY IF NEGOTIATED — needs discount</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
             {/* Top Picks */}
             {topPicks.length > 0 && (
               <section>
