@@ -1402,6 +1402,90 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Seller Profile ────────────────────────────────────── */}
+            {(() => {
+              if (!data?.assessment || data.assessment.verdictColor === "red") return null;
+              const sellerProfiles: Record<string, {
+                sellerType: string;
+                timeOnPlatform: string;
+                reasonForSelling: string;
+                otherBusinesses: string;
+                responseTime: string;
+                negotiationStance: string;
+                flag: { type: "red" | "amber" | "green"; label: string; text: string };
+                sellerSupport: string;
+              }> = {
+                "92246": {
+                  sellerType: "Individual (Netherlands-based)",
+                  timeOnPlatform: "First listing",
+                  reasonForSelling: "Focusing on men's basketball channel",
+                  otherBusinesses: "Owns competing men's basketball YouTube channel",
+                  responseTime: "Fast (typically within 24hrs)",
+                  negotiationStance: "Motivated — dropped price from $86K to $71K",
+                  flag: { type: "red", label: "Red Flag", text: "Competing channel could split audience post-sale" },
+                  sellerSupport: "30-day email support + content production handoff",
+                },
+                "90544": {
+                  sellerType: "Business entity",
+                  timeOnPlatform: "Experienced seller (2+ listings)",
+                  reasonForSelling: "Portfolio rebalancing",
+                  otherBusinesses: "Multiple content properties",
+                  responseTime: "Moderate (1–3 days)",
+                  negotiationStance: "Firm on price — well-established valuation",
+                  flag: { type: "green", label: "Green Flag", text: "Professional seller, clean documentation expected" },
+                  sellerSupport: "14-day Zoom training + automation docs",
+                },
+                "91304": {
+                  sellerType: "Individual",
+                  timeOnPlatform: "First listing",
+                  reasonForSelling: "Moving to new projects",
+                  otherBusinesses: "Unknown",
+                  responseTime: "Slow (3–5 days)",
+                  negotiationStance: "Flexible — channel declining, wants to exit",
+                  flag: { type: "amber", label: "Amber Flag", text: "Slow response may indicate disengagement" },
+                  sellerSupport: "7-day email support",
+                },
+              };
+              const profile = sellerProfiles[id];
+              if (!profile) return null;
+              const flagColors: Record<string, string> = {
+                red: "border-l-4 border-red-500 bg-red-500/10 pl-3",
+                amber: "border-l-4 border-yellow-500 bg-yellow-500/10 pl-3",
+                green: "border-l-4 border-emerald-500 bg-emerald-500/10 pl-3",
+              };
+              const flagTextColors: Record<string, string> = {
+                red: "text-red-400",
+                amber: "text-yellow-400",
+                green: "text-emerald-400",
+              };
+              const rows: { label: string; value: string }[] = [
+                { label: "Seller Type", value: profile.sellerType },
+                { label: "Time on Platform", value: profile.timeOnPlatform },
+                { label: "Reason for Selling", value: profile.reasonForSelling },
+                { label: "Other Businesses", value: profile.otherBusinesses },
+                { label: "Response Time", value: profile.responseTime },
+                { label: "Negotiation Stance", value: profile.negotiationStance },
+                { label: "Seller Support", value: profile.sellerSupport },
+              ];
+              return (
+                <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+                  <h3 className="text-lg font-semibold text-white mb-4">Seller Profile</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+                    {rows.map((row) => (
+                      <div key={row.label} className="flex justify-between py-1.5 border-b border-zinc-800/50">
+                        <span className="text-zinc-500 text-sm">{row.label}</span>
+                        <span className="text-zinc-300 text-sm text-right ml-4">{row.value}</span>
+                      </div>
+                    ))}
+                    <div className={`col-span-1 md:col-span-2 mt-2 py-2 rounded ${flagColors[profile.flag.type]}`}>
+                      <span className={`text-sm font-semibold ${flagTextColors[profile.flag.type]}`}>{profile.flag.label}: </span>
+                      <span className="text-zinc-300 text-sm">{profile.flag.text}</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* ── Competitor Landscape ──────────────────────────────── */}
             {(() => {
               const competitors: Record<string, { name: string; subs: string; videos: string; niche: string; monet: string }[]> = {
