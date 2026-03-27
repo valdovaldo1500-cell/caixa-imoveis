@@ -1203,10 +1203,10 @@ export default function InvestimentosOnlinePage() {
                           return labels[value] ?? value;
                         }}
                       />
-                      <Bar dataKey="aceHoops" stackId="a" fill="#3b82f6" radius={[0, 0, 0, 0]} />
-                      <Bar dataKey="techYT"   stackId="a" fill="#8b5cf6" />
-                      <Bar dataKey="tutorials" stackId="a" fill="#f59e0b" />
-                      <Bar dataKey="cash"     stackId="a" fill="#6b7280" radius={[0, 4, 4, 0]} />
+                      <Bar dataKey="aceHoops"  stackId="a" fill="#3b82f6" radius={[0, 0, 0, 0]} />
+                      <Bar dataKey="tutorials" stackId="a" fill="#8b5cf6" />
+                      <Bar dataKey="thirdAcq"  stackId="a" fill="#f59e0b" />
+                      <Bar dataKey="cash"      stackId="a" fill="#6b7280" radius={[0, 4, 4, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
