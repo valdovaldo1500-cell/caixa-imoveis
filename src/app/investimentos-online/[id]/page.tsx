@@ -873,6 +873,61 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Growth Opportunities ──────────────────────────────── */}
+            {(() => {
+              const opportunities = GROWTH_OPPORTUNITIES[id];
+              if (!opportunities || !data?.assessment || data.assessment.verdictColor === "red") return null;
+
+              // Parse "X-Y%" strings to extract numeric min and max
+              const upliftNumbers = opportunities.flatMap((o) => {
+                const matches = o.revenueUplift.match(/\d+/g);
+                return matches ? matches.map(Number) : [];
+              });
+              const totalMin = upliftNumbers.length > 0 ? Math.min(...upliftNumbers) : 0;
+              const totalMax = upliftNumbers.length > 0 ? Math.max(...upliftNumbers) : 0;
+
+              const difficultyColor = (d: string) => {
+                if (d === "Low") return "text-emerald-400";
+                if (d === "Medium") return "text-amber-400";
+                return "text-red-400";
+              };
+
+              return (
+                <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+                  <h3 className="text-lg font-semibold text-white mb-4">Growth Opportunities</h3>
+                  <p className="text-zinc-400 text-sm mb-4">Actionable strategies to increase revenue post-acquisition</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {opportunities.map((opp) => (
+                      <div
+                        key={opp.strategy}
+                        className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/30 hover:border-zinc-600/50 transition-colors"
+                      >
+                        <p className="text-white font-medium text-sm">{opp.strategy}</p>
+                        <p className="text-zinc-400 text-xs mt-1">{opp.description}</p>
+                        <div className="flex items-center gap-3 mt-3 flex-wrap">
+                          <span className="bg-emerald-500/10 text-emerald-400 text-xs px-2 py-0.5 rounded">
+                            +{opp.revenueUplift}
+                          </span>
+                          <span className={`${difficultyColor(opp.difficulty)} text-xs`}>
+                            {opp.difficulty} difficulty
+                          </span>
+                          <span className="text-zinc-500 text-xs">{opp.timeToImplement}</span>
+                        </div>
+                        <p className="text-zinc-500 text-xs mt-2">Investment: {opp.investment}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-zinc-800 flex items-center gap-2">
+                    <span className="text-zinc-400 text-sm">Total potential uplift:</span>
+                    <span className="bg-emerald-500/10 text-emerald-400 text-sm font-semibold px-3 py-1 rounded">
+                      {totalMin}–{totalMax}%
+                    </span>
+                    <span className="text-zinc-500 text-xs">(combined maximum across all strategies)</span>
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* ── Competitor Landscape ──────────────────────────────── */}
             {(() => {
               const competitors: Record<string, { name: string; subs: string; videos: string; niche: string; monet: string }[]> = {
