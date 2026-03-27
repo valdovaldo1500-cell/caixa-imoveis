@@ -2900,9 +2900,9 @@ export default function InvestimentosOnlinePage() {
                   </div>
                 </div>
                 <div className="bg-zinc-800/30 rounded-lg p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-blue-400 mb-3">Tech YouTube #90544</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-blue-400 mb-3">Faceless Tutorials #91304</p>
                   {[
-                    { label: "Listing price", value: "$79,000" },
+                    { label: "Listing price", value: "$45,000" },
                     { label: "EF Migration Fee", value: "$0" },
                     { label: "Migration setup", value: "$500" },
                   ].map(({ label, value }) => (
@@ -2913,7 +2913,7 @@ export default function InvestimentosOnlinePage() {
                   ))}
                   <div className="flex justify-between items-center pt-2 mt-1">
                     <span className="text-zinc-300 font-semibold">Subtotal</span>
-                    <span className="text-blue-400 font-bold">$79,500</span>
+                    <span className="text-blue-400 font-bold">$45,500</span>
                   </div>
                 </div>
               </div>
