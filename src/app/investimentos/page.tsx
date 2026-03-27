@@ -708,7 +708,7 @@ function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemo
                   <div className="bg-zinc-800/50 rounded p-2 cursor-pointer hover:bg-zinc-700/50 hover:ring-1 hover:ring-zinc-600 transition-all" onClick={() => setPopup("itbi")}>
                     <div className="text-xs text-zinc-500">ITBI (transacoes reais)</div>
                     <div className="text-sm font-medium text-white underline decoration-dotted underline-offset-2">{brl(n(p.marketValue))}</div>
-                    <div className="text-xs text-zinc-500">{n(p.marketValuePerM2) > 0 ? `${brl(n(p.marketValuePerM2))}/m²` : ""} &middot; {(p.comparablesTier1Count || 0) + (p.comparablesTier2Count || 0)} comps</div>
+                    <div className="text-xs text-zinc-500">{n(p.marketValuePerM2) > 0 ? `${brl(n(p.marketValuePerM2))}/m²` : ""} &middot; {p.comparablesCount || p.comparablesTier1Count || 0} comps</div>
                   </div>
                 )}
                 {n(p.zapMarketValue) > 0 && (
