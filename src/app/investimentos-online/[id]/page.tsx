@@ -1210,6 +1210,68 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Tax & Legal Considerations ───────────────────────── */}
+            {data?.assessment && data.assessment.verdictColor !== "red" && (
+              <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+                <h3 className="text-lg font-semibold text-white mb-4">Tax &amp; Legal Considerations</h3>
+                <div className="space-y-3">
+
+                  <div className="bg-zinc-800/50 rounded-lg p-4 space-y-2">
+                    <p className="text-white text-sm font-medium">1. US Tax Withholding (W-8BEN)</p>
+                    <ul className="text-zinc-400 text-xs list-disc pl-4 space-y-1">
+                      <li>As a non-US buyer, YouTube/Google withholds 30% of US-sourced ad revenue</li>
+                      <li>File W-8BEN to reduce this to 0-15% depending on tax treaty</li>
+                      <li>Brazil-US tax treaty: 15% withholding rate on royalties</li>
+                      <li>UK-US tax treaty: 0% withholding on business profits (favorable)</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-zinc-800/50 rounded-lg p-4 space-y-2">
+                    <p className="text-white text-sm font-medium">2. Entity Structure</p>
+                    <ul className="text-zinc-400 text-xs list-disc pl-4 space-y-1">
+                      <li>Recommended: US LLC (Wyoming or Delaware) for asset holding</li>
+                      <li>Formation cost: ~$300-500 + annual fees ~$100-200</li>
+                      <li>Provides liability protection and simplifies AdSense account transfer</li>
+                      <li>EIN (Employer Identification Number) needed for US tax filings</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-zinc-800/50 rounded-lg p-4 space-y-2">
+                    <p className="text-white text-sm font-medium">3. Empire Flippers Transfer Process</p>
+                    <ul className="text-zinc-400 text-xs list-disc pl-4 space-y-1">
+                      <li>EF acts as escrow — funds held until transfer complete</li>
+                      <li>Typical transfer period: 14-30 days</li>
+                      <li>Buyer inspection period: 14 days (can request extension)</li>
+                      <li>EF fee: Already included in listing price (paid by seller)</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-zinc-800/50 rounded-lg p-4 space-y-2">
+                    <p className="text-white text-sm font-medium">4. Ongoing Compliance</p>
+                    <ul className="text-zinc-400 text-xs list-disc pl-4 space-y-1">
+                      <li>US tax return (Form 1040-NR or 1065) required annually</li>
+                      <li>Brazilian/UK income reporting: include foreign income</li>
+                      <li>Keep records of all content production costs (deductible)</li>
+                      <li>Currency considerations: Revenue in USD, expenses may be in BRL/GBP/PHP</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-zinc-800/50 rounded-lg p-4 space-y-2">
+                    <p className="text-white text-sm font-medium">5. Key Risks</p>
+                    <ul className="text-zinc-400 text-xs list-disc pl-4 space-y-1">
+                      <li>AdSense account must be in your name/entity — verify transferability</li>
+                      <li>Some countries restrict foreign ownership of media assets</li>
+                      <li>YouTube Partner Program requirements must be maintained</li>
+                    </ul>
+                  </div>
+
+                  <p className="text-zinc-600 text-xs italic pt-1">
+                    This is general guidance, not legal or tax advice. Consult a qualified cross-border tax advisor before proceeding.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* ── Competitor Landscape ──────────────────────────────── */}
             {(() => {
               const competitors: Record<string, { name: string; subs: string; videos: string; niche: string; monet: string }[]> = {
