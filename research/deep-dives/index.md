@@ -62,8 +62,7 @@ All 18 listings evaluated. Last updated: 2026-03-27
 
 ## Recommended Portfolio (within $160K budget)
 
-**Primary:** #92246 Ace Hoops WNBA ($62K negotiated) + #90544 3x Faceless Tech (downgraded, skip)
-**Revised primary:** #92246 Ace Hoops WNBA ($62K negotiated) + #91304 Digital Media Tutorials ($45K negotiated) = ~$107K total
+**Primary:** #92246 Ace Hoops WNBA ($62K negotiated) + #91304 Digital Media Tutorials ($45K negotiated) = ~$107K total
 **Optionally add:** #89555 photopacks.ai if negotiated to $45-50K → ~$155K total
 
 ## Browser-Verified Listings
