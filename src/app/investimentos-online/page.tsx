@@ -1885,6 +1885,83 @@ export default function InvestimentosOnlinePage() {
               </div>
             </section>
 
+            {/* Next Steps & Action Plan */}
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+              <h3 className="text-lg font-semibold text-white mb-2">Next Steps &amp; Action Plan</h3>
+              <p className="text-zinc-400 text-sm mb-6">Recommended acquisition workflow</p>
+
+              {/* Timeline bar */}
+              <div className="bg-zinc-800 rounded-lg px-4 py-3 mb-6 flex items-center gap-3">
+                <span className="text-xs text-zinc-400 font-medium">Total Timeline:</span>
+                <span className="text-sm text-emerald-400 font-semibold">~8-12 weeks from LOI to optimized operations</span>
+              </div>
+
+              {/* Phase 1 */}
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-wider text-emerald-400 mb-3">Phase 1 — Due Diligence (Week 1-2)</p>
+                {[
+                  { n: 1, text: "Request P&L access via EF buyer portal for #92246 and #90544" },
+                  { n: 2, text: "Verify YouTube Analytics screenshots match stated revenue" },
+                  { n: 3, text: "Confirm Google AdSense account transfer process with EF" },
+                  { n: 4, text: "Check channel for any active copyright strikes or community guidelines warnings" },
+                  { n: 5, text: "Review content production workflow documentation" },
+                ].map(({ n, text }) => (
+                  <div key={n} className="flex items-start gap-3 py-2 border-b border-zinc-800/50">
+                    <span className="w-6 h-6 rounded-full bg-zinc-800 text-zinc-400 text-xs flex items-center justify-center flex-shrink-0">{n}</span>
+                    <span className="text-zinc-300 text-sm">{text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Phase 2 */}
+              <div className="mt-6">
+                <p className="text-sm font-semibold uppercase tracking-wider text-emerald-400 mb-3">Phase 2 — Negotiation (Week 2-3)</p>
+                {[
+                  { n: 6, text: "Submit LOI for Ace Hoops at $55K (11% below asking)" },
+                  { n: 7, text: "Submit LOI for Tech YouTube at $70K (11% below asking)" },
+                  { n: 8, text: "Total negotiated price target: $125K (saving $16K vs asking)" },
+                  { n: 9, text: "Negotiate 30-day post-sale support from sellers" },
+                ].map(({ n, text }) => (
+                  <div key={n} className="flex items-start gap-3 py-2 border-b border-zinc-800/50">
+                    <span className="w-6 h-6 rounded-full bg-zinc-800 text-zinc-400 text-xs flex items-center justify-center flex-shrink-0">{n}</span>
+                    <span className="text-zinc-300 text-sm">{text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Phase 3 */}
+              <div className="mt-6">
+                <p className="text-sm font-semibold uppercase tracking-wider text-emerald-400 mb-3">Phase 3 — Transition (Week 3-6)</p>
+                {[
+                  { n: 10, text: "Set up new Google/AdSense accounts for asset transfer" },
+                  { n: 11, text: "Onboard 2 VAs for content production ($800-1,200/month total)" },
+                  { n: 12, text: "Document all automation pipelines and content workflows" },
+                  { n: 13, text: "Establish baseline metrics dashboard for tracking post-acquisition" },
+                ].map(({ n, text }) => (
+                  <div key={n} className="flex items-start gap-3 py-2 border-b border-zinc-800/50">
+                    <span className="w-6 h-6 rounded-full bg-zinc-800 text-zinc-400 text-xs flex items-center justify-center flex-shrink-0">{n}</span>
+                    <span className="text-zinc-300 text-sm">{text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Phase 4 */}
+              <div className="mt-6">
+                <p className="text-sm font-semibold uppercase tracking-wider text-emerald-400 mb-3">Phase 4 — Optimization (Month 2-3)</p>
+                {[
+                  { n: 14, text: "Implement growth strategies from analysis (affiliate links, Shorts)" },
+                  { n: 15, text: "A/B test thumbnails on top 50 videos for CTR improvement" },
+                  { n: 16, text: "Build off-season content strategy for Ace Hoops (starts Oct)" },
+                  { n: 17, text: "Evaluate acquisition of 3rd channel once cash flow stabilizes" },
+                ].map(({ n, text }) => (
+                  <div key={n} className="flex items-start gap-3 py-2 border-b border-zinc-800/50">
+                    <span className="w-6 h-6 rounded-full bg-zinc-800 text-zinc-400 text-xs flex items-center justify-center flex-shrink-0">{n}</span>
+                    <span className="text-zinc-300 text-sm">{text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Warning */}
             <section className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4">
               <div className="flex gap-2 items-start">
