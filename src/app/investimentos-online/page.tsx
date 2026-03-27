@@ -3305,7 +3305,7 @@ export default function InvestimentosOnlinePage() {
                   },
                   {
                     q: "How much time do I actually need to invest?",
-                    a: "For this portfolio: ~5 hours/week total (4 hrs Ace Hoops + 1 hr Tech YouTube). With VA support and AI automation, this can drop to ~2 hours/week for oversight only. The channels are designed for hands-off operation.",
+                    a: "For this portfolio: ~8 hours/week total (6 hrs Ace Hoops + 2 hrs Faceless Tutorials). With VA support and AI automation, this can drop to ~2 hours/week for oversight only. The channels are designed for hands-off operation.",
                   },
                   {
                     q: "What if YouTube changes its algorithm?",
