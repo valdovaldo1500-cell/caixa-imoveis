@@ -2655,8 +2655,9 @@ Best regards,
               const sumBase = projData.reduce((a, b) => a + b.base, 0);
               const sumBear = projData.reduce((a, b) => a + b.bear, 0);
               return (
-                <SectionCard icon={TrendingUp} title="Content Performance Projections" subtitle="12-month forward projections based on historical trends" iconColor="text-blue-400">
+                <SectionCard icon={TrendingUp} title="Content Performance Projections" iconColor="text-blue-400">
                   <div className="space-y-5">
+                    <p className="text-xs text-zinc-500">12-month forward projections based on historical trends</p>
                     <ResponsiveContainer width="100%" height={300}>
                       <ComposedChart data={projData} margin={{ top: 5, right: 10, left: 10, bottom: 30 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
