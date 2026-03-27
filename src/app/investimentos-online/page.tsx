@@ -610,6 +610,7 @@ export default function InvestimentosOnlinePage() {
     "92299", // AI music gifts — $103K overpriced for 1yr old
     "90674", // video game assets — dead, Feb $230
     "90449", // removed from EF marketplace
+    "90544", // dying — recent videos 0 views, not AI voiceover, freelancer costs
   ]);
 
   const topPicks = useMemo(
