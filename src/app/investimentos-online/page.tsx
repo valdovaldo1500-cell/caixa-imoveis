@@ -185,8 +185,40 @@ function KpiCard({
   );
 }
 
+function Sparkline({ data }: { data: { month: string; profit: number }[] }) {
+  if (!data || data.length < 2) return null;
+  // Use last 12 data points at most
+  const pts = data.slice(-12);
+  const first = pts[0].profit;
+  const last = pts[pts.length - 1].profit;
+  const mid = pts[Math.floor(pts.length / 2)].profit;
+  const trending = last >= first * 0.95 || last >= mid; // up or flat
+  const color = trending ? "#10b981" : "#ef4444";
+  const gradId = `spark-grad-${trending ? "up" : "dn"}`;
+  return (
+    <AreaChart width={120} height={40} data={pts} margin={{ top: 2, right: 2, left: 2, bottom: 2 }}>
+      <defs>
+        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor={color} stopOpacity={0.25} />
+          <stop offset="95%" stopColor={color} stopOpacity={0} />
+        </linearGradient>
+      </defs>
+      <Area
+        type="monotone"
+        dataKey="profit"
+        stroke={color}
+        strokeWidth={1.5}
+        fill={`url(#${gradId})`}
+        dot={false}
+        isAnimationActive={false}
+      />
+    </AreaChart>
+  );
+}
+
 function TopPickCard({ listing }: { listing: EFListing }) {
   const roi = annualRoi(listing.price, listing.monthlyProfit);
+  const financials = LISTING_FINANCIALS.find((f) => f.id === listing.id);
   return (
     <div className="bg-zinc-800 border border-emerald-500/30 rounded-xl p-5 flex flex-col gap-4">
       <div className="flex items-start justify-between gap-2">
