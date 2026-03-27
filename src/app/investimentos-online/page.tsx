@@ -2606,14 +2606,16 @@ export default function InvestimentosOnlinePage() {
                       contentStyle={{ backgroundColor: "#18181b", border: "1px solid #3f3f46", borderRadius: 8 }}
                       labelStyle={{ color: "#fff", fontWeight: 600, marginBottom: 4 }}
                       itemStyle={{ color: "#a1a1aa", fontSize: 12 }}
-                      formatter={(value: number, name: string) => {
+                      formatter={(value: unknown, name: unknown) => {
                         const labels: Record<string, string> = {
                           listingPrice: "Listing Price",
                           migration: "Migration Setup",
                           shared: "Shared One-Time",
                           recurring6mo: "6-Mo Operating",
                         };
-                        return [`$${(value * 1000).toLocaleString()}`, labels[name] ?? name];
+                        const n = name as string;
+                        const v = value as number;
+                        return [`$${(v * 1000).toLocaleString()}`, labels[n] ?? n];
                       }}
                     />
                     <Legend
