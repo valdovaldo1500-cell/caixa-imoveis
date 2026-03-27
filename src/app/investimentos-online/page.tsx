@@ -2516,8 +2516,8 @@ export default function InvestimentosOnlinePage() {
                 <p className="text-sm font-semibold uppercase tracking-wider text-emerald-400 mb-3">Phase 2 — Negotiation (Week 2-3)</p>
                 {[
                   { n: 6, text: "Submit LOI for Ace Hoops at $55K (11% below asking)" },
-                  { n: 7, text: "Submit LOI for Tech YouTube at $70K (11% below asking)" },
-                  { n: 8, text: "Total negotiated price target: $125K (saving $16K vs asking)" },
+                  { n: 7, text: "Submit LOI for Faceless Tutorials #91304 at $40K (33% below asking)" },
+                  { n: 8, text: "Total negotiated price target: $95K (saving $25K vs asking)" },
                   { n: 9, text: "Negotiate 30-day post-sale support from sellers" },
                 ].map(({ n, text }) => (
                   <div key={n} className="flex items-start gap-3 py-2 border-b border-zinc-800/50">
