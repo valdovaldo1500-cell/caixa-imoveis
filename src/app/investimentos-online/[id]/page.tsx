@@ -1486,6 +1486,81 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Buyer Skill Match ─────────────────────────────────── */}
+            {(() => {
+              if (!data?.assessment || data.assessment.verdictColor === "red") return null;
+              const skillData: Record<string, { skills: { subject: string; score: number }[]; overall: number }> = {
+                "92246": {
+                  skills: [
+                    { subject: "Python/AI", score: 9 },
+                    { subject: "Content Creation", score: 3 },
+                    { subject: "YouTube SEO", score: 5 },
+                    { subject: "Sports Knowledge", score: 4 },
+                    { subject: "Team Management", score: 7 },
+                    { subject: "Financial Analysis", score: 8 },
+                  ],
+                  overall: 6.0,
+                },
+                "90544": {
+                  skills: [
+                    { subject: "Python/AI", score: 10 },
+                    { subject: "Content Creation", score: 2 },
+                    { subject: "YouTube SEO", score: 4 },
+                    { subject: "Tech Domain", score: 9 },
+                    { subject: "Team Management", score: 5 },
+                    { subject: "Financial Analysis", score: 7 },
+                  ],
+                  overall: 6.2,
+                },
+                "91304": {
+                  skills: [
+                    { subject: "Python/AI", score: 8 },
+                    { subject: "Content Creation", score: 5 },
+                    { subject: "YouTube SEO", score: 7 },
+                    { subject: "Tutorial Expertise", score: 6 },
+                    { subject: "Team Management", score: 6 },
+                    { subject: "Financial Analysis", score: 6 },
+                  ],
+                  overall: 6.3,
+                },
+              };
+              const entry = skillData[id];
+              if (!entry) return null;
+              return (
+                <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+                  <h3 className="text-lg font-semibold text-white mb-1">Buyer Skill Match</h3>
+                  <p className="text-xs text-zinc-500 mb-4">Based on your background in Python, AI/automation, and data analysis</p>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <RadarChart data={entry.skills} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
+                      <PolarGrid stroke="#3f3f46" />
+                      <PolarAngleAxis
+                        dataKey="subject"
+                        tick={{ fill: "#a1a1aa", fontSize: 12 }}
+                      />
+                      <PolarRadiusAxis
+                        angle={90}
+                        domain={[0, 10]}
+                        tick={{ fill: "#71717a", fontSize: 10 }}
+                        tickCount={6}
+                      />
+                      <Radar
+                        name="Skill Match"
+                        dataKey="score"
+                        stroke="#10b981"
+                        fill="#10b981"
+                        fillOpacity={0.3}
+                      />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                  <div className="mt-4 text-center">
+                    <span className="text-3xl font-bold text-emerald-400">{entry.overall.toFixed(1)}</span>
+                    <span className="text-zinc-400 text-lg">/10</span>
+                    <p className="text-zinc-500 text-sm mt-1">Buyer Skill Match</p>
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* ── Competitor Landscape ──────────────────────────────── */}
             {(() => {
               const competitors: Record<string, { name: string; subs: string; videos: string; niche: string; monet: string }[]> = {
