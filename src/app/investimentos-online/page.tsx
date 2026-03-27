@@ -953,7 +953,7 @@ export default function InvestimentosOnlinePage() {
                   <ul className="text-xs text-zinc-400 space-y-1.5">
                     <li className="flex gap-2"><span className="text-emerald-400">✓</span><span><span className="text-white">Option A recommended</span>: both faceless, AI-managed, complementary seasonality, ~£4,900/mo in-season</span></li>
                     <li className="flex gap-2"><span className="text-emerald-400">✓</span><span>Tech YouTube offsets Ace Hoops off-season dip — year-round income floor</span></li>
-                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Tech YouTube MUST be negotiated to $79K max — current run rate $3,389/mo makes asking $93K unjustifiable</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Tech YouTube MUST be negotiated to $79K max — current run rate $3,428/mo makes asking $93K unjustifiable</span></li>
                     <li className="flex gap-2"><span className="text-amber-400">!</span><span>Ace Hoops: 2026 WNBA season starts May — buying March = full season ahead</span></li>
                     <li className="flex gap-2"><span className="text-red-400">✗</span><span>photopacks.ai at asking price: DO NOT BUY — traffic crashed 78%, 32x on declining metrics</span></li>
                     <li className="flex gap-2"><span className="text-amber-400">!</span><span>Both picks: negotiate 60-day earnout + verify P&amp;L via bank statements before closing</span></li>
