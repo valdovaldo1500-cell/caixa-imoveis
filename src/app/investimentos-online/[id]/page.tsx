@@ -1112,7 +1112,7 @@ export default function InvestimentosOnlineDetailPage() {
               iconColor="text-blue-400"
             >
               <div className="overflow-x-auto -mx-1">
-                <table className="w-full text-xs">
+                <table className="w-full text-xs min-w-[600px]">
                   <thead>
                     <tr className="border-b border-zinc-700">
                       <th className="text-left text-zinc-500 font-medium pb-2 pr-4">Business</th>
