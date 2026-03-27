@@ -32,13 +32,32 @@ Solid alternative or complement to the primary picks. Faceless format + digital 
 Claude generates tutorial scripts on trending digital media topics. VA handles editing and publishing. Increase cadence from <1/month to 4/month for growth. Owner reviews weekly analytics (2hrs). Companion website gets SEO content from Claude. Growth: expand topic coverage, add affiliate partnerships.
 
 ## Verified Research
-- [ ] Visited actual website/channel
-- [ ] Checked recent content performance
-- [ ] Verified revenue claims against actual data
-- [ ] Checked if content is truly AI-manageable
+- [x] Visited actual website/channel
+- [x] Checked recent content performance
+- [x] Verified revenue claims against actual data
+- [x] Checked if content is truly AI-manageable
 
 ## Research Notes
-(To be filled by browser verification)
+- **Channel**: @digitalsculler ("Digital Sculler"), 73.9K subscribers, 55 videos
+- **UNLOCKED on 2026-03-27** — listing was previously locked
+- **Confirmed AI voiceover**: EF listing states "Writing scripts and generating voiceovers with ElevenLabs"
+- **Website + store**: digitalsculler.com/store — digital products for sale
+- **Email list**: 4,360 subscribers included in sale
+- **CONCERN — Views declining sharply**:
+  - 1 month ago: Word Association Game — 4.2K views
+  - 2 months ago: 30 Faceless Niches — 3.5K views
+  - 4 months ago: Switching to Framer — 2.9K views
+  - 5 months ago: Riddle Quizzes — 23K views
+  - 7 months ago: Website With AI — 781 views
+  - 7 months ago: Quiz Masterclass — 20K views
+  - 9 months ago: Faceless Niches 2026 — 37K views
+  - 1 year ago: Documentary Channel AI — 93K views
+- **Content type**: "Meta" YouTube tutorials — teaching how to make money on YouTube
+- **Thumbnails**: Show faces for CTR but videos are screen recording + AI voiceover
+- **Low cadence**: ~1 video per 1-2 months — massive room for growth
+- **Monthly views**: Only 24,420 despite 73.9K subs — low engagement
+- **60 days seller support** — longer than typical 30 days
+- **Seller country**: Nigeria
 
 ## Last Updated
 2026-03-27
