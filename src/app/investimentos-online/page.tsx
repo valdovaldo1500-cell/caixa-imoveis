@@ -1189,7 +1189,7 @@ export default function InvestimentosOnlinePage() {
                         contentStyle={{ backgroundColor: "#18181b", border: "1px solid #3f3f46", borderRadius: "8px" }}
                         labelStyle={{ color: "#fff", fontWeight: 600, fontSize: 12 }}
                         formatter={(value, name) => {
-                          const labels: Record<string, string> = { aceHoops: "Ace Hoops", techYT: "Tech YouTube", tutorials: "Faceless Tutorials", cash: "Cash Reserve" };
+                          const labels: Record<string, string> = { aceHoops: "Ace Hoops", tutorials: "Faceless Tutorials", thirdAcq: "3rd Acquisition", cash: "Cash Reserve" };
                           const k = String(name ?? "");
                           return [`$${Number(value)}K`, labels[k] ?? k] as [string, string];
                         }}
