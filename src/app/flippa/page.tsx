@@ -428,7 +428,7 @@ export default function FlippaPage() {
     return sum / valid.length;
   }, [manageable]);
   const bestRoi = useMemo(() => {
-    const valid = activeListings.filter((l) => l.price);
+    const valid = activeListings.filter((l) => l.price && l.price <= BUDGET_USD);
     if (!valid.length) return null;
     return valid.reduce((best, l) => {
       const r = annualRoi(l.price, l.monthlyProfit) ?? 0;
