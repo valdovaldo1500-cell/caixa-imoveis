@@ -98,7 +98,7 @@ export const LISTING_FINANCIALS: ListingFinancials[] = [
       { month: "Jan 26", profit: 1091 },
       { month: "Feb 26", profit: 2689 },
     ],
-    avg12mo: 2900,
+    avg12mo: 3043,
     avg6mo: 2471,
     avg3mo: 2115,
     currentRunRate: 2689,
