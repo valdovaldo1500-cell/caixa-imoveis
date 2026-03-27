@@ -623,9 +623,9 @@ export default function FlippaPage() {
                 color="amber"
               />
               <KpiCard
-                label="vs Selic (14.25%)"
-                value={avgRoi > 0 ? `${avgRoi.toFixed(0)}% vs 14%` : "TBD vs 14%"}
-                sub="Online biz avg ROI vs Selic benchmark"
+                label="Beat Selic (14.25%)"
+                value={`${beatSelicCount} listings`}
+                sub={`Of ≤$160K budget — avg ${avgRoi > 0 ? `${avgRoi.toFixed(0)}%` : "—"} ROI`}
                 icon={TrendingUp}
                 color="emerald"
               />
