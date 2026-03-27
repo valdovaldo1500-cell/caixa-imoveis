@@ -2117,6 +2117,145 @@ export default function InvestimentosOnlinePage() {
               </div>
             </section>
 
+            {/* Market Timing Analysis */}
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+              <h3 className="text-lg font-semibold text-white mb-2">Market Timing Analysis</h3>
+              <p className="text-zinc-400 text-sm mb-4">Is now the right time to buy?</p>
+
+              {/* Horizontal Timeline */}
+              <div className="mb-6 overflow-x-auto">
+                <div className="min-w-[640px]">
+                  {/* Track line */}
+                  <div className="relative flex items-center justify-between mb-1">
+                    <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-0.5 bg-zinc-700" />
+                    {[
+                      { date: "Jan 2025", label: "YT Partner threshold raised", past: true },
+                      { date: "Jun 2025", label: "AI content policies tightened", past: true },
+                      { date: "Sep 2025", label: "Shorts monetization expanded", past: true },
+                      { date: "Jan 2026", label: "EF multiples −15%", past: true },
+                      { date: "Mar 2026", label: "YOU ARE HERE", now: true },
+                      { date: "May 2026", label: "WNBA season starts", past: false },
+                      { date: "Dec 2026", label: "AI regulation projected", past: false },
+                    ].map((event, i) => (
+                      <div key={i} className="relative z-10 flex flex-col items-center">
+                        {event.now ? (
+                          <span className="relative flex h-4 w-4">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                            <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500" />
+                          </span>
+                        ) : (
+                          <span className={`h-3 w-3 rounded-full border-2 ${event.past ? "bg-zinc-500 border-zinc-500" : "bg-zinc-800 border-zinc-600"}`} />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  {/* Labels row */}
+                  <div className="flex items-start justify-between">
+                    {[
+                      { date: "Jan 2025", label: "YT Partner threshold raised", past: true },
+                      { date: "Jun 2025", label: "AI content policies tightened", past: true },
+                      { date: "Sep 2025", label: "Shorts monetization expanded", past: true },
+                      { date: "Jan 2026", label: "EF multiples −15%", past: true },
+                      { date: "Mar 2026", label: "YOU ARE HERE", now: true },
+                      { date: "May 2026", label: "WNBA season starts", past: false },
+                      { date: "Dec 2026", label: "AI regulation projected", past: false },
+                    ].map((event, i) => (
+                      <div key={i} className="flex flex-col items-center text-center w-[80px]">
+                        <span className={`text-[10px] font-semibold mt-1 ${event.now ? "text-emerald-400" : event.past ? "text-zinc-500" : "text-zinc-400"}`}>
+                          {event.date}
+                        </span>
+                        <span className={`text-[9px] leading-tight mt-0.5 ${event.now ? "text-emerald-300 font-bold" : "text-zinc-500"}`}>
+                          {event.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Buy Signal Indicators */}
+              <h4 className="text-sm font-semibold text-zinc-300 mb-3">Buy Signal Indicators</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-5">
+                {[
+                  {
+                    title: "EF Multiples",
+                    desc: "28x avg (down from 33x in 2024)",
+                    status: "green",
+                    label: "Buyer's market",
+                  },
+                  {
+                    title: "YouTube Ad Rates",
+                    desc: "Q1 CPMs historically low, recover Q2–Q4",
+                    status: "amber",
+                    label: "Buy now, benefit later",
+                  },
+                  {
+                    title: "WNBA Timing",
+                    desc: "2 months before season = optimal entry",
+                    status: "green",
+                    label: "Perfect timing",
+                  },
+                  {
+                    title: "AI Disruption",
+                    desc: "Faceless content faces uncertainty",
+                    status: "red",
+                    label: "Risk factor",
+                  },
+                  {
+                    title: "Interest Rates",
+                    desc: "High rates = lower competition from funded buyers",
+                    status: "green",
+                    label: "Less competition",
+                  },
+                  {
+                    title: "Dollar Strength",
+                    desc: "USD strong vs BRL = higher real cost",
+                    status: "amber",
+                    label: "Currency headwind",
+                  },
+                ].map((signal, i) => (
+                  <div key={i} className="bg-zinc-800/50 rounded-lg p-4 flex items-start gap-3">
+                    <span
+                      className={`mt-0.5 flex-shrink-0 h-2.5 w-2.5 rounded-full ${
+                        signal.status === "green"
+                          ? "bg-emerald-500"
+                          : signal.status === "amber"
+                          ? "bg-amber-400"
+                          : "bg-red-500"
+                      }`}
+                    />
+                    <div>
+                      <p className="text-white text-sm font-medium leading-tight">{signal.title}</p>
+                      <p className="text-zinc-400 text-xs mt-0.5">{signal.desc}</p>
+                      <p
+                        className={`text-xs font-semibold mt-1 ${
+                          signal.status === "green"
+                            ? "text-emerald-400"
+                            : signal.status === "amber"
+                            ? "text-amber-400"
+                            : "text-red-400"
+                        }`}
+                      >
+                        {signal.label}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Verdict box */}
+              <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-emerald-400 font-bold text-sm">TIMING SCORE: 7/10</span>
+                  <span className="text-zinc-500 text-xs">—</span>
+                  <span className="text-emerald-300 text-sm font-semibold">Favorable buyer's market with seasonal alignment</span>
+                </div>
+                <p className="text-zinc-400 text-xs leading-relaxed">
+                  The combination of compressed EF multiples, pre-WNBA season entry, and reduced buyer competition creates an above-average acquisition window.
+                </p>
+              </div>
+            </div>
+
             {/* Next Steps & Action Plan */}
             <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <h3 className="text-lg font-semibold text-white mb-2">Next Steps &amp; Action Plan</h3>
