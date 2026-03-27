@@ -2348,7 +2348,7 @@ Best regards,
               const fin = LISTING_FINANCIALS.find((f) => f.id === id);
               if (!fin || !data?.assessment || data.assessment.verdictColor === "red") return null;
               const buyPrice = fin.targetPrice;
-              const monthlyProfit = fin.avg3mo;
+              const monthlyProfit = fin.avg12mo; // Use 12-month avg for seasonal assets
               const efMultiples = { yr1: 30, yr2: 34, yr3: 38 };
               const scenarios = [
                 {
