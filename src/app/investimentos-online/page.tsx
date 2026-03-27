@@ -2874,7 +2874,7 @@ export default function InvestimentosOnlinePage() {
                 <div className="flex items-baseline justify-between mb-3">
                   <div>
                     <span className="text-xs text-zinc-500 uppercase tracking-wider">Total Capital Required</span>
-                    <p className="text-3xl font-extrabold text-white mt-0.5">$151,300</p>
+                    <p className="text-3xl font-extrabold text-white mt-0.5">$150,300</p>
                   </div>
                   <div className="text-right">
                     <span className="text-xs text-zinc-500 uppercase tracking-wider">Budget</span>
