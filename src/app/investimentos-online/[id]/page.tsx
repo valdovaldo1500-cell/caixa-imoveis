@@ -224,6 +224,12 @@ export default function InvestimentosOnlineDetailPage() {
     } catch { /* ignore */ }
   }, [id]);
 
+  useEffect(() => {
+    if (!id) return;
+    setTeamRoles(DEFAULT_TEAM_ROLES[id] ?? []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
   const toggleDdItem = (itemName: string) => {
     setDdChecked((prev) => {
       const next = new Set(prev);
