@@ -2683,9 +2683,9 @@ export default function InvestimentosOnlinePage() {
                     { label: "Listing price", value: "$79,000" },
                     { label: "EF Migration Fee", value: "$0" },
                     { label: "Migration setup", value: "$500" },
-                  ].map(({ label, value, note }) => (
+                  ].map(({ label, value }) => (
                     <div key={label} className="flex justify-between items-center py-1.5 border-b border-zinc-700/40">
-                      <span className="text-zinc-400">{label}{note && <span className="text-zinc-600 ml-1 text-xs">({note})</span>}</span>
+                      <span className="text-zinc-400">{label}</span>
                       <span className="text-zinc-200 font-medium">{value}</span>
                     </div>
                   ))}
