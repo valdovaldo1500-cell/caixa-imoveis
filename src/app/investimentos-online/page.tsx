@@ -1365,7 +1365,7 @@ export default function InvestimentosOnlinePage() {
                   <select
                     value={filterCat}
                     onChange={(e) => setFilterCat(e.target.value)}
-                    className="text-xs bg-zinc-800 border border-zinc-700 text-zinc-300 rounded-md px-2 py-1.5 focus:outline-none focus:border-zinc-500"
+                    className="text-xs bg-zinc-800 border border-zinc-700 text-zinc-300 rounded-md px-2 py-1.5 focus:outline-none focus:border-zinc-500 w-full sm:w-auto"
                   >
                     <option value="all">All Categories</option>
                     {Object.entries(CAT_LABELS).map(([k, v]) => (
