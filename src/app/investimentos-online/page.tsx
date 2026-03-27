@@ -3060,7 +3060,7 @@ export default function InvestimentosOnlinePage() {
                       {
                         metric: "Subscribers",
                         avg: "50K avg",
-                        ace: "~45K",
+                        ace: "~23K",
                         tech: "70K+",
                         status: "Above avg",
                         statusColor: "emerald",
