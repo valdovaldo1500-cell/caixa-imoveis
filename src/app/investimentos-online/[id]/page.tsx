@@ -2710,9 +2710,10 @@ Best regards,
               const DEVICE_COLORS = ["#10b981", "#3b82f6", "#8b5cf6"];
 
               const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: {
-                cx: number; cy: number; midAngle: number;
-                innerRadius: number; outerRadius: number; percent: number;
+                cx?: number; cy?: number; midAngle?: number;
+                innerRadius?: number; outerRadius?: number; percent?: number;
               }) => {
+                if (cx == null || cy == null || midAngle == null || innerRadius == null || outerRadius == null || percent == null) return null;
                 const RADIAN = Math.PI / 180;
                 const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
                 const x = cx + radius * Math.cos(-midAngle * RADIAN);
