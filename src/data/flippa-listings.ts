@@ -1618,45 +1618,55 @@ export const flippaListings: FlippaListing[] = [
       ],
     };
   })(),
-  // #12021962 — SaaS | Business | $23,053 | $1,680/mo | 87% ROI
+  // #12021962 — SaaS | Business | $23,053 | £1,263/mo avg | CONSIDER (cheap, but declining)
   (() => {
-    const a = 95, r = 75, rs = 95, e = 88;
+    // Verified P&L: CV=36%, revenue DECLINING -44% (£1,977 Mar→£1,009 Feb), avg profit £1,263/mo
+    // 75 subscribers, 13% churn, 92% margin. Only 1yr old.
+    // ROI at avg: 1263*12/23053 = 65.7% — good ROI but declining trajectory and young business.
+    const a = 90, r = 60, rs = 75, e = 50;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
+    const cvPct = 36, trend = -44;
     return {
       id: "12021962",
-      title: "spyderads.app — SaaS E-commerce SaaS that finds winning products. 3k MRR, highly profitable, low chu",
-      niche: "Business",
+      title: "spyderads.app — E-commerce SaaS Finds Winning Products, 3K MRR",
+      niche: "E-commerce SaaS",
       price: 23053,
-      monthlyProfit: 1680,
+      monthlyProfit: 1263,
       monthlyRevenue: 0,
       monetization: "Monthly & annual subscriptions",
       multiple: 1.1,
       firstMadeMoney: 1,
       businessAge: 1,
-      description: "E-commerce SaaS that finds winning products. 3k MRR, highly profitable, low churn, and 100% owner-independent. SaaS Business Sponsored Business Location United Arab Emirates Site Age 1 year Monthly Profit GBP £1,260 /mo Profit Margin 92% Profit Multiple 1.1x Revenue Multiple 1.1x MRR GBP £2,226 Tota",
+      description: "E-commerce SaaS that finds winning products for dropshippers. 75 active subscribers, 13% churn. Verified P&L shows 92% margin but revenue declining 44% over 12 months — from £1,977 to £1,009. At $23K it is cheap, but 13% monthly churn will erode the subscriber base fast without active marketing.",
       status: "active",
       listingType: "buy_now",
-      verificationStatus: "partial",
+      verificationStatus: "verified",
       offersCount: 0,
       autonomyScore: a,
       riskScore: r,
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 23053),
+      recommendation: rec(ov, aiM, 23053, { verifiedPnL: true, cvPercent: cvPct, revenueTrend: trend }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: true,
+      profitConsistency: "moderate",
+      revenueTrend: trend,
+      monthlyProfitRange: "£613–£1,901",
+      cvPercent: cvPct,
       reasonsFor: [
-      "Highly autonomous — AI+VA can run with minimal oversight",
-      "Low risk profile — verified financials, diversified",
-      "Strong ROI: 87% annual return at asking price",
-      "Verified Listing — financials independently confirmed by Flippa",
-      "Managed by Flippa — additional due diligence and broker support"
+        "Low entry price ($23K) — limited downside if it fails",
+        "92% profit margin — negligible operating costs",
+        "Verified P&L via Stripe — data is real, no seller manipulation",
+        "Fully owner-independent — runs without daily involvement"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
-      "Young business (1 year) — limited track record"
+        "Revenue declined 44% over 12 months — from £1,977 to £1,009",
+        "13% monthly churn — at this rate, subscriber base halves every 5 months without new acquisition",
+        "Only 1 year old — no evidence of long-term stability",
+        "CV=36% — meaningful profit volatility month to month"
       ],
     };
   })(),
