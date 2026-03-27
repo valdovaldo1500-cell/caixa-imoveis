@@ -3150,23 +3150,26 @@ export const flippaListings: FlippaListing[] = [
       ],
     };
   })(),
-  // #12266888 — Ecommerce | Education | $22,700 | $608/mo | 32% ROI
+  // #12266888 — Digital product | Education | $22,700 | £458/mo avg | AVOID
   (() => {
-    const a = 63, r = 82, rs = 65, e = 70;
+    // Verified P&L: CV=42%, revenue DECLINING -58% (£880 Mar→£147 Feb), avg profit £458/mo
+    // ROI at avg: 458*12/22700 = 24%. 13yr old ebook site but dying fast.
+    const a = 63, r = 40, rs = 50, e = 40;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
+    const cvPct = 42, trend = -58;
     return {
       id: "12266888",
-      title: "Ecommerce - Education",
+      title: "100% Passive 13-Year-Old Ebook Site — SOCRA/CCRP Exam Guides",
       niche: "Education",
       price: 22700,
-      monthlyProfit: 608,
+      monthlyProfit: 458,
       monthlyRevenue: 0,
-      monetization: "Ecommerce",
+      monetization: "Digital product sales",
       multiple: 2.8,
       firstMadeMoney: 13,
       businessAge: 13,
-      description: "Ecommerce business in Education",
+      description: "13-year-old ebook site selling SOCRA/CCRP certification exam guides. Verified P&L shows revenue collapsing from £880 (Jun 2025) to £147 (Feb 2026) — a 58% decline. Avg monthly profit just £458. This is a business in terminal decline.",
       status: "active",
       listingType: "buy_now",
       verificationStatus: "verified",
@@ -3176,16 +3179,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 22700),
+      recommendation: rec(ov, aiM, 22700, { verifiedPnL: true, cvPercent: cvPct, revenueTrend: trend }),
       aiManageable: aiM,
-      category: "ecommerce",
+      category: "digital_product",
+      verifiedPnL: true,
+      profitConsistency: "moderate",
+      revenueTrend: trend,
+      monthlyProfitRange: "£138–£828",
+      cvPercent: cvPct,
       reasonsFor: [
-      "Low risk profile — verified financials, diversified",
-      "Verified Listing — financials independently confirmed by Flippa",
-      "Proven track record: 13+ years in operation"
+        "13 years old — long-established domain with backlinks",
+        "Verified P&L via Stripe/PayPal — data is real",
+        "94% profit margin — zero cost to run"
       ],
       reasonsAgainst: [
-      "High operational involvement — significant owner time required"
+        "Revenue declined 58% from £880 to £147 in 12 months — near zero trajectory",
+        "Profit only £138/mo in Feb 2026 — actual payback at this rate is 13+ years",
+        "Tiny niche (SOCRA/CCRP certification) with no growth path",
+        "CV=42% — high volatility on top of a declining baseline"
       ],
     };
   })(),
