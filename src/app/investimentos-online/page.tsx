@@ -973,7 +973,7 @@ export default function InvestimentosOnlinePage() {
                       </div>
 
                       {/* Highlights + Risks */}
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <div className="text-xs text-emerald-400 font-medium mb-1.5 flex items-center gap-1">
                             <CheckCircle2 className="w-3 h-3" /> Highlights
