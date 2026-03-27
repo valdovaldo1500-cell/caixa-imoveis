@@ -1236,7 +1236,7 @@ export default function InvestimentosOnlinePage() {
                       <tr className="border-b border-zinc-700">
                         <th className="text-left py-3 pr-4 font-medium text-zinc-400 w-48">Factor</th>
                         <th className="text-center py-3 px-4 font-medium text-zinc-400">Ace Hoops<br /><span className="text-zinc-600 font-normal text-xs">#92246</span></th>
-                        <th className="text-center py-3 px-4 font-medium text-zinc-400">Tech YouTube<br /><span className="text-zinc-600 font-normal text-xs">#90544</span></th>
+                        <th className="text-center py-3 px-4 font-medium text-zinc-400 line-through opacity-40">Tech YouTube<br /><span className="text-zinc-600 font-normal text-xs">#90544 — ELIMINATED</span></th>
                         <th className="text-center py-3 px-4 font-medium text-zinc-400">Faceless Tutorials<br /><span className="text-zinc-600 font-normal text-xs">#91304</span></th>
                       </tr>
                     </thead>
