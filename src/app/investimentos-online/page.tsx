@@ -504,7 +504,7 @@ function PortfolioCorrelationSection() {
           <div className="flex flex-col gap-1">
             <span className="text-xs text-zinc-500 uppercase tracking-wide font-medium">Combined Monthly (overlap avg)</span>
             <span className="text-sm font-bold text-violet-400">
-              ${Math.round(overlapping.reduce((sum, m) => sum + aceMap.get(m)! + techMap.get(m)!, 0) / overlapping.length).toLocaleString()}/mo avg
+              ${overlapping.length > 0 ? Math.round(overlapping.reduce((sum, m) => sum + aceMap.get(m)! + techMap.get(m)!, 0) / overlapping.length).toLocaleString() : "0"}/mo avg
             </span>
             <span className="text-xs text-zinc-500">Peak combined: ${Math.max(...overlapping.map((m) => aceMap.get(m)! + techMap.get(m)!)).toLocaleString()}/mo</span>
           </div>
