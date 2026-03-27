@@ -2256,6 +2256,136 @@ export default function InvestimentosOnlinePage() {
               </div>
             </div>
 
+            {/* Post-Acquisition Dashboard Preview */}
+            <div className="bg-zinc-900 rounded-xl p-6 border border-dashed border-zinc-700">
+              {/* Header */}
+              <div className="flex items-center gap-3 mb-1">
+                <h3 className="text-lg font-semibold text-white">Post-Acquisition Dashboard Preview — Month 3 (June 2026)</h3>
+                <span className="bg-emerald-500/10 text-emerald-400 text-xs px-2 py-0.5 rounded">PREVIEW</span>
+              </div>
+              <p className="text-zinc-400 text-sm mb-5">Mock monthly report showing what you would track after acquiring both businesses.</p>
+
+              {/* KPI Row */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                <div className="bg-zinc-800 rounded-lg p-4">
+                  <p className="text-zinc-400 text-xs mb-1">Combined Revenue</p>
+                  <p className="text-2xl font-bold text-white">$6,800</p>
+                  <p className="text-emerald-400 text-xs mt-1">vs $5,189 target <span className="font-semibold">+31%</span></p>
+                </div>
+                <div className="bg-zinc-800 rounded-lg p-4">
+                  <p className="text-zinc-400 text-xs mb-1">Total Expenses</p>
+                  <p className="text-2xl font-bold text-white">$1,850</p>
+                  <p className="text-zinc-500 text-xs mt-1">VAs + tools + AdSense fees</p>
+                </div>
+                <div className="bg-zinc-800 rounded-lg p-4">
+                  <p className="text-zinc-400 text-xs mb-1">Net Profit</p>
+                  <p className="text-2xl font-bold text-emerald-400">$4,950</p>
+                  <p className="text-zinc-500 text-xs mt-1">After all costs</p>
+                </div>
+                <div className="bg-zinc-800 rounded-lg p-4">
+                  <p className="text-zinc-400 text-xs mb-1">Cumulative ROI</p>
+                  <p className="text-2xl font-bold text-white">12.6%</p>
+                  <p className="text-zinc-500 text-xs mt-1">3 months in</p>
+                </div>
+              </div>
+
+              {/* Channel Performance Table */}
+              <div className="mb-6">
+                <p className="text-sm font-medium text-zinc-300 mb-3">Channel Performance</p>
+                <div className="overflow-x-auto">
+                  <table className="min-w-[600px] w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-zinc-700">
+                        <th className="text-left text-zinc-400 font-medium pb-2 pr-4">Channel</th>
+                        <th className="text-right text-zinc-400 font-medium pb-2 pr-4">Revenue</th>
+                        <th className="text-right text-zinc-400 font-medium pb-2 pr-4">Expenses</th>
+                        <th className="text-right text-zinc-400 font-medium pb-2 pr-4">Profit</th>
+                        <th className="text-right text-zinc-400 font-medium pb-2 pr-4">vs Target</th>
+                        <th className="text-right text-zinc-400 font-medium pb-2">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-zinc-800">
+                        <td className="py-3 pr-4">
+                          <p className="text-white font-medium">Ace Hoops</p>
+                          <p className="text-zinc-500 text-xs">WNBA season peak</p>
+                        </td>
+                        <td className="text-right py-3 pr-4 text-white">$4,200</td>
+                        <td className="text-right py-3 pr-4 text-zinc-400">$850</td>
+                        <td className="text-right py-3 pr-4 text-emerald-400 font-semibold">$3,350</td>
+                        <td className="text-right py-3 pr-4 text-emerald-400">+72%</td>
+                        <td className="text-right py-3">
+                          <span className="bg-emerald-500/10 text-emerald-400 text-xs px-2 py-0.5 rounded">Exceeding</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="py-3 pr-4">
+                          <p className="text-white font-medium">Tech YouTube</p>
+                          <p className="text-zinc-500 text-xs">Steady sponsorships</p>
+                        </td>
+                        <td className="text-right py-3 pr-4 text-white">$2,600</td>
+                        <td className="text-right py-3 pr-4 text-zinc-400">$1,000</td>
+                        <td className="text-right py-3 pr-4 text-emerald-400 font-semibold">$1,600</td>
+                        <td className="text-right py-3 pr-4 text-yellow-400">-3%</td>
+                        <td className="text-right py-3">
+                          <span className="bg-yellow-500/10 text-yellow-400 text-xs px-2 py-0.5 rounded">On Track</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Cumulative Profit Chart */}
+              <div className="mb-6">
+                <p className="text-sm font-medium text-zinc-300 mb-3">Cumulative Net Profit — First 3 Months</p>
+                <ResponsiveContainer width="100%" height={140}>
+                  <AreaChart
+                    data={[
+                      { month: "Month 1", profit: 3200 },
+                      { month: "Month 2", profit: 4100 },
+                      { month: "Month 3", profit: 4950 },
+                    ]}
+                    margin={{ top: 4, right: 16, left: 0, bottom: 0 }}
+                  >
+                    <defs>
+                      <linearGradient id="profitGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="#10b981" stopOpacity={0.03} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
+                    <XAxis dataKey="month" tick={{ fill: "#a1a1aa", fontSize: 12 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: "#a1a1aa", fontSize: 12 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${(v / 1000).toFixed(1)}k`} />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: "#18181b", border: "1px solid #3f3f46", borderRadius: "8px" }}
+                      labelStyle={{ color: "#e4e4e7", fontSize: 12 }}
+                      itemStyle={{ color: "#10b981", fontSize: 12 }}
+                      formatter={(v: number) => [`$${v.toLocaleString()}`, "Net Profit"]}
+                    />
+                    <Area type="monotone" dataKey="profit" stroke="#10b981" strokeWidth={2} fill="url(#profitGradient)" dot={{ fill: "#10b981", r: 4 }} />
+                  </AreaChart>
+                </ResponsiveContainer>
+                <div className="flex gap-6 mt-2 text-xs text-zinc-500">
+                  <span>Month 1: $3,200 — transition period</span>
+                  <span>Month 2: $4,100 — ramping up</span>
+                  <span>Month 3: $4,950 — full ops + WNBA season</span>
+                </div>
+              </div>
+
+              {/* Projected Year 1 Box */}
+              <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4 flex items-center justify-between">
+                <div>
+                  <p className="text-zinc-400 text-xs mb-0.5">Projected Year 1 Total</p>
+                  <p className="text-xl font-bold text-emerald-400">$52,800 net profit</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-zinc-500 text-xs mb-0.5">Annual ROI</p>
+                  <p className="text-2xl font-bold text-white">37%</p>
+                </div>
+              </div>
+            </div>
+
             {/* Next Steps & Action Plan */}
             <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <h3 className="text-lg font-semibold text-white mb-2">Next Steps &amp; Action Plan</h3>
