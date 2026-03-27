@@ -410,7 +410,7 @@ export const POST_ACQUISITION_PLAN: PostAcquisitionMilestone[] = [
 
   // Month 2 (Days 31-60)
   { day: 35, task: "WNBA pre-season content prep", details: "Create content calendar for May-Oct 2026 WNBA season. Script 10 videos in advance.", listing: "92246" },
-  { day: 40, task: "Increase publishing cadence experiment", details: "Test 2x publishing rate on one tech channel. Measure impact on views/revenue after 2 weeks.", listing: "90544" },
+  { day: 40, task: "Increase publishing cadence experiment", details: "Test 2x publishing rate on Faceless Tutorials channel. Measure impact on views/revenue after 2 weeks.", listing: "91304" },
   { day: 45, task: "Revenue diversification research", details: "Research YouTube memberships, sponsorship outreach, merchandise options.", listing: "all" },
   { day: 60, task: "Month 2 P&L review + strategy adjustment", details: "Full financial review. Decide whether to increase/decrease publishing. Adjust AI prompts based on performance.", listing: "all" },
 
