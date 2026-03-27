@@ -629,6 +629,71 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Risk Radar ─────────────────────────────────────────── */}
+            {(() => {
+              const riskProfiles: Record<string, { dimension: string; score: number }[]> = {
+                "92246": [
+                  { dimension: "Platform\nDependency", score: 4 },
+                  { dimension: "Revenue\nTrend", score: 2 },
+                  { dimension: "Operator\nRisk", score: 1 },
+                  { dimension: "Content\nRisk", score: 2 },
+                  { dimension: "Market\nTiming", score: 2 },
+                  { dimension: "Revenue\nDiversification", score: 3 },
+                ],
+                "90544": [
+                  { dimension: "Platform\nDependency", score: 4 },
+                  { dimension: "Revenue\nTrend", score: 4 },
+                  { dimension: "Operator\nRisk", score: 1 },
+                  { dimension: "Content\nRisk", score: 2 },
+                  { dimension: "Market\nTiming", score: 3 },
+                  { dimension: "Revenue\nDiversification", score: 3 },
+                ],
+                "91304": [
+                  { dimension: "Platform\nDependency", score: 4 },
+                  { dimension: "Revenue\nTrend", score: 4 },
+                  { dimension: "Operator\nRisk", score: 1 },
+                  { dimension: "Content\nRisk", score: 2 },
+                  { dimension: "Market\nTiming", score: 3 },
+                  { dimension: "Revenue\nDiversification", score: 4 },
+                ],
+              };
+              const profile = riskProfiles[id];
+              if (!profile) return null;
+              const avgRisk = (profile.reduce((s, p) => s + p.score, 0) / profile.length).toFixed(1);
+              const riskLabel = Number(avgRisk) <= 2 ? "Low" : Number(avgRisk) <= 3 ? "Moderate" : "Elevated";
+              const riskColor = Number(avgRisk) <= 2 ? "text-emerald-400" : Number(avgRisk) <= 3 ? "text-amber-400" : "text-red-400";
+              return (
+                <SectionCard icon={ShieldCheck} title="Risk Radar" iconColor="text-amber-400">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs text-zinc-500">Risk dimensions scored 1 (low) to 5 (high). Lower is better.</p>
+                      <span className={`text-sm font-semibold ${riskColor}`}>Overall: {avgRisk}/5 ({riskLabel})</span>
+                    </div>
+                    <div className="flex justify-center">
+                      <ResponsiveContainer width={350} height={280}>
+                        <RadarChart data={profile} cx="50%" cy="50%" outerRadius="70%">
+                          <PolarGrid stroke="#3f3f46" />
+                          <PolarAngleAxis dataKey="dimension" tick={{ fill: "#a1a1aa", fontSize: 10 }} />
+                          <PolarRadiusAxis angle={30} domain={[0, 5]} tick={{ fill: "#71717a", fontSize: 9 }} tickCount={6} />
+                          <Radar dataKey="score" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.2} strokeWidth={2} />
+                        </RadarChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                      {profile.map((p) => (
+                        <div key={p.dimension} className="bg-zinc-900 rounded-lg p-2 text-center">
+                          <div className="text-[10px] text-zinc-500 mb-1">{p.dimension.replace("\n", " ")}</div>
+                          <div className={`text-sm font-semibold ${p.score <= 2 ? "text-emerald-400" : p.score <= 3 ? "text-amber-400" : "text-red-400"}`}>
+                            {p.score}/5
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Section 2: Financial Performance ──────────────────────── */}
             <SectionCard
               icon={BarChart2}
