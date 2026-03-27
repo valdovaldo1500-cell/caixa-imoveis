@@ -181,6 +181,27 @@ export default function InvestimentosOnlineDetailPage() {
   const [ddChecked, setDdChecked] = useState<Set<string>>(new Set());
   const [loiCopied, setLoiCopied] = useState(false);
 
+  // ── Team Cost Calculator state ──────────────────────────────────────────────
+  type TeamRole = { role: string; rate: number; hoursPerWeek: number };
+  const DEFAULT_TEAM_ROLES: Record<string, TeamRole[]> = {
+    "92246": [
+      { role: "Video Editor", rate: 400, hoursPerWeek: 20 },
+      { role: "Content Researcher", rate: 300, hoursPerWeek: 10 },
+      { role: "Thumbnail Designer", rate: 150, hoursPerWeek: 10 },
+    ],
+    "90544": [
+      { role: "Video Editor", rate: 500, hoursPerWeek: 20 },
+      { role: "Scriptwriter", rate: 200, hoursPerWeek: 10 },
+      { role: "Automation Maintainer", rate: 400, hoursPerWeek: 10 },
+    ],
+    "91304": [
+      { role: "Video Editor", rate: 350, hoursPerWeek: 20 },
+      { role: "Scriptwriter", rate: 400, hoursPerWeek: 20 },
+      { role: "SEO Specialist", rate: 200, hoursPerWeek: 10 },
+    ],
+  };
+  const [teamRoles, setTeamRoles] = useState<TeamRole[]>([]);
+
   useEffect(() => {
     if (!id) return;
     fetch(`/api/investimentos-online/${id}`, { credentials: "include" })
