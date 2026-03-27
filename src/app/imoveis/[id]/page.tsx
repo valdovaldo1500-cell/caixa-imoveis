@@ -348,7 +348,7 @@ function analyzeProperty(prop: Property): InvAnalysis {
   const itbiVal = n(prop.marketValue);
   const zapVal = n(prop.zapMarketValue);
   const qaVal = n(prop.qaMarketValue);
-  const itbiComps = (prop.comparablesTier1Count || 0) + (prop.comparablesTier2Count || 0);
+  const itbiComps = prop.comparablesTier1Count || prop.comparablesCount || 0;
   const zapComps = prop.zapComparablesCount || 0;
   const qaComps = prop.qaComparablesCount || 0;
 
