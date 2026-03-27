@@ -1961,7 +1961,7 @@ export default function InvestimentosOnlinePage() {
                   ];
                   const ourPicks = [
                     { name: "Ace Hoops (#92246)", price: 70599, monthlyProfit: 2900, multiple: 24.3, soldDate: "—", type: "Our Pick" },
-                    { name: "Tech YouTube (#90544)", price: 93608, monthlyProfit: 3428, multiple: 27.3, soldDate: "—", type: "Our Pick" },
+                    { name: "Faceless Tutorials (#91304)", price: 59863, monthlyProfit: 1962, multiple: 23.0, soldDate: "—", type: "Our Pick" },
                   ];
 
                   const marketAvgMultiple = 27.0;
