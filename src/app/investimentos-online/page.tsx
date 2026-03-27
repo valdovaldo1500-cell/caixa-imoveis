@@ -19,6 +19,8 @@ import {
   Legend,
   LineChart,
   Line,
+  AreaChart,
+  Area,
 } from "recharts";
 import {
   TrendingUp,
