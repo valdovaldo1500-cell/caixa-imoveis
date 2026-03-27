@@ -453,7 +453,7 @@ function PortfolioCorrelationSection() {
               labelStyle={{ color: "#e4e4e7" }}
               formatter={(value, name) => [
                 typeof value === "number" ? `$${value.toLocaleString()}` : String(value),
-                name === "ace" ? "Ace Hoops" : name === "tech" ? "Tech YouTube" : "Combined",
+                name === "ace" ? "Ace Hoops" : name === "tech" ? "Faceless Tutorials" : "Combined",
               ]}
             />
             <Legend
