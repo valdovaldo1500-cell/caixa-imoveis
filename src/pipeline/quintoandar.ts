@@ -435,7 +435,7 @@ export async function getQARentalComparables(propertyId: number) {
   const p = prop[0];
 
   const cityKey = normalizeCidade(p.cidade);
-  const bairroKey = normalizeCidade(p.bairro || "");
+  const bairroKeyNorm = normBairro(p.bairro || "");
   const qaTypes = getQAUnitTypes(p.tipoImovel, p.descricao);
 
   const allRental = await db
@@ -443,9 +443,21 @@ export async function getQARentalComparables(propertyId: number) {
     .from(qaListings)
     .where(eq(qaListings.business, "RENTAL"));
 
-  const bairroRentals = allRental.filter(
-    (r) => normalizeCidade(r.cidade || "") === cityKey && normalizeCidade(r.bairro || "") === bairroKey
+  const cityRentals = allRental.filter(
+    (r) => normalizeCidade(r.cidade || "") === cityKey
   );
+
+  // Filter by bairro using normBairro + fuzzy fallback (same as getQAComparables)
+  let bairroRentals = bairroKeyNorm
+    ? cityRentals.filter((r) => normBairro(r.bairro || "") === bairroKeyNorm)
+    : [];
+  // Fuzzy fallback: try partial match if exact normalized match fails
+  if (bairroRentals.length === 0 && bairroKeyNorm.length > 3) {
+    bairroRentals = cityRentals.filter((r) => {
+      const k = normBairro(r.bairro || "");
+      return k.includes(bairroKeyNorm) || bairroKeyNorm.includes(k);
+    });
+  }
 
   // Filter by type — never mix commercial with residential
   const isResidential = !qaTypes || !qaTypes.some(t => COMMERCIAL_TYPES.has(t));
