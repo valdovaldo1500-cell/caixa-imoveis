@@ -3329,7 +3329,7 @@ export default function InvestimentosOnlinePage() {
                   },
                   {
                     q: "Should I buy both channels simultaneously?",
-                    a: "Recommended approach: close Ace Hoops first (simpler, single channel), then Tech YouTube 2-4 weeks later. This allows focused migration and learning before the second acquisition.",
+                    a: "Recommended approach: close Ace Hoops first (simpler, single channel), then Faceless Tutorials 2-4 weeks later. This allows focused migration and learning before the second acquisition.",
                   },
                   {
                     q: "What's the worst-case scenario?",
