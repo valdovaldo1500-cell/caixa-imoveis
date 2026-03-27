@@ -606,16 +606,16 @@ export default function FlippaPage() {
                 color="emerald"
               />
               <KpiCard
-                label="Best ROI Listing"
+                label="Best ROI (≤$160K)"
                 value={bestRoi ? `${annualRoi(bestRoi.price, bestRoi.monthlyProfit)?.toFixed(0)}%` : "—"}
-                sub={bestRoi ? `#${bestRoi.id} — ${fmt(bestRoi.price)}` : "No active listings yet"}
+                sub={bestRoi ? `#${bestRoi.id} — ${fmt(bestRoi.price)}` : "No in-budget listings"}
                 icon={TrendingUp}
                 color="blue"
               />
               <KpiCard
-                label="Avg Annual ROI"
+                label="Avg ROI (≤$160K)"
                 value={avgRoi > 0 ? `${avgRoi.toFixed(0)}%` : "—"}
-                sub="Manageable active listings"
+                sub="AI+VA manageable, in-budget"
                 icon={DollarSign}
                 color="amber"
               />
