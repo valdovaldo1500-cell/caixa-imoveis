@@ -178,6 +178,7 @@ export default function InvestimentosOnlineDetailPage() {
   const [data, setData] = useState<DetailData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [ddChecked, setDdChecked] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (!id) return;
