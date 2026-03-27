@@ -46,7 +46,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "YoY off-season: Nov -24%, Dec +26%, Jan -34%, Feb +2% — mixed signals on growth",
     ],
     recommendation:
-      "Best single pick in the market. WNBA is experiencing unprecedented growth (Caitlin Clark effect). Verified data shows seasonal pattern: $1,609 (off-season) → $5,444 (in-season peak). This is NORMAL for a sports channel — not a declining business. Buying in March means you'll catch the full 2026 season starting May. Offer $55K, settle $62K. The seasonal nature requires a complementary non-seasonal business for year-round income stability. Pair with faceless Tech YouTube (#90544) for a fully YouTube-native portfolio, or with photopacks.ai if you want SaaS diversification.",
+      "Best single pick in the market. WNBA is experiencing unprecedented growth (Caitlin Clark effect). Verified data shows seasonal pattern: $1,609 (off-season) → $5,444 (in-season peak). This is NORMAL for a sports channel — not a declining business. Buying in March means you'll catch the full 2026 season starting May. Offer $55K, settle $62K. The seasonal nature requires a complementary non-seasonal business for year-round income stability. Pair with Faceless YouTube Tutorials (#91304) for a fully YouTube-native, AI-manageable portfolio within the $160K budget.",
     aiPlan:
       "Claude writes all commentary scripts based on WNBA game results, player stories, and trending topics. Filipino freelancers handle editing (€40), scripting review (€20), and clipping (€10). AI generates voiceovers. Owner reviews final videos and thumbnails. 6hrs/week in-season, 3hrs off-season. Growth: expand to college basketball, add sponsorships.",
   },
