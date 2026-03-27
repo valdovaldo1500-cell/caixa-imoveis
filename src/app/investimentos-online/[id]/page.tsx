@@ -2614,6 +2614,239 @@ Best regards,
               );
             })()}
 
+            {/* ── Estimated Audience Demographics ─────────────────────────── */}
+            {data.assessment && data.assessment.verdictColor !== "red" && (() => {
+              type AudienceData = {
+                age: { label: string; pct: number }[];
+                gender: { name: string; value: number }[];
+                geo: { flag: string; country: string; pct: number }[];
+                devices: { name: string; value: number }[];
+              };
+              const AUDIENCE_DATA: Record<string, AudienceData> = {
+                "92246": {
+                  age: [
+                    { label: "18–24", pct: 25 },
+                    { label: "25–34", pct: 35 },
+                    { label: "35–44", pct: 22 },
+                    { label: "45–54", pct: 13 },
+                    { label: "55+",   pct: 5  },
+                  ],
+                  gender: [
+                    { name: "Male",   value: 55 },
+                    { name: "Female", value: 45 },
+                  ],
+                  geo: [
+                    { flag: "🇺🇸", country: "US",        pct: 72 },
+                    { flag: "🇨🇦", country: "Canada",    pct: 8  },
+                    { flag: "🇬🇧", country: "UK",        pct: 6  },
+                    { flag: "🇦🇺", country: "Australia", pct: 4  },
+                    { flag: "🌍", country: "Other",     pct: 10 },
+                  ],
+                  devices: [
+                    { name: "Mobile",  value: 62 },
+                    { name: "Desktop", value: 28 },
+                    { name: "TV",      value: 10 },
+                  ],
+                },
+                "90544": {
+                  age: [
+                    { label: "18–24", pct: 30 },
+                    { label: "25–34", pct: 40 },
+                    { label: "35–44", pct: 20 },
+                    { label: "45–54", pct: 8  },
+                    { label: "55+",   pct: 2  },
+                  ],
+                  gender: [
+                    { name: "Male",   value: 78 },
+                    { name: "Female", value: 22 },
+                  ],
+                  geo: [
+                    { flag: "🇺🇸", country: "US",      pct: 45 },
+                    { flag: "🇮🇳", country: "India",   pct: 18 },
+                    { flag: "🇬🇧", country: "UK",      pct: 8  },
+                    { flag: "🇩🇪", country: "Germany", pct: 5  },
+                    { flag: "🇧🇷", country: "Brazil",  pct: 4  },
+                    { flag: "🌍", country: "Other",   pct: 20 },
+                  ],
+                  devices: [
+                    { name: "Mobile",  value: 55 },
+                    { name: "Desktop", value: 38 },
+                    { name: "TV",      value: 7  },
+                  ],
+                },
+                "91304": {
+                  age: [
+                    { label: "18–24", pct: 35 },
+                    { label: "25–34", pct: 38 },
+                    { label: "35–44", pct: 18 },
+                    { label: "45–54", pct: 7  },
+                    { label: "55+",   pct: 2  },
+                  ],
+                  gender: [
+                    { name: "Male",   value: 72 },
+                    { name: "Female", value: 28 },
+                  ],
+                  geo: [
+                    { flag: "🇺🇸", country: "US",          pct: 40 },
+                    { flag: "🇮🇳", country: "India",       pct: 20 },
+                    { flag: "🇵🇭", country: "Philippines", pct: 8  },
+                    { flag: "🇬🇧", country: "UK",          pct: 7  },
+                    { flag: "🇳🇬", country: "Nigeria",     pct: 5  },
+                    { flag: "🌍", country: "Other",       pct: 20 },
+                  ],
+                  devices: [
+                    { name: "Mobile",  value: 58 },
+                    { name: "Desktop", value: 35 },
+                    { name: "TV",      value: 7  },
+                  ],
+                },
+              };
+
+              const aud = AUDIENCE_DATA[id];
+              if (!aud) return null;
+
+              const maxAgePct = Math.max(...aud.age.map((a) => a.pct));
+              const GENDER_COLORS = ["#10b981", "#3b82f6"];
+              const DEVICE_COLORS = ["#10b981", "#3b82f6", "#8b5cf6"];
+
+              const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: {
+                cx: number; cy: number; midAngle: number;
+                innerRadius: number; outerRadius: number; percent: number;
+              }) => {
+                const RADIAN = Math.PI / 180;
+                const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+                const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                if (percent < 0.08) return null;
+                return (
+                  <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={600}>
+                    {`${(percent * 100).toFixed(0)}%`}
+                  </text>
+                );
+              };
+
+              return (
+                <SectionCard icon={Users} title="Estimated Audience Demographics" iconColor="text-emerald-400">
+                  <div className="space-y-4">
+                    <p className="text-xs text-zinc-500">Estimated based on niche demographics and YouTube audience benchmarks</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                      {/* Age Distribution */}
+                      <div className="bg-zinc-900 rounded-xl p-4">
+                        <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3">Age Distribution</p>
+                        <ResponsiveContainer width="100%" height={200}>
+                          <BarChart data={aud.age} layout="vertical" margin={{ top: 0, right: 40, left: 4, bottom: 0 }}>
+                            <XAxis type="number" hide domain={[0, 50]} />
+                            <YAxis type="category" dataKey="label" tick={{ fill: "#a1a1aa", fontSize: 11 }} width={42} />
+                            <Tooltip
+                              formatter={(v: number) => [`${v}%`, "Share"]}
+                              contentStyle={{ background: "#27272a", border: "1px solid #3f3f46", borderRadius: 8, fontSize: 11 }}
+                              labelStyle={{ color: "#e4e4e7" }}
+                            />
+                            <Bar dataKey="pct" radius={[0, 4, 4, 0]}>
+                              {aud.age.map((entry) => (
+                                <Cell
+                                  key={entry.label}
+                                  fill={entry.pct === maxAgePct ? "#10b981" : "#3f3f46"}
+                                />
+                              ))}
+                            </Bar>
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+
+                      {/* Gender Split */}
+                      <div className="bg-zinc-900 rounded-xl p-4">
+                        <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3">Gender Split</p>
+                        <ResponsiveContainer width="100%" height={200}>
+                          <PieChart>
+                            <Pie
+                              data={aud.gender}
+                              cx="50%"
+                              cy="50%"
+                              innerRadius={55}
+                              outerRadius={80}
+                              dataKey="value"
+                              labelLine={false}
+                              label={renderCustomLabel}
+                            >
+                              {aud.gender.map((entry, idx) => (
+                                <Cell key={entry.name} fill={GENDER_COLORS[idx % GENDER_COLORS.length]} />
+                              ))}
+                            </Pie>
+                            <Tooltip
+                              formatter={(v: number) => [`${v}%`, ""]}
+                              contentStyle={{ background: "#27272a", border: "1px solid #3f3f46", borderRadius: 8, fontSize: 11 }}
+                            />
+                            <Legend
+                              iconType="circle"
+                              iconSize={8}
+                              formatter={(value) => <span style={{ color: "#a1a1aa", fontSize: 11 }}>{value}</span>}
+                            />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      </div>
+
+                      {/* Geography */}
+                      <div className="bg-zinc-900 rounded-xl p-4">
+                        <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3">Geography</p>
+                        <ResponsiveContainer width="100%" height={200}>
+                          <BarChart
+                            data={aud.geo.map((g) => ({ label: `${g.flag} ${g.country}`, pct: g.pct }))}
+                            layout="vertical"
+                            margin={{ top: 0, right: 40, left: 4, bottom: 0 }}
+                          >
+                            <XAxis type="number" hide domain={[0, 80]} />
+                            <YAxis type="category" dataKey="label" tick={{ fill: "#a1a1aa", fontSize: 11 }} width={96} />
+                            <Tooltip
+                              formatter={(v: number) => [`${v}%`, "Share"]}
+                              contentStyle={{ background: "#27272a", border: "1px solid #3f3f46", borderRadius: 8, fontSize: 11 }}
+                              labelStyle={{ color: "#e4e4e7" }}
+                            />
+                            <Bar dataKey="pct" fill="#10b981" radius={[0, 4, 4, 0]} />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+
+                      {/* Device Split */}
+                      <div className="bg-zinc-900 rounded-xl p-4">
+                        <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3">Device Split</p>
+                        <ResponsiveContainer width="100%" height={200}>
+                          <PieChart>
+                            <Pie
+                              data={aud.devices}
+                              cx="50%"
+                              cy="50%"
+                              innerRadius={55}
+                              outerRadius={80}
+                              dataKey="value"
+                              labelLine={false}
+                              label={renderCustomLabel}
+                            >
+                              {aud.devices.map((entry, idx) => (
+                                <Cell key={entry.name} fill={DEVICE_COLORS[idx % DEVICE_COLORS.length]} />
+                              ))}
+                            </Pie>
+                            <Tooltip
+                              formatter={(v: number) => [`${v}%`, ""]}
+                              contentStyle={{ background: "#27272a", border: "1px solid #3f3f46", borderRadius: 8, fontSize: 11 }}
+                            />
+                            <Legend
+                              iconType="circle"
+                              iconSize={8}
+                              formatter={(value) => <span style={{ color: "#a1a1aa", fontSize: 11 }}>{value}</span>}
+                            />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      </div>
+
+                    </div>
+                    <p className="text-[10px] text-zinc-600">Estimates based on niche analysis. Verify via YouTube Analytics during due diligence.</p>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Channel Valuation Calculator ────────────────────────────── */}
             {data.assessment && data.assessment.verdictColor !== "red" && (() => {
               const fin = LISTING_FINANCIALS.find((f) => f.id === id);
