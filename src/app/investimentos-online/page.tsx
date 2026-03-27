@@ -458,7 +458,7 @@ function PortfolioCorrelationSection() {
             />
             <Legend
               formatter={(value) =>
-                value === "ace" ? "Ace Hoops" : value === "tech" ? "Tech YouTube" : "Combined"
+                value === "ace" ? "Ace Hoops" : value === "tech" ? "Faceless Tutorials" : "Combined"
               }
               wrapperStyle={{ fontSize: 11, color: "#a1a1aa" }}
             />
