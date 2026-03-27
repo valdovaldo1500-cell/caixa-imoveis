@@ -2614,6 +2614,141 @@ Best regards,
               );
             })()}
 
+            {/* ── Content Performance Projections ──────────────────────────── */}
+            {data.assessment && data.assessment.verdictColor !== "red" && fin && (() => {
+              type ScenarioMonth = { month: string; bull: number; base: number; bear: number };
+              const PROJECTION_DATA: Record<string, ScenarioMonth[]> = {
+                "92246": (() => {
+                  const months = ["Apr 26","May 26","Jun 26","Jul 26","Aug 26","Sep 26","Oct 26","Nov 26","Dec 26","Jan 27","Feb 27","Mar 27"];
+                  const base =   [1700, 3900, 4300, 5000, 5400, 4100, 3200, 1200, 2500, 1100, 2700, 1800];
+                  return months.map((m, i) => ({
+                    month: m,
+                    bull: Math.round(base[i] * 1.2),
+                    base: base[i],
+                    bear: Math.round(base[i] * 0.75),
+                  }));
+                })(),
+                "90544": (() => {
+                  const months = ["Apr 26","May 26","Jun 26","Jul 26","Aug 26","Sep 26","Oct 26","Nov 26","Dec 26","Jan 27","Feb 27","Mar 27"];
+                  return months.map((m, i) => ({
+                    month: m,
+                    bull: Math.round(3428 * Math.pow(1.05, i + 1)),
+                    base: Math.round(3428 * Math.pow(0.98, i + 1)),
+                    bear: Math.round(3428 * Math.pow(0.95, i + 1)),
+                  }));
+                })(),
+                "91304": (() => {
+                  const months = ["Apr 26","May 26","Jun 26","Jul 26","Aug 26","Sep 26","Oct 26","Nov 26","Dec 26","Jan 27","Feb 27","Mar 27"];
+                  return months.map((m, i) => ({
+                    month: m,
+                    bull: Math.round(1737 * Math.pow(1.03, i + 1)),
+                    base: 1800,
+                    bear: Math.round(1737 * Math.pow(0.96, i + 1)),
+                  }));
+                })(),
+              };
+              const projData = PROJECTION_DATA[id];
+              if (!projData) return null;
+              const sumBull = projData.reduce((a, b) => a + b.bull, 0);
+              const sumBase = projData.reduce((a, b) => a + b.base, 0);
+              const sumBear = projData.reduce((a, b) => a + b.bear, 0);
+              return (
+                <SectionCard icon={TrendingUp} title="Content Performance Projections" subtitle="12-month forward projections based on historical trends" iconColor="text-blue-400">
+                  <div className="space-y-5">
+                    <ResponsiveContainer width="100%" height={300}>
+                      <ComposedChart data={projData} margin={{ top: 5, right: 10, left: 10, bottom: 30 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
+                        <XAxis
+                          dataKey="month"
+                          tick={{ fill: "#71717a", fontSize: 11 }}
+                          angle={-45}
+                          textAnchor="end"
+                          height={50}
+                        />
+                        <YAxis
+                          tick={{ fill: "#71717a", fontSize: 11 }}
+                          tickFormatter={(v: number) => `$${v >= 1000 ? `${(v / 1000).toFixed(1)}k` : v}`}
+                          width={55}
+                        />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: "#27272a",
+                            border: "1px solid #3f3f46",
+                            borderRadius: "8px",
+                            color: "#fff",
+                            fontSize: "12px",
+                          }}
+                          formatter={(value: number, name: string) => [
+                            `$${value.toLocaleString()}`,
+                            name === "bull" ? "Bull (+20%)" : name === "base" ? "Base" : "Bear (-25%)",
+                          ]}
+                          labelStyle={{ color: "#a1a1aa" }}
+                        />
+                        <Legend
+                          formatter={(value: string) =>
+                            value === "bull" ? "Bull" : value === "base" ? "Base" : "Bear"
+                          }
+                          wrapperStyle={{ fontSize: 12, color: "#a1a1aa" }}
+                        />
+                        <Area
+                          type="monotone"
+                          dataKey="base"
+                          fill="#3b82f6"
+                          fillOpacity={0.1}
+                          stroke="none"
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="bull"
+                          stroke="#10b981"
+                          strokeWidth={2}
+                          strokeDasharray="5 4"
+                          dot={false}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="base"
+                          stroke="#3b82f6"
+                          strokeWidth={3}
+                          dot={false}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="bear"
+                          stroke="#ef4444"
+                          strokeWidth={2}
+                          strokeDasharray="5 4"
+                          dot={false}
+                        />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+
+                    {/* Summary cards */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="bg-emerald-950/40 border border-emerald-800/40 rounded-xl p-4">
+                        <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Best Case (Bull)</div>
+                        <div className="text-xl font-bold text-emerald-300">${sumBull.toLocaleString()}</div>
+                        <div className="text-xs text-zinc-400 mt-1">12-month total</div>
+                        <div className="text-sm text-emerald-400 mt-2 font-medium">${Math.round(sumBull / 12).toLocaleString()}<span className="text-xs text-zinc-500 font-normal"> / mo avg</span></div>
+                      </div>
+                      <div className="bg-blue-950/40 border border-blue-800/40 rounded-xl p-4">
+                        <div className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">Expected (Base)</div>
+                        <div className="text-xl font-bold text-blue-300">${sumBase.toLocaleString()}</div>
+                        <div className="text-xs text-zinc-400 mt-1">12-month total</div>
+                        <div className="text-sm text-blue-400 mt-2 font-medium">${Math.round(sumBase / 12).toLocaleString()}<span className="text-xs text-zinc-500 font-normal"> / mo avg</span></div>
+                      </div>
+                      <div className="bg-red-950/40 border border-red-800/40 rounded-xl p-4">
+                        <div className="text-xs font-semibold text-red-400 uppercase tracking-wider mb-2">Worst Case (Bear)</div>
+                        <div className="text-xl font-bold text-red-300">${sumBear.toLocaleString()}</div>
+                        <div className="text-xs text-zinc-400 mt-1">12-month total</div>
+                        <div className="text-sm text-red-400 mt-2 font-medium">${Math.round(sumBear / 12).toLocaleString()}<span className="text-xs text-zinc-500 font-normal"> / mo avg</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </SectionCard>
+              );
+            })()}
+
             {/* ── Estimated Audience Demographics ─────────────────────────── */}
             {data.assessment && data.assessment.verdictColor !== "red" && (() => {
               type AudienceData = {
