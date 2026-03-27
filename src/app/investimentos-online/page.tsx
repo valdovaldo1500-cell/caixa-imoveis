@@ -1132,7 +1132,7 @@ export default function InvestimentosOnlinePage() {
                     </ul>
                     <div className="border-t border-zinc-700 pt-3 space-y-1">
                       <div className="flex justify-between text-xs"><span className="text-zinc-400">Expected monthly</span><span className="text-emerald-400 font-bold">$7,135</span></div>
-                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Portfolio ROI</span><span className="text-emerald-400 font-bold">~68%</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Portfolio ROI</span><span className="text-emerald-400 font-bold">~54%</span></div>
                       <div className="flex justify-between text-xs"><span className="text-zinc-400">Risk</span><span className="text-red-400">Higher</span></div>
                       <p className="text-xs text-zinc-500 pt-1">No cash buffer · 3 properties to manage.</p>
                     </div>
