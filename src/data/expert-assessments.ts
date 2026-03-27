@@ -21,8 +21,8 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     verdict: "STRONG BUY — CORE PICK",
     verdictColor: "emerald",
     price: "$70,599",
-    monthlyProfit: "$2,900",
-    annualROI: "49%",
+    monthlyProfit: "$3,070",
+    annualROI: "52%",
     trendProfit: "Seasonal — peak $5,444 Aug 25",
     trendTraffic: "896K views/mo",
     highlights: [
