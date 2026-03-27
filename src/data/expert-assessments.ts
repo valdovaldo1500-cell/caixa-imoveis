@@ -233,7 +233,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "First monetized March 2023 — under 3 years old",
     ],
     recommendation:
-      "Solid alternative or complement to the primary picks. Faceless format + digital media tutorials = perfect for AI/VA operation. The declining trend (-25% from 12-month average) is steeper than initially assessed but could reverse with increased publishing cadence (currently <1 video/month). At $60K with $1,962/mo actual run rate, the real multiple is 31x — above market norms. Offer $40K, settle $45K (23x on current rate). Best as: (A) complement to Ace Hoops if Tech YouTube #90544 negotiations fail, or (B) third acquisition if budget allows after primary picks.",
+      "Secondary pick — pairs with Ace Hoops (#92246) as the confirmed two-channel portfolio. Faceless format + digital media tutorials = perfect for AI/VA operation. Tech YouTube #90544 was eliminated (recent videos 0 views, not AI voiceover as claimed, hidden freelancer costs). At $60K with $1,962/mo actual run rate, the real multiple is 31x — above market norms, so negotiate hard. Offer $40K, settle $45K (23x on current rate). Combined with Ace Hoops at $62K: ~$107K total, well within the $160K budget. The declining trend (-25%) could reverse with increased publishing cadence (currently <1 video/month — massive room to grow).",
     aiPlan:
       "Claude generates tutorial scripts on trending digital media topics. VA handles editing and publishing. Increase cadence from <1/month to 4/month for growth. Owner reviews weekly analytics (2hrs). Companion website gets SEO content from Claude. Growth: expand topic coverage, add affiliate partnerships.",
   },
