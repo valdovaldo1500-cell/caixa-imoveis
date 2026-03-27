@@ -577,7 +577,7 @@ export default function InvestimentosOnlineDetailPage() {
               let breakBase = 0, breakBear = 0, breakBull = 0;
               for (let i = 0; i < 36; i++) {
                 const m = monthNames[i % 12];
-                const yr = i < 10 ? "26" : i < 22 ? "27" : "28";
+                const yr = i < 10 ? "26" : i < 22 ? "27" : i < 34 ? "28" : "29";
                 const base = isSeasonal ? avg * (seasonalMult[m] ?? 1) : avg;
                 cumBase += base;
                 cumBear += base * 0.7;
