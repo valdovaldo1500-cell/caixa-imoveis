@@ -1112,16 +1112,16 @@ export default function InvestimentosOnlinePage() {
                       <h3 className="text-sm font-bold text-white mt-0.5">Conservative <span className="text-zinc-400 font-normal">(current plan)</span></h3>
                     </div>
                     <ul className="text-xs space-y-1 text-zinc-300">
-                      <li className="flex justify-between"><span className="text-blue-400 font-medium">Ace Hoops</span><span>$62K <span className="text-zinc-500">(44%)</span></span></li>
-                      <li className="flex justify-between"><span className="text-purple-400 font-medium">Tech YouTube</span><span>$79K <span className="text-zinc-500">(56%)</span></span></li>
-                      <li className="flex justify-between border-t border-zinc-700 pt-1 mt-1"><span className="text-zinc-400">Total deployed</span><span className="text-white font-semibold">$141K</span></li>
-                      <li className="flex justify-between"><span className="text-zinc-400">Cash reserve</span><span className="text-emerald-400 font-semibold">$19K</span></li>
+                      <li className="flex justify-between"><span className="text-blue-400 font-medium">Ace Hoops</span><span>$62K <span className="text-zinc-500">(58%)</span></span></li>
+                      <li className="flex justify-between"><span className="text-purple-400 font-medium">Faceless Tutorials</span><span>$45K <span className="text-zinc-500">(42%)</span></span></li>
+                      <li className="flex justify-between border-t border-zinc-700 pt-1 mt-1"><span className="text-zinc-400">Total deployed</span><span className="text-white font-semibold">$107K</span></li>
+                      <li className="flex justify-between"><span className="text-zinc-400">Cash reserve</span><span className="text-emerald-400 font-semibold">$53K</span></li>
                     </ul>
                     <div className="border-t border-zinc-700 pt-3 space-y-1">
-                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Expected monthly</span><span className="text-emerald-400 font-bold">$6,117</span></div>
-                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Portfolio ROI</span><span className="text-emerald-400 font-bold">~52%</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Expected monthly</span><span className="text-emerald-400 font-bold">$4,800</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-zinc-400">Portfolio ROI</span><span className="text-emerald-400 font-bold">~54%</span></div>
                       <div className="flex justify-between text-xs"><span className="text-zinc-400">Risk</span><span className="text-amber-400">Medium</span></div>
-                      <p className="text-xs text-zinc-500 pt-1">Seasonal dependency on WNBA calendar.</p>
+                      <p className="text-xs text-zinc-500 pt-1">Seasonal dependency on WNBA calendar. Large cash reserve for future picks.</p>
                     </div>
                   </div>
 
