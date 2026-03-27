@@ -1135,9 +1135,9 @@ export default function InvestimentosOnlinePage() {
                       <Tooltip
                         contentStyle={{ backgroundColor: "#18181b", border: "1px solid #3f3f46", borderRadius: "8px" }}
                         labelStyle={{ color: "#fff", fontWeight: 600, fontSize: 12 }}
-                        formatter={(value: number, name: string) => {
+                        formatter={(value, name: string) => {
                           const labels: Record<string, string> = { aceHoops: "Ace Hoops", techYT: "Tech YouTube", tutorials: "Faceless Tutorials", cash: "Cash Reserve" };
-                          return [`$${value}K`, labels[name] ?? name];
+                          return [`$${Number(value)}K`, labels[name] ?? name];
                         }}
                       />
                       <Legend
