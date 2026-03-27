@@ -345,7 +345,7 @@ export async function getQAComparables(propertyId: number) {
   const p = prop[0];
 
   const cityKey = normalizeCidade(p.cidade);
-  const bairroKey = normalizeCidade(p.bairro || "");
+  const bairroKeyNorm = normBairro(p.bairro || "");
   const qaTypes = getQAUnitTypes(p.tipoImovel, p.descricao);
   const propArea =
     p.areaPrivativaM2 && parseFloat(p.areaPrivativaM2) > 0
@@ -363,9 +363,18 @@ export async function getQAComparables(propertyId: number) {
   const cityListings = allSale.filter(
     (r) => normalizeCidade(r.cidade || "") === cityKey
   );
-  const bairroListings = bairroKey
-    ? cityListings.filter((r) => normalizeCidade(r.bairro || "") === bairroKey)
+
+  // Filter by bairro using normBairro + fuzzy fallback (same as itbi.ts)
+  let bairroListings = bairroKeyNorm
+    ? cityListings.filter((r) => normBairro(r.bairro || "") === bairroKeyNorm)
     : [];
+  // Fuzzy fallback: try partial match if exact normalized match fails
+  if (bairroListings.length === 0 && bairroKeyNorm.length > 3) {
+    bairroListings = cityListings.filter((r) => {
+      const k = normBairro(r.bairro || "");
+      return k.includes(bairroKeyNorm) || bairroKeyNorm.includes(k);
+    });
+  }
 
   type QARow = (typeof allSale)[0];
   function filterListings(listings: QARow[], strict = false): QARow[] {
@@ -387,7 +396,7 @@ export async function getQAComparables(propertyId: number) {
 
   let comparables = filterListings(bairroListings, true);
   if (comparables.length < 3) comparables = filterListings(bairroListings);
-  if (comparables.length < 3) comparables = filterListings(cityListings);
+  // No city-wide fallback — bairro-only matching (same as zap.ts)
 
   return {
     saleComparables: comparables.map((r) => ({
