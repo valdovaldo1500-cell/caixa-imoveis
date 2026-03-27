@@ -769,7 +769,7 @@ export default function InvestimentosOnlinePage() {
                   <ul className="text-xs text-zinc-400 space-y-1">
                     <li className="flex gap-1.5"><span className="text-amber-400 shrink-0">!</span>60-day earnout for both — verify P&amp;L via bank statements</li>
                     <li className="flex gap-1.5"><span className="text-amber-400 shrink-0">!</span>Confirm AdSense accounts are transferable (YouTube policy)</li>
-                    <li className="flex gap-1.5"><span className="text-amber-400 shrink-0">!</span>Tech YouTube: confirm all 3 channel AdSense + workflows transfer</li>
+                    <li className="flex gap-1.5"><span className="text-amber-400 shrink-0">!</span>Faceless Tutorials: confirm channel AdSense + affiliate account transfer</li>
                     <li className="flex gap-1.5"><span className="text-amber-400 shrink-0">!</span>Ace Hoops: confirm Filipino freelancers willing to continue post-sale</li>
                     <li className="flex gap-1.5"><span className="text-zinc-500 shrink-0">✓</span>Ace Hoops off-season plan: draft, trades, college basketball content</li>
                   </ul>
