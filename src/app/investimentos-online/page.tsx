@@ -260,6 +260,17 @@ function TopPickCard({ listing }: { listing: EFListing }) {
         </div>
       </div>
 
+      {financials && (
+        <div className="bg-zinc-900 rounded-lg px-3 py-1.5">
+          <div className="flex items-center justify-between mb-0.5">
+            <span className="text-xs text-zinc-500">12-mo revenue trend</span>
+          </div>
+          <div className="flex justify-center">
+            <Sparkline data={financials.monthlyProfitHistory} />
+          </div>
+        </div>
+      )}
+
       <div className="space-y-1.5">
         <div className="text-xs text-zinc-500 font-medium uppercase tracking-wide mb-1">Scores</div>
         <div className="flex items-center gap-2 text-xs">
