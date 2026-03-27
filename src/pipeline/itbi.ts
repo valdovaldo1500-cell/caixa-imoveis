@@ -341,16 +341,6 @@ export async function calculateMarketValues(): Promise<{
       )
     );
 
-  // Normalize bairro: remove accents, articles (DE, DO, DA, DOS, DAS), trim
-  function normBairro(name: string): string {
-    return name
-      .toUpperCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      .replace(/\b(DE|DO|DA|DOS|DAS|E)\b/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
   // Group by normalized bairro for fast lookup
   type TxRow = (typeof allTx)[0];
   const txByBairro = new Map<string, TxRow[]>();
