@@ -1272,6 +1272,136 @@ export default function InvestimentosOnlineDetailPage() {
               </div>
             )}
 
+            {/* ── Financing Scenarios ───────────────────────────────── */}
+            {(() => {
+              if (!data?.assessment || data.assessment.verdictColor === "red") return null;
+              const fin = LISTING_FINANCIALS.find((f) => f.id === id);
+              if (!fin) return null;
+
+              const askingPrice = fin.askingPrice;
+              const avg3mo = fin.avg3mo;
+
+              // Amortization helper: M = P * r * (1+r)^n / ((1+r)^n - 1)
+              function monthlyPayment(principal: number, annualRate: number, months: number): number {
+                if (annualRate === 0) return principal / months;
+                const r = annualRate / 100 / 12;
+                return (principal * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
+              }
+
+              // Option A — All Cash
+              const cashROI = askingPrice > 0 ? (avg3mo * 12) / askingPrice * 100 : 0;
+
+              // Option B — Seller Financing (30% down, 70% over 24 mo at 8% APR)
+              const sfDown = askingPrice * 0.30;
+              const sfPrincipal = askingPrice * 0.70;
+              const sfMonthly = monthlyPayment(sfPrincipal, 8, 24);
+              const sfTotalCost = sfDown + sfMonthly * 24;
+              const sfNetCashFlow = avg3mo - sfMonthly;
+              const sfROI = sfDown > 0 ? (avg3mo * 12) / sfDown * 100 : 0;
+
+              // Option C — SBA Loan (10% down, 90% over 120 mo at 11% APR)
+              const sbaDown = askingPrice * 0.10;
+              const sbaPrincipal = askingPrice * 0.90;
+              const sbaMonthly = monthlyPayment(sbaPrincipal, 11, 120);
+              const sbaTotalCost = sbaDown + sbaMonthly * 120;
+              const sbaNetCashFlow = avg3mo - sbaMonthly;
+              const sbaROI = sbaDown > 0 ? (avg3mo * 12) / sbaDown * 100 : 0;
+
+              const fmt = (n: number) => n < 0
+                ? `-$${Math.abs(Math.round(n)).toLocaleString()}`
+                : `$${Math.round(n).toLocaleString()}`;
+
+              type FinOption = {
+                label: string;
+                title: string;
+                highlight: boolean;
+                rows: { key: string; value: string; highlight?: boolean }[];
+                cashFlow: number;
+              };
+
+              const options: FinOption[] = [
+                {
+                  label: "OPTION A",
+                  title: "All Cash",
+                  highlight: true,
+                  cashFlow: avg3mo,
+                  rows: [
+                    { key: "Down payment", value: fmt(askingPrice) },
+                    { key: "Monthly payment", value: "$0" },
+                    { key: "Monthly profit", value: fmt(avg3mo) },
+                    { key: "Net cash flow / mo", value: fmt(avg3mo), highlight: true },
+                    { key: "Total paid (3 yr)", value: fmt(askingPrice) },
+                    { key: "Annual ROI", value: `${cashROI.toFixed(1)}%` },
+                  ],
+                },
+                {
+                  label: "OPTION B",
+                  title: "Seller Financing (70/30)",
+                  highlight: false,
+                  cashFlow: sfNetCashFlow,
+                  rows: [
+                    { key: "Down payment (30%)", value: fmt(sfDown) },
+                    { key: "Financed (70%, 24 mo, 8%)", value: fmt(sfPrincipal) },
+                    { key: "Monthly payment", value: fmt(sfMonthly) },
+                    { key: "Monthly profit", value: fmt(avg3mo) },
+                    { key: "Net cash flow / mo", value: fmt(sfNetCashFlow), highlight: true },
+                    { key: "Total paid (2 yr)", value: fmt(sfTotalCost) },
+                    { key: "ROI on cash invested", value: `${sfROI.toFixed(1)}%` },
+                  ],
+                },
+                {
+                  label: "OPTION C",
+                  title: "SBA Loan (10% down)",
+                  highlight: false,
+                  cashFlow: sbaNetCashFlow,
+                  rows: [
+                    { key: "Down payment (10%)", value: fmt(sbaDown) },
+                    { key: "Financed (90%, 10 yr, 11%)", value: fmt(sbaPrincipal) },
+                    { key: "Monthly payment", value: fmt(sbaMonthly) },
+                    { key: "Monthly profit", value: fmt(avg3mo) },
+                    { key: "Net cash flow / mo", value: fmt(sbaNetCashFlow), highlight: true },
+                    { key: "Total paid (10 yr)", value: fmt(sbaTotalCost) },
+                    { key: "ROI on cash invested", value: `${sbaROI.toFixed(1)}%` },
+                  ],
+                },
+              ];
+
+              return (
+                <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+                  <h3 className="text-lg font-semibold text-white mb-4">Financing Scenarios</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {options.map((opt) => (
+                      <div
+                        key={opt.label}
+                        className={`bg-zinc-800/50 rounded-lg p-5 border ${opt.highlight ? "border-emerald-500/50" : "border-zinc-700/40"}`}
+                      >
+                        <p className="text-xs uppercase tracking-widest text-zinc-500 mb-1">{opt.label}</p>
+                        <p className="text-white font-bold mb-4">
+                          {opt.title}
+                          {opt.highlight && (
+                            <span className="ml-2 text-xs font-normal text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">Recommended</span>
+                          )}
+                        </p>
+                        <ul className="space-y-2">
+                          {opt.rows.map((row) => (
+                            <li key={row.key} className="flex justify-between items-center gap-2">
+                              <span className="text-zinc-400 text-sm">{row.key}</span>
+                              <span className={`text-sm font-medium ${row.highlight ? (opt.cashFlow >= 0 ? "text-emerald-400" : "text-red-400") : "text-white"}`}>
+                                {row.value}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-zinc-600 text-xs italic mt-4">
+                    Seller financing availability varies by listing. SBA loans require a US entity and approval process typically takes 60–90 days.
+                  </p>
+                </div>
+              );
+            })()}
+
             {/* ── Competitor Landscape ──────────────────────────────── */}
             {(() => {
               const competitors: Record<string, { name: string; subs: string; videos: string; niche: string; monet: string }[]> = {
