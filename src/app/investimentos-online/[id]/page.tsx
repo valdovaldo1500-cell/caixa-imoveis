@@ -2674,7 +2674,7 @@ Best regards,
                   automationLevel: "high",
                 },
               };
-              const auto = automationMap[String(data.id)];
+              const auto = automationMap[String(id)];
               if (!auto) return null;
               const accentColor = auto.automationLevel === "high" ? "emerald" : "blue";
               return (
