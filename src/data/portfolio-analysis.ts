@@ -514,7 +514,7 @@ export const SENSITIVITY_ANALYSIS: SensitivityScenario[] = [
     monthlyProfit: 3428,
     annualROI: 29.2,
     paybackMonths: 41,
-    verdict: "Survivable — Tech YouTube alone at $3,428/mo covers portfolio. Sell Ace Hoops channel",
+    verdict: "Survivable — Faceless Tutorials at $1,962/mo provides baseline. Sell Ace Hoops channel if needed",
   },
 ];
 
