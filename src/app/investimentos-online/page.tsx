@@ -1176,9 +1176,9 @@ export default function InvestimentosOnlinePage() {
                     <BarChart
                       layout="vertical"
                       data={[
-                        { scenario: "A — Conservative", aceHoops: 62, techYT: 79, tutorials: 0, cash: 19 },
-                        { scenario: "B — Aggressive",   aceHoops: 55, techYT: 70, tutorials: 35, cash: 0 },
-                        { scenario: "C — Balanced",     aceHoops: 55, techYT: 70, tutorials: 0, cash: 35 },
+                        { scenario: "A — Conservative", aceHoops: 62, tutorials: 45, thirdAcq: 0,  cash: 53 },
+                        { scenario: "B — Aggressive",   aceHoops: 55, tutorials: 40, thirdAcq: 35, cash: 30 },
+                        { scenario: "C — Balanced",     aceHoops: 55, tutorials: 40, thirdAcq: 0,  cash: 65 },
                       ]}
                       margin={{ top: 4, right: 20, left: 4, bottom: 4 }}
                     >
