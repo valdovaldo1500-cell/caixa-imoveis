@@ -2557,6 +2557,120 @@ export default function InvestimentosOnlinePage() {
               </div>
             </div>
 
+            {/* YouTube Industry Benchmarks */}
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+              <div className="flex items-center gap-2 mb-6">
+                <BarChart2 className="w-5 h-5 text-blue-400" />
+                <h3 className="text-base font-semibold text-white">YouTube Industry Benchmarks</h3>
+                <span className="ml-auto text-xs text-zinc-500 bg-zinc-800 px-2 py-0.5 rounded-full">vs EF YouTube avg</span>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-zinc-800">
+                      <th className="text-left px-4 py-3 text-zinc-300 font-semibold">Metric</th>
+                      <th className="text-left px-4 py-3 text-zinc-300 font-semibold">EF YouTube Avg</th>
+                      <th className="text-left px-4 py-3 text-zinc-300 font-semibold">Ace Hoops #92246</th>
+                      <th className="text-left px-4 py-3 text-zinc-300 font-semibold">Tech YT #90544</th>
+                      <th className="text-left px-4 py-3 text-zinc-300 font-semibold">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      {
+                        metric: "Monthly Profit",
+                        avg: "$2,800",
+                        ace: "$3,043 (avg 12mo)",
+                        tech: "$3,746",
+                        status: "Both above avg",
+                        statusColor: "emerald",
+                      },
+                      {
+                        metric: "Profit Margin",
+                        avg: "70%",
+                        ace: "89%",
+                        tech: "85%",
+                        status: "Both excellent",
+                        statusColor: "emerald",
+                      },
+                      {
+                        metric: "Monthly Multiple",
+                        avg: "28x",
+                        ace: "23x",
+                        tech: "25x",
+                        status: "Both below (better deal)",
+                        statusColor: "emerald",
+                      },
+                      {
+                        metric: "Hours/Week",
+                        avg: "10",
+                        ace: "4",
+                        tech: "1",
+                        status: "Both low effort",
+                        statusColor: "emerald",
+                      },
+                      {
+                        metric: "YoY Growth",
+                        avg: "+5%",
+                        ace: "+15% (seasonal peak)",
+                        tech: "-8% (stabilizing)",
+                        status: "Mixed",
+                        statusColor: "amber",
+                      },
+                      {
+                        metric: "Subscribers",
+                        avg: "50K avg",
+                        ace: "~120K",
+                        tech: "~45K total (3 channels)",
+                        status: "Above avg",
+                        statusColor: "emerald",
+                      },
+                      {
+                        metric: "Content Age",
+                        avg: "3 years",
+                        ace: "2 years",
+                        tech: "1.5 years",
+                        status: "Young = risk + opportunity",
+                        statusColor: "amber",
+                      },
+                    ].map((row, i) => (
+                      <tr
+                        key={row.metric}
+                        className={i % 2 === 0 ? "bg-zinc-800/50" : "bg-zinc-900"}
+                      >
+                        <td className="px-4 py-3 text-zinc-200 font-medium">{row.metric}</td>
+                        <td className="px-4 py-3 text-zinc-400 font-mono">{row.avg}</td>
+                        <td className="px-4 py-3 text-zinc-200 font-mono">{row.ace}</td>
+                        <td className="px-4 py-3 text-zinc-200 font-mono">{row.tech}</td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                              row.statusColor === "emerald"
+                                ? "bg-emerald-900/50 text-emerald-300"
+                                : row.statusColor === "amber"
+                                ? "bg-amber-900/50 text-amber-300"
+                                : "bg-red-900/50 text-red-300"
+                            }`}
+                          >
+                            {row.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="mt-4 pt-4 border-t border-zinc-800 flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                <p className="text-sm text-zinc-300">
+                  Your picks outperform EF YouTube averages in{" "}
+                  <span className="font-semibold text-emerald-400">5/7 key metrics</span>
+                </p>
+              </div>
+            </div>
+
             {/* Portfolio Diversification Score */}
             <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <div className="flex items-center gap-2 mb-6">
