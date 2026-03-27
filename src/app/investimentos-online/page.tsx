@@ -1215,7 +1215,7 @@ export default function InvestimentosOnlinePage() {
                 <div className="border border-emerald-500/40 bg-emerald-500/5 rounded-lg p-4">
                   <p className="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1">Recommendation</p>
                   <p className="text-sm text-zinc-300 leading-relaxed">
-                    <span className="font-semibold text-white">Scenario C (Balanced)</span> is recommended for first-time acquirers. The $35K cash reserve provides runway for content optimization, VA hiring, and unexpected platform changes. Once both channels are stabilized (3–6 months), redeploy cash into a third acquisition.
+                    <span className="font-semibold text-white">Scenario A (Conservative)</span> is the confirmed plan: Ace Hoops ($62K) + Faceless Tutorials ($45K) = $107K deployed, $53K cash reserve. The large reserve provides runway for content optimization, VA hiring, and a third acquisition once both assets are stabilized (3–6 months).
                   </p>
                 </div>
               </div>
