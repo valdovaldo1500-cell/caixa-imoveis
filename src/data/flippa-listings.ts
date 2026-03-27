@@ -3413,44 +3413,54 @@ export const flippaListings: FlippaListing[] = [
       ],
     };
   })(),
-  // #12225207 — SaaS | Business | $50,000 | $6,692/mo | 161% ROI
+  // #12225207 — SaaS | AI Content | $50,000 | £5,035/mo avg | AVOID (CV=112%, loss month, Nov spike)
   (() => {
-    const a = 95, r = 85, rs = 95, e = 88;
+    // Verified P&L: CV=112%, avg profit £5,035/mo BUT has a LOSS MONTH (Aug: -£539)
+    // Nov 2025 spike £17,694 inflates average massively — exclude Nov and avg is ~£3,000
+    // Real monthly distribution: mostly £619-£2,941 with one -£539 and one £17,694 outlier
+    const a = 90, r = 30, rs = 50, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
+    const cvPct = 112, trend = 0; // approximately flat excl Nov spike
     return {
       id: "12225207",
-      title: "Transforms YouTube videos into blog content using AI, enabling automated transcription, optimization",
-      niche: "Business",
+      title: "AI YouTube-to-Blog SaaS — 200 Active Subscribers, 31% Margin",
+      niche: "AI / SaaS",
       price: 50000,
-      monthlyProfit: 6692,
+      monthlyProfit: 5035,
       monthlyRevenue: 0,
-      monetization: "strategy of affiliate sales and service subscriptions. As a cutting-edge solutio",
+      monetization: "Subscriptions + affiliate",
       multiple: 0.6,
       firstMadeMoney: 6,
       businessAge: 6,
-      description: "Transforms YouTube videos into blog content using AI, enabling automated transcription, optimization, and publishing for content creators. SaaS Business Sponsored Confidential Business Location DE, United States Site Age 6 years Monthly Profit GBP £5,027 /mo Profit Margin 31% Profit Multiple 0.6x Re",
+      description: "AI SaaS that converts YouTube videos into blog content. 200 subscribers. The '£5,035/mo average' is a statistical lie driven by a Nov 2025 spike to £49,939 revenue (one-off event). Typical months show £619-£2,941 profit. Had a LOSS month in Aug 2025 (-£539). The real business is £1-2K/mo, not £5K.",
       status: "active",
       listingType: "buy_now",
-      verificationStatus: "partial",
+      verificationStatus: "verified",
       offersCount: 0,
       autonomyScore: a,
       riskScore: r,
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 50000),
+      recommendation: rec(ov, aiM, 50000, { verifiedPnL: true, cvPercent: cvPct, revenueTrend: trend, hasLossMonth: true }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: true,
+      profitConsistency: "terrible",
+      revenueTrend: trend,
+      monthlyProfitRange: "-£539–£17,694",
+      cvPercent: cvPct,
       reasonsFor: [
-      "Highly autonomous — AI+VA can run with minimal oversight",
-      "Low risk profile — verified financials, diversified",
-      "Strong ROI: 161% annual return at asking price",
-      "Verified Listing — financials independently confirmed by Flippa",
-      "Proven track record: 6+ years in operation"
+        "Verified P&L — data is transparent, no hiding of the numbers",
+        "AI niche with potential if subscriber retention can be improved",
+        "Low asking price ($50K) relative to headline averages"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+        "HAD A LOSS MONTH (Aug 2025: -£539) — the business cannot sustain itself in slow months",
+        "CV=112% — profit is essentially random; Nov spike (£17,694) is clearly a one-off",
+        "Excluding Nov outlier, real average is ~£2,000–£3,000/mo — not the £5,035 claimed",
+        "200 subscribers at 5% churn = losing 10 subs/mo — needs constant new acquisition to survive"
       ],
     };
   })(),
