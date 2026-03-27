@@ -174,40 +174,40 @@ export const LISTING_FINANCIALS: ListingFinancials[] = [
 
 export const PORTFOLIO_SCENARIOS: PortfolioScenario[] = [
   {
-    name: "Primary: Ace Hoops + 3× Tech YouTube",
+    name: "Primary: Ace Hoops + Faceless Tutorials",
+    listings: ["92246", "91304"],
+    totalCost: 107000, // $62K + $45K target prices
+    monthlyProfit: 4651, // $2,689 + $1,962 avg3mo
+    annualProfit: 55812,
+    annualROI: 52.2,
+    paybackMonths: 23,
+    irr: 46.5,
+    npv10: 33400, // NPV at 10% discount rate, 3 years
+    npv15: 25200, // NPV at 15% discount rate, 3 years
+    worstCase: { monthlyProfit: 3378, annualROI: 37.9 }, // -30% revenue
+    bestCase: { monthlyProfit: 7581, annualROI: 85.0 }, // WNBA peak + tutorials stable
+    totalHoursPerWeek: 8,
+    correlationRisk: "high", // both YouTube
+    description:
+      "Confirmed plan. Ace Hoops provides seasonal upside (WNBA May-Oct peak $5,444/mo), Faceless Tutorials provides year-round base income ($1,962/mo). Both faceless, AI-manageable (ElevenLabs voiceover on Tutorials). Total budget: $107K of $160K, leaving $53K buffer for operating expenses and growth investments.",
+  },
+  {
+    name: "Eliminated: Ace Hoops + 3× Tech YouTube",
     listings: ["92246", "90544"],
     totalCost: 141000, // $62K + $79K target prices
     monthlyProfit: 6117, // $2,689 + $3,428
     annualProfit: 73404,
     annualROI: 52.1,
     paybackMonths: 23,
-    irr: 48.2, // 3-year IRR with seasonal pattern
-    npv10: 41800, // NPV at 10% discount rate, 3 years
-    npv15: 32100, // NPV at 15% discount rate, 3 years
-    worstCase: { monthlyProfit: 4282, annualROI: 36.4 }, // -30% revenue
-    bestCase: { monthlyProfit: 8870, annualROI: 75.5 }, // WNBA peak + tech stable
+    irr: 48.2,
+    npv10: 41800,
+    npv15: 32100,
+    worstCase: { monthlyProfit: 4282, annualROI: 36.4 },
+    bestCase: { monthlyProfit: 8870, annualROI: 75.5 },
     totalHoursPerWeek: 5,
     correlationRisk: "high", // both YouTube
     description:
-      "Best risk-adjusted return. Ace Hoops provides seasonal upside (WNBA May-Oct peak $5,444/mo), Tech YouTube provides year-round base income ($3,428/mo). Both faceless, AI-manageable. Combined off-season: ~$5,300/mo. Combined peak season: ~$8,900/mo. Total budget: $141K of $160K, leaving $19K buffer for operating expenses and growth investments.",
-  },
-  {
-    name: "Alternative: Ace Hoops + Faceless Tutorials",
-    listings: ["92246", "91304"],
-    totalCost: 112000, // $62K + $50K target prices
-    monthlyProfit: 4651, // $2,689 + $1,962 avg3mo
-    annualProfit: 55812,
-    annualROI: 49.8,
-    paybackMonths: 24,
-    irr: 46.5,
-    npv10: 33400,
-    npv15: 25200,
-    worstCase: { monthlyProfit: 3378, annualROI: 36.2 },
-    bestCase: { monthlyProfit: 7581, annualROI: 81.2 },
-    totalHoursPerWeek: 6,
-    correlationRisk: "high", // both YouTube
-    description:
-      "Use this if Tech YouTube (#90544) negotiations fail. Lower total investment ($112K) leaves $48K buffer — enough for a third small acquisition later. #91304 is declining but has room to grow with increased publishing cadence (currently <1 video/month).",
+      "ELIMINATED — #90544 Tech YouTube is dying (recent videos 0 views, not AI voiceover, hidden freelancer costs). Do not buy.",
   },
   {
     name: "Conservative: Ace Hoops Only",
