@@ -2681,8 +2681,8 @@ Best regards,
                             color: "#fff",
                             fontSize: "12px",
                           }}
-                          formatter={(value: number, name: string) => [
-                            `$${value.toLocaleString()}`,
+                          formatter={(value, name: string) => [
+                            `$${Number(value ?? 0).toLocaleString()}`,
                             name === "bull" ? "Bull (+20%)" : name === "base" ? "Base" : "Bear (-25%)",
                           ]}
                           labelStyle={{ color: "#a1a1aa" }}
