@@ -1050,17 +1050,17 @@ export default function InvestimentosOnlinePage() {
                   </div>
                   <div
                     className="bg-blue-500 flex items-center justify-center text-xs font-bold text-white"
-                    style={{ width: "49.375%" }}
-                    title="Tech YouTube — $79K (49%)"
+                    style={{ width: "28.125%" }}
+                    title="Faceless Tutorials — $45K (28%)"
                   >
-                    49%
+                    28%
                   </div>
                   <div
                     className="bg-zinc-600 flex items-center justify-center text-xs font-semibold text-zinc-300"
-                    style={{ width: "11.875%" }}
-                    title="Remaining — $19K (12%)"
+                    style={{ width: "33.125%" }}
+                    title="Cash Reserve — $53K (33%)"
                   >
-                    12%
+                    33%
                   </div>
                 </div>
                 {/* Legend */}
@@ -1076,16 +1076,16 @@ export default function InvestimentosOnlinePage() {
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 rounded-sm bg-blue-500 shrink-0" />
                     <div>
-                      <div className="text-xs font-semibold text-white">Tech YouTube (3× channels)</div>
-                      <div className="text-xs text-zinc-400">$79,000 · 49% of budget</div>
-                      <div className="text-xs text-zinc-500">Tech content — year-round revenue</div>
+                      <div className="text-xs font-semibold text-white">Faceless Tutorials (#91304)</div>
+                      <div className="text-xs text-zinc-400">$45,000 · 28% of budget</div>
+                      <div className="text-xs text-zinc-500">Faceless tutorials — year-round revenue</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 rounded-sm bg-zinc-600 shrink-0" />
                     <div>
                       <div className="text-xs font-semibold text-zinc-300">Cash Reserve</div>
-                      <div className="text-xs text-zinc-400">$19,000 · 12% of budget</div>
+                      <div className="text-xs text-zinc-400">$53,000 · 33% of budget</div>
                       <div className="text-xs text-zinc-500">Buffer / opportunistic picks</div>
                     </div>
                   </div>
