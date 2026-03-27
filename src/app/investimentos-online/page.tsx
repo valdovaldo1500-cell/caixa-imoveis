@@ -369,7 +369,7 @@ function pearson(xs: number[], ys: number[]): number {
 
 function PortfolioCorrelationSection() {
   const aceHoops = LISTING_FINANCIALS.find((l) => l.id === "92246")!;
-  const techYT = LISTING_FINANCIALS.find((l) => l.id === "90544")!;
+  const techYT = LISTING_FINANCIALS.find((l) => l.id === "91304")!;
 
   const aceMap = new Map(aceHoops.monthlyProfitHistory.map((d) => [d.month, d.profit]));
   const techMap = new Map(techYT.monthlyProfitHistory.map((d) => [d.month, d.profit]));
