@@ -1155,10 +1155,10 @@ export default function InvestimentosOnlinePage() {
                     </div>
                     <ul className="text-xs space-y-1 text-zinc-300">
                       <li className="flex justify-between"><span className="text-blue-400 font-medium">Ace Hoops</span><span>$55K <span className="text-zinc-500">(34%)</span></span></li>
-                      <li className="flex justify-between"><span className="text-purple-400 font-medium">Tech YouTube</span><span>$70K <span className="text-zinc-500">(44%)</span></span></li>
-                      <li className="flex justify-between"><span className="text-gray-400 font-medium">Cash reserve</span><span>$35K <span className="text-zinc-500">(22%)</span></span></li>
-                      <li className="flex justify-between border-t border-zinc-700 pt-1 mt-1"><span className="text-zinc-400">Total deployed</span><span className="text-white font-semibold">$125K</span></li>
-                      <li className="flex justify-between"><span className="text-zinc-400">Cash reserve</span><span className="text-emerald-400 font-semibold">$35K</span></li>
+                      <li className="flex justify-between"><span className="text-purple-400 font-medium">Faceless Tutorials</span><span>$40K <span className="text-zinc-500">(25%)</span></span></li>
+                      <li className="flex justify-between"><span className="text-gray-400 font-medium">Cash reserve</span><span>$65K <span className="text-zinc-500">(41%)</span></span></li>
+                      <li className="flex justify-between border-t border-zinc-700 pt-1 mt-1"><span className="text-zinc-400">Total deployed</span><span className="text-white font-semibold">$95K</span></li>
+                      <li className="flex justify-between"><span className="text-zinc-400">Cash reserve</span><span className="text-emerald-400 font-semibold">$65K</span></li>
                     </ul>
                     <div className="border-t border-zinc-700 pt-3 space-y-1">
                       <div className="flex justify-between text-xs"><span className="text-zinc-400">Expected monthly</span><span className="text-emerald-400 font-bold">$4,850</span></div>
