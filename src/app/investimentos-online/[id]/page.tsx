@@ -527,7 +527,7 @@ export default function InvestimentosOnlineDetailPage() {
                         <YAxis tick={{ fill: "#71717a", fontSize: 11 }} tickFormatter={(v: number) => `$${v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v}`} width={50} />
                         <Tooltip
                           contentStyle={{ backgroundColor: "#27272a", border: "1px solid #3f3f46", borderRadius: "8px", color: "#fff", fontSize: "12px" }}
-                          formatter={(value: number, name: string) => [`$${value.toLocaleString()}`, name === "base" ? "Base Case" : name === "bear" ? "Bear (−30%)" : "Bull (+25%)"]}
+                          formatter={(value, name) => [`$${Number(value).toLocaleString()}`, name === "base" ? "Base Case" : name === "bear" ? "Bear (−30%)" : "Bull (+25%)"]}
                           labelStyle={{ color: "#a1a1aa" }}
                         />
                         <Area type="monotone" dataKey="bull" stroke="transparent" fill="url(#bullFill)" />
