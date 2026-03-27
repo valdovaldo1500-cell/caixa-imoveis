@@ -698,61 +698,61 @@ export default function FlippaPage() {
                 {/* Option A */}
                 <div className="bg-zinc-800 border border-emerald-500/60 rounded-xl p-4 space-y-2 ring-1 ring-emerald-500/20">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-emerald-400 uppercase tracking-wide">Option A — All-In Online</div>
-                    <span className="text-xs bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-full">Max cash flow</span>
+                    <div className="text-xs font-bold text-emerald-400 uppercase tracking-wide">Option A — Best Verified Pick</div>
+                    <span className="text-xs bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-full">Recommended</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">2× Strong Picks (Budget: ~$80K each)</div>
+                  <div className="text-sm font-semibold text-white">#11721372 — Food & Drink Marketplace ($124K)</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• e.g. #11735360 ($17K) + #12193746 ($92K) = $109K total</li>
-                    <li>• Leaves $50K+ reserve for improvements/VA</li>
-                    <li className="text-emerald-400 font-medium">Monthly target: ~$4-5K/mo combined</li>
-                    <li>Diversified: Content + Amazon FBA hedge</li>
-                    <li className="text-zinc-500">Negotiate: ask for 60-day earnout on each</li>
+                    <li className="text-emerald-400 font-medium">• Only listing with CV=10% — profit £6.2K–£8.9K every month</li>
+                    <li>• Revenue growing +12% over 12 verified months</li>
+                    <li>• 8yr old, 125+ vendors, 25K+ customers, 50% repeat rate</li>
+                    <li>• 71.5% annual ROI at asking price — with verified data</li>
+                    <li className="text-zinc-500">• Leaves ~$36K reserve from $160K budget</li>
                   </ul>
                 </div>
 
                 {/* Option B */}
                 <div className="bg-zinc-800 border border-amber-500/30 rounded-xl p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Option B — Conservative</div>
-                    <span className="text-xs bg-amber-900/40 text-amber-300 px-2 py-0.5 rounded-full">Lower risk</span>
+                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wide">Option B — Split: Verified + Unverified</div>
+                    <span className="text-xs bg-amber-900/40 text-amber-300 px-2 py-0.5 rounded-full">Diversified</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">1× Flippa Pick + Caixa Property</div>
+                  <div className="text-sm font-semibold text-white">#11721372 ($124K) + Small Unverified Pick</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• Flippa pick: e.g. #12274806 Ecommerce ($140K, 70% ROI)</li>
-                    <li>• Caixa imóvel (POA): ~$35K (R$200K)</li>
-                    <li>• Leaves ~$25K in reserve</li>
-                    <li className="text-emerald-400 font-medium">Monthly: ~$2.5-3K online + BRL rental income</li>
-                    <li>Tangible asset hedge against digital platform risk</li>
+                    <li>• Anchor: #11721372 Food Marketplace (verified, £7.4K/mo)</li>
+                    <li>• Add: #12265554 KDP Account ($89K, growing +44%) — but ask for P&amp;L earnout</li>
+                    <li className="text-amber-400 font-medium">Combined cost: $213K — over budget unless negotiate</li>
+                    <li>• Negotiate #11721372 to $110K (8% discount) = $199K total</li>
+                    <li className="text-zinc-500">• Only viable if seller accepts lower price</li>
                   </ul>
                 </div>
 
                 {/* Option C */}
                 <div className="bg-zinc-800 border border-zinc-600 rounded-xl p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Option C — Single Asset</div>
-                    <span className="text-xs bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full">Wait for right deal</span>
+                    <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Option C — Wait for Better Data</div>
+                    <span className="text-xs bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full">Patience play</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">1× Flagship Flippa Pick</div>
+                  <div className="text-sm font-semibold text-white">Hold Cash, Watch 3 Listings</div>
                   <ul className="text-xs text-zinc-400 space-y-1">
-                    <li>• Single quality asset: $120-150K</li>
-                    <li>• Focus: SaaS or high-authority content site</li>
-                    <li className="text-blue-400 font-medium">Monthly: ~$4-5K/mo (concentrated)</li>
-                    <li>Simpler to manage — single asset focus</li>
-                    <li className="text-zinc-500">Higher concentration risk vs split approach</li>
+                    <li>• Watch #12265554 KDP ($89K) — growing but volatile, wait 2 more months</li>
+                    <li>• Watch #12300985 Exam Publishing ($120K) — needs 2 more months to confirm avg</li>
+                    <li className="text-blue-400 font-medium">No unverified listing is worth buying at face value</li>
+                    <li>• 46 listings have ZERO monthly P&L data — all are seller-claimed averages</li>
+                    <li className="text-zinc-500">• Only 8 of 85 listings have real verified monthly data</li>
                   </ul>
                 </div>
 
                 {/* Decision Summary */}
                 <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-4 space-y-2 md:col-span-2 xl:col-span-3">
-                  <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Decision Factors</div>
+                  <div className="text-xs font-bold text-zinc-300 uppercase tracking-wide">Key Findings from Verified P&L Analysis</div>
                   <ul className="text-xs text-zinc-400 space-y-1.5">
-                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span><span className="text-white">Flippa advantage</span>: direct seller contact allows more aggressive negotiation than broker platforms</span></li>
-                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span>Flippa has more SaaS and app listings vs Empire Flippers — better for recurring revenue models</span></li>
-                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Verification quality varies on Flippa — prioritize "Flippa Verified" listings only</span></li>
-                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Always request 60-day earnout and independent P&amp;L verification before closing</span></li>
-                    <li className="flex gap-2"><span className="text-red-400">✗</span><span>Avoid auction listings unless budget allows overbidding — set a hard stop at $160K all-in</span></li>
-                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>Always negotiate: Flippa's direct seller model means 10-20% below ask is common on aged listings</span></li>
+                    <li className="flex gap-2"><span className="text-emerald-400">✓</span><span><span className="text-white">#11721372 is the only true low-risk pick</span>: CV=10%, growing, no loss months, verified 12 months</span></li>
+                    <li className="flex gap-2"><span className="text-red-400">✗</span><span><span className="text-white">5 of 8 verified listings have declining revenue</span> — #12016298 (-71%), #12266888 (-58%), #12021962 (-44%), #12275568 (-39%), #12021962 (-44%)</span></li>
+                    <li className="flex gap-2"><span className="text-red-400">✗</span><span>#12225207 had a LOSS MONTH and a one-off spike inflating its "£5K/mo" claim — real business is £1-2K/mo</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>46+ listings have NO monthly P&amp;L breakdown — only seller-claimed averages. Do not trust those numbers.</span></li>
+                    <li className="flex gap-2"><span className="text-amber-400">!</span><span>Always request 12 months of verified bank statements or Stripe/PayPal exports before closing any deal</span></li>
+                    <li className="flex gap-2"><span className="text-blue-400">i</span><span>Negotiate: Flippa direct sellers accept 10-20% below ask — especially for listings 90+ days on market</span></li>
                   </ul>
                 </div>
               </div>
