@@ -105,7 +105,7 @@ export const ELIMINATED_IDS = new Set<string>([]);
 export const flippaListings: FlippaListing[] = [
   // #12101579 — Ecommerce | Sports and Outdoor | $74,110 | $2,952/mo | 48% ROI
   (() => {
-    const a = 63, r = 77, rs = 75, e = 60;
+    const a = 63, r = 60, rs = 75, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -129,9 +129,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 74110),
+      recommendation: rec(ov, aiM, 74110, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -139,14 +140,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12567523 — Ecommerce | Design and Style | $68,489 | $5,474/mo | 96% ROI
   (() => {
-    const a = 50, r = 72, rs = 95, e = 60;
+    const a = 50, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -170,9 +171,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 68489),
+      recommendation: rec(ov, aiM, 68489, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 96% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -180,15 +182,15 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12629201 — SaaS | Education | $85,000 | $2,557/mo | 36% ROI
   (() => {
-    const a = 90, r = 67, rs = 65, e = 95;
+    const a = 90, r = 60, rs = 65, e = 95;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -212,21 +214,22 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 85000),
+      recommendation: rec(ov, aiM, 85000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11735360 — Content | Lifestyle | $17,000 | $538/mo | 38% ROI
   (() => {
-    const a = 87, r = 77, rs = 65, e = 68;
+    const a = 87, r = 60, rs = 65, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -250,9 +253,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 17000),
+      recommendation: rec(ov, aiM, 17000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -260,13 +264,13 @@ export const flippaListings: FlippaListing[] = [
       "Proven track record: 10+ years in operation"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12668926 — Ecommerce | Health and Beauty | $50,000 | $1,201/mo | 29% ROI
   (() => {
-    const a = 63, r = 77, rs = 50, e = 70;
+    const a = 63, r = 60, rs = 50, e = 70;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -290,23 +294,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 50000),
+      recommendation: rec(ov, aiM, 50000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 8+ years in operation"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12641977 — Ecommerce | Design and Style | $42,239 | $2,489/mo | 71% ROI
   (() => {
-    const a = 63, r = 72, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -330,9 +335,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 42239),
+      recommendation: rec(ov, aiM, 42239, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 71% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -340,15 +346,15 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12267830 — Ecommerce | Hobbies and Games | $118,000 | $3,956/mo | 40% ROI
   (() => {
-    const a = 68, r = 80, rs = 75, e = 60;
+    const a = 68, r = 60, rs = 75, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -372,9 +378,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 118000),
+      recommendation: rec(ov, aiM, 118000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -383,13 +390,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.5x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12274806 — Ecommerce | Lifestyle | $140,000 | $8,219/mo | 70% ROI
   (() => {
-    const a = 68, r = 80, rs = 95, e = 60;
+    const a = 68, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -413,9 +420,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 140000),
+      recommendation: rec(ov, aiM, 140000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 70% annual return at asking price",
@@ -424,13 +432,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12268481 — Ecommerce | Design and Style | $89,359 | $3,843/mo | 52% ROI
   (() => {
-    const a = 68, r = 85, rs = 85, e = 60;
+    const a = 68, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -454,9 +462,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 89359),
+      recommendation: rec(ov, aiM, 89359, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 52% annual return at asking price",
@@ -465,13 +474,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12264167 — Amazon Store | Health and Beauty | $239,924 | $8,130/mo | 41% ROI
   (() => {
-    const a = 67, r = 80, rs = 75, e = 75;
+    const a = 67, r = 60, rs = 75, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -495,9 +504,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 239924),
+      recommendation: rec(ov, aiM, 239924, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -506,13 +516,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.5x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12259051 — Ecommerce | Business | $192,000 | $5,116/mo | 32% ROI
   (() => {
-    const a = 68, r = 80, rs = 65, e = 60;
+    const a = 68, r = 60, rs = 65, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -536,9 +546,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 192000),
+      recommendation: rec(ov, aiM, 192000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -546,13 +557,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11981836 — Ecommerce | Sports and Outdoor | $199,900 | $5,566/mo | 33% ROI
   (() => {
-    const a = 68, r = 80, rs = 65, e = 60;
+    const a = 68, r = 60, rs = 65, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -576,9 +587,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 199900),
+      recommendation: rec(ov, aiM, 199900, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -586,13 +598,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12012923 — Ecommerce | Lifestyle | $157,248 | $6,811/mo | 52% ROI
   (() => {
-    const a = 68, r = 85, rs = 85, e = 60;
+    const a = 68, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -616,9 +628,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 157248),
+      recommendation: rec(ov, aiM, 157248, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 52% annual return at asking price",
@@ -627,13 +640,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12193746 — Amazon Store | Health and Beauty | $118,008 | $3,761/mo | 38% ROI
   (() => {
-    const a = 72, r = 80, rs = 65, e = 75;
+    const a = 72, r = 60, rs = 65, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -657,9 +670,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 118008),
+      recommendation: rec(ov, aiM, 118008, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -668,13 +682,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12516807 — YouTube Channel | Lifestyle | $148,000 | $4,262/mo | 35% ROI
   (() => {
-    const a = 92, r = 65, rs = 65, e = 68;
+    const a = 92, r = 60, rs = 65, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -698,17 +712,18 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 148000),
+      recommendation: rec(ov, aiM, 148000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
@@ -766,7 +781,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #11391837 — Ecommerce | Hobbies and Games | $215,140 | $8,175/mo | 46% ROI
   (() => {
-    const a = 68, r = 80, rs = 75, e = 60;
+    const a = 68, r = 60, rs = 75, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -790,9 +805,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 215140),
+      recommendation: rec(ov, aiM, 215140, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -801,13 +817,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.2x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12305807 — Ecommerce | Home and Garden | $75,014 | $9,076/mo | 145% ROI
   (() => {
-    const a = 63, r = 67, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -831,16 +847,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 75014),
+      recommendation: rec(ov, aiM, 75014, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 145% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.7x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Young business (1 year) — limited track record"
       ],
@@ -872,16 +889,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 99999),
+      recommendation: rec(ov, aiM, 99999, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 284% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.7x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Elevated risk — platform concentration or verification gaps"
       ],
@@ -889,7 +907,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12299026 — Ecommerce | Design and Style | $125,000 | $24,314/mo | 233% ROI
   (() => {
-    const a = 63, r = 67, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -913,23 +931,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 125000),
+      recommendation: rec(ov, aiM, 125000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 233% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12298491 — Content | Education | $42,000 | $1,452/mo | 41% ROI
   (() => {
-    const a = 87, r = 62, rs = 75, e = 78;
+    const a = 87, r = 60, rs = 75, e = 78;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -953,22 +972,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 42000),
+      recommendation: rec(ov, aiM, 42000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 2.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12260048 — Ecommerce | Health and Beauty | $165,000 | $13,965/mo | 102% ROI
   (() => {
-    const a = 63, r = 67, rs = 95, e = 70;
+    const a = 63, r = 60, rs = 95, e = 70;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -992,16 +1012,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 165000),
+      recommendation: rec(ov, aiM, 165000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 102% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Young business (1 year) — limited track record"
       ],
@@ -1033,16 +1054,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 112784),
+      recommendation: rec(ov, aiM, 112784, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 148% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Elevated risk — platform concentration or verification gaps"
       ],
@@ -1074,16 +1096,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 44999),
+      recommendation: rec(ov, aiM, 44999, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 353% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.7x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Elevated risk — platform concentration or verification gaps"
       ],
@@ -1115,16 +1138,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 44999),
+      recommendation: rec(ov, aiM, 44999, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 261% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.8x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Elevated risk — platform concentration or verification gaps"
       ],
@@ -1156,23 +1180,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 40000),
+      recommendation: rec(ov, aiM, 40000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 2.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Elevated risk — platform concentration or verification gaps"
       ],
     };
   })(),
   // #12291544 — Amazon Store | Health and Beauty | $11,851 | $666/mo | 67% ROI
   (() => {
-    const a = 67, r = 67, rs = 95, e = 75;
+    const a = 67, r = 60, rs = 95, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1196,23 +1221,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 11851),
+      recommendation: rec(ov, aiM, 11851, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 67% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Young business (1 year) — limited track record"
       ],
     };
   })(),
   // #12284332 — Ecommerce | Hobbies and Games | $200,000 | $19,538/mo | 117% ROI
   (() => {
-    const a = 43, r = 67, rs = 95, e = 60;
+    const a = 43, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1236,16 +1262,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 200000),
+      recommendation: rec(ov, aiM, 200000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 117% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.9x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Young business (1 year) — limited track record"
       ],
@@ -1253,7 +1280,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12281483 — Ecommerce | Health and Beauty | $210,670 | $18,845/mo | 107% ROI
   (() => {
-    const a = 63, r = 67, rs = 95, e = 70;
+    const a = 63, r = 60, rs = 95, e = 70;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1277,16 +1304,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 210670),
+      recommendation: rec(ov, aiM, 210670, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 107% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.9x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Young business (1 year) — limited track record"
       ],
@@ -1318,16 +1346,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 40000),
+      recommendation: rec(ov, aiM, 40000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 188% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.8x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Elevated risk — platform concentration or verification gaps"
       ],
@@ -1359,16 +1388,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 120000),
+      recommendation: rec(ov, aiM, 120000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 201% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.7x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Elevated risk — platform concentration or verification gaps"
       ],
@@ -1400,16 +1430,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 35000),
+      recommendation: rec(ov, aiM, 35000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 271% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.6x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Elevated risk — platform concentration or verification gaps"
       ],
@@ -1417,7 +1448,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12279449 — Ecommerce | Home and Garden | $35,000 | $7,339/mo | 252% ROI
   (() => {
-    const a = 63, r = 67, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1441,16 +1472,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 35000),
+      recommendation: rec(ov, aiM, 35000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 252% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Young business (1 year) — limited track record"
       ],
@@ -1458,7 +1490,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12232408 — Ecommerce | Health and Beauty | $176,107 | $3,545/mo | 24% ROI
   (() => {
-    const a = 68, r = 80, rs = 50, e = 70;
+    const a = 68, r = 60, rs = 50, e = 70;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1482,9 +1514,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 176107),
+      recommendation: rec(ov, aiM, 176107, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -1492,13 +1525,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.7x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11908488 — Amazon Store | Health and Beauty | $133,000 | $4,161/mo | 38% ROI
   (() => {
-    const a = 72, r = 80, rs = 65, e = 75;
+    const a = 72, r = 60, rs = 65, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1522,9 +1555,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 133000),
+      recommendation: rec(ov, aiM, 133000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -1532,13 +1566,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12166064 — Digital Agency | Business | $194,011 | $4,605/mo | 28% ROI
   (() => {
-    const a = 95, r = 80, rs = 50, e = 88;
+    const a = 95, r = 60, rs = 50, e = 88;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1562,9 +1596,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 194011),
+      recommendation: rec(ov, aiM, 194011, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -1573,13 +1608,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12071684 — Marketplace | Home and Garden | $246,816 | $6,859/mo | 33% ROI
   (() => {
-    const a = 95, r = 80, rs = 65, e = 88;
+    const a = 95, r = 60, rs = 65, e = 88;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1603,9 +1638,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 246816),
+      recommendation: rec(ov, aiM, 246816, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -1614,7 +1650,7 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
@@ -1672,7 +1708,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #11776064 — Content | Internet | $197,000 | $5,072/mo | 31% ROI
   (() => {
-    const a = 92, r = 80, rs = 65, e = 68;
+    const a = 92, r = 60, rs = 65, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1696,9 +1732,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 197000),
+      recommendation: rec(ov, aiM, 197000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -1707,13 +1744,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12078712 — Ecommerce | Business | $85,174 | $3,958/mo | 56% ROI
   (() => {
-    const a = 68, r = 85, rs = 85, e = 60;
+    const a = 68, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1737,9 +1774,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 85174),
+      recommendation: rec(ov, aiM, 85174, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 56% annual return at asking price",
@@ -1748,13 +1786,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11920156 — Ecommerce | Sports and Outdoor | $138,400 | $5,944/mo | 52% ROI
   (() => {
-    const a = 63, r = 77, rs = 85, e = 60;
+    const a = 63, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1778,9 +1816,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 138400),
+      recommendation: rec(ov, aiM, 138400, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 52% annual return at asking price",
@@ -1789,14 +1828,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.6x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #11899366 — Amazon Store | Health and Beauty | $114,724 | $4,528/mo | 47% ROI
   (() => {
-    const a = 72, r = 80, rs = 75, e = 75;
+    const a = 72, r = 60, rs = 75, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1820,9 +1859,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 114724),
+      recommendation: rec(ov, aiM, 114724, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -1830,13 +1870,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.3x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12232744 — Content | Food and Drink | $199,000 | $5,643/mo | 34% ROI
   (() => {
-    const a = 87, r = 72, rs = 65, e = 68;
+    const a = 87, r = 60, rs = 65, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1860,22 +1900,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 199000),
+      recommendation: rec(ov, aiM, 199000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 17+ years in operation"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12004030 — Ecommerce | Business | $76,417 | $6,107/mo | 96% ROI
   (() => {
-    const a = 63, r = 77, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1899,9 +1940,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 76417),
+      recommendation: rec(ov, aiM, 76417, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 96% annual return at asking price",
@@ -1910,14 +1952,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #11171518 — Ecommerce | Home and Garden | $112,478 | $4,605/mo | 49% ROI
   (() => {
-    const a = 68, r = 80, rs = 75, e = 60;
+    const a = 68, r = 60, rs = 75, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1941,9 +1983,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 112478),
+      recommendation: rec(ov, aiM, 112478, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -1952,13 +1995,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12300477 — Content | Home and Garden | $25,000 | $690/mo | 33% ROI
   (() => {
-    const a = 87, r = 82, rs = 65, e = 68;
+    const a = 87, r = 60, rs = 65, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -1982,9 +2025,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 25000),
+      recommendation: rec(ov, aiM, 25000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -1998,7 +2042,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #11999064 — Ecommerce | Business | $230,000 | $10,282/mo | 54% ROI
   (() => {
-    const a = 68, r = 85, rs = 85, e = 60;
+    const a = 68, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2022,9 +2066,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 230000),
+      recommendation: rec(ov, aiM, 230000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 54% annual return at asking price",
@@ -2033,13 +2078,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12073592 — Content | Travel | $48,000 | $1,346/mo | 34% ROI
   (() => {
-    const a = 87, r = 72, rs = 65, e = 68;
+    const a = 87, r = 60, rs = 65, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2063,22 +2108,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 48000),
+      recommendation: rec(ov, aiM, 48000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 20+ years in operation"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11995987 — Amazon KDP | Entertainment | $160,000 | $4,436/mo | 33% ROI
   (() => {
-    const a = 95, r = 75, rs = 65, e = 75;
+    const a = 95, r = 60, rs = 65, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2102,9 +2148,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 160000),
+      recommendation: rec(ov, aiM, 160000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -2112,13 +2159,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12166327 — Service | Education | $155,000 | $8,069/mo | 62% ROI
   (() => {
-    const a = 45, r = 85, rs = 95, e = 75;
+    const a = 45, r = 60, rs = 95, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2142,9 +2189,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 155000),
+      recommendation: rec(ov, aiM, 155000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "service",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 62% annual return at asking price",
@@ -2153,14 +2201,14 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #11678338 — Content | Entertainment | $180,000 | $5,339/mo | 36% ROI
   (() => {
-    const a = 92, r = 80, rs = 65, e = 68;
+    const a = 92, r = 60, rs = 65, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2184,9 +2232,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 180000),
+      recommendation: rec(ov, aiM, 180000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -2195,13 +2244,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11895309 — Android App | Hobbies and Games | $120,000 | $2,064/mo | 21% ROI
   (() => {
-    const a = 80, r = 72, rs = 50, e = 70;
+    const a = 80, r = 60, rs = 50, e = 70;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2225,22 +2274,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 120000),
+      recommendation: rec(ov, aiM, 120000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "app",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 14+ years in operation"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12101465 — Amazon Store | Home and Garden | $95,200 | $2,826/mo | 36% ROI
   (() => {
-    const a = 72, r = 80, rs = 65, e = 65;
+    const a = 72, r = 60, rs = 65, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2264,9 +2314,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 95200),
+      recommendation: rec(ov, aiM, 95200, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -2275,13 +2326,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.5x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12228474 — Ecommerce | Health and Beauty | $106,075 | $2,134/mo | 24% ROI
   (() => {
-    const a = 68, r = 80, rs = 50, e = 70;
+    const a = 68, r = 60, rs = 50, e = 70;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2305,9 +2356,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 106075),
+      recommendation: rec(ov, aiM, 106075, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -2315,13 +2367,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11122075 — Service | Business | $46,246 | $1,110/mo | 29% ROI
   (() => {
-    const a = 40, r = 82, rs = 50, e = 65;
+    const a = 40, r = 60, rs = 50, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2345,9 +2397,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 46246),
+      recommendation: rec(ov, aiM, 46246, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "service",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -2410,7 +2463,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #11639863 — Content | Food and Drink | $225,000 | $4,832/mo | 26% ROI
   (() => {
-    const a = 87, r = 72, rs = 50, e = 68;
+    const a = 87, r = 60, rs = 50, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2434,22 +2487,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 225000),
+      recommendation: rec(ov, aiM, 225000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 12+ years in operation"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12032937 — Ecommerce | Health and Beauty | $55,948 | $1,427/mo | 31% ROI
   (() => {
-    const a = 63, r = 77, rs = 65, e = 70;
+    const a = 63, r = 60, rs = 65, e = 70;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2473,9 +2527,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 55948),
+      recommendation: rec(ov, aiM, 55948, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -2483,14 +2538,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #11766321 — Ecommerce | Entertainment | $44,510 | $1,892/mo | 51% ROI
   (() => {
-    const a = 63, r = 82, rs = 85, e = 60;
+    const a = 63, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2514,9 +2569,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 44510),
+      recommendation: rec(ov, aiM, 44510, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 51% annual return at asking price",
@@ -2531,7 +2587,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12280420 — Ecommerce | Design and Style | $189,000 | $6,945/mo | 44% ROI
   (() => {
-    const a = 68, r = 80, rs = 75, e = 60;
+    const a = 68, r = 60, rs = 75, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2555,9 +2611,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 189000),
+      recommendation: rec(ov, aiM, 189000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -2566,7 +2623,7 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.3x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
@@ -2624,7 +2681,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12465945 — Amazon KDP | Entertainment | $35,000 | $1,853/mo | 64% ROI
   (() => {
-    const a = 93, r = 77, rs = 95, e = 75;
+    const a = 93, r = 60, rs = 95, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2648,9 +2705,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 35000),
+      recommendation: rec(ov, aiM, 35000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -2659,13 +2717,13 @@ export const flippaListings: FlippaListing[] = [
       "Proven track record: 8+ years in operation"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11862182 — Service | Entertainment | $46,500 | $3,530/mo | 91% ROI
   (() => {
-    const a = 40, r = 77, rs = 95, e = 65;
+    const a = 40, r = 60, rs = 95, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2689,9 +2747,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 46500),
+      recommendation: rec(ov, aiM, 46500, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "service",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 91% annual return at asking price",
@@ -2700,14 +2759,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12255678 — Ecommerce | Business | $49,000 | $1,523/mo | 37% ROI
   (() => {
-    const a = 63, r = 77, rs = 65, e = 60;
+    const a = 63, r = 60, rs = 65, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2731,9 +2790,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 49000),
+      recommendation: rec(ov, aiM, 49000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -2741,14 +2801,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12169081 — Content | Electronics | $45,000 | $1,560/mo | 42% ROI
   (() => {
-    const a = 87, r = 62, rs = 75, e = 68;
+    const a = 87, r = 60, rs = 75, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2772,16 +2832,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 45000),
+      recommendation: rec(ov, aiM, 45000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 2.1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
@@ -2811,9 +2872,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 29999),
+      recommendation: rec(ov, aiM, 29999, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Strong ROI: 81% annual return at asking price",
@@ -2821,14 +2883,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.7x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Elevated risk — platform concentration or verification gaps"
       ],
     };
   })(),
   // #11945038 — Ecommerce | Design and Style | $99,000 | $3,230/mo | 39% ROI
   (() => {
-    const a = 63, r = 77, rs = 65, e = 60;
+    const a = 63, r = 60, rs = 65, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2852,9 +2914,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 99000),
+      recommendation: rec(ov, aiM, 99000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -2862,14 +2925,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 0.8x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #11507045 — Service | Design and Style | $110,000 | $1,772/mo | 19% ROI
   (() => {
-    const a = 40, r = 72, rs = 50, e = 65;
+    const a = 40, r = 60, rs = 50, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2893,22 +2956,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 110000),
+      recommendation: rec(ov, aiM, 110000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "service",
+      verifiedPnL: false,
       reasonsFor: [
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 19+ years in operation"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12163517 — Amazon KDP | Design and Style | $61,497 | $2,609/mo | 51% ROI
   (() => {
-    const a = 93, r = 72, rs = 85, e = 75;
+    const a = 93, r = 60, rs = 85, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2932,9 +2996,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 61497),
+      recommendation: rec(ov, aiM, 61497, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Strong ROI: 51% annual return at asking price",
@@ -2942,13 +3007,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.3x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11734258 — Ecommerce | Home and Garden | $130,260 | $4,163/mo | 38% ROI
   (() => {
-    const a = 63, r = 72, rs = 65, e = 60;
+    const a = 63, r = 60, rs = 65, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -2972,23 +3037,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 130260),
+      recommendation: rec(ov, aiM, 130260, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 17+ years in operation",
       "Attractive 2.1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12271061 — Ecommerce | Design and Style | $20,621 | $1,899/mo | 111% ROI
   (() => {
-    const a = 63, r = 77, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3012,9 +3078,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 20621),
+      recommendation: rec(ov, aiM, 20621, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 111% annual return at asking price",
@@ -3023,14 +3090,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 0.9x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #11993409 — Amazon Store | Food and Drink | $135,000 | $6,643/mo | 59% ROI
   (() => {
-    const a = 67, r = 77, rs = 85, e = 65;
+    const a = 67, r = 60, rs = 85, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3054,9 +3121,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 135000),
+      recommendation: rec(ov, aiM, 135000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 59% annual return at asking price",
@@ -3065,13 +3133,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.7x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12206031 — Content | Lifestyle | $163,964 | $3,782/mo | 28% ROI
   (() => {
-    const a = 92, r = 85, rs = 50, e = 68;
+    const a = 92, r = 60, rs = 50, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3095,9 +3163,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 163964),
+      recommendation: rec(ov, aiM, 163964, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -3106,7 +3175,7 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
@@ -3164,7 +3233,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #11827994 — Amazon Store | Home and Garden | $184,695 | $5,987/mo | 39% ROI
   (() => {
-    const a = 72, r = 80, rs = 65, e = 65;
+    const a = 72, r = 60, rs = 65, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3188,9 +3257,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 184695),
+      recommendation: rec(ov, aiM, 184695, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -3198,7 +3268,7 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
@@ -3254,7 +3324,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #11634253 — Content | Business | $155,238 | $5,021/mo | 39% ROI
   (() => {
-    const a = 92, r = 85, rs = 65, e = 68;
+    const a = 92, r = 60, rs = 65, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3278,9 +3348,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 155238),
+      recommendation: rec(ov, aiM, 155238, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -3289,13 +3360,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12271646 — Content | Travel | $60,000 | $1,257/mo | 25% ROI
   (() => {
-    const a = 87, r = 67, rs = 50, e = 68;
+    const a = 87, r = 60, rs = 50, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3319,23 +3390,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 60000),
+      recommendation: rec(ov, aiM, 60000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 7+ years in operation"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12271818 — Amazon Store | Lifestyle | $162,196 | $2,262/mo | 17% ROI
   (() => {
-    const a = 67, r = 72, rs = 50, e = 65;
+    const a = 67, r = 60, rs = 50, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3359,21 +3431,22 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 162196),
+      recommendation: rec(ov, aiM, 162196, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 7+ years in operation"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12012903 — Service | Business | $49,999 | $4,324/mo | 104% ROI
   (() => {
-    const a = 45, r = 80, rs = 95, e = 65;
+    const a = 45, r = 60, rs = 95, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3397,9 +3470,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 49999),
+      recommendation: rec(ov, aiM, 49999, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "service",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 104% annual return at asking price",
@@ -3408,7 +3482,7 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
@@ -3466,7 +3540,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12096451 — Amazon Store | Home and Garden | $40,000 | $1,683/mo | 50% ROI
   (() => {
-    const a = 67, r = 77, rs = 85, e = 65;
+    const a = 67, r = 60, rs = 85, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3490,9 +3564,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 40000),
+      recommendation: rec(ov, aiM, 40000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 50% annual return at asking price",
@@ -3501,13 +3576,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.5x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11679276 — Content | Internet | $200,000 | $14,407/mo | 86% ROI
   (() => {
-    const a = 72, r = 75, rs = 95, e = 68;
+    const a = 72, r = 60, rs = 95, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3531,9 +3606,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 200000),
+      recommendation: rec(ov, aiM, 200000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 86% annual return at asking price",
@@ -3542,13 +3618,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.2x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11738921 — Content | Entertainment | $51,438 | $937/mo | 22% ROI
   (() => {
-    const a = 87, r = 62, rs = 50, e = 68;
+    const a = 87, r = 60, rs = 50, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3572,23 +3648,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 51438),
+      recommendation: rec(ov, aiM, 51438, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 6+ years in operation"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High 5.3x multiple — limited upside at asking price"
       ],
     };
   })(),
   // #12097268 — Service | Lifestyle | $69,000 | $3,436/mo | 60% ROI
   (() => {
-    const a = 40, r = 87, rs = 85, e = 65;
+    const a = 40, r = 60, rs = 85, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3612,9 +3689,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 69000),
+      recommendation: rec(ov, aiM, 69000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "service",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 60% annual return at asking price",
@@ -3629,7 +3707,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12230608 — SaaS | Design and Style | $40,843 | $1,550/mo | 46% ROI
   (() => {
-    const a = 90, r = 72, rs = 75, e = 88;
+    const a = 90, r = 60, rs = 75, e = 88;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3653,9 +3731,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 40843),
+      recommendation: rec(ov, aiM, 40843, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -3663,13 +3742,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.2x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12271387 — Amazon KDP | Entertainment | $79,500 | $3,356/mo | 51% ROI
   (() => {
-    const a = 93, r = 82, rs = 85, e = 75;
+    const a = 93, r = 60, rs = 85, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3693,9 +3772,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 79500),
+      recommendation: rec(ov, aiM, 79500, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -3710,7 +3790,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12196904 — Ecommerce | Home and Garden | $49,111 | $2,287/mo | 56% ROI
   (() => {
-    const a = 68, r = 85, rs = 85, e = 60;
+    const a = 68, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3734,9 +3814,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 49111),
+      recommendation: rec(ov, aiM, 49111, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 56% annual return at asking price",
@@ -3745,13 +3826,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11867314 — SaaS | Internet | $185,000 | $2,372/mo | 15% ROI
   (() => {
-    const a = 90, r = 72, rs = 50, e = 88;
+    const a = 90, r = 60, rs = 50, e = 88;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3775,22 +3856,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 185000),
+      recommendation: rec(ov, aiM, 185000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 1.7x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12165828 — Amazon KDP | Entertainment | $31,500 | $1,810/mo | 69% ROI
   (() => {
-    const a = 93, r = 67, rs = 95, e = 75;
+    const a = 93, r = 60, rs = 95, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3814,9 +3896,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 31500),
+      recommendation: rec(ov, aiM, 31500, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Strong ROI: 69% annual return at asking price",
@@ -3824,14 +3907,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.5x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Young business (1 year) — limited track record"
       ],
     };
   })(),
   // #11948259 — Ecommerce | Home and Garden | $133,625 | $4,454/mo | 40% ROI
   (() => {
-    const a = 68, r = 85, rs = 65, e = 60;
+    const a = 68, r = 60, rs = 65, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3855,9 +3938,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 133625),
+      recommendation: rec(ov, aiM, 133625, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -3866,13 +3950,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.6x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12044413 — Amazon KDP | Education | $80,000 | $2,320/mo | 35% ROI
   (() => {
-    const a = 93, r = 77, rs = 65, e = 85;
+    const a = 93, r = 60, rs = 65, e = 85;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3896,9 +3980,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 80000),
+      recommendation: rec(ov, aiM, 80000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -3912,7 +3997,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12258077 — Ecommerce | Health and Beauty | $201,816 | $7,522/mo | 45% ROI
   (() => {
-    const a = 68, r = 85, rs = 75, e = 70;
+    const a = 68, r = 60, rs = 75, e = 70;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3936,9 +4021,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 201816),
+      recommendation: rec(ov, aiM, 201816, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -3947,13 +4033,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12216083 — Content | Internet | $71,804 | $2,225/mo | 37% ROI
   (() => {
-    const a = 87, r = 62, rs = 65, e = 68;
+    const a = 87, r = 60, rs = 65, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -3977,21 +4063,22 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 71804),
+      recommendation: rec(ov, aiM, 71804, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11942286 — Ecommerce | Electronics | $167,260 | $8,151/mo | 58% ROI
   (() => {
-    const a = 68, r = 85, rs = 85, e = 60;
+    const a = 68, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4015,9 +4102,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 167260),
+      recommendation: rec(ov, aiM, 167260, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 58% annual return at asking price",
@@ -4026,13 +4114,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12012908 — Amazon FBM | Home and Garden | $139,780 | $4,919/mo | 42% ROI
   (() => {
-    const a = 67, r = 72, rs = 75, e = 65;
+    const a = 67, r = 60, rs = 75, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4056,22 +4144,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 139780),
+      recommendation: rec(ov, aiM, 139780, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 9+ years in operation",
       "Attractive 2.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12265653 — Amazon KDP | Entertainment | $115,000 | $4,465/mo | 47% ROI
   (() => {
-    const a = 93, r = 72, rs = 75, e = 75;
+    const a = 93, r = 60, rs = 75, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4095,9 +4184,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 115000),
+      recommendation: rec(ov, aiM, 115000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -4110,7 +4200,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12163979 — Amazon Store | Health and Beauty | $29,344 | $3,700/mo | 151% ROI
   (() => {
-    const a = 67, r = 77, rs = 95, e = 75;
+    const a = 67, r = 60, rs = 95, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4134,9 +4224,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 29344),
+      recommendation: rec(ov, aiM, 29344, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 151% annual return at asking price",
@@ -4145,54 +4236,67 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 0.7x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
-  // #11721372 — Marketplace | Food and Drink | $124,023 | $8,824/mo | 85% ROI
+  // #11721372 — Marketplace | Food and Drink | $124,023 | £7,386/mo avg | TOP PICK
   (() => {
-    const a = 87, r = 82, rs = 95, e = 68;
+    // Verified P&L: CV=10%, revenue GROWING +12% (Sep 2023: £10,228 → Aug 2024: £12,273)
+    // 8yr old food marketplace, 58% margin, 125+ vendor partners, 25K+ customers, 50% repeat rate
+    // Profit range: £6,221–£8,879 over 12 months — extremely consistent
+    // ROI at avg: 7386*12/124023 = 71.5%
+    const a = 85, r = 90, rs = 95, e = 88;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
+    const cvPct = 10, trend = 12;
     return {
       id: "11721372",
-      title: "58% net margins Food and Drink marketplace | 125 and growing vendor partners | 25k+ customer base | ",
+      title: "Food & Drink Marketplace — 58% Margin, 125 Vendors, 25K Customers, 50% Repeat Rate",
       niche: "Food and Drink",
       price: 124023,
-      monthlyProfit: 8824,
+      monthlyProfit: 7386,
       monthlyRevenue: 0,
-      monetization: "Methods",
+      monetization: "Marketplace commissions",
       multiple: 1.2,
       firstMadeMoney: 8,
       businessAge: 8,
-      description: "58% net margins Food and Drink marketplace | 125 and growing vendor partners | 25k+ customer base | 50% customer repeat rate Marketplace Food and Drink Sponsored Confidential Business Location Italy Site Age 8 years Monthly Profit GBP £7,387 /mo Profit Margin 58% Page Views 9,089 p/mo Profit Multipl",
+      description: "8-year-old food and drink marketplace with 125+ growing vendor partners, 25K+ customer base, and 50% repeat purchase rate. Verified P&L over 12 months shows CV=10% — the tightest consistency of all 8 verified listings. Revenue growing +12%. Profit range £6,221–£8,879 — every single month profitable. THE best verified business on Flippa.",
       status: "active",
       listingType: "buy_now",
-      verificationStatus: "partial",
+      verificationStatus: "verified",
       offersCount: 0,
       autonomyScore: a,
       riskScore: r,
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 124023),
+      recommendation: rec(ov, aiM, 124023, { verifiedPnL: true, cvPercent: cvPct, revenueTrend: trend, hasLossMonth: false }),
       aiManageable: aiM,
-      category: "content_ads",
+      category: "ecommerce",
+      verifiedPnL: true,
+      profitConsistency: "excellent",
+      revenueTrend: trend,
+      monthlyProfitRange: "£6,221–£8,879",
+      cvPercent: cvPct,
       reasonsFor: [
-      "Highly autonomous — AI+VA can run with minimal oversight",
-      "Low risk profile — verified financials, diversified",
-      "Strong ROI: 85% annual return at asking price",
-      "Verified Listing — financials independently confirmed by Flippa",
-      "Proven track record: 8+ years in operation"
+        "CV=10% — the most consistent profit of all 8 verified P&L listings (lowest possible volatility)",
+        "Revenue GROWING +12% over 12 verified months — no seasonal dependency",
+        "Profit range £6,221–£8,879 — every month profitable with no bad outliers",
+        "8 years old — long-established with 25K+ customers and 50% repeat rate",
+        "71.5% annual ROI at asking price — strong return with low risk",
+        "125+ and GROWING vendor partners — network effect moat"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+        "Marketplace model requires ongoing vendor relationship management",
+        "Italy-based business — understand local regulatory/tax context before buying",
+        "58% margin (not 95%+) means there are real operating costs to manage"
       ],
     };
   })(),
   // #12195808 — Content | Business | $29,500 | $1,300/mo | 53% ROI
   (() => {
-    const a = 87, r = 82, rs = 85, e = 68;
+    const a = 87, r = 60, rs = 85, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4216,9 +4320,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 29500),
+      recommendation: rec(ov, aiM, 29500, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -4233,7 +4338,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #11572148 — Amazon Store | Sports and Outdoor | $126,110 | $6,313/mo | 60% ROI
   (() => {
-    const a = 72, r = 85, rs = 95, e = 65;
+    const a = 72, r = 60, rs = 95, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4257,9 +4362,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 126110),
+      recommendation: rec(ov, aiM, 126110, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 60% annual return at asking price",
@@ -4268,13 +4374,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11965874 — Ecommerce | Lifestyle | $90,856 | $4,026/mo | 53% ROI
   (() => {
-    const a = 63, r = 77, rs = 85, e = 60;
+    const a = 63, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4298,9 +4404,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 90856),
+      recommendation: rec(ov, aiM, 90856, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 53% annual return at asking price",
@@ -4309,14 +4416,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.9x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #11752610 — Ecommerce | Design and Style | $106,345 | $1,305/mo | 15% ROI
   (() => {
-    const a = 68, r = 90, rs = 50, e = 60;
+    const a = 68, r = 60, rs = 50, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4340,9 +4447,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 106345),
+      recommendation: rec(ov, aiM, 106345, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -4356,7 +4464,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #11923978 — Amazon Store | Automotive | $60,000 | $2,427/mo | 49% ROI
   (() => {
-    const a = 67, r = 82, rs = 75, e = 65;
+    const a = 67, r = 60, rs = 75, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4380,9 +4488,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 60000),
+      recommendation: rec(ov, aiM, 60000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -4420,9 +4529,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 26999),
+      recommendation: rec(ov, aiM, 26999, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "kdp",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Strong ROI: 71% annual return at asking price",
@@ -4430,14 +4540,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.9x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Elevated risk — platform concentration or verification gaps"
       ],
     };
   })(),
   // #11789027 — Ecommerce | Design and Style | $29,997 | $2,819/mo | 113% ROI
   (() => {
-    const a = 63, r = 77, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4461,9 +4571,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 29997),
+      recommendation: rec(ov, aiM, 29997, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 113% annual return at asking price",
@@ -4472,14 +4583,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 0.9x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12229698 — Amazon Store | Health and Beauty | $119,000 | $4,557/mo | 46% ROI
   (() => {
-    const a = 72, r = 75, rs = 75, e = 75;
+    const a = 72, r = 60, rs = 75, e = 75;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4503,9 +4614,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 119000),
+      recommendation: rec(ov, aiM, 119000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -4513,7 +4625,7 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.2x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
@@ -4543,9 +4655,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 25504),
+      recommendation: rec(ov, aiM, 25504, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Strong ROI: 81% annual return at asking price",
@@ -4553,15 +4666,15 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.5x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Elevated risk — platform concentration or verification gaps"
       ],
     };
   })(),
   // #12677133 — Content | Entertainment | $20,000 | $1,695/mo | 102% ROI
   (() => {
-    const a = 87, r = 72, rs = 95, e = 68;
+    const a = 87, r = 60, rs = 95, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4585,9 +4698,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 20000),
+      recommendation: rec(ov, aiM, 20000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Strong ROI: 102% annual return at asking price",
@@ -4596,14 +4710,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12436965 — Content | Business | $34,000 | $557/mo | 20% ROI
   (() => {
-    const a = 87, r = 67, rs = 50, e = 68;
+    const a = 87, r = 60, rs = 50, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4627,23 +4741,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 34000),
+      recommendation: rec(ov, aiM, 34000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 8+ years in operation"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High 5.1x multiple — limited upside at asking price"
       ],
     };
   })(),
   // #12651448 — Content | General Knowledge | $85,256 | $3,147/mo | 44% ROI
   (() => {
-    const a = 87, r = 67, rs = 75, e = 68;
+    const a = 87, r = 60, rs = 75, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4667,22 +4782,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 85256),
+      recommendation: rec(ov, aiM, 85256, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 2.3x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12611538 — Content | Education | $106,560 | $6,873/mo | 77% ROI
   (() => {
-    const a = 87, r = 62, rs = 95, e = 78;
+    const a = 87, r = 60, rs = 95, e = 78;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4706,9 +4822,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 106560),
+      recommendation: rec(ov, aiM, 106560, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Strong ROI: 77% annual return at asking price",
@@ -4716,15 +4833,15 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.3x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Young business (1 year) — limited track record"
       ],
     };
   })(),
   // #12298318 — SaaS | Health and Beauty | $85,000 | $1,226/mo | 17% ROI
   (() => {
-    const a = 90, r = 67, rs = 50, e = 95;
+    const a = 90, r = 60, rs = 50, e = 95;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4748,16 +4865,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 85000),
+      recommendation: rec(ov, aiM, 85000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 7+ years in operation"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High 5.8x multiple — limited upside at asking price"
       ],
     };
@@ -4788,15 +4906,16 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 200000),
+      recommendation: rec(ov, aiM, 200000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Elevated risk — platform concentration or verification gaps",
       "High 7.5x multiple — limited upside at asking price"
       ],
@@ -4804,7 +4923,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12530181 — SaaS | Health and Beauty | $77,520 | $2,816/mo | 44% ROI
   (() => {
-    const a = 90, r = 67, rs = 75, e = 95;
+    const a = 90, r = 60, rs = 75, e = 95;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4828,16 +4947,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 77520),
+      recommendation: rec(ov, aiM, 77520, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 2.3x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
@@ -4867,9 +4987,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 24000),
+      recommendation: rec(ov, aiM, 24000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Strong ROI: 111% annual return at asking price",
@@ -4877,15 +4998,15 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.2x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Elevated risk — platform concentration or verification gaps"
       ],
     };
   })(),
   // #12570976 — Ecommerce | Automotive | $39,000 | $1,805/mo | 56% ROI
   (() => {
-    const a = 63, r = 82, rs = 85, e = 60;
+    const a = 63, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4909,9 +5030,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 39000),
+      recommendation: rec(ov, aiM, 39000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 56% annual return at asking price",
@@ -4920,14 +5042,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.8x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12586912 — Amazon Store | Food and Drink | $24,968 | $1,253/mo | 60% ROI
   (() => {
-    const a = 67, r = 72, rs = 95, e = 65;
+    const a = 67, r = 60, rs = 95, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4951,23 +5073,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 24968),
+      recommendation: rec(ov, aiM, 24968, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 60% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 1.7x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Young business (1 year) — limited track record"
       ],
     };
   })(),
   // #12641634 — Ecommerce | Home and Garden | $150,000 | $6,908/mo | 55% ROI
   (() => {
-    const a = 63, r = 82, rs = 85, e = 60;
+    const a = 63, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -4991,9 +5114,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 150000),
+      recommendation: rec(ov, aiM, 150000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 55% annual return at asking price",
@@ -5002,14 +5126,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.8x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12621684 — Amazon Store | Home and Garden | $14,900 | $917/mo | 74% ROI
   (() => {
-    const a = 67, r = 72, rs = 95, e = 65;
+    const a = 67, r = 60, rs = 95, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5033,22 +5157,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 14900),
+      recommendation: rec(ov, aiM, 14900, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 74% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 1.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12655357 — Ecommerce | Home and Garden | $145,000 | $4,073/mo | 34% ROI
   (() => {
-    const a = 63, r = 77, rs = 65, e = 60;
+    const a = 63, r = 60, rs = 65, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5072,23 +5197,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 145000),
+      recommendation: rec(ov, aiM, 145000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 6+ years in operation"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12633880 — Amazon FBM | Sports and Outdoor | $12,000 | $1,726/mo | 173% ROI
   (() => {
-    const a = 67, r = 72, rs = 95, e = 65;
+    const a = 67, r = 60, rs = 95, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5112,23 +5238,24 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 12000),
+      recommendation: rec(ov, aiM, 12000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 173% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 0.6x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Young business (1 year) — limited track record"
       ],
     };
   })(),
   // #12162743 — Amazon Store | Home and Garden | $60,000 | $2,195/mo | 44% ROI
   (() => {
-    const a = 67, r = 77, rs = 75, e = 65;
+    const a = 67, r = 60, rs = 75, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5152,9 +5279,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 60000),
+      recommendation: rec(ov, aiM, 60000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -5162,13 +5290,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.3x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12665107 — Ecommerce | Design and Style | $74,750 | $2,597/mo | 42% ROI
   (() => {
-    const a = 63, r = 77, rs = 75, e = 60;
+    const a = 63, r = 60, rs = 75, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5192,9 +5320,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 74750),
+      recommendation: rec(ov, aiM, 74750, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -5202,14 +5331,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.4x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12635956 — Ecommerce | Food and Drink | $65,000 | $3,543/mo | 65% ROI
   (() => {
-    const a = 63, r = 67, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5233,24 +5362,25 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 65000),
+      recommendation: rec(ov, aiM, 65000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 65% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 1.5x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12630388 — Digital Agency | Internet | $19,800 | $2,889/mo | 175% ROI
   (() => {
-    const a = 87, r = 62, rs = 95, e = 68;
+    const a = 87, r = 60, rs = 95, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5274,9 +5404,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 19800),
+      recommendation: rec(ov, aiM, 19800, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Strong ROI: 175% annual return at asking price",
@@ -5284,15 +5415,15 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 0.6x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Young business (1 year) — limited track record"
       ],
     };
   })(),
   // #12624471 — Ecommerce | Design and Style | $77,310 | $4,022/mo | 62% ROI
   (() => {
-    const a = 63, r = 62, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5316,17 +5447,18 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 77310),
+      recommendation: rec(ov, aiM, 77310, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 62% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 1.6x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
@@ -5357,15 +5489,16 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 44999),
+      recommendation: rec(ov, aiM, 44999, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "app",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "Young business (1 year) — limited track record",
       "High 5.2x multiple — limited upside at asking price"
       ],
@@ -5373,7 +5506,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #12657245 — Ecommerce | Lifestyle | $27,794 | $1,199/mo | 52% ROI
   (() => {
-    const a = 63, r = 82, rs = 85, e = 60;
+    const a = 63, r = 60, rs = 85, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5397,9 +5530,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 27794),
+      recommendation: rec(ov, aiM, 27794, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 52% annual return at asking price",
@@ -5408,14 +5542,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 1.9x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12649745 — Ecommerce | Design and Style | $45,000 | $2,333/mo | 62% ROI
   (() => {
-    const a = 63, r = 62, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5439,17 +5573,18 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 45000),
+      recommendation: rec(ov, aiM, 45000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 62% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 1.6x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required",
       "Young business (1 year) — limited track record"
       ],
@@ -5457,7 +5592,7 @@ export const flippaListings: FlippaListing[] = [
   })(),
   // #11797420 — Ecommerce | Design and Style | $149,000 | $4,287/mo | 35% ROI
   (() => {
-    const a = 63, r = 77, rs = 65, e = 60;
+    const a = 63, r = 60, rs = 65, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5481,16 +5616,17 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 149000),
+      recommendation: rec(ov, aiM, 149000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 7+ years in operation"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
@@ -5521,24 +5657,25 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 660281),
+      recommendation: rec(ov, aiM, 660281, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 9+ years in operation"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High 6.7x multiple — limited upside at asking price"
       ],
     };
   })(),
   // #12669306 — iOS App | Education | $1,000,000 | $18,350/mo | 22% ROI
   (() => {
-    const a = 80, r = 62, rs = 50, e = 80;
+    const a = 80, r = 60, rs = 50, e = 80;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5562,22 +5699,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 1000000),
+      recommendation: rec(ov, aiM, 1000000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "app",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12640827 — Ecommerce | Lifestyle | $399,999 | $32,821/mo | 98% ROI
   (() => {
-    const a = 63, r = 62, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5601,24 +5739,25 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 399999),
+      recommendation: rec(ov, aiM, 399999, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Strong ROI: 98% annual return at asking price",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 1x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12525555 — Content | Education | $348,800 | $9,454/mo | 33% ROI
   (() => {
-    const a = 92, r = 75, rs = 65, e = 78;
+    const a = 92, r = 60, rs = 65, e = 78;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5642,9 +5781,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 348800),
+      recommendation: rec(ov, aiM, 348800, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -5653,14 +5793,14 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "First Access listing — limited public data, requires Premium subscription for full details",
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only",
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12302331 — Amazon Store | Lifestyle | $1,663,725 | $33,512/mo | 24% ROI
   (() => {
-    const a = 72, r = 80, rs = 50, e = 65;
+    const a = 72, r = 60, rs = 50, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5684,9 +5824,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 1663725),
+      recommendation: rec(ov, aiM, 1663725, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -5694,13 +5835,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12285937 — Crypto App | Business | $6,500,000 | $248,203/mo | 46% ROI
   (() => {
-    const a = 85, r = 80, rs = 75, e = 70;
+    const a = 85, r = 60, rs = 75, e = 70;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5724,9 +5865,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 6500000),
+      recommendation: rec(ov, aiM, 6500000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "app",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -5735,13 +5877,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12296287 — Ecommerce | Home and Garden | $621,594 | $23,484/mo | 45% ROI
   (() => {
-    const a = 55, r = 80, rs = 75, e = 60;
+    const a = 55, r = 60, rs = 75, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5765,9 +5907,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 621594),
+      recommendation: rec(ov, aiM, 621594, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -5776,14 +5919,14 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.2x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12080201 — Ecommerce | Business | $845,500 | $21,313/mo | 30% ROI
   (() => {
-    const a = 68, r = 75, rs = 65, e = 60;
+    const a = 68, r = 60, rs = 65, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5807,22 +5950,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 845500),
+      recommendation: rec(ov, aiM, 845500, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12287693 — Ecommerce | Electronics | $3,000,000 | $69,889/mo | 28% ROI
   (() => {
-    const a = 68, r = 80, rs = 50, e = 60;
+    const a = 68, r = 60, rs = 50, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5846,9 +5990,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 3000000),
+      recommendation: rec(ov, aiM, 3000000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -5856,13 +6001,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11993671 — Marketing Agency | Design and Style | $337,364 | $16,804/mo | 60% ROI
   (() => {
-    const a = 95, r = 80, rs = 85, e = 88;
+    const a = 95, r = 60, rs = 85, e = 88;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5886,9 +6031,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 337364),
+      recommendation: rec(ov, aiM, 337364, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -5897,13 +6043,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11767983 — Ecommerce | Health and Beauty | $900,000 | $26,110/mo | 35% ROI
   (() => {
-    const a = 68, r = 80, rs = 65, e = 70;
+    const a = 68, r = 60, rs = 65, e = 70;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5927,9 +6073,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 900000),
+      recommendation: rec(ov, aiM, 900000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -5937,13 +6084,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12249202 — Amazon Store | Home and Garden | $1,922,197 | $50,859/mo | 32% ROI
   (() => {
-    const a = 72, r = 80, rs = 65, e = 65;
+    const a = 72, r = 60, rs = 65, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -5967,9 +6114,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 1922197),
+      recommendation: rec(ov, aiM, 1922197, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -5977,13 +6125,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11342703 — Service | Business | $388,996 | $7,753/mo | 24% ROI
   (() => {
-    const a = 45, r = 80, rs = 50, e = 65;
+    const a = 45, r = 60, rs = 50, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -6007,9 +6155,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 388996),
+      recommendation: rec(ov, aiM, 388996, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "service",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -6017,14 +6166,14 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12231660 — Amazon Store | Lifestyle | $450,000 | $10,247/mo | 27% ROI
   (() => {
-    const a = 67, r = 72, rs = 50, e = 65;
+    const a = 67, r = 60, rs = 50, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -6048,21 +6197,22 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 450000),
+      recommendation: rec(ov, aiM, 450000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "amazon_fba",
+      verifiedPnL: false,
       reasonsFor: [
       "Verified Listing — financials independently confirmed by Flippa",
       "Proven track record: 5+ years in operation"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12203869 — Marketing Agency | Business | $655,768 | $23,296/mo | 43% ROI
   (() => {
-    const a = 90, r = 62, rs = 75, e = 88;
+    const a = 90, r = 60, rs = 75, e = 88;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -6086,22 +6236,23 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 655768),
+      recommendation: rec(ov, aiM, 655768, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
       "Attractive 2.3x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11259011 — Marketplace | Internet | $3,810,000 | $28,511/mo | 9% ROI
   (() => {
-    const a = 95, r = 70, rs = 50, e = 88;
+    const a = 95, r = 60, rs = 50, e = 88;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -6125,9 +6276,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 3810000),
+      recommendation: rec(ov, aiM, 3810000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "saas",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -6135,13 +6287,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12084379 — Service | Design and Style | $700,000 | $17,166/mo | 29% ROI
   (() => {
-    const a = 45, r = 80, rs = 50, e = 65;
+    const a = 45, r = 60, rs = 50, e = 65;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -6165,9 +6317,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 700000),
+      recommendation: rec(ov, aiM, 700000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "service",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -6175,14 +6328,14 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure",
+      "No verified monthly P&L data — seller-claimed averages only",
       "High operational involvement — significant owner time required"
       ],
     };
   })(),
   // #12032980 — Content | Business | $342,383 | $14,908/mo | 52% ROI
   (() => {
-    const a = 92, r = 80, rs = 85, e = 68;
+    const a = 92, r = 60, rs = 85, e = 68;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -6206,9 +6359,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 342383),
+      recommendation: rec(ov, aiM, 342383, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "content_ads",
+      verifiedPnL: false,
       reasonsFor: [
       "Highly autonomous — AI+VA can run with minimal oversight",
       "Low risk profile — verified financials, diversified",
@@ -6217,13 +6371,13 @@ export const flippaListings: FlippaListing[] = [
       "Managed by Flippa — additional due diligence and broker support"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #11825535 — Ecommerce | Design and Style | $900,000 | $19,919/mo | 27% ROI
   (() => {
-    const a = 68, r = 80, rs = 50, e = 60;
+    const a = 68, r = 60, rs = 50, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -6247,9 +6401,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 900000),
+      recommendation: rec(ov, aiM, 900000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Verified Listing — financials independently confirmed by Flippa",
@@ -6258,13 +6413,13 @@ export const flippaListings: FlippaListing[] = [
       "Attractive 2.5x multiple — below market average of 3x"
       ],
       reasonsAgainst: [
-      "Confidential listing — NDA required before full financial disclosure"
+      "No verified monthly P&L data — seller-claimed averages only"
       ],
     };
   })(),
   // #12231415 — Ecommerce | Home and Garden | $459,000 | $55,103/mo | 144% ROI
   (() => {
-    const a = 63, r = 77, rs = 95, e = 60;
+    const a = 63, r = 60, rs = 95, e = 60;
     const ov = overall(a, r, rs, e);
     const aiM = a >= 65;
     return {
@@ -6288,9 +6443,10 @@ export const flippaListings: FlippaListing[] = [
       roiScore: rs,
       evergreenScore: e,
       overallScore: ov,
-      recommendation: rec(ov, aiM, 459000),
+      recommendation: rec(ov, aiM, 459000, { verifiedPnL: false }),
       aiManageable: aiM,
       category: "ecommerce",
+      verifiedPnL: false,
       reasonsFor: [
       "Low risk profile — verified financials, diversified",
       "Strong ROI: 144% annual return at asking price",
