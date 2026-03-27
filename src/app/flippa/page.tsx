@@ -421,6 +421,9 @@ export default function FlippaPage() {
   );
   const manageable = listings.filter((l) => l.aiManageable);
   const activeListings = listings.filter((l) => l.status === "active" || l.status === "auction");
+  const beatSelicCount = useMemo(() => {
+    return activeListings.filter((l) => l.price && l.price <= BUDGET_USD && (annualRoi(l.price, l.monthlyProfit) ?? 0) > 14.25).length;
+  }, [activeListings]);
   const avgRoi = useMemo(() => {
     const valid = manageable.filter((l) => l.price && l.price <= BUDGET_USD && (l.status === "active" || l.status === "auction"));
     if (!valid.length) return 0;
