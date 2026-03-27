@@ -840,7 +840,7 @@ export default function InvestimentosOnlineDetailPage() {
                       <BarChart data={yt.monthlyViews} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" vertical={false} />
                         <XAxis dataKey="month" tick={{ fill: "#a1a1aa", fontSize: 11 }} axisLine={false} tickLine={false} />
-                        <YAxis tick={{ fill: "#a1a1aa", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v: number) => v >= 1000000 ? `${(v / 1000000).toFixed(1)}M` : v >= 1000 ? `${(v / 1000).toFixed(0)}K` : String(v)} width={42} />
+                        <YAxis tick={{ fill: "#a1a1aa", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => Number(v) >= 1000000 ? `${(Number(v) / 1000000).toFixed(1)}M` : Number(v) >= 1000 ? `${(Number(v) / 1000).toFixed(0)}K` : String(v)} width={42} />
                         <Tooltip
                           contentStyle={{ backgroundColor: "#27272a", border: "1px solid #3f3f46", borderRadius: "8px", color: "#fff", fontSize: "12px" }}
                           formatter={(value) => [Number(value) >= 1000000 ? `${(Number(value) / 1000000).toFixed(2)}M` : `${(Number(value) / 1000).toFixed(0)}K`, "Views"]}
