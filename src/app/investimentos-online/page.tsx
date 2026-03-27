@@ -965,7 +965,7 @@ export default function InvestimentosOnlinePage() {
                       <TrendingUp className="w-3.5 h-3.5" />
                     </div>
                   </div>
-                  <span className="text-2xl font-bold text-blue-400">~53%</span>
+                  <span className="text-2xl font-bold text-blue-400">~52%</span>
                   <span className="text-xs text-zinc-500">Combined portfolio return</span>
                 </div>
                 <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 flex flex-col gap-2">
@@ -975,7 +975,7 @@ export default function InvestimentosOnlinePage() {
                       <BarChart2 className="w-3.5 h-3.5" />
                     </div>
                   </div>
-                  <span className="text-2xl font-bold text-violet-400">~22 mo</span>
+                  <span className="text-2xl font-bold text-violet-400">~23 mo</span>
                   <span className="text-xs text-zinc-500">Full capital recovery</span>
                 </div>
               </div>
