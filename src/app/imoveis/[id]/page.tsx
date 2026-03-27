@@ -281,7 +281,7 @@ function CompsModal({ propertyId, source, onClose }: { propertyId: number; sourc
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
-      <div className="w-[540px] max-h-[80vh] overflow-auto bg-zinc-950 border border-zinc-700 rounded-xl shadow-2xl p-4" onClick={(e) => e.stopPropagation()}>
+      <div className="w-[700px] max-w-[95vw] max-h-[80vh] overflow-auto bg-zinc-950 border border-zinc-700 rounded-xl shadow-2xl p-4" onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-between items-center mb-3">
           <span className="text-sm font-semibold text-zinc-200">{titles[source]}</span>
           <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-lg">&times;</button>
