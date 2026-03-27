@@ -2557,6 +2557,183 @@ export default function InvestimentosOnlinePage() {
               </div>
             </div>
 
+            {/* Portfolio Diversification Score */}
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
+              <div className="flex items-center gap-2 mb-6">
+                <Leaf className="w-5 h-5 text-emerald-400" />
+                <h3 className="text-base font-semibold text-white">Portfolio Diversification Analysis</h3>
+                <span className="ml-auto text-xs text-zinc-500 bg-zinc-800 px-2 py-0.5 rounded-full">2-asset portfolio</span>
+              </div>
+
+              {(() => {
+                const diversificationMetrics = [
+                  {
+                    label: "Platform Concentration",
+                    score: 0,
+                    detail: "Both YouTube — HHI 10,000",
+                    note: "Adding 1 non-YouTube asset → HHI 5,000",
+                  },
+                  {
+                    label: "Revenue Source Diversity",
+                    score: 15,
+                    detail: "93% AdSense, 7% affiliate (combined)",
+                    note: "Near-total AdSense dependence",
+                  },
+                  {
+                    label: "Seasonal Correlation",
+                    score: 85,
+                    detail: "WNBA (May–Oct) offsets tech evergreen",
+                    note: "Complementary seasons reduce volatility",
+                  },
+                  {
+                    label: "Niche Diversity",
+                    score: 70,
+                    detail: "Sports (WNBA) + Tech = distinct audiences",
+                    note: "Different viewer demographics",
+                  },
+                  {
+                    label: "Geographic / Audience",
+                    score: 40,
+                    detail: "Both English-language global YouTube",
+                    note: "Same platform language / ad market",
+                  },
+                ];
+
+                const radarData = diversificationMetrics.map((m) => ({
+                  dimension: m.label.split(" ")[0],
+                  score: m.score,
+                  fullMark: 100,
+                }));
+
+                const overallScore = Math.round(
+                  diversificationMetrics.reduce((sum, m) => sum + m.score, 0) / diversificationMetrics.length
+                );
+
+                const overallColor =
+                  overallScore >= 60
+                    ? "text-emerald-400"
+                    : overallScore >= 40
+                    ? "text-amber-400"
+                    : "text-red-400";
+
+                const overallBg =
+                  overallScore >= 60
+                    ? "bg-emerald-500/10 border-emerald-500/20"
+                    : overallScore >= 40
+                    ? "bg-amber-500/10 border-amber-500/20"
+                    : "bg-red-500/10 border-red-500/20";
+
+                const getScoreColor = (s: number) =>
+                  s >= 60 ? "#10b981" : s >= 40 ? "#f59e0b" : "#ef4444";
+
+                return (
+                  <div className="space-y-6">
+                    {/* Main grid: radar + breakdown */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Radar Chart */}
+                      <div className="bg-zinc-800/50 rounded-lg p-4">
+                        <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3 font-medium">Diversification Radar</p>
+                        <ResponsiveContainer width="100%" height={240}>
+                          <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="75%">
+                            <PolarGrid stroke="#3f3f46" />
+                            <PolarAngleAxis
+                              dataKey="dimension"
+                              tick={{ fill: "#a1a1aa", fontSize: 11 }}
+                            />
+                            <PolarRadiusAxis
+                              angle={90}
+                              domain={[0, 100]}
+                              tick={{ fill: "#71717a", fontSize: 9 }}
+                              tickCount={4}
+                            />
+                            <Radar
+                              name="Score"
+                              dataKey="score"
+                              stroke="#10b981"
+                              fill="#10b981"
+                              fillOpacity={0.2}
+                              strokeWidth={2}
+                            />
+                            <Tooltip
+                              contentStyle={{
+                                backgroundColor: "#18181b",
+                                border: "1px solid #3f3f46",
+                                borderRadius: "6px",
+                                fontSize: "12px",
+                                color: "#e4e4e7",
+                              }}
+                            />
+                          </RadarChart>
+                        </ResponsiveContainer>
+                      </div>
+
+                      {/* Score breakdown cards */}
+                      <div className="space-y-2">
+                        <p className="text-xs text-zinc-500 uppercase tracking-wider font-medium mb-3">Score Breakdown</p>
+                        {diversificationMetrics.map((m) => (
+                          <div key={m.label} className="bg-zinc-800/50 rounded-lg px-3 py-2">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-xs font-medium text-zinc-300">{m.label}</span>
+                              <span
+                                className="text-sm font-bold tabular-nums"
+                                style={{ color: getScoreColor(m.score) }}
+                              >
+                                {m.score}/100
+                              </span>
+                            </div>
+                            <div className="w-full h-1 bg-zinc-700 rounded-full overflow-hidden mb-1.5">
+                              <div
+                                className="h-full rounded-full transition-all"
+                                style={{
+                                  width: `${m.score}%`,
+                                  backgroundColor: getScoreColor(m.score),
+                                }}
+                              />
+                            </div>
+                            <p className="text-xs text-zinc-500">{m.detail}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Overall score */}
+                    <div className={`rounded-lg border p-4 flex flex-col sm:flex-row items-center gap-4 ${overallBg}`}>
+                      <div className="text-center sm:text-left">
+                        <p className="text-xs text-zinc-500 uppercase tracking-wider font-medium mb-0.5">Overall Diversification Score</p>
+                        <div className="flex items-baseline gap-2">
+                          <span className={`text-5xl font-black tabular-nums ${overallColor}`}>{overallScore}</span>
+                          <span className="text-xl text-zinc-500 font-medium">/100</span>
+                        </div>
+                        <p className="text-xs text-zinc-400 mt-1">
+                          Weighted average across 5 dimensions — <span className={`font-medium ${overallColor}`}>moderate</span>
+                        </p>
+                      </div>
+                      <div className="flex-1 sm:border-l border-zinc-700/50 sm:pl-4">
+                        <p className="text-xs text-zinc-400 font-medium mb-2 uppercase tracking-wider">Key Risks</p>
+                        <ul className="space-y-1">
+                          <li className="flex items-start gap-2 text-xs text-zinc-400">
+                            <span className="text-red-400 shrink-0 mt-0.5">●</span>
+                            100% platform concentration on YouTube (policy / algo risk)
+                          </li>
+                          <li className="flex items-start gap-2 text-xs text-zinc-400">
+                            <span className="text-red-400 shrink-0 mt-0.5">●</span>
+                            93% revenue from AdSense — CPM swings directly hit income
+                          </li>
+                          <li className="flex items-start gap-2 text-xs text-zinc-400">
+                            <span className="text-emerald-400 shrink-0 mt-0.5">●</span>
+                            Seasonal offset (sports vs. tech) is a genuine hedge
+                          </li>
+                        </ul>
+                        <p className="text-xs text-amber-400 mt-3 font-medium">
+                          Recommendation: Consider adding a non-YouTube asset (newsletter, SaaS, niche site) to improve platform diversification.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+
             {/* Warning */}
             <section className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4">
               <div className="flex gap-2 items-start">
