@@ -408,6 +408,55 @@ export default function InvestimentosOnlineDetailPage() {
               );
             })()}
 
+            {/* ── Key Insight Mini-Cards ────────────────────────────────── */}
+            {(() => {
+              type InsightCard = { label: string; value: string; color: string; sub: string };
+              type InsightData = { cards: InsightCard[] };
+              const INSIGHTS: Record<string, InsightData> = {
+                "92246": {
+                  cards: [
+                    { label: "Break-Even", value: "20 months", color: "text-emerald-400", sub: "" },
+                    { label: "Growth Score", value: "9/10", color: "text-emerald-400", sub: "WNBA expansion boom" },
+                    { label: "Risk Score", value: "6/10", color: "text-amber-400", sub: "Seasonal revenue pattern" },
+                    { label: "AI Readiness", value: "10/10", color: "text-emerald-400", sub: "Fully AI+VA scriptable" },
+                  ],
+                },
+                "90544": {
+                  cards: [
+                    { label: "Break-Even", value: "23 months", color: "text-amber-400", sub: "" },
+                    { label: "Growth Score", value: "6/10", color: "text-amber-400", sub: "Steady tech niche" },
+                    { label: "Risk Score", value: "4/10", color: "text-emerald-400", sub: "3-channel diversification" },
+                    { label: "AI Readiness", value: "10/10", color: "text-emerald-400", sub: "Already automated" },
+                  ],
+                },
+                "91304": {
+                  cards: [
+                    { label: "Break-Even", value: "26 months", color: "text-amber-400", sub: "" },
+                    { label: "Growth Score", value: "5/10", color: "text-amber-400", sub: "Needs content refresh" },
+                    { label: "Risk Score", value: "5/10", color: "text-amber-400", sub: "Declining trend" },
+                    { label: "AI Readiness", value: "8/10", color: "text-emerald-400", sub: "Faceless format" },
+                  ],
+                },
+              };
+              const insight = INSIGHTS[id];
+              const isEliminated = data.assessment?.verdictColor === "red";
+              if (!insight || isEliminated) return null;
+              return (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                  {insight.cards.map((card) => (
+                    <div
+                      key={card.label}
+                      className="bg-zinc-800/60 rounded-lg p-4 text-center border border-zinc-700/30"
+                    >
+                      <p className="text-zinc-500 text-xs uppercase tracking-wider mb-1">{card.label}</p>
+                      <p className={`text-2xl font-bold ${card.color}`}>{card.value}</p>
+                      {card.sub && <p className="text-zinc-400 text-xs mt-1">{card.sub}</p>}
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
+
             {/* ── Section 1: What This Business Does ────────────────────── */}
             <SectionCard
               icon={Globe}
