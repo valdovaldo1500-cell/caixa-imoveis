@@ -53,8 +53,8 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "90544",
     name: "3× Faceless Tech YouTube",
-    verdict: "BUY IF NEGOTIATED",
-    verdictColor: "blue",
+    verdict: "DO NOT BUY — DYING CHANNELS",
+    verdictColor: "red",
     price: "$93,608",
     monthlyProfit: "$3,428",
     annualROI: "44%",
@@ -70,17 +70,19 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "No personal brand risk — any operator can run this",
     ],
     risks: [
-      "Revenue DECLINING: peaked Jan 25 at $5,058/mo, now ~$3,428 (Dec 25) — 33% drop",
+      "DYING: Recent videos getting 0 views — ALL traffic comes from old catalog; new uploads not growing",
+      "Revenue DECLINING: peaked Jan 25 at $5,058/mo, now ~$3,428 (Dec 25) — 33% drop with no recovery",
+      "NOT AI voiceover as claimed — uses real freelancers, hidden labor costs not disclosed in listing",
+      "Freelancer dependency means 1hr/week claim is false — real ops require ongoing human management",
       "Last 6-month avg ~$3,389 vs EF-quoted 12-mo avg (~$3,900) — EF number overstates current reality",
-      "Asking $93K at 24x (EF basis ~$3,900/mo) — real multiple on current $3,428 run rate is ~27x",
+      "Asking $93K at 24x (EF basis) — real multiple on current $3,428 run rate is ~27x, unjustified for dying asset",
       "YouTube algorithm single-platform dependency",
       "Tech tutorial niche faces AI disruption risk (ChatGPT renders tutorials obsolete faster)",
-      "Close to budget limit if combined with Ace Hoops",
     ],
     recommendation:
-      "Verified data: revenue declining 33% from Jan 25 peak ($5,058) to Dec 25 ($3,428). EF's quoted 12-month average masks this drop. At current $3,428/month run rate, fair value is ~$79K (23x). Offer $72K, settle $79K. The key selling point is the 3-channel structure (diversified risk) and faceless format (AI/VA manageable). Tech tutorial content is exactly what Claude can generate at scale. Pair with Ace Hoops for a fully YouTube-native, AI-managed portfolio. Combined: $141K within the $160K budget.",
+      "ELIMINATED. Recent videos getting 0 views — the channel is running on fumes from its old catalog. Once that legacy traffic fades, revenue collapses. Critically, the listing claims AI voiceover but actually uses real freelancers, meaning hidden labor costs and human dependency that contradict the passive/AI-manageable pitch. Revenue already down 33% from peak with no signs of recovery. Do not buy. See #91304 Faceless YouTube Tutorials as the replacement secondary pick alongside Ace Hoops (#92246).",
     aiPlan:
-      "Claude scripts tech tutorials based on trending topics (Python, AI tools, cybersecurity). VA edits/renders videos from templates. Automated posting schedule. Owner reviews weekly analytics (1hr). No filming required — all screen recordings + AI voiceover. Growth: expand to new tech sub-niches, add YouTube memberships.",
+      "N/A — eliminated from consideration.",
   },
   {
     id: "89555",
