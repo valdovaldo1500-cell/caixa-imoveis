@@ -2884,21 +2884,21 @@ export default function InvestimentosOnlinePage() {
                 <div className="relative w-full h-4 bg-zinc-700 rounded-full overflow-hidden mb-3">
                   <div
                     className="absolute left-0 top-0 h-full bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-l-full"
-                    style={{ width: "94.6%" }}
+                    style={{ width: "93.9%" }}
                   />
                   <div
                     className="absolute top-0 h-full bg-emerald-400/30"
-                    style={{ left: "94.6%", right: 0 }}
+                    style={{ left: "93.9%", right: 0 }}
                   />
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-emerald-500" />
-                    <span className="text-sm text-zinc-400">Capital deployed — <span className="text-white font-semibold">94.6%</span></span>
+                    <span className="text-sm text-zinc-400">Capital deployed — <span className="text-white font-semibold">93.9%</span></span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-emerald-400/40 border border-emerald-400" />
-                    <span className="text-sm text-emerald-400 font-bold">$8,700 buffer remaining</span>
+                    <span className="text-sm text-emerald-400 font-bold">$9,700 buffer remaining</span>
                   </div>
                 </div>
               </div>
