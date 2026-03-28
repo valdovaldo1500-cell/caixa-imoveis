@@ -5155,7 +5155,6 @@ export const flippaListings: FlippaListing[] = [
       { month: `Oct 2025`, revenue: 8017.51, expenses: 4676.14, profit: 3341.37 },
       { month: `Nov 2025`, revenue: 6713.22, expenses: 4671.06, profit: 2040.89 },
       { month: `Dec 2025`, revenue: 5177.79, expenses: 4154.17, profit: 1023.62 },
-      { month: `Jan 2026`, revenue: 0.0, expenses: 0.0, profit: 0.0 },
     ],
     avgMonthlyRevenue: 7837.0,
     avgMonthlyProfit: 3692.0,
