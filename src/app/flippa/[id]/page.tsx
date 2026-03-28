@@ -431,20 +431,20 @@ export default function FlippaDetailPage() {
                   <div className="bg-zinc-900 rounded-lg p-3">
                     <div className="text-xs text-zinc-500 mb-1">Monthly Revenue</div>
                     <div className="font-semibold text-white">
-                      {dd?.verifiedPnL ? `$${dd.verifiedPnL.lastMonthRevenue?.toLocaleString()}` : fmtMo(data.listing.monthlyRevenue ?? 0)}
+                      {dd?.verifiedPnL ? `$${dd.verifiedPnL.lastMonthRevenue?.toLocaleString()}` : fmtMo(data.listing.avgMonthlyRevenue ?? 0)}
                     </div>
                   </div>
                   <div className="bg-zinc-900 rounded-lg p-3">
                     <div className="text-xs text-zinc-500 mb-1">Monthly Profit</div>
                     <div className="font-semibold text-emerald-400">
-                      {dd?.verifiedPnL ? `$${dd.verifiedPnL.lastMonthProfit?.toLocaleString()}` : fmtMo(data.listing.monthlyProfit ?? 0)}
+                      {dd?.verifiedPnL ? `$${dd.verifiedPnL.lastMonthProfit?.toLocaleString()}` : fmtMo(data.listing.avgMonthlyProfit ?? 0)}
                     </div>
                   </div>
                   <div className="bg-zinc-900 rounded-lg p-3">
                     <div className="text-xs text-zinc-500 mb-1">Profit Margin</div>
                     <div className="font-semibold text-blue-400">
-                      {dd?.profitMargin ? `${dd.profitMargin}%` : (data.listing.monthlyRevenue ?? 0) > 0
-                        ? `${Math.round(((data.listing.monthlyProfit ?? 0) / (data.listing.monthlyRevenue ?? 1)) * 100)}%`
+                      {dd?.profitMargin ? `${dd.profitMargin}%` : (data.listing.avgMonthlyRevenue ?? 0) > 0
+                        ? `${Math.round(((data.listing.avgMonthlyProfit ?? 0) / (data.listing.avgMonthlyRevenue ?? 1)) * 100)}%`
                         : "—"}
                     </div>
                   </div>
