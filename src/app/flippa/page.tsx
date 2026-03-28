@@ -1283,7 +1283,7 @@ export default function FlippaPage() {
                             <Link
                               href={`/flippa/${l.id}`}
                               className="text-zinc-200 hover:text-white transition-colors truncate block"
-                              title={l.niche}
+                              title={l.niche ?? undefined}
                             >
                               {l.niche}
                             </Link>
