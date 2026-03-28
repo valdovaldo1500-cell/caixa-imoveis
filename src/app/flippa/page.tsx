@@ -441,8 +441,8 @@ export default function FlippaPage() {
     const valid = activeListings.filter((l) => l.price && l.price <= BUDGET_USD);
     if (!valid.length) return null;
     return valid.reduce((best, l) => {
-      const r = annualRoi(l.price, l.monthlyProfit) ?? 0;
-      const br = annualRoi(best.price, best.monthlyProfit) ?? 0;
+      const r = annualRoi(l.price ?? null, l.monthlyProfit ?? 0) ?? 0;
+      const br = annualRoi(best.price ?? null, best.monthlyProfit ?? 0) ?? 0;
       return r > br ? l : best;
     }, valid[0]);
   }, [activeListings]);
