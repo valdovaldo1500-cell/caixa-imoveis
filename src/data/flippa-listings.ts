@@ -270,13 +270,13 @@ export const flippaListings: FlippaListing[] = [
     recommendation: `STRONG`,
     redFlags: [
       `High revenue volatility (CV 112%)`,
+      `Has 1 loss month (Aug 2025)`,
     ],
     greenFlags: [
       `Flippa-vetted`,
       `Stripe revenue verified`,
       `Managed by Flippa`,
       `6 years old — established`,
-      `Stable revenue history`,
       `Strong profit $6,407/mo`,
       `Revenue growing (24.1%)`,
     ],
