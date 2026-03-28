@@ -1316,20 +1316,20 @@ export default function FlippaPage() {
                             </span>
                           </td>
                           <td className="px-3 py-2 text-white font-medium">
-                            {fmt(l.price)}
+                            {fmt(l.price ?? null)}
                           </td>
                           <td className="px-3 py-2 text-emerald-400 font-medium">
-                            {fmtMo(l.monthlyProfit)}
+                            {fmtMo(l.monthlyProfit ?? 0)}
                           </td>
                           <td className="px-3 py-2 text-zinc-400">
-                            {fmtMo(l.monthlyRevenue)}
+                            {fmtMo(l.monthlyRevenue ?? 0)}
                           </td>
                           <td className="px-3 py-2 text-zinc-400">
                             {l.multiple ? `${l.multiple}x` : "—"}
                           </td>
                           <td className="px-3 py-2">
-                            <ScoreBadge score={l.overallScore} color={
-                              l.overallScore >= 75 ? "emerald" : l.overallScore >= 65 ? "blue" : l.overallScore >= 55 ? "amber" : "red"
+                            <ScoreBadge score={l.overallScore ?? 0} color={
+                              (l.overallScore ?? 0) >= 75 ? "emerald" : (l.overallScore ?? 0) >= 65 ? "blue" : (l.overallScore ?? 0) >= 55 ? "amber" : "red"
                             } />
                           </td>
                           <td className="px-3 py-2 text-zinc-400">{l.autonomyScore}</td>
