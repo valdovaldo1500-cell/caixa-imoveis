@@ -790,7 +790,7 @@ export default function FlippaDetailPage() {
                         <CheckCircle2 className="w-3 h-3" /> Reasons For
                       </div>
                       <ul className="space-y-1.5">
-                        {data.listing.reasonsFor.map((r, i) => (
+                        {(data.listing.reasonsFor ?? []).map((r, i) => (
                           <li key={i} className="text-xs text-zinc-400 flex gap-1.5">
                             <span className="text-emerald-500 shrink-0 mt-0.5">+</span>
                             {r}
