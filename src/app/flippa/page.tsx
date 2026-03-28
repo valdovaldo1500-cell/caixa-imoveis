@@ -313,7 +313,7 @@ function TopPickCard({ listing }: { listing: FlippaListing }) {
             <XCircle className="w-3 h-3" /> Risks
           </div>
           <ul className="space-y-1">
-            {listing.reasonsAgainst.map((r, i) => (
+            {(listing.reasonsAgainst ?? []).map((r, i) => (
               <li key={i} className="text-xs text-zinc-400 flex gap-1.5">
                 <span className="text-red-500 shrink-0 mt-0.5">-</span>
                 {r}
