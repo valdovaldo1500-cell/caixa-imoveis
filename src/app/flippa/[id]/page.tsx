@@ -359,7 +359,7 @@ export default function FlippaDetailPage() {
                     <Users className="w-3 h-3" /> Offers
                   </div>
                   <div className="text-xl font-bold text-amber-400">
-                    {data.listing.offersCount > 0
+                    {(data.listing.offersCount ?? 0) > 0
                       ? `${data.listing.offersCount} Offer${data.listing.offersCount === 1 ? "" : "s"}`
                       : "No Offers"}
                   </div>
