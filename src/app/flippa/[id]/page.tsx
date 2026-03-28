@@ -746,7 +746,7 @@ export default function FlippaDetailPage() {
                     </p>
                   </div>
                 )}
-                {data.listing.offersCount >= 3 && (
+                {(data.listing.offersCount ?? 0) >= 3 && (
                   <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3">
                     <p className="text-xs font-semibold text-amber-400 mb-1">High Demand Signal</p>
                     <p className="text-xs text-zinc-400">
