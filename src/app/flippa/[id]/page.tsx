@@ -82,17 +82,18 @@ function annualRoi(price: number | null, mp: number): number | null {
 }
 
 function RecBadge({ rec }: { rec: FlippaListing["recommendation"] }) {
+  const normalized = rec.toLowerCase();
   const style =
-    rec === "top_pick"
+    normalized === "top_pick"
       ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-      : rec === "strong"
+      : normalized === "strong"
       ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-      : rec === "consider"
+      : normalized === "consider"
       ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
       : "bg-red-500/20 text-red-400 border border-red-500/30";
   return (
     <span className={`text-sm font-semibold px-3 py-1 rounded-full ${style}`}>
-      {REC_LABELS[rec]}
+      {REC_LABELS[normalized] ?? rec}
     </span>
   );
 }
