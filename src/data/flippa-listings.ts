@@ -32,10 +32,33 @@ export interface FlippaListing {
     growthPotential: number;
     overall: number;
   };
-  recommendation: "TOP_PICK" | "STRONG" | "CONSIDER" | "AVOID";
+  recommendation: "TOP_PICK" | "STRONG" | "CONSIDER" | "AVOID" | "top_pick" | "strong" | "consider" | "avoid";
   redFlags: string[];
   greenFlags: string[];
   about?: string;
+  // Optional fields for UI compatibility
+  status?: string;
+  category?: string;
+  niche?: string;
+  description?: string;
+  price?: number | null;
+  multiple?: number | null;
+  monthlyRevenue?: number | null;
+  monthlyProfit?: number | null;
+  overallScore?: number;
+  autonomyScore?: number;
+  riskScore?: number;
+  roiScore?: number;
+  evergreenScore?: number;
+  aiManageable?: boolean;
+  listingType?: "buy_now" | "auction" | "make_offer";
+  verificationStatus?: "verified" | "partial" | "unverified";
+  firstMadeMoney?: string;
+  monetization?: string;
+  businessAge?: number;
+  offersCount?: number;
+  reasonsFor?: string[];
+  reasonsAgainst?: string[];
 }
 
 
