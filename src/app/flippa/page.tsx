@@ -262,7 +262,7 @@ function TopPickCard({ listing }: { listing: FlippaListing }) {
         </div>
         <div className="bg-zinc-900 rounded-lg p-2">
           <div className="text-xs text-zinc-500 mb-0.5">Profit/mo</div>
-          <div className="text-sm font-bold text-emerald-400">{fmtMo(listing.monthlyProfit)}</div>
+          <div className="text-sm font-bold text-emerald-400">{fmtMo(listing.monthlyProfit ?? 0)}</div>
         </div>
         <div className="bg-zinc-900 rounded-lg p-2">
           <div className="text-xs text-zinc-500 mb-0.5">Annual ROI</div>
