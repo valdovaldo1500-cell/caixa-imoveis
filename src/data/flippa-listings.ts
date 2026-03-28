@@ -51,7 +51,7 @@ export interface FlippaListing {
   roiScore?: number;
   evergreenScore?: number;
   aiManageable?: boolean;
-  listingType?: "buy_now" | "auction" | "make_offer";
+  listingType?: "buy_now" | "auction" | "make_offer" | "offer";
   verificationStatus?: "verified" | "partial" | "unverified";
   firstMadeMoney?: string;
   monetization?: string;
