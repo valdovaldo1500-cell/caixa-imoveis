@@ -41,6 +41,8 @@ export interface FlippaListing {
 
 export const FLIPPA_UPDATED_AT = "2026-03-28";
 
+export const ELIMINATED_IDS = new Set<string>();
+
 export const FLIPPA_PIPELINE = { harvested: 284, sieved: 184, deepDived: 184, fullPnl: 51, statsOnly: 133, headerOnly: 0 };
 
 export const flippaListings: FlippaListing[] = [
