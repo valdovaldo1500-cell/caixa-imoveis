@@ -62,6 +62,6 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     listings,
     total: listings.length,
-    updatedAt: "2026-03-26",
+    updatedAt: FLIPPA_UPDATED_AT,
   });
 }
