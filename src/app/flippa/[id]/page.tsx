@@ -561,7 +561,7 @@ export default function FlippaDetailPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
                   <div className="bg-zinc-900 rounded-lg p-2.5">
                     <div className="text-zinc-500 mb-0.5">Platform</div>
-                    <div className="text-zinc-300 font-medium">{dd?.platform ?? data.listing.monetization}</div>
+                    <div className="text-zinc-300 font-medium">{dd?.platform ?? data.listing.monetisation}</div>
                   </div>
                   <div className="bg-zinc-900 rounded-lg p-2.5">
                     <div className="text-zinc-500 mb-0.5">Verification</div>
