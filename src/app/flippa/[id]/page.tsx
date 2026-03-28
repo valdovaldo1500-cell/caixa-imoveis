@@ -430,7 +430,7 @@ export default function FlippaDetailPage() {
                   <div className="bg-zinc-900 rounded-lg p-3">
                     <div className="text-xs text-zinc-500 mb-1">Monthly Revenue</div>
                     <div className="font-semibold text-white">
-                      {dd?.verifiedPnL ? `$${dd.verifiedPnL.lastMonthRevenue?.toLocaleString()}` : fmtMo(data.listing.monthlyRevenue)}
+                      {dd?.verifiedPnL ? `$${dd.verifiedPnL.lastMonthRevenue?.toLocaleString()}` : fmtMo(data.listing.monthlyRevenue ?? 0)}
                     </div>
                   </div>
                   <div className="bg-zinc-900 rounded-lg p-3">
