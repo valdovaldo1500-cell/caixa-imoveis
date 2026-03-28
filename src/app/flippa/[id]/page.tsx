@@ -442,8 +442,8 @@ export default function FlippaDetailPage() {
                   <div className="bg-zinc-900 rounded-lg p-3">
                     <div className="text-xs text-zinc-500 mb-1">Profit Margin</div>
                     <div className="font-semibold text-blue-400">
-                      {dd?.profitMargin ? `${dd.profitMargin}%` : data.listing.monthlyRevenue > 0
-                        ? `${Math.round((data.listing.monthlyProfit / data.listing.monthlyRevenue) * 100)}%`
+                      {dd?.profitMargin ? `${dd.profitMargin}%` : (data.listing.monthlyRevenue ?? 0) > 0
+                        ? `${Math.round(((data.listing.monthlyProfit ?? 0) / (data.listing.monthlyRevenue ?? 1)) * 100)}%`
                         : "—"}
                     </div>
                   </div>
