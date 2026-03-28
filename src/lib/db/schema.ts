@@ -234,6 +234,21 @@ export const propertyNotes = pgTable(
   ]
 );
 
+export const flippaFavorites = pgTable("flippa_favorites", {
+  id: serial("id").primaryKey(),
+  listingId: varchar("listing_id", { length: 20 }).notNull(),
+  username: varchar("username", { length: 50 }),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const flippaHidden = pgTable("flippa_hidden", {
+  id: serial("id").primaryKey(),
+  listingId: varchar("listing_id", { length: 20 }).notNull(),
+  username: varchar("username", { length: 50 }),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const pipelineRuns = pgTable("pipeline_runs", {
   id: serial("id").primaryKey(),
   startedAt: timestamp("started_at").notNull(),
