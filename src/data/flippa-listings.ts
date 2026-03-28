@@ -6630,18 +6630,6 @@ export const flippaListings: FlippaListing[] = [
       { month: `Oct 2025`, revenue: 0.0, expenses: 4032.25, profit: -4032.25 },
       { month: `Nov 2025`, revenue: 3255.01, expenses: 5533.39, profit: -2278.38 },
       { month: `Dec 2025`, revenue: 3253.74, expenses: 6287.77, profit: -3034.03 },
-      { month: `Agent Incubator 
-         Net Profit GBP £9,986/mo
-         2 Years Old | Digital Agency`, revenue: 0.0, expenses: 23935.69, profit: 0.0 },
-      { month: `voicedrop.com.au
-         Net Profit GBP £917/mo
-         1 Year Old | Digital Agency`, revenue: 0.0, expenses: 23926.8, profit: 0.0 },
-      { month: `FLOWSAMURAI.COM
-         Net Profit GBP £2,178/mo
-         1 Year Old | Digital Agency`, revenue: 0.0, expenses: 18957.29, profit: 0.0 },
-      { month: `earthrootedassistants.com
-         Net Profit GBP £731/mo
-         4 Years Old | Digital Agency`, revenue: 0.0, expenses: 21064.22, profit: 0.0 },
     ],
     avgMonthlyRevenue: 14003.0,
     avgMonthlyProfit: 12682.0,
