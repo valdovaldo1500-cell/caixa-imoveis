@@ -274,23 +274,23 @@ function TopPickCard({ listing }: { listing: FlippaListing }) {
         <div className="text-xs text-zinc-500 font-medium uppercase tracking-wide mb-1">Scores</div>
         <div className="flex items-center gap-2 text-xs">
           <span className="w-20 text-zinc-400 shrink-0"><Bot className="w-3 h-3 inline mr-1" />Autonomy</span>
-          <ProgressBar value={listing.autonomyScore} />
+          <ProgressBar value={listing.autonomyScore ?? 0} />
         </div>
         <div className="flex items-center gap-2 text-xs">
           <span className="w-20 text-zinc-400 shrink-0"><ShieldCheck className="w-3 h-3 inline mr-1" />Risk</span>
-          <ProgressBar value={listing.riskScore} />
+          <ProgressBar value={listing.riskScore ?? 0} />
         </div>
         <div className="flex items-center gap-2 text-xs">
           <span className="w-20 text-zinc-400 shrink-0"><TrendingUp className="w-3 h-3 inline mr-1" />ROI</span>
-          <ProgressBar value={listing.roiScore} />
+          <ProgressBar value={listing.roiScore ?? 0} />
         </div>
         <div className="flex items-center gap-2 text-xs">
           <span className="w-20 text-zinc-400 shrink-0"><Leaf className="w-3 h-3 inline mr-1" />Evergreen</span>
-          <ProgressBar value={listing.evergreenScore} />
+          <ProgressBar value={listing.evergreenScore ?? 0} />
         </div>
         <div className="flex items-center gap-2 text-xs mt-1 pt-1 border-t border-zinc-700">
           <span className="w-20 text-zinc-300 font-semibold shrink-0"><Star className="w-3 h-3 inline mr-1" />Overall</span>
-          <ProgressBar value={listing.overallScore} />
+          <ProgressBar value={listing.overallScore ?? 0} />
         </div>
       </div>
 
