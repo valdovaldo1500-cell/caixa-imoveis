@@ -578,6 +578,90 @@ export default function FlippaDetailPage() {
               </div>
             </SectionCard>
 
+            {/* ── Section 2b: Monthly P&L ───────────────────────────────── */}
+            {data.listing.monthlyPL && data.listing.monthlyPL.length > 0 && (
+              <SectionCard
+                icon={BarChart2}
+                title="Monthly P&L"
+                iconColor="text-emerald-400"
+              >
+                <div className="space-y-4">
+                  {/* Bar chart — profit per month */}
+                  {(() => {
+                    const rows = data.listing.monthlyPL!;
+                    const maxProfit = Math.max(...rows.map((r) => Math.abs(r.profit)), 1);
+                    const chartH = 64;
+                    const barW = Math.max(8, Math.floor(480 / rows.length) - 2);
+                    return (
+                      <div className="overflow-x-auto">
+                        <svg
+                          viewBox={`0 0 ${rows.length * (barW + 2)} ${chartH + 20}`}
+                          className="w-full"
+                          style={{ minWidth: `${rows.length * (barW + 2)}px`, maxHeight: 100 }}
+                        >
+                          {rows.map((r, i) => {
+                            const barH = Math.max(2, (Math.abs(r.profit) / maxProfit) * chartH);
+                            const isLoss = r.profit < 0;
+                            const x = i * (barW + 2);
+                            const y = isLoss ? chartH : chartH - barH;
+                            return (
+                              <g key={i}>
+                                <rect
+                                  x={x}
+                                  y={y}
+                                  width={barW}
+                                  height={barH}
+                                  fill={isLoss ? "#f87171" : "#34d399"}
+                                  rx={2}
+                                />
+                                <text
+                                  x={x + barW / 2}
+                                  y={chartH + 14}
+                                  textAnchor="middle"
+                                  fontSize={7}
+                                  fill="#71717a"
+                                >
+                                  {r.month.slice(0, 3)}
+                                </text>
+                              </g>
+                            );
+                          })}
+                          {/* Zero line */}
+                          <line x1={0} y1={chartH} x2={rows.length * (barW + 2)} y2={chartH} stroke="#3f3f46" strokeWidth={1} />
+                        </svg>
+                      </div>
+                    );
+                  })()}
+
+                  {/* Table */}
+                  <div className="overflow-x-auto -mx-1">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="border-b border-zinc-700">
+                          <th className="text-left text-zinc-500 font-medium pb-2 pr-4">Month</th>
+                          <th className="text-right text-zinc-500 font-medium pb-2 px-2">Revenue</th>
+                          <th className="text-right text-zinc-500 font-medium pb-2 px-2">Expenses</th>
+                          <th className="text-right text-zinc-500 font-medium pb-2 pl-2">Profit</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.listing.monthlyPL!.map((row, i) => (
+                          <tr key={i} className="border-b border-zinc-800 last:border-0">
+                            <td className="py-1.5 pr-4 text-zinc-400">{row.month}</td>
+                            <td className="text-right py-1.5 px-2 text-zinc-300">${row.revenue.toLocaleString()}</td>
+                            <td className="text-right py-1.5 px-2 text-zinc-500">${row.expenses.toLocaleString()}</td>
+                            <td className={`text-right py-1.5 pl-2 font-medium ${row.profit < 0 ? "text-red-400" : "text-emerald-400"}`}>
+                              {row.profit < 0 ? "-" : "+"}${Math.abs(row.profit).toLocaleString()}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </SectionCard>
+            )}
+
             {/* ── Section 3: Traffic & Growth Analysis ──────────────────── */}
             <SectionCard
               icon={TrendingUp}
