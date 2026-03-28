@@ -480,7 +480,8 @@ export default function FlippaPage() {
   const pieData = useMemo(() => {
     const cats: Record<string, number> = {};
     listings.filter((l) => l.status !== "sold").forEach((l) => {
-      cats[l.category] = (cats[l.category] ?? 0) + 1;
+      const cat = l.category ?? "other";
+      cats[cat] = (cats[cat] ?? 0) + 1;
     });
     return Object.entries(cats)
       .map(([cat, count]) => ({ name: CAT_LABELS[cat] ?? cat, value: count }))
