@@ -973,10 +973,10 @@ export default function FlippaDetailPage() {
                                 </Link>
                                 {l.id === id && <span className="ml-1.5 text-zinc-600">← you are here</span>}
                               </td>
-                              <td className="text-right py-2 px-2 text-zinc-300">{fmt(l.price)}</td>
-                              <td className="text-right py-2 px-2 text-emerald-400">{fmtMo(l.monthlyProfit)}</td>
+                              <td className="text-right py-2 px-2 text-zinc-300">{fmt(l.price ?? null)}</td>
+                              <td className="text-right py-2 px-2 text-emerald-400">{fmtMo(l.monthlyProfit ?? 0)}</td>
                               <td className="text-right py-2 px-2 text-blue-400">
-                                {annualRoi(l.price, l.monthlyProfit)?.toFixed(0) ?? "—"}%
+                                {annualRoi(l.price ?? null, l.monthlyProfit ?? 0)?.toFixed(0) ?? "—"}%
                               </td>
                               <td className="text-right py-2 px-2 text-zinc-400">
                                 {l.multiple ? `${l.multiple}x` : "—"}
