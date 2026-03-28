@@ -167,6 +167,45 @@ export default function FlippaDetailPage() {
   const [data, setData] = useState<DetailData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+    // Load favorite/hidden state
+    fetch("/api/flippa/favorites", { credentials: "include" })
+      .then((r) => r.json())
+      .catch(() => ({ favorites: [] }))
+      .then((d) => {
+        if (d.favorites?.some((f: { listingId: string }) => f.listingId === id)) {
+          setIsFavorited(true);
+        }
+      });
+    fetch("/api/flippa/hidden", { credentials: "include" })
+      .then((r) => r.json())
+      .catch(() => ({ hidden: [] }))
+      .then((d) => {
+        if (d.hidden?.includes(id)) setIsHidden(true);
+      });
+  }, [id]);
+
+  const handleFavorite = async () => {
+    setIsFavorited((prev) => !prev);
+    try {
+      await fetch(`/api/flippa/${id}/favorite`, { method: "POST", credentials: "include" });
+    } catch {
+      setIsFavorited((prev) => !prev);
+    }
+  };
+
+  const handleDismiss = async () => {
+    setIsHidden((prev) => !prev);
+    try {
+      await fetch(`/api/flippa/${id}/hide`, { method: "POST", credentials: "include" });
+    } catch {
+      setIsHidden((prev) => !prev);
+    }
+  };
 
   useEffect(() => {
     if (!id) return;
