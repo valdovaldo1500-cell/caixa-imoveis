@@ -326,7 +326,7 @@ export default function FlippaDetailPage() {
                 <div className="bg-zinc-900 rounded-lg p-3 text-center">
                   <div className="text-xs text-zinc-500 mb-1">Asking Price</div>
                   <div className="text-xl font-bold text-white">
-                    {data.assessment?.price ?? fmt(data.listing.price)}
+                    {data.assessment?.price ?? fmt(data.listing.price ?? null)}
                   </div>
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-3 text-center">
