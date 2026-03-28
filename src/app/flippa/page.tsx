@@ -243,7 +243,7 @@ function TopPickCard({ listing }: { listing: FlippaListing }) {
             <ListingTypeBadge type={listing.listingType} />
           </div>
           <h3 className="text-white font-semibold text-base leading-tight">{listing.niche}</h3>
-          <span className="text-xs text-zinc-500">{CAT_LABELS[listing.category] ?? listing.category}</span>
+          <span className="text-xs text-zinc-500">{CAT_LABELS[listing.category ?? ""] ?? listing.category}</span>
         </div>
         <a
           href={`https://flippa.com/${listing.id}`}
