@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getUsernameFromRequest } from "@/lib/auth";
-import { flippaListings } from "@/data/flippa-listings";
+import { flippaListings, FLIPPA_UPDATED_AT } from "@/data/flippa-listings";
 import type { FlippaListing } from "@/data/flippa-listings";
 
 const ALLOWED_USER = "isilva";
