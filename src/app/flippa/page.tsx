@@ -1290,7 +1290,7 @@ export default function FlippaPage() {
                             <div className="text-zinc-600 text-[10px]">{CAT_LABELS[l.category ?? ""] ?? l.category}</div>
                           </td>
                           <td className="px-3 py-2 text-zinc-400 max-w-[120px]">
-                            <div className="truncate" title={l.monetization}>{l.monetization}</div>
+                            <div className="truncate" title={l.monetization ?? undefined}>{l.monetization}</div>
                           </td>
                           <td className="px-3 py-2 text-zinc-400">
                             {age}y
