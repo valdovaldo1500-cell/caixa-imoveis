@@ -434,7 +434,7 @@ export default function FlippaPage() {
   const avgRoi = useMemo(() => {
     const valid = manageable.filter((l) => l.price && l.price <= BUDGET_USD && (l.status === "active" || l.status === "auction"));
     if (!valid.length) return 0;
-    const sum = valid.reduce((acc, l) => acc + (annualRoi(l.price, l.monthlyProfit) ?? 0), 0);
+    const sum = valid.reduce((acc, l) => acc + (annualRoi(l.price ?? null, l.monthlyProfit ?? 0) ?? 0), 0);
     return sum / valid.length;
   }, [manageable]);
   const bestRoi = useMemo(() => {
