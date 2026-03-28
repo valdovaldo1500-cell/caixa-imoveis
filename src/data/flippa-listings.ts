@@ -823,51 +823,6 @@ export const flippaListings: FlippaListing[] = [
       { month: `Dec 2025`, revenue: 11489.69, expenses: 7007.86, profit: 4480.56 },
       { month: `Jan 2026`, revenue: 9574.53, expenses: 5840.73, profit: 3733.8 },
       { month: `Feb 2026`, revenue: 9956.8, expenses: 6074.41, profit: 3883.66 },
-      { month: `Ecommerce Store | Health ...
-         Net Profit GBP £2,675/mo
-         3 Years Old | Ecommerce Store`, revenue: 0.0, expenses: 96173.29, profit: 0.0 },
-      { month: `Ecommerce Store | Home an...
-         Net Profit GBP £7,554/mo
-         8 Months Old | Ecommerce Store`, revenue: 0.0, expenses: 95989.14, profit: 0.0 },
-      { month: `Ecommerce Store | Sports ...
-         Net Profit GBP £6,323/mo
-         4 Years Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `Ecommerce Store | Design ...
-         Net Profit GBP £7,861/mo
-         1 Year Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `Ecommerce Store | Electro...
-         Net Profit GBP £4,585/mo
-         1 Year Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `Ecommerce Store | Health ...
-         Net Profit GBP £3,405/mo
-         2 Years Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `Ecommerce Store | Hobbies...
-         Net Profit GBP £7,016/mo
-         1 Year Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `Ecommerce Store | Health ...
-         Net Profit GBP £3,101/mo
-         1 Year Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `TSF NY INC
-         Net Profit GBP £9,424/mo
-         11 Years Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `Ecommerce Store | Hobbies...
-         Net Profit GBP £13,748/mo
-         2 Years Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `Massive KDP Opportunity
-         Net Profit GBP £4,927/mo
-         2 Years Old | Amazon KDP Store`, revenue: 0.0, expenses: 96701.61, profit: 0.0 },
-      { month: `Ecommerce Store | Home an...
-         Net Profit GBP £3,363/mo
-         14 Years Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `Ecommerce Store | Home an...
-         Net Profit GBP £3,207/mo
-         12 Years Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `Ecommerce Store | Health ...
-         Net Profit GBP £6,153/mo
-         1 Year Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
-      { month: `Ecommerce Store | Health ...
-         Net Profit GBP £8,113/mo
-         3 Years Old | Ecommerce Store`, revenue: 0.0, expenses: 95744.03, profit: 0.0 },
     ],
     avgMonthlyRevenue: 12798.0,
     avgMonthlyProfit: 4991.0,
