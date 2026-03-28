@@ -958,7 +958,7 @@ export default function FlippaDetailPage() {
                       <tbody>
                         {flippaListings
                           .filter((l) => !ELIMINATED_IDS.has(l.id) && l.recommendation !== "avoid")
-                          .sort((a, b) => b.overallScore - a.overallScore)
+                          .sort((a, b) => (b.overallScore ?? 0) - (a.overallScore ?? 0))
                           .map((l) => (
                             <tr
                               key={l.id}
