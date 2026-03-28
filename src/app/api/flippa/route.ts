@@ -15,43 +15,46 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const recommendation = searchParams.get("recommendation");
   const category = searchParams.get("category");
-  const status = searchParams.get("status") ?? "active";
-  const sort = searchParams.get("sort") ?? "overallScore";
+  const sort = searchParams.get("sort") ?? "scores.overall";
 
   let listings: FlippaListing[] = [...flippaListings];
 
-  // Filter by status (default: active only)
-  if (status !== "all") {
-    listings = listings.filter((l) => l.status === status);
-  }
-
   // Filter by recommendation
   if (recommendation && recommendation !== "all") {
-    listings = listings.filter((l) => l.recommendation === recommendation);
+    listings = listings.filter(
+      (l) => l.recommendation.toLowerCase() === recommendation.toLowerCase()
+    );
   }
 
-  // Filter by category
+  // Filter by category (maps to 'type' field)
   if (category && category !== "all") {
-    listings = listings.filter((l) => l.category === category);
+    listings = listings.filter((l) => l.type === category);
   }
 
   // Sort
-  const sortableKeys: (keyof FlippaListing)[] = [
-    "overallScore",
-    "autonomyScore",
-    "riskScore",
-    "roiScore",
-    "evergreenScore",
-    "monthlyProfit",
-    "monthlyRevenue",
-    "price",
-    "multiple",
+  type NumericKey = "avgMonthlyProfit" | "avgMonthlyRevenue" | "askingPrice" | "ageYears";
+  const numericKeys: NumericKey[] = [
+    "avgMonthlyProfit",
+    "avgMonthlyRevenue",
+    "askingPrice",
+    "ageYears",
   ];
-  if (sortableKeys.includes(sort as keyof FlippaListing)) {
-    const key = sort as keyof FlippaListing;
+
+  if (sort === "scores.overall" || sort === "overallScore") {
+    listings = listings.sort((a, b) => (b.scores.overall ?? -Infinity) - (a.scores.overall ?? -Infinity));
+  } else if (sort === "scores.roi" || sort === "roiScore") {
+    listings = listings.sort((a, b) => (b.scores.roi ?? -Infinity) - (a.scores.roi ?? -Infinity));
+  } else if (sort === "scores.stability" || sort === "autonomyScore") {
+    listings = listings.sort((a, b) => (b.scores.stability ?? -Infinity) - (a.scores.stability ?? -Infinity));
+  } else if (sort === "scores.operatorIndependence" || sort === "riskScore") {
+    listings = listings.sort((a, b) => (b.scores.operatorIndependence ?? -Infinity) - (a.scores.operatorIndependence ?? -Infinity));
+  } else if (sort === "scores.growthPotential" || sort === "evergreenScore") {
+    listings = listings.sort((a, b) => (b.scores.growthPotential ?? -Infinity) - (a.scores.growthPotential ?? -Infinity));
+  } else if (numericKeys.includes(sort as NumericKey)) {
+    const key = sort as NumericKey;
     listings = listings.sort((a, b) => {
-      const av = (a[key] as number | null) ?? -Infinity;
-      const bv = (b[key] as number | null) ?? -Infinity;
+      const av = (a[key] as number | null | undefined) ?? -Infinity;
+      const bv = (b[key] as number | null | undefined) ?? -Infinity;
       return bv - av;
     });
   }
