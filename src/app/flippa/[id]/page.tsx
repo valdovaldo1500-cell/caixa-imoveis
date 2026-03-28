@@ -350,15 +350,39 @@ export default function FlippaDetailPage() {
                     {data.listing.firstMadeMoney}
                   </p>
                 </div>
-                <a
-                  href={`https://flippa.com/${data.listing.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 transition-colors shrink-0 border border-blue-500/30 rounded-lg px-3 py-1.5"
-                >
-                  View on Flippa
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
+                <div className="flex items-center gap-2 shrink-0 flex-wrap">
+                  <button
+                    onClick={handleFavorite}
+                    title={isFavorited ? "Remove from favorites" : "Add to favorites"}
+                    className={`inline-flex items-center gap-1.5 text-sm transition-colors border rounded-lg px-3 py-1.5 ${
+                      isFavorited
+                        ? "bg-amber-500/20 text-amber-400 border-amber-500/30 hover:bg-amber-500/30"
+                        : "text-zinc-400 border-zinc-600 hover:text-amber-400 hover:border-amber-500/30"
+                    }`}
+                  >
+                    {isFavorited ? "★ Favorited" : "☆ Favorite"}
+                  </button>
+                  <button
+                    onClick={handleDismiss}
+                    title={isHidden ? "Restore listing" : "Dismiss listing"}
+                    className={`inline-flex items-center gap-1.5 text-sm transition-colors border rounded-lg px-3 py-1.5 ${
+                      isHidden
+                        ? "bg-zinc-700 text-zinc-300 border-zinc-600 hover:bg-zinc-600"
+                        : "text-zinc-500 border-zinc-700 hover:text-red-400 hover:border-red-500/30"
+                    }`}
+                  >
+                    {isHidden ? "↩ Restore" : "✕ Dismiss"}
+                  </button>
+                  <a
+                    href={`https://flippa.com/${data.listing.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 transition-colors border border-blue-500/30 rounded-lg px-3 py-1.5"
+                  >
+                    View on Flippa
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </div>
 
               {/* KPI row — 5 metrics */}
