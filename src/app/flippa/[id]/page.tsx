@@ -386,12 +386,12 @@ export default function FlippaDetailPage() {
                   </div>
                   <div className="bg-zinc-900 rounded-lg p-2.5">
                     <div className="text-zinc-500 mb-0.5">Monetization</div>
-                    <div className="text-zinc-300 font-medium">{data.listing.monetization}</div>
+                    <div className="text-zinc-300 font-medium">{data.listing.monetisation}</div>
                   </div>
                   <div className="bg-zinc-900 rounded-lg p-2.5">
                     <div className="text-zinc-500 mb-0.5">Business Age</div>
                     <div className="text-zinc-300 font-medium">
-                      {data.listing.businessAge} yr{data.listing.businessAge !== 1 ? "s" : ""}
+                      {data.listing.ageYears} yr{data.listing.ageYears !== 1 ? "s" : ""}
                     </div>
                   </div>
                 </div>
