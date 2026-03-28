@@ -305,7 +305,7 @@ export default function FlippaDetailPage() {
                     {data.assessment?.name ?? data.listing.title}
                   </h1>
                   <p className="text-sm text-zinc-400">
-                    {CAT_LABELS[data.listing.category] ?? data.listing.niche} &middot;{" "}
+                    {CAT_LABELS[data.listing.category ?? ""] ?? data.listing.niche} &middot;{" "}
                     {data.listing.monetization} &middot; Est.{" "}
                     {data.listing.firstMadeMoney}
                   </p>
