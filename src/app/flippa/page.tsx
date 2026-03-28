@@ -1247,8 +1247,8 @@ export default function FlippaPage() {
                   </thead>
                   <tbody>
                     {filtered.map((l, i) => {
-                      const roi = annualRoi(l.price, l.monthlyProfit);
-                      const age = 2026 - l.firstMadeMoney;
+                      const roi = annualRoi(l.price ?? null, l.monthlyProfit ?? 0);
+                      const age = typeof l.firstMadeMoney === "number" ? 2026 - l.firstMadeMoney : null;
                       const rowBg = i % 2 === 0 ? "bg-zinc-900" : "bg-zinc-950";
                       const isSold = l.status === "sold";
                       return (
