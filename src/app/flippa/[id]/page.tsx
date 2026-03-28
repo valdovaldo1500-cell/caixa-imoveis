@@ -340,10 +340,10 @@ export default function FlippaDetailPage() {
                   <div className="text-xs text-zinc-500 mb-1">Annual ROI</div>
                   <div className="text-xl font-bold text-blue-400">
                     {data.assessment?.annualROI ??
-                      (annualRoi(data.listing.price, data.listing.monthlyProfit)
+                      (annualRoi(data.listing.price ?? null, data.listing.monthlyProfit ?? 0)
                         ? `${annualRoi(
-                            data.listing.price,
-                            data.listing.monthlyProfit
+                            data.listing.price ?? null,
+                            data.listing.monthlyProfit ?? 0
                           )!.toFixed(0)}%`
                         : "—")}
                   </div>
