@@ -465,8 +465,9 @@ export default function FlippaPage() {
   const catAvgData = useMemo(() => {
     const cats: Record<string, number[]> = {};
     listings.forEach((l) => {
-      if (!cats[l.category]) cats[l.category] = [];
-      cats[l.category].push(l.overallScore);
+      const cat = l.category ?? "other";
+      if (!cats[cat]) cats[cat] = [];
+      cats[cat].push(l.overallScore ?? 0);
     });
     return Object.entries(cats)
       .map(([cat, scores]) => ({
