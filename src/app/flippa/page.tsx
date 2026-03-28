@@ -258,7 +258,7 @@ function TopPickCard({ listing }: { listing: FlippaListing }) {
       <div className="grid grid-cols-3 gap-3 text-center">
         <div className="bg-zinc-900 rounded-lg p-2">
           <div className="text-xs text-zinc-500 mb-0.5">Price</div>
-          <div className="text-sm font-bold text-white">{fmt(listing.price)}</div>
+          <div className="text-sm font-bold text-white">{fmt(listing.price ?? null)}</div>
         </div>
         <div className="bg-zinc-900 rounded-lg p-2">
           <div className="text-xs text-zinc-500 mb-0.5">Profit/mo</div>
