@@ -219,7 +219,7 @@ function KpiCard({
 }
 
 function TopPickCard({ listing }: { listing: FlippaListing }) {
-  const roi = annualRoi(listing.price, listing.monthlyProfit);
+  const roi = annualRoi(listing.price ?? null, listing.monthlyProfit ?? 0);
   return (
     <div className="bg-zinc-800 border border-emerald-500/30 rounded-xl p-5 flex flex-col gap-4">
       <div className="flex items-start justify-between gap-2">
