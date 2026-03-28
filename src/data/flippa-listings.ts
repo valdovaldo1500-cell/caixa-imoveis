@@ -38,27 +38,28 @@ export interface FlippaListing {
   about?: string;
   // Optional fields for UI compatibility
   status?: string;
-  category?: string;
-  niche?: string;
-  description?: string;
+  category?: string | null;
+  niche?: string | null;
+  description?: string | null;
   price?: number | null;
   multiple?: number | null;
   monthlyRevenue?: number | null;
   monthlyProfit?: number | null;
-  overallScore?: number;
-  autonomyScore?: number;
-  riskScore?: number;
-  roiScore?: number;
-  evergreenScore?: number;
+  overallScore?: number | null;
+  autonomyScore?: number | null;
+  riskScore?: number | null;
+  roiScore?: number | null;
+  evergreenScore?: number | null;
   aiManageable?: boolean;
-  listingType?: "buy_now" | "auction" | "make_offer" | "offer";
-  verificationStatus?: "verified" | "partial" | "unverified";
-  firstMadeMoney?: string;
-  monetization?: string;
-  businessAge?: number;
-  offersCount?: number;
-  reasonsFor?: string[];
-  reasonsAgainst?: string[];
+  listingType?: "buy_now" | "auction" | "make_offer" | "offer" | null;
+  verificationStatus?: "verified" | "partial" | "unverified" | null;
+  firstMadeMoney?: string | number | null;
+  monetization?: string | null;
+  businessAge?: number | null;
+  offersCount?: number | null;
+  reasonsFor?: string[] | null;
+  reasonsAgainst?: string[] | null;
+  verifiedPnL?: boolean | null;
 }
 
 
