@@ -333,7 +333,7 @@ export default function FlippaDetailPage() {
                   <div className="text-xs text-zinc-500 mb-1">Net Profit / mo</div>
                   <div className="text-xl font-bold text-emerald-400">
                     {data.assessment?.monthlyProfit ??
-                      fmtMo(data.listing.monthlyProfit)}
+                      fmtMo(data.listing.monthlyProfit ?? 0)}
                   </div>
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-3 text-center">
