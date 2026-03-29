@@ -1055,29 +1055,37 @@ export default function FlippaDetailPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <div className="text-xs text-emerald-400 font-medium mb-2 flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" /> Reasons For
+                        <CheckCircle2 className="w-3 h-3" /> Strengths
                       </div>
-                      <ul className="space-y-1.5">
-                        {(data.listing.reasonsFor ?? []).map((r, i) => (
-                          <li key={i} className="text-xs text-zinc-400 flex gap-1.5">
-                            <span className="text-emerald-500 shrink-0 mt-0.5">+</span>
-                            {r}
-                          </li>
-                        ))}
-                      </ul>
+                      {(data.listing.greenFlags ?? data.listing.reasonsFor ?? []).length > 0 ? (
+                        <ul className="space-y-1.5">
+                          {(data.listing.greenFlags ?? data.listing.reasonsFor ?? []).map((r, i) => (
+                            <li key={i} className="text-xs text-zinc-400 flex gap-1.5">
+                              <span className="text-emerald-500 shrink-0 mt-0.5">+</span>
+                              {r}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-xs text-zinc-600 italic">No strengths flagged</p>
+                      )}
                     </div>
                     <div>
                       <div className="text-xs text-red-400 font-medium mb-2 flex items-center gap-1">
-                        <XCircle className="w-3 h-3" /> Risks
+                        <XCircle className="w-3 h-3" /> Red Flags
                       </div>
-                      <ul className="space-y-1.5">
-                        {(data.listing.reasonsAgainst ?? []).map((r, i) => (
-                          <li key={i} className="text-xs text-zinc-400 flex gap-1.5">
-                            <span className="text-red-500 shrink-0 mt-0.5">-</span>
-                            {r}
-                          </li>
-                        ))}
-                      </ul>
+                      {(data.listing.redFlags ?? data.listing.reasonsAgainst ?? []).length > 0 ? (
+                        <ul className="space-y-1.5">
+                          {(data.listing.redFlags ?? data.listing.reasonsAgainst ?? []).map((r, i) => (
+                            <li key={i} className="text-xs text-zinc-400 flex gap-1.5">
+                              <span className="text-red-500 shrink-0 mt-0.5">-</span>
+                              {r}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-xs text-zinc-600 italic">No red flags identified</p>
+                      )}
                     </div>
                   </div>
                 )}
