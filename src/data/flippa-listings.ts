@@ -216,15 +216,16 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 80,
       overall: 77.2,
     },
-    recommendation: `STRONG`,
+    recommendation: `CONSIDER`,
     redFlags: [
       `High revenue volatility (CV 106%)`,
+      `CV 106% — extreme volatility, some months near zero ($146) vs peaks ($9,498)`,
+      `Only 14 subscribers at $168/sub/mo — highly concentrated, loss of few customers is fatal`,
     ],
     greenFlags: [
       `Flippa-vetted`,
       `Stripe revenue verified`,
       `15 years old — established`,
-      `Stable revenue history`,
       `Zero loss months in P&L`,
       `Revenue growing (71.3%)`,
     ],
