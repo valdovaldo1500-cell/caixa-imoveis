@@ -430,12 +430,17 @@ export const flippaListings: FlippaListing[] = [
       overall: 73.1,
     },
     recommendation: `STRONG`,
-    redFlags: [],
+    redFlags: [
+      `3M+ Q&A pages may be AI-generated/scraped — vulnerable to Google Helpful Content updates`,
+      `Cloudflare bot protection aggressive — may indicate grey-area traffic sources`,
+    ],
     greenFlags: [
       `Flippa-vetted`,
       `Stable revenue history`,
       `Zero loss months in P&L`,
       `Revenue growing (457.2%)`,
+      `Pure passive income — minimal operational work`,
+      `Vue/Nuxt tech stack — Claude Code friendly`,
     ],
   },
   {
