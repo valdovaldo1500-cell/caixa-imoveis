@@ -169,6 +169,7 @@ export default function FlippaDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [isFavorited, setIsFavorited] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [showFullAbout, setShowFullAbout] = useState(false);
 
   useEffect(() => {
     if (!id) return;
