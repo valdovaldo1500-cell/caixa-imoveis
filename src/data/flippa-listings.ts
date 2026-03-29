@@ -2071,12 +2071,19 @@ export const flippaListings: FlippaListing[] = [
       overall: 65.9,
     },
     recommendation: `CONSIDER`,
-    redFlags: [],
+    redFlags: [
+      `Samsung Knox API dependency — OS updates can break compatibility`,
+      `Google Play Store policy risk — needs active developer account`,
+      `$195K at ~49x monthly — premium pricing`,
+    ],
     greenFlags: [
       `Flippa-vetted`,
       `Stripe revenue verified`,
       `12 years old — established`,
       `Strong profit $5,043/mo`,
+      `11,313 real subscribers with 2% churn — genuine customer base`,
+      `97% margin — almost zero ongoing costs`,
+      `Android utility app — fully digital, remote-operable`,
     ],
   },
   {
