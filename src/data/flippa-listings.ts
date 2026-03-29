@@ -687,16 +687,13 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 55,
       overall: 71.4,
     },
-    recommendation: `STRONG`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `7 years old — established`,
-      `Stable revenue history`,
-      `Strong profit $5,388/mo`,
-      `Zero loss months in P&L`,
+    recommendation: `AVOID`,
+    redFlags: [
+      `UK driving school — requires physical UK-based instructors and DVSA registration`,
+      `Not remotely operable from Brazil`,
+      `23% margin means 77% goes to instructor pay — thin labor business`,
     ],
+    greenFlags: [],
   },
   {
     id: `12204499`,
