@@ -466,7 +466,7 @@ export default function FlippaDetailPage() {
                   </div>
                 </div>
                 <p className="text-sm text-zinc-300 leading-relaxed">
-                  {dd?.description ?? data.listing.description ?? "No description available."}
+                  {dd?.description ?? data.listing.about ?? "No description available."}
                 </p>
                 {dd?.assetsIncluded && Array.isArray(dd.assetsIncluded) && (
                   <div>
