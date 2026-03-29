@@ -1,6 +1,6 @@
 // AUTO-GENERATED — do not edit manually
 // Source: all_extractions_merged.json + overrides.json
-// Generated: 2026-03-29T13:40:07Z
+// Generated: 2026-03-29T14:19:25Z
 
 export interface FlippaListing {
   // Core
@@ -2959,6 +2959,461 @@ Growth Potential: High growth potential through existing revenue streams; affili
 Additional`,
   },
   {
+    id: `11634253`,
+    title: `Prowess: Women in Business`,
+    revealedName: `Prowess: Women in Business`,
+    url: `https://flippa.com/11634253`,
+    type: `other`,
+    dataLevel: `full_pnl`,
+    askingPrice: 115657.0,
+    monthlyPL: [
+      { month: `Jan 2025`, revenue: 5913.12, expenses: 67.31, profit: 5845.81 },
+      { month: `Feb 2025`, revenue: 5815.33, expenses: 66.04, profit: 5749.29 },
+      { month: `Mar 2025`, revenue: 5826.76, expenses: 0.0, profit: 5826.76 },
+      { month: `Apr 2025`, revenue: 5059.68, expenses: 74.93, profit: 4984.75 },
+      { month: `May 2025`, revenue: 5925.82, expenses: 0.0, profit: 5925.82 },
+      { month: `Jun 2025`, revenue: 7607.3, expenses: 0.0, profit: 7607.3 },
+      { month: `Jul 2025`, revenue: 5160.01, expenses: 120.65, profit: 5039.36 },
+      { month: `Aug 2025`, revenue: 6614.16, expenses: 0.0, profit: 6614.16 },
+      { month: `Sep 2025`, revenue: 3622.04, expenses: 10.16, profit: 3611.88 },
+      { month: `Oct 2025`, revenue: 3271.52, expenses: 40.64, profit: 3230.88 },
+      { month: `Nov 2025`, revenue: 1275.08, expenses: 0.0, profit: 1275.08 },
+      { month: `Dec 2025`, revenue: 1405.89, expenses: 0.0, profit: 1405.89 },
+    ],
+    avgMonthlyRevenue: 4791.0,
+    avgMonthlyProfit: 4760.0,
+    profitMargin: `99%`,
+    annualRevenue: `GBP £45,273`,
+    annualProfit: `GBP £44,974`,
+    expensesLastMonth: `GBP £31 /month`,
+    ageYears: 24.0,
+    monetisation: ``,
+    techStack: `WordPress, Shopify, Stripe`,
+    country: `United Kingdom`,
+    platform: `highly`,
+    hasStripe: false,
+    hasPaypal: true,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 67.5,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 75,
+      growthPotential: 50,
+      overall: 62.7,
+    },
+    recommendation: `STRONG`,
+    redFlags: [
+      `Revenue declining sharply (-66.1% trend)`,
+    ],
+    greenFlags: [
+      `Verified via deep research — product confirmed, website live`,
+    ],
+    seller: {
+      name: `Alerts`,
+      verified: true,
+      transactions: `111 transactions totalling USD $9,242,993`,
+    },
+    socialMedia: [
+      `869 followers`,
+      `127 followers`,
+      `5,764 followers`,
+    ],
+    expenses: [
+      {
+        item: `Expenses last month`,
+        amount: `GBP £31 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Email subscriber list`,
+      `Brand assets (logos, etc)`,
+      `Other`,
+      `Unique content`,
+      `Included.`,
+      `869 followers`,
+      `127 followers`,
+      `5,764 followers`,
+      `8,079 subscribers`,
+      `Attachments`,
+      `Prowess Sales Prospectus`,
+      `XLSX`,
+      `Annex 1. Prowess Financials`,
+      `No comments`,
+      `Managed by Flippa`,
+      `Show all`,
+      `Open for negotiation`,
+      `Indicative Price`,
+      `USD $155,238`,
+      `USD $115,657`,
+      `Reduced 25%`,
+      `GBP £86,330`,
+      `Contact Sell`,
+    ],
+    postSaleSupport: `Included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {
+      users: `20,868`,
+      totalPageViews: `2,411`,
+      pagesPerSession: `1.37`,
+      avgDuration: `00:00:34`,
+      engagementRate: `0.43%`,
+      topCountries: [
+        {
+          country: `United Kingdom`,
+          views: 551,
+        },
+        {
+          country: `Pakistan`,
+          views: 479,
+        },
+        {
+          country: `China`,
+          views: 106,
+        },
+        {
+          country: `India`,
+          views: 78,
+        },
+        {
+          country: `United States`,
+          views: 75,
+        },
+      ],
+    },
+    integrations: [
+      `PayPal`,
+      `Paypal`,
+      `Google Analytics`,
+      `Amazon`,
+    ],
+    tech: [
+      `WordPress`,
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 3197,
+    watchers: 149,
+    about: `IMPORTANT NOTICE: 
+
+Traffic has declined rapidly since the beginning of the year. Despite this, the site still benefits from solid SEO foundations, including a domain rating of 58 on Ahrefs.
+
+This acquisition opportunity is best suited to someone with the right skill set - particularly an SEO expert - to revitalise and grow the business.
+
+Key Highlights
+
+See financials and full prospectus attached at the end of this page
+
+24-year-old authority site supporting women in business; continuously online since 2001.
+
+High SEO strength: DR58, 1,500+ referring domains, backlinks from major institutions (Wikipedia, The Guardian, .gov.uk, universities).
+
+Strong search presence: 27.6M impressions and 30.7K clicks in the past 12 months; average position 14.1; CTR ~5%.
+
+Low workload + high profitability: ~10 hours/week, minimal expenses, two-year profit history >£50k annually.
+
+Simple, passive operational model: clients provide content; owner edits, publishes and invoices.
+
+Major upside potential for SEO professionals, publishers, agencies, or women-in-business service providers.
+
+Unutilised growth assets include:
+
+8,079-subscriber email list
+
+1,000+ CRM contacts incl. 635 past customers
+
+Strong brand reputation within the UK women-in-business ecosystem
+
+Retirement sale, presenting a rare opportunity to acquire a long-established, defensible authority brand with deep SEO equity.
+
+Operations
+
+Business Model:
+
+Primary revenue from SEO article placements and backlink insertions.
+
+Clients come organically through search or industry relationships.
+
+Payments via PayPal (GBP/USD) and bank transfer.
+
+Workflow (light and consistent):
+
+Edit and upload client-supplied articles.
+
+Source free-stock images.
+
+Publish and invoice.
+
+Chase late payments (<2% historic non-payment).
+
+Occasional new in-house content to maintain freshness.
+
+Time Requirement: ~10 hours/week covering uploads, emails, invoicing, light SEO refreshes.
+
+Tools & Outsourcing:
+
+Premium plugins: WP Rocket, Wordfence, GeneratePress.
+
+Ad-hoc freelancer support (~£200–£300/yr).
+
+Included Assets:
+
+Full website & content library; 2,390 indexed pages.
+
+Email list (8,079 subscribers).
+
+CRM with 635 paid customers and additional prospects.
+
+Social media accounts (Twitter, Facebook, Instagram).
+
+Brand identity and operational templates.
+
+Customers
+
+Primary Audience: women entrepreneurs, small business owners, startup founders, business professionals.
+
+Content themes include business, finance, technology, careers, and lifestyle for women.
+
+Customer Base:
+
+SEO agencies and consultants purchasing editorial placements.
+
+Historic contacts via CRM (1,000+ warm leads).
+
+Large dormant email list suitable for immediate reactivation.
+
+Brand Positioning:
+
+Trusted UK resource; long-standing credibility backed by government origins (original network for women’s enterprise).
+
+Strong goodwill and recognition make the platform highly appealing for partners in the women-in-business and SME sectors.
+
+Technology
+
+SEO & Analytics Infras`,
+  },
+  {
+    id: `12026246`,
+    title: `Reasons To Skip The Housework`,
+    revealedName: `Reasons To Skip The Housework`,
+    url: `https://flippa.com/12026246`,
+    type: `other`,
+    dataLevel: `full_pnl`,
+    askingPrice: 55000.0,
+    monthlyPL: [
+      { month: `Jan 2025`, revenue: 6323.33, expenses: 36.83, profit: 6287.77 },
+      { month: `Feb 2025`, revenue: 6678.93, expenses: 36.83, profit: 6643.37 },
+      { month: `Mar 2025`, revenue: 5066.03, expenses: 36.83, profit: 5029.2 },
+      { month: `Apr 2025`, revenue: 4187.19, expenses: 36.83, profit: 4150.36 },
+      { month: `May 2025`, revenue: 4013.2, expenses: 36.83, profit: 3977.64 },
+      { month: `Jun 2025`, revenue: 1985.01, expenses: 36.83, profit: 1949.45 },
+      { month: `Jul 2025`, revenue: 2992.12, expenses: 36.83, profit: 2956.56 },
+      { month: `Aug 2025`, revenue: 2301.24, expenses: 36.83, profit: 2264.41 },
+      { month: `Sep 2025`, revenue: 1247.14, expenses: 36.83, profit: 1210.31 },
+      { month: `Oct 2025`, revenue: 535.94, expenses: 36.83, profit: 499.11 },
+      { month: `Nov 2025`, revenue: 1883.41, expenses: 36.83, profit: 1846.58 },
+      { month: `Dec 2025`, revenue: 1620.52, expenses: 36.83, profit: 1583.69 },
+    ],
+    avgMonthlyRevenue: 3236.0,
+    avgMonthlyProfit: 3200.0,
+    profitMargin: `99%`,
+    annualRevenue: `GBP £30,577`,
+    annualProfit: `GBP £30,235`,
+    ageYears: 2.0,
+    monetisation: ``,
+    techStack: `WordPress, Shopify, Stripe`,
+    country: `WA, United States`,
+    platform: `to`,
+    hasStripe: false,
+    hasPaypal: true,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 55.0,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 95,
+      growthPotential: 50,
+      overall: 61.9,
+    },
+    recommendation: `STRONG`,
+    redFlags: [
+      `Revenue declining sharply (-77.6% trend)`,
+      `High revenue volatility (CV 60%)`,
+    ],
+    greenFlags: [
+      `Verified via deep research — product confirmed, website live`,
+    ],
+    seller: {
+      name: `Jean Renaud Desvernay`,
+      location: `United States`,
+      verified: true,
+      transactions: `2 transactions totalling USD $59,500`,
+    },
+    socialMedia: [
+      `0 followers`,
+      `0 followers`,
+      `0 followers`,
+      `87,800 followers`,
+    ],
+    expenses: [
+      {
+        item: `Hosting`,
+        amount: `GBP £36 /month`,
+      },
+      {
+        item: `Domain name`,
+        amount: `GBP £2 /month`,
+      },
+      {
+        item: `Full Domain Protection`,
+        amount: `GBP £2 /month`,
+      },
+      {
+        item: `WP Rocket`,
+        amount: `GBP £6 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Email subscriber list`,
+      `Brand assets (logos, etc)`,
+      `Trademarks/patents`,
+      `Unique content`,
+      `Unique design`,
+      `WordPress 6.8`,
+      `Included.`,
+      `0 followers`,
+      `0 followers`,
+      `0 followers`,
+      `87,800 followers`,
+      `Attachments`,
+      `Raptive-payment`,
+      `PAYPAL_9:30:25 - 10:31:25`,
+      `PAYPAL_8:31:25 - 9:30:25`,
+      `PAYPAL_7:31:25 - 8:31:25`,
+      `PAYPAL_6:30:25 - 7:31:25`,
+      `PAYPAL_5:31:25 - 6:30:25`,
+      `PAYPAL_4:30`,
+    ],
+    postSaleSupport: `from the seller`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    comments: [
+      {
+        author: `Zack Hall`,
+        date: `Dec 18, 2025 03:20 PM`,
+        text: `Can you explain the sudden steep decline in page views and revenue over the course of this year?`,
+      },
+    ],
+    ga: {
+      users: `186,420`,
+      totalPageViews: `22,128`,
+      pagesPerSession: `1.63`,
+      avgDuration: `00:00:52`,
+      engagementRate: `0.61%`,
+      topCountries: [
+        {
+          country: `China`,
+          views: 11128,
+        },
+        {
+          country: `United States`,
+          views: 10668,
+        },
+        {
+          country: `Singapore`,
+          views: 8129,
+        },
+        {
+          country: `United Kingdom`,
+          views: 1648,
+        },
+        {
+          country: `(not set)`,
+          views: 751,
+        },
+      ],
+    },
+    integrations: [
+      `PayPal`,
+      `Paypal`,
+      `Google Analytics`,
+      `Amazon`,
+    ],
+    tech: [
+      `WordPress`,
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 862,
+    watchers: 41,
+    commentCount: 1,
+    about: `Reasons To Skip The Housework: Business Overview
+
+Reasons To Skip The Housework is a high-margin, low-maintenance content business generating consistent profits from a loyal, home-focused audience. Launched in 2011 and operated under its current monetization model for the past 2 years, the site delivers seasonal and evergreen lifestyle content in the home, DIY, and recipe categories. It earns 99% net margins and nearly $4,000/month in pure profit through a mix of AdThrive display ads, guest posting fees, and affiliate commissions — all while requiring minimal ongoing effort.
+
+With over 261,000 pageviews in the past year, 10,500+ keywords ranked, and 87,800 Pinterest followers, the site benefits from strong organic visibility and growing social momentum. For a buyer seeking a hands-free revenue stream, a content portfolio addition, or a platform to scale further via social and SEO, this site presents a rare opportunity.
+
+Key Financials (Trailing Twelve Months Ending November 2025)
+
+Annual Revenue: USD $46,528
+Annual Profit: USD $46,072
+Average Monthly Profit: USD $3,839
+Profit Margin: 99%
+Profit Multiple: 1.8x
+Revenue Multiple: 1.8x
+Top Earning Month: USD $7,266 (Dec 2024)
+Lowest Earning Month: USD $524 (Oct 2025)
+
+Monetization
+
+Reasons To Skip The Housework monetizes through three primary streams:
+Advertising: The site is approved by AdThrive, the highest-paying display ad network in the industry. RPMs average $28.18 across devices, with mobile traffic earning $28.20 RPM and tablet RPMs peaking at $29.75. Ads are well-optimized across formats including video, footer, and sticky placements.
+Guest Posting: Brands and writers pay to publish sponsored articles. This provides recurring revenue, new content, and SEO benefits, while allowing the owner to maintain control over editorial quality.
+Affiliate Links: Primarily Amazon Associates, with curated product mentions integrated organically into content. While not the main income driver today, affiliate earnings offer scalable upside through improved placement and volume.
+
+Traffic & Audience
+
+The site receives 21,800 monthly pageviews and has had 199,842 unique users over the past year. Readers primarily come from the United States, followed by China, Canada, the UK, and Singapore.
+
+Top Channels:
+
+Direct: 48%
+Organic Social: 27%
+Organic Search: 17%
+Email: 7.4%
+
+Notably, Pinterest drives a major share of social traffic. With 87,800 followers and hundreds of pins already live, Pinterest is a proven growth engine for both content distribution and monetization. Organic Search brings in 47% of non-direct sessions, with the highest engagement rate (61.4%) and longest average session duration (1:01). The site’s returning visitor base and 10.5K ranked keywords signal strong brand and content authority.
+
+SEO & Domain Strength
+
+Domain Authority: 27
+Backlinks: 19,500
+Referring Domains: 6,250
+Total Indexed Keywords: 10,500+
+Top Organic Keywords: “Easy Snacks to Make in 5 Minutes”, “Christmas Dinner Ideas”, “April `,
+  },
+  {
     id: `12098876`,
     title: `ESCUELA DE GOBIERNO`,
     revealedName: `ESCUELA DE GOBIERNO`,
@@ -3085,181 +3540,72 @@ Content expansion into adjacent fields such as regulatory compliance, public pro
 Geographical expansion into Spanish-speaking markets or translation of existing c`,
   },
   {
-    id: `12081719`,
-    title: `SellVNTG`,
-    revealedName: `SellVNTG`,
-    url: `https://flippa.com/12081719`,
-    type: `marketplace`,
-    dataLevel: `stats`,
-    askingPrice: 26499.0,
-    avgMonthlyRevenue: 2383.0,
-    avgMonthlyProfit: 1985.0,
-    profitMargin: `83%`,
-    annualRevenue: `GBP £22,513`,
-    annualProfit: `GBP £18,760`,
-    ageYears: 3.0,
+    id: `12041914`,
+    title: `Vet Study Bundle`,
+    revealedName: `Vet Study Bundle`,
+    url: `https://flippa.com/12041914`,
+    type: `other`,
+    dataLevel: `full_pnl`,
+    askingPrice: 63130.0,
+    monthlyPL: [
+      { month: `Oct 2024`, revenue: 5156.2, expenses: 2914.65, profit: 2242.82 },
+      { month: `Nov 2024`, revenue: 6780.53, expenses: 3587.75, profit: 3194.05 },
+      { month: `Dec 2024`, revenue: 9190.99, expenses: 5156.2, profit: 4034.79 },
+      { month: `Jan 2025`, revenue: 19391.63, expenses: 10872.47, profit: 8519.16 },
+      { month: `Feb 2025`, revenue: 16925.29, expenses: 11697.97, profit: 5227.32 },
+      { month: `Mar 2025`, revenue: 9919.97, expenses: 8406.13, profit: 1512.57 },
+      { month: `Apr 2025`, revenue: 1681.48, expenses: 784.86, profit: 896.62 },
+      { month: `May 2025`, revenue: 4259.58, expenses: 4147.82, profit: 111.76 },
+      { month: `Jun 2025`, revenue: 4259.58, expenses: 3362.96, profit: 896.62 },
+      { month: `Jul 2025`, revenue: 0.0, expenses: 0.0, profit: 0.0 },
+      { month: `Aug 2025`, revenue: 0.0, expenses: 0.0, profit: 0.0 },
+      { month: `Sep 2025`, revenue: 4422.14, expenses: 2209.8, profit: 2212.34 },
+    ],
+    avgMonthlyRevenue: 8199.0,
+    avgMonthlyProfit: 2404.0,
+    profitMargin: `35%`,
+    annualRevenue: `GBP £64,556`,
+    annualProfit: `GBP £22,714`,
+    ageYears: 2.0,
     monetisation: ``,
-    techStack: `React, Shopify, Stripe`,
-    country: `MS, United States`,
-    platform: `built`,
-    hasStripe: true,
+    techStack: `Shopify, Stripe`,
+    country: `Italy`,
+    platform: `Shopify`,
+    hasStripe: false,
     hasPaypal: false,
     isVetted: true,
     managedByFlippa: true,
     ndaApproved: true,
     scores: {
-      stability: 55,
-      diversification: 75,
-      operatorIndependence: 73.3,
-      roi: 95,
-      growthPotential: 65,
-      overall: 70.7,
+      stability: 55.0,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 75,
+      growthPotential: 50,
+      overall: 58.9,
     },
-    recommendation: `CONSIDER`,
-    redFlags: [],
+    recommendation: `STRONG`,
+    redFlags: [
+      `Revenue declining sharply (-38.7% trend)`,
+      `High revenue volatility (CV 67%)`,
+    ],
     greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
+      `Verified via deep research — product confirmed, website live`,
     ],
     seller: {
-      name: `Owen RIdgeway`,
-      location: `United States`,
+      name: `Mattia Mari`,
+      location: `Italy`,
       verified: false,
     },
     socialMedia: [
-      `3,500 followers`,
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Brand assets (logos, etc)`,
-      `Custom technology`,
-      `Other`,
-      `Unique content`,
-      `Unique design`,
-      `Included.`,
-      `3,500 followers`,
-      `Contact Seller`,
-      `Send message`,
-      `No comments`,
-      `Show all`,
-      `Video`,
-      `Open for negotiation`,
-      `Indicative Price`,
-      `USD $26,499`,
-      `GBP £19,886`,
-      `Contact Seller Submit LOI Make Offer`,
-      `Watch`,
-      `Share & Earn up to $530*`,
-      `Have a similar business? Get a free valuation`,
-      `Vetted + Data Ve`,
-    ],
-    postSaleSupport: `from the founder to ensure a smooth handover`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    ga: {},
-    integrations: [
-      `Stripe`,
-      `Amazon`,
-    ],
-    tech: [
-      `React`,
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 788,
-    watchers: 18,
-    about: `SellVNTG: Business Overview
-
-SellVNTG, founded in 2023, is a niche marketplace platform built to connect vintage fashion resellers with buyers seeking unique, curated apparel and accessories. Combining a fully functional website with an iOS app, the platform offers seller storefronts, buyer messaging, integrated payments, and Instagram Shop connectivity. In just two years, SellVNTG attracted hundreds of vintage sellers, generating USD $30,000 in annual revenue with an 83% profit margin before being paused in May 2025 for personal reasons. With its infrastructure, integrations, and existing seller base intact, SellVNTG represents a turnkey acquisition opportunity for an operator looking to relaunch or pivot into the fast-growing resale economy.
-
-Key Business Highlights
-
-Geographical Reach: Primarily U.S.-based sellers and buyers, with room to expand into global vintage and streetwear markets.
-Customer Demographics: Fashion-conscious buyers seeking unique, second-hand and sustainable clothing; sellers ranging from independent resellers to small vintage boutiques.
-Platform Functionality: Includes seller storefronts, inventory management, in-app messaging, Stripe Connect for payouts, and Meta Commerce Manager integration for Instagram Shop syncing.
-Technology: Built with modern frameworks including HTML, Tailwind, C#, ASP.NET, Azure, and Flutter for iOS, creating a scalable and future-proof infrastructure.
-Community Engagement: Early adoption on Instagram with 3,500 followers and product sync capability, providing a foundation for community-driven growth.
-Additional Innovation: Prototype QR code POS system designed for in-person market sellers, syncing with online inventory.
-
-Operations
-
-SellVNTG was designed to be low-maintenance, with seller-managed storefronts and Stripe Connect automating payment flows. The platform’s architecture ensures seamless scalability, while integrations with Instagram Shop and Meta Commerce Manager provide instant cross-platform exposure for sellers. Buyer-seller communication is facilitated by in-app chat, further enhancing the community-driven nature of the marketplace.
-
-Market Leadership
-
-Positioned within the growing second-hand and resale fashion market, SellVNTG taps into consumer demand for sustainable, unique, and nostalgic apparel. With resale projected to outpace the broader fashion industry in growth, SellVNTG is well-placed to capture buyers shifting away from fast fashion and toward curated vintage experiences. The platform’s curated focus differentiates it from broader resale marketplaces such as eBay or Depop, offering a dedicated community for vintage enthusiasts.
-
-Growth Opportunities
-
-Seller Reactivation: Launch email and social campaigns to re-engage the existing seller base and stimulate immediate platform activity.
-Cross-Listing Capabilities: Introduce integrations with Depop, Grailed, and eBay, allowing sellers to streamline listings across multiple platforms.
-Category Expansion: Extend the marketpl`,
-  },
-  {
-    id: `12195777`,
-    title: `PowerhouseAffiliate.com`,
-    revealedName: `PowerhouseAffiliate.com`,
-    url: `https://flippa.com/12195777`,
-    type: `content`,
-    dataLevel: `stats`,
-    askingPrice: 25000.0,
-    avgMonthlyRevenue: 3176.0,
-    avgMonthlyProfit: 2819.0,
-    profitMargin: `89%`,
-    annualRevenue: `GBP £30,018`,
-    annualProfit: `GBP £26,641`,
-    ageYears: 14.0,
-    monetisation: ``,
-    techStack: `WordPress, Shopify, Stripe`,
-    country: `Canada`,
-    platform: `that`,
-    hasStripe: true,
-    hasPaypal: true,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 55,
-      diversification: 65,
-      operatorIndependence: 80.0,
-      roi: 95,
-      growthPotential: 75,
-      overall: 70.5,
-    },
-    recommendation: `CONSIDER`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
-      `14 years old — established`,
-    ],
-    seller: {
-      name: `Melissa Babineau`,
-      location: `Canada`,
-      verified: true,
-      transactions: `3 transactions totalling USD $124,497`,
-    },
-    socialMedia: [
-      `2,900 followers`,
-      `700 followers`,
+      `2,243 followers`,
+      `4,962 followers`,
+      `2,425 followers`,
     ],
     expenses: [
       {
-        item: `Hosting`,
-        amount: `GBP £206 /month`,
-      },
-      {
-        item: `Website Stack`,
-        amount: `GBP £131 /month`,
+        item: `Meta ADS`,
+        amount: `GBP £4,222 /month`,
       },
     ],
     saleIncludes: [
@@ -3272,157 +3618,74 @@ Category Expansion: Extend the marketpl`,
       `Brand assets (logos, etc)`,
       `Unique content`,
       `Unique design`,
-      `WordPress`,
+      `Shopify`,
       `Included.`,
-      `2,900 followers`,
-      `700 followers`,
-      `17,200 subscribers`,
-      `11,000 subscribers`,
-      `No comments`,
-      `Show all`,
-      `Open for negotiation`,
-      `Indicative Price`,
-      `USD $25,000`,
-      `GBP £18,761`,
-      `Contact Seller Submit LOI Make Offer`,
-      `Watching`,
-      `Share & Earn up to $500*`,
-      `Have a similar business? Get a free`,
+      `2,243 followers`,
+      `4,962 followers`,
+      `2,425 followers`,
+      `Attachments`,
+      `Screenshot 2025-07-28 alle 10.07.50`,
+      `Contact Seller`,
+      `Send message`,
+      `Ayush Kumar Jan 01, 2026 03:59 PM`,
+      `Why is there a dip in revenue like it just goes to zero ?`,
+      `Report this comment Reply`,
+      `Editor's Choice`,
     ],
-    postSaleSupport: `+ optional ongoing consulting/coach agreement`,
+    postSaleSupport: `and training to ensure a smooth handover`,
     badges: [
       `Editor's Choice`,
       `Sponsored`,
       `Managed by Flippa`,
     ],
-    ga: {
-      users: `49,890`,
-      totalPageViews: `14,153`,
-      pagesPerSession: `1.79`,
-      avgDuration: `00:00:34`,
-      engagementRate: `0.26%`,
-      topCountries: [
-        {
-          country: `United States`,
-          views: 3216,
-        },
-        {
-          country: `Singapore`,
-          views: 532,
-        },
-        {
-          country: `Hong Kong`,
-          views: 507,
-        },
-        {
-          country: `China`,
-          views: 460,
-        },
-        {
-          country: `Germany`,
-          views: 375,
-        },
-      ],
-    },
+    comments: [
+      {
+        author: `Ayush Kumar`,
+        date: `Jan 01, 2026 03:59 PM`,
+        text: `Why is there a dip in revenue like it just goes to zero ?`,
+      },
+    ],
+    ga: {},
     integrations: [
-      `Stripe`,
-      `PayPal`,
-      `Paypal`,
-      `Google Analytics`,
+      `Shopify`,
       `Amazon`,
     ],
     tech: [
-      `WordPress`,
       `Shopify`,
       `Stripe`,
     ],
-    views: 1776,
-    watchers: 156,
-    about: `Highlights at a Glance
+    views: 1037,
+    watchers: 21,
+    commentCount: 1,
+    about: `Vet Study Bundle – Business Overview
 
-Established Since 2011 – Trusted brand with global recognition in affiliate & digital marketing
+Vet Study Bundle is a profitable digital product store launched in February 2024 and built on Shopify. The brand serves a niche yet global market: veterinary students preparing for coursework and exams. By offering 100% digital products such as comprehensive study notes, anatomy flashcards, cheatsheets, and international exam prep guides, the business combines high-value content with a lean, scalable model that eliminates the costs and complexities of physical inventory.
 
-Profitable & Automated – ~75 % profit margins / $450 monthly overhead
+Over the past twelve months, the business has generated USD $99,162 in revenue and USD $36,997 in net profit, delivering an average monthly profit of USD $3,083 at a 37% margin. With sales primarily driven by optimized Meta Ads and zero reliance on logistics, Vet Study Bundle is designed for efficiency and automation. Current owner involvement is minimal, limited to occasional customer support and light social media updates, totaling less than one hour per week.
 
-Evergreen Courses & Community – 5 core certification courses + additional lessons, case studies and active member community
+Operational Model
 
-Founder Support – Founder willing to stay as an active community member and affiliate coach post-sale
+Vet Study Bundle operates as a fully digital store. Products are instantly downloadable, with zero shipping costs, stock management, or fulfillment delays. This ensures customer satisfaction, demonstrated by the brand’s 100% fulfillment rate and zero refund rate to date. Marketing is handled via a proven Meta Ads strategy, supported by pre-tested creatives that consistently deliver profitable returns. Post-sale, a new owner will inherit a seamless operational system with virtually no overhead beyond ad spend.
 
-⚙️ Modern Tech Stack – available after NDA
+Market & Growth Opportunities
 
-Organic Traffic Base – 95 % organic/direct visits and 11K email subscribers
+The veterinary education market is growing steadily, supported by increasing numbers of students worldwide preparing for exams such as the VTNE, NAVLE, and regional certifications. Demand for efficient, accessible, and affordable digital study aids continues to rise, positioning Vet Study Bundle for long-term scalability. Current sales are concentrated in select markets, leaving significant expansion potential in regions such as the UK, Australia, Canada, and across Europe. Beyond geographical growth, opportunities exist to expand the product catalog into related niches such as continuing education for professionals, nursing, and pre-medical studies.
 
-Multiple Growth Paths – (Growth plan available after NDA) Includes AI-driven updates, new funnels, and affiliate partnership expansion
+Performance Highlights
 
-Priced to sell - Open Auction – Reserve $30 000 USD – Serious buyers only, private access after NDA
+3,357 customers acquired in 12 months, supported by a strong repeat buyer base
+2,205 orders processed with an average order value of USD $43
+Zero refunds and a 100% fulfillment rate underscore customer trust and product-market fit
+Social media presence includes 2,243 Facebook followers, 4,962 Instagram followers, and 2,425 TikTok followers, offering a base for organic growth alongside paid ads
 
-About the Business
+Included Assets in Sale
 
-Powerhouse Affiliate is a long-standing, automated education brand teaching affiliate marketing, media buying, and digital growth strategies.
-
-Originally started by Joey Babineau’s youtube brand, the business has transitioned into a community-driven platform that now operates independently on strong systems, evergreen content, and brand authority.
-
-After 14 years, the owner is shifting focus to new projects but remains committed to supporting the next owner and community through a clear transition plan — and is open to continuing as an active, coach and community mentor after the sale.
-
-Financial Snapshot (2025 YTD to Oct 20)
-
-Revenue $31 922 USD
-
-Owner Time Required < 8 hrs / week
-
-Mainly oversight & updates
-
-Automated lead capture, checkout, onboarding, and support workflows mean the business practically runs itself.
-
-Audience & Market
-
-Targets beginner-to-intermediate digital marketers looking to generate income online — a $17 B + industry that continues to grow.
-
-Primary markets: U.S., Canada, U.K., Australia.
-
-
-Strong Brand/SEO presence and long-term domain authority ensure steady organic traffic.
-
-Included in Sale
-
-Domain & brand IP ownership
-
-Complete library of evergreen courses & templates
-
-Community and membership platform 
-
-CRM + automation flows
-
-Email sequences, funnels, landing pages, and ad assets
-
-Documentation & plugin licenses
-
-30 days post-sale support + optional ongoing consulting/coach agreement
-
-Transition & Continuity Plan
-
-Powerhouse Affiliate has evolved from a founder-led brand to a self-sustaining platform, but to ensure seamless continuity and trust, the transition includes:
-
-Phase 1 – Ownership Transfer (Weeks 1–2)
-Full technical handover and system walkthrough
-
-Phase 2 – Community Continuity (Weeks 3–4)
-Optional joint announcement introducing new owner
-
-Phase 3 – Advisory Support (Month 2–3)
-Owner available as coach or community mentor under new management
-
-This structure ensures members remain engaged and the new owner gains credibility from day one.
-
-Growth Opportunities
-
-Add AI-driven training modules (“Affiliate AI Academy”)
-
-Launch low-ticket tripwire offers ($7–$27)
-
-Expand affiliate program & tool partnerships
-
-Host paid live w`,
+Custom Shopify domain and full website files
+Complete portfolio of digital study products and future-proof content IP
+Active email subscriber list (3,357 contacts)
+Established Facebook, Instagram, and TikTok pages
+All ad creatives and marketing assets used in existing campaigns
+Brand assets including logos, unique designs, and course material`,
   },
   {
     id: `12251299`,
@@ -4126,227 +4389,6 @@ Customer Acquisition: Customers are mainly acquired through digital marketing, d
     about: `profitable SaaS company in the Internet and software sector, founded in 2021, provides efficient reporting solutions specifically designed for app developers and digital businesses. The platform offers automated and user-friendly reporting tools that help clients save time and make informed, data-driven decisions. With a clear value proposition and a streamlined operational structure, this business has established a solid position in the growing digital ecosystem. The company generates $57,000 in annual revenue and boasts a 91% profit margin, indicative of low overhead costs and effective cost management strategies. Its subscription-based SaaS model ensures predictable income and scalability while maintaining simplicity in operations. The website has a Domain Authority of 25, which contributes to established search visibility and the potential for organic traffic, aiding in customer acquisition. This SaaS enterprise is poised for ongoing growth through the development of new features, strategic partnerships, and focused marketing efforts. The current infrastructure of the business requires minimal daily oversight, making it an attractive option for operators seeking a simplified software asset with the potential for expansion. With strong profit margins, robust branding, and consistent revenue streams, this company presents a compelling opportunity within the SaaS market landscape.`,
   },
   {
-    id: `12206076`,
-    title: `ArticleReword.com`,
-    revealedName: `ArticleReword.com`,
-    url: `https://flippa.com/12206076`,
-    type: `saas`,
-    dataLevel: `stats`,
-    askingPrice: 91906.0,
-    avgMonthlyRevenue: 2176.0,
-    avgMonthlyProfit: 1967.0,
-    profitMargin: `90%`,
-    annualRevenue: `GBP £20,565`,
-    annualProfit: `GBP £18,586`,
-    ageYears: 7.0,
-    monetisation: ``,
-    techStack: `Shopify, PHP, MySQL, Stripe`,
-    churn: `28%`,
-    country: `United Kingdom`,
-    platform: `established`,
-    hasStripe: true,
-    hasPaypal: false,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 55,
-      diversification: 60,
-      operatorIndependence: 83.3,
-      roi: 55,
-      growthPotential: 80,
-      overall: 64.4,
-    },
-    recommendation: `CONSIDER`,
-    redFlags: [
-      `High churn: 28%`,
-    ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
-      `7 years old — established`,
-    ],
-    seller: {
-      name: `Chloe Rowland`,
-      location: `United Kingdom`,
-      verified: false,
-    },
-    expenses: [
-      {
-        item: `AI Text Humanizer`,
-        amount: `GBP £38 /month`,
-      },
-      {
-        item: `Moz da pa`,
-        amount: `GBP £38 /month`,
-      },
-      {
-        item: `deepseek`,
-        amount: `GBP £4 /month`,
-      },
-      {
-        item: `openai`,
-        amount: `GBP £22 /month`,
-      },
-      {
-        item: `Paraphraser`,
-        amount: `GBP £38 /month`,
-      },
-      {
-        item: `hosting`,
-        amount: `GBP £22 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Email subscriber list`,
-      `Unique content`,
-      `Unique design`,
-      `PHP 8`,
-      `Included.`,
-      `23,447 subscribers`,
-      `Attachments`,
-      `googleadsense`,
-      `93f38a527927ea63c98c57c629449727`,
-      `deepseek`,
-      `hosting`,
-      `openai`,
-      `paraphrase`,
-      `Contact Seller`,
-      `Send message`,
-      `No comments`,
-      `Show all`,
-      `Open for negotiation`,
-      `Indicative Price`,
-      `USD $91,906`,
-      `GBP £69,827`,
-      `Contact Seller Submit LOI Make Offer`,
-      `Watch`,
-      `Share & Earn`,
-    ],
-    postSaleSupport: `Included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    ga: {
-      users: `280,685`,
-      totalPageViews: `355,669`,
-      pagesPerSession: `6.51`,
-      avgDuration: `00:01:46`,
-      engagementRate: `0.76%`,
-      topCountries: [
-        {
-          country: `United States`,
-          views: 61503,
-        },
-        {
-          country: `India`,
-          views: 43086,
-        },
-        {
-          country: `Philippines`,
-          views: 22639,
-        },
-        {
-          country: `United Kingdom`,
-          views: 18863,
-        },
-        {
-          country: `Pakistan`,
-          views: 14629,
-        },
-      ],
-    },
-    integrations: [
-      `Stripe`,
-      `Google Analytics`,
-      `Amazon`,
-    ],
-    tech: [
-      `Shopify`,
-      `PHP`,
-      `MySQL`,
-      `Stripe`,
-    ],
-    views: 866,
-    watchers: 15,
-    about: `Key Highlights
-
-ArticleReword.com is a profitable AI-powered SaaS platform established in 2019, helping users instantly create high-quality, human-like rewritten content. It serves writers, marketers, and agencies who need reliable, natural text rewording for content creation and SEO.
-
-Operating in the fast-growing AI writing and content automation sector, the business has generated over £20,600 in total revenue with an impressive 90%+ profit margin. The system is fully automated and requires minimal owner involvement.
-
-Operations
-
-ArticleReword.com runs smoothly on PHP + Tailwind CSS, integrated with Stripe for secure, automated subscription billing.
-
-It offers tiered pricing plans (free, standard, premium) to serve both individuals and professionals. The owner currently spends less than 1 hour per week managing the site — mainly checking payments and responding to light customer support.
-
-Customers
-
-The platform attracts a global mix of loyal users, including:
-
-✍️ Writers & Bloggers producing unique articles
-
-? SEO Experts & Agencies improving content quality
-
-? Businesses managing content marketing workflows
-
-? Students & Educators refining academic writing
-
-Its ease of use, accuracy, and affordability lead to high customer retention and steady recurring revenue.
-
-Technology
-
-Built with PHP + MySQL and a modern Tailwind CSS interface, ArticleReword.com integrates advanced AI rewriting APIs to generate fluent, natural-sounding text.
-Key features include:
-
-Secure Stripe payment gateway
-
-Automated subscription management
-
-Scalable infrastructure
-
-Low hosting and maintenance costs
-
-The platform is reliable, fast, and ready for further scaling or white-labelling.
-
-Financials
-
-? Revenue: £20,600 total
-
-? Profit Margin: ~90%
-
-? Established: 2019
-
-? Business Model: Subscription-based SaaS
-
-? Main Expenses: Hosting and API usage
-
-With extremely low overhead and consistent income, ArticleReword.com offers strong cash flow and passive ownership potential.
-
-Growth Opportunities
-
-Introduce lifetime or agency plans for instant sales boosts
-
-Expand into multilingual rewriting markets
-
-Launch an affiliate/referral programme to grow user base
-
-Invest in SEO and paid ads targeting “AI Rewriter,” “Text Humanizer,” “Content Paraphrasing”
-
-Bundle or cross-sell with other AI tools for higher average revenue per user
-
-In summary:
-ArticleReword.com is a turnkey, profitable, and low-maintenance SaaS business positioned in the booming AI content creation industry. With over £20,600 in revenue, 90% profit margins, and strong branding, it’s an ideal opportunity for investors seeking a scalable, proven AI SaaS asset.`,
-  },
-  {
     id: `11839737`,
     title: `Bagaholic`,
     revealedName: `Bagaholic`,
@@ -4734,254 +4776,6 @@ Revenue and Profit: Over the past 12 months, Horizon generated £93,000 in reve
 Seasonal Trends: The business experiences strong seasonal spikes in the summer, driven by demand for trav`,
   },
   {
-    id: `11634253`,
-    title: `Prowess: Women in Business`,
-    revealedName: `Prowess: Women in Business`,
-    url: `https://flippa.com/11634253`,
-    type: `other`,
-    dataLevel: `full_pnl`,
-    askingPrice: 115657.0,
-    monthlyPL: [
-      { month: `Jan 2025`, revenue: 5913.12, expenses: 67.31, profit: 5845.81 },
-      { month: `Feb 2025`, revenue: 5815.33, expenses: 66.04, profit: 5749.29 },
-      { month: `Mar 2025`, revenue: 5826.76, expenses: 0.0, profit: 5826.76 },
-      { month: `Apr 2025`, revenue: 5059.68, expenses: 74.93, profit: 4984.75 },
-      { month: `May 2025`, revenue: 5925.82, expenses: 0.0, profit: 5925.82 },
-      { month: `Jun 2025`, revenue: 7607.3, expenses: 0.0, profit: 7607.3 },
-      { month: `Jul 2025`, revenue: 5160.01, expenses: 120.65, profit: 5039.36 },
-      { month: `Aug 2025`, revenue: 6614.16, expenses: 0.0, profit: 6614.16 },
-      { month: `Sep 2025`, revenue: 3622.04, expenses: 10.16, profit: 3611.88 },
-      { month: `Oct 2025`, revenue: 3271.52, expenses: 40.64, profit: 3230.88 },
-      { month: `Nov 2025`, revenue: 1275.08, expenses: 0.0, profit: 1275.08 },
-      { month: `Dec 2025`, revenue: 1405.89, expenses: 0.0, profit: 1405.89 },
-    ],
-    avgMonthlyRevenue: 4791.0,
-    avgMonthlyProfit: 4760.0,
-    profitMargin: `99%`,
-    annualRevenue: `GBP £45,273`,
-    annualProfit: `GBP £44,974`,
-    expensesLastMonth: `GBP £31 /month`,
-    ageYears: 24.0,
-    monetisation: ``,
-    techStack: `WordPress, Shopify, Stripe`,
-    country: `United Kingdom`,
-    platform: `highly`,
-    hasStripe: false,
-    hasPaypal: true,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 67.5,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 75,
-      growthPotential: 50,
-      overall: 62.7,
-    },
-    recommendation: `CONSIDER`,
-    redFlags: [
-      `Revenue declining sharply (-66.1% trend)`,
-    ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Managed by Flippa`,
-      `24 years old — established`,
-      `Zero loss months in P&L`,
-    ],
-    seller: {
-      name: `Alerts`,
-      verified: true,
-      transactions: `111 transactions totalling USD $9,242,993`,
-    },
-    socialMedia: [
-      `869 followers`,
-      `127 followers`,
-      `5,764 followers`,
-    ],
-    expenses: [
-      {
-        item: `Expenses last month`,
-        amount: `GBP £31 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Email subscriber list`,
-      `Brand assets (logos, etc)`,
-      `Other`,
-      `Unique content`,
-      `Included.`,
-      `869 followers`,
-      `127 followers`,
-      `5,764 followers`,
-      `8,079 subscribers`,
-      `Attachments`,
-      `Prowess Sales Prospectus`,
-      `XLSX`,
-      `Annex 1. Prowess Financials`,
-      `No comments`,
-      `Managed by Flippa`,
-      `Show all`,
-      `Open for negotiation`,
-      `Indicative Price`,
-      `USD $155,238`,
-      `USD $115,657`,
-      `Reduced 25%`,
-      `GBP £86,330`,
-      `Contact Sell`,
-    ],
-    postSaleSupport: `Included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    ga: {
-      users: `20,868`,
-      totalPageViews: `2,411`,
-      pagesPerSession: `1.37`,
-      avgDuration: `00:00:34`,
-      engagementRate: `0.43%`,
-      topCountries: [
-        {
-          country: `United Kingdom`,
-          views: 551,
-        },
-        {
-          country: `Pakistan`,
-          views: 479,
-        },
-        {
-          country: `China`,
-          views: 106,
-        },
-        {
-          country: `India`,
-          views: 78,
-        },
-        {
-          country: `United States`,
-          views: 75,
-        },
-      ],
-    },
-    integrations: [
-      `PayPal`,
-      `Paypal`,
-      `Google Analytics`,
-      `Amazon`,
-    ],
-    tech: [
-      `WordPress`,
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 3197,
-    watchers: 149,
-    about: `IMPORTANT NOTICE: 
-
-Traffic has declined rapidly since the beginning of the year. Despite this, the site still benefits from solid SEO foundations, including a domain rating of 58 on Ahrefs.
-
-This acquisition opportunity is best suited to someone with the right skill set - particularly an SEO expert - to revitalise and grow the business.
-
-Key Highlights
-
-See financials and full prospectus attached at the end of this page
-
-24-year-old authority site supporting women in business; continuously online since 2001.
-
-High SEO strength: DR58, 1,500+ referring domains, backlinks from major institutions (Wikipedia, The Guardian, .gov.uk, universities).
-
-Strong search presence: 27.6M impressions and 30.7K clicks in the past 12 months; average position 14.1; CTR ~5%.
-
-Low workload + high profitability: ~10 hours/week, minimal expenses, two-year profit history >£50k annually.
-
-Simple, passive operational model: clients provide content; owner edits, publishes and invoices.
-
-Major upside potential for SEO professionals, publishers, agencies, or women-in-business service providers.
-
-Unutilised growth assets include:
-
-8,079-subscriber email list
-
-1,000+ CRM contacts incl. 635 past customers
-
-Strong brand reputation within the UK women-in-business ecosystem
-
-Retirement sale, presenting a rare opportunity to acquire a long-established, defensible authority brand with deep SEO equity.
-
-Operations
-
-Business Model:
-
-Primary revenue from SEO article placements and backlink insertions.
-
-Clients come organically through search or industry relationships.
-
-Payments via PayPal (GBP/USD) and bank transfer.
-
-Workflow (light and consistent):
-
-Edit and upload client-supplied articles.
-
-Source free-stock images.
-
-Publish and invoice.
-
-Chase late payments (<2% historic non-payment).
-
-Occasional new in-house content to maintain freshness.
-
-Time Requirement: ~10 hours/week covering uploads, emails, invoicing, light SEO refreshes.
-
-Tools & Outsourcing:
-
-Premium plugins: WP Rocket, Wordfence, GeneratePress.
-
-Ad-hoc freelancer support (~£200–£300/yr).
-
-Included Assets:
-
-Full website & content library; 2,390 indexed pages.
-
-Email list (8,079 subscribers).
-
-CRM with 635 paid customers and additional prospects.
-
-Social media accounts (Twitter, Facebook, Instagram).
-
-Brand identity and operational templates.
-
-Customers
-
-Primary Audience: women entrepreneurs, small business owners, startup founders, business professionals.
-
-Content themes include business, finance, technology, careers, and lifestyle for women.
-
-Customer Base:
-
-SEO agencies and consultants purchasing editorial placements.
-
-Historic contacts via CRM (1,000+ warm leads).
-
-Large dormant email list suitable for immediate reactivation.
-
-Brand Positioning:
-
-Trusted UK resource; long-standing credibility backed by government origins (original network for women’s enterprise).
-
-Strong goodwill and recognition make the platform highly appealing for partners in the women-in-business and SME sectors.
-
-Technology
-
-SEO & Analytics Infras`,
-  },
-  {
     id: `11532448`,
     title: `NutritioApp`,
     revealedName: `NutritioApp`,
@@ -5192,145 +4986,6 @@ Benefits of using the app as a nutrition professional:
 - Offer premium experience for premi`,
   },
   {
-    id: `11941404`,
-    title: `Ecommerce | Sales Spy tool`,
-    revealedName: `Ecommerce | Sales Spy tool`,
-    url: `https://flippa.com/11941404`,
-    type: `saas`,
-    dataLevel: `stats`,
-    askingPrice: 149000.0,
-    avgMonthlyRevenue: 3176.0,
-    avgMonthlyProfit: 2899.0,
-    profitMargin: `91%`,
-    annualRevenue: `GBP £30,018`,
-    annualProfit: `GBP £27,390`,
-    expensesLastMonth: `GBP £218 /month`,
-    ageYears: 3.0,
-    monetisation: ``,
-    techStack: `Shopify, Stripe`,
-    churn: `20%`,
-    subscribers: `80`,
-    country: `DE, United States`,
-    platform: `that`,
-    hasStripe: true,
-    hasPaypal: false,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 55,
-      diversification: 60,
-      operatorIndependence: 83.3,
-      roi: 40,
-      growthPotential: 80,
-      overall: 62.2,
-    },
-    recommendation: `CONSIDER`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
-    ],
-    seller: {
-      name: `Harvi`,
-      location: `United Kingdom`,
-      verified: true,
-      transactions: `2 transactions totalling USD $177,998`,
-    },
-    expenses: [
-      {
-        item: `Expenses last month`,
-        amount: `GBP £218 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Email subscriber list`,
-      `Brand assets (logos, etc)`,
-      `Custom technology`,
-      `Unique content`,
-      `Unique design`,
-      `Included.`,
-      `80,000 subscribers`,
-      `Contact Seller`,
-      `Send message`,
-      `Shalom Dec 31, 2025 04:48 AM`,
-      `as well can you please provide more detailed P&L`,
-      `Report this comment Reply`,
-      `Show all`,
-    ],
-    postSaleSupport: `included`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    comments: [
-      {
-        author: `Shalom`,
-        date: `Dec 31, 2025 04:48 AM`,
-        text: `HI,
-Why did the page/site visitors plunged so dramatically in the past few months?
-as well can you please provide more detailed P&L`,
-      },
-    ],
-    ga: {
-      users: `33,136`,
-      totalPageViews: `4,365`,
-      pagesPerSession: `1.27`,
-      avgDuration: `00:00:09`,
-      engagementRate: `0.36%`,
-      topCountries: [
-        {
-          country: `Morocco`,
-          views: 457,
-        },
-        {
-          country: `United Kingdom`,
-          views: 311,
-        },
-        {
-          country: `United States`,
-          views: 281,
-        },
-        {
-          country: `France`,
-          views: 125,
-        },
-        {
-          country: `China`,
-          views: 75,
-        },
-      ],
-    },
-    integrations: [
-      `Stripe`,
-      `Google Analytics`,
-      `Amazon`,
-    ],
-    tech: [
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 2346,
-    watchers: 52,
-    commentCount: 1,
-    about: `Business Overview
-
-Spysales is a profitable, fully automated SaaS platform that tracks and analyzes sales for any Shopify store, providing real-time and historical insights with approximately 90% accuracy—effectively acting as the backend for competitive intelligence. Founded in 2022 (site launched ~2023), it operates remotely from Delaware, USA, serving a global e-commerce market. The platform uniquely combines live sales data, top-product rankings, pricing insights, and trend analysis—all with zero ongoing maintenance.
-
-Operational Excellence
-
-Fully automated system; owner involvement limited to server upkeep
-0% support costs; no manual intervention required
-Integrated via Stripe,`,
-  },
-  {
     id: `11660786`,
     title: `Bananatic`,
     revealedName: `Bananatic`,
@@ -5516,513 +5171,6 @@ The decline in revenue is straightforward: the business has been managed with mi
 While I’ve attempted to work with a few individuals, finding the right person to manage these projects has been challenging. These websites require regular involvement, including social media activity, campaigns,`,
   },
   {
-    id: `11933850`,
-    title: `trendingus.com`,
-    revealedName: `trendingus.com`,
-    url: `https://flippa.com/11933850`,
-    type: `other`,
-    dataLevel: `stats`,
-    askingPrice: 49000.0,
-    avgMonthlyRevenue: 3813.0,
-    avgMonthlyProfit: 3454.0,
-    profitMargin: `91%`,
-    annualRevenue: `GBP £36,021`,
-    annualProfit: `GBP £32,644`,
-    ageYears: 10.0,
-    monetisation: ``,
-    techStack: `WordPress, Shopify, Stripe`,
-    country: `India`,
-    platform: `since`,
-    hasStripe: false,
-    hasPaypal: true,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 55,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 95,
-      growthPotential: 50,
-      overall: 61.9,
-    },
-    recommendation: `CONSIDER`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Managed by Flippa`,
-      `10 years old — established`,
-    ],
-    seller: {
-      name: `Suraj`,
-      location: `India`,
-      verified: true,
-    },
-    expenses: [
-      {
-        item: `Content writing and editors`,
-        amount: `GBP £259 /month`,
-      },
-      {
-        item: `Cloud Server`,
-        amount: `GBP £23 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Brand assets (logos, etc)`,
-      `Unique content`,
-      `Unique design`,
-      `WordPress 6.6`,
-      `Included.`,
-      `Contact Seller`,
-      `Send message`,
-      `No comments`,
-      `Show all`,
-      `Open for negotiation`,
-      `Indicative Price`,
-      `USD $135,000`,
-      `USD $49,000`,
-      `Reduced 64%`,
-      `GBP £36,772`,
-      `Contact Seller Submit LOI Make Offer`,
-      `Watch`,
-      `Share & Earn up to $980*`,
-      `Have a similar business? Get a free valuation`,
-      `Vetted + Data Verified Listing`,
-      `This quality l`,
-    ],
-    postSaleSupport: `Included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    ga: {
-      users: `958,705`,
-      totalPageViews: `143,170`,
-      pagesPerSession: `1.25`,
-      avgDuration: `00:00:16`,
-      engagementRate: `0.98%`,
-      topCountries: [
-        {
-          country: `India`,
-          views: 52967,
-        },
-        {
-          country: `United States`,
-          views: 5123,
-        },
-        {
-          country: `China`,
-          views: 3661,
-        },
-        {
-          country: `Pakistan`,
-          views: 3178,
-        },
-        {
-          country: `Bangladesh`,
-          views: 1513,
-        },
-      ],
-    },
-    integrations: [
-      `PayPal`,
-      `Paypal`,
-      `Google Analytics`,
-      `Amazon`,
-    ],
-    tech: [
-      `WordPress`,
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 1637,
-    watchers: 40,
-    about: `The Business industry continues to evolve, and TrendingUS has positioned itself as a reputable online platform since its establishment in 2015. With a focus on Content & Publishing, the website has generated steady annual revenue of $48,000, boasting an impressive profit margin of 90%+. TrendingUS has established itself as a trusted source for engaging content, attracting a diverse audience and generating consistent revenue streams.
-
-Driven by its dedicated team, TrendingUS has achieved 120,000 organic traffic every month with a Domain Authority of 61, showcasing its strong online presence and credibility within the industry. The platform's content strategy has effectively resonated with its audience, leading to a loyal following and high engagement rates. With a focus on quality content and user experience, TrendingUS has created a compelling digital destination that offers valuable insights and entertainment to its visitors.
-
-As the digital landscape continues to expand, TrendingUS presents a unique opportunity for growth and expansion within the Content & Publishing sector. With a proven track record of success and a strong foundation, this business is poised to capitalize on emerging trends and new revenue opportunities. TrendingUS represents a valuable investment for entrepreneurs looking to enter the dynamic world of online publishing and content creation.`,
-  },
-  {
-    id: `11883560`,
-    title: `Venues.org.uk`,
-    revealedName: `Venues.org.uk`,
-    url: `https://flippa.com/11883560`,
-    type: `other`,
-    dataLevel: `stats`,
-    askingPrice: 51353.0,
-    avgMonthlyRevenue: 3564.0,
-    avgMonthlyProfit: 2682.0,
-    profitMargin: `75%`,
-    annualRevenue: `GBP £33,674`,
-    annualProfit: `GBP £25,340`,
-    ageYears: 25.0,
-    monetisation: ``,
-    techStack: `Shopify, Stripe`,
-    country: `United Kingdom`,
-    platform: `with`,
-    hasStripe: false,
-    hasPaypal: true,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 55,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 95,
-      growthPotential: 50,
-      overall: 61.9,
-    },
-    recommendation: `CONSIDER`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Managed by Flippa`,
-      `25 years old — established`,
-    ],
-    seller: {
-      name: `Paul Sung`,
-      location: `United Kingdom`,
-      verified: false,
-    },
-    expenses: [
-      {
-        item: `Server`,
-        amount: `GBP £304 /month`,
-      },
-      {
-        item: `Web Developer`,
-        amount: `GBP £253 /month`,
-      },
-      {
-        item: `Admin staff`,
-        amount: `GBP £353 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Email subscriber list`,
-      `Brand assets (logos, etc)`,
-      `Supplier contracts`,
-      `Unique content`,
-      `Unique design`,
-      `Included.`,
-      `620 followers`,
-      `914 followers`,
-      `11,083 followers`,
-      `1,100 followers`,
-      `35,000 subscribers`,
-      `Contact Seller`,
-      `Send message`,
-      `No comments`,
-      `Show all`,
-      `Open for negotiation`,
-      `Indicative Price`,
-      `USD $60,291`,
-      `USD $51,353`,
-      `Reduced 15%`,
-      `GBP £38,541`,
-      `Contact Seller Submit LOI Make O`,
-    ],
-    postSaleSupport: `Included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    ga: {
-      users: `45,611`,
-      totalPageViews: `6,082`,
-      pagesPerSession: `1.26`,
-      avgDuration: `00:00:10`,
-      engagementRate: `0.16%`,
-      topCountries: [
-        {
-          country: `China`,
-          views: 3559,
-        },
-        {
-          country: `United Kingdom`,
-          views: 1785,
-        },
-        {
-          country: `Singapore`,
-          views: 241,
-        },
-        {
-          country: `United States`,
-          views: 116,
-        },
-        {
-          country: `Mexico`,
-          views: 23,
-        },
-      ],
-    },
-    integrations: [
-      `PayPal`,
-      `Paypal`,
-      `Google Analytics`,
-      `Amazon`,
-    ],
-    tech: [
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 1040,
-    watchers: 35,
-    about: `Venues.org.uk is one of the longest-standing and most recognized online venue discovery platforms in the UK, serving the events industry since 2001. As a trusted portal for venue bookers, corporate clients, and event planners, the business provides a streamlined experience for finding and showcasing event spaces across the country. With a 25-year-old domain, highly engaged email list of 35,000 subscribers, and an SEO authority score of 27 supported by 10.3K backlinks and 957 referring domains, Venues.org.uk is a cornerstone of digital real estate in the UK events industry.
-
-The platform operates on a profitable and stable business model, with 75% profit margins and monthly net earnings of USD $3000+. Revenue is derived from a mix of subscription-based listings for venues and advertising services, providing both predictable cash flow and upside through content-driven traffic. Its niche positioning, high organic search traffic (79% of pageviews), and recurring income base make it a valuable asset for investors or acquirers seeking a defensible and established foothold in the events and hospitality sector.
-
-Monetization Model
-The primary revenue stream comes from annual subscription fees paid by venues for profile listings, enhanced visibility, and promotional placements. Secondary monetization includes advertising placements and upsell features on the platform. The subscription model provides recurring and predictable revenue, while organic content and SEO drive low-cost lead acquisition. With minimal operating costs and no physical overhead, the business runs lean and profitably.
-
-Customer Base
-The platform serves a wide range of clientele in the UK events sector including:
-
-Corporate event organizers
-Wedding and party planners
-Venue managers and marketing teams
-Agencies and venue bookers
-
-Operations & Team
-The business is highly automated with minimal staffing. The only recurring operational costs are web development and server maintenance. No full-time team is required to operate the business, offering strong passive income potential or a base to build a more hands-on sales and growth team. Ownership involvement is light, primarily focused on admin, renewals, and content moderation.
-
-Growth Opportunities
-
-SEO Optimization: With a strong organic base and over 10K ranking keywords, additional SEO investment could exponentially increase traffic.
-Sales Expansion: Introduce direct sales outreach to target underrepresented venue categories (e.g. outdoor, corporate retreats, heritage venues).
-Enhanced CRM: Leverage the 35,000-email subscriber list for automated campaigns and retargeting funnels.
-Platform Modernization: A UX refresh or feature expansion (e.g. bookings, calendar integrations) could boost engagement and conversion.
-Partnerships: Collaborate with wedding planners, corporate event agencies, and event tech providers to broaden monetization.
-International Expansion: Explore additional listing revenue by opening up to Irish, European, or Commo`,
-  },
-  {
-    id: `12026246`,
-    title: `Reasons To Skip The Housework`,
-    revealedName: `Reasons To Skip The Housework`,
-    url: `https://flippa.com/12026246`,
-    type: `other`,
-    dataLevel: `full_pnl`,
-    askingPrice: 55000.0,
-    monthlyPL: [
-      { month: `Jan 2025`, revenue: 6323.33, expenses: 36.83, profit: 6287.77 },
-      { month: `Feb 2025`, revenue: 6678.93, expenses: 36.83, profit: 6643.37 },
-      { month: `Mar 2025`, revenue: 5066.03, expenses: 36.83, profit: 5029.2 },
-      { month: `Apr 2025`, revenue: 4187.19, expenses: 36.83, profit: 4150.36 },
-      { month: `May 2025`, revenue: 4013.2, expenses: 36.83, profit: 3977.64 },
-      { month: `Jun 2025`, revenue: 1985.01, expenses: 36.83, profit: 1949.45 },
-      { month: `Jul 2025`, revenue: 2992.12, expenses: 36.83, profit: 2956.56 },
-      { month: `Aug 2025`, revenue: 2301.24, expenses: 36.83, profit: 2264.41 },
-      { month: `Sep 2025`, revenue: 1247.14, expenses: 36.83, profit: 1210.31 },
-      { month: `Oct 2025`, revenue: 535.94, expenses: 36.83, profit: 499.11 },
-      { month: `Nov 2025`, revenue: 1883.41, expenses: 36.83, profit: 1846.58 },
-      { month: `Dec 2025`, revenue: 1620.52, expenses: 36.83, profit: 1583.69 },
-    ],
-    avgMonthlyRevenue: 3236.0,
-    avgMonthlyProfit: 3200.0,
-    profitMargin: `99%`,
-    annualRevenue: `GBP £30,577`,
-    annualProfit: `GBP £30,235`,
-    ageYears: 2.0,
-    monetisation: ``,
-    techStack: `WordPress, Shopify, Stripe`,
-    country: `WA, United States`,
-    platform: `to`,
-    hasStripe: false,
-    hasPaypal: true,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 55.0,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 95,
-      growthPotential: 50,
-      overall: 61.9,
-    },
-    recommendation: `CONSIDER`,
-    redFlags: [
-      `Revenue declining sharply (-77.6% trend)`,
-      `High revenue volatility (CV 60%)`,
-    ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Managed by Flippa`,
-      `Zero loss months in P&L`,
-    ],
-    seller: {
-      name: `Jean Renaud Desvernay`,
-      location: `United States`,
-      verified: true,
-      transactions: `2 transactions totalling USD $59,500`,
-    },
-    socialMedia: [
-      `0 followers`,
-      `0 followers`,
-      `0 followers`,
-      `87,800 followers`,
-    ],
-    expenses: [
-      {
-        item: `Hosting`,
-        amount: `GBP £36 /month`,
-      },
-      {
-        item: `Domain name`,
-        amount: `GBP £2 /month`,
-      },
-      {
-        item: `Full Domain Protection`,
-        amount: `GBP £2 /month`,
-      },
-      {
-        item: `WP Rocket`,
-        amount: `GBP £6 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Email subscriber list`,
-      `Brand assets (logos, etc)`,
-      `Trademarks/patents`,
-      `Unique content`,
-      `Unique design`,
-      `WordPress 6.8`,
-      `Included.`,
-      `0 followers`,
-      `0 followers`,
-      `0 followers`,
-      `87,800 followers`,
-      `Attachments`,
-      `Raptive-payment`,
-      `PAYPAL_9:30:25 - 10:31:25`,
-      `PAYPAL_8:31:25 - 9:30:25`,
-      `PAYPAL_7:31:25 - 8:31:25`,
-      `PAYPAL_6:30:25 - 7:31:25`,
-      `PAYPAL_5:31:25 - 6:30:25`,
-      `PAYPAL_4:30`,
-    ],
-    postSaleSupport: `from the seller`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    comments: [
-      {
-        author: `Zack Hall`,
-        date: `Dec 18, 2025 03:20 PM`,
-        text: `Can you explain the sudden steep decline in page views and revenue over the course of this year?`,
-      },
-    ],
-    ga: {
-      users: `186,420`,
-      totalPageViews: `22,128`,
-      pagesPerSession: `1.63`,
-      avgDuration: `00:00:52`,
-      engagementRate: `0.61%`,
-      topCountries: [
-        {
-          country: `China`,
-          views: 11128,
-        },
-        {
-          country: `United States`,
-          views: 10668,
-        },
-        {
-          country: `Singapore`,
-          views: 8129,
-        },
-        {
-          country: `United Kingdom`,
-          views: 1648,
-        },
-        {
-          country: `(not set)`,
-          views: 751,
-        },
-      ],
-    },
-    integrations: [
-      `PayPal`,
-      `Paypal`,
-      `Google Analytics`,
-      `Amazon`,
-    ],
-    tech: [
-      `WordPress`,
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 862,
-    watchers: 41,
-    commentCount: 1,
-    about: `Reasons To Skip The Housework: Business Overview
-
-Reasons To Skip The Housework is a high-margin, low-maintenance content business generating consistent profits from a loyal, home-focused audience. Launched in 2011 and operated under its current monetization model for the past 2 years, the site delivers seasonal and evergreen lifestyle content in the home, DIY, and recipe categories. It earns 99% net margins and nearly $4,000/month in pure profit through a mix of AdThrive display ads, guest posting fees, and affiliate commissions — all while requiring minimal ongoing effort.
-
-With over 261,000 pageviews in the past year, 10,500+ keywords ranked, and 87,800 Pinterest followers, the site benefits from strong organic visibility and growing social momentum. For a buyer seeking a hands-free revenue stream, a content portfolio addition, or a platform to scale further via social and SEO, this site presents a rare opportunity.
-
-Key Financials (Trailing Twelve Months Ending November 2025)
-
-Annual Revenue: USD $46,528
-Annual Profit: USD $46,072
-Average Monthly Profit: USD $3,839
-Profit Margin: 99%
-Profit Multiple: 1.8x
-Revenue Multiple: 1.8x
-Top Earning Month: USD $7,266 (Dec 2024)
-Lowest Earning Month: USD $524 (Oct 2025)
-
-Monetization
-
-Reasons To Skip The Housework monetizes through three primary streams:
-Advertising: The site is approved by AdThrive, the highest-paying display ad network in the industry. RPMs average $28.18 across devices, with mobile traffic earning $28.20 RPM and tablet RPMs peaking at $29.75. Ads are well-optimized across formats including video, footer, and sticky placements.
-Guest Posting: Brands and writers pay to publish sponsored articles. This provides recurring revenue, new content, and SEO benefits, while allowing the owner to maintain control over editorial quality.
-Affiliate Links: Primarily Amazon Associates, with curated product mentions integrated organically into content. While not the main income driver today, affiliate earnings offer scalable upside through improved placement and volume.
-
-Traffic & Audience
-
-The site receives 21,800 monthly pageviews and has had 199,842 unique users over the past year. Readers primarily come from the United States, followed by China, Canada, the UK, and Singapore.
-
-Top Channels:
-
-Direct: 48%
-Organic Social: 27%
-Organic Search: 17%
-Email: 7.4%
-
-Notably, Pinterest drives a major share of social traffic. With 87,800 followers and hundreds of pins already live, Pinterest is a proven growth engine for both content distribution and monetization. Organic Search brings in 47% of non-direct sessions, with the highest engagement rate (61.4%) and longest average session duration (1:01). The site’s returning visitor base and 10.5K ranked keywords signal strong brand and content authority.
-
-SEO & Domain Strength
-
-Domain Authority: 27
-Backlinks: 19,500
-Referring Domains: 6,250
-Total Indexed Keywords: 10,500+
-Top Organic Keywords: “Easy Snacks to Make in 5 Minutes”, “Christmas Dinner Ideas”, “April `,
-  },
-  {
     id: `12195937`,
     title: `Woodbury Learning Academy Limited`,
     revealedName: `Woodbury Learning Academy Limited`,
@@ -6147,131 +5295,6 @@ Customer Experience: The platform maintains a 0% refund rate and features high-i
 Traffic & SEO: Learnful has earned 1.47K organic keywords, a growing backlink profile (129 referring domains), and strong search placement across career-focused queries like “What Is A First Line Manager” and “New Career 40.” The SEO content strategy is evergreen, and further investment would amplify traffic growth.
 Credibility & Compliance: Learnful includes a complete Higher Education Quality Assurance (QA) manual and support documents suitable for external programme validation, providing strong regulatory readiness and long-term scalability.
 Founder Support: The founder brings 20+ years of operational and education experience and is willing `,
-  },
-  {
-    id: `11930835`,
-    title: `officialhtc.com`,
-    revealedName: `officialhtc.com`,
-    url: `https://flippa.com/11930835`,
-    type: `other`,
-    dataLevel: `stats`,
-    askingPrice: 150000.0,
-    avgMonthlyRevenue: 20490.0,
-    avgMonthlyProfit: 8578.0,
-    profitMargin: `42%`,
-    annualRevenue: `GBP £193,614`,
-    annualProfit: `GBP £81,048`,
-    ageYears: 3.0,
-    monetisation: ``,
-    techStack: `Nuxt, Shopify, Stripe`,
-    country: `NV, United States`,
-    platform: `Nuxt`,
-    hasStripe: true,
-    hasPaypal: false,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 55,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 95,
-      growthPotential: 50,
-      overall: 61.9,
-    },
-    recommendation: `CONSIDER`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
-      `Strong profit $8,578/mo`,
-    ],
-    seller: {
-      name: `Adrian Sampayo`,
-      location: `United States`,
-      verified: true,
-    },
-    socialMedia: [
-      `526 followers`,
-      `2,900 followers`,
-      `740 followers`,
-    ],
-    expenses: [
-      {
-        item: `Domain registration`,
-        amount: `GBP £11 /month`,
-      },
-      {
-        item: `Advertising`,
-        amount: `GBP £3,002 /month`,
-      },
-      {
-        item: `Subscriptions`,
-        amount: `GBP £1,051 /month`,
-      },
-      {
-        item: `Employees & virtual assistants`,
-        amount: `GBP £4,015 /month`,
-      },
-      {
-        item: `Content Partners`,
-        amount: `GBP £3,677 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Email subscriber list`,
-      `Brand assets (logos, etc)`,
-      `Supplier contracts`,
-      `Trademarks/patents`,
-      `Custom technology`,
-      `Unique content`,
-      `Unique design`,
-      `Nuxt.js`,
-      `Included.`,
-      `526 followers`,
-      `2,900 followers`,
-      `740 followers`,
-      `Attachments`,
-      `Profit and Loss-HTC-March`,
-      `Profit and Loss-HTC-Jan`,
-      `Profit and Loss-HTC-Q1`,
-      `Contact Seller`,
-      `Send message`,
-      `Jennifer Cline Jun 25, 2025 11:50 P`,
-    ],
-    postSaleSupport: `Included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    comments: [
-      {
-        author: `Jennifer Cline`,
-        date: `Jun 25, 2025 11:50 PM`,
-        text: `Curious why you are wanting to sell?`,
-      },
-    ],
-    ga: {},
-    integrations: [
-      `Stripe`,
-      `Amazon`,
-    ],
-    tech: [
-      `Nuxt`,
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 1658,
-    watchers: 71,
-    commentCount: 1,
-    about: `The High Ticket Club is a premier real estate content agency that helps realtors establish a dominant online presence. We create and post professional, viral-style home walkthrough videos on your social media accounts three times a week. Our service includes free video editing, ensuring each video showcases properties with high-quality visuals that capture attention and generate leads. This subscription-based service allows realtors to focus on selling while we handle their content strategy and execution.`,
   },
   {
     id: `11939684`,
@@ -6571,240 +5594,6 @@ The company generates revenue exclusively through digital product sales, offerin
 The diversified product suite is optimized for repeat purchasing, with customers often expanding their collection after an initial purchase. The absence of returns or refunds underscores strong product-market fit and high customer satisfaction. Digital delivery eliminates inventory risks and allows the business to maintain a strong margin profil`,
   },
   {
-    id: `12276151`,
-    title: `Digital Ebook Academy`,
-    revealedName: `Digital Ebook Academy`,
-    url: `https://flippa.com/12276151`,
-    type: `other`,
-    dataLevel: `full_pnl`,
-    askingPrice: 100000.0,
-    monthlyPL: [
-      { month: `Feb 2025`, revenue: 206785.21, expenses: 157532.07, profit: 49253.14 },
-      { month: `Mar 2025`, revenue: 374610.63, expenses: 348495.62, profit: 26115.01 },
-      { month: `Apr 2025`, revenue: 222418.91, expenses: 197849.49, profit: 24569.42 },
-      { month: `May 2025`, revenue: 356262.94, expenses: 303869.09, profit: 52393.85 },
-      { month: `Jun 2025`, revenue: 217092.53, expenses: 206053.69, profit: 11038.84 },
-      { month: `Jul 2025`, revenue: 171192.19, expenses: 158111.19, profit: 13082.27 },
-      { month: `Aug 2025`, revenue: 132126.99, expenses: 117401.34, profit: 14726.92 },
-      { month: `Sep 2025`, revenue: 0.0, expenses: 0.0, profit: 0.0 },
-      { month: `Oct 2025`, revenue: 33769.3, expenses: 29960.57, profit: 3808.73 },
-      { month: `Nov 2025`, revenue: 78301.85, expenses: 72751.95, profit: 5549.9 },
-      { month: `Dec 2025`, revenue: 84688.68, expenses: 76669.9, profit: 8018.78 },
-      { month: `Jan 2026`, revenue: 0.0, expenses: 0.0, profit: 0.0 },
-    ],
-    avgMonthlyRevenue: 187725.0,
-    avgMonthlyProfit: 17380.0,
-    profitMargin: `11%`,
-    annualRevenue: `GBP £1,478,150`,
-    annualProfit: `GBP £164,218`,
-    ageYears: 2.0,
-    monetisation: ``,
-    techStack: `Shopify, Stripe`,
-    country: `United Kingdom`,
-    platform: `integrations`,
-    hasStripe: true,
-    hasPaypal: true,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 55.0,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 95,
-      growthPotential: 50,
-      overall: 61.9,
-    },
-    recommendation: `CONSIDER`,
-    redFlags: [
-      `Revenue declining sharply (-75.5% trend)`,
-      `High revenue volatility (CV 57%)`,
-    ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
-      `Strong profit $17,380/mo`,
-      `Zero loss months in P&L`,
-    ],
-    seller: {
-      name: `Alerts`,
-      verified: true,
-      transactions: `2 transactions totalling USD $115,628`,
-    },
-    socialMedia: [
-      `3,312 followers`,
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Email subscriber list`,
-      `Brand assets (logos, etc)`,
-      `Other`,
-      `Unique content`,
-      `Unique design`,
-      `Included.`,
-      `3,312 followers`,
-      `60,000 subscribers`,
-      `Attachments`,
-      `No comments`,
-      `Editor's Choice`,
-      `Show all`,
-      `Open for negotiation`,
-      `Indicative Price`,
-      `USD $100,000`,
-      `GBP £75,044`,
-      `Contact Seller Submit LOI Make Offer`,
-    ],
-    postSaleSupport: `Included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    ga: {},
-    integrations: [
-      `Stripe`,
-      `PayPal`,
-      `Shopify`,
-      `Amazon`,
-    ],
-    tech: [
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 1171,
-    watchers: 120,
-    about: `1. Executive Summary
-
-Digital Ebook Academy is an online education business operating in the digital products space, primarily selling candle-making and other courses via a paid advertising funnel. The business leverages Meta (Facebook) ads, a proven funnel system, and a large email list to generate consistent revenue from a global DTC audience.
-
-Established in 2023, the business has generated over $2.07M in gross revenue with $258,805 in net profit over the reported period(2025), while being operated with minimal owner involvement.
-
-The company is being offered for sale as the owner is reallocating focus to a separate, non-competing business (supplement brand).
-
-2. Business Overview
-
-Business Name: Digital Ebook Academy
-
-Website: digitalebookacademy.com
-
-Year Established: 2023
-
-Business Model: Direct-to-Consumer (DTC), Digital Products
-
-Monetization: One-time course sales with upsells
-
-Owner Involvement: <15 minutes per day
-
-3. Reason for Sale
-
-The owner is shifting focus to another business venture (a supplement brand), which does not compete with Digital Ebook Academy.
-
-4. Products & Pricing 
-
-Candle Making Course (Main Offer) | Beginner-focused candle making course | $17
-
-Candle Making Pro Video Course (Upsell 1) | Advanced candle-making techniques | $147
-
-Candle Marketing Toolkit (Upsell 2) | Marketing resources for candle businesses | $57
-
-Candle Making Kit (Upsell 3) | Supplementary digital resources | $97
-
-Course Production Cost:
-
-Initial creation cost: $3,000–$4,000
-
-Update costs (optional):
-
-Full course update: < $1,000
-
-Ebook updates: $50–$100
-
-All content was produced internally in collaboration with a subject-matter expert, who may be introduced to the buyer post-sale.
-
-5. Assets Included in the Sale
-
-The sale includes all assets required to operate the business:
-
-Domain: digitalebookacademy.com
-
-Shopify Store
-
-Funnelish account & funnels
-
-Email list (100,000+)
-
-Facebook Pixel
-
-Google Workspace (content, creatives, data, SOPs)
-
-Course content & creatives
-
-Intellectual property (unregistered)
-
-Platform integrations (Zapier)
-
-All software subscriptions are transferable.
-
-6. Intellectual Property
-
-All courses and materials are original and internally produced
-
-Subject expert introduction available (non-exclusive)
-
-7. Target Market
-
-Primary Geography:
-
-United States: ~80% of revenue
-
-Rest of World: ~20%
-
-Demographics:
-
-Primarily women aged 35+
-
-Hobbyists and aspiring small business owners
-
-Sales Channels: DTC (no B2B)
-
-8. Operations Overview | Customer Journey
-
-Traffic generated via Facebook Ads
-
-Customer purchases through Funnelish checkout
-
-Order processed in Shopify
-
-Zapier integration automatically grants course access via:
-
-Circle
-
-Podia
-
-9. Marketing & TrafficAcquisition Channels
-
-Primary: Meta (Facebook) Ads
-
-Secondary: Email marketing (12.59% of revenue in last 6 months)
-
-10. Email Marketing Performance
-
-Email Subscribers: 100,000+
-
-Open Rate (last 6 months): 46.2%
-
-Click Rate (last 6 months): 0.76%
-
-Repeat Customer Rate: 3%
-
-11.`,
-  },
-  {
     id: `12003824`,
     title: `myelegantwebsites.com`,
     revealedName: `myelegantwebsites.com`,
@@ -6940,156 +5729,6 @@ Direct tie-ups with white-label web development firms
 Team & Operations
 
 The agency is owner-operated with a flexible, contractor-based delivery model. Contractors are activated as needed to fu`,
-  },
-  {
-    id: `12041914`,
-    title: `Vet Study Bundle`,
-    revealedName: `Vet Study Bundle`,
-    url: `https://flippa.com/12041914`,
-    type: `other`,
-    dataLevel: `full_pnl`,
-    askingPrice: 63130.0,
-    monthlyPL: [
-      { month: `Oct 2024`, revenue: 5156.2, expenses: 2914.65, profit: 2242.82 },
-      { month: `Nov 2024`, revenue: 6780.53, expenses: 3587.75, profit: 3194.05 },
-      { month: `Dec 2024`, revenue: 9190.99, expenses: 5156.2, profit: 4034.79 },
-      { month: `Jan 2025`, revenue: 19391.63, expenses: 10872.47, profit: 8519.16 },
-      { month: `Feb 2025`, revenue: 16925.29, expenses: 11697.97, profit: 5227.32 },
-      { month: `Mar 2025`, revenue: 9919.97, expenses: 8406.13, profit: 1512.57 },
-      { month: `Apr 2025`, revenue: 1681.48, expenses: 784.86, profit: 896.62 },
-      { month: `May 2025`, revenue: 4259.58, expenses: 4147.82, profit: 111.76 },
-      { month: `Jun 2025`, revenue: 4259.58, expenses: 3362.96, profit: 896.62 },
-      { month: `Jul 2025`, revenue: 0.0, expenses: 0.0, profit: 0.0 },
-      { month: `Aug 2025`, revenue: 0.0, expenses: 0.0, profit: 0.0 },
-      { month: `Sep 2025`, revenue: 4422.14, expenses: 2209.8, profit: 2212.34 },
-    ],
-    avgMonthlyRevenue: 8199.0,
-    avgMonthlyProfit: 2404.0,
-    profitMargin: `35%`,
-    annualRevenue: `GBP £64,556`,
-    annualProfit: `GBP £22,714`,
-    ageYears: 2.0,
-    monetisation: ``,
-    techStack: `Shopify, Stripe`,
-    country: `Italy`,
-    platform: `Shopify`,
-    hasStripe: false,
-    hasPaypal: false,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 55.0,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 75,
-      growthPotential: 50,
-      overall: 58.9,
-    },
-    recommendation: `CONSIDER`,
-    redFlags: [
-      `Revenue declining sharply (-38.7% trend)`,
-      `High revenue volatility (CV 67%)`,
-    ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Managed by Flippa`,
-      `Zero loss months in P&L`,
-    ],
-    seller: {
-      name: `Mattia Mari`,
-      location: `Italy`,
-      verified: false,
-    },
-    socialMedia: [
-      `2,243 followers`,
-      `4,962 followers`,
-      `2,425 followers`,
-    ],
-    expenses: [
-      {
-        item: `Meta ADS`,
-        amount: `GBP £4,222 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Email subscriber list`,
-      `Brand assets (logos, etc)`,
-      `Unique content`,
-      `Unique design`,
-      `Shopify`,
-      `Included.`,
-      `2,243 followers`,
-      `4,962 followers`,
-      `2,425 followers`,
-      `Attachments`,
-      `Screenshot 2025-07-28 alle 10.07.50`,
-      `Contact Seller`,
-      `Send message`,
-      `Ayush Kumar Jan 01, 2026 03:59 PM`,
-      `Why is there a dip in revenue like it just goes to zero ?`,
-      `Report this comment Reply`,
-      `Editor's Choice`,
-    ],
-    postSaleSupport: `and training to ensure a smooth handover`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    comments: [
-      {
-        author: `Ayush Kumar`,
-        date: `Jan 01, 2026 03:59 PM`,
-        text: `Why is there a dip in revenue like it just goes to zero ?`,
-      },
-    ],
-    ga: {},
-    integrations: [
-      `Shopify`,
-      `Amazon`,
-    ],
-    tech: [
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 1037,
-    watchers: 21,
-    commentCount: 1,
-    about: `Vet Study Bundle – Business Overview
-
-Vet Study Bundle is a profitable digital product store launched in February 2024 and built on Shopify. The brand serves a niche yet global market: veterinary students preparing for coursework and exams. By offering 100% digital products such as comprehensive study notes, anatomy flashcards, cheatsheets, and international exam prep guides, the business combines high-value content with a lean, scalable model that eliminates the costs and complexities of physical inventory.
-
-Over the past twelve months, the business has generated USD $99,162 in revenue and USD $36,997 in net profit, delivering an average monthly profit of USD $3,083 at a 37% margin. With sales primarily driven by optimized Meta Ads and zero reliance on logistics, Vet Study Bundle is designed for efficiency and automation. Current owner involvement is minimal, limited to occasional customer support and light social media updates, totaling less than one hour per week.
-
-Operational Model
-
-Vet Study Bundle operates as a fully digital store. Products are instantly downloadable, with zero shipping costs, stock management, or fulfillment delays. This ensures customer satisfaction, demonstrated by the brand’s 100% fulfillment rate and zero refund rate to date. Marketing is handled via a proven Meta Ads strategy, supported by pre-tested creatives that consistently deliver profitable returns. Post-sale, a new owner will inherit a seamless operational system with virtually no overhead beyond ad spend.
-
-Market & Growth Opportunities
-
-The veterinary education market is growing steadily, supported by increasing numbers of students worldwide preparing for exams such as the VTNE, NAVLE, and regional certifications. Demand for efficient, accessible, and affordable digital study aids continues to rise, positioning Vet Study Bundle for long-term scalability. Current sales are concentrated in select markets, leaving significant expansion potential in regions such as the UK, Australia, Canada, and across Europe. Beyond geographical growth, opportunities exist to expand the product catalog into related niches such as continuing education for professionals, nursing, and pre-medical studies.
-
-Performance Highlights
-
-3,357 customers acquired in 12 months, supported by a strong repeat buyer base
-2,205 orders processed with an average order value of USD $43
-Zero refunds and a 100% fulfillment rate underscore customer trust and product-market fit
-Social media presence includes 2,243 Facebook followers, 4,962 Instagram followers, and 2,425 TikTok followers, offering a base for organic growth alongside paid ads
-
-Included Assets in Sale
-
-Custom Shopify domain and full website files
-Complete portfolio of digital study products and future-proof content IP
-Active email subscriber list (3,357 contacts)
-Established Facebook, Instagram, and TikTok pages
-All ad creatives and marketing assets used in existing campaigns
-Brand assets including logos, unique designs, and course material`,
   },
   {
     id: `11997664`,
@@ -8683,6 +7322,341 @@ Advertising Expansion: Utilizing additional advertising platforms, especially ta
 Reason for Sale
 
 Personal commitments and a shift in career focus are the primary reasons for selling the business.`,
+  },
+  {
+    id: `12081719`,
+    title: `SellVNTG`,
+    revealedName: `SellVNTG`,
+    url: `https://flippa.com/12081719`,
+    type: `marketplace`,
+    dataLevel: `stats`,
+    askingPrice: 26499.0,
+    avgMonthlyRevenue: 2383.0,
+    avgMonthlyProfit: 1985.0,
+    profitMargin: `83%`,
+    annualRevenue: `GBP £22,513`,
+    annualProfit: `GBP £18,760`,
+    ageYears: 3.0,
+    monetisation: ``,
+    techStack: `React, Shopify, Stripe`,
+    country: `MS, United States`,
+    platform: `built`,
+    hasStripe: true,
+    hasPaypal: false,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 55,
+      diversification: 75,
+      operatorIndependence: 73.3,
+      roi: 95,
+      growthPotential: 65,
+      overall: 70.7,
+    },
+    recommendation: `AVOID`,
+    redFlags: [
+      `Failed deep verification — website/product issues`,
+    ],
+    greenFlags: [],
+    seller: {
+      name: `Owen RIdgeway`,
+      location: `United States`,
+      verified: false,
+    },
+    socialMedia: [
+      `3,500 followers`,
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Brand assets (logos, etc)`,
+      `Custom technology`,
+      `Other`,
+      `Unique content`,
+      `Unique design`,
+      `Included.`,
+      `3,500 followers`,
+      `Contact Seller`,
+      `Send message`,
+      `No comments`,
+      `Show all`,
+      `Video`,
+      `Open for negotiation`,
+      `Indicative Price`,
+      `USD $26,499`,
+      `GBP £19,886`,
+      `Contact Seller Submit LOI Make Offer`,
+      `Watch`,
+      `Share & Earn up to $530*`,
+      `Have a similar business? Get a free valuation`,
+      `Vetted + Data Ve`,
+    ],
+    postSaleSupport: `from the founder to ensure a smooth handover`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {},
+    integrations: [
+      `Stripe`,
+      `Amazon`,
+    ],
+    tech: [
+      `React`,
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 788,
+    watchers: 18,
+    about: `SellVNTG: Business Overview
+
+SellVNTG, founded in 2023, is a niche marketplace platform built to connect vintage fashion resellers with buyers seeking unique, curated apparel and accessories. Combining a fully functional website with an iOS app, the platform offers seller storefronts, buyer messaging, integrated payments, and Instagram Shop connectivity. In just two years, SellVNTG attracted hundreds of vintage sellers, generating USD $30,000 in annual revenue with an 83% profit margin before being paused in May 2025 for personal reasons. With its infrastructure, integrations, and existing seller base intact, SellVNTG represents a turnkey acquisition opportunity for an operator looking to relaunch or pivot into the fast-growing resale economy.
+
+Key Business Highlights
+
+Geographical Reach: Primarily U.S.-based sellers and buyers, with room to expand into global vintage and streetwear markets.
+Customer Demographics: Fashion-conscious buyers seeking unique, second-hand and sustainable clothing; sellers ranging from independent resellers to small vintage boutiques.
+Platform Functionality: Includes seller storefronts, inventory management, in-app messaging, Stripe Connect for payouts, and Meta Commerce Manager integration for Instagram Shop syncing.
+Technology: Built with modern frameworks including HTML, Tailwind, C#, ASP.NET, Azure, and Flutter for iOS, creating a scalable and future-proof infrastructure.
+Community Engagement: Early adoption on Instagram with 3,500 followers and product sync capability, providing a foundation for community-driven growth.
+Additional Innovation: Prototype QR code POS system designed for in-person market sellers, syncing with online inventory.
+
+Operations
+
+SellVNTG was designed to be low-maintenance, with seller-managed storefronts and Stripe Connect automating payment flows. The platform’s architecture ensures seamless scalability, while integrations with Instagram Shop and Meta Commerce Manager provide instant cross-platform exposure for sellers. Buyer-seller communication is facilitated by in-app chat, further enhancing the community-driven nature of the marketplace.
+
+Market Leadership
+
+Positioned within the growing second-hand and resale fashion market, SellVNTG taps into consumer demand for sustainable, unique, and nostalgic apparel. With resale projected to outpace the broader fashion industry in growth, SellVNTG is well-placed to capture buyers shifting away from fast fashion and toward curated vintage experiences. The platform’s curated focus differentiates it from broader resale marketplaces such as eBay or Depop, offering a dedicated community for vintage enthusiasts.
+
+Growth Opportunities
+
+Seller Reactivation: Launch email and social campaigns to re-engage the existing seller base and stimulate immediate platform activity.
+Cross-Listing Capabilities: Introduce integrations with Depop, Grailed, and eBay, allowing sellers to streamline listings across multiple platforms.
+Category Expansion: Extend the marketpl`,
+  },
+  {
+    id: `12195777`,
+    title: `PowerhouseAffiliate.com`,
+    revealedName: `PowerhouseAffiliate.com`,
+    url: `https://flippa.com/12195777`,
+    type: `content`,
+    dataLevel: `stats`,
+    askingPrice: 25000.0,
+    avgMonthlyRevenue: 3176.0,
+    avgMonthlyProfit: 2819.0,
+    profitMargin: `89%`,
+    annualRevenue: `GBP £30,018`,
+    annualProfit: `GBP £26,641`,
+    ageYears: 14.0,
+    monetisation: ``,
+    techStack: `WordPress, Shopify, Stripe`,
+    country: `Canada`,
+    platform: `that`,
+    hasStripe: true,
+    hasPaypal: true,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 55,
+      diversification: 65,
+      operatorIndependence: 80.0,
+      roi: 95,
+      growthPotential: 75,
+      overall: 70.5,
+    },
+    recommendation: `AVOID`,
+    redFlags: [
+      `Failed deep verification — website/product issues`,
+    ],
+    greenFlags: [],
+    seller: {
+      name: `Melissa Babineau`,
+      location: `Canada`,
+      verified: true,
+      transactions: `3 transactions totalling USD $124,497`,
+    },
+    socialMedia: [
+      `2,900 followers`,
+      `700 followers`,
+    ],
+    expenses: [
+      {
+        item: `Hosting`,
+        amount: `GBP £206 /month`,
+      },
+      {
+        item: `Website Stack`,
+        amount: `GBP £131 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Email subscriber list`,
+      `Brand assets (logos, etc)`,
+      `Unique content`,
+      `Unique design`,
+      `WordPress`,
+      `Included.`,
+      `2,900 followers`,
+      `700 followers`,
+      `17,200 subscribers`,
+      `11,000 subscribers`,
+      `No comments`,
+      `Show all`,
+      `Open for negotiation`,
+      `Indicative Price`,
+      `USD $25,000`,
+      `GBP £18,761`,
+      `Contact Seller Submit LOI Make Offer`,
+      `Watching`,
+      `Share & Earn up to $500*`,
+      `Have a similar business? Get a free`,
+    ],
+    postSaleSupport: `+ optional ongoing consulting/coach agreement`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {
+      users: `49,890`,
+      totalPageViews: `14,153`,
+      pagesPerSession: `1.79`,
+      avgDuration: `00:00:34`,
+      engagementRate: `0.26%`,
+      topCountries: [
+        {
+          country: `United States`,
+          views: 3216,
+        },
+        {
+          country: `Singapore`,
+          views: 532,
+        },
+        {
+          country: `Hong Kong`,
+          views: 507,
+        },
+        {
+          country: `China`,
+          views: 460,
+        },
+        {
+          country: `Germany`,
+          views: 375,
+        },
+      ],
+    },
+    integrations: [
+      `Stripe`,
+      `PayPal`,
+      `Paypal`,
+      `Google Analytics`,
+      `Amazon`,
+    ],
+    tech: [
+      `WordPress`,
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 1776,
+    watchers: 156,
+    about: `Highlights at a Glance
+
+Established Since 2011 – Trusted brand with global recognition in affiliate & digital marketing
+
+Profitable & Automated – ~75 % profit margins / $450 monthly overhead
+
+Evergreen Courses & Community – 5 core certification courses + additional lessons, case studies and active member community
+
+Founder Support – Founder willing to stay as an active community member and affiliate coach post-sale
+
+⚙️ Modern Tech Stack – available after NDA
+
+Organic Traffic Base – 95 % organic/direct visits and 11K email subscribers
+
+Multiple Growth Paths – (Growth plan available after NDA) Includes AI-driven updates, new funnels, and affiliate partnership expansion
+
+Priced to sell - Open Auction – Reserve $30 000 USD – Serious buyers only, private access after NDA
+
+About the Business
+
+Powerhouse Affiliate is a long-standing, automated education brand teaching affiliate marketing, media buying, and digital growth strategies.
+
+Originally started by Joey Babineau’s youtube brand, the business has transitioned into a community-driven platform that now operates independently on strong systems, evergreen content, and brand authority.
+
+After 14 years, the owner is shifting focus to new projects but remains committed to supporting the next owner and community through a clear transition plan — and is open to continuing as an active, coach and community mentor after the sale.
+
+Financial Snapshot (2025 YTD to Oct 20)
+
+Revenue $31 922 USD
+
+Owner Time Required < 8 hrs / week
+
+Mainly oversight & updates
+
+Automated lead capture, checkout, onboarding, and support workflows mean the business practically runs itself.
+
+Audience & Market
+
+Targets beginner-to-intermediate digital marketers looking to generate income online — a $17 B + industry that continues to grow.
+
+Primary markets: U.S., Canada, U.K., Australia.
+
+
+Strong Brand/SEO presence and long-term domain authority ensure steady organic traffic.
+
+Included in Sale
+
+Domain & brand IP ownership
+
+Complete library of evergreen courses & templates
+
+Community and membership platform 
+
+CRM + automation flows
+
+Email sequences, funnels, landing pages, and ad assets
+
+Documentation & plugin licenses
+
+30 days post-sale support + optional ongoing consulting/coach agreement
+
+Transition & Continuity Plan
+
+Powerhouse Affiliate has evolved from a founder-led brand to a self-sustaining platform, but to ensure seamless continuity and trust, the transition includes:
+
+Phase 1 – Ownership Transfer (Weeks 1–2)
+Full technical handover and system walkthrough
+
+Phase 2 – Community Continuity (Weeks 3–4)
+Optional joint announcement introducing new owner
+
+Phase 3 – Advisory Support (Month 2–3)
+Owner available as coach or community mentor under new management
+
+This structure ensures members remain engaged and the new owner gains credibility from day one.
+
+Growth Opportunities
+
+Add AI-driven training modules (“Affiliate AI Academy”)
+
+Launch low-ticket tripwire offers ($7–$27)
+
+Expand affiliate program & tool partnerships
+
+Host paid live w`,
   },
   {
     id: `12258077`,
@@ -13856,6 +12830,223 @@ Launch Meta, Instagram, TikTok and YouTube ads
 Develop `,
   },
   {
+    id: `12206076`,
+    title: `ArticleReword.com`,
+    revealedName: `ArticleReword.com`,
+    url: `https://flippa.com/12206076`,
+    type: `saas`,
+    dataLevel: `stats`,
+    askingPrice: 91906.0,
+    avgMonthlyRevenue: 2176.0,
+    avgMonthlyProfit: 1967.0,
+    profitMargin: `90%`,
+    annualRevenue: `GBP £20,565`,
+    annualProfit: `GBP £18,586`,
+    ageYears: 7.0,
+    monetisation: ``,
+    techStack: `Shopify, PHP, MySQL, Stripe`,
+    churn: `28%`,
+    country: `United Kingdom`,
+    platform: `established`,
+    hasStripe: true,
+    hasPaypal: false,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 55,
+      diversification: 60,
+      operatorIndependence: 83.3,
+      roi: 55,
+      growthPotential: 80,
+      overall: 64.4,
+    },
+    recommendation: `AVOID`,
+    redFlags: [
+      `Failed deep verification — website/product issues`,
+      `High churn: 28%`,
+    ],
+    greenFlags: [],
+    seller: {
+      name: `Chloe Rowland`,
+      location: `United Kingdom`,
+      verified: false,
+    },
+    expenses: [
+      {
+        item: `AI Text Humanizer`,
+        amount: `GBP £38 /month`,
+      },
+      {
+        item: `Moz da pa`,
+        amount: `GBP £38 /month`,
+      },
+      {
+        item: `deepseek`,
+        amount: `GBP £4 /month`,
+      },
+      {
+        item: `openai`,
+        amount: `GBP £22 /month`,
+      },
+      {
+        item: `Paraphraser`,
+        amount: `GBP £38 /month`,
+      },
+      {
+        item: `hosting`,
+        amount: `GBP £22 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Email subscriber list`,
+      `Unique content`,
+      `Unique design`,
+      `PHP 8`,
+      `Included.`,
+      `23,447 subscribers`,
+      `Attachments`,
+      `googleadsense`,
+      `93f38a527927ea63c98c57c629449727`,
+      `deepseek`,
+      `hosting`,
+      `openai`,
+      `paraphrase`,
+      `Contact Seller`,
+      `Send message`,
+      `No comments`,
+      `Show all`,
+      `Open for negotiation`,
+      `Indicative Price`,
+      `USD $91,906`,
+      `GBP £69,827`,
+      `Contact Seller Submit LOI Make Offer`,
+      `Watch`,
+      `Share & Earn`,
+    ],
+    postSaleSupport: `Included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {
+      users: `280,685`,
+      totalPageViews: `355,669`,
+      pagesPerSession: `6.51`,
+      avgDuration: `00:01:46`,
+      engagementRate: `0.76%`,
+      topCountries: [
+        {
+          country: `United States`,
+          views: 61503,
+        },
+        {
+          country: `India`,
+          views: 43086,
+        },
+        {
+          country: `Philippines`,
+          views: 22639,
+        },
+        {
+          country: `United Kingdom`,
+          views: 18863,
+        },
+        {
+          country: `Pakistan`,
+          views: 14629,
+        },
+      ],
+    },
+    integrations: [
+      `Stripe`,
+      `Google Analytics`,
+      `Amazon`,
+    ],
+    tech: [
+      `Shopify`,
+      `PHP`,
+      `MySQL`,
+      `Stripe`,
+    ],
+    views: 866,
+    watchers: 15,
+    about: `Key Highlights
+
+ArticleReword.com is a profitable AI-powered SaaS platform established in 2019, helping users instantly create high-quality, human-like rewritten content. It serves writers, marketers, and agencies who need reliable, natural text rewording for content creation and SEO.
+
+Operating in the fast-growing AI writing and content automation sector, the business has generated over £20,600 in total revenue with an impressive 90%+ profit margin. The system is fully automated and requires minimal owner involvement.
+
+Operations
+
+ArticleReword.com runs smoothly on PHP + Tailwind CSS, integrated with Stripe for secure, automated subscription billing.
+
+It offers tiered pricing plans (free, standard, premium) to serve both individuals and professionals. The owner currently spends less than 1 hour per week managing the site — mainly checking payments and responding to light customer support.
+
+Customers
+
+The platform attracts a global mix of loyal users, including:
+
+✍️ Writers & Bloggers producing unique articles
+
+? SEO Experts & Agencies improving content quality
+
+? Businesses managing content marketing workflows
+
+? Students & Educators refining academic writing
+
+Its ease of use, accuracy, and affordability lead to high customer retention and steady recurring revenue.
+
+Technology
+
+Built with PHP + MySQL and a modern Tailwind CSS interface, ArticleReword.com integrates advanced AI rewriting APIs to generate fluent, natural-sounding text.
+Key features include:
+
+Secure Stripe payment gateway
+
+Automated subscription management
+
+Scalable infrastructure
+
+Low hosting and maintenance costs
+
+The platform is reliable, fast, and ready for further scaling or white-labelling.
+
+Financials
+
+? Revenue: £20,600 total
+
+? Profit Margin: ~90%
+
+? Established: 2019
+
+? Business Model: Subscription-based SaaS
+
+? Main Expenses: Hosting and API usage
+
+With extremely low overhead and consistent income, ArticleReword.com offers strong cash flow and passive ownership potential.
+
+Growth Opportunities
+
+Introduce lifetime or agency plans for instant sales boosts
+
+Expand into multilingual rewriting markets
+
+Launch an affiliate/referral programme to grow user base
+
+Invest in SEO and paid ads targeting “AI Rewriter,” “Text Humanizer,” “Content Paraphrasing”
+
+Bundle or cross-sell with other AI tools for higher average revenue per user
+
+In summary:
+ArticleReword.com is a turnkey, profitable, and low-maintenance SaaS business positioned in the booming AI content creation industry. With over £20,600 in revenue, 90% profit margins, and strong branding, it’s an ideal opportunity for investors seeking a scalable, proven AI SaaS asset.`,
+  },
+  {
     id: `11765541`,
     title: `manory.de`,
     revealedName: `manory.de`,
@@ -15733,6 +14924,434 @@ International scalability
 The brand combines accessible design positioning with operational discipline, making it well positioned for accelerated growth under new ownership.`,
   },
   {
+    id: `11941404`,
+    title: `Ecommerce | Sales Spy tool`,
+    revealedName: `Ecommerce | Sales Spy tool`,
+    url: `https://flippa.com/11941404`,
+    type: `saas`,
+    dataLevel: `stats`,
+    askingPrice: 149000.0,
+    avgMonthlyRevenue: 3176.0,
+    avgMonthlyProfit: 2899.0,
+    profitMargin: `91%`,
+    annualRevenue: `GBP £30,018`,
+    annualProfit: `GBP £27,390`,
+    expensesLastMonth: `GBP £218 /month`,
+    ageYears: 3.0,
+    monetisation: ``,
+    techStack: `Shopify, Stripe`,
+    churn: `20%`,
+    subscribers: `80`,
+    country: `DE, United States`,
+    platform: `that`,
+    hasStripe: true,
+    hasPaypal: false,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 55,
+      diversification: 60,
+      operatorIndependence: 83.3,
+      roi: 40,
+      growthPotential: 80,
+      overall: 62.2,
+    },
+    recommendation: `AVOID`,
+    redFlags: [
+      `Failed deep verification — website/product issues`,
+    ],
+    greenFlags: [],
+    seller: {
+      name: `Harvi`,
+      location: `United Kingdom`,
+      verified: true,
+      transactions: `2 transactions totalling USD $177,998`,
+    },
+    expenses: [
+      {
+        item: `Expenses last month`,
+        amount: `GBP £218 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Email subscriber list`,
+      `Brand assets (logos, etc)`,
+      `Custom technology`,
+      `Unique content`,
+      `Unique design`,
+      `Included.`,
+      `80,000 subscribers`,
+      `Contact Seller`,
+      `Send message`,
+      `Shalom Dec 31, 2025 04:48 AM`,
+      `as well can you please provide more detailed P&L`,
+      `Report this comment Reply`,
+      `Show all`,
+    ],
+    postSaleSupport: `included`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    comments: [
+      {
+        author: `Shalom`,
+        date: `Dec 31, 2025 04:48 AM`,
+        text: `HI,
+Why did the page/site visitors plunged so dramatically in the past few months?
+as well can you please provide more detailed P&L`,
+      },
+    ],
+    ga: {
+      users: `33,136`,
+      totalPageViews: `4,365`,
+      pagesPerSession: `1.27`,
+      avgDuration: `00:00:09`,
+      engagementRate: `0.36%`,
+      topCountries: [
+        {
+          country: `Morocco`,
+          views: 457,
+        },
+        {
+          country: `United Kingdom`,
+          views: 311,
+        },
+        {
+          country: `United States`,
+          views: 281,
+        },
+        {
+          country: `France`,
+          views: 125,
+        },
+        {
+          country: `China`,
+          views: 75,
+        },
+      ],
+    },
+    integrations: [
+      `Stripe`,
+      `Google Analytics`,
+      `Amazon`,
+    ],
+    tech: [
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 2346,
+    watchers: 52,
+    commentCount: 1,
+    about: `Business Overview
+
+Spysales is a profitable, fully automated SaaS platform that tracks and analyzes sales for any Shopify store, providing real-time and historical insights with approximately 90% accuracy—effectively acting as the backend for competitive intelligence. Founded in 2022 (site launched ~2023), it operates remotely from Delaware, USA, serving a global e-commerce market. The platform uniquely combines live sales data, top-product rankings, pricing insights, and trend analysis—all with zero ongoing maintenance.
+
+Operational Excellence
+
+Fully automated system; owner involvement limited to server upkeep
+0% support costs; no manual intervention required
+Integrated via Stripe,`,
+  },
+  {
+    id: `11933850`,
+    title: `trendingus.com`,
+    revealedName: `trendingus.com`,
+    url: `https://flippa.com/11933850`,
+    type: `other`,
+    dataLevel: `stats`,
+    askingPrice: 49000.0,
+    avgMonthlyRevenue: 3813.0,
+    avgMonthlyProfit: 3454.0,
+    profitMargin: `91%`,
+    annualRevenue: `GBP £36,021`,
+    annualProfit: `GBP £32,644`,
+    ageYears: 10.0,
+    monetisation: ``,
+    techStack: `WordPress, Shopify, Stripe`,
+    country: `India`,
+    platform: `since`,
+    hasStripe: false,
+    hasPaypal: true,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 55,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 95,
+      growthPotential: 50,
+      overall: 61.9,
+    },
+    recommendation: `AVOID`,
+    redFlags: [
+      `Failed deep verification — website/product issues`,
+    ],
+    greenFlags: [],
+    seller: {
+      name: `Suraj`,
+      location: `India`,
+      verified: true,
+    },
+    expenses: [
+      {
+        item: `Content writing and editors`,
+        amount: `GBP £259 /month`,
+      },
+      {
+        item: `Cloud Server`,
+        amount: `GBP £23 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Brand assets (logos, etc)`,
+      `Unique content`,
+      `Unique design`,
+      `WordPress 6.6`,
+      `Included.`,
+      `Contact Seller`,
+      `Send message`,
+      `No comments`,
+      `Show all`,
+      `Open for negotiation`,
+      `Indicative Price`,
+      `USD $135,000`,
+      `USD $49,000`,
+      `Reduced 64%`,
+      `GBP £36,772`,
+      `Contact Seller Submit LOI Make Offer`,
+      `Watch`,
+      `Share & Earn up to $980*`,
+      `Have a similar business? Get a free valuation`,
+      `Vetted + Data Verified Listing`,
+      `This quality l`,
+    ],
+    postSaleSupport: `Included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {
+      users: `958,705`,
+      totalPageViews: `143,170`,
+      pagesPerSession: `1.25`,
+      avgDuration: `00:00:16`,
+      engagementRate: `0.98%`,
+      topCountries: [
+        {
+          country: `India`,
+          views: 52967,
+        },
+        {
+          country: `United States`,
+          views: 5123,
+        },
+        {
+          country: `China`,
+          views: 3661,
+        },
+        {
+          country: `Pakistan`,
+          views: 3178,
+        },
+        {
+          country: `Bangladesh`,
+          views: 1513,
+        },
+      ],
+    },
+    integrations: [
+      `PayPal`,
+      `Paypal`,
+      `Google Analytics`,
+      `Amazon`,
+    ],
+    tech: [
+      `WordPress`,
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 1637,
+    watchers: 40,
+    about: `The Business industry continues to evolve, and TrendingUS has positioned itself as a reputable online platform since its establishment in 2015. With a focus on Content & Publishing, the website has generated steady annual revenue of $48,000, boasting an impressive profit margin of 90%+. TrendingUS has established itself as a trusted source for engaging content, attracting a diverse audience and generating consistent revenue streams.
+
+Driven by its dedicated team, TrendingUS has achieved 120,000 organic traffic every month with a Domain Authority of 61, showcasing its strong online presence and credibility within the industry. The platform's content strategy has effectively resonated with its audience, leading to a loyal following and high engagement rates. With a focus on quality content and user experience, TrendingUS has created a compelling digital destination that offers valuable insights and entertainment to its visitors.
+
+As the digital landscape continues to expand, TrendingUS presents a unique opportunity for growth and expansion within the Content & Publishing sector. With a proven track record of success and a strong foundation, this business is poised to capitalize on emerging trends and new revenue opportunities. TrendingUS represents a valuable investment for entrepreneurs looking to enter the dynamic world of online publishing and content creation.`,
+  },
+  {
+    id: `11883560`,
+    title: `Venues.org.uk`,
+    revealedName: `Venues.org.uk`,
+    url: `https://flippa.com/11883560`,
+    type: `other`,
+    dataLevel: `stats`,
+    askingPrice: 51353.0,
+    avgMonthlyRevenue: 3564.0,
+    avgMonthlyProfit: 2682.0,
+    profitMargin: `75%`,
+    annualRevenue: `GBP £33,674`,
+    annualProfit: `GBP £25,340`,
+    ageYears: 25.0,
+    monetisation: ``,
+    techStack: `Shopify, Stripe`,
+    country: `United Kingdom`,
+    platform: `with`,
+    hasStripe: false,
+    hasPaypal: true,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 55,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 95,
+      growthPotential: 50,
+      overall: 61.9,
+    },
+    recommendation: `AVOID`,
+    redFlags: [
+      `Failed deep verification — website/product issues`,
+    ],
+    greenFlags: [],
+    seller: {
+      name: `Paul Sung`,
+      location: `United Kingdom`,
+      verified: false,
+    },
+    expenses: [
+      {
+        item: `Server`,
+        amount: `GBP £304 /month`,
+      },
+      {
+        item: `Web Developer`,
+        amount: `GBP £253 /month`,
+      },
+      {
+        item: `Admin staff`,
+        amount: `GBP £353 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Email subscriber list`,
+      `Brand assets (logos, etc)`,
+      `Supplier contracts`,
+      `Unique content`,
+      `Unique design`,
+      `Included.`,
+      `620 followers`,
+      `914 followers`,
+      `11,083 followers`,
+      `1,100 followers`,
+      `35,000 subscribers`,
+      `Contact Seller`,
+      `Send message`,
+      `No comments`,
+      `Show all`,
+      `Open for negotiation`,
+      `Indicative Price`,
+      `USD $60,291`,
+      `USD $51,353`,
+      `Reduced 15%`,
+      `GBP £38,541`,
+      `Contact Seller Submit LOI Make O`,
+    ],
+    postSaleSupport: `Included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {
+      users: `45,611`,
+      totalPageViews: `6,082`,
+      pagesPerSession: `1.26`,
+      avgDuration: `00:00:10`,
+      engagementRate: `0.16%`,
+      topCountries: [
+        {
+          country: `China`,
+          views: 3559,
+        },
+        {
+          country: `United Kingdom`,
+          views: 1785,
+        },
+        {
+          country: `Singapore`,
+          views: 241,
+        },
+        {
+          country: `United States`,
+          views: 116,
+        },
+        {
+          country: `Mexico`,
+          views: 23,
+        },
+      ],
+    },
+    integrations: [
+      `PayPal`,
+      `Paypal`,
+      `Google Analytics`,
+      `Amazon`,
+    ],
+    tech: [
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 1040,
+    watchers: 35,
+    about: `Venues.org.uk is one of the longest-standing and most recognized online venue discovery platforms in the UK, serving the events industry since 2001. As a trusted portal for venue bookers, corporate clients, and event planners, the business provides a streamlined experience for finding and showcasing event spaces across the country. With a 25-year-old domain, highly engaged email list of 35,000 subscribers, and an SEO authority score of 27 supported by 10.3K backlinks and 957 referring domains, Venues.org.uk is a cornerstone of digital real estate in the UK events industry.
+
+The platform operates on a profitable and stable business model, with 75% profit margins and monthly net earnings of USD $3000+. Revenue is derived from a mix of subscription-based listings for venues and advertising services, providing both predictable cash flow and upside through content-driven traffic. Its niche positioning, high organic search traffic (79% of pageviews), and recurring income base make it a valuable asset for investors or acquirers seeking a defensible and established foothold in the events and hospitality sector.
+
+Monetization Model
+The primary revenue stream comes from annual subscription fees paid by venues for profile listings, enhanced visibility, and promotional placements. Secondary monetization includes advertising placements and upsell features on the platform. The subscription model provides recurring and predictable revenue, while organic content and SEO drive low-cost lead acquisition. With minimal operating costs and no physical overhead, the business runs lean and profitably.
+
+Customer Base
+The platform serves a wide range of clientele in the UK events sector including:
+
+Corporate event organizers
+Wedding and party planners
+Venue managers and marketing teams
+Agencies and venue bookers
+
+Operations & Team
+The business is highly automated with minimal staffing. The only recurring operational costs are web development and server maintenance. No full-time team is required to operate the business, offering strong passive income potential or a base to build a more hands-on sales and growth team. Ownership involvement is light, primarily focused on admin, renewals, and content moderation.
+
+Growth Opportunities
+
+SEO Optimization: With a strong organic base and over 10K ranking keywords, additional SEO investment could exponentially increase traffic.
+Sales Expansion: Introduce direct sales outreach to target underrepresented venue categories (e.g. outdoor, corporate retreats, heritage venues).
+Enhanced CRM: Leverage the 35,000-email subscriber list for automated campaigns and retargeting funnels.
+Platform Modernization: A UX refresh or feature expansion (e.g. bookings, calendar integrations) could boost engagement and conversion.
+Partnerships: Collaborate with wedding planners, corporate event agencies, and event tech providers to broaden monetization.
+International Expansion: Explore additional listing revenue by opening up to Irish, European, or Commo`,
+  },
+  {
     id: `11892319`,
     title: `Noomadic Herbals`,
     revealedName: `Noomadic Herbals`,
@@ -15868,6 +15487,128 @@ Professional image generation software included, eliminating product photography
 Seller offering 6 months of transition support for smooth handover
 
 Sales &`,
+  },
+  {
+    id: `11930835`,
+    title: `officialhtc.com`,
+    revealedName: `officialhtc.com`,
+    url: `https://flippa.com/11930835`,
+    type: `other`,
+    dataLevel: `stats`,
+    askingPrice: 150000.0,
+    avgMonthlyRevenue: 20490.0,
+    avgMonthlyProfit: 8578.0,
+    profitMargin: `42%`,
+    annualRevenue: `GBP £193,614`,
+    annualProfit: `GBP £81,048`,
+    ageYears: 3.0,
+    monetisation: ``,
+    techStack: `Nuxt, Shopify, Stripe`,
+    country: `NV, United States`,
+    platform: `Nuxt`,
+    hasStripe: true,
+    hasPaypal: false,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 55,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 95,
+      growthPotential: 50,
+      overall: 61.9,
+    },
+    recommendation: `AVOID`,
+    redFlags: [
+      `Failed deep verification — website/product issues`,
+    ],
+    greenFlags: [],
+    seller: {
+      name: `Adrian Sampayo`,
+      location: `United States`,
+      verified: true,
+    },
+    socialMedia: [
+      `526 followers`,
+      `2,900 followers`,
+      `740 followers`,
+    ],
+    expenses: [
+      {
+        item: `Domain registration`,
+        amount: `GBP £11 /month`,
+      },
+      {
+        item: `Advertising`,
+        amount: `GBP £3,002 /month`,
+      },
+      {
+        item: `Subscriptions`,
+        amount: `GBP £1,051 /month`,
+      },
+      {
+        item: `Employees & virtual assistants`,
+        amount: `GBP £4,015 /month`,
+      },
+      {
+        item: `Content Partners`,
+        amount: `GBP £3,677 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Email subscriber list`,
+      `Brand assets (logos, etc)`,
+      `Supplier contracts`,
+      `Trademarks/patents`,
+      `Custom technology`,
+      `Unique content`,
+      `Unique design`,
+      `Nuxt.js`,
+      `Included.`,
+      `526 followers`,
+      `2,900 followers`,
+      `740 followers`,
+      `Attachments`,
+      `Profit and Loss-HTC-March`,
+      `Profit and Loss-HTC-Jan`,
+      `Profit and Loss-HTC-Q1`,
+      `Contact Seller`,
+      `Send message`,
+      `Jennifer Cline Jun 25, 2025 11:50 P`,
+    ],
+    postSaleSupport: `Included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    comments: [
+      {
+        author: `Jennifer Cline`,
+        date: `Jun 25, 2025 11:50 PM`,
+        text: `Curious why you are wanting to sell?`,
+      },
+    ],
+    ga: {},
+    integrations: [
+      `Stripe`,
+      `Amazon`,
+    ],
+    tech: [
+      `Nuxt`,
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 1658,
+    watchers: 71,
+    commentCount: 1,
+    about: `The High Ticket Club is a premier real estate content agency that helps realtors establish a dominant online presence. We create and post professional, viral-style home walkthrough videos on your social media accounts three times a week. Our service includes free video editing, ensuring each video showcases properties with high-quality visuals that capture attention and generate leads. This subscription-based service allows realtors to focus on selling while we handle their content strategy and execution.`,
   },
   {
     id: `12567523`,
@@ -16932,6 +16673,235 @@ These assets offer significant time and cost savings, especially for buyers look
 Customer Base & Market Reach
 
 Nordics Glow serves primarily customers in Sweden and across the Nordic region, with clear expansion potential into Norway, Denmark, Finland, and broader EU markets. The audience is responsive to performance ads and email marketing, with strong engagement and a 0% refund rate — underscorin`,
+  },
+  {
+    id: `12276151`,
+    title: `Digital Ebook Academy`,
+    revealedName: `Digital Ebook Academy`,
+    url: `https://flippa.com/12276151`,
+    type: `other`,
+    dataLevel: `full_pnl`,
+    askingPrice: 100000.0,
+    monthlyPL: [
+      { month: `Feb 2025`, revenue: 206785.21, expenses: 157532.07, profit: 49253.14 },
+      { month: `Mar 2025`, revenue: 374610.63, expenses: 348495.62, profit: 26115.01 },
+      { month: `Apr 2025`, revenue: 222418.91, expenses: 197849.49, profit: 24569.42 },
+      { month: `May 2025`, revenue: 356262.94, expenses: 303869.09, profit: 52393.85 },
+      { month: `Jun 2025`, revenue: 217092.53, expenses: 206053.69, profit: 11038.84 },
+      { month: `Jul 2025`, revenue: 171192.19, expenses: 158111.19, profit: 13082.27 },
+      { month: `Aug 2025`, revenue: 132126.99, expenses: 117401.34, profit: 14726.92 },
+      { month: `Sep 2025`, revenue: 0.0, expenses: 0.0, profit: 0.0 },
+      { month: `Oct 2025`, revenue: 33769.3, expenses: 29960.57, profit: 3808.73 },
+      { month: `Nov 2025`, revenue: 78301.85, expenses: 72751.95, profit: 5549.9 },
+      { month: `Dec 2025`, revenue: 84688.68, expenses: 76669.9, profit: 8018.78 },
+      { month: `Jan 2026`, revenue: 0.0, expenses: 0.0, profit: 0.0 },
+    ],
+    avgMonthlyRevenue: 187725.0,
+    avgMonthlyProfit: 17380.0,
+    profitMargin: `11%`,
+    annualRevenue: `GBP £1,478,150`,
+    annualProfit: `GBP £164,218`,
+    ageYears: 2.0,
+    monetisation: ``,
+    techStack: `Shopify, Stripe`,
+    country: `United Kingdom`,
+    platform: `integrations`,
+    hasStripe: true,
+    hasPaypal: true,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 55.0,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 95,
+      growthPotential: 50,
+      overall: 61.9,
+    },
+    recommendation: `AVOID`,
+    redFlags: [
+      `Failed deep verification — website/product issues`,
+      `Revenue declining sharply (-75.5% trend)`,
+      `High revenue volatility (CV 57%)`,
+    ],
+    greenFlags: [],
+    seller: {
+      name: `Alerts`,
+      verified: true,
+      transactions: `2 transactions totalling USD $115,628`,
+    },
+    socialMedia: [
+      `3,312 followers`,
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Email subscriber list`,
+      `Brand assets (logos, etc)`,
+      `Other`,
+      `Unique content`,
+      `Unique design`,
+      `Included.`,
+      `3,312 followers`,
+      `60,000 subscribers`,
+      `Attachments`,
+      `No comments`,
+      `Editor's Choice`,
+      `Show all`,
+      `Open for negotiation`,
+      `Indicative Price`,
+      `USD $100,000`,
+      `GBP £75,044`,
+      `Contact Seller Submit LOI Make Offer`,
+    ],
+    postSaleSupport: `Included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {},
+    integrations: [
+      `Stripe`,
+      `PayPal`,
+      `Shopify`,
+      `Amazon`,
+    ],
+    tech: [
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 1171,
+    watchers: 120,
+    about: `1. Executive Summary
+
+Digital Ebook Academy is an online education business operating in the digital products space, primarily selling candle-making and other courses via a paid advertising funnel. The business leverages Meta (Facebook) ads, a proven funnel system, and a large email list to generate consistent revenue from a global DTC audience.
+
+Established in 2023, the business has generated over $2.07M in gross revenue with $258,805 in net profit over the reported period(2025), while being operated with minimal owner involvement.
+
+The company is being offered for sale as the owner is reallocating focus to a separate, non-competing business (supplement brand).
+
+2. Business Overview
+
+Business Name: Digital Ebook Academy
+
+Website: digitalebookacademy.com
+
+Year Established: 2023
+
+Business Model: Direct-to-Consumer (DTC), Digital Products
+
+Monetization: One-time course sales with upsells
+
+Owner Involvement: <15 minutes per day
+
+3. Reason for Sale
+
+The owner is shifting focus to another business venture (a supplement brand), which does not compete with Digital Ebook Academy.
+
+4. Products & Pricing 
+
+Candle Making Course (Main Offer) | Beginner-focused candle making course | $17
+
+Candle Making Pro Video Course (Upsell 1) | Advanced candle-making techniques | $147
+
+Candle Marketing Toolkit (Upsell 2) | Marketing resources for candle businesses | $57
+
+Candle Making Kit (Upsell 3) | Supplementary digital resources | $97
+
+Course Production Cost:
+
+Initial creation cost: $3,000–$4,000
+
+Update costs (optional):
+
+Full course update: < $1,000
+
+Ebook updates: $50–$100
+
+All content was produced internally in collaboration with a subject-matter expert, who may be introduced to the buyer post-sale.
+
+5. Assets Included in the Sale
+
+The sale includes all assets required to operate the business:
+
+Domain: digitalebookacademy.com
+
+Shopify Store
+
+Funnelish account & funnels
+
+Email list (100,000+)
+
+Facebook Pixel
+
+Google Workspace (content, creatives, data, SOPs)
+
+Course content & creatives
+
+Intellectual property (unregistered)
+
+Platform integrations (Zapier)
+
+All software subscriptions are transferable.
+
+6. Intellectual Property
+
+All courses and materials are original and internally produced
+
+Subject expert introduction available (non-exclusive)
+
+7. Target Market
+
+Primary Geography:
+
+United States: ~80% of revenue
+
+Rest of World: ~20%
+
+Demographics:
+
+Primarily women aged 35+
+
+Hobbyists and aspiring small business owners
+
+Sales Channels: DTC (no B2B)
+
+8. Operations Overview | Customer Journey
+
+Traffic generated via Facebook Ads
+
+Customer purchases through Funnelish checkout
+
+Order processed in Shopify
+
+Zapier integration automatically grants course access via:
+
+Circle
+
+Podia
+
+9. Marketing & TrafficAcquisition Channels
+
+Primary: Meta (Facebook) Ads
+
+Secondary: Email marketing (12.59% of revenue in last 6 months)
+
+10. Email Marketing Performance
+
+Email Subscribers: 100,000+
+
+Open Rate (last 6 months): 46.2%
+
+Click Rate (last 6 months): 0.76%
+
+Repeat Customer Rate: 3%
+
+11.`,
   },
   {
     id: `12272664`,
