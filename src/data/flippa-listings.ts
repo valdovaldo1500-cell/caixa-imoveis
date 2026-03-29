@@ -2343,14 +2343,17 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 64.5,
     },
-    recommendation: `CONSIDER`,
+    recommendation: `AVOID`,
     redFlags: [
-      `Revenue declining sharply (-31.0% trend)`,
+      `Physical product business — patented cotton rope stair baskets sold via Amazon/Shopify/Etsy`,
+      `Amazon FBA/MCF dependency — fulfillment breaks if account suspended`,
+      `Only 2 products, 5 SKUs — extreme concentration risk`,
+      `Chinese supplier for inventory — requires active supplier management`,
+      `Revenue declining -31% trend`,
+      `US LLC entity required — Dahlia Design LLC in Ohio`,
+      `Price reduced from $40K to $32K — motivated seller`,
     ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Zero loss months in P&L`,
-    ],
+    greenFlags: [],
   },
   {
     id: `12044899`,
