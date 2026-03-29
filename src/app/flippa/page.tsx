@@ -491,7 +491,31 @@ function ListingCard({
             )}
           </div>
         )}
+
+        {/* Social media total */}
+        {listing.socialMedia && listing.socialMedia.length > 0 && (
+          <div className="flex items-center gap-1">
+            <span className="text-[10px] text-zinc-500">📱</span>
+            <span className="text-[10px] text-zinc-400">{listing.socialMedia.length} social account{listing.socialMedia.length !== 1 ? "s" : ""}</span>
+          </div>
+        )}
       </Link>
+
+      {/* Seller + engagement info */}
+      {(listing.seller?.name || listing.views !== undefined || listing.watchers !== undefined) && (
+        <div className="px-4 pb-2 flex flex-wrap gap-x-3 gap-y-0.5">
+          {listing.seller?.name && (
+            <span className="text-[10px] text-zinc-500">Seller: {listing.seller.name}</span>
+          )}
+          {(listing.views !== undefined || listing.watchers !== undefined) && (
+            <span className="text-[10px] text-zinc-500">
+              {listing.views !== undefined ? `${listing.views} views` : ""}
+              {listing.views !== undefined && listing.watchers !== undefined ? " · " : ""}
+              {listing.watchers !== undefined ? `${listing.watchers} watching` : ""}
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Action buttons */}
       <div className="flex gap-2 px-4 pb-4">
