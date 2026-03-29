@@ -854,8 +854,11 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 68.3,
     },
-    recommendation: `STRONG`,
-    redFlags: [],
+    recommendation: `CONSIDER`,
+    redFlags: [
+      `P&L shows suspicious arithmetic progression — revenue increases by exactly $957/mo for 7 consecutive months. Verify independently.`,
+      `Physical product (coffee) — requires supply chain and shipping from Egypt`,
+    ],
     greenFlags: [
       `Flippa-vetted`,
       `Stable revenue history`,
