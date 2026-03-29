@@ -2477,9 +2477,10 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 55,
       overall: 64.2,
     },
-    recommendation: `CONSIDER`,
+    recommendation: `AVOID`,
     redFlags: [
       `Revenue declining sharply (-56.1% trend)`,
+      `Contract cheating / essay mill — illegal in UK, ethically problematic globally`,
     ],
     greenFlags: [
       `Flippa-vetted`,
