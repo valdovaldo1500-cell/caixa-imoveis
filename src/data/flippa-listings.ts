@@ -1123,7 +1123,10 @@ export const flippaListings: FlippaListing[] = [
       overall: 66.5,
     },
     recommendation: `STRONG`,
-    redFlags: [],
+    redFlags: [
+      `Expenses exactly 50% of revenue in 4+ months — suspicious P&L pattern`,
+      `Proxy service — legally grey area in many jurisdictions`,
+    ],
     greenFlags: [
       `Flippa-vetted`,
       `Stripe revenue verified`,
