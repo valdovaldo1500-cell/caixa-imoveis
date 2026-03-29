@@ -1161,13 +1161,14 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 66.0,
     },
-    recommendation: `STRONG`,
+    recommendation: `AVOID`,
     redFlags: [
-      `High revenue volatility (CV 116%)`,
+      `Physical fashion/apparel ecommerce — requires inventory, shipping, returns`,
+      `Revenue spike to $15K (Nov 2024) then crash — likely one-off paid campaign`,
+      `Obfuscated JavaScript on site — unusual for legitimate fashion brand`,
+      `1 loss month in P&L`,
     ],
-    greenFlags: [
-      `Flippa-vetted`,
-    ],
+    greenFlags: [],
   },
   {
     id: `11822365`,
