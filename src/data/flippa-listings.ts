@@ -1314,14 +1314,14 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 65.7,
     },
-    recommendation: `STRONG`,
+    recommendation: `AVOID`,
     redFlags: [
-      `High revenue volatility (CV 64%)`,
+      `Chinese gobo projector manufacturer — physical product requiring production coordination`,
+      `No Stripe, no PayPal — how do customers pay?`,
+      `Extreme profit volatility $25 to $5,054 — intermittent custom orders`,
+      `Shipping heavy projectors internationally creates returns nightmares`,
     ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Zero loss months in P&L`,
-    ],
+    greenFlags: [],
   },
   {
     id: `11920778`,
