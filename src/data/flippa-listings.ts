@@ -1364,8 +1364,10 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 75,
       overall: 71.8,
     },
-    recommendation: `CONSIDER`,
-    redFlags: [],
+    recommendation: `AVOID`,
+    redFlags: [
+      `Dissertation writing service — contract cheating, legal risk in UK`,
+    ],
     greenFlags: [
       `Flippa-vetted`,
       `Stripe revenue verified`,
