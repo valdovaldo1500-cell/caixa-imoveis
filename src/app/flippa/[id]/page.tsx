@@ -448,11 +448,11 @@ export default function FlippaDetailPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
                   <div className="bg-zinc-900 rounded-lg p-2.5">
                     <div className="text-zinc-500 mb-0.5">Type</div>
-                    <div className="text-zinc-300 font-medium">{CAT_LABELS[data.listing.category ?? ""] ?? data.listing.category}</div>
+                    <div className="text-zinc-300 font-medium">{CAT_LABELS[data.listing.type ?? ""] ?? data.listing.type}</div>
                   </div>
                   <div className="bg-zinc-900 rounded-lg p-2.5">
-                    <div className="text-zinc-500 mb-0.5">Industry</div>
-                    <div className="text-zinc-300 font-medium">{data.listing.niche}</div>
+                    <div className="text-zinc-500 mb-0.5">Country</div>
+                    <div className="text-zinc-300 font-medium">{data.listing.country ?? "—"}</div>
                   </div>
                   <div className="bg-zinc-900 rounded-lg p-2.5">
                     <div className="text-zinc-500 mb-0.5">Monetization</div>
