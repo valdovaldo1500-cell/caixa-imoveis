@@ -669,6 +669,119 @@ export default function FlippaDetailPage() {
               </SectionCard>
             )}
 
+            {/* ── Section 2c: Attachment P&L (multi-year from XLSX) ────── */}
+            {data.listing.attachmentPL && data.listing.attachmentPL.length > 12 && (
+              <SectionCard
+                icon={BarChart2}
+                title={`Full Financial History (${data.listing.attachmentPL.length} months from seller P&L)`}
+                iconColor="text-blue-400"
+              >
+                <div className="space-y-4">
+                  <p className="text-xs text-zinc-500">Source: Seller-uploaded P&L spreadsheet (more detailed than Flippa&apos;s 12-month view)</p>
+                  {(() => {
+                    const rows = data.listing.attachmentPL!;
+                    const profits = rows.map(r => r.profit ?? 0);
+                    const maxVal = Math.max(...profits.map(v => Math.abs(v)), 1);
+                    const chartH = 80;
+                    const barW = Math.max(4, Math.floor(600 / rows.length) - 1);
+                    return (
+                      <div className="overflow-x-auto">
+                        <svg
+                          viewBox={`0 0 ${rows.length * (barW + 1)} ${chartH + 16}`}
+                          className="w-full"
+                          style={{ minWidth: `${rows.length * (barW + 1)}px`, maxHeight: 120 }}
+                        >
+                          {rows.map((r, i) => {
+                            const v = r.profit ?? 0;
+                            const h = (Math.abs(v) / maxVal) * chartH;
+                            const y = v >= 0 ? chartH - h : chartH;
+                            return (
+                              <rect
+                                key={i}
+                                x={i * (barW + 1)}
+                                y={y}
+                                width={barW}
+                                height={Math.max(h, 1)}
+                                fill={v >= 0 ? "#10b981" : "#ef4444"}
+                                opacity={0.8}
+                              />
+                            );
+                          })}
+                          {/* Year labels */}
+                          {rows.map((r, i) => {
+                            if (r.month.startsWith("Jan") || i === 0) {
+                              return (
+                                <text
+                                  key={`label-${i}`}
+                                  x={i * (barW + 1)}
+                                  y={chartH + 12}
+                                  fill="#71717a"
+                                  fontSize="7"
+                                >
+                                  {r.month.split(" ")[1]}
+                                </text>
+                              );
+                            }
+                            return null;
+                          })}
+                        </svg>
+                      </div>
+                    );
+                  })()}
+                  {/* Summary stats */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                    <div>
+                      <div className="text-xs text-zinc-500">Period</div>
+                      <div className="text-white font-medium">{data.listing.attachmentPL[0].month} — {data.listing.attachmentPL[data.listing.attachmentPL.length - 1].month}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-zinc-500">Avg Monthly Profit</div>
+                      <div className="text-emerald-400 font-medium">
+                        ${Math.round(data.listing.attachmentPL.reduce((s, r) => s + (r.profit ?? 0), 0) / data.listing.attachmentPL.length).toLocaleString()}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-zinc-500">Best Month</div>
+                      <div className="text-white font-medium">
+                        ${Math.round(Math.max(...data.listing.attachmentPL.map(r => r.profit ?? 0))).toLocaleString()}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-zinc-500">Worst Month</div>
+                      <div className={`font-medium ${Math.min(...data.listing.attachmentPL.map(r => r.profit ?? 0)) < 0 ? "text-red-400" : "text-zinc-300"}`}>
+                        ${Math.round(Math.min(...data.listing.attachmentPL.map(r => r.profit ?? 0))).toLocaleString()}
+                      </div>
+                    </div>
+                  </div>
+                  {/* Scrollable table */}
+                  <div className="max-h-64 overflow-y-auto">
+                    <table className="w-full text-xs">
+                      <thead className="sticky top-0 bg-zinc-900">
+                        <tr className="border-b border-zinc-700">
+                          <th className="text-left py-1 text-zinc-500">Month</th>
+                          {data.listing.attachmentPL[0].revenue !== undefined && <th className="text-right py-1 text-zinc-500">Revenue</th>}
+                          {data.listing.attachmentPL[0].expenses !== undefined && <th className="text-right py-1 text-zinc-500">Expenses</th>}
+                          <th className="text-right py-1 text-zinc-500">Profit</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.listing.attachmentPL.map((r, i) => (
+                          <tr key={i} className="border-b border-zinc-800/50">
+                            <td className="py-1 text-zinc-400">{r.month}</td>
+                            {r.revenue !== undefined && <td className="text-right text-zinc-300">${r.revenue.toLocaleString()}</td>}
+                            {r.expenses !== undefined && <td className="text-right text-zinc-400">${r.expenses.toLocaleString()}</td>}
+                            <td className={`text-right font-medium ${(r.profit ?? 0) >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                              ${(r.profit ?? 0).toLocaleString()}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </SectionCard>
+            )}
+
             {/* ── Section 3: Traffic & Growth Analysis ──────────────────── */}
             <SectionCard
               icon={TrendingUp}
