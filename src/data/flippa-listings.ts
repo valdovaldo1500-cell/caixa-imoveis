@@ -477,17 +477,13 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 80,
       overall: 73.0,
     },
-    recommendation: `STRONG`,
+    recommendation: `AVOID`,
     redFlags: [
-      `High revenue volatility (CV 80%)`,
+      `15% monthly churn = 84% annual churn — entire customer base turns over in ~7 months`,
+      `Only 20 subscribers — no diversification`,
+      `White-label trading journal — highly competitive niche (TradingView, Edgewonk, TraderSync)`,
     ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Stable revenue history`,
-      `Zero loss months in P&L`,
-      `Revenue growing (238.7%)`,
-    ],
+    greenFlags: [],
   },
   {
     id: `12080065`,
