@@ -908,10 +908,11 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 75,
       overall: 68.2,
     },
-    recommendation: `STRONG`,
+    recommendation: `AVOID`,
     redFlags: [
       `Revenue declining sharply (-98.9% trend)`,
       `High revenue volatility (CV 54%)`,
+      `Revenue collapsed -99% — business is dying`,
     ],
     greenFlags: [
       `Flippa-vetted`,
