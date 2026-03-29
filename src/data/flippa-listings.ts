@@ -647,9 +647,10 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 80,
       overall: 71.5,
     },
-    recommendation: `STRONG`,
+    recommendation: `AVOID`,
     redFlags: [
       `High churn: 70%`,
+      `70% monthly churn — business loses most customers within 6 weeks`,
     ],
     greenFlags: [
       `Flippa-vetted`,
