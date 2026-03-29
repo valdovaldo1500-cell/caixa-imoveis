@@ -920,7 +920,7 @@ export default function FlippaDetailPage() {
             </SectionCard>
 
             {/* ── Section 6: Operational Playbook ───────────────────────── */}
-            <SectionCard
+            {(data.assessment?.aiPlan || data.listing.ownerHoursPerWeek || data.listing.techStack) && <SectionCard
               icon={Target}
               title="Operational Playbook"
               iconColor="text-blue-400"
