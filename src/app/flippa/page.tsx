@@ -371,6 +371,43 @@ function ListingCard({
           <p className="text-sm font-semibold text-white leading-tight line-clamp-2 mt-1 group-hover:text-emerald-300 transition-colors">
             {listing.title}
           </p>
+          {listing.revealedName && (
+            <p className="text-xs text-zinc-400 mt-0.5">
+              {listing.domain ? (
+                <a
+                  href={`https://${listing.domain}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 hover:underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {listing.revealedName}
+                </a>
+              ) : (
+                listing.revealedName
+              )}
+            </p>
+          )}
+          {listing.badges && listing.badges.length > 0 && (
+            <div className="flex flex-wrap gap-1 mt-1">
+              {listing.badges.map((badge, i) => (
+                <span
+                  key={i}
+                  className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${
+                    badge === "Editor's Choice"
+                      ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                      : badge === "Sponsored"
+                      ? "bg-yellow-500/20 text-yellow-300 border border-yellow-500/30"
+                      : badge === "Managed by Flippa"
+                      ? "bg-orange-500/20 text-orange-300 border border-orange-500/30"
+                      : "bg-zinc-600/20 text-zinc-400 border border-zinc-600/30"
+                  }`}
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Metrics row */}
