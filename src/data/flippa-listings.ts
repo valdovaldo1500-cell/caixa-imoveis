@@ -1265,14 +1265,14 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 65.7,
     },
-    recommendation: `STRONG`,
+    recommendation: `AVOID`,
     redFlags: [
-      `High revenue volatility (CV 91%)`,
+      `NYC live events business — requires physical US presence for venue booking and event management`,
+      `Revenue is lumpy/events-dependent — 2 loss months`,
+      `Relationship business — NYC network doesn't transfer to buyer`,
+      `Next event date shows 'TBA' — currently zero revenue`,
     ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `9 years old — established`,
-    ],
+    greenFlags: [],
   },
   {
     id: `12229457`,
