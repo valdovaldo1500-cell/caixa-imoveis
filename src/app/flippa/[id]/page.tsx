@@ -1202,6 +1202,145 @@ export default function FlippaDetailPage() {
                 </div>
               )}
             </SectionCard>
+
+            {/* ── About the Business ────────────────────────────────────── */}
+            {data.listing.about && (
+              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
+                <h3 className="text-lg font-semibold text-white">About the Business</h3>
+                <div className="text-sm text-zinc-400 whitespace-pre-line max-h-96 overflow-y-auto">
+                  {data.listing.about.length > 500 ? (
+                    <>
+                      {showFullAbout ? data.listing.about : data.listing.about.substring(0, 500) + "..."}
+                      <button onClick={() => setShowFullAbout(!showFullAbout)} className="text-emerald-400 ml-2">
+                        {showFullAbout ? "Show less" : "Show more"}
+                      </button>
+                    </>
+                  ) : data.listing.about}
+                </div>
+              </div>
+            )}
+
+            {/* ── Seller Profile ────────────────────────────────────────── */}
+            {data.listing.seller?.name && (
+              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-2">
+                <h3 className="text-lg font-semibold text-white">Seller</h3>
+                <p className="text-white">{data.listing.seller.name}</p>
+                {data.listing.seller.location && <p className="text-sm text-zinc-400">{data.listing.seller.location}</p>}
+                {data.listing.seller.verified && <span className="text-xs text-emerald-400">✓ Verification Complete</span>}
+                {data.listing.seller.transactions && <p className="text-xs text-zinc-500">{data.listing.seller.transactions}</p>}
+              </div>
+            )}
+
+            {/* ── Expense Breakdown ─────────────────────────────────────── */}
+            {data.listing.expenses && data.listing.expenses.length > 0 && (
+              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+                <h3 className="text-lg font-semibold text-white mb-3">Expenses</h3>
+                <table className="w-full text-sm">
+                  <tbody>
+                    {data.listing.expenses.map((e, i) => (
+                      <tr key={i} className="border-b border-zinc-800">
+                        <td className="py-2 text-zinc-400">{e.item}</td>
+                        <td className="py-2 text-right text-white">{e.amount}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {data.listing.expensesLastMonth && <p className="text-xs text-zinc-500 mt-2">Last month total: {data.listing.expensesLastMonth}</p>}
+              </div>
+            )}
+
+            {/* ── Google Analytics ──────────────────────────────────────── */}
+            {data.listing.ga && (data.listing.ga.users || (data.listing.ga.topCountries && data.listing.ga.topCountries.length > 0)) && (
+              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
+                <h3 className="text-lg font-semibold text-white">Google Analytics</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {data.listing.ga.users && <div><div className="text-xs text-zinc-500">Users</div><div className="text-white font-semibold">{data.listing.ga.users}</div></div>}
+                  {data.listing.ga.totalPageViews && <div><div className="text-xs text-zinc-500">Page Views</div><div className="text-white font-semibold">{data.listing.ga.totalPageViews}</div></div>}
+                  {data.listing.ga.pagesPerSession && <div><div className="text-xs text-zinc-500">Pages/Session</div><div className="text-white font-semibold">{data.listing.ga.pagesPerSession}</div></div>}
+                  {data.listing.ga.engagementRate && <div><div className="text-xs text-zinc-500">Engagement</div><div className="text-white font-semibold">{data.listing.ga.engagementRate}</div></div>}
+                </div>
+                {data.listing.ga.topCountries && data.listing.ga.topCountries.length > 0 && (
+                  <div className="mt-3">
+                    <div className="text-xs text-zinc-500 mb-1">Top Countries</div>
+                    <div className="flex flex-wrap gap-2">
+                      {data.listing.ga.topCountries.map((c, i) => (
+                        <span key={i} className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-300">{c.country}: {c.views}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* ── Social Media ──────────────────────────────────────────── */}
+            {data.listing.socialMedia && data.listing.socialMedia.length > 0 && (
+              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+                <h3 className="text-lg font-semibold text-white mb-2">Social Media</h3>
+                <div className="flex flex-wrap gap-2">
+                  {data.listing.socialMedia.map((s, i) => (
+                    <span key={i} className="text-sm bg-blue-900/30 text-blue-300 px-3 py-1 rounded-full">{s}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ── Integrations & Tech ───────────────────────────────────── */}
+            {((data.listing.integrations && data.listing.integrations.length > 0) || (data.listing.tech && data.listing.tech.length > 0)) && (
+              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
+                <h3 className="text-lg font-semibold text-white">Integrations & Tech</h3>
+                {data.listing.integrations && data.listing.integrations.length > 0 && (
+                  <div>
+                    <div className="text-xs text-zinc-500 mb-1">Connected Services</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {data.listing.integrations.map((item, idx) => (
+                        <span key={idx} className="text-xs bg-emerald-900/30 text-emerald-300 px-2 py-0.5 rounded">{item}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {data.listing.tech && data.listing.tech.length > 0 && (
+                  <div>
+                    <div className="text-xs text-zinc-500 mb-1">Tech Stack</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {data.listing.tech.map((t, idx) => (
+                        <span key={idx} className="text-xs bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* ── Sale Includes ─────────────────────────────────────────── */}
+            {data.listing.saleIncludes && data.listing.saleIncludes.length > 0 && (
+              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+                <h3 className="text-lg font-semibold text-white mb-2">Sale Includes</h3>
+                <ul className="text-sm text-zinc-400 space-y-1">
+                  {data.listing.saleIncludes.map((item, i) => (
+                    <li key={i} className="flex items-center gap-2"><span className="text-emerald-400">✓</span>{item}</li>
+                  ))}
+                </ul>
+                {data.listing.postSaleSupport && <p className="text-xs text-zinc-500 mt-2">Post-sale support: {data.listing.postSaleSupport}</p>}
+              </div>
+            )}
+
+            {/* ── Comments / Q&A ────────────────────────────────────────── */}
+            {data.listing.comments && data.listing.comments.length > 0 && (
+              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+                <h3 className="text-lg font-semibold text-white mb-3">Comments & Q&amp;A</h3>
+                <div className="space-y-3">
+                  {data.listing.comments.map((c, i) => (
+                    <div key={i} className="border-l-2 border-zinc-700 pl-3">
+                      <div className="flex items-center gap-2 text-xs text-zinc-500">
+                        <span className="font-medium text-zinc-300">{c.author}</span>
+                        <span>{c.date}</span>
+                      </div>
+                      <p className="text-sm text-zinc-400 mt-1">{c.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </main>
