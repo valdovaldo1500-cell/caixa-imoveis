@@ -320,16 +320,14 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 65,
       overall: 74.8,
     },
-    recommendation: `STRONG`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Stable revenue history`,
-      `Strong profit $6,172/mo`,
-      `Zero loss months in P&L`,
-      `Revenue growing (203.7%)`,
+    recommendation: `AVOID`,
+    redFlags: [
+      `$681K asking price for $6.2K/mo = 110x MRR — wildly overpriced (fair value $42-85K)`,
+      `Website returning 502 Bad Gateway — site is down`,
+      `UAE physical wellness marketplace — requires Arabic operations and local logistics`,
+      `Should not be in $200K search results — price filter error`,
     ],
+    greenFlags: [],
   },
   {
     id: `12199300`,
