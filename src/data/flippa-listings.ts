@@ -110,8 +110,12 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 65,
       overall: 82.7,
     },
-    recommendation: `TOP_PICK`,
-    redFlags: [],
+    recommendation: `STRONG`,
+    redFlags: [
+      `P&L data is 19 months old (Sep 2023-Aug 2024) — business may have changed significantly`,
+      `Italian food marketplace — requires Italian language, EU compliance, likely physical product logistics`,
+      `No Stripe connected — PayPal only`,
+    ],
     greenFlags: [
       `Flippa-vetted`,
       `8 years old — established`,
