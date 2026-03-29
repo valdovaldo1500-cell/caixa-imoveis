@@ -74,6 +74,7 @@ export interface FlippaListing {
   watchers?: number;
   commentCount?: number;
   about?: string;
+  attachmentPL?: { month: string; revenue?: number; expenses?: number; profit?: number }[];
 
   // Legacy optional fields for UI compatibility
   status?: string;
