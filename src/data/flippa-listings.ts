@@ -594,8 +594,10 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 71.7,
     },
-    recommendation: `STRONG`,
-    redFlags: [],
+    recommendation: `CONSIDER`,
+    redFlags: [
+      `Polish market — requires Polish language and local logistics`,
+    ],
     greenFlags: [
       `Flippa-vetted`,
       `6 years old — established`,
