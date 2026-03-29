@@ -1,6 +1,6 @@
 // AUTO-GENERATED — do not edit manually
 // Source: all_extractions_merged.json + overrides.json
-// Generated: 2026-03-29T14:21:56Z
+// Generated: 2026-03-29T15:04:35Z
 
 export interface FlippaListing {
   // Core
@@ -109,207 +109,6 @@ export const FLIPPA_PIPELINE = { harvested: 284, sieved: 155, deepDived: 155, nd
 export const ELIMINATED_IDS = new Set<string>();
 
 export const flippaListings: FlippaListing[] = [
-  {
-    id: `12229753`,
-    title: `itradeaims.net`,
-    revealedName: `itradeaims.net`,
-    url: `https://flippa.com/12229753`,
-    type: `saas`,
-    dataLevel: `full_pnl`,
-    askingPrice: 32640.0,
-    monthlyPL: [
-      { month: `Mar 2025`, revenue: 453.39, expenses: 35.56, profit: 417.83 },
-      { month: `Apr 2025`, revenue: 181.61, expenses: 35.56, profit: 146.05 },
-      { month: `May 2025`, revenue: 1696.72, expenses: 35.56, profit: 1661.16 },
-      { month: `Jun 2025`, revenue: 1313.18, expenses: 35.56, profit: 1277.62 },
-      { month: `Jul 2025`, revenue: 1303.02, expenses: 35.56, profit: 1267.46 },
-      { month: `Aug 2025`, revenue: 2794.0, expenses: 35.56, profit: 2758.44 },
-      { month: `Sep 2025`, revenue: 4748.53, expenses: 226.06, profit: 4522.47 },
-      { month: `Oct 2025`, revenue: 3491.23, expenses: 130.81, profit: 3360.42 },
-      { month: `Nov 2025`, revenue: 9775.19, expenses: 321.31, profit: 9453.88 },
-      { month: `Dec 2025`, revenue: 2278.38, expenses: 214.63, profit: 2063.75 },
-      { month: `Jan 2026`, revenue: 815.34, expenses: 35.56, profit: 781.05 },
-      { month: `Feb 2026`, revenue: 900.43, expenses: 457.2, profit: 443.23 },
-    ],
-    avgMonthlyRevenue: 2479.0,
-    avgMonthlyProfit: 2346.0,
-    profitMargin: `95%`,
-    annualRevenue: `GBP £23,425`,
-    annualProfit: `GBP £22,168`,
-    ageYears: 15.0,
-    monetisation: ``,
-    techStack: `WordPress, Shopify, Stripe`,
-    churn: `2%`,
-    subscribers: `14`,
-    country: `United Kingdom`,
-    platform: `built`,
-    hasStripe: true,
-    hasPaypal: true,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 77.5,
-      diversification: 60,
-      operatorIndependence: 83.3,
-      roi: 95,
-      growthPotential: 80,
-      overall: 77.2,
-    },
-    recommendation: `STRONG`,
-    redFlags: [
-      `High revenue volatility (CV 102%)`,
-    ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
-      `15 years old — established`,
-      `Stable revenue history`,
-      `Zero loss months in P&L`,
-      `Revenue growing (71.3%)`,
-    ],
-    seller: {
-      name: `Sheryar`,
-      location: `Pakistan`,
-      verified: true,
-      transactions: `3 transactions totalling USD $7,715`,
-    },
-    socialMedia: [
-      `2,700 followers`,
-      `2,300 followers`,
-      `384 followers`,
-      `17 followers`,
-      `0 followers`,
-    ],
-    expenses: [
-      {
-        item: `Domain registration`,
-        amount: `GBP £1 /month`,
-      },
-      {
-        item: `Hosting`,
-        amount: `GBP £14 /month`,
-      },
-      {
-        item: `TradingView Premium Subscription`,
-        amount: `GBP £13 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Email subscriber list`,
-      `Brand assets (logos, etc)`,
-      `Custom technology`,
-      `Other`,
-      `Unique content`,
-      `Unique design`,
-      `WordPress`,
-      `2,700 followers`,
-      `2,300 followers`,
-      `384 followers`,
-      `17 followers`,
-      `0 followers`,
-      `4,600 subscribers`,
-      `4,000 subscribers`,
-      `Attachments`,
-      `XLSX`,
-      `Profit`,
-    ],
-    postSaleSupport: `and full documentation`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    ga: {
-      users: `30,303`,
-      totalPageViews: `3,319`,
-      pagesPerSession: `1.21`,
-      avgDuration: `00:00:18`,
-      engagementRate: `0.34%`,
-      topCountries: [
-        {
-          country: `China`,
-          views: 522,
-        },
-        {
-          country: `United States`,
-          views: 312,
-        },
-        {
-          country: `Singapore`,
-          views: 222,
-        },
-        {
-          country: `Australia`,
-          views: 101,
-        },
-        {
-          country: `United Kingdom`,
-          views: 78,
-        },
-      ],
-    },
-    integrations: [
-      `Stripe`,
-      `PayPal`,
-      `Google Analytics`,
-      `Amazon`,
-    ],
-    tech: [
-      `WordPress`,
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 1927,
-    watchers: 35,
-    about: `Business Overview
-
-iTradeAIMS is a highly profitable, low-maintenance SaaS and digital education business offering proprietary trading software, structured trading courses, and a loyal community of retail traders. Established in 2011 and monetized since 2012, the business has evolved into a comprehensive digital platform built on WordPress and aMember Pro, with full automation, downloadable content protection, and minimal operational overhead.
-
-The business delivers a 96% profit margin and generated over USD $27,800 in revenue with USD $26,786 in net profit over the trailing 12 months ending November 2025. This reflects a monthly average profit of USD $2,232, largely driven by high-ticket lifetime product sales and low churn recurring memberships. The revenue model is bolstered by digital tools and expert trading indicators for MT4 and TradingView, with strategic upsells and cross-promotions across products and services.
-
-iTradeAIMS benefits from a 14-year history and strong brand equity in the Forex trading education space. It boasts a clean, scalable tech stack, proprietary content, and a systematized acquisition funnel that includes YouTube, Google Search, and three automated lead magnets feeding into a 50-part email warm-up sequence.
-
-Key Financials (Trailing Twelve Months Ending Nov 2025)
-
-Revenue: USD $27,830
-Net Profit: USD $26,786
-Profit Margin: 96%
-Monthly Recurring Revenue (MRR): USD $1,022
-Average Order Value (AOV): USD $205
-Lifetime Value (LTV): USD $465
-Churn: 38% (mostly due to lifetime model preference)
-Total Orders: 129
-Refund Rate: 1%
-Active Subscribers: 14
-Overall Churn: 2%
-
-Platform & Operations
-
-The site runs on a stable WordPress architecture integrated with aMember Pro, FluentCRM, and Stripe/PayPal for billing automation. Members access protected content via a dedicated portal with LMS functionality and downloadable assets. Operations require less than one hour per week, focused on monitoring email sequences and community updates.
-
-Support overhead is minimal, as the educational content is self-paced and the trading tools are delivered digitally with documentation. A Discord group and phpBB forum of over 2,000 members provide peer support and foster community-driven learning.
-
-Product Offering
-
-The business monetizes through both one-time and subscription-based products:
-
-Education: Structured online courses priced between $497–$1997, targeting beginner to advanced traders.
-Software: Custom-built indicators and Expert Advisors (EAs) for MetaTrader 4 and TradingView, including flagship tools like the Banana Indicator and AIMSBox.
-Bundles & Upsells: Strategic promotional bundles offered seasonally, with dynamic pricing tiers and discounts to stimulate conversions.
-
-All products are proprietary, unique, and have been validated by a decade of active market use and community feedback.
-
-Marketing & Traffic
-
-iTradeAIMS attracts traffic primarily through direct (47%) and paid search (43%) channels, with supporting traffic from organ`,
-  },
   {
     id: `12225207`,
     title: `Content Gorilla`,
@@ -5873,6 +5672,204 @@ Workflow & Tools
 Project Management: ClickUp (with automation and content tracking)
 
 Communications & File Storage: Googl`,
+  },
+  {
+    id: `12229753`,
+    title: `itradeaims.net`,
+    revealedName: `itradeaims.net`,
+    url: `https://flippa.com/12229753`,
+    type: `saas`,
+    dataLevel: `full_pnl`,
+    askingPrice: 32640.0,
+    monthlyPL: [
+      { month: `Mar 2025`, revenue: 453.39, expenses: 35.56, profit: 417.83 },
+      { month: `Apr 2025`, revenue: 181.61, expenses: 35.56, profit: 146.05 },
+      { month: `May 2025`, revenue: 1696.72, expenses: 35.56, profit: 1661.16 },
+      { month: `Jun 2025`, revenue: 1313.18, expenses: 35.56, profit: 1277.62 },
+      { month: `Jul 2025`, revenue: 1303.02, expenses: 35.56, profit: 1267.46 },
+      { month: `Aug 2025`, revenue: 2794.0, expenses: 35.56, profit: 2758.44 },
+      { month: `Sep 2025`, revenue: 4748.53, expenses: 226.06, profit: 4522.47 },
+      { month: `Oct 2025`, revenue: 3491.23, expenses: 130.81, profit: 3360.42 },
+      { month: `Nov 2025`, revenue: 9775.19, expenses: 321.31, profit: 9453.88 },
+      { month: `Dec 2025`, revenue: 2278.38, expenses: 214.63, profit: 2063.75 },
+      { month: `Jan 2026`, revenue: 815.34, expenses: 35.56, profit: 781.05 },
+      { month: `Feb 2026`, revenue: 900.43, expenses: 457.2, profit: 443.23 },
+    ],
+    avgMonthlyRevenue: 2479.0,
+    avgMonthlyProfit: 2346.0,
+    profitMargin: `95%`,
+    annualRevenue: `GBP £23,425`,
+    annualProfit: `GBP £22,168`,
+    ageYears: 15.0,
+    monetisation: ``,
+    techStack: `WordPress, Shopify, Stripe`,
+    churn: `2%`,
+    subscribers: `14`,
+    country: `United Kingdom`,
+    platform: `built`,
+    hasStripe: true,
+    hasPaypal: true,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 77.5,
+      diversification: 60,
+      operatorIndependence: 83.3,
+      roi: 95,
+      growthPotential: 80,
+      overall: 77.2,
+    },
+    recommendation: `AVOID`,
+    redFlags: [
+      `Revenue is a one-off spike — Nov 2025 spike then crash to near-zero`,
+      `£1,952/mo average is inflated by single month outlier`,
+      `Page views show same spike pattern — not organic growth`,
+      `Trading education/signals — persona-dependent, no moat`,
+      `CV 110% — extreme volatility, some months near zero ($146)`,
+      `High revenue volatility (CV 102%)`,
+    ],
+    greenFlags: [],
+    seller: {
+      name: `Sheryar`,
+      location: `Pakistan`,
+      verified: true,
+      transactions: `3 transactions totalling USD $7,715`,
+    },
+    socialMedia: [
+      `2,700 followers`,
+      `2,300 followers`,
+      `384 followers`,
+      `17 followers`,
+      `0 followers`,
+    ],
+    expenses: [
+      {
+        item: `Domain registration`,
+        amount: `GBP £1 /month`,
+      },
+      {
+        item: `Hosting`,
+        amount: `GBP £14 /month`,
+      },
+      {
+        item: `TradingView Premium Subscription`,
+        amount: `GBP £13 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Email subscriber list`,
+      `Brand assets (logos, etc)`,
+      `Custom technology`,
+      `Other`,
+      `Unique content`,
+      `Unique design`,
+      `WordPress`,
+      `2,700 followers`,
+      `2,300 followers`,
+      `384 followers`,
+      `17 followers`,
+      `0 followers`,
+      `4,600 subscribers`,
+      `4,000 subscribers`,
+      `Attachments`,
+      `XLSX`,
+      `Profit`,
+    ],
+    postSaleSupport: `and full documentation`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {
+      users: `30,303`,
+      totalPageViews: `3,319`,
+      pagesPerSession: `1.21`,
+      avgDuration: `00:00:18`,
+      engagementRate: `0.34%`,
+      topCountries: [
+        {
+          country: `China`,
+          views: 522,
+        },
+        {
+          country: `United States`,
+          views: 312,
+        },
+        {
+          country: `Singapore`,
+          views: 222,
+        },
+        {
+          country: `Australia`,
+          views: 101,
+        },
+        {
+          country: `United Kingdom`,
+          views: 78,
+        },
+      ],
+    },
+    integrations: [
+      `Stripe`,
+      `PayPal`,
+      `Google Analytics`,
+      `Amazon`,
+    ],
+    tech: [
+      `WordPress`,
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 1927,
+    watchers: 35,
+    about: `Business Overview
+
+iTradeAIMS is a highly profitable, low-maintenance SaaS and digital education business offering proprietary trading software, structured trading courses, and a loyal community of retail traders. Established in 2011 and monetized since 2012, the business has evolved into a comprehensive digital platform built on WordPress and aMember Pro, with full automation, downloadable content protection, and minimal operational overhead.
+
+The business delivers a 96% profit margin and generated over USD $27,800 in revenue with USD $26,786 in net profit over the trailing 12 months ending November 2025. This reflects a monthly average profit of USD $2,232, largely driven by high-ticket lifetime product sales and low churn recurring memberships. The revenue model is bolstered by digital tools and expert trading indicators for MT4 and TradingView, with strategic upsells and cross-promotions across products and services.
+
+iTradeAIMS benefits from a 14-year history and strong brand equity in the Forex trading education space. It boasts a clean, scalable tech stack, proprietary content, and a systematized acquisition funnel that includes YouTube, Google Search, and three automated lead magnets feeding into a 50-part email warm-up sequence.
+
+Key Financials (Trailing Twelve Months Ending Nov 2025)
+
+Revenue: USD $27,830
+Net Profit: USD $26,786
+Profit Margin: 96%
+Monthly Recurring Revenue (MRR): USD $1,022
+Average Order Value (AOV): USD $205
+Lifetime Value (LTV): USD $465
+Churn: 38% (mostly due to lifetime model preference)
+Total Orders: 129
+Refund Rate: 1%
+Active Subscribers: 14
+Overall Churn: 2%
+
+Platform & Operations
+
+The site runs on a stable WordPress architecture integrated with aMember Pro, FluentCRM, and Stripe/PayPal for billing automation. Members access protected content via a dedicated portal with LMS functionality and downloadable assets. Operations require less than one hour per week, focused on monitoring email sequences and community updates.
+
+Support overhead is minimal, as the educational content is self-paced and the trading tools are delivered digitally with documentation. A Discord group and phpBB forum of over 2,000 members provide peer support and foster community-driven learning.
+
+Product Offering
+
+The business monetizes through both one-time and subscription-based products:
+
+Education: Structured online courses priced between $497–$1997, targeting beginner to advanced traders.
+Software: Custom-built indicators and Expert Advisors (EAs) for MetaTrader 4 and TradingView, including flagship tools like the Banana Indicator and AIMSBox.
+Bundles & Upsells: Strategic promotional bundles offered seasonally, with dynamic pricing tiers and discounts to stimulate conversions.
+
+All products are proprietary, unique, and have been validated by a decade of active market use and community feedback.
+
+Marketing & Traffic
+
+iTradeAIMS attracts traffic primarily through direct (47%) and paid search (43%) channels, with supporting traffic from organ`,
   },
   {
     id: `12295763`,
