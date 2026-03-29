@@ -1933,12 +1933,12 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 75,
       overall: 67.5,
     },
-    recommendation: `CONSIDER`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
+    recommendation: `AVOID`,
+    redFlags: [
+      `Physical road haulage/trucking company in Northampton UK — requires trucks, drivers, UK logistics`,
+      `Not a digital business despite 'content' Flippa classification`,
     ],
+    greenFlags: [],
   },
   {
     id: `11920011`,
