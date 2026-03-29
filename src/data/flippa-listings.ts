@@ -377,9 +377,10 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 65,
       overall: 74.4,
     },
-    recommendation: `STRONG`,
+    recommendation: `CONSIDER`,
     redFlags: [
       `Revenue declining sharply (-58.9% trend)`,
+      `Revenue collapsed -59% in 12 months — human writing platform threatened by AI`,
     ],
     greenFlags: [
       `Flippa-vetted`,
