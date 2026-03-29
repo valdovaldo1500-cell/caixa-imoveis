@@ -1318,17 +1318,22 @@ export default function FlippaDetailPage() {
             )}
 
             {/* ── Sale Includes ─────────────────────────────────────────── */}
-            {data.listing.saleIncludes && data.listing.saleIncludes.length > 0 && (
-              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
-                <h3 className="text-lg font-semibold text-white mb-2">Sale Includes</h3>
-                <ul className="text-sm text-zinc-400 space-y-1">
-                  {data.listing.saleIncludes.map((item, i) => (
-                    <li key={i} className="flex items-center gap-2"><span className="text-emerald-400">✓</span>{item}</li>
-                  ))}
-                </ul>
-                {data.listing.postSaleSupport && <p className="text-xs text-zinc-500 mt-2">Post-sale support: {data.listing.postSaleSupport}</p>}
-              </div>
-            )}
+            {data.listing.saleIncludes && data.listing.saleIncludes.length > 0 && (() => {
+              const cleanSaleIncludes = data.listing.saleIncludes!.filter(item =>
+                !item.match(/followers|subscribers|WordPress|Shopify|Managed by Flippa|Open for|Indicative|USD \$|GBP £|Watch$|Show all|^XLSX$|^Profit$|^Other$|No comments|^Comments$/i)
+              );
+              return cleanSaleIncludes.length > 0 ? (
+                <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+                  <h3 className="text-lg font-semibold text-white mb-2">Sale Includes</h3>
+                  <ul className="text-sm text-zinc-400 space-y-1">
+                    {cleanSaleIncludes.map((item, i) => (
+                      <li key={i} className="flex items-center gap-2"><span className="text-emerald-400">✓</span>{item}</li>
+                    ))}
+                  </ul>
+                  {data.listing.postSaleSupport && <p className="text-xs text-zinc-500 mt-2">Post-sale support: {data.listing.postSaleSupport}</p>}
+                </div>
+              ) : null;
+            })()}
 
             {/* ── Comments / Q&A ────────────────────────────────────────── */}
             {data.listing.comments && data.listing.comments.length > 0 && (
