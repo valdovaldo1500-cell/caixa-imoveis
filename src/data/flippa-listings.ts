@@ -3497,14 +3497,12 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 61.9,
     },
-    recommendation: `CONSIDER`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
-      `Strong profit $7,394/mo`,
+    recommendation: `AVOID`,
+    redFlags: [
+      `ChatGPT/OpenAI API wrapper — extreme platform risk, OpenAI can change pricing or kill access anytime`,
+      `No identified domain or product name — opaque listing`,
     ],
+    greenFlags: [],
   },
   {
     id: `12098876`,
