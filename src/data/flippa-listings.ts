@@ -1,6 +1,6 @@
 // AUTO-GENERATED — do not edit manually
 // Source: all_extractions_merged.json + overrides.json
-// Generated: 2026-03-29T15:29:40Z
+// Generated: 2026-03-29T15:40:55Z
 
 export interface FlippaListing {
   // Core
@@ -415,6 +415,175 @@ Product Overview
 imMail provides a centralized communication hub designed to replace fragmented messaging and meeting solutions within organizations. Key capabilities include instant chat, group chat, HD video conferencing, file sharing, task management, and integrated collaborative tools. The platform’s flexibility allows deployment either in the cloud or on an organization’s own servers, enabling full control of data governance and compliance. This level of privacy and configurability is one of imMail’s strongest value propositions, especially in markets where data regulations restrict reliance on third-party SaaS architectures.
 
 A notable advantage is the native integration with Zimbra, giving the platform a built-in user base among enterprises and governments already using Zimbra’s communication suite. imMail’s ability to embed itself into existing infrastructure rather than require wholesale replacement greatly reduces friction in the buying process`,
+  },
+  {
+    id: `11897139`,
+    title: `Firstoff`,
+    revealedName: `Firstoff`,
+    url: `https://flippa.com/11897139`,
+    type: `other`,
+    dataLevel: `full_pnl`,
+    askingPrice: 37520.0,
+    monthlyPL: [
+      { month: `Jul 2024`, revenue: 4605.02, expenses: 248.92, profit: 4356.1 },
+      { month: `Aug 2024`, revenue: 4532.63, expenses: 91.44, profit: 4441.19 },
+      { month: `Sep 2024`, revenue: 4488.18, expenses: 91.44, profit: 4396.74 },
+      { month: `Oct 2024`, revenue: 4842.51, expenses: 516.89, profit: 4325.62 },
+      { month: `Nov 2024`, revenue: 4532.63, expenses: 91.44, profit: 4441.19 },
+      { month: `Dec 2024`, revenue: 5030.47, expenses: 91.44, profit: 4939.03 },
+      { month: `Jan 2025`, revenue: 4288.79, expenses: 67.31, profit: 4222.75 },
+      { month: `Feb 2025`, revenue: 4100.83, expenses: 67.31, profit: 4033.52 },
+      { month: `Mar 2025`, revenue: 4709.16, expenses: 261.62, profit: 4447.54 },
+      { month: `Apr 2025`, revenue: 4465.32, expenses: 67.31, profit: 4398.01 },
+      { month: `May 2025`, revenue: 4088.13, expenses: 67.31, profit: 4022.09 },
+      { month: `Jun 2025`, revenue: 4998.72, expenses: 163.83, profit: 4834.89 },
+    ],
+    avgMonthlyRevenue: 4557.0,
+    avgMonthlyProfit: 4405.0,
+    profitMargin: `97%`,
+    annualRevenue: `GBP £43,056`,
+    annualProfit: `GBP £41,620`,
+    ageYears: 0.0,
+    monetisation: ``,
+    techStack: `Shopify, Stripe`,
+    country: `Switzerland`,
+    platform: `designed`,
+    hasStripe: true,
+    hasPaypal: false,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 81.2,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 95,
+      growthPotential: 50,
+      overall: 69.8,
+    },
+    recommendation: `STRONG`,
+    redFlags: [
+      `Switzerland-focused iOS app — market may be limited geographically`,
+    ],
+    greenFlags: [
+      `CV 5.9% — most stable P&L in entire dataset`,
+      `£3,468/mo avg with £53-206/mo expenses`,
+      `111% ROI at $37.5K asking price`,
+      `12 months perfectly consistent — never below £3,167`,
+      `98% profit margin, zero loss months`,
+      `Digital platform — iOS app + web`,
+    ],
+    seller: {
+      name: `Martino Ceroni`,
+      location: `Switzerland`,
+      verified: false,
+    },
+    expenses: [
+      {
+        item: `Domains & Web Hosting`,
+        amount: `GBP £95 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Custom technology`,
+      `Source Code`,
+      `Android App`,
+      `Included.`,
+      `Attachments`,
+      `XLSX`,
+      `Profit and Loss Statement - Firstoff`,
+      `Firstoff - Company Valuation Report - ENG`,
+      `Martino Ceroni Jul 03, 2025 09:30 PM`,
+      `Trailing 12 months update:`,
+      `📊 Average Monthly Revenue: £3,450`,
+      `💰 Average Monthly Profit: £3,330`,
+      `📉 Lowest Profit: £3,055 (May 2025)`,
+      `📈 Highest Profit: £3,752 (Dec 2024)`,
+      `🏆 12-Month Total Profit: £39,755`,
+      `🔥 Recent Trend: Profits rebounded in Jun`,
+    ],
+    postSaleSupport: `Included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    comments: [
+      {
+        author: `Martino Ceroni`,
+        date: `Jul 03, 2025 09:30 PM`,
+        text: `Trailing 12 months update:
+📊 Average Monthly Revenue: £3,450
+💰 Average Monthly Profit: £3,330
+📉 Lowest Profit: £3,055 (May 2025)
+📈 Highest Profit: £3,752 (Dec 2024)
+🏆 12-Month Total Profit: £39,755
+🔥 Recent Trend: Profits rebounded in June (£3,673) after May’s dip.
+💸 Expenses: Extremely low, averaging ~£118/month
+
+_
+Direct message for inquiries`,
+      },
+    ],
+    ga: {},
+    integrations: [
+      `Stripe`,
+      `Amazon`,
+    ],
+    tech: [
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 2115,
+    watchers: 131,
+    commentCount: 1,
+    about: `Firstoff is an innovative platform designed to connect locals and tourists with regional venues and event organizers. By matching users’ interests with curated local offerings, Firstoff helps them discover everything the region has to offer — from cultural events and nightlife to food experiences and outdoor activities — all in one intuitive, personalized interface.
+
+
+
+Principal strong points of the Firstoff App:
+
+- Native IOS App + Native Android App + WebSite all interrelated thanks to an immediately responsive admin platform, to quickly manage and modify all parameters, contents and metadata (wich can also be quickly downloaded for statistical analysis);
+
+- Platform completely translated in four languages (English, German, French, Italian);
+
+- Easy and immediate user profile creation, with the possibility of logging in via Facebook, Google, Apple account or simple email address;
+
+- Fully customizable experience for users, including the setting of targeted weekly push notifications, based on categories of interest and favorite venues to follow;
+
+- Targeted search for venues, offers and events (more than 80 filters + keyword searches);
+
+- All results also visible on dynamic geolocalising and navigation maps;
+
+- Content sharing systems & calendars;
+
+- Extremely fast and intuitive content loading for managers accounts;
+
+- Platform tested during a 3 year period.
+
+Selling overview:
+
+We are offering the source code of Firstoff online platform (iOS App, Android App and responsive Website), currently active in the Canton of Ticino, Switzerland. The platform represents a highly valuable asset, with its robust architecture, proven user engagement, and a well-established foundation for scaling operations. With the excellent results obtained in two years of testing, Firstoff is ready for expansion into the global market (N.B. with an immediate Time to Market thanks to the extensive testing work already carried out).
+
+Business Model:
+
+The Firstoff App functions as a regional social network designed to promote and allow users and tourists to discover local events and activities according to their interests.
+
+- Free Basic Service:
+
+Users can use the App as a social network to discover venues, events and activities.
+
+- Revenue Streams:
+
+Businesses owners and event organizers paying annual subscription fee to publish content.
+Business advertising & promotions: advertising spaces and promotional push notifications payable via the in-app currency FirstToken.
+FirstoffCard Loyalty Program: a virtual membership card offering users exclusive discounts and special deals, driving engagement and customer retention.
+Partnerships & Collaborations: visibility and sponsorship packages for companies and brands, to reach a target audience for the sale of their products and services.
+
+Expansion Potential:
+
+The platform's success over this 3 year testing period demonstrates its scalability. Its proven model and robust architecture make it an excellent candidate for wider implem`,
   },
   {
     id: `11822365`,
@@ -3104,6 +3273,139 @@ Workflow & Tools
 Project Management: ClickUp (with automation and content tracking)
 
 Communications & File Storage: Googl`,
+  },
+  {
+    id: `11920011`,
+    title: `AI Restore old photo quality`,
+    revealedName: `AI Restore old photo quality`,
+    url: `https://flippa.com/11920011`,
+    type: `other`,
+    dataLevel: `stats`,
+    askingPrice: 110000.0,
+    avgMonthlyRevenue: 5163.0,
+    avgMonthlyProfit: 4496.0,
+    profitMargin: `87%`,
+    annualRevenue: `GBP £48,779`,
+    annualProfit: `GBP £42,475`,
+    ageYears: 0.0,
+    monetisation: ``,
+    techStack: `Shopify, Stripe`,
+    country: `Ukraine`,
+    platform: `Android`,
+    hasStripe: false,
+    hasPaypal: false,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 40,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 75,
+      growthPotential: 50,
+      overall: 54.4,
+    },
+    recommendation: `CONSIDER`,
+    redFlags: [
+      `Ukraine-based developer — geopolitical risk`,
+      `Stats only — no P&L chart to verify consistency`,
+    ],
+    greenFlags: [
+      `AI photo restoration Android app — fully digital`,
+      `£3,540/mo profit`,
+      `500K+ downloads on Google Play`,
+    ],
+    seller: {
+      name: `Kyrylo Shadrintsev`,
+      location: `Ukraine`,
+      verified: true,
+      transactions: `2 transactions totalling USD $3,350`,
+    },
+    expenses: [
+      {
+        item: `Server rent`,
+        amount: `GBP £563 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Website files`,
+      `Social media accounts`,
+      `Brand assets (logos, etc)`,
+      `Trademarks/patents`,
+      `Custom technology`,
+      `Source Code`,
+      `Android`,
+      `Included.`,
+      `Attachments`,
+      `Screenshot_20250313_121216_Chrome`,
+      `Contact Seller`,
+      `Send message`,
+      `PUSHKAR SINGH Sep 03, 2025 05:10 PM`,
+      `Report this comment Reply`,
+      `Kyrylo Shadrintsev Aug 12, 2025 08:08 AM`,
+      `@radupanait yes`,
+      `Report this comment Reply`,
+      `Radu Pa`,
+    ],
+    postSaleSupport: `Included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    comments: [
+      {
+        author: `PUSHKAR SINGH`,
+        date: `Sep 03, 2025 05:10 PM`,
+        text: `Please share your app statistics regarding impression install churn etc`,
+      },
+      {
+        author: `Kyrylo Shadrintsev`,
+        date: `Aug 12, 2025 08:08 AM`,
+        text: `@radupanait yes`,
+      },
+      {
+        author: `Radu Panait`,
+        date: `Jun 06, 2025 01:37 AM`,
+        text: `Is the app still available for purchase?`,
+      },
+      {
+        author: `Harshid patel`,
+        date: `May 30, 2025 09:25 PM`,
+        text: `Can you share some more details? I mean daily install, Active users, Total users.`,
+      },
+    ],
+    ga: {},
+    integrations: [
+      `Amazon`,
+    ],
+    tech: [
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 2921,
+    watchers: 77,
+    commentCount: 4,
+    about: `**Key Highlights**
+
+Launched in 2023,  This application stands out as a pivotal tool for individuals looking to breathe new life into aged or deteriorated photographs. It capitalizes on Google's Play Store for distribution and employs an innovative combination of artificial intelligence features to restore, enhance, and colorize old photos, fostering both artistic expression and nostalgic preservation. Monetization is strongly anchored in a dual strategy, leveraging both in-app advertising and subscription services, thereby creating a balanced revenue stream.
+
+**Operations**
+
+The financial engine of this business is fueled by two primary channels: ads and subscriptions. The ad channel is extensively powered by Google's AdMob platform, supplemented by other advertising networks, allowing the app to generate revenue from every user interaction. AdMob’s integration ensures a seamless and targeted ad delivery mechanism, capitalizing on the vast Android user base to optimize ad impressions and clicks. Further enriching its revenue canvas, the application offers a premium subscription service strategically tailored to users who wish to experience the app ad-free and unlock exclusive features and tools. This service not only provides a consistent stream of income but also fosters a dedicated user community committed to long-term engagement with the platform. As a young enterprise, maximizing both these revenue streams is critical to building a sustainable operational model in such a competitive app marketplace.
+
+**Customers**
+
+The core customer base for the app primarily consists of individuals passionate about photography, digital art, and historical preservation. This diverse demographic ranges from amateur photographers to professional designers looking for robust tools to revitalize old images. Additionally, families and historians are drawn to the app's capabilities as it allows them to preserve and appreciate their heritage through enhanced visuals. The app has tailored its marketing strategy to appeal to these diverse segments via targeted campaigns, leveraging social media and Google’s ad networks to reach potential users with pinpoint precision.
+
+**Technology**
+
+The backbone of the application’s success lies in its advanced AI technology, which uses sophisticated algorithms to analyze, enhance, and colorize photographs. This technology is constantly evolving, with the development team continually working to refine the AI models, ensuring improvements in speed, accuracy, and the overall quality of photo restoration. By leveraging cloud processing capabilities, the application delivers quick and efficient results, making it a versatile and scalable solution for users globally. The platform's seamless integration with the Google ecosystem ensures that the UI and UX are consistently optimized, providing a smooth and intuitive user experience on all devices.
+
+**Financials**
+
+Since its inception in 2023, the business has swiftly established a solid f`,
   },
   {
     id: `12229753`,
@@ -5921,168 +6223,6 @@ The brand's strong repeat purchase rate (19.9%) and high customer retention demo
 Growth Opportunities
 
 A new owner has signi`,
-  },
-  {
-    id: `11897139`,
-    title: `Firstoff`,
-    revealedName: `Firstoff`,
-    url: `https://flippa.com/11897139`,
-    type: `other`,
-    dataLevel: `full_pnl`,
-    askingPrice: 37520.0,
-    monthlyPL: [
-      { month: `Jul 2024`, revenue: 4605.02, expenses: 248.92, profit: 4356.1 },
-      { month: `Aug 2024`, revenue: 4532.63, expenses: 91.44, profit: 4441.19 },
-      { month: `Sep 2024`, revenue: 4488.18, expenses: 91.44, profit: 4396.74 },
-      { month: `Oct 2024`, revenue: 4842.51, expenses: 516.89, profit: 4325.62 },
-      { month: `Nov 2024`, revenue: 4532.63, expenses: 91.44, profit: 4441.19 },
-      { month: `Dec 2024`, revenue: 5030.47, expenses: 91.44, profit: 4939.03 },
-      { month: `Jan 2025`, revenue: 4288.79, expenses: 67.31, profit: 4222.75 },
-      { month: `Feb 2025`, revenue: 4100.83, expenses: 67.31, profit: 4033.52 },
-      { month: `Mar 2025`, revenue: 4709.16, expenses: 261.62, profit: 4447.54 },
-      { month: `Apr 2025`, revenue: 4465.32, expenses: 67.31, profit: 4398.01 },
-      { month: `May 2025`, revenue: 4088.13, expenses: 67.31, profit: 4022.09 },
-      { month: `Jun 2025`, revenue: 4998.72, expenses: 163.83, profit: 4834.89 },
-    ],
-    avgMonthlyRevenue: 4557.0,
-    avgMonthlyProfit: 4405.0,
-    profitMargin: `97%`,
-    annualRevenue: `GBP £43,056`,
-    annualProfit: `GBP £41,620`,
-    ageYears: 0.0,
-    monetisation: ``,
-    techStack: `Shopify, Stripe`,
-    country: `Switzerland`,
-    platform: `designed`,
-    hasStripe: true,
-    hasPaypal: false,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 81.2,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 95,
-      growthPotential: 50,
-      overall: 69.8,
-    },
-    recommendation: `AVOID`,
-    redFlags: [
-      `iOS app for connecting locals/tourists with regional venues and event organizers in Switzerland; geo-specific local disc`,
-    ],
-    greenFlags: [],
-    seller: {
-      name: `Martino Ceroni`,
-      location: `Switzerland`,
-      verified: false,
-    },
-    expenses: [
-      {
-        item: `Domains & Web Hosting`,
-        amount: `GBP £95 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Custom technology`,
-      `Source Code`,
-      `Android App`,
-      `Included.`,
-      `Attachments`,
-      `XLSX`,
-      `Profit and Loss Statement - Firstoff`,
-      `Firstoff - Company Valuation Report - ENG`,
-      `Martino Ceroni Jul 03, 2025 09:30 PM`,
-      `Trailing 12 months update:`,
-      `📊 Average Monthly Revenue: £3,450`,
-      `💰 Average Monthly Profit: £3,330`,
-      `📉 Lowest Profit: £3,055 (May 2025)`,
-      `📈 Highest Profit: £3,752 (Dec 2024)`,
-      `🏆 12-Month Total Profit: £39,755`,
-      `🔥 Recent Trend: Profits rebounded in Jun`,
-    ],
-    postSaleSupport: `Included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    comments: [
-      {
-        author: `Martino Ceroni`,
-        date: `Jul 03, 2025 09:30 PM`,
-        text: `Trailing 12 months update:
-📊 Average Monthly Revenue: £3,450
-💰 Average Monthly Profit: £3,330
-📉 Lowest Profit: £3,055 (May 2025)
-📈 Highest Profit: £3,752 (Dec 2024)
-🏆 12-Month Total Profit: £39,755
-🔥 Recent Trend: Profits rebounded in June (£3,673) after May’s dip.
-💸 Expenses: Extremely low, averaging ~£118/month
-
-_
-Direct message for inquiries`,
-      },
-    ],
-    ga: {},
-    integrations: [
-      `Stripe`,
-      `Amazon`,
-    ],
-    tech: [
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 2115,
-    watchers: 131,
-    commentCount: 1,
-    about: `Firstoff is an innovative platform designed to connect locals and tourists with regional venues and event organizers. By matching users’ interests with curated local offerings, Firstoff helps them discover everything the region has to offer — from cultural events and nightlife to food experiences and outdoor activities — all in one intuitive, personalized interface.
-
-
-
-Principal strong points of the Firstoff App:
-
-- Native IOS App + Native Android App + WebSite all interrelated thanks to an immediately responsive admin platform, to quickly manage and modify all parameters, contents and metadata (wich can also be quickly downloaded for statistical analysis);
-
-- Platform completely translated in four languages (English, German, French, Italian);
-
-- Easy and immediate user profile creation, with the possibility of logging in via Facebook, Google, Apple account or simple email address;
-
-- Fully customizable experience for users, including the setting of targeted weekly push notifications, based on categories of interest and favorite venues to follow;
-
-- Targeted search for venues, offers and events (more than 80 filters + keyword searches);
-
-- All results also visible on dynamic geolocalising and navigation maps;
-
-- Content sharing systems & calendars;
-
-- Extremely fast and intuitive content loading for managers accounts;
-
-- Platform tested during a 3 year period.
-
-Selling overview:
-
-We are offering the source code of Firstoff online platform (iOS App, Android App and responsive Website), currently active in the Canton of Ticino, Switzerland. The platform represents a highly valuable asset, with its robust architecture, proven user engagement, and a well-established foundation for scaling operations. With the excellent results obtained in two years of testing, Firstoff is ready for expansion into the global market (N.B. with an immediate Time to Market thanks to the extensive testing work already carried out).
-
-Business Model:
-
-The Firstoff App functions as a regional social network designed to promote and allow users and tourists to discover local events and activities according to their interests.
-
-- Free Basic Service:
-
-Users can use the App as a social network to discover venues, events and activities.
-
-- Revenue Streams:
-
-Businesses owners and event organizers paying annual subscription fee to publish content.
-Business advertising & promotions: advertising spaces and promotional push notifications payable via the in-app currency FirstToken.
-FirstoffCard Loyalty Program: a virtual membership card offering users exclusive discounts and special deals, driving engagement and customer retention.
-Partnerships & Collaborations: visibility and sponsorship packages for companies and brands, to reach a target audience for the sale of their products and services.
-
-Expansion Potential:
-
-The platform's success over this 3 year testing period demonstrates its scalability. Its proven model and robust architecture make it an excellent candidate for wider implem`,
   },
   {
     id: `11171518`,
@@ -25365,135 +25505,6 @@ Improving email marketing monetization
 Expanding paid channels including Google Ads, TikTok Ads, and Pinterest
 
 With nearly all customers located in the US, the brand is well positioned to scale within the largest anime mer`,
-  },
-  {
-    id: `11920011`,
-    title: `AI Restore old photo quality`,
-    revealedName: `AI Restore old photo quality`,
-    url: `https://flippa.com/11920011`,
-    type: `other`,
-    dataLevel: `stats`,
-    askingPrice: 110000.0,
-    avgMonthlyRevenue: 5163.0,
-    avgMonthlyProfit: 4496.0,
-    profitMargin: `87%`,
-    annualRevenue: `GBP £48,779`,
-    annualProfit: `GBP £42,475`,
-    ageYears: 0.0,
-    monetisation: ``,
-    techStack: `Shopify, Stripe`,
-    country: `Ukraine`,
-    platform: `Android`,
-    hasStripe: false,
-    hasPaypal: false,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 40,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 75,
-      growthPotential: 50,
-      overall: 54.4,
-    },
-    recommendation: `AVOID`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Managed by Flippa`,
-    ],
-    seller: {
-      name: `Kyrylo Shadrintsev`,
-      location: `Ukraine`,
-      verified: true,
-      transactions: `2 transactions totalling USD $3,350`,
-    },
-    expenses: [
-      {
-        item: `Server rent`,
-        amount: `GBP £563 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Website files`,
-      `Social media accounts`,
-      `Brand assets (logos, etc)`,
-      `Trademarks/patents`,
-      `Custom technology`,
-      `Source Code`,
-      `Android`,
-      `Included.`,
-      `Attachments`,
-      `Screenshot_20250313_121216_Chrome`,
-      `Contact Seller`,
-      `Send message`,
-      `PUSHKAR SINGH Sep 03, 2025 05:10 PM`,
-      `Report this comment Reply`,
-      `Kyrylo Shadrintsev Aug 12, 2025 08:08 AM`,
-      `@radupanait yes`,
-      `Report this comment Reply`,
-      `Radu Pa`,
-    ],
-    postSaleSupport: `Included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    comments: [
-      {
-        author: `PUSHKAR SINGH`,
-        date: `Sep 03, 2025 05:10 PM`,
-        text: `Please share your app statistics regarding impression install churn etc`,
-      },
-      {
-        author: `Kyrylo Shadrintsev`,
-        date: `Aug 12, 2025 08:08 AM`,
-        text: `@radupanait yes`,
-      },
-      {
-        author: `Radu Panait`,
-        date: `Jun 06, 2025 01:37 AM`,
-        text: `Is the app still available for purchase?`,
-      },
-      {
-        author: `Harshid patel`,
-        date: `May 30, 2025 09:25 PM`,
-        text: `Can you share some more details? I mean daily install, Active users, Total users.`,
-      },
-    ],
-    ga: {},
-    integrations: [
-      `Amazon`,
-    ],
-    tech: [
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 2921,
-    watchers: 77,
-    commentCount: 4,
-    about: `**Key Highlights**
-
-Launched in 2023,  This application stands out as a pivotal tool for individuals looking to breathe new life into aged or deteriorated photographs. It capitalizes on Google's Play Store for distribution and employs an innovative combination of artificial intelligence features to restore, enhance, and colorize old photos, fostering both artistic expression and nostalgic preservation. Monetization is strongly anchored in a dual strategy, leveraging both in-app advertising and subscription services, thereby creating a balanced revenue stream.
-
-**Operations**
-
-The financial engine of this business is fueled by two primary channels: ads and subscriptions. The ad channel is extensively powered by Google's AdMob platform, supplemented by other advertising networks, allowing the app to generate revenue from every user interaction. AdMob’s integration ensures a seamless and targeted ad delivery mechanism, capitalizing on the vast Android user base to optimize ad impressions and clicks. Further enriching its revenue canvas, the application offers a premium subscription service strategically tailored to users who wish to experience the app ad-free and unlock exclusive features and tools. This service not only provides a consistent stream of income but also fosters a dedicated user community committed to long-term engagement with the platform. As a young enterprise, maximizing both these revenue streams is critical to building a sustainable operational model in such a competitive app marketplace.
-
-**Customers**
-
-The core customer base for the app primarily consists of individuals passionate about photography, digital art, and historical preservation. This diverse demographic ranges from amateur photographers to professional designers looking for robust tools to revitalize old images. Additionally, families and historians are drawn to the app's capabilities as it allows them to preserve and appreciate their heritage through enhanced visuals. The app has tailored its marketing strategy to appeal to these diverse segments via targeted campaigns, leveraging social media and Google’s ad networks to reach potential users with pinpoint precision.
-
-**Technology**
-
-The backbone of the application’s success lies in its advanced AI technology, which uses sophisticated algorithms to analyze, enhance, and colorize photographs. This technology is constantly evolving, with the development team continually working to refine the AI models, ensuring improvements in speed, accuracy, and the overall quality of photo restoration. By leveraging cloud processing capabilities, the application delivers quick and efficient results, making it a versatile and scalable solution for users globally. The platform's seamless integration with the Google ecosystem ensures that the UI and UX are consistently optimized, providing a smooth and intuitive user experience on all devices.
-
-**Financials**
-
-Since its inception in 2023, the business has swiftly established a solid f`,
   },
   {
     id: `11885362`,
