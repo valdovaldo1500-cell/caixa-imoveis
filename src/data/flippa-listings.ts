@@ -161,15 +161,12 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 75,
       overall: 78.8,
     },
-    recommendation: `STRONG`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `5 years old — established`,
-      `Stable revenue history`,
-      `Zero loss months in P&L`,
-      `Revenue growing (111.0%)`,
+    recommendation: `AVOID`,
+    redFlags: [
+      `Flippa says 'content site' but actual website (atamgo.com) is an SEO agency selling consulting services — product mismatch`,
+      `Revenue model unverifiable — 99% margin claimed for 'ads' but live site is a service business`,
     ],
+    greenFlags: [],
   },
   {
     id: `12229753`,
