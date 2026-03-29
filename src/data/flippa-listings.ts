@@ -1014,8 +1014,10 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 67.2,
     },
-    recommendation: `STRONG`,
-    redFlags: [],
+    recommendation: `CONSIDER`,
+    redFlags: [
+      `Physical ecommerce — Shopify only, no Stripe/PayPal verified`,
+    ],
     greenFlags: [
       `Flippa-vetted`,
       `8 years old — established`,
