@@ -4888,12 +4888,11 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 60.4,
     },
-    recommendation: `CONSIDER`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `5 years old — established`,
+    recommendation: `AVOID`,
+    redFlags: [
+      `Physical product business — not remotely operable`,
     ],
+    greenFlags: [],
   },
   {
     id: `12196542`,
