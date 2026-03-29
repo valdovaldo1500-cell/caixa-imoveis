@@ -746,13 +746,20 @@ export const flippaListings: FlippaListing[] = [
       overall: 71.2,
     },
     recommendation: `STRONG`,
-    redFlags: [],
+    redFlags: [
+      `Only 10 customers — losing 1-2 = 10-20% revenue drop`,
+      `Domain hidden behind NDA — can't verify product without signing`,
+      `$203K at 61x MRR is overpriced for 10 customers`,
+      `'On-prem' component may require technical support visits`,
+    ],
     greenFlags: [
       `Flippa-vetted`,
       `Stripe revenue verified`,
       `6 years old — established`,
       `Stable revenue history`,
       `Zero loss months in P&L`,
+      `1% monthly churn is excellent for B2B SaaS`,
+      `EMEA+LATAM reach — natural fit for Brazil-based operator`,
     ],
   },
   {
