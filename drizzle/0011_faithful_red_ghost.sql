@@ -13,7 +13,6 @@ CREATE TABLE "flippa_hidden" (
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-ALTER TABLE "properties" ADD COLUMN "ai_analysis" text;--> statement-breakpoint
-ALTER TABLE "properties" ADD COLUMN "ai_analysis_at" timestamp;--> statement-breakpoint
-ALTER TABLE "zap_listings" ADD COLUMN "source" varchar(20) DEFAULT 'zap';--> statement-breakpoint
-CREATE INDEX "idx_zap_source" ON "zap_listings" USING btree ("source");
+ALTER TABLE "properties" ADD COLUMN IF NOT EXISTS "ai_analysis" text;--> statement-breakpoint
+ALTER TABLE "properties" ADD COLUMN IF NOT EXISTS "ai_analysis_at" timestamp;--> statement-breakpoint
+ALTER TABLE "zap_listings" ADD COLUMN IF NOT EXISTS "source" varchar(20) DEFAULT 'zap';
