@@ -2070,7 +2070,7 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 80,
       overall: 65.9,
     },
-    recommendation: `CONSIDER`,
+    recommendation: `STRONG`,
     redFlags: [
       `Samsung Knox API dependency — OS updates can break compatibility`,
       `Google Play Store policy risk — needs active developer account`,
