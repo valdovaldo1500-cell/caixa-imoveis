@@ -270,6 +270,9 @@ export const flippaListings: FlippaListing[] = [
     redFlags: [
       `High revenue volatility (CV 112%)`,
       `Has 1 loss month (Aug 2025)`,
+      `Does NOT own contentgorilla.com — domain parked at HugeDomains for $30K. Product runs on .co`,
+      `46% annual churn (5% monthly) — nearly half the customer base replaces each year`,
+      `YouTube-to-blog niche is commoditized — dozens of AI tools do this now`,
     ],
     greenFlags: [
       `Flippa-vetted`,
