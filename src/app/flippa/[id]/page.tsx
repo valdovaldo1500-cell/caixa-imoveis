@@ -997,7 +997,7 @@ export default function FlippaDetailPage() {
                   </div>
                 )}
               </div>
-            </SectionCard>
+            </SectionCard>}
 
             {/* ── Section 7: Risk Assessment ────────────────────────────── */}
             <SectionCard
