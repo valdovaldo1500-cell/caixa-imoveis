@@ -1224,9 +1224,10 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 65.7,
     },
-    recommendation: `STRONG`,
+    recommendation: `CONSIDER`,
     redFlags: [
       `High revenue volatility (CV 55%)`,
+      `Physical merchandise ecommerce — requires fulfilment operations`,
     ],
     greenFlags: [
       `Flippa-vetted`,
