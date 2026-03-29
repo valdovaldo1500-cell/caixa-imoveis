@@ -1,6 +1,6 @@
 // AUTO-GENERATED — do not edit manually
 // Source: all_extractions_merged.json + overrides.json
-// Generated: 2026-03-29T14:19:25Z
+// Generated: 2026-03-29T14:21:56Z
 
 export interface FlippaListing {
   // Core
@@ -496,11 +496,7 @@ Content Gorilla capitalizes on innovative technologies to deliver its services. 
     recommendation: `STRONG`,
     redFlags: [],
     greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
-      `Stable revenue history`,
-      `Zero loss months in P&L`,
+      `Deep verified — website live, product confirmed`,
     ],
     seller: {
       name: `Alerts`,
@@ -649,10 +645,7 @@ All of our customers are Amazon resellers mostly based in the US. Currently, we 
       `High churn: 25%`,
     ],
     greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
-      `Zero loss months in P&L`,
+      `Deep verified — website live, product confirmed`,
     ],
     seller: {
       name: `Mackenzie Bowes`,
@@ -820,12 +813,7 @@ Financials:
       `High revenue volatility (CV 68%)`,
     ],
     greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Managed by Flippa`,
-      `6 years old — established`,
-      `Strong profit $11,235/mo`,
-      `Zero loss months in P&L`,
+      `Deep verified — website live, product confirmed`,
     ],
     seller: {
       name: `Tony Gaskins`,
@@ -1341,20 +1329,14 @@ In addition to TopicMojo, we have developed DataForSaaS, a robust SEO Data API p
       overall: 70.0,
     },
     recommendation: `STRONG`,
-    redFlags: [
-      `Only 10 customers — losing 1-2 = 10-20% revenue drop`,
-      `Domain hidden behind NDA — can't verify product without signing`,
-      `$203K at 61x MRR is overpriced for 10 customers`,
-      `'On-prem' component may require technical support visits`,
-    ],
+    redFlags: [],
     greenFlags: [
       `Flippa-vetted`,
       `Stripe revenue verified`,
+      `Managed by Flippa`,
       `6 years old — established`,
       `Stable revenue history`,
       `Zero loss months in P&L`,
-      `1% monthly churn is excellent for B2B SaaS`,
-      `EMEA+LATAM reach — natural fit for Brazil-based operator`,
     ],
     seller: {
       name: `Leonardo`,
@@ -1518,13 +1500,7 @@ A notable advantage is the native integration with Zimbra, giving the platform a
     recommendation: `STRONG`,
     redFlags: [],
     greenFlags: [
-      `Flippa-vetted`,
-      `Managed by Flippa`,
-      `6 years old — established`,
-      `Stable revenue history`,
-      `Strong profit $5,083/mo`,
-      `Zero loss months in P&L`,
-      `Revenue growing (61.2%)`,
+      `Deep verified — website live, product confirmed`,
     ],
     seller: {
       name: `Alerts`,
@@ -1733,11 +1709,7 @@ Further investment in SEO, blog content, and niche keyword targeting could stren
     recommendation: `STRONG`,
     redFlags: [],
     greenFlags: [
-      `Flippa-vetted`,
-      `Managed by Flippa`,
-      `Stable revenue history`,
-      `Strong profit $9,388/mo`,
-      `Zero loss months in P&L`,
+      `Deep verified — website live, product confirmed`,
     ],
     seller: {
       name: `Alerts`,
@@ -2107,169 +2079,6 @@ Overview performance
 Financial Management`,
   },
   {
-    id: `12381849`,
-    title: `Digiluxxe`,
-    revealedName: `Digiluxxe`,
-    url: `https://flippa.com/12381849`,
-    type: `saas`,
-    dataLevel: `full_pnl`,
-    askingPrice: 165000.0,
-    monthlyPL: [
-      { month: `Mar 2025`, revenue: 5961.38, expenses: 2462.53, profit: 3498.85 },
-      { month: `Apr 2025`, revenue: 4975.86, expenses: 2301.24, profit: 2674.62 },
-      { month: `May 2025`, revenue: 4744.72, expenses: 2343.15, profit: 2401.57 },
-      { month: `Jun 2025`, revenue: 5756.91, expenses: 3458.21, profit: 2298.7 },
-      { month: `Jul 2025`, revenue: 4775.2, expenses: 2537.46, profit: 2236.47 },
-      { month: `Aug 2025`, revenue: 3780.79, expenses: 2136.14, profit: 1644.65 },
-      { month: `Sep 2025`, revenue: 5671.82, expenses: 3247.39, profit: 2424.43 },
-      { month: `Oct 2025`, revenue: 7871.46, expenses: 4886.96, profit: 2984.5 },
-      { month: `Nov 2025`, revenue: 6623.05, expenses: 4973.32, profit: 1649.73 },
-      { month: `Dec 2025`, revenue: 4688.84, expenses: 3201.67, profit: 1487.17 },
-      { month: `Jan 2026`, revenue: 3992.88, expenses: 2642.87, profit: 1350.01 },
-      { month: `Feb 2026`, revenue: 3032.76, expenses: 1963.42, profit: 1069.34 },
-    ],
-    avgMonthlyRevenue: 5156.0,
-    avgMonthlyProfit: 2143.0,
-    profitMargin: `42%`,
-    annualRevenue: `GBP £48,720`,
-    annualProfit: `GBP £20,253`,
-    ageYears: 2.0,
-    monetisation: ``,
-    techStack: `Shopify, Stripe`,
-    country: `RI, United States`,
-    platform: `Shopify`,
-    hasStripe: false,
-    hasPaypal: false,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 68.8,
-      diversification: 60,
-      operatorIndependence: 83.3,
-      roi: 40,
-      growthPotential: 80,
-      overall: 66.3,
-    },
-    recommendation: `STRONG`,
-    redFlags: [],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Managed by Flippa`,
-      `Zero loss months in P&L`,
-    ],
-    seller: {
-      name: `Siena Velasco`,
-      location: `United States`,
-      verified: false,
-    },
-    socialMedia: [
-      `1,600 followers`,
-    ],
-    expenses: [
-      {
-        item: `Facebook ads`,
-        amount: `GBP £2,126 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Social media accounts`,
-      `Email subscriber list`,
-      `Unique content`,
-      `Unique design`,
-      `Shopify`,
-      `Not included.`,
-      `1,600 followers`,
-      `5,599 subscribers`,
-      `Attachments`,
-      `digiluxxe.com-plReport-2026-03-13-10_28_18`,
-      `Screenshot 2026-02-24 at 11.10.08 AM`,
-      `Screenshot 2026-02-24 at 11.34.23 AM`,
-      `Screenshot 2026-02-24 at 12.05.04 PM`,
-      `Screenshot 2026-02-24 at 12.04.56 PM`,
-      `Screenshot 2026-02-24 at 12.02.16 PM`,
-    ],
-    postSaleSupport: `Not included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    ga: {},
-    integrations: [
-      `Shopify`,
-      `Amazon`,
-    ],
-    tech: [
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 201,
-    watchers: 5,
-    about: `Digiluxxe.com is a premier digital product Shopify store specializing in premium Master Resell Rights (MRR) content and creative assets. Launched in 2023, the business has evolved into a highly automated "Digital Utility" model that removes the traditional headaches of e-commerce. With zero inventory, zero shipping costs, and 100% digital fulfillment, Digiluxxe operates at a near-perfect profit margin. The brand is anchored by a proprietary VIP Subscription program that generates stable, predictable weekly cash flow, making it an ideal acquisition for a lifestyle entrepreneur or a portfolio investor seeking a turnkey, low-maintenance asset.
-
-Business Model
-
-The revenue model is diversified across two high-performing streams:
-
-Recurring Subscription (VIP Access): A "sticky" weekly rebill model at $5.99/week. This provides high cash-flow velocity and predictable forecasting.
-
-High-Margin Digital Bundles: One-time sales of premium MRR assets (e.g., coloring book bundles, digital planners) with 100% profit margins and instant delivery.
-
-Master Resell Rights: All products are sourced with MRR licenses, allowing the owner to sell the same asset infinitely without ongoing royalties or licensing fees.
-
-Key Metrics
-
-Monthly Net Profit: $2,000 – $5,000 (Scalable based on ad spend).
-
-Customer Database: 7,223 verified buyers (Premium "Seed List" for AI targeting).
-
-Email List: 5,599 active subscribers (High-ROI owned traffic).
-
-Subscription Power: 92 active weekly VIP members ($2,200+ in Monthly Recurring Revenue).
-
-Historical Proof: Over 2,000 historical VIP enrollments, proving a massive long-term market fit.
-
-SEO Dominance: Page 1 Rank for high-intent keywords like "mrr coloring book bundle." See attached image.
-
-Profit Margin: 95%+ (Post-ad spend, the only costs are software subscriptions).
-
-Operations
-
-The business is designed for maximum efficiency, requiring only 6 hours per week of management:
-
-Marketing (3 hours): Overseeing Facebook Ad sets and monitoring ROAS.
-
-Content/Email (2 hours): Sending weekly newsletters to the 5.5k subscriber list.
-
-Customer Service (1 hour): Minimal inquiries due to 100% automated digital delivery.
-
-Team: 0 employees. The entire operation is handled by the owner using automated Shopify apps.
-
-Customers
-
-Digiluxxe serves a global audience of creators, side-hustlers, and digital art enthusiasts.
-
-The Moat: A verified list of 7,223 buyers worldwide who have already spent money on digital goods.
-
-Retention: The weekly subscription model fosters high engagement and lower "sticker shock" compared to monthly fees.
-
-Acquisition: Traffic is a balanced mix of Organic SEO (Stable) and Facebook Ads (Scalable).
-
-Financials
-
-The business is exceptionally stable with a clear trajectory for growth.
-
-Stable Cash Flow: The weekly rebill structure ensures payouts hit the bank account 4x per month.
-
-Low Overhead: Outside of marketing spend, monthly expenses are limited to Shopify and a few essential apps.
-
-Profitability: Because there are n`,
-  },
-  {
     id: `11738063`,
     title: `packagedisabler.com`,
     revealedName: `packagedisabler.com`,
@@ -2631,177 +2440,6 @@ Key Highlights
 ✅ Priced at $229k to enable a smooth transition due to personal and new venture focus
 
 HUGE opportunity to add AI to the products features and roadmap.  Integrate with ChatGPT/OpenAI/Google's Gemini directly into the document editor experience and job finding/matching for immediate short term revenue and long term product stickiness.`,
-  },
-  {
-    id: `12224855`,
-    title: `CGAA`,
-    revealedName: `CGAA`,
-    url: `https://flippa.com/12224855`,
-    type: `other`,
-    dataLevel: `full_pnl`,
-    askingPrice: 89000.0,
-    monthlyPL: [
-      { month: `Nov 2024`, revenue: 353.06, expenses: 33.02, profit: 318.77 },
-      { month: `Dec 2024`, revenue: 674.37, expenses: 33.02, profit: 640.08 },
-      { month: `Jan 2025`, revenue: 803.91, expenses: 33.02, profit: 770.89 },
-      { month: `Feb 2025`, revenue: 1000.76, expenses: 33.02, profit: 967.74 },
-      { month: `Mar 2025`, revenue: 1832.61, expenses: 43.18, profit: 1789.43 },
-      { month: `Apr 2025`, revenue: 2231.39, expenses: 33.02, profit: 2198.37 },
-      { month: `May 2025`, revenue: 3303.27, expenses: 33.02, profit: 3270.25 },
-      { month: `Jun 2025`, revenue: 3091.18, expenses: 33.02, profit: 3056.89 },
-      { month: `Jul 2025`, revenue: 3219.45, expenses: 34.29, profit: 3185.16 },
-      { month: `Aug 2025`, revenue: 2722.88, expenses: 33.02, profit: 2689.86 },
-      { month: `Sep 2025`, revenue: 3576.32, expenses: 33.02, profit: 3543.3 },
-      { month: `Oct 2025`, revenue: 1950.72, expenses: 33.02, profit: 1917.7 },
-      { month: `Nov 2025`, revenue: 3060.7, expenses: 0.0, profit: 3060.7 },
-      { month: `Dec 2025`, revenue: 3312.16, expenses: 0.0, profit: 3312.16 },
-      { month: `Jan 2026`, revenue: 3454.4, expenses: 0.0, profit: 3454.4 },
-      { month: `Feb 2026`, revenue: 3432.81, expenses: 0.0, profit: 3432.81 },
-    ],
-    avgMonthlyRevenue: 2376.0,
-    avgMonthlyProfit: 2351.0,
-    profitMargin: `98%`,
-    annualRevenue: `GBP £29,936`,
-    annualProfit: `GBP £29,612`,
-    ageYears: 3.0,
-    monetisation: ``,
-    techStack: `Vue, Nuxt, Shopify, MongoDB, Cloudflare`,
-    country: `Sweden`,
-    platform: `within`,
-    hasStripe: false,
-    hasPaypal: false,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 78.8,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 65,
-      growthPotential: 50,
-      overall: 64.5,
-    },
-    recommendation: `STRONG`,
-    redFlags: [
-      `3M+ Q&A pages may be AI-generated/scraped — vulnerable to Google Helpful Content updates`,
-      `Cloudflare bot protection aggressive — may indicate grey-area traffic sources`,
-    ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stable revenue history`,
-      `Zero loss months in P&L`,
-      `Revenue growing (457.2%)`,
-      `Pure passive income — minimal operational work`,
-      `Vue/Nuxt tech stack — Claude Code friendly`,
-    ],
-    seller: {
-      name: `Maximilian Helmersson`,
-      location: `Sweden`,
-      verified: true,
-    },
-    socialMedia: [
-      `0 followers`,
-      `3 followers`,
-    ],
-    expenses: [
-      {
-        item: `Hosting`,
-        amount: `GBP £26 /month`,
-      },
-      {
-        item: `Domain Renewal`,
-        amount: `GBP £1 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Brand assets (logos, etc)`,
-      `Custom technology`,
-      `Unique content`,
-      `Unique design`,
-      `Nuxt.js`,
-      `Included.`,
-      `0 followers`,
-      `3 followers`,
-      `5 subscribers`,
-      `Contact Seller`,
-      `Send message`,
-      `No comments`,
-      `Show all`,
-      `Open for negotiation`,
-      `Indicative Price`,
-      `USD $89,000`,
-      `GBP £66,789`,
-      `Contact Seller Submit LOI Make Offer`,
-      `Watch`,
-      `Share & Earn up to $1.7K*`,
-      `Have a similar business? Get a free valuation`,
-    ],
-    postSaleSupport: `Included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    ga: {
-      users: `3,286,519`,
-      totalPageViews: `322,768`,
-      pagesPerSession: `1.02`,
-      avgDuration: `00:00:28`,
-      engagementRate: `0.43%`,
-      topCountries: [
-        {
-          country: `United States`,
-          views: 248761,
-        },
-        {
-          country: `United Kingdom`,
-          views: 10264,
-        },
-        {
-          country: `Germany`,
-          views: 7717,
-        },
-        {
-          country: `Japan`,
-          views: 5952,
-        },
-        {
-          country: `Hong Kong`,
-          views: 5609,
-        },
-      ],
-    },
-    integrations: [
-      `Google Analytics`,
-      `Amazon`,
-    ],
-    tech: [
-      `Vue`,
-      `Nuxt`,
-      `Shopify`,
-      `MongoDB`,
-      `Cloudflare`,
-    ],
-    views: 853,
-    watchers: 11,
-    about: `CGAA.org is a fast-growing, US dominant business & finance content platform founded in 2022 and designed for scalable, low-maintenance growth. Built on Nuxt.js (Vue) with a MongoDB database backend and powered by a proprietary AI article-generation system, the platform publishes high-quality, search-optimized business content at scale.
-
-Over the past 12 months, CGAA.org has attracted 2.5M users with strong engagement (1:56 avg. session duration) and highly valuable demographics: 74.7% U.S. traffic with a balanced device mix across mobile (56%) and desktop (40%). Traffic is diversified across Bing, Yahoo, DuckDuckGo, and direct sources, giving the site strong resilience and stability.
-
-Monetization is primarily via advertising, with Google AdSense proving the most profitable after testing multiple networks (Ezoic, MonetizeMore, R2B2, Optad360, etc.). The current manual-tag AdSense setup consistently outperforms alternatives. Additional revenue has been generated through paid guest posts and link insertions, offering immediate upside for the new owner. Operating costs are minimal, limited to hosting and annual domain renewal, resulting in super strong profit efficiency and low overhead.
-
-The sale can also include the proprietary AI article generator used to create the site’s content, giving a buyer with sufficient technical skills the ability to scale output further or launch new properties.
-
-In addition to the primary asset, the buyer may opt to acquire a set of smaller supporting sites in the pet, household, and tech niches. These sites generate ~20% additional views and revenue, but their performance is not included in the stated traffic or financial figures above.
-
-Hosting is on reliable Netcup infrastructure, with Cloudflare providing DNS and bot protection, ensuring stability and security.
-
-The owner is selling to free up liquidity for a capital-intensive physical product venture, creating a rare opportunity to acquire a lean, automated, U.S.-heavy content business with proven monetization and significant growth potential.`,
   },
   {
     id: `11998742`,
@@ -4387,6 +4025,173 @@ Customer Acquisition: Customers are mainly acquired through digital marketing, d
     views: 205,
     watchers: 19,
     about: `profitable SaaS company in the Internet and software sector, founded in 2021, provides efficient reporting solutions specifically designed for app developers and digital businesses. The platform offers automated and user-friendly reporting tools that help clients save time and make informed, data-driven decisions. With a clear value proposition and a streamlined operational structure, this business has established a solid position in the growing digital ecosystem. The company generates $57,000 in annual revenue and boasts a 91% profit margin, indicative of low overhead costs and effective cost management strategies. Its subscription-based SaaS model ensures predictable income and scalability while maintaining simplicity in operations. The website has a Domain Authority of 25, which contributes to established search visibility and the potential for organic traffic, aiding in customer acquisition. This SaaS enterprise is poised for ongoing growth through the development of new features, strategic partnerships, and focused marketing efforts. The current infrastructure of the business requires minimal daily oversight, making it an attractive option for operators seeking a simplified software asset with the potential for expansion. With strong profit margins, robust branding, and consistent revenue streams, this company presents a compelling opportunity within the SaaS market landscape.`,
+  },
+  {
+    id: `12224855`,
+    title: `CGAA`,
+    revealedName: `CGAA`,
+    url: `https://flippa.com/12224855`,
+    type: `other`,
+    dataLevel: `full_pnl`,
+    askingPrice: 89000.0,
+    monthlyPL: [
+      { month: `Nov 2024`, revenue: 353.06, expenses: 33.02, profit: 318.77 },
+      { month: `Dec 2024`, revenue: 674.37, expenses: 33.02, profit: 640.08 },
+      { month: `Jan 2025`, revenue: 803.91, expenses: 33.02, profit: 770.89 },
+      { month: `Feb 2025`, revenue: 1000.76, expenses: 33.02, profit: 967.74 },
+      { month: `Mar 2025`, revenue: 1832.61, expenses: 43.18, profit: 1789.43 },
+      { month: `Apr 2025`, revenue: 2231.39, expenses: 33.02, profit: 2198.37 },
+      { month: `May 2025`, revenue: 3303.27, expenses: 33.02, profit: 3270.25 },
+      { month: `Jun 2025`, revenue: 3091.18, expenses: 33.02, profit: 3056.89 },
+      { month: `Jul 2025`, revenue: 3219.45, expenses: 34.29, profit: 3185.16 },
+      { month: `Aug 2025`, revenue: 2722.88, expenses: 33.02, profit: 2689.86 },
+      { month: `Sep 2025`, revenue: 3576.32, expenses: 33.02, profit: 3543.3 },
+      { month: `Oct 2025`, revenue: 1950.72, expenses: 33.02, profit: 1917.7 },
+      { month: `Nov 2025`, revenue: 3060.7, expenses: 0.0, profit: 3060.7 },
+      { month: `Dec 2025`, revenue: 3312.16, expenses: 0.0, profit: 3312.16 },
+      { month: `Jan 2026`, revenue: 3454.4, expenses: 0.0, profit: 3454.4 },
+      { month: `Feb 2026`, revenue: 3432.81, expenses: 0.0, profit: 3432.81 },
+    ],
+    avgMonthlyRevenue: 2376.0,
+    avgMonthlyProfit: 2351.0,
+    profitMargin: `98%`,
+    annualRevenue: `GBP £29,936`,
+    annualProfit: `GBP £29,612`,
+    ageYears: 3.0,
+    monetisation: ``,
+    techStack: `Vue, Nuxt, Shopify, MongoDB, Cloudflare`,
+    country: `Sweden`,
+    platform: `within`,
+    hasStripe: false,
+    hasPaypal: false,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 78.8,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 65,
+      growthPotential: 50,
+      overall: 64.5,
+    },
+    recommendation: `CONSIDER`,
+    redFlags: [],
+    greenFlags: [
+      `Flippa-vetted`,
+      `Managed by Flippa`,
+      `Stable revenue history`,
+      `Zero loss months in P&L`,
+      `Revenue growing (456.9%)`,
+    ],
+    seller: {
+      name: `Maximilian Helmersson`,
+      location: `Sweden`,
+      verified: true,
+    },
+    socialMedia: [
+      `0 followers`,
+      `3 followers`,
+    ],
+    expenses: [
+      {
+        item: `Hosting`,
+        amount: `GBP £26 /month`,
+      },
+      {
+        item: `Domain Renewal`,
+        amount: `GBP £1 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Brand assets (logos, etc)`,
+      `Custom technology`,
+      `Unique content`,
+      `Unique design`,
+      `Nuxt.js`,
+      `Included.`,
+      `0 followers`,
+      `3 followers`,
+      `5 subscribers`,
+      `Contact Seller`,
+      `Send message`,
+      `No comments`,
+      `Show all`,
+      `Open for negotiation`,
+      `Indicative Price`,
+      `USD $89,000`,
+      `GBP £66,789`,
+      `Contact Seller Submit LOI Make Offer`,
+      `Watch`,
+      `Share & Earn up to $1.7K*`,
+      `Have a similar business? Get a free valuation`,
+    ],
+    postSaleSupport: `Included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {
+      users: `3,286,519`,
+      totalPageViews: `322,768`,
+      pagesPerSession: `1.02`,
+      avgDuration: `00:00:28`,
+      engagementRate: `0.43%`,
+      topCountries: [
+        {
+          country: `United States`,
+          views: 248761,
+        },
+        {
+          country: `United Kingdom`,
+          views: 10264,
+        },
+        {
+          country: `Germany`,
+          views: 7717,
+        },
+        {
+          country: `Japan`,
+          views: 5952,
+        },
+        {
+          country: `Hong Kong`,
+          views: 5609,
+        },
+      ],
+    },
+    integrations: [
+      `Google Analytics`,
+      `Amazon`,
+    ],
+    tech: [
+      `Vue`,
+      `Nuxt`,
+      `Shopify`,
+      `MongoDB`,
+      `Cloudflare`,
+    ],
+    views: 853,
+    watchers: 11,
+    about: `CGAA.org is a fast-growing, US dominant business & finance content platform founded in 2022 and designed for scalable, low-maintenance growth. Built on Nuxt.js (Vue) with a MongoDB database backend and powered by a proprietary AI article-generation system, the platform publishes high-quality, search-optimized business content at scale.
+
+Over the past 12 months, CGAA.org has attracted 2.5M users with strong engagement (1:56 avg. session duration) and highly valuable demographics: 74.7% U.S. traffic with a balanced device mix across mobile (56%) and desktop (40%). Traffic is diversified across Bing, Yahoo, DuckDuckGo, and direct sources, giving the site strong resilience and stability.
+
+Monetization is primarily via advertising, with Google AdSense proving the most profitable after testing multiple networks (Ezoic, MonetizeMore, R2B2, Optad360, etc.). The current manual-tag AdSense setup consistently outperforms alternatives. Additional revenue has been generated through paid guest posts and link insertions, offering immediate upside for the new owner. Operating costs are minimal, limited to hosting and annual domain renewal, resulting in super strong profit efficiency and low overhead.
+
+The sale can also include the proprietary AI article generator used to create the site’s content, giving a buyer with sufficient technical skills the ability to scale output further or launch new properties.
+
+In addition to the primary asset, the buyer may opt to acquire a set of smaller supporting sites in the pet, household, and tech niches. These sites generate ~20% additional views and revenue, but their performance is not included in the stated traffic or financial figures above.
+
+Hosting is on reliable Netcup infrastructure, with Cloudflare providing DNS and bot protection, ensuring stability and security.
+
+The owner is selling to free up liquidity for a capital-intensive physical product venture, creating a rare opportunity to acquire a lean, automated, U.S.-heavy content business with proven monetization and significant growth potential.`,
   },
   {
     id: `11839737`,
@@ -11160,6 +10965,167 @@ Tech Asset – Custom PHP backend and Digital Consultant / quiz engine handli
 
 Retention Automations: Pre-built Email automation flows (welcome, winback, churn, reviews, loyalty rewards etc.) baked into the acquisition funnel.
 National Award Winning Website: W`,
+  },
+  {
+    id: `12381849`,
+    title: `Digiluxxe`,
+    revealedName: `Digiluxxe`,
+    url: `https://flippa.com/12381849`,
+    type: `saas`,
+    dataLevel: `full_pnl`,
+    askingPrice: 165000.0,
+    monthlyPL: [
+      { month: `Mar 2025`, revenue: 5961.38, expenses: 2462.53, profit: 3498.85 },
+      { month: `Apr 2025`, revenue: 4975.86, expenses: 2301.24, profit: 2674.62 },
+      { month: `May 2025`, revenue: 4744.72, expenses: 2343.15, profit: 2401.57 },
+      { month: `Jun 2025`, revenue: 5756.91, expenses: 3458.21, profit: 2298.7 },
+      { month: `Jul 2025`, revenue: 4775.2, expenses: 2537.46, profit: 2236.47 },
+      { month: `Aug 2025`, revenue: 3780.79, expenses: 2136.14, profit: 1644.65 },
+      { month: `Sep 2025`, revenue: 5671.82, expenses: 3247.39, profit: 2424.43 },
+      { month: `Oct 2025`, revenue: 7871.46, expenses: 4886.96, profit: 2984.5 },
+      { month: `Nov 2025`, revenue: 6623.05, expenses: 4973.32, profit: 1649.73 },
+      { month: `Dec 2025`, revenue: 4688.84, expenses: 3201.67, profit: 1487.17 },
+      { month: `Jan 2026`, revenue: 3992.88, expenses: 2642.87, profit: 1350.01 },
+      { month: `Feb 2026`, revenue: 3032.76, expenses: 1963.42, profit: 1069.34 },
+    ],
+    avgMonthlyRevenue: 5156.0,
+    avgMonthlyProfit: 2143.0,
+    profitMargin: `42%`,
+    annualRevenue: `GBP £48,720`,
+    annualProfit: `GBP £20,253`,
+    ageYears: 2.0,
+    monetisation: ``,
+    techStack: `Shopify, Stripe`,
+    country: `RI, United States`,
+    platform: `Shopify`,
+    hasStripe: false,
+    hasPaypal: false,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 68.8,
+      diversification: 60,
+      operatorIndependence: 83.3,
+      roi: 40,
+      growthPotential: 80,
+      overall: 66.3,
+    },
+    recommendation: `AVOID`,
+    redFlags: [
+      `Failed deep verification`,
+    ],
+    greenFlags: [],
+    seller: {
+      name: `Siena Velasco`,
+      location: `United States`,
+      verified: false,
+    },
+    socialMedia: [
+      `1,600 followers`,
+    ],
+    expenses: [
+      {
+        item: `Facebook ads`,
+        amount: `GBP £2,126 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Social media accounts`,
+      `Email subscriber list`,
+      `Unique content`,
+      `Unique design`,
+      `Shopify`,
+      `Not included.`,
+      `1,600 followers`,
+      `5,599 subscribers`,
+      `Attachments`,
+      `digiluxxe.com-plReport-2026-03-13-10_28_18`,
+      `Screenshot 2026-02-24 at 11.10.08 AM`,
+      `Screenshot 2026-02-24 at 11.34.23 AM`,
+      `Screenshot 2026-02-24 at 12.05.04 PM`,
+      `Screenshot 2026-02-24 at 12.04.56 PM`,
+      `Screenshot 2026-02-24 at 12.02.16 PM`,
+    ],
+    postSaleSupport: `Not included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {},
+    integrations: [
+      `Shopify`,
+      `Amazon`,
+    ],
+    tech: [
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 201,
+    watchers: 5,
+    about: `Digiluxxe.com is a premier digital product Shopify store specializing in premium Master Resell Rights (MRR) content and creative assets. Launched in 2023, the business has evolved into a highly automated "Digital Utility" model that removes the traditional headaches of e-commerce. With zero inventory, zero shipping costs, and 100% digital fulfillment, Digiluxxe operates at a near-perfect profit margin. The brand is anchored by a proprietary VIP Subscription program that generates stable, predictable weekly cash flow, making it an ideal acquisition for a lifestyle entrepreneur or a portfolio investor seeking a turnkey, low-maintenance asset.
+
+Business Model
+
+The revenue model is diversified across two high-performing streams:
+
+Recurring Subscription (VIP Access): A "sticky" weekly rebill model at $5.99/week. This provides high cash-flow velocity and predictable forecasting.
+
+High-Margin Digital Bundles: One-time sales of premium MRR assets (e.g., coloring book bundles, digital planners) with 100% profit margins and instant delivery.
+
+Master Resell Rights: All products are sourced with MRR licenses, allowing the owner to sell the same asset infinitely without ongoing royalties or licensing fees.
+
+Key Metrics
+
+Monthly Net Profit: $2,000 – $5,000 (Scalable based on ad spend).
+
+Customer Database: 7,223 verified buyers (Premium "Seed List" for AI targeting).
+
+Email List: 5,599 active subscribers (High-ROI owned traffic).
+
+Subscription Power: 92 active weekly VIP members ($2,200+ in Monthly Recurring Revenue).
+
+Historical Proof: Over 2,000 historical VIP enrollments, proving a massive long-term market fit.
+
+SEO Dominance: Page 1 Rank for high-intent keywords like "mrr coloring book bundle." See attached image.
+
+Profit Margin: 95%+ (Post-ad spend, the only costs are software subscriptions).
+
+Operations
+
+The business is designed for maximum efficiency, requiring only 6 hours per week of management:
+
+Marketing (3 hours): Overseeing Facebook Ad sets and monitoring ROAS.
+
+Content/Email (2 hours): Sending weekly newsletters to the 5.5k subscriber list.
+
+Customer Service (1 hour): Minimal inquiries due to 100% automated digital delivery.
+
+Team: 0 employees. The entire operation is handled by the owner using automated Shopify apps.
+
+Customers
+
+Digiluxxe serves a global audience of creators, side-hustlers, and digital art enthusiasts.
+
+The Moat: A verified list of 7,223 buyers worldwide who have already spent money on digital goods.
+
+Retention: The weekly subscription model fosters high engagement and lower "sticker shock" compared to monthly fees.
+
+Acquisition: Traffic is a balanced mix of Organic SEO (Stable) and Facebook Ads (Scalable).
+
+Financials
+
+The business is exceptionally stable with a clear trajectory for growth.
+
+Stable Cash Flow: The weekly rebill structure ensures payouts hit the bank account 4x per month.
+
+Low Overhead: Outside of marketing spend, monthly expenses are limited to Shopify and a few essential apps.
+
+Profitability: Because there are n`,
   },
   {
     id: `11411904`,
