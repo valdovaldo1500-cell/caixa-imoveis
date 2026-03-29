@@ -806,6 +806,9 @@ export const flippaListings: FlippaListing[] = [
     recommendation: `STRONG`,
     redFlags: [
       `Revenue declining sharply (-32.9% trend)`,
+      `AI tools directory niche is oversaturated — dozens of identical sites created 2022-2023`,
+      `SEO-dependent — Google updates in 2024 hammered affiliate/directory sites`,
+      `$50K for declining revenue = buying a falling asset`,
     ],
     greenFlags: [
       `Flippa-vetted`,
