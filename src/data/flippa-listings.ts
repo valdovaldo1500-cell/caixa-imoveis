@@ -964,19 +964,13 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 50,
       overall: 67.5,
     },
-    recommendation: `CONSIDER`,
+    recommendation: `AVOID`,
     redFlags: [
       `High revenue volatility (CV 70%)`,
       `Wholesale physical product business — requires inventory and supplier relationships`,
+      `Physical product business — not remotely operable`,
     ],
-    greenFlags: [
-      `Flippa-vetted`,
-      `Stripe revenue verified`,
-      `Stable revenue history`,
-      `Strong profit $8,949/mo`,
-      `Zero loss months in P&L`,
-      `Revenue growing (415.7%)`,
-    ],
+    greenFlags: [],
   },
   {
     id: `12090571`,
