@@ -1134,7 +1134,11 @@ export default function FlippaDetailPage() {
                                 {annualRoi(l.askingPrice ?? null, l.avgMonthlyProfit ?? 0)?.toFixed(0) ?? "—"}%
                               </td>
                               <td className="text-right py-2 px-2 text-zinc-400">
-                                {l.multiple ? `${l.multiple}x` : "—"}
+                                {l.multiple
+                                  ? `${l.multiple}x`
+                                  : l.askingPrice && l.avgMonthlyProfit && l.avgMonthlyProfit > 0
+                                  ? `${(l.askingPrice / (l.avgMonthlyProfit * 12)).toFixed(1)}x`
+                                  : "—"}
                               </td>
                               <td className="pl-2 py-2">
                                 <RecBadge rec={l.recommendation} />
