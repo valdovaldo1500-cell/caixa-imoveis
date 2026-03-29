@@ -1069,14 +1069,14 @@ export const flippaListings: FlippaListing[] = [
       growthPotential: 75,
       overall: 67.1,
     },
-    recommendation: `STRONG`,
+    recommendation: `AVOID`,
     redFlags: [
       `High revenue volatility (CV 59%)`,
+      `Omegle-style random video chat — CSAM liability risk, original platform shut down for safety concerns`,
     ],
     greenFlags: [
       `Flippa-vetted`,
       `Stripe revenue verified`,
-      `Stable revenue history`,
       `Zero loss months in P&L`,
       `Revenue growing (596.6%)`,
     ],
