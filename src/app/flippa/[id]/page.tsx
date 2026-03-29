@@ -416,7 +416,13 @@ export default function FlippaDetailPage() {
                 <div className="bg-zinc-900 rounded-lg p-3 text-center">
                   <div className="text-xs text-zinc-500 mb-1">Multiple</div>
                   <div className="text-xl font-bold text-zinc-300">
-                    {data.listing.multiple ? `${data.listing.multiple}x` : "—"}
+                    {(() => {
+                      if (data.listing.multiple) return `${data.listing.multiple}x`;
+                      const ap = data.listing.askingPrice;
+                      const mp = data.listing.avgMonthlyProfit;
+                      if (ap && mp && mp > 0) return `${(ap / (mp * 12)).toFixed(1)}x`;
+                      return "—";
+                    })()}
                   </div>
                 </div>
                 <div className="bg-zinc-900 rounded-lg p-3 text-center">
