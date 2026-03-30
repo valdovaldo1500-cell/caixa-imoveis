@@ -615,8 +615,8 @@ export default function InvestimentosOnlinePage() {
     "92410", // YouTube history animation — misleading average, viral spike skews data
     "91231", // eliminated
     "91406", // eliminated
-    "92246", // Ace Hoops — RESCUED under seasonal rule, but still risky (Caitlin Clark dependency)
-    "92725", // schooldays.ie — 49.8% trailing decline, 3 loss months in 12, AVOID at $180K
+    // "92246" — RESCUED under seasonal rule (17% off-season decline passes 6mo-vs-6mo criterion)
+    "92725", // schooldays.ie — 49.8% trailing decline, 3 loss months in 12
   ]);
 
   const topPicks = useMemo(
