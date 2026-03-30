@@ -645,7 +645,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "88745",
     name: "Medical Student Subscription (IMG Residency Tool)",
-    verdict: "CONSIDER — HIGH RISK",
+    verdict: "HIGH RISK — Declining + Transfer Crisis",
     verdictColor: "amber",
     price: "$162,099",
     monthlyProfit: "$4,631",
