@@ -598,7 +598,6 @@ export default function InvestimentosOnlinePage() {
     "84353", // tech education — 89% traffic drop, collapsed
     "90541", // culinary blog — Google algo victim, Feb 26: $477/mo
     "89555", // photopacks.ai — traffic -78% crash
-    "91138", // oakleyforum.com — 76% bot traffic, revenue -49%
     "92062", // entertainment YouTube — extreme volatility ($0–$13K)
     "88899", // YouTube product reviews — crashing, "fair use" risk
     "83071", // content site — 90% profit collapse in 12mo
