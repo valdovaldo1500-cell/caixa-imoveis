@@ -613,7 +613,7 @@ export default function InvestimentosOnlinePage() {
     "92410", // YouTube history animation — misleading average, viral spike skews data
     "91231", // eliminated
     "91406", // eliminated
-    // "92246" — RESCUED under seasonal rule (17% off-season decline passes 6mo-vs-6mo criterion)
+    // "92246" — CONSIDER under seasonal rule (Caitlin Clark risk — keep on dashboard)
     "92725", // schooldays.ie — 49.8% trailing decline, 3 loss months in 12
   ]);
 
