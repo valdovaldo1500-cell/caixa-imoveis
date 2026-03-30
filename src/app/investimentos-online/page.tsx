@@ -47,7 +47,7 @@ import type { EFListing } from "@/data/empire-flippers-listings";
 import { EXPERT_ASSESSMENTS } from "@/data/expert-assessments";
 import { SENSITIVITY_ANALYSIS, LISTING_FINANCIALS } from "@/data/portfolio-analysis";
 
-const UPDATED_AT = "March 27, 2026 (verified — #90544 eliminated, Ace Hoops + Faceless Tutorials confirmed)";
+const UPDATED_AT = "March 29, 2026 (verified — #90544 CONDITIONAL BUY promoted to #1 pick; Ace Hoops + Faceless Tutorials confirmed)";
 const BUDGET_USD = 160000;
 
 type SortKey =
