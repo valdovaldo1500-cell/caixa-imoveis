@@ -591,22 +591,20 @@ export default function InvestimentosOnlinePage() {
     "92295", // Alex Griffin — Family Guy copyright
     "88055", // Pinterest sobriety blog
     "92391", // personal brand confirmed
-    "86127", // 74% Pinterest, 35hrs/wk
+    "86127", // Pinterest 74% confirmed, traffic -81%, 35hrs/wk — deep dive AVOID
     "86318", // single technician Canada
     "91137", // 20hrs storytelling
     "90535", // paid ads, seller competing
-    "84353", // tech education — 89% traffic drop, collapsed
+    "84353", // 94% traffic collapse confirmed, pre-sale spike manipulation — HARD AVOID
     "90541", // culinary blog — Google algo victim, Feb 26: $477/mo
     "89555", // photopacks.ai — traffic -78% crash
-    "92062", // entertainment YouTube — extreme volatility ($0–$13K)
+    "92062", // celebrity defamation risk, declining views, $2.7K real profit — AVOID
     "88899", // YouTube product reviews — crashing, "fair use" risk
     "83071", // content site — 90% profit collapse in 12mo
     "83260", // Amazon Merch+KDP — 36x, 59% margin, platform risk
     "87216", // SaaS web dev — too small ($1,121/mo)
     "89017", // KDP books — 8mo old, AI-written, dying
     "85655", // coupons YouTube — 30hrs/wk full-time job
-    "83091", // KDP planners — 70% from 1 book, concentration risk
-    "92299", // AI music gifts — $103K overpriced for 1yr old
     "90674", // video game assets — dead, Feb $230
     "90449", // removed from EF marketplace
     "88013", // SwapFace AI bot — legal time bomb (TAKE IT DOWN Act, Stripe ban)
