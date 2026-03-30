@@ -838,6 +838,47 @@ export default function InvestimentosOnlinePage() {
               />
             </section>
 
+            {/* Current Recommendations Summary */}
+            <section className="mb-8">
+              <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                📊 Current Investment Recommendations
+              </h2>
+              <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="text-zinc-400 text-left border-b border-zinc-800">
+                      <th className="pb-2">Listing</th>
+                      <th className="pb-2">Price</th>
+                      <th className="pb-2">Profit/mo</th>
+                      <th className="pb-2">Status</th>
+                      <th className="pb-2">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {EXPERT_ASSESSMENTS.filter(a => a.verdictColor !== "red").map(a => (
+                      <tr key={a.id} className="border-b border-zinc-800/50">
+                        <td className="py-2 text-white font-medium">{a.name}</td>
+                        <td className="py-2 text-zinc-300">{a.price}</td>
+                        <td className="py-2 text-zinc-300">{a.monthlyProfit}</td>
+                        <td className="py-2">
+                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                            a.verdictColor === "emerald" ? "bg-emerald-500/20 text-emerald-400" :
+                            a.verdictColor === "blue" ? "bg-blue-500/20 text-blue-400" :
+                            "bg-amber-500/20 text-amber-400"
+                          }`}>{a.verdict}</span>
+                        </td>
+                        <td className="py-2 text-zinc-400 text-xs">{a.recommendation.substring(0, 80)}...</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="text-zinc-500 text-xs mt-3">
+                  {EXPERT_ASSESSMENTS.filter(a => a.verdictColor === "red").length} listings assessed as AVOID (hidden).{" "}
+                  {EXPERT_ASSESSMENTS.length} total listings with expert assessments.
+                </p>
+              </div>
+            </section>
+
             {/* Investment Strategy */}
             <section>
               <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
