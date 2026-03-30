@@ -610,7 +610,13 @@ export default function InvestimentosOnlinePage() {
     "92299", // AI music gifts — $103K overpriced for 1yr old
     "90674", // video game assets — dead, Feb $230
     "90449", // removed from EF marketplace
-    "90544", // dying — recent videos 0 views, not AI voiceover, freelancer costs
+    "88013", // SwapFace AI bot — legal time bomb (TAKE IT DOWN Act, Stripe ban)
+    "88745", // medical student sub — Ukraine registration + Stripe crisis + 150 subs
+    "86936", // political newsletter bundle — fake traffic, RPM -91%
+    "92410", // YouTube history animation — misleading average, viral spike skews data
+    "91231", // eliminated
+    "91406", // eliminated
+    "92246", // Ace Hoops — Caitlin Clark drama channel, off-season $2K/mo, 35x real multiple
   ]);
 
   const topPicks = useMemo(
