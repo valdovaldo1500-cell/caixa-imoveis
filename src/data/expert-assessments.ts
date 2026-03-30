@@ -472,18 +472,19 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "83091",
     name: "Amazon KDP Planners & Journals",
-    verdict: "DO NOT BUY — CONCENTRATION RISK",
-    verdictColor: "red",
+    verdict: "CONSIDER with DD",
+    verdictColor: "amber",
     price: "$126,545",
     monthlyProfit: "$4,218",
     annualROI: "40%",
-    trendProfit: "70%+ from single title",
+    trendProfit: "Growing — 70%+ from single title",
     trendTraffic: "Amazon marketplace",
     highlights: [
       "Best-selling title: #1 in subcategory, 1,000+ reviews",
       "Only 2hrs/week — very passive",
       "Low-content books (planners/journals) — simple to produce",
       "Strong recent months: up to $8,936 (Aug 25)",
+      "Profit growing — positive trend",
     ],
     risks: [
       "CRITICAL: 70%+ of all profit from ONE book — single point of failure",
@@ -495,9 +496,9 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "10 books total — tiny catalog with extreme concentration",
     ],
     recommendation:
-      "DO NOT BUY. 70%+ revenue concentration in a single Amazon KDP book is an unacceptable risk at $127K. If that one title loses its #1 ranking (algorithm change, copycat, negative review wave), the business loses most of its income. The 58% margin and 30x multiple make this inferior to YouTube alternatives. The 2hrs/week passivity is appealing but doesn't offset the concentration and platform risk.",
+      "CONSIDER with DD. Profit growing but 70% from one book — single-title concentration is the key risk. Require seller to disclose title-level revenue breakdown before offer. Negotiate to $90-100K to price in concentration risk.",
     aiPlan:
-      "N/A — eliminated from consideration.",
+      "Verify title-level revenue split. Confirm #1 ranking stability (check BSR history). Assess copycat competition in the subcategory. Negotiate to $90-100K.",
   },
   {
     id: "92299",
