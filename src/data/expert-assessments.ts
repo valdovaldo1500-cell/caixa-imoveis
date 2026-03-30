@@ -293,6 +293,59 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "N/A — eliminated from consideration.",
   },
   {
+    id: "86127",
+    name: "Pinterest Home Decor / DIY Blog",
+    verdict: "AVOID — Pinterest 74%, Traffic Collapse",
+    verdictColor: "red",
+    price: "$88,000",
+    monthlyProfit: "$2,500",
+    annualROI: "34%",
+    trendProfit: "Traffic collapsed -81% Jan-Feb 2026",
+    trendTraffic: "74% Pinterest — traffic -81% Jan-Feb 26",
+    highlights: [
+      "Established content library",
+      "Home decor/DIY niche has broad appeal",
+    ],
+    risks: [
+      "CRITICAL: Pinterest 74% traffic dependency confirmed — single-platform death trap",
+      "Traffic collapsed -81% Jan-Feb 2026 — business is in freefall",
+      "35hrs/week confirmed — this is a full-time job, not passive income",
+      "Seller listed immediately after the traffic crash — classic distress sale",
+      "Pinterest algorithm changes would kill the business overnight",
+      "Recovery from -81% traffic collapse is not guaranteed",
+    ],
+    recommendation:
+      "AVOID. Pinterest dependency 74% confirmed. Traffic collapsed -81% Jan-Feb 2026. 35hrs/wk confirmed. Seller listed immediately after crash — distress sale. Do not buy.",
+    aiPlan:
+      "N/A — eliminated from consideration.",
+  },
+  {
+    id: "84353",
+    name: "Tech Education Content Site",
+    verdict: "HARD AVOID — 94% Traffic Collapse",
+    verdictColor: "red",
+    price: "$88,000",
+    monthlyProfit: "$1,388",
+    annualROI: "19%",
+    trendProfit: "Real profit $1,388/mo — Nov/Dec 2024 spike was manipulation",
+    trendTraffic: "Google organic traffic dropped 95.9%",
+    highlights: [
+      "Tech education niche — historically strong Google traffic",
+    ],
+    risks: [
+      "CRITICAL: Google organic traffic dropped 95.9% — catastrophic SEO collapse",
+      "Nov/Dec 2024 revenue spike was pre-sale manipulation — not real business performance",
+      "Real profit $1,388/mo makes the true multiple 63x at asking price",
+      "Site worth $15-25K based on real current metrics, not $88K",
+      "Seller inflated revenue window to maximize sale price — deliberate misrepresentation",
+      "Recovery from 95.9% Google traffic loss is extremely rare",
+    ],
+    recommendation:
+      "HARD AVOID. Google organic traffic dropped 95.9%. Nov/Dec 2024 revenue spike was pre-sale manipulation. Real profit $1,388/mo. Site worth $15-25K, not $88K.",
+    aiPlan:
+      "N/A — eliminated from consideration.",
+  },
+  {
     id: "88899",
     name: "YouTube Product Reviews (Fair Use)",
     verdict: "DO NOT BUY — CRASHING",
