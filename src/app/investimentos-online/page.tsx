@@ -726,7 +726,7 @@ export default function InvestimentosOnlinePage() {
                   </h2>
                   <p className="text-sm text-zinc-400 max-w-3xl">
                     Both faceless, fully AI+VA manageable, no personal brand risk. Ace Hoops is seasonal (WNBA May–Oct) and growing; Faceless Tutorials is year-round with 94% margin — negotiate from $60K to ~$45K. Combined total ~$107K well within $160K budget.
-                    Avoid: <span className="text-red-400 font-semibold">#90544 3× Tech YouTube</span> (recent videos 0 views, not AI voiceover, hidden freelancer costs) · <span className="text-red-400 font-semibold">#89555 photopacks.ai</span> (traffic -78%, declining) · <span className="text-red-400 font-semibold">#92180 ahoyvietnam</span> (personal brand).
+                    Also investigating: <span className="text-blue-400 font-semibold">#90544 Thrive Media (3× Faceless Tech YouTube)</span> — promoted to CONDITIONAL BUY #1 pick at $78-82K negotiated. Avoid: <span className="text-red-400 font-semibold">#89555 photopacks.ai</span> (traffic -78%, declining) · <span className="text-red-400 font-semibold">#92180 ahoyvietnam</span> (personal brand).
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-1 shrink-0">
