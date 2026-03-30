@@ -1296,8 +1296,8 @@ export default function InvestimentosOnlinePage() {
                         <td className="py-4 px-4 text-center">
                           <span className="inline-block bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-md px-2 py-1 text-xs font-semibold">BUY — seasonal alpha play</span>
                         </td>
-                        <td className="py-4 px-4 text-center opacity-40">
-                          <span className="inline-block bg-red-500/10 text-red-400 border border-red-500/30 rounded-md px-2 py-1 text-xs font-bold">ELIMINATED — 0 views, fake AI</span>
+                        <td className="py-4 px-4 text-center">
+                          <span className="inline-block bg-blue-500/10 text-blue-400 border border-blue-500/30 rounded-md px-2 py-1 text-xs font-bold">CONDITIONAL BUY — negotiate to $78-82K</span>
                         </td>
                         <td className="py-4 px-4 text-center">
                           <span className="inline-block bg-blue-500/10 text-blue-400 border border-blue-500/30 rounded-md px-2 py-1 text-xs font-semibold">BUY IF NEGOTIATED — secondary pick</span>
