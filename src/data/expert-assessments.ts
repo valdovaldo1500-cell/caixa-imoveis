@@ -708,4 +708,39 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     aiPlan:
       "If acquired at $80K: automate content via AI, renegotiate B2B contracts to monthly billing to smooth revenue, expand to UK schools market.",
   },
+  {
+    id: "F12068961",
+    name: "The Coconut Mama (thecoconutmama.com)",
+    verdict: "AVOID AT $198K — Revenue Cliff",
+    verdictColor: "red",
+    price: "$198,000 (reduced 53% from $425K)",
+    monthlyProfit: "$3,275 (current) / $20,000 (TTM avg — inflated by lost partner)",
+    annualROI: "20% (current) / 121% (TTM — misleading)",
+    trendProfit: "CLIFF: Jul $47K → Oct $2.7K → Feb $2.5K. MSN distribution deal ended Sep 2025.",
+    trendTraffic: "209K pageviews/mo, 45% organic search, 47% direct. Stable but declining RPMs.",
+    highlights: [
+      "14-year-old domain (founded 2012) — exceptional longevity",
+      "69,000 email subscribers (ConvertKit) — completely undermonetized",
+      "Pinterest 132K, Facebook 287K — large social following",
+      "Semrush Authority 43, 3.6K referring domains, 110K keywords",
+      "Original founder Tiffany Pelkey available for ongoing freelance",
+      "100% organic traffic — no paid ads dependency",
+      "WordPress + Raptive + ConvertKit — standard, easy-to-manage stack",
+      "3-year XLSX P&L downloaded and fully parsed",
+    ],
+    risks: [
+      "Lost MSN/Microsoft distribution partner — was 37% of total revenue ($289K over 3 years)",
+      "ALL revenue streams declining: Raptive -41% YoY, Affiliates -44% YoY",
+      "Current profit £2,458/mo (Feb 26) — barely meets £2,500 floor",
+      "Content identity crisis — site pivoted from coconut/natural living to clickbait news aggregation",
+      "Previous owners lost $118K in year 1 after acquiring",
+      "$198K asking = 60x current monthly profit — massively overpriced",
+      "Pinterest followers overstated (114K actual vs 132K claimed)",
+      "December expenses anomaly (£11.9K vs normal £5.5K) unexplained",
+    ],
+    recommendation:
+      "AVOID at $198K. CONSIDER at $65-85K as a fixer-upper. The 69K email list and 14yr domain authority are real assets worth $60-80K. Email monetization could add $3-6K/mo. But current earnings don't justify asking price.",
+    aiPlan:
+      "If acquired at $75K: refocus content back to original niche (coconut/natural living), activate email monetization with product/affiliate sequences, refresh evergreen SEO content with AI, explore new distribution partnerships.",
+  },
 ];
