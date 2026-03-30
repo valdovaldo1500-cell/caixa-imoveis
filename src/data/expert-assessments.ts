@@ -674,4 +674,38 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     aiPlan:
       "N/A unless price drops significantly",
   },
+  {
+    id: "92725",
+    name: "schooldays.ie (Irish Education Platform)",
+    verdict: "AVOID — VOLATILE DECLINE",
+    verdictColor: "red",
+    price: "$180,560",
+    monthlyProfit: "$4,880 (avg) / $1,513 (recent trend)",
+    annualROI: "32% (on paper) / 10% (recent reality)",
+    trendProfit: "49.8% decline: trailing 6mo avg $3,263 vs prior 6mo $6,497",
+    trendTraffic: "5.7M organic users/yr, 86% Google",
+    highlights: [
+      "19+ years old — oldest listing in entire dataset",
+      "Multi-revenue: newsletter + display + subscription + lead gen + B2C listings",
+      "schooldays.ie — trusted Irish education brand",
+      "30K email list, 135K social followers",
+      "Semrush Authority 38, 9,838 organic keywords, 1,753 referring domains",
+      "Only 10hrs/wk with 2 established contractors",
+      "WordPress, Ireland-registered",
+    ],
+    risks: [
+      "3 NEGATIVE profit months in 12 (Jun -$4,830, Oct -$1,602, Dec -$65)",
+      "49.8% decline in trailing 6mo avg — FAILS even relaxed 20% rule",
+      "Profit swings from -$4,830 to +$15,120 — extreme volatility",
+      "Recent 5 months (Oct-Feb) average only $1,513/mo — well below asking price justification",
+      "$4,880/mo average inflated by 3 spike months (May $13K, Jul $15K, Sep $12K)",
+      "33% profit margin with lumpy B2B contract payments",
+      "Ireland-specific market — needs Ireland-relevant content updates",
+      "86% Google organic — algorithm dependency",
+    ],
+    recommendation:
+      "AVOID at $180K. The 19-year brand has real value but financials show 49.8% decline and 3 loss months. Consider only at $80-100K if seller drops price.",
+    aiPlan:
+      "If acquired at $80K: automate content via AI, renegotiate B2B contracts to monthly billing to smooth revenue, expand to UK schools market.",
+  },
 ];
