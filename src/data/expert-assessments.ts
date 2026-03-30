@@ -799,4 +799,113 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     aiPlan:
       "If acquired at $75K: refocus content back to original niche (coconut/natural living), activate email monetization with product/affiliate sequences, refresh evergreen SEO content with AI, explore new distribution partnerships.",
   },
+  {
+    id: "F11532448",
+    name: "NutritioApp (White-Label Nutrition SaaS)",
+    verdict: "CONSIDER at $120-140K",
+    verdictColor: "amber",
+    price: "$190,000 (negotiate to $120-140K)",
+    monthlyProfit: "£2,521/mo",
+    annualROI: "22% at asking / 30% at $140K",
+    trendProfit: "8yr old SaaS, 89% margin, Romania-based",
+    trendTraffic: "4,178 pageviews/mo, 345 watchers (highest interest in dataset)",
+    highlights: [
+      "White-label mobile app for nutrition professionals — real SaaS product",
+      "8 years old — exceptional longevity for a SaaS",
+      "89% profit margin with minimal expenses",
+      "345 Flippa watchers — highest buyer interest in our entire dataset",
+      "AI-powered features in a growing health/wellness niche",
+      "Vetted + Managed by Flippa"
+    ],
+    risks: [
+      "$190K asking = 4.7x annual profit — expensive for the income level",
+      "£2,521/mo barely meets the £2,500 profit floor",
+      "Romania-based — transfer complexity for UK buyer",
+      "Only 4,178 pageviews/mo — low organic discovery",
+      "White-label model requires maintaining app for multiple clients",
+      "Competition: Healthie, Practice Better, Nutrium all compete in this space"
+    ],
+    recommendation: "CONSIDER at $120-140K. The 8yr track record and SaaS model are genuine strengths, but $190K is overpriced for £2.5K/mo profit. Negotiate hard — the 345 watchers create urgency but the math doesn't justify asking price.",
+    aiPlan: "If acquired: expand AI features, add integrations with popular health platforms, target US/UK nutrition professionals with paid marketing."
+  },
+  {
+    id: "F12199300",
+    name: "Writers Work (Freelance Writing Platform)",
+    verdict: "CONSIDER at $50-70K",
+    verdictColor: "amber",
+    price: "$170,000 (negotiate to $50-70K)",
+    monthlyProfit: "£8,611/mo (but declining — AI disruption)",
+    annualROI: "61% at asking / 147% at $70K",
+    trendProfit: "$933K TTM, 5,000+ customers, but AI writing tools eating the market",
+    trendTraffic: "47% growth claimed but freelance writing market contracting",
+    highlights: [
+      "Established freelance writing platform with 5,000+ customers",
+      "$933K trailing twelve months revenue — substantial scale",
+      "47% revenue growth claimed",
+      "All-in-one platform model (job board + tools + courses)"
+    ],
+    risks: [
+      "AI writing tools (ChatGPT, Claude, Jasper) are destroying demand for freelance writers",
+      "The core value proposition — connecting writers with clients — is being disrupted",
+      "$170K asking is massively overpriced given AI headwinds",
+      "Freelance writing market contracting as companies use AI directly",
+      "Revenue may be declining beneath the growth headline"
+    ],
+    recommendation: "CONSIDER only at $50-70K. The brand and audience have value but the core business model is under existential AI pressure. At $170K this is a hard AVOID. At $50-70K it becomes a turnaround play if you pivot toward AI-assisted writing services.",
+    aiPlan: "If acquired at $60K: pivot from pure freelance marketplace to AI-augmented writing services. Add AI tools for writers. Monetize the 5K customer base with new products."
+  },
+  {
+    id: "F12206256",
+    name: "Juca Nery Guitar (Online Guitar Education — Brazil)",
+    verdict: "CONSIDER — needs majority control",
+    verdictColor: "amber",
+    price: "$93,288 (for 25% equity — problematic)",
+    monthlyProfit: "£4,279/mo (full business)",
+    annualROI: "55% on full / 14% on 25% stake",
+    trendProfit: "Brazilian online guitar education — directly relevant to buyer moving to Brazil",
+    trendTraffic: "Established guitar education brand",
+    highlights: [
+      "BRAZILIAN business — directly relevant to buyer's planned move to Brazil",
+      "Online guitar education — digital, remote-operable",
+      "£4,279/mo full business profit",
+      "Established brand in music education niche",
+      "Portuguese language = natural fit"
+    ],
+    risks: [
+      "Selling only 25% equity — buyer has NO control",
+      "$93K for 25% = implied $373K total valuation — very expensive",
+      "Personal brand dependency (Juca Nery = the teacher)",
+      "25% stake = no ability to make operational decisions",
+      "Cannot pivot, scale, or exit without founder cooperation"
+    ],
+    recommendation: "CONSIDER only if seller will negotiate majority control (51%+). At 25% equity for $93K this is AVOID — you're a passive minority investor in someone's teaching career. If full acquisition is possible at $150-175K, the Brazilian guitar education niche is a strong cultural fit.",
+    aiPlan: "If acquired with control: expand to Portuguese-speaking markets (Brazil + Portugal), add AI-generated practice tracks, create subscription tier for ongoing lessons."
+  },
+  {
+    id: "F11894471",
+    name: "Rapidesim.com (Automated eSIM Business)",
+    verdict: "CONSIDER — needs provider contract review",
+    verdictColor: "amber",
+    price: "$120,000",
+    monthlyProfit: "£4,190/mo",
+    annualROI: "42%",
+    trendProfit: "Fully automated eSIM reselling — growing market",
+    trendTraffic: "eSIM market growing as smartphones drop physical SIM trays",
+    highlights: [
+      "Fully automated — eSIM provisioning is API-driven",
+      "Growing market — Apple, Samsung, Google all pushing eSIM adoption",
+      "£4,190/mo at $120K = 42% ROI — reasonable",
+      "Digital-only, no physical inventory",
+      "Can run from anywhere"
+    ],
+    risks: [
+      "31% margin — low for a digital business (eSIM wholesale costs eat into revenue)",
+      "Provider contract is the entire business — if provider changes terms, margin disappears",
+      "Competition from Airalo, Holafly, Nomad eSIM — well-funded competitors",
+      "Need to verify: is the provider contract transferable to new owner?",
+      "Unverified seller on Flippa"
+    ],
+    recommendation: "CONSIDER pending full DD on provider contract transferability and margin sustainability. The eSIM market is genuinely growing but this is a reseller business with thin margins. Must see the provider agreement before any offer.",
+    aiPlan: "If acquired: negotiate better wholesale rates with volume, add multi-provider redundancy, expand to B2B (corporate travel eSIM packages)."
+  },
 ];
