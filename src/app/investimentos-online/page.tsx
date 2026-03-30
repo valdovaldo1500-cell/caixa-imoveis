@@ -961,7 +961,7 @@ export default function InvestimentosOnlinePage() {
                     <li className="flex gap-2"><span className="text-emerald-400">✓</span><span>Faceless Tutorials provide year-round baseline income — offsets Ace Hoops off-season dip</span></li>
                     <li className="flex gap-2"><span className="text-amber-400">!</span><span>Faceless Tutorials target $45K (from $60K asking) — negotiate 25% below asking before closing</span></li>
                     <li className="flex gap-2"><span className="text-amber-400">!</span><span>Ace Hoops: 2026 WNBA season starts May — buying March = full season ahead</span></li>
-                    <li className="flex gap-2"><span className="text-red-400">✗</span><span>#90544 Tech YouTube ELIMINATED — declining revenue, 32x on degrading metrics; DO NOT BUY</span></li>
+                    <li className="flex gap-2"><span className="text-blue-400">★</span><span>#90544 Thrive Media (3× Faceless Tech YouTube) — CONDITIONAL BUY at $78-82K (negotiate from $93.6K); 4.1% CV, 80% Search traffic, verify affiliate DD first</span></li>
                     <li className="flex gap-2"><span className="text-amber-400">!</span><span>Both picks: negotiate 60-day earnout + verify P&amp;L via bank statements before closing</span></li>
                     <li className="flex gap-2"><span className="text-blue-400">i</span><span>All earnings verified via Chart.js extraction from EF Active Unlocks (March 27, 2026)</span></li>
                   </ul>
