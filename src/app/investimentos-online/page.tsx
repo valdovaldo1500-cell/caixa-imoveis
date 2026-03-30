@@ -781,8 +781,9 @@ export default function InvestimentosOnlinePage() {
               </div>
 
               <div className="mt-3 text-xs text-zinc-500 border-t border-zinc-700/50 pt-3">
-                <span className="text-red-400 font-medium">Do NOT buy: </span>
-                #90544 3× Tech YouTube (recent videos 0 views, not AI voiceover, hidden freelancer costs — dying) ·
+                <span className="text-blue-400 font-medium">Under review: </span>
+                #90544 Thrive Media (CONDITIONAL BUY — negotiate to $78-82K, verify affiliate DD before closing) ·
+                <span className="text-red-400 font-medium ml-2">Do NOT buy: </span>
                 #92180 ahoyvietnam.com (Anthony&apos;s personal brand, 27K followers know him) ·
                 #92105 homemadegraceful (Pinterest 92% + female persona — can&apos;t swap writer) ·
                 #89555 photopacks.ai at asking price (traffic -78% crash Nov 25, profit -37% from peak) ·
