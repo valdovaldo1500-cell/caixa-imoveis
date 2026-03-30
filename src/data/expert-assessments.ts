@@ -18,8 +18,8 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "92246",
     name: "Ace Hoops YouTube (WNBA)",
-    verdict: "AVOID — CELEBRITY HYPE",
-    verdictColor: "red",
+    verdict: "RESCUED — SEASONAL (New Criteria)",
+    verdictColor: "amber",
     price: "$70,599",
     monthlyProfit: "$3,070",
     annualROI: "52%",
@@ -42,11 +42,12 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "100% YouTube AdSense — no revenue diversification yet",
       "Only 19 months old — limited track record",
       "SEASONAL: WNBA season (May–Oct) drives peak revenue; off-season dips to $1,600–2,700",
+      "NOTE: Rescued under relaxed seasonal rule — 17% off-season decline passes the new 6mo-vs-6mo criterion",
     ],
     recommendation:
-      "DO NOT BUY. Channel is Caitlin Clark-dependent. Off-season reality is $2K/mo. The $3,070 average includes summer WNBA peak that may not repeat.",
+      "RESCUED under relaxed criteria. The 17% off-season decline passes the new 6-month-vs-6-month seasonal rule. Channel remains seasonal (WNBA May–Oct) but the off-season dip is within acceptable range. Original concern about Caitlin Clark dependency still applies — monitor WNBA viewership trends.",
     aiPlan:
-      "N/A — eliminated from consideration.",
+      "Audit all 5,261 videos for affiliate link status. Negotiate to $78-82K. Verify revenue split between affiliate and AdSense. Confirm 1hr/wk ops claim with seller walkthrough.",
   },
   {
     id: "90544",
