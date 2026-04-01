@@ -202,8 +202,8 @@ export default function InvestimentosOnlinePage() {
         {/* KPI bar */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { label: "Listings Analyzed", value: "310+" },
-            { label: "Deep Dived", value: "80+" },
+            { label: "Listings Analyzed", value: "800+" },
+            { label: "Deep Dived", value: "100+" },
             {
               label: "Actionable",
               value: String(actionableCount),
