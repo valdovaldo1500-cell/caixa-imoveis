@@ -29,12 +29,21 @@ const actionable = EXPERT_ASSESSMENTS.filter(
 const avoided = EXPERT_ASSESSMENTS.filter((a) => a.verdictColor === "red");
 
 function platformBadge(id: string) {
-  const isFlippa = id.startsWith("F");
-  return isFlippa ? (
-    <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded bg-violet-500/20 text-violet-300 border border-violet-500/30">
-      Flippa
-    </span>
-  ) : (
+  if (id.startsWith("BFS")) {
+    return (
+      <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded bg-orange-500/20 text-orange-300 border border-orange-500/30">
+        BFS
+      </span>
+    );
+  }
+  if (id.startsWith("F")) {
+    return (
+      <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded bg-violet-500/20 text-violet-300 border border-violet-500/30">
+        Flippa
+      </span>
+    );
+  }
+  return (
     <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">
       EF
     </span>
