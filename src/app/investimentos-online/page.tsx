@@ -29,6 +29,27 @@ const actionable = EXPERT_ASSESSMENTS.filter(
 const avoided = EXPERT_ASSESSMENTS.filter((a) => a.verdictColor === "red");
 
 function platformBadge(id: string) {
+  if (id.startsWith("DAL")) {
+    return (
+      <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">
+        Daltons
+      </span>
+    );
+  }
+  if (id.startsWith("ACQ")) {
+    return (
+      <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+        Acquire
+      </span>
+    );
+  }
+  if (id.startsWith("TS")) {
+    return (
+      <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/20 text-pink-300 border border-pink-500/30">
+        Transferslot
+      </span>
+    );
+  }
   if (id.startsWith("BFS")) {
     return (
       <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded bg-orange-500/20 text-orange-300 border border-orange-500/30">
