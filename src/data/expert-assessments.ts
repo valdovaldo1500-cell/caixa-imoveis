@@ -1163,27 +1163,24 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "TS-CLOUDARINA",
     name: "Cloudarina Digital Signage SaaS (Transferslot)",
-    verdict: "CONSIDER — solid B2B SaaS",
-    verdictColor: "amber",
+    verdict: "AVOID — product abandoned, app delisted",
+    verdictColor: "red",
     price: "$80,465",
     monthlyProfit: "~£2,850/mo ($3,600 MRR)",
     annualROI: "42%",
     trendProfit: "$3,600 MRR B2B digital signage platform",
-    trendTraffic: "B2B customers, remote-operable SaaS",
-    highlights: [
-      "B2B SaaS with recurring MRR — proper subscription model",
-      "$80K price is well within budget",
-      "Digital signage is a growing market (retail, hospitality, offices)",
-      "Remote-operable — cloud-based platform"
-    ],
+    trendTraffic: "B2B customers — but product no longer exists",
+    highlights: [],
     risks: [
-      "Digital signage is outside Israel's expertise",
-      "Competitive market (ScreenCloud, Yodeck, Rise Vision)",
-      "£2,850/mo is close to but may be below £2,500 threshold after all costs",
-      "Need to verify churn rate and customer concentration"
+      "CRITICAL: cloudarina.com is now a dev agency website — the SaaS product is gone",
+      "Google Play app returns 404 — app has been delisted/removed",
+      "Listing is 6 years old and has never sold — product was abandoned long ago",
+      "What you would be buying no longer exists as an operating business",
+      "Digital signage is a competitive market (ScreenCloud, Yodeck, Rise Vision)",
+      "Zero verifiable current customers, revenue, or product"
     ],
-    recommendation: "CONSIDER — check the Transferslot listing for full details. B2B SaaS at $80K with $3.6K MRR is fairly priced. Not a domain match but a solid passive income asset if customer base is diversified.",
-    aiPlan: "If acquired: maintain product, focus on retention, add AI-powered content features to differentiate from competitors."
+    recommendation: "AVOID. Deep dive: cloudarina.com is now a dev agency site, the original SaaS product is gone. Google Play app returns 404. This listing is 6 years old and was never sold — the business was simply abandoned. There is nothing to buy.",
+    aiPlan: "N/A — product no longer exists."
   },
   {
     id: "F11999421",
