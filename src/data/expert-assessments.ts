@@ -1185,33 +1185,30 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F11999421",
     name: "WebAbility.io (ADA/WCAG Compliance SaaS — 25% Equity)",
-    verdict: "CONSIDER — 25% partial sale, not full acquisition",
-    verdictColor: "amber",
+    verdict: "AVOID — overlay category under FTC attack",
+    verdictColor: "red",
     price: "$50,000 (for 25% equity — full valuation £150K)",
     monthlyProfit: "£5,491/mo (full business) — your 25% = ~£1,370/mo",
     annualROI: "33% on your 25% stake",
     trendProfit: "£8,190/mo revenue, 67% margin, Stripe+GA verified, steep growth curve",
     trendTraffic: "658 active subscribers, 13% churn, 1,948 pageviews/mo, 107 watchers",
     highlights: [
-      "Vetted + Data Verified by Flippa (Revenue, Expenses, Traffic via Stripe + GA)",
-      "658 subscribers in 11 months — strong early traction",
-      "20 agency partners = scalable channel distribution model",
-      "Compliance/regulatory SaaS = non-discretionary spend",
-      "European Accessibility Act 2025 = massive regulatory tailwind",
-      "Seller fully verified (email, phone, govt ID)",
-      "107 Flippa watchers — very high buyer interest"
+      "658 subscribers in 11 months — early traction",
+      "European Accessibility Act 2025 = regulatory tailwind (for products that actually work)"
     ],
     risks: [
-      "25% PARTIAL SALE — you'd be a minority shareholder with no control",
-      "13% overall churn is high for SaaS — needs investigation",
+      "CATEGORY RISK: accessiBe (the market leader) was fined $1M by the FTC for false accessibility claims",
+      "National Federation of the Blind (NFB) officially banned accessibility overlays — calls them harmful",
+      "The entire overlay/widget category is under legal and regulatory attack; WebAbility.io is the same type of product",
+      "25% EQUITY = NO CONTROL — cannot make operational decisions, pivots, or exit without founder",
+      "Seller is raising growth capital, NOT exiting — misaligned incentives (they need your $50K to grow, not to retire)",
+      "13% overall churn is high for SaaS",
       "Only 11 months old — very limited track record",
-      "ADA/WCAG space is competitive (accessiBe $100M+, AudioEye, UserWay)",
-      "67% margin (not 87% as initially reported) — costs may be growing",
-      "Seller retains 75% — misaligned incentives possible",
-      "£1,370/mo return on $50K is decent but not life-changing"
+      "ADA/WCAG space is competitive (accessiBe $100M+, AudioEye, UserWay — all under scrutiny)",
+      "£1,370/mo return on $50K is decent but the regulatory risk makes the entire category fragile"
     ],
-    recommendation: "CONSIDER. The business itself is strong (verified revenue, regulatory tailwind, agency model) but the 25% partial sale structure is a problem — you'd have no control. Contact seller to discuss: (1) would they sell 100% or majority stake? (2) what governance rights come with 25%? If full acquisition is possible at £150K, this becomes much more interesting.",
-    aiPlan: "If full acquisition possible: expand to EU (EAA compliance mandatory), add enterprise tier, grow agency network, leverage compliance expertise."
+    recommendation: "AVOID. Deep dive: accessiBe (same overlay category) was fined $1M by the FTC and the NFB has officially banned accessibility overlays as harmful. WebAbility.io is the same product type. The regulatory tailwind is actually a headwind for overlay companies. Additionally, 25% equity gives you no control and the seller is raising growth capital — not exiting.",
+    aiPlan: "N/A — overlay category is under active FTC/NFB attack."
   },
   {
     id: "MICR-FUNDRAISE",
