@@ -1136,29 +1136,29 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F11938921",
-    name: "iOS Security App (Flippa — security niche)",
-    verdict: "CONSIDER — security domain match",
-    verdictColor: "amber",
+    name: "iOS Security App / AI Detector (Flippa — security niche)",
+    verdict: "AVOID — dark-pattern subscription scam",
+    verdictColor: "red",
     price: "$120,000",
     monthlyProfit: "£3,940/mo",
     annualROI: "39%",
     trendProfit: "$4,978/mo profit, 100% margin claimed, zero OPEX",
-    trendTraffic: "App Store security category — needs verification",
+    trendTraffic: "App Store security category — App Store reviews tell the real story",
     highlights: [
-      "Security niche — aligns with Israel's expertise",
-      "100% margin with zero operational expenses claimed",
-      "$120K price within budget",
-      "iOS App Store = recurring subscription revenue"
+      "iOS App Store = recurring subscription revenue (but revenue built on dark patterns)"
     ],
     risks: [
-      "100% margin + zero OPEX = suspicious (every app has hosting/API costs)",
-      "iOS-only = Apple platform dependency",
-      "Security app niche is crowded (Norton, McAfee, etc.)",
-      "Need to verify actual app identity and download numbers",
-      "0 years old listed — could be very new"
+      "CRITICAL: All 5 most recent App Store reviews are 1-star — users describe fake free trial that charges immediately",
+      "Dark-pattern subscription scam: app presents 'free trial' but charges users on day 1",
+      "No website, no support contact, anonymous developer — no accountability",
+      "Zero OPEX claim is implausible for any AI API app — hidden costs not disclosed",
+      "Revenue is built entirely on users failing to cancel before being charged",
+      "iOS-only = Apple platform dependency; Apple actively removes scam subscription apps",
+      "Security app niche is crowded (Norton, McAfee, etc.) with no legitimate moat here",
+      "Anonymous seller = no recourse if business fails or is delisted post-purchase"
     ],
-    recommendation: "CONSIDER pending NDA and app identification. If this is a legitimate iOS security tool with real subscribers, it's a strong domain match. But 100% margin claim needs verification — sign NDA and request App Store Connect access.",
-    aiPlan: "If acquired: leverage cybersecurity expertise to improve the product, expand to Android, add enterprise features."
+    recommendation: "AVOID. Deep dive: all 5 most recent App Store reviews are 1-star explicitly describing a fake free trial that charges immediately. This is a dark-pattern subscription scam — revenue comes from users who don't realize they're being charged. No website, no support, anonymous developer. Apple will eventually delist this. Do not buy.",
+    aiPlan: "N/A — dark-pattern business model is unethical and legally fragile."
   },
   {
     id: "TS-CLOUDARINA",
