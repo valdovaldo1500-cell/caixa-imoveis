@@ -209,7 +209,7 @@ export default function InvestimentosOnlinePage() {
               value: String(actionableCount),
               highlight: true,
             },
-            { label: "Platforms", value: "4 platforms" },
+            { label: "Platforms", value: "8 platforms" },
           ].map(({ label, value, highlight }) => (
             <div
               key={label}
