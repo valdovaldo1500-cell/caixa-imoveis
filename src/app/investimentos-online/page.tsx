@@ -188,7 +188,7 @@ export default function InvestimentosOnlinePage() {
               value: String(actionableCount),
               highlight: true,
             },
-            { label: "Platforms", value: "EF + Flippa" },
+            { label: "Platforms", value: "4 platforms" },
           ].map(({ label, value, highlight }) => (
             <div
               key={label}
