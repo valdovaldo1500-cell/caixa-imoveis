@@ -20,6 +20,7 @@ interface Favorite {
   marketValue: string | null;
   tipoImovel: string | null;
   linkCaixa: string | null;
+  caixaId: string | null;
   removedAt: string | null;
 }
 
@@ -195,17 +196,15 @@ export default function FavoritosPage() {
                           {grade.label}
                         </Badge>
                       )}
-                      {fav.linkCaixa && (
-                        <a
-                          href={fav.linkCaixa}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-1.5 rounded text-zinc-500 hover:text-blue-400 transition-colors"
-                          title="Ver na Caixa"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
+                      <a
+                        href={`https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnOrigem=index&hdnimovel=${fav.caixaId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded text-zinc-500 hover:text-blue-400 transition-colors"
+                        title="Ver na Caixa"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
                       <button
                         onClick={() => removeFavorite(fav.id)}
                         className="p-1.5 rounded text-zinc-600 hover:text-red-400 transition-colors"

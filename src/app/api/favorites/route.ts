@@ -24,6 +24,7 @@ export async function GET(request: NextRequest) {
         marketValue: properties.marketValue,
         tipoImovel: properties.tipoImovel,
         linkCaixa: properties.linkCaixa,
+        caixaId: properties.caixaId,
         removedAt: properties.removedAt,
       })
       .from(favorites)

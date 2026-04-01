@@ -935,16 +935,14 @@ export default function PropertyDetailPage() {
               {hidden ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               {hidden ? "Oculto" : "Ocultar"}
             </button>
-            {property.linkCaixa && (
-              <a
-                href={property.linkCaixa}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded bg-blue-900 hover:bg-blue-800 text-blue-300 text-sm transition-colors"
-              >
-                Ver na Caixa ↗
-              </a>
-            )}
+            <a
+              href={`https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnOrigem=index&hdnimovel=${property.caixaId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded bg-blue-900 hover:bg-blue-800 text-blue-300 text-sm transition-colors"
+            >
+              Ver na Caixa ↗
+            </a>
           </div>
         </div>
         {property.removedAt && (

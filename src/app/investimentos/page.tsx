@@ -885,16 +885,14 @@ function PropertyCard({ a, rank, onRemove }: { a: Analysis; rank: number; onRemo
             >
               Ver detalhes no app
             </Link>
-            {p.linkCaixa && (
-              <a
-                href={p.linkCaixa}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs px-3 py-1.5 rounded bg-zinc-800 text-zinc-300 hover:bg-zinc-700 transition-colors"
-              >
-                Ver no site da Caixa
-              </a>
-            )}
+            <a
+              href={`https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnOrigem=index&hdnimovel=${p.caixaId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs px-3 py-1.5 rounded bg-zinc-800 text-zinc-300 hover:bg-zinc-700 transition-colors"
+            >
+              Ver no site da Caixa
+            </a>
             {p.lat && p.lng && (
               <a
                 href={`https://www.google.com/maps/@${p.lat},${p.lng},17z`}

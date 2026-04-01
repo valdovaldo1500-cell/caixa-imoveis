@@ -43,9 +43,7 @@ function buildPropertyTable(
   const rowsHtml = rows
     .map((p) => {
       const rowStyle = highlightRow(p.score);
-      const link = p.linkCaixa
-        ? `<a href="${p.linkCaixa}" style="color:#2563eb;">Ver</a>`
-        : p.caixaId;
+      const link = `<a href="https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnOrigem=index&hdnimovel=${p.caixaId}" style="color:#2563eb;">Ver</a>`;
       return `<tr style="${rowStyle}">
         <td style="${tdStyle}">${p.cidade}</td>
         <td style="${tdStyle}">${p.bairro ?? "—"}</td>
@@ -204,9 +202,7 @@ export async function POST() {
       const rowsHtml = displayChanges
         .map((p) => {
           const rowStyle = highlightRow(p.score);
-          const link = p.linkCaixa
-            ? `<a href="${p.linkCaixa}" style="color:#2563eb;">Ver</a>`
-            : p.caixaId;
+          const link = `<a href="https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnOrigem=index&hdnimovel=${p.caixaId}" style="color:#2563eb;">Ver</a>`;
           return `<tr style="${rowStyle}">
             <td style="${tdStyle}">${p.cidade}</td>
             <td style="${tdStyle}">${p.bairro ?? "—"}</td>

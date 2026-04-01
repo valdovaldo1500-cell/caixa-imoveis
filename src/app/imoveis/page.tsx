@@ -1991,9 +1991,9 @@ function ImoveisPageInner() {
       case "link":
         return (
           <TableCell key={colId}>
-            {p.linkCaixa ? (
+            {p.caixaId ? (
               <a
-                href={p.linkCaixa}
+                href={`https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnOrigem=index&hdnimovel=${p.caixaId}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:text-blue-300 text-xs"
