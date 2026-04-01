@@ -2418,9 +2418,9 @@ function ImoveisPageInner() {
           />
         </div>
 
-        <Card className="bg-zinc-900 border-zinc-800">
-          <CardContent className="p-0 pb-4 overflow-auto max-h-[calc(100vh-280px)]" style={{ overflow: "auto", clipPath: "none" }}>
-            <Table className="overflow-visible">
+        <Card className="bg-zinc-900 border-zinc-800 overflow-visible">
+          <CardContent className="p-0 pb-4 overflow-visible">
+            <Table>
               <TableHeader>
                 <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
                   {visibleColumns.map((colId) => renderHeader(colId))}
