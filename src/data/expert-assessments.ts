@@ -1184,4 +1184,59 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     recommendation: "CONSIDER — check the Transferslot listing for full details. B2B SaaS at $80K with $3.6K MRR is fairly priced. Not a domain match but a solid passive income asset if customer base is diversified.",
     aiPlan: "If acquired: maintain product, focus on retention, add AI-powered content features to differentiate from competitors."
   },
+  {
+    id: "F11999421",
+    name: "WebAbility.io (ADA/WCAG Compliance SaaS)",
+    verdict: "STRONG — compliance SaaS, incredible value",
+    verdictColor: "emerald",
+    price: "$50,000",
+    monthlyProfit: "£5,800/mo ($7,324)",
+    annualROI: "139%",
+    trendProfit: "$7.5K MRR verified by Stripe, 87% margins",
+    trendTraffic: "EAA 2025 regulatory tailwind — European Accessibility Act makes compliance mandatory",
+    highlights: [
+      "$7,324/mo profit at $50K asking = 0.6x annual multiple — deeply underpriced",
+      "87% profit margins — lean SaaS with minimal costs",
+      "MRR verified by Stripe — not self-reported",
+      "Compliance/regulatory SaaS = non-discretionary spend",
+      "European Accessibility Act 2025 = massive tailwind (mandatory compliance)",
+      "Adjacent to Israel's security/compliance domain knowledge",
+      "Under 7 month payback period"
+    ],
+    risks: [
+      "ADA/WCAG compliance space is competitive (accessiBe, AudioEye, UserWay)",
+      "Regulatory compliance SaaS can be disrupted by free tools or browser changes",
+      "Need to verify customer count, churn rate, and concentration",
+      "Young business — need to check age and track record",
+      "0.6x multiple is suspiciously low — investigate why seller is exiting"
+    ],
+    recommendation: "STRONG BUY candidate. Sign NDA immediately and request Stripe dashboard access. At $50K for $7.3K/mo verified profit, even with moderate risk this is exceptional value. The EAA 2025 regulatory tailwind means demand for compliance tools is growing, not shrinking. Key DD: why is the multiple so low? Check customer concentration and churn.",
+    aiPlan: "If acquired: expand to EU market (EAA compliance), add enterprise pricing tier, build partnerships with web agencies, leverage Israel's compliance expertise for B2B sales."
+  },
+  {
+    id: "MICR-FUNDRAISE",
+    name: "AI-Powered Fundraising Infrastructure (Microns.io)",
+    verdict: "INVESTIGATE — very cheap",
+    verdictColor: "amber",
+    price: "$40,000",
+    monthlyProfit: "~£2,800/mo ($3,535 MRR)",
+    annualROI: "84%",
+    trendProfit: "$3,535 MRR at $40K asking = 11x monthly multiple",
+    trendTraffic: "Listed on Microns.io — newer marketplace",
+    highlights: [
+      "$40K asking for $3.5K MRR = 11x MRR — extremely cheap",
+      "AI-powered fundraising infrastructure — growing niche",
+      "SaaS with recurring revenue model",
+      "Well within budget with high ROI potential"
+    ],
+    risks: [
+      "11x MRR multiple is suspiciously low for any SaaS",
+      "Microns.io is a smaller marketplace — less vetting than Flippa/Acquire",
+      "No details available yet — must investigate the actual product",
+      "Fundraising tech is niche — limited TAM",
+      "AI fundraising could be a fad or face regulatory scrutiny"
+    ],
+    recommendation: "INVESTIGATE immediately. At $40K for $3.5K MRR, even a 50% decline in revenue still delivers positive ROI within 2 years. But the low multiple suggests something is wrong — churn, concentration, or imminent decline. Visit microns.io and request full details.",
+    aiPlan: "If acquired: verify revenue sources, stabilize customer base, add AI features, target nonprofit and startup markets."
+  },
 ];
