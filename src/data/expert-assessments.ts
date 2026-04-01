@@ -906,4 +906,118 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     recommendation: "CONSIDER pending full DD on provider contract transferability and margin sustainability. The eSIM market is genuinely growing but this is a reseller business with thin margins. Must see the provider agreement before any offer.",
     aiPlan: "If acquired: negotiate better wholesale rates with volume, add multi-provider redundancy, expand to B2B (corporate travel eSIM packages)."
   },
+  {
+    id: "F12098365",
+    name: "Folder Fort (Cloud Storage SaaS — Canada)",
+    verdict: "CONDITIONAL at $80-120K (asking $179K)",
+    verdictColor: "amber",
+    price: "$179,000 (negotiate to $80-120K)",
+    monthlyProfit: "£2,858/mo (avg, volatile)",
+    annualROI: "29% at asking / 43% at $100K",
+    trendProfit: "Extreme volatility — Apr 25 spike £13.7K, Jan 26 near-breakeven",
+    trendTraffic: "74K pageviews/mo, 305 watchers (high buyer interest)",
+    highlights: [
+      "Trustpilot 4.5/5 (197 reviews) — genuine customer satisfaction",
+      "74K pageviews/mo with 9K email subscribers",
+      "Self-contained tech: Vultr VPS + Backblaze B2 storage",
+      "305 Flippa watchers — very high buyer interest",
+      "Cloud storage is a growing, evergreen market",
+      "Vetted + Revenue verified on Flippa"
+    ],
+    risks: [
+      "Revenue driven by LIFETIME DEALS via StackSocial — not recurring MRR",
+      "Extreme monthly volatility (CV >80%) — profit swings from -£5K to +£14K",
+      "StackSocial takes ~50% of lifetime deal revenue — platform dependency",
+      "Storage costs scale as users actually utilize purchased capacity",
+      "Jan 2026 nearly broke even — recent trend is concerning",
+      "Seller has 641 transactions ($285M total) — professional flipper, not founder",
+      "Lifetime deal model creates growing support liability without new revenue"
+    ],
+    recommendation: "CONDITIONAL at $80-120K. Real product with genuine Trustpilot reviews and strong traffic. But the lifetime deal model is a ticking time bomb — need to verify subscription vs. LTD revenue split and storage cost trajectory. At $179K, AVOID. At $100K with verified subscription growth, CONSIDER.",
+    aiPlan: "If acquired: aggressively transition from lifetime deals to subscription model, optimize Backblaze B2 costs, build retention with premium features, reduce StackSocial dependency."
+  },
+  {
+    id: "F11552640",
+    name: "Lead Scraping SaaS (Spain — GDPR Risk)",
+    verdict: "AVOID — legal risk + churn",
+    verdictColor: "red",
+    price: "$150,000",
+    monthlyProfit: "£7,068/mo (claimed)",
+    annualROI: "57% (if stable — it's not)",
+    trendProfit: "14% monthly churn replaces entire base every 4.5 months",
+    trendTraffic: "45K pageviews/mo, 202 active subscribers",
+    highlights: [
+      "£7,068/mo profit at 42% margin — highest profit of any new listing",
+      "1.3x multiple = fire-sale pricing if numbers are real",
+      "202 subscribers with $47+/mo average",
+      "Vetted + Revenue verified on Flippa",
+      "Automated SaaS model — low operational overhead"
+    ],
+    risks: [
+      "14% MONTHLY CHURN — entire customer base turns over every 4.5 months",
+      "Scrapes Instagram/TikTok/Google Maps emails — violates platform ToS",
+      "GDPR Article 6 violation — scraping personal emails without consent is illegal in EU",
+      "Spain-based: EU regulators actively pursuing data scraping operations",
+      "1.3x profit multiple is a MASSIVE red flag — sellers don't give away £7K/mo businesses without reason",
+      "Meta, Google actively litigate scrapers under CFAA/ToS",
+      "NDA pending — full P&L not yet visible"
+    ],
+    recommendation: "AVOID despite attractive profit numbers. The 1.3x multiple screams 'I know this business is about to die.' 14% monthly churn + GDPR violations + platform ToS violations = ticking legal time bomb. The seller is trying to exit before enforcement catches up.",
+    aiPlan: "N/A — do not acquire. Legal risk is existential."
+  },
+  {
+    id: "F12530181",
+    name: "NHS IT Laptops for Locum Doctors (UK)",
+    verdict: "AVOID — below threshold + hardware",
+    verdictColor: "red",
+    price: "$77,520 (£58K)",
+    monthlyProfit: "£2,124/mo (below £2,500 floor)",
+    annualROI: "44%",
+    trendProfit: "18 clients, 86% margins, Editor's Choice on Flippa",
+    trendTraffic: "UK-only NHS ecosystem, 86 views",
+    highlights: [
+      "86% profit margins with ~3 hrs/week workload",
+      "Editor's Choice + Vetted on Flippa",
+      "Recurring annual subscriptions (£69.99/user/year)",
+      "NHS compliance = high barrier to entry for competitors"
+    ],
+    risks: [
+      "£2,124/mo is BELOW the £2,500 profit threshold",
+      "Only 18 clients — loss of 3-4 would be devastating",
+      "Hardware component (laptop provisioning) — not pure digital",
+      "UK NHS-only market — cannot operate from Brazil without UK presence",
+      "Two legal entities add transfer complexity",
+      "£69.99/year per user = tiny subscription value"
+    ],
+    recommendation: "AVOID. Below profit threshold, hardware dependency, UK-only NHS niche impossible to run from Brazil. Despite good margins and low hours, the client concentration and geographic lock-in make this unviable.",
+    aiPlan: "N/A — geographic and regulatory mismatch for Brazil-based buyer."
+  },
+  {
+    id: "BFS-3774673",
+    name: "B2B Roadmapping & UX SaaS (London)",
+    verdict: "CONDITIONAL — request price first",
+    verdictColor: "amber",
+    price: "Undisclosed (likely £300-600K — over budget)",
+    monthlyProfit: "~£6,700-10,800/mo (estimated 40-67% of £193K revenue)",
+    annualROI: "Unknown until price confirmed",
+    trendProfit: "£193K annual revenue, 100+ enterprise customers",
+    trendTraffic: "Integrates Jira, Azure DevOps, GitHub, Linear, Figma",
+    highlights: [
+      "100+ enterprise organisations as customers — strong retention signal",
+      "Integrates with full modern dev stack (Jira/Azure DevOps/GitHub/Linear/Figma)",
+      "Automated platform managed by directors only — minimal overhead",
+      "London-based B2B SaaS with £193K revenue",
+      "Relocatable and remote-operable"
+    ],
+    risks: [
+      "Price almost certainly exceeds £120K budget (£193K revenue SaaS = £300-600K+)",
+      "Undisclosed financials — no verified profit margin",
+      "Listed by Knightsbridge Commercial — known for inflated valuations",
+      "Reason for sale: 'directors' unrelated commitments' — vague",
+      "Cannot verify customer quality or churn without engagement",
+      "Enterprise clients = potential concentration risk"
+    ],
+    recommendation: "CONDITIONAL — contact Knightsbridge Commercial (ref: 170567) immediately to get the asking price. If somehow under £200K with verified £3K+/mo profit, worth a budget stretch. But realistically this is probably priced at £400K+ for a £193K revenue SaaS.",
+    aiPlan: "If acquired: expand integrations, add AI-powered analytics features, target US/EU product teams, upsell existing 100+ clients to higher tiers."
+  },
 ];
