@@ -1109,29 +1109,31 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F12029938",
-    name: "Handshakr B2B SaaS (Flippa — verify urgently)",
-    verdict: "INVESTIGATE — suspiciously cheap",
-    verdictColor: "amber",
-    price: "$56,000",
-    monthlyProfit: "£17,400/mo (claimed — VERIFY)",
-    annualROI: "373% (if real)",
-    trendProfit: "$22K/mo profit claimed at 2.5x multiple — fire-sale pricing",
-    trendTraffic: "Unknown — must sign NDA to access details",
+    name: "Handshakr B2B SaaS (ASSET-ONLY — no customers)",
+    verdict: "AVOID — dead code, zero revenue on transfer",
+    verdictColor: "red",
+    price: "$56,696",
+    monthlyProfit: "£0/mo (asset sale — historical £16.7K/mo when operating)",
+    annualROI: "0% until relaunched and customers rebuilt",
+    trendProfit: "HISTORICAL ONLY — £200K/yr profit was when business was active. Now shuttered.",
+    trendTraffic: "4,091 views, 123 watchers — but buyers beware of misleading financials display",
     highlights: [
-      "2.5x annual multiple = extraordinary value IF numbers are real",
-      "B2B SaaS = recurring revenue model",
-      "$56K price is comfortably in budget",
-      "Potential 3-month payback period"
+      "Modern tech stack: Next.js, TypeScript, Firebase/Firestore",
+      "Registered trademark 'B2B Orchestration'",
+      "Domains: handshakr.com, handshakr.xyz",
+      "AI-native architecture, deal orchestration engine",
+      "Clean asset transfer — no liabilities"
     ],
     risks: [
-      "2.5x multiple is SUSPICIOUSLY cheap — legitimate $22K/mo SaaS sells for $500K+",
-      "Numbers may be inflated, one-time, or about to collapse",
-      "No details available pre-NDA",
-      "Could be revenue gaming (lifetime deal spikes counted as profit)",
-      "If it sounds too good to be true, it usually is"
+      "ASSET-ONLY SALE — zero customers, zero revenue transfers to buyer",
+      "The £16.7K/mo and £200K/yr figures are HISTORICAL — product is shuttered",
+      "You'd be buying dead code and a brand, then rebuilding from zero",
+      "Flippa displays historical financials making it look like an active business — MISLEADING",
+      "B2B deal orchestration is a crowded space (HubSpot, Salesforce, etc.)",
+      "$57K for dead code with no proven path to re-monetization"
     ],
-    recommendation: "SIGN NDA IMMEDIATELY and request full P&L. If $22K/mo profit is verified via Stripe/bank statements, this is the deal of the decade. But the 2.5x multiple screams red flags — expect the numbers to not hold up under scrutiny.",
-    aiPlan: "If verified and acquired: stabilize operations, verify all revenue sources, ensure no single customer concentration, then scale."
+    recommendation: "AVOID. This is NOT a running business — it's an IP/code dump from a failed/shuttered product. The £16.7K/mo profit figures are historical, not current. 'No customers or performance obligations transfer' = you get code and a domain, nothing else. The 0.2x multiple reflects this correctly — it's worth $0 in recurring revenue.",
+    aiPlan: "N/A — do not acquire dead code at $57K."
   },
   {
     id: "F11938921",
