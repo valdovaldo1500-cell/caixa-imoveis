@@ -1081,31 +1081,30 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "ACQ-WRIZZLER",
     name: "Wrizzler AI Dating Assistant (Poland — Acquire.com)",
-    verdict: "CONSIDER at $80-120K (asking $190K)",
-    verdictColor: "amber",
-    price: "$190,000 (negotiate to $80-120K)",
+    verdict: "AVOID — fake reviews, Polish-only micro-app",
+    verdictColor: "red",
+    price: "$190,000 (fair value $40-60K)",
     monthlyProfit: "£6,500/mo (last month $8.2K)",
     annualROI: "41% at asking / 78% at $100K",
     trendProfit: "900% YoY growth, $150K ARR, React Native app",
     trendTraffic: "1,000-5,000 subscribers, 5-10% stable churn",
     highlights: [
-      "£6,500/mo last month profit — strong and growing",
-      "900% YoY growth with ZERO paid user acquisition",
       "React Native = cross-platform, Israel could maintain",
       "Bootstrapped — no investor obligations",
-      "Low churn (5-10%) for consumer subscription",
       "Entire international expansion untapped (only in Poland)"
     ],
     risks: [
-      "Only 1 App Store rating in 9 months despite 1000-5000 subscribers — major red flag",
+      "REVIEW MANIPULATION: 572 Google Play reviews ALL 5-star — statistically impossible, confirms fake review injection",
+      "Polish App Store rating 3.9/5 (real users) vs US App Store only 1 rating — virtually no English-market traction",
+      "Package name is 'com.kolberdominik.test1' — this is a prototype/test build, not a production app",
+      "Developer URL is dead — no legitimate web presence",
       "Founded Jul 2025 — only 9 months old, no long-term track record",
       "'Rizz AI' dating niche is saturated (RIZZ app has 36K ratings)",
-      "Revenue may be driven by paid ads — stops when spending stops",
-      "$190K asking = 22x MRR — expensive for unproven business",
-      "Poland-based — entity transfer complexity"
+      "$190K asking = 22x MRR — massively overpriced for a Polish micro-app prototype",
+      "Fair price is $40-60K, not $190K"
     ],
-    recommendation: "CONSIDER at $80-120K only. Do NOT pay $190K without seeing 6 months of Stripe/RevenueCat subscriber export proving organic retention. The 1 App Store rating vs 1000+ claimed subscribers is a massive discrepancy that needs explaining.",
-    aiPlan: "If acquired at $100K: expand to English-speaking markets (US/UK), add more languages, improve App Store presence to get reviews, test international UA channels."
+    recommendation: "AVOID. Deep dive found review manipulation (572 Google Play reviews ALL 5-star = statistically impossible), package name 'com.kolberdominik.test1' confirms this is a prototype, developer URL is dead, and US App Store has only 1 rating. Real market is Poland-only. Fair value $40-60K — seller is asking 3-4x fair price.",
+    aiPlan: "N/A — do not acquire at $190K. Review manipulation and prototype package name are disqualifying."
   },
   {
     id: "F12029938",
