@@ -1213,27 +1213,21 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "MICR-FUNDRAISE",
     name: "AI-Powered Fundraising Infrastructure (Microns.io)",
-    verdict: "INVESTIGATE — very cheap",
-    verdictColor: "amber",
-    price: "$40,000",
+    verdict: "ALREADY SOLD — cannot purchase",
+    verdictColor: "red",
+    price: "$40,000 (SOLD — no longer available)",
     monthlyProfit: "~£2,800/mo ($3,535 MRR)",
     annualROI: "84%",
     trendProfit: "$3,535 MRR at $40K asking = 11x monthly multiple",
-    trendTraffic: "Listed on Microns.io — newer marketplace",
-    highlights: [
-      "$40K asking for $3.5K MRR = 11x MRR — extremely cheap",
-      "AI-powered fundraising infrastructure — growing niche",
-      "SaaS with recurring revenue model",
-      "Well within budget with high ROI potential"
-    ],
+    trendTraffic: "Listed on Microns.io — status: Already Sold",
+    highlights: [],
     risks: [
-      "11x MRR multiple is suspiciously low for any SaaS",
-      "Microns.io is a smaller marketplace — less vetting than Flippa/Acquire",
-      "No details available yet — must investigate the actual product",
-      "Fundraising tech is niche — limited TAM",
-      "AI fundraising could be a fad or face regulatory scrutiny"
+      "ALREADY SOLD — Microns.io listing shows 'Already Sold', cannot be purchased",
+      "AngularJS tech stack (EOL) — would have been significant tech debt even if available",
+      "Was suspiciously cheap at 11x MRR — the low multiple reflected known problems",
+      "Fundraising tech is niche — limited TAM"
     ],
-    recommendation: "INVESTIGATE immediately. At $40K for $3.5K MRR, even a 50% decline in revenue still delivers positive ROI within 2 years. But the low multiple suggests something is wrong — churn, concentration, or imminent decline. Visit microns.io and request full details.",
-    aiPlan: "If acquired: verify revenue sources, stabilize customer base, add AI features, target nonprofit and startup markets."
+    recommendation: "CANNOT PURCHASE — listing shows 'Already Sold' on Microns.io. Even if it were available, the AngularJS (EOL) tech stack would have been a significant red flag. Move on.",
+    aiPlan: "N/A — already sold."
   },
 ];
