@@ -1186,32 +1186,34 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F11999421",
-    name: "WebAbility.io (ADA/WCAG Compliance SaaS)",
-    verdict: "STRONG — compliance SaaS, incredible value",
-    verdictColor: "emerald",
-    price: "$50,000",
-    monthlyProfit: "£5,800/mo ($7,324)",
-    annualROI: "139%",
-    trendProfit: "$7.5K MRR verified by Stripe, 87% margins",
-    trendTraffic: "EAA 2025 regulatory tailwind — European Accessibility Act makes compliance mandatory",
+    name: "WebAbility.io (ADA/WCAG Compliance SaaS — 25% Equity)",
+    verdict: "CONSIDER — 25% partial sale, not full acquisition",
+    verdictColor: "amber",
+    price: "$50,000 (for 25% equity — full valuation £150K)",
+    monthlyProfit: "£5,491/mo (full business) — your 25% = ~£1,370/mo",
+    annualROI: "33% on your 25% stake",
+    trendProfit: "£8,190/mo revenue, 67% margin, Stripe+GA verified, steep growth curve",
+    trendTraffic: "658 active subscribers, 13% churn, 1,948 pageviews/mo, 107 watchers",
     highlights: [
-      "$7,324/mo profit at $50K asking = 0.6x annual multiple — deeply underpriced",
-      "87% profit margins — lean SaaS with minimal costs",
-      "MRR verified by Stripe — not self-reported",
+      "Vetted + Data Verified by Flippa (Revenue, Expenses, Traffic via Stripe + GA)",
+      "658 subscribers in 11 months — strong early traction",
+      "20 agency partners = scalable channel distribution model",
       "Compliance/regulatory SaaS = non-discretionary spend",
-      "European Accessibility Act 2025 = massive tailwind (mandatory compliance)",
-      "Adjacent to Israel's security/compliance domain knowledge",
-      "Under 7 month payback period"
+      "European Accessibility Act 2025 = massive regulatory tailwind",
+      "Seller fully verified (email, phone, govt ID)",
+      "107 Flippa watchers — very high buyer interest"
     ],
     risks: [
-      "ADA/WCAG compliance space is competitive (accessiBe, AudioEye, UserWay)",
-      "Regulatory compliance SaaS can be disrupted by free tools or browser changes",
-      "Need to verify customer count, churn rate, and concentration",
-      "Young business — need to check age and track record",
-      "0.6x multiple is suspiciously low — investigate why seller is exiting"
+      "25% PARTIAL SALE — you'd be a minority shareholder with no control",
+      "13% overall churn is high for SaaS — needs investigation",
+      "Only 11 months old — very limited track record",
+      "ADA/WCAG space is competitive (accessiBe $100M+, AudioEye, UserWay)",
+      "67% margin (not 87% as initially reported) — costs may be growing",
+      "Seller retains 75% — misaligned incentives possible",
+      "£1,370/mo return on $50K is decent but not life-changing"
     ],
-    recommendation: "STRONG BUY candidate. Sign NDA immediately and request Stripe dashboard access. At $50K for $7.3K/mo verified profit, even with moderate risk this is exceptional value. The EAA 2025 regulatory tailwind means demand for compliance tools is growing, not shrinking. Key DD: why is the multiple so low? Check customer concentration and churn.",
-    aiPlan: "If acquired: expand to EU market (EAA compliance), add enterprise pricing tier, build partnerships with web agencies, leverage Israel's compliance expertise for B2B sales."
+    recommendation: "CONSIDER. The business itself is strong (verified revenue, regulatory tailwind, agency model) but the 25% partial sale structure is a problem — you'd have no control. Contact seller to discuss: (1) would they sell 100% or majority stake? (2) what governance rights come with 25%? If full acquisition is possible at £150K, this becomes much more interesting.",
+    aiPlan: "If full acquisition possible: expand to EU (EAA compliance mandatory), add enterprise tier, grow agency network, leverage compliance expertise."
   },
   {
     id: "MICR-FUNDRAISE",
