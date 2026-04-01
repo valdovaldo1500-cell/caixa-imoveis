@@ -194,8 +194,9 @@ export default function InvestimentosOnlinePage() {
             Online Business Acquisitions — Investment Dashboard
           </h1>
           <p className="text-zinc-400 mt-1 text-sm">
-            310+ listings analyzed across Empire Flippers, Flippa,
-            BusinessesForSale.com &amp; RightBiz. Last updated: April 1, 2026.
+            800+ listings analyzed across Empire Flippers, Flippa, Acquire.com,
+            Daltons, BusinessesForSale.com, RightBiz, Transferslot &amp; more.
+            Last updated: April 1, 2026.
           </p>
         </div>
 
