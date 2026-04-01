@@ -1020,4 +1020,168 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     recommendation: "CONDITIONAL — contact Knightsbridge Commercial (ref: 170567) immediately to get the asking price. If somehow under £200K with verified £3K+/mo profit, worth a budget stretch. But realistically this is probably priced at £400K+ for a £193K revenue SaaS.",
     aiPlan: "If acquired: expand integrations, add AI-powered analytics features, target US/EU product teams, upsell existing 100+ clients to higher tiers."
   },
+  {
+    id: "DAL-2497682",
+    name: "IT Security Consultancy (Cybersecurity — UK Remote)",
+    verdict: "CONDITIONAL — contact broker immediately",
+    verdictColor: "blue",
+    price: "~£55-75K (offers invited)",
+    monthlyProfit: "£4,250/mo",
+    annualROI: "68-93% (depending on price)",
+    trendProfit: "£51K EBITDA at 65% margin — 20yr track record",
+    trendTraffic: "3 active clients on 4mo-2yr contracts, financial/banking/healthcare sectors",
+    highlights: [
+      "PERFECT DOMAIN MATCH — cloud infrastructure + cybersecurity = Israel's exact expertise",
+      "Fully remote, relocatable — confirmed in listing",
+      "65% EBITDA margin on £78K turnover",
+      "20 years in operation — established reputation",
+      "Long-term contracts (4mo to 2yr) provide revenue visibility",
+      "At £55K with earnout, ROI exceeds 90% Year 1"
+    ],
+    risks: [
+      "Only 3 active clients — extreme concentration risk (lose 1 = -33% revenue)",
+      "Project-based, NOT subscription — revenue not recurring",
+      "Likely founder-led with no staff — key-person dependency is HIGH",
+      "Clients may leave when founder exits — the person IS the business",
+      "No SaaS/product component — purely human-hours dependent",
+      "'New business ventures' exit reason is vague"
+    ],
+    recommendation: "CONDITIONAL but TOP PRIORITY to investigate. This is the only cybersecurity business found in your budget across all platforms. Israel's Palo Alto pedigree can grow this from 3 to 10+ clients. Offer £55K with earnout: £35K day 1 + £20K over 12mo tied to client retention. Must verify client contract transferability.",
+    aiPlan: "If acquired: leverage Palo Alto Networks background to win new clients in financial/banking sector, convert project-based to retainer model (£2K/mo per client), target 10+ clients within 12 months, add SASE/Zero Trust consulting as premium service."
+  },
+  {
+    id: "DAL-2487979",
+    name: "Efficiency Optimisation Software (40yr Subscription SaaS)",
+    verdict: "CONSIDER — best financials found anywhere",
+    verdictColor: "amber",
+    price: "~£120-150K (offers invited)",
+    monthlyProfit: "£6,667/mo",
+    annualROI: "53-67% (depending on price)",
+    trendProfit: "£80K EBITDA at 84% margin — highest margin in entire search",
+    trendTraffic: "37 global clients, subscription model, growing (new entry-level tier launched)",
+    highlights: [
+      "£6,667/mo profit — highest of ANY listing in budget across all platforms",
+      "84% EBITDA margin — subscription SaaS with near-zero costs",
+      "37 clients worldwide — good diversification",
+      "40 years in operation — extremely sticky product",
+      "Retirement sale = motivated seller, clean exit reason",
+      "Growing: recently launched entry-level tier expanding client base"
+    ],
+    risks: [
+      "NOT cybersecurity — industrial manufacturing waste/efficiency software",
+      "40yr old tech stack — likely legacy (Delphi, VB6, old C++) — maintenance risk",
+      "Domain mismatch: Israel cannot leverage cyber expertise to grow this",
+      "Single developer dependency — if code breaks, who fixes it?",
+      "£120-150K price may push/exceed budget",
+      "No info on churn rate or client satisfaction"
+    ],
+    recommendation: "CONSIDER as a passive income asset. Best raw financials found in entire search (£6.6K/mo at 84% margin). But first question to broker MUST be: what tech stack is it built on? If modern web-based → pursue. If legacy Delphi/VB6 → walk away unless you have a developer partner.",
+    aiPlan: "If acquired: retain seller as consultant 12-24mo, hire part-time dev for maintenance, focus on entry-level tier growth, DO NOT attempt to rebuild — just maintain and collect subscription revenue."
+  },
+  {
+    id: "ACQ-WRIZZLER",
+    name: "Wrizzler AI Dating Assistant (Poland — Acquire.com)",
+    verdict: "CONSIDER at $80-120K (asking $190K)",
+    verdictColor: "amber",
+    price: "$190,000 (negotiate to $80-120K)",
+    monthlyProfit: "£6,500/mo (last month $8.2K)",
+    annualROI: "41% at asking / 78% at $100K",
+    trendProfit: "900% YoY growth, $150K ARR, React Native app",
+    trendTraffic: "1,000-5,000 subscribers, 5-10% stable churn",
+    highlights: [
+      "£6,500/mo last month profit — strong and growing",
+      "900% YoY growth with ZERO paid user acquisition",
+      "React Native = cross-platform, Israel could maintain",
+      "Bootstrapped — no investor obligations",
+      "Low churn (5-10%) for consumer subscription",
+      "Entire international expansion untapped (only in Poland)"
+    ],
+    risks: [
+      "Only 1 App Store rating in 9 months despite 1000-5000 subscribers — major red flag",
+      "Founded Jul 2025 — only 9 months old, no long-term track record",
+      "'Rizz AI' dating niche is saturated (RIZZ app has 36K ratings)",
+      "Revenue may be driven by paid ads — stops when spending stops",
+      "$190K asking = 22x MRR — expensive for unproven business",
+      "Poland-based — entity transfer complexity"
+    ],
+    recommendation: "CONSIDER at $80-120K only. Do NOT pay $190K without seeing 6 months of Stripe/RevenueCat subscriber export proving organic retention. The 1 App Store rating vs 1000+ claimed subscribers is a massive discrepancy that needs explaining.",
+    aiPlan: "If acquired at $100K: expand to English-speaking markets (US/UK), add more languages, improve App Store presence to get reviews, test international UA channels."
+  },
+  {
+    id: "F12029938",
+    name: "Handshakr B2B SaaS (Flippa — verify urgently)",
+    verdict: "INVESTIGATE — suspiciously cheap",
+    verdictColor: "amber",
+    price: "$56,000",
+    monthlyProfit: "£17,400/mo (claimed — VERIFY)",
+    annualROI: "373% (if real)",
+    trendProfit: "$22K/mo profit claimed at 2.5x multiple — fire-sale pricing",
+    trendTraffic: "Unknown — must sign NDA to access details",
+    highlights: [
+      "2.5x annual multiple = extraordinary value IF numbers are real",
+      "B2B SaaS = recurring revenue model",
+      "$56K price is comfortably in budget",
+      "Potential 3-month payback period"
+    ],
+    risks: [
+      "2.5x multiple is SUSPICIOUSLY cheap — legitimate $22K/mo SaaS sells for $500K+",
+      "Numbers may be inflated, one-time, or about to collapse",
+      "No details available pre-NDA",
+      "Could be revenue gaming (lifetime deal spikes counted as profit)",
+      "If it sounds too good to be true, it usually is"
+    ],
+    recommendation: "SIGN NDA IMMEDIATELY and request full P&L. If $22K/mo profit is verified via Stripe/bank statements, this is the deal of the decade. But the 2.5x multiple screams red flags — expect the numbers to not hold up under scrutiny.",
+    aiPlan: "If verified and acquired: stabilize operations, verify all revenue sources, ensure no single customer concentration, then scale."
+  },
+  {
+    id: "F11938921",
+    name: "iOS Security App (Flippa — security niche)",
+    verdict: "CONSIDER — security domain match",
+    verdictColor: "amber",
+    price: "$120,000",
+    monthlyProfit: "£3,940/mo",
+    annualROI: "39%",
+    trendProfit: "$4,978/mo profit, 100% margin claimed, zero OPEX",
+    trendTraffic: "App Store security category — needs verification",
+    highlights: [
+      "Security niche — aligns with Israel's expertise",
+      "100% margin with zero operational expenses claimed",
+      "$120K price within budget",
+      "iOS App Store = recurring subscription revenue"
+    ],
+    risks: [
+      "100% margin + zero OPEX = suspicious (every app has hosting/API costs)",
+      "iOS-only = Apple platform dependency",
+      "Security app niche is crowded (Norton, McAfee, etc.)",
+      "Need to verify actual app identity and download numbers",
+      "0 years old listed — could be very new"
+    ],
+    recommendation: "CONSIDER pending NDA and app identification. If this is a legitimate iOS security tool with real subscribers, it's a strong domain match. But 100% margin claim needs verification — sign NDA and request App Store Connect access.",
+    aiPlan: "If acquired: leverage cybersecurity expertise to improve the product, expand to Android, add enterprise features."
+  },
+  {
+    id: "TS-CLOUDARINA",
+    name: "Cloudarina Digital Signage SaaS (Transferslot)",
+    verdict: "CONSIDER — solid B2B SaaS",
+    verdictColor: "amber",
+    price: "$80,465",
+    monthlyProfit: "~£2,850/mo ($3,600 MRR)",
+    annualROI: "42%",
+    trendProfit: "$3,600 MRR B2B digital signage platform",
+    trendTraffic: "B2B customers, remote-operable SaaS",
+    highlights: [
+      "B2B SaaS with recurring MRR — proper subscription model",
+      "$80K price is well within budget",
+      "Digital signage is a growing market (retail, hospitality, offices)",
+      "Remote-operable — cloud-based platform"
+    ],
+    risks: [
+      "Digital signage is outside Israel's expertise",
+      "Competitive market (ScreenCloud, Yodeck, Rise Vision)",
+      "£2,850/mo is close to but may be below £2,500 threshold after all costs",
+      "Need to verify churn rate and customer concentration"
+    ],
+    recommendation: "CONSIDER — check the Transferslot listing for full details. B2B SaaS at $80K with $3.6K MRR is fairly priced. Not a domain match but a solid passive income asset if customer base is diversified.",
+    aiPlan: "If acquired: maintain product, focus on retention, add AI-powered content features to differentiate from competitors."
+  },
 ];
