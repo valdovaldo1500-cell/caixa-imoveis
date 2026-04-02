@@ -1412,6 +1412,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "ACQ-GNSAC",
+    url: "https://acquire.com",
     name: "GNSAC Cybersecurity Bundle (Acquire — IP play)",
     verdict: "CONSIDER at $40-60K — perfect domain match",
     verdictColor: "amber",
