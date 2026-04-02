@@ -116,8 +116,8 @@ function ActionableCard({ a }: { a: ExpertAssessment }) {
               {verdictBadge(a.verdictColor)}
             </div>
             <p className="text-zinc-400 text-xs line-clamp-2">
-              {a.recommendation.slice(0, 120)}
-              {a.recommendation.length > 120 ? "…" : ""}
+              {a.recommendation.slice(0, 200)}
+              {a.recommendation.length > 200 ? "…" : ""}
             </p>
           </div>
           <div className="flex flex-col items-end gap-1 shrink-0 ml-auto">
