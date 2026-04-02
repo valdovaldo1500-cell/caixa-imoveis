@@ -1326,8 +1326,8 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F12419752",
     name: "Flix Reels (iOS Video Editor App)",
-    verdict: "CONSIDER — real app, actively maintained",
-    verdictColor: "amber",
+    verdict: "AVOID — ad fraud, declining 57% from peak",
+    verdictColor: "red",
     price: "$70,000 (negotiate to $50-65K)",
     monthlyProfit: "£3,460/mo",
     annualROI: "64-83%",
@@ -1337,20 +1337,20 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "4.7 stars with 518 ratings — genuine user satisfaction",
       "Actively maintained (updated Jan 2026)",
       "Broker-managed sale = cleaner process",
-      "$70K at £3.4K/mo = reasonable 1.7x multiple",
-      "iOS app subscription = recurring revenue",
     ],
     risks: [
+      "AD FRAUD: Seller spent $68K on ads to inflate metrics before listing",
+      "Revenue declined 57% from peak — still falling",
+      "Organic baseline ~$3,500/mo only",
       "India/Russia/Kazakhstan user base — low ARPU markets",
-      "Need to verify US/EU revenue split",
       "iOS-only = Apple platform dependency",
       "Video editing is competitive (CapCut, InShot, etc.)",
-      "Need developer to maintain/update the app",
+      "'100% margin' only exists because ads stopped",
     ],
     recommendation:
-      "CONSIDER at $50-65K. Real product with genuine ratings. Negotiate down citing low-ARPU user base. Verify what % of revenue comes from high-ARPU markets.",
+      "AVOID. P&L reveals seller spent $68K on ads to inflate metrics before listing. Revenue declined 57% from peak. Organic baseline ~$3,500/mo and still falling. Top markets are India/Russia/Kazakhstan (low ARPU). The '100% margin' only exists because ads stopped.",
     aiPlan:
-      "If acquired: optimize for US/EU markets, add AI features, consider Android expansion.",
+      "Do not acquire. Ad spend manipulation disqualifies this listing.",
   },
   {
     id: "F12287932",
