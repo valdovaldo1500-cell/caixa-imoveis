@@ -1024,6 +1024,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "DAL-2497682",
+    url: "https://www.daltonsbusiness.com/listing/it-security-consultancy-for-sale-DB2497682/",
     name: "IT Security Consultancy (Cybersecurity — UK Remote)",
     verdict: "CONDITIONAL — contact broker immediately",
     verdictColor: "blue",
