@@ -1381,8 +1381,8 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F12287932",
     name: "RoastGPT (iOS AI App — 1,085 Ratings)",
-    verdict: "CONSIDER — verify API costs",
-    verdictColor: "amber",
+    verdict: "AVOID at $100K — declining 20-55% across all metrics",
+    verdictColor: "red",
     price: "$100,000 (max $65K)",
     monthlyProfit: "£5,900/mo (claimed)",
     annualROI: "109% at $65K",
