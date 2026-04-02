@@ -824,7 +824,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "White-label model requires maintaining app for multiple clients",
       "Competition: Healthie, Practice Better, Nutrium all compete in this space"
     ],
-    recommendation: "CONSIDER at $120-140K. The 8yr track record and SaaS model are genuine strengths, but $190K is overpriced for £2.5K/mo profit. Negotiate hard — the 345 watchers create urgency but the math doesn't justify asking price.",
+    recommendation: "CONDITIONAL at $95-110K only. AVOID at $190K asking. P&L PDF is 2.5 years old (Oct 2022-Sep 2023). Zero reviews on any platform despite 9 years in business. Competitors Practice Better and Healthie are cheaper and better reviewed. Before any offer: demand 24-month Stripe export, current subscriber count, and the franchise contract.",
     aiPlan: "If acquired: expand AI features, add integrations with popular health platforms, target US/UK nutrition professionals with paid marketing."
   },
   {
