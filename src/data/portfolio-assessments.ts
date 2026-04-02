@@ -187,8 +187,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F12661644",
     name: "n8n Hosting Platform — Recurring ($24K)",
-    verdict: "INVESTIGATE — automation-native, cheap entry",
-    verdictColor: "amber",
+    verdict: "AVOID — competes with n8n's own cloud hosting, license restrictions",
+    verdictColor: "red",
     price: "$24,000",
     monthlyProfit: "~$2,223/mo",
     annualROI: "111%",
