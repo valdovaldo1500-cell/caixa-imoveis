@@ -1316,7 +1316,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "No cybersecurity angle — outside Israel's domain",
     ],
     recommendation:
-      "CONSIDER at $30-40K. Great value at nearly 1x multiple. Spanish language is perfect for Israel moving to Brazil. Must verify website is live and functioning first.",
+      "AVOID. Performance Overview charts show revenue peaked Jun-Jul 2025 then collapsed to near zero. Page views followed the same pattern — zero traffic since Oct 2025. The £4,776/mo headline is an average inflated by peak months. Current run rate appears to be £0-200/mo. Business is dead.",
     aiPlan:
       "If acquired: expand to Brazilian Portuguese market, add AI compliance/cybersecurity legal courses, scale paid ads.",
   },
