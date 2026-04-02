@@ -908,14 +908,40 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
     aiPlan: "If acquired: negotiate better wholesale rates with volume, add multi-provider redundancy, expand to B2B (corporate travel eSIM packages)."
   },
   {
+    id: "F11890246",
+    name: "RepriceHub (Amazon Repricing SaaS)",
+    verdict: "STRONG — P&L verified, stable growth, 72% margins",
+    verdictColor: "emerald",
+    price: "$138,000 (negotiate to $80-100K)",
+    monthlyProfit: "£3,300/mo ($4,162) — verified via 16mo XLSX",
+    annualROI: "40-50% at $100K",
+    trendProfit: "Revenue grew 40%, profit grew 58% over 16 months",
+    trendTraffic: "35+ supplier integrations for Amazon repricing",
+    highlights: [
+      "16 months P&L verified — revenue grew 40%, profit grew 58%",
+      "CV of only 14% — most stable business in entire search",
+      "Margins improving: 61% → 67% → 72% over 16 months",
+      "35+ supplier integrations for Amazon repricing",
+      "Only 52 subscribers but growing",
+    ],
+    risks: [
+      "Amazon dependency — policy changes could kill the business",
+      "Only 52 paying subscribers — thin customer base",
+      "No data after Dec 2024 — request Jan-Mar 2025",
+      "$138K asking = 2.8x annual profit — negotiate to $80-100K",
+    ],
+    recommendation: "STRONG BUY after Dec 2024 verification. This is the most financially stable business found in the entire search — 16 months of verified data showing consistent growth with only 14% volatility. Must request Jan-Mar 2025 data to confirm the trend continues. If confirmed, offer $85-95K.",
+    aiPlan: "If acquired: grow subscriber base from 52 to 200+, expand beyond Amazon to Walmart/eBay repricing, add AI-powered pricing recommendations.",
+  },
+  {
     id: "F12098365",
     name: "Folder Fort (Cloud Storage SaaS — Canada)",
-    verdict: "CONDITIONAL at $80-120K (asking $179K)",
-    verdictColor: "amber",
+    verdict: "AVOID — P&L reveals erratic StackSocial deals, growing costs",
+    verdictColor: "red",
     price: "$179,000 (negotiate to $80-120K)",
     monthlyProfit: "£2,858/mo (avg, volatile)",
     annualROI: "29% at asking / 43% at $100K",
-    trendProfit: "Extreme volatility — Apr 25 spike £13.7K, Jan 26 near-breakeven",
+    trendProfit: "Extreme volatility — one $72K anomaly month, storage costs growing 141%",
     trendTraffic: "74K pageviews/mo, 305 watchers (high buyer interest)",
     highlights: [
       "Trustpilot 4.5/5 (197 reviews) — genuine customer satisfaction",
@@ -926,16 +952,17 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "Vetted + Revenue verified on Flippa"
     ],
     risks: [
-      "Revenue driven by LIFETIME DEALS via StackSocial — not recurring MRR",
+      "P&L reveals revenue driven by erratic StackSocial lifetime deals — one $72K anomaly month distorts averages",
+      "Storage costs growing 141% — eating into margins as LTD customers actually use storage",
+      "Loss month in Aug 2025 — business went negative",
       "Extreme monthly volatility (CV >80%) — profit swings from -£5K to +£14K",
       "StackSocial takes ~50% of lifetime deal revenue — platform dependency",
-      "Storage costs scale as users actually utilize purchased capacity",
       "Jan 2026 nearly broke even — recent trend is concerning",
       "Seller has 641 transactions ($285M total) — professional flipper, not founder",
       "Lifetime deal model creates growing support liability without new revenue"
     ],
-    recommendation: "CONDITIONAL at $80-120K. Real product with genuine Trustpilot reviews and strong traffic. But the lifetime deal model is a ticking time bomb — need to verify subscription vs. LTD revenue split and storage cost trajectory. At $179K, AVOID. At $100K with verified subscription growth, CONSIDER.",
-    aiPlan: "If acquired: aggressively transition from lifetime deals to subscription model, optimize Backblaze B2 costs, build retention with premium features, reduce StackSocial dependency."
+    recommendation: "AVOID. P&L analysis reveals the business is structurally broken: one anomalous $72K StackSocial month inflates the averages, storage costs have grown 141% as lifetime deal customers actually use their storage, and the business posted a loss in Aug 2025. The lifetime deal model guarantees costs will keep rising while revenue stays erratic. Do not buy.",
+    aiPlan: "N/A — eliminated from consideration.",
   },
   {
     id: "F11552640",
