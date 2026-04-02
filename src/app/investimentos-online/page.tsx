@@ -191,9 +191,20 @@ function ActionableCard({ a }: { a: (typeof EXPERT_ASSESSMENTS)[0] }) {
             </div>
           )}
 
-          <div className="flex flex-wrap gap-4 text-xs text-zinc-500 pt-1 border-t border-zinc-800">
+          <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 pt-1 border-t border-zinc-800">
             <span>Profit trend: {a.trendProfit}</span>
             <span>Traffic: {a.trendTraffic}</span>
+            {url && (
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-auto inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                <ExternalLink className="w-3 h-3" />
+                View Listing
+              </a>
+            )}
           </div>
         </div>
       )}
