@@ -3,7 +3,7 @@
 import { useState } from "react";
 import NavHeader from "@/components/NavHeader";
 import { EXPERT_ASSESSMENTS } from "@/data/expert-assessments";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronRight, ExternalLink } from "lucide-react";
 
 // Sort order: emerald first, then blue, then amber, then red
 const VERDICT_ORDER: Record<string, number> = {
