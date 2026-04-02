@@ -75,8 +75,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F12042663",
     name: "8yr WordPress Plugin — 8,300+ Sales ($40K)",
-    verdict: "INVESTIGATE — install base + AI features",
-    verdictColor: "amber",
+    verdict: "AVOID — declining theme (not plugin), 30-60 hrs/mo support, seller is flipper",
+    verdictColor: "red",
     price: "$40,000",
     monthlyProfit: "~$986/mo",
     annualROI: "30%",
