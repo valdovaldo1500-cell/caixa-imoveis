@@ -13,7 +13,6 @@ export interface ExpertAssessment {
   risks: string[];
   recommendation: string;
   aiPlan: string;
-  url?: string;
 }
 
 export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
