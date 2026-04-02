@@ -224,13 +224,21 @@ export default function PortfolioAcquisitionsPage() {
 
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
         {/* Header */}
-        <div>
-          <h1 className="text-2xl font-bold text-white">
-            Portfolio Acquisitions — Small Deals
-          </h1>
-          <p className="text-zinc-400 mt-1 text-sm">
-            Micro-acquisitions under $60K for portfolio building. Buy small, grow with AI.
-          </p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-white">
+              Portfolio Acquisitions — Small Deals
+            </h1>
+            <p className="text-zinc-400 mt-1 text-sm">
+              Micro-acquisitions under $60K for portfolio building. Buy small, grow with AI.
+            </p>
+          </div>
+          <a
+            href="/investimentos-online"
+            className="shrink-0 ml-4 px-4 py-2 rounded-lg bg-zinc-700 hover:bg-zinc-600 text-white text-sm font-semibold transition-colors"
+          >
+            ← Main Dashboard
+          </a>
         </div>
 
         {/* KPI bar */}
