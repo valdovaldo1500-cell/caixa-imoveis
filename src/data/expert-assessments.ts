@@ -1293,8 +1293,8 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F11999913",
     name: "TheLegal.School (AI + Law Education — LatAm)",
-    verdict: "CONSIDER — Spanish-language, LatAm fit",
-    verdictColor: "amber",
+    verdict: "AVOID — revenue and traffic collapsed to zero since Oct 2025",
+    verdictColor: "red",
     price: "$47,000 (negotiate to $30-40K)",
     monthlyProfit: "£2,940/mo",
     annualROI: "88-118%",
