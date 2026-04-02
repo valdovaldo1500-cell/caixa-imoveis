@@ -47,8 +47,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F12205406",
     name: "AI SaaS with DR72 + 35K Organic ($23K)",
-    verdict: "INVESTIGATE — SEO goldmine, cheapest AI entry",
-    verdictColor: "amber",
+    verdict: "AVOID — DR72 claim is fake (actual AS 22), revenue declining, LTD cash grab",
+    verdictColor: "red",
     price: "$23,000",
     monthlyProfit: "~$1,212/mo",
     annualROI: "63%",
