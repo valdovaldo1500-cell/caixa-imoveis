@@ -903,7 +903,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "Need to verify: is the provider contract transferable to new owner?",
       "Unverified seller on Flippa"
     ],
-    recommendation: "CONSIDER pending full DD on provider contract transferability and margin sustainability. The eSIM market is genuinely growing but this is a reseller business with thin margins. Must see the provider agreement before any offer.",
+    recommendation: "AVOID. All timeframe averages are identical at £13,403/mo — statistically impossible, seller entered static figures. Actual chart shows revenue declined from £20,530 to £4,935 (76% drop). Trustpilot 3.4/5 with 'eSIM didn't work' complaints. 29% traffic from Morocco. Provider contract transferability unknown. Competitors Airalo/Holafly dominate.",
     aiPlan: "If acquired: negotiate better wholesale rates with volume, add multi-provider redundancy, expand to B2B (corporate travel eSIM packages)."
   },
   {
