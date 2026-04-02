@@ -159,8 +159,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F12225068",
     name: "9yr B2B Lead Gen Agency — Automated ($46K)",
-    verdict: "INVESTIGATE — 9yr automated lead gen",
-    verdictColor: "amber",
+    verdict: "AVOID — only 4 clients, 'automated' needs 6 staff, cold email headwinds",
+    verdictColor: "red",
     price: "$46,463",
     monthlyProfit: "~$3,920/mo",
     annualROI: "101%",
