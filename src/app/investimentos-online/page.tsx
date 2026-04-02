@@ -71,6 +71,13 @@ function platformBadge(id: string) {
   );
 }
 
+function listingUrl(a: { id: string; url?: string }): string | null {
+  if (a.url) return a.url;
+  if (a.id.startsWith("F")) return `https://flippa.com/${a.id.slice(1)}`;
+  if (/^\d+$/.test(a.id)) return `https://app.empireflippers.com/listing/${a.id}`;
+  return null;
+}
+
 function verdictBadge(color: string) {
   const styles: Record<string, string> = {
     emerald:
