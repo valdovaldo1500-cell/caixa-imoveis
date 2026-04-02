@@ -830,28 +830,27 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F12199300",
     name: "Writers Work (Freelance Writing Platform)",
-    verdict: "CONSIDER at $50-70K",
-    verdictColor: "amber",
-    price: "$170,000 (negotiate to $50-70K)",
-    monthlyProfit: "£8,611/mo (but declining — AI disruption)",
-    annualROI: "61% at asking / 147% at $70K",
-    trendProfit: "$933K TTM, 5,000+ customers, but AI writing tools eating the market",
-    trendTraffic: "47% growth claimed but freelance writing market contracting",
+    verdict: "AVOID — 70% revenue decline confirmed by P&L",
+    verdictColor: "red",
+    price: "$170,000 (asking — avoid at any price)",
+    monthlyProfit: "~$28K/mo (current) — down from $97K/mo peak",
+    annualROI: "20% at asking — on collapsing revenue",
+    trendProfit: "Revenue collapsed from $97K/mo to $28K/mo in 14 months — 71% decline",
+    trendTraffic: "Freelance writing market being destroyed by AI writing tools",
     highlights: [
       "Established freelance writing platform with 5,000+ customers",
-      "$933K trailing twelve months revenue — substantial scale",
-      "47% revenue growth claimed",
       "All-in-one platform model (job board + tools + courses)"
     ],
     risks: [
-      "AI writing tools (ChatGPT, Claude, Jasper) are destroying demand for freelance writers",
-      "The core value proposition — connecting writers with clients — is being disrupted",
-      "$170K asking is massively overpriced given AI headwinds",
-      "Freelance writing market contracting as companies use AI directly",
-      "Revenue may be declining beneath the growth headline"
+      "CONFIRMED BY P&L: Revenue collapsed from $97K/mo to $28K/mo in 14 months — 71% decline",
+      "AI writing tools (ChatGPT, Claude, Jasper) are destroying the entire freelance writing market",
+      "The core value proposition is obsolete — companies use AI directly, not freelancers",
+      "Decline is structural and accelerating, not cyclical",
+      "$170K asking price is absurd on a business losing 70% of revenue",
+      "No recovery path — the market itself is collapsing"
     ],
-    recommendation: "CONSIDER only at $50-70K. The brand and audience have value but the core business model is under existential AI pressure. At $170K this is a hard AVOID. At $50-70K it becomes a turnaround play if you pivot toward AI-assisted writing services.",
-    aiPlan: "If acquired at $60K: pivot from pure freelance marketplace to AI-augmented writing services. Add AI tools for writers. Monetize the 5K customer base with new products."
+    recommendation: "AVOID. P&L confirms what we suspected: revenue has collapsed from $97K/mo to $28K/mo in just 14 months — a 71% decline. AI writing tools are systematically destroying demand for freelance writing services, and this trend will accelerate. There is no floor. Do not buy at any price.",
+    aiPlan: "N/A — eliminated from consideration. Market in structural collapse."
   },
   {
     id: "F12206256",
