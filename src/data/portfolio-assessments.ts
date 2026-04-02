@@ -103,6 +103,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "MICR-FUNDRAISE-2",
+    url: "https://microns.io/startup-listings/ai-powered-fundraising-infrastructure-platform",
     name: "AI Fundraising Infrastructure (Microns — $40K)",
     verdict: "INVESTIGATE — revenue exceeds asking price",
     verdictColor: "amber",
