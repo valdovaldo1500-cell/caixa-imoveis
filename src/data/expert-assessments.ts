@@ -1383,6 +1383,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "ACQ-SEO-DE",
+    url: "https://acquire.com",
     name: "German SEO SaaS (Acquire.com — 1.2x multiple)",
     verdict: "CONSIDER — verify revenue split",
     verdictColor: "amber",
