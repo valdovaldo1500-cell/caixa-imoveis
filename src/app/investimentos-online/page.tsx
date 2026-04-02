@@ -223,15 +223,23 @@ export default function InvestimentosOnlinePage() {
 
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
         {/* Header */}
-        <div>
-          <h1 className="text-2xl font-bold text-white">
-            Online Business Acquisitions — Investment Dashboard
-          </h1>
-          <p className="text-zinc-400 mt-1 text-sm">
-            800+ listings analyzed across Empire Flippers, Flippa, Acquire.com,
-            Daltons, BusinessesForSale.com, RightBiz, Transferslot &amp; more.
-            Last updated: April 1, 2026.
-          </p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-white">
+              Online Business Acquisitions — Investment Dashboard
+            </h1>
+            <p className="text-zinc-400 mt-1 text-sm">
+              800+ listings analyzed across Empire Flippers, Flippa, Acquire.com,
+              Daltons, BusinessesForSale.com, RightBiz, Transferslot &amp; more.
+              Last updated: April 2, 2026.
+            </p>
+          </div>
+          <a
+            href="/portfolio-acquisitions"
+            className="shrink-0 ml-4 px-4 py-2 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold transition-colors"
+          >
+            Portfolio — Small Deals
+          </a>
         </div>
 
         {/* KPI bar */}
