@@ -995,6 +995,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "BFS-3774673",
+    url: "https://www.businessesforsale.com/buy/it-businesses-for-sale/3774673",
     name: "B2B Roadmapping & UX SaaS (London)",
     verdict: "CONDITIONAL — request price first",
     verdictColor: "amber",
