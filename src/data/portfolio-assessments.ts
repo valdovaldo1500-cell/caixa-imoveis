@@ -3,6 +3,7 @@ export interface ExpertAssessment {
   name: string;
   verdict: string;
   verdictColor: "emerald" | "blue" | "amber" | "red";
+  url?: string;
   price: string;
   monthlyProfit: string;
   annualROI: string;
