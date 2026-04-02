@@ -98,37 +98,53 @@ function verdictBadge(color: string) {
 function ActionableCard({ a }: { a: (typeof EXPERT_ASSESSMENTS)[0] }) {
   const [open, setOpen] = useState(false);
 
+  const url = listingUrl(a);
+
   return (
     <div className="rounded-lg border border-zinc-800 bg-zinc-900 overflow-hidden">
       {/* Header row */}
-      <button
-        className="w-full text-left px-4 py-3 flex flex-wrap gap-x-4 gap-y-1 items-start hover:bg-zinc-800/50 transition-colors"
-        onClick={() => setOpen((v) => !v)}
-      >
-        <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="font-bold text-white text-sm">{a.name}</span>
-            {platformBadge(a.id)}
-            {verdictBadge(a.verdictColor)}
+      <div className="flex items-start">
+        <button
+          className="flex-1 text-left px-4 py-3 flex flex-wrap gap-x-4 gap-y-1 items-start hover:bg-zinc-800/50 transition-colors"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-center gap-2 mb-1">
+              <span className="font-bold text-white text-sm">{a.name}</span>
+              {platformBadge(a.id)}
+              {verdictBadge(a.verdictColor)}
+            </div>
+            <p className="text-zinc-400 text-xs line-clamp-2">
+              {a.recommendation.slice(0, 120)}
+              {a.recommendation.length > 120 ? "…" : ""}
+            </p>
           </div>
-          <p className="text-zinc-400 text-xs line-clamp-2">
-            {a.recommendation.slice(0, 120)}
-            {a.recommendation.length > 120 ? "…" : ""}
-          </p>
-        </div>
-        <div className="flex flex-col items-end gap-1 shrink-0 ml-auto">
-          <div className="text-white font-semibold text-sm">{a.price}</div>
-          <div className="text-zinc-400 text-xs">{a.monthlyProfit}/mo</div>
-          <div className="text-zinc-500 text-xs">{a.annualROI} ROI</div>
-        </div>
-        <div className="flex items-center self-center pl-2 shrink-0">
-          {open ? (
-            <ChevronDown className="w-4 h-4 text-zinc-500" />
-          ) : (
-            <ChevronRight className="w-4 h-4 text-zinc-500" />
-          )}
-        </div>
-      </button>
+          <div className="flex flex-col items-end gap-1 shrink-0 ml-auto">
+            <div className="text-white font-semibold text-sm">{a.price}</div>
+            <div className="text-zinc-400 text-xs">{a.monthlyProfit}/mo</div>
+            <div className="text-zinc-500 text-xs">{a.annualROI} ROI</div>
+          </div>
+          <div className="flex items-center self-center pl-2 shrink-0">
+            {open ? (
+              <ChevronDown className="w-4 h-4 text-zinc-500" />
+            ) : (
+              <ChevronRight className="w-4 h-4 text-zinc-500" />
+            )}
+          </div>
+        </button>
+        {url && (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 p-3 self-center text-zinc-500 hover:text-blue-400 transition-colors"
+            title="View listing"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ExternalLink className="w-4 h-4" />
+          </a>
+        )}
+      </div>
 
       {/* Expanded detail */}
       {open && (
