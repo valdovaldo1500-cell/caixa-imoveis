@@ -1054,6 +1054,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "DAL-2487979",
+    url: "https://www.daltonsbusiness.com/listing/efficiency-optimisation-software-company-for-sale-DB2487979/",
     name: "Efficiency Optimisation Software (40yr Subscription SaaS)",
     verdict: "CONSIDER — best financials found anywhere",
     verdictColor: "amber",
