@@ -1403,7 +1403,7 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
       "Roasting/humor AI is a fad — not evergreen demand",
     ],
     recommendation:
-      "CONSIDER at max $65K. The ratings are real but '100% margin' claim needs Stripe + API cost verification. Serial seller knows exactly when to exit — assume declining trajectory.",
+      "AVOID. App Store Connect screenshots confirm: downloads -48%, proceeds -24%, impressions -55% over 90 days. This is a $0.99/week novelty app that went viral in early 2025 and has been declining since. Seller runs 10+ apps (serial app factory) and knows when to exit. The '100% margins' claim is false — OpenAI API costs are hidden. Fair price $40-50K max, not $100K.",
     aiPlan:
       "If acquired: diversify beyond roasting (add AI personality features), reduce API costs, expand to Android.",
   },
