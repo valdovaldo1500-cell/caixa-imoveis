@@ -132,8 +132,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F11987831",
     name: "No-Code SaaS — 0% Churn ($50K)",
-    verdict: "INVESTIGATE — zero churn is exceptional",
-    verdictColor: "amber",
+    verdict: "AVOID — one-time payments not SaaS, orders shrinking, Bubble lock-in",
+    verdictColor: "red",
     price: "$49,725",
     monthlyProfit: "~$2,746/mo",
     annualROI: "66%",
