@@ -104,7 +104,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
     id: "MICR-FUNDRAISE-2",
     url: "https://microns.io/startup-listings/ai-powered-fundraising-infrastructure-platform",
     name: "AI Fundraising Infrastructure (Microns — $40K)",
-    verdict: "INVESTIGATE — revenue exceeds asking price",
+    verdict: "CONDITIONAL — still available, sub-1x revenue, but verify Stripe data first",
     verdictColor: "amber",
     price: "$40,000",
     monthlyProfit: "~$3,535/mo",
