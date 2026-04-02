@@ -882,8 +882,8 @@ export const EXPERT_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F11894471",
     name: "Rapidesim.com (Automated eSIM Business)",
-    verdict: "CONSIDER — needs provider contract review",
-    verdictColor: "amber",
+    verdict: "AVOID — static fake averages hide 76% revenue decline",
+    verdictColor: "red",
     price: "$120,000",
     monthlyProfit: "£4,190/mo",
     annualROI: "42%",
