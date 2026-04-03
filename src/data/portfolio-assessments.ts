@@ -424,23 +424,26 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
     price: "$20,000 (target $14K)",
     monthlyProfit: "$1,027/mo",
     annualROI: "62-88%",
-    trendProfit: "Jewelry identification AI, 100% organic",
-    trendTraffic: "4.7 stars, 204 ratings, 2yr old",
+    trendProfit: "Revenue: $1,027/mo at 62% margin = ~$585/mo in real expenses (AI API costs for jewelry identification). 19-month payback at current profit. 1.6x annual multiple. DD visited app listing: 3,500 organic downloads/mo at $0.29/download ARPU — conversion to paid is very low but organic growth is real",
+    trendTraffic: "App confirmed: App ID 6740711585 by 'Ideas All Day Ltd' (Turkey). 4.7/5 with 204 ratings (US) — highest App Store rating in batch 3 of 3 DD. 3,500 organic downloads/month. CONSIDER-LOW verdict in DD3. Key negative review: 'best I've found but can't rely on price estimates' — confirms real usage, not farmed reviews. 62% margin reflects real AI API costs",
     highlights: [
-      "4.7/5 with 204 ratings — excellent credibility",
-      "AI-powered = Claude can improve the model",
-      "100% organic downloads",
-      "Jewelry is high-value niche",
+      "4.7/5 App Store rating with 204 reviews — highest credibility score of any app in batch-3 DD analysis. Reviews are authentic (constructive negative review pattern, not farmed)",
+      "3,500 organic downloads/month with zero marketing spend — real App Store discovery and genuine niche demand",
+      "'Ideas All Day Ltd' is a legitimate company name — not a throwaway Turkish developer account",
+      "Jewelry identification is a defensible niche: not commoditized like face swap or generic photo tools",
+      "62% margin is honest — reflects real AI API costs, not inflated 99% claims that hide unsustainable economics",
     ],
     risks: [
-      "Need App Store Connect revenue verification",
-      "$20K for $1K/mo = 1.6x — slightly high",
-      "Jewelry ID is niche — limited TAM",
+      "DD verdict: CONSIDER-LOW. Revenue is thin ($1K/mo) with 19-month payback. The $20K ask needs significant negotiation — DD assessed fair price at $12-16K",
+      "62% margin = ~$585/mo in AI API costs. As identification queries grow, costs grow proportionally — need to verify cost structure",
+      "Turkey-based developer: same pattern as several other flagged listings in DD. IP and App Store account transfer requires legal attention",
+      "Very low ARPU: $0.29/download. At 3,500 downloads/month, most users never pay. Conversion rate to paid subscription is under 1%",
+      "AI jewelry identification accuracy claimed at '95%+' — this was flagged as potentially overstated. Negative review confirms price estimation is unreliable",
     ],
     recommendation:
-      "CONDITIONAL at $14K. Strong App Store presence. Need revenue verification.",
+      "CONDITIONAL at $12,000-14,000 (down from $20K asking). The 4.7/5 App Store rating is the strongest signal and justifies engagement, but $20K for $1K/mo is too expensive. Negotiation script: 'We've identified the app, verified the 204 ratings, and the 62% margin suggests real API costs. At $20K, payback is 19 months for an unverified revenue stream — we'd like to proceed at $12-14K with 6 months of App Store Connect revenue screenshots.' If seller agrees, get: (1) App Store Connect monthly revenue trend, (2) exact AI API cost breakdown, (3) confirmation that 'Ideas All Day Ltd' can transfer App Store developer account.",
     aiPlan:
-      "Improve AI model accuracy with Claude, add price estimation feature, expand to watches/gems.",
+      "Replace or supplement the current AI model with Claude Vision API for more accurate jewelry identification — this directly addresses the main negative review ('can't rely on price estimates'). Add a price estimation feature using real jewelry market data: cross-reference identified item against auction records (Christie's, Sotheby's public data) to provide valuation ranges. Expand identification scope: watches, gemstones, antiques, coins — each is a separate user persona and keyword cluster. Build a 'jewelry portfolio tracker' feature where users catalog and track their collection value over time — drives daily active use and reduces churn. Target estate sale shoppers, antique dealers, and insurance agents as premium verticals.",
   },
   // ── AVOID (red) ────────────────────────────────────────────────────────────
   {
