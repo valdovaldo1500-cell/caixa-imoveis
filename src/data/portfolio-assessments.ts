@@ -876,7 +876,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
       "'Compliance-aware' claim requires legal validation — if the AI gives advice that violates FINRA rules, liability risk exists",
     ],
     recommendation:
-      "BUY AT $50 — no due diligence needed at this price. Just purchase it. At $50 this is a lottery ticket on a working compliance SaaS in a niche with 300K TAM and genuine regulatory pain. The only question is whether to invest development time post-acquisition. Test with 5 financial advisor cold outreach emails before spending any more money.",
+      "PASS — seller confirmed zero users, never promoted, no email list, no social media. Reserve price $588 (not $50). Just code with zero traction. Not worth the time investment even at near-zero cost.",
     aiPlan:
       "Post-acquisition: Claude generates a compliance-aware LinkedIn post library for 20 different financial advisor specialties (retirement planning, estate planning, tax optimization, etc.) — this becomes the product's immediate value demo. Build a 2-week free trial drip onboarding with Claude-generated personalized post examples based on the advisor's specialty input. Cold outreach 500 financial advisors via LinkedIn using Claude-written personalized messages referencing their specific compliance challenges. Target RIA firms (Registered Investment Advisors) with a white-label version at $199/month per advisor — one firm with 10 advisors = $2K MRR.",
   },
