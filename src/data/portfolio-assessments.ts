@@ -332,7 +332,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F12169050",
-    name: "MenuSnap Restaurant B2B iOS ($33K)",
+    name: "MenuSnap — iOS App for Restaurants to Create Digital Menus & Flyers from Photos ($33K)",
     verdict: "CONDITIONAL — 4.7/5 stars, real B2B niche",
     verdictColor: "amber",
     price: "$32,600 (target $28-30K)",
