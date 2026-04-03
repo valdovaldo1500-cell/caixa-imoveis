@@ -19,7 +19,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   // ── BUY (emerald) ──────────────────────────────────────────────────────────
   {
     id: "F12290776",
-    name: "Vegan Content Site — Verified ($8K)",
+    name: "Vegourmet.fr — French Vegan Recipe & Affiliate Content Site ($8K)",
     verdict: "BUY — verified, 97% margin, growing",
     verdictColor: "emerald",
     price: "$8,000",
