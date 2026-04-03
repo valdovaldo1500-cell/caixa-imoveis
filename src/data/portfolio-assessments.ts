@@ -158,8 +158,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F11854283",
     name: "Grid Maker — iOS Instagram Grid Planning App ($15K)",
-    verdict: "LOW PRIORITY — revenue declining 35% in 5mo, $3.5K max offer",
-    verdictColor: "amber",
+    verdict: "AVOID — declined offer, seller wants $8.5K, max $3.5K for us",
+    verdictColor: "red",
     price: "$15,000 (max offer $3,500)",
     monthlyProfit: "$712/mo (Mar 2026, declining from $1,103)",
     annualROI: "57% at $15K asking — but declining",
