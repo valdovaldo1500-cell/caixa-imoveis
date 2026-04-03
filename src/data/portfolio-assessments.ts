@@ -361,7 +361,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F11894069",
-    name: "WTMP Security App — 1,313 Ratings, 4.5/5 ($30K)",
+    name: "WTMP — iOS Security App That Detects Unauthorized Phone Access ($30K)",
     verdict: "CONDITIONAL — real security app, strong ratings",
     verdictColor: "amber",
     price: "$29,600 (target $22-25K)",
