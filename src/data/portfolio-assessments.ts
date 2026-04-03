@@ -215,7 +215,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F12225207-2",
-    name: "Content Gorilla SaaS — Negotiate to $30-35K",
+    name: "Content Gorilla — YouTube-to-Blog AI SaaS Tool, Negotiate to $30-35K",
     verdict: "CONSIDER — 6yr brand, Flippa-managed, volatile months",
     verdictColor: "amber",
     price: "$50,000 (negotiate to $30-35K)",
