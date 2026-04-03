@@ -146,7 +146,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
       "2yr old — moderate track record",
     ],
     recommendation:
-      "BUY at $11,500. The 24 verified clients provide revenue diversification.",
+      "BUY at $11,500. The 24 verified clients provide revenue diversification. Bank statements downloaded and verify stable £1,000-1,600/mo revenue.",
     aiPlan:
       "Use AI for SEO reporting automation, add content services, upsell existing clients.",
   },
