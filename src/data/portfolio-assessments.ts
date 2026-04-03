@@ -129,7 +129,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F12248731",
-    name: "SEO Agency — 24 Clients Verified ($12.9K)",
+    name: "SEO Supremacy — SEO Services Agency with 24 Recurring Clients ($12.9K)",
     verdict: "BUY — 24 verified clients, 76% margin, recurring",
     verdictColor: "emerald",
     price: "$12,909 (offer $11.5K)",
