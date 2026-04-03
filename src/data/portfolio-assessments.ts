@@ -74,7 +74,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F11015517",
-    name: "Life Insurance Lead Gen — 5yr ($3.5K)",
+    name: "Pureinsure.com — Life Insurance Lead Gen Website + Google Ads Account ($3.5K)",
     verdict: "BUY — transferable Google Ads account has standalone value",
     verdictColor: "emerald",
     price: "$3,500",
