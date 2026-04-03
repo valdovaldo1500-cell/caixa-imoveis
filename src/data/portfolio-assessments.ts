@@ -244,7 +244,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F12195777",
-    name: "14yr Affiliate Marketing Community ($25K)",
+    name: "Powerhouse Affiliate — Online Course + Community Platform for Affiliate Marketers ($25K)",
     verdict: "CONSIDER — real business, founder-brand risk, cheap at 0.7x multiple",
     verdictColor: "amber",
     price: "$25,000",
