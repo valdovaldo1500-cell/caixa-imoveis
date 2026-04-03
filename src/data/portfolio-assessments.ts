@@ -188,8 +188,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F11627815",
     name: "Two Cannabis Sites — 14yr Domains ($24K)",
-    verdict: "CONSIDER — 14yr domains, CBD affiliate revenue",
-    verdictColor: "amber",
+    verdict: "AVOID — cannabis niche rejected by buyer",
+    verdictColor: "red",
     price: "$23,926",
     monthlyProfit: "$1,043/mo",
     annualROI: "52%",
