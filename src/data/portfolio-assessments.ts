@@ -289,6 +289,137 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
     aiPlan:
       "Migrate from AngularJS to React/Next.js using Claude Code, stabilize existing 50 customers, add AI features to the fundraising toolkit.",
   },
+  // ── CONSIDER DD batch survivors (amber) ───────────────────────────────────
+  {
+    id: "F12250811",
+    name: "AI SaaS — 80% Margins, 4% Churn, 130 Subs ($56K)",
+    verdict: "CONDITIONAL — verified, best SaaS fundamentals in batch",
+    verdictColor: "amber",
+    price: "$56,457 (target $40-45K)",
+    monthlyProfit: "$1,682/mo",
+    annualROI: "36-50%",
+    trendProfit: "80% margins, 4% churn, 130 subscribers",
+    trendTraffic: "AI SaaS with verified revenue",
+    highlights: [
+      "Verified revenue on Flippa",
+      "80% profit margins",
+      "4% monthly churn — lowest SaaS churn found",
+      "130 active subscribers",
+    ],
+    risks: [
+      "Need NDA + full P&L to verify",
+      "$56K at current profit = 2.8x — negotiate down",
+      "AI SaaS space is crowded",
+    ],
+    recommendation:
+      "CONDITIONAL — need NDA and P&L verification. If 4% churn and 80% margins confirm, offer $40-45K.",
+    aiPlan:
+      "Add AI features with Claude Code, expand subscriber base, optimize pricing.",
+  },
+  {
+    id: "F12169050",
+    name: "MenuSnap Restaurant B2B iOS ($33K)",
+    verdict: "CONDITIONAL — 4.7/5 stars, real B2B niche",
+    verdictColor: "amber",
+    price: "$32,600 (target $28-30K)",
+    monthlyProfit: "$1,392/mo",
+    annualROI: "51-60%",
+    trendProfit: "Restaurant menu AI, B2B SaaS model",
+    trendTraffic: "4.7 stars, 166 ratings, growing",
+    highlights: [
+      "4.7/5 with 166 real App Store ratings",
+      "Real B2B niche (restaurants)",
+      "Growing user base",
+      "AI-powered menu management",
+    ],
+    risks: [
+      "Restaurant tech is competitive",
+      "Need revenue verification",
+      "B2B restaurant sales may need local presence",
+    ],
+    recommendation:
+      "CONDITIONAL — strong App Store presence. Counter at $28-30K.",
+    aiPlan:
+      "Expand AI menu features, add multilingual support, target restaurant chains.",
+  },
+  {
+    id: "F11894069",
+    name: "WTMP Security App — 1,313 Ratings, 4.5/5 ($30K)",
+    verdict: "CONDITIONAL — real security app, strong ratings",
+    verdictColor: "amber",
+    price: "$29,600 (target $22-25K)",
+    monthlyProfit: "$1,067/mo",
+    annualROI: "43-58%",
+    trendProfit: "iOS security utility, 120K downloads",
+    trendTraffic: "4.5 stars, 1,313 ratings, Lithuanian dev",
+    highlights: [
+      "1,313 App Store ratings — strongest social proof in batch",
+      "4.5/5 star rating",
+      "Security niche = Israel's domain",
+      "120K total downloads",
+    ],
+    risks: [
+      "Need revenue verification",
+      "Lithuanian developer = transfer complexity",
+      "Security apps face platform policy changes",
+    ],
+    recommendation:
+      "CONDITIONAL — best social proof of any app candidate. Security niche matches Israel's expertise. Counter at $22-25K.",
+    aiPlan:
+      "Leverage cybersecurity expertise to improve the product, add enterprise features, expand to Android.",
+  },
+  {
+    id: "F12242568",
+    name: "Resolve Habit App — 1.0x Multiple ($12.5K)",
+    verdict: "CONSIDER — underpriced at 1.0x annual",
+    verdictColor: "amber",
+    price: "$12,500 (target $10-12K)",
+    monthlyProfit: "$1,044/mo",
+    annualROI: "100-125%",
+    trendProfit: "88% margin, habit-breaking app",
+    trendTraffic: "iOS app, niche but sticky user base",
+    highlights: [
+      "1.0x annual multiple — underpriced",
+      "88% profit margin",
+      "Habit/wellness apps have high retention",
+      "$12.5K = low risk entry",
+    ],
+    risks: [
+      "Sensitive niche (addiction)",
+      "Need to verify App Store presence",
+      "May face content policy issues",
+    ],
+    recommendation:
+      "CONSIDER at $10-12K. Low enough risk to experiment. Verify App Store listing is active.",
+    aiPlan:
+      "Add AI-powered coaching features, expand to other habits, add Android version.",
+  },
+  {
+    id: "F11961187",
+    name: "Jewelry Identifier iOS — 4.7/5, 204 Ratings ($20K)",
+    verdict: "CONDITIONAL — best App Store credibility in batch",
+    verdictColor: "amber",
+    price: "$20,000 (target $14K)",
+    monthlyProfit: "$1,027/mo",
+    annualROI: "62-88%",
+    trendProfit: "Jewelry identification AI, 100% organic",
+    trendTraffic: "4.7 stars, 204 ratings, 2yr old",
+    highlights: [
+      "4.7/5 with 204 ratings — excellent credibility",
+      "AI-powered = Claude can improve the model",
+      "100% organic downloads",
+      "Jewelry is high-value niche",
+    ],
+    risks: [
+      "Need App Store Connect revenue verification",
+      "$20K for $1K/mo = 1.6x — slightly high",
+      "Jewelry ID is niche — limited TAM",
+    ],
+    recommendation:
+      "CONDITIONAL at $14K. Strong App Store presence. Need revenue verification.",
+    aiPlan:
+      "Improve AI model accuracy with Claude, add price estimation feature, expand to watches/gems.",
+  },
   // ── AVOID (red) ────────────────────────────────────────────────────────────
   {
     id: "F12205406",
