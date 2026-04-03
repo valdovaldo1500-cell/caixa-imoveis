@@ -47,8 +47,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F11771332",
     name: "15yr Content Site — Nearly Free ($2.1K)",
-    verdict: "BUY — 0.2x multiple, worst case lose $2K",
-    verdictColor: "emerald",
+    verdict: "AVOID — P&L shows revenue collapsed to £26-204/mo in recent months",
+    verdictColor: "red",
     price: "$2,118",
     monthlyProfit: "$950/mo",
     annualROI: "538%",
@@ -63,10 +63,11 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
     risks: [
       "Suspiciously cheap — verify traffic source",
       "15yr old may have legacy issues",
-      "Content may need refreshing",
+      "P&L VERIFIED: revenue collapsed to £26-204/mo in recent months",
+      "The $950/mo claim is historical peak, not current",
     ],
     recommendation:
-      "BUY. At $2.1K the risk is essentially zero. Even if revenue halves, payback is 4 months.",
+      "AVOID — P&L shows revenue collapsed to £26-204/mo in recent months. The $950/mo claim is historical peak, not current.",
     aiPlan:
       "Refresh content with Claude, modernize site, add email capture.",
   },
