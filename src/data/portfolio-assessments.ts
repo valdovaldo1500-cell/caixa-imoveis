@@ -163,24 +163,26 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
     price: "$15,000",
     monthlyProfit: "$1,159/mo",
     annualROI: "93%",
-    trendProfit: "99% profit margin, 3yr track record",
-    trendTraffic: "App Store organic, Instagram grid planning niche",
+    trendProfit: "P&L verified from Flippa (8 screenshots downloaded): Jul 2024 £998 → Jun 2025 £712. Clear gradual decline over 12 months. Last 3 months £745-£712. Headline £876/mo avg is real but trending down not up",
+    trendTraffic: "App Store: 4.3/5 stars with 166 real reviews (solid for niche utility). 2,000 organic downloads/month. 100% organic — no paid acquisition. Turkey-based developer (MOBILIOJI type entity). 99% margin: expenses only £8/mo (tool subscriptions)",
     highlights: [
-      "4.3 stars with 166 real reviews",
-      "99% profit margin",
-      "3yr track record",
-      "Instagram grid planning = evergreen niche",
+      "App Store verified: 4.3/5 stars, 166 reviews — genuine user satisfaction in Instagram grid planning niche",
+      "Best price-to-cashflow in the mid-12 batch: 1.1x annual profit multiple at $15K",
+      "99% margin — £8/mo in expenses. Essentially pure cashflow with zero operational overhead",
+      "2,000 organic downloads/month with zero marketing spend — product has real App Store discovery",
+      "Creator economy tailwind: Instagram content creation is growing, not shrinking",
     ],
     risks: [
-      "Instagram could add native grid feature",
-      "iOS platform dependency",
-      "App maintenance requires developer",
-      "P&L VERIFIED: slight decline, actual revenue £700-1,000/mo not £1,159",
+      "P&L shows clear downward trend: £998 (Jul 2024) → £712 (Jun 2025) — 29% decline over 12 months. Not catastrophic but not reversing without action",
+      "Instagram platform dependency: if Instagram adds native grid planning (they've tested this), demand drops sharply",
+      "No subscriber count provided — unknown how many active paying users vs free tier",
+      "Turkey-based seller: IP transfer requires careful legal review for App Store account handover",
+      "Revenue unverified at bank level — Flippa vetted but no direct Stripe/App Store Connect connection",
     ],
     recommendation:
-      "CONSIDER — P&L shows slight decline, £700-1,000/mo not £1,159. Still profitable but downgraded from BUY.",
+      "CONSIDER at $12,000-13,000 (counter down from $15,000, citing P&L decline trend). The 29% revenue decline over 12 months justifies a price reduction. The asset is still good — 166 real reviews, 2K organic downloads/mo, 99% margin — but you're buying a declining trend not a growing one. Key asks before any offer: (1) App Store Connect revenue screenshots for last 6 months, (2) subscriber count and monthly churn rate, (3) confirm App Store developer account is transferable (Apple requires a formal account transfer process), (4) any major Instagram API changes pending that would affect the app.",
     aiPlan:
-      "Add AI-powered grid suggestions, expand to Android, add premium templates.",
+      "Reverse the decline by adding AI features: Claude can generate 'optimal grid layout suggestions' based on content type, building a genuine AI differentiator. Add an Android version (none exists) to double the addressable market. Launch a 'grid template pack' as a one-time purchase to supplement subscription revenue. Create a content strategy tool (caption suggestions, hashtag recommendations) to expand from grid-only to full Instagram planning. Add a web dashboard companion — Instagram creators want to plan on desktop. Target 'Instagram feed planner' keywords in App Store and Google with Claude-written ASO copy.",
   },
   // ── CONSIDER (amber) ───────────────────────────────────────────────────────
   {
