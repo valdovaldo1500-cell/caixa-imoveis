@@ -40,7 +40,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
       "Need to verify: is traffic stable post-HCU?",
     ],
     recommendation:
-      "BUY at full asking. At 0.5x annual multiple this is the best value-for-money in the entire search. Verified revenue, high margins, organic traffic.",
+      "BUY at full asking. At 0.5x annual multiple this is the best value-for-money in the entire search. Verified revenue, high margins, organic traffic. P&L VERIFIED: Revenue grew from £266 to £1,852 over 12 months. This is the only listing with confirmed P&L growth.",
     aiPlan:
       "Use Claude to generate 50+ vegan articles/month, expand SEO footprint, add newsletter monetization.",
   },
