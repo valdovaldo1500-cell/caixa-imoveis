@@ -99,8 +99,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F12043262",
     name: "Dating Platform iOS — 250 Members ($10.8K)",
-    verdict: "BUY — 0.2x multiple, 250 paying members",
-    verdictColor: "emerald",
+    verdict: "AVOID — P&L shows revenue collapsed from £25K to near zero",
+    verdictColor: "red",
     price: "$10,850 (offer $7.5-9K)",
     monthlyProfit: "$3,646/mo",
     annualROI: "403-583%",
@@ -116,10 +116,10 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
       "Dating apps have high churn",
       "1yr old — limited track record",
       "iOS platform dependency",
-      "Need Stripe verification",
+      "P&L VERIFIED: revenue collapsed from £25K to near zero in recent months",
     ],
     recommendation:
-      "BUY at $7,500-9,000. Even at full ask, payback under 3 months.",
+      "AVOID — P&L shows revenue collapsed from £25K to near zero. The $3,646/mo claim is historical, current revenue is near zero.",
     aiPlan:
       "Add AI matching features with Claude, expand to Android, improve retention.",
   },
