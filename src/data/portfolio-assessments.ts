@@ -153,8 +153,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F11854283",
     name: "Grid Maker iOS App ($15K)",
-    verdict: "BUY — 4.3 stars, 166 reviews, Instagram niche",
-    verdictColor: "emerald",
+    verdict: "CONSIDER — P&L shows slight decline, £700-1,000/mo not £1,159",
+    verdictColor: "amber",
     price: "$15,000",
     monthlyProfit: "$1,159/mo",
     annualROI: "93%",
@@ -170,9 +170,10 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
       "Instagram could add native grid feature",
       "iOS platform dependency",
       "App maintenance requires developer",
+      "P&L VERIFIED: slight decline, actual revenue £700-1,000/mo not £1,159",
     ],
     recommendation:
-      "BUY. Proven App Store presence with real reviews. 99% margins and 1.1x multiple.",
+      "CONSIDER — P&L shows slight decline, £700-1,000/mo not £1,159. Still profitable but downgraded from BUY.",
     aiPlan:
       "Add AI-powered grid suggestions, expand to Android, add premium templates.",
   },
