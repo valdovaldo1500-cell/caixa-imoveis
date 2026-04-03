@@ -855,8 +855,8 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   {
     id: "F12720648",
     name: "Advisor Amplify — AI LinkedIn Posts for Financial Advisors ($50)",
-    verdict: "CONSIDER — $50 lottery ticket, working compliance SaaS MVP",
-    verdictColor: "amber",
+    verdict: "PASS — zero users, just code, not worth the time",
+    verdictColor: "red",
     price: "$50",
     monthlyProfit: "$0/mo (pre-revenue)",
     annualROI: "N/A — pre-revenue",
