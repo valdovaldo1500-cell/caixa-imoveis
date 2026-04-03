@@ -418,7 +418,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F11961187",
-    name: "Jewelry Identifier iOS — 4.7/5, 204 Ratings ($20K)",
+    name: "Jewelry Identifier — iOS App That Identifies Jewelry from Photos Using AI ($20K)",
     verdict: "CONDITIONAL — best App Store credibility in batch",
     verdictColor: "amber",
     price: "$20,000 (target $14K)",
