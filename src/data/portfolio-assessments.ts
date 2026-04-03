@@ -390,7 +390,7 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F12242568",
-    name: "Resolve Habit App — 1.0x Multiple ($12.5K)",
+    name: "Resolve — iOS Habit-Breaking App for Addiction Recovery ($12.5K)",
     verdict: "CONSIDER — underpriced at 1.0x annual",
     verdictColor: "amber",
     price: "$12,500 (target $10-12K)",
