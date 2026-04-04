@@ -1,6 +1,6 @@
 // AUTO-GENERATED — do not edit manually
 // Source: all_extractions_merged.json + overrides.json
-// Generated: 2026-04-04T10:38:01Z
+// Generated: 2026-04-04T15:48:46Z
 
 export interface FlippaListing {
   // Core
@@ -2580,23 +2580,26 @@ While I’ve attempted to work with a few individuals, finding the right person 
       `25yr claim misleading — company est. 2011, domain was redirect before that`,
       `Only 356 venue pages vs competitors with 10-16K+`,
       `Sitemap frozen since Dec 2018`,
-      `Ancient tech: CodeIgniter PHP, Bootstrap 3, jQuery UI 1.11.4`,
+      `Ancient tech: CodeIgniter PHP, Bootstrap 3, jQuery UI 1.11.4 (Laravel 12 migration in progress)`,
       `Multiple 404 pages linked from navigation (/about, /contact, /advertise)`,
       `Special offers page shows 2014 content`,
-      `Revenue unverifiable — company files total exemption accounts`,
-      `Sister site exhibitions.co.uk not disclosed — need non-compete`,
-      `BLC Ltd runs multiple revenue streams — need ring-fenced P&L for venues.org.uk only`,
+      `GA4 verified: 33% bot traffic (China 0% engagement/0s, Singapore 0.3%/0s)`,
+      `Organic search collapsed 90% in March 2026 (48/day → 5/day) — server issue claimed`,
+      `Real UK traffic only ~5/day in March 2026 vs ~60/day in 2025`,
+      `Sales requires phone calls to venues — not self-serve`,
+      `Product unclear: may be a service business (social posts, news features per venue) not a directory`,
+      `Admin person may be essential to delivering the product`,
     ],
     greenFlags: [
-      `55 paying venues × £550/yr = £30K/yr recurring`,
+      `55 paying venues × £550/yr = £30K/yr — verified from 3yr ring-fenced transaction data`,
       `75% renewal rate`,
       `35K email subscribers untapped since COVID`,
       `Pre-COVID peak £120K+/yr — proven ceiling`,
       `Premium .org.uk domain, 10.3K backlinks, 957 referring domains`,
-      `Low overhead: £917/mo total expenses`,
-      `Simple model: venue listing fees, low maintenance`,
-      `Post-sale support included`,
-      `Seller verified: email, phone, government ID`,
+      `Non-compete agreed, exhibitions.co.uk already sold`,
+      `Team (admin + dev) willing to stay on`,
+      `6K+ venue database included`,
+      `Seller cooperative and transparent`,
     ],
     seller: {
       name: `Paul Sung`,
