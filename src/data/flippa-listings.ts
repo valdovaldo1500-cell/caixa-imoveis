@@ -1,6 +1,6 @@
 // AUTO-GENERATED — do not edit manually
 // Source: all_extractions_merged.json + overrides.json
-// Generated: 2026-03-29T16:57:05Z
+// Generated: 2026-04-04T10:38:01Z
 
 export interface FlippaListing {
   // Core
@@ -74,7 +74,6 @@ export interface FlippaListing {
   watchers?: number;
   commentCount?: number;
   about?: string;
-  attachmentPL?: { month: string; revenue?: number; expenses?: number; profit?: number }[];
 
   // Legacy optional fields for UI compatibility
   status?: string;
@@ -224,83 +223,6 @@ export const flippaListings: FlippaListing[] = [
     ],
     views: 5256,
     watchers: 448,
-    attachmentPL: [
-      { month: "Jan 2020", revenue: 541.75, expenses: 614.08, profit: 77.91 },
-      { month: "Feb 2020", revenue: 822.75, expenses: 975.73, profit: 75.18 },
-      { month: "Mar 2020", revenue: 1233.75, expenses: 1434.7, profit: 141.19 },
-      { month: "Apr 2020", revenue: 354.05, expenses: 395.89, profit: 56.35 },
-      { month: "May 2020", revenue: 1658.75, expenses: 1911.98, profit: 206.77 },
-      { month: "Jun 2020", revenue: 24483.75, expenses: 27062.98, profit: 4210.5 },
-      { month: "Jul 2020", revenue: 3626.8, expenses: 4128.87, profit: 503.7 },
-      { month: "Aug 2020", revenue: 1705.85, expenses: 1942.03, profit: 236.87 },
-      { month: "Sep 2020", revenue: 1270.9, expenses: 1430.72, profit: 192.62 },
-      { month: "Oct 2020", revenue: 1187.9, expenses: 1367.48, profit: 149.84 },
-      { month: "Nov 2020", revenue: 750.9, expenses: 859.63, profit: 99.5 },
-      { month: "Dec 2020", revenue: 145970.95, expenses: 156584.04, profit: 29866.93 },
-      { month: "Jan 2021", revenue: 11250.99, expenses: 11012.56, profit: 3358.5 },
-      { month: "Feb 2021", revenue: 13149.71, expenses: 13647.2, profit: 3149.13 },
-      { month: "Mar 2021", revenue: 8174.97, expenses: 8767.37, profit: 1674.65 },
-      { month: "Apr 2021", revenue: 5468.95, expenses: 5740.91, profit: 1244.66 },
-      { month: "May 2021", revenue: 5520.95, expenses: 5812.86, profit: 1239.13 },
-      { month: "Jun 2021", revenue: 18336.95, expenses: 19584.52, profit: 3837.55 },
-      { month: "Jul 2021", revenue: 4159.95, expenses: 4155.39, profit: 1158.18 },
-      { month: "Aug 2021", revenue: 3379.95, expenses: 3447.36, profit: 869.9 },
-      { month: "Sep 2021", revenue: 3823.95, expenses: 3969.35, profit: 915.04 },
-      { month: "Oct 2021", revenue: 3240.9, expenses: 3345.99, profit: 793.66 },
-      { month: "Nov 2021", revenue: 3629.9, expenses: 3651.29, profit: 985.23 },
-      { month: "Dec 2021", revenue: 26705.9, expenses: 26507.92, profit: 7603.94 },
-      { month: "Jan 2022", revenue: 8441.9, expenses: 8177.61, profit: 2605.36 },
-      { month: "Feb 2022", revenue: 5240.9, expenses: 4965.29, profit: 1728.99 },
-      { month: "Mar 2022", revenue: 3755.43, expenses: 3892.55, profit: 904.32 },
-      { month: "Apr 2022", revenue: 152849.02, expenses: 154745.81, profit: 40490.63 },
-      { month: "May 2022", revenue: 7719.61, expenses: 6975.27, profit: 2885.11 },
-      { month: "Jun 2022", revenue: 17935.67, expenses: 18381.24, profit: 4528.27 },
-      { month: "Jul 2022", revenue: 9642.27, expenses: 12191.66, profit: 124.56 },
-      { month: "Aug 2022", revenue: 9256.04, expenses: 9876.87, profit: 1946.02 },
-      { month: "Sep 2022", revenue: 13416.29, expenses: 11292.61, profit: 5844.23 },
-      { month: "Oct 2022", revenue: 21122.4, expenses: 19896.36, profit: 7083.61 },
-      { month: "Nov 2022", revenue: 6867.2, expenses: 10677.78, profit: -1906.2 },
-      { month: "Dec 2022", revenue: 29147.71, expenses: 35595.9, profit: 1529.55 },
-      { month: "Jan 2023", revenue: 4938.94, expenses: 16056.39, profit: -10670.47 },
-      { month: "Feb 2023", revenue: 9313.85, expenses: 7958.75, profit: 1761.03 },
-      { month: "Mar 2023", revenue: 113762.96, expenses: 73886.17, profit: 39876.79 },
-      { month: "Apr 2023", revenue: 36320.09, expenses: 35567.54, profit: 752.55 },
-      { month: "May 2023", revenue: 33782.08, expenses: 24190.16, profit: 9591.92 },
-      { month: "Jun 2023", revenue: 33515.0, expenses: 34186.17, profit: -671.17 },
-      { month: "Jul 2023", revenue: 34186.92, expenses: 23669.82, profit: 10517.1 },
-      { month: "Aug 2023", revenue: 18991.36, expenses: 20542.17, profit: -1550.81 },
-      { month: "Sep 2023", revenue: 31081.54, expenses: 15688.07, profit: 15393.47 },
-      { month: "Oct 2023", revenue: 31889.75, expenses: 22149.34, profit: 9740.41 },
-      { month: "Nov 2023", revenue: 23790.12, expenses: 21439.77, profit: 2350.35 },
-      { month: "Dec 2023", revenue: 67327.96, expenses: 43255.88, profit: 24072.08 },
-      { month: "Jan 2024", revenue: 17105.08, expenses: 19545.62, profit: -2440.54 },
-      { month: "Feb 2024", revenue: 28999.36, expenses: 14345.06, profit: 14654.3 },
-      { month: "Mar 2024", revenue: 42358.56, expenses: 20431.27, profit: 21927.29 },
-      { month: "Apr 2024", revenue: 31436.6, expenses: 22330.01, profit: 9106.59 },
-      { month: "May 2024", revenue: 8099.07, expenses: 10892.24, profit: -2793.17 },
-      { month: "Jun 2024", revenue: 60750.48, expenses: 43283.12, profit: 17467.36 },
-      { month: "Jul 2024", revenue: 26432.66, expenses: 19579.42, profit: 6853.24 },
-      { month: "Aug 2024", revenue: 30663.71, expenses: 27613.06, profit: 3050.65 },
-      { month: "Sep 2024", revenue: 31693.52, expenses: 22817.61, profit: 8875.91 },
-      { month: "Oct 2024", revenue: 32936.89, expenses: 17147.91, profit: 15788.98 },
-      { month: "Nov 2024", revenue: 15987.09, expenses: 9656.02, profit: 6331.07 },
-      { month: "Dec 2024", revenue: 28549.96, expenses: 16474.46, profit: 12075.5 },
-      { month: "Jan 2025", revenue: 24702.58, expenses: 20794.26, profit: 3908.32 },
-      { month: "Feb 2025", revenue: 20587.23, expenses: 19706.44, profit: 880.79 },
-      { month: "Mar 2025", revenue: 35021.45, expenses: 16840.5, profit: 18180.95 },
-      { month: "Apr 2025", revenue: 18903.2, expenses: 12207.34, profit: 6695.86 },
-      { month: "May 2025", revenue: 9119.95, expenses: 7728.0, profit: 1391.95 },
-      { month: "Jun 2025", revenue: 10992.31, expenses: 10168.99, profit: 823.32 },
-      { month: "Jul 2025", revenue: 16158.53, expenses: 5790.12, profit: 10368.41 },
-      { month: "Aug 2025", revenue: 9478.49, expenses: 10193.57, profit: -715.08 },
-      { month: "Sep 2025", revenue: 10876.3, expenses: 10046.85, profit: 829.45 },
-      { month: "Oct 2025", revenue: 10636.72, expenses: 8355.98, profit: 2280.74 },
-      { month: "Nov 2025", revenue: 66374.63, expenses: 42858.28, profit: 23516.35 },
-      { month: "Dec 2025", revenue: 22670.65, expenses: 10530.96, profit: 12139.69 },
-      { month: "Oct 2025", revenue: 0.0, expenses: 0.0, profit: 0.0 },
-      { month: "Nov 2025", revenue: 0.0, expenses: 0.0, profit: 0.0 },
-      { month: "Dec 2025", revenue: 0.0, expenses: 0.0, profit: 0.0 }
-    ],
     about: `Key Highlights
 
 Content Gorilla, a software as a service (SaaS) platform, has carved out a niche in the bustling world of business-focused tools by leveraging its dual monetization strategy of affiliate sales and service subscriptions. As a cutting-edge solution aimed at empowering businesses, Content Gorilla facilitates the seamless conversion of video content into written materials, thereby broadening access to content creation. Since its inception, the company has strategically employed digital payment titans Stripe, PayPal, and Wise to streamline its financial transactions. These platforms enable both swift and secure payments, underscoring Content Gorilla's commitment to efficient service delivery in the digital age.
@@ -826,77 +748,6 @@ The platform's success over this 3 year testing period demonstrates its scalabil
     ],
     views: 4729,
     watchers: 72,
-    attachmentPL: [
-      { month: "Jan 2019", revenue: 0.0, expenses: 0.0, profit: 0 },
-      { month: "Feb 2019", revenue: 0.0, expenses: 0.0, profit: 0 },
-      { month: "Jun 2020", revenue: 18020.8, expenses: 10707.32, profit: 7313.48 },
-      { month: "Jul 2020", revenue: 76893.73, expenses: 60472.81, profit: 16420.92 },
-      { month: "Aug 2020", revenue: 25281.11, expenses: 24500.76, profit: 780.35 },
-      { month: "Sep 2020", revenue: 20004.04, expenses: 19303.67, profit: 700.37 },
-      { month: "Oct 2020", revenue: 22042.35, expenses: 21871.56, profit: 170.79 },
-      { month: "Nov 2020", revenue: 78322.64, expenses: 67946.4, profit: 10376.24 },
-      { month: "Dec 2020", revenue: 92753.67, expenses: 81028.86, profit: 11724.81 },
-      { month: "Jan 2021", revenue: 42012.06, expenses: 41157.35, profit: 854.71 },
-      { month: "Feb 2021", revenue: 24234.57, expenses: 23033.71, profit: 1200.86 },
-      { month: "Mar 2021", revenue: 75089.81, expenses: 61885.83, profit: 13203.98 },
-      { month: "Apr 2021", revenue: 94387.87, expenses: 79929.49, profit: 14458.38 },
-      { month: "May 2021", revenue: 74619.63, expenses: 63733.95, profit: 10885.68 },
-      { month: "Jun 2021", revenue: 85692.4, expenses: 72281.82, profit: 13410.58 },
-      { month: "Jul 2021", revenue: 62551.32, expenses: 51094.57, profit: 11456.75 },
-      { month: "Aug 2021", revenue: 78402.22, expenses: 66758.64, profit: 11643.58 },
-      { month: "Sep 2021", revenue: 61991.41, expenses: 53466.87, profit: 8524.54 },
-      { month: "Oct 2021", revenue: 54028.92, expenses: 44813.3, profit: 9215.62 },
-      { month: "Nov 2021", revenue: 76793.8, expenses: 67109.05, profit: 9684.75 },
-      { month: "Dec 2021", revenue: 67335.79, expenses: 59356.55, profit: 7979.24 },
-      { month: "Jan 2022", revenue: 26825.2, expenses: 23516.84, profit: 3308.36 },
-      { month: "Feb 2022", revenue: 21167.71, expenses: 18614.43, profit: 2553.28 },
-      { month: "Mar 2022", revenue: 57054.24, expenses: 45193.33, profit: 11860.91 },
-      { month: "Apr 2022", revenue: 47575.86, expenses: 39541.75, profit: 8034.11 },
-      { month: "May 2022", revenue: 91647.86, expenses: 73893.21, profit: 17754.65 },
-      { month: "Jun 2022", revenue: 60877.72, expenses: 51514.04, profit: 9363.68 },
-      { month: "Jul 2022", revenue: 32690.53, expenses: 26714.14, profit: 5976.39 },
-      { month: "Aug 2022", revenue: 42517.25, expenses: 31809.84, profit: 10707.41 },
-      { month: "Sep 2022", revenue: 97518.26, expenses: 74737.16, profit: 22781.1 },
-      { month: "Oct 2022", revenue: 42260.44, expenses: 35512.0, profit: 6748.44 },
-      { month: "Nov 2022", revenue: 47655.53, expenses: 38872.98, profit: 8782.55 },
-      { month: "Dec 2022", revenue: 62155.23, expenses: 51607.74, profit: 10547.49 },
-      { month: "Jan 2023", revenue: 25775.0, expenses: 21784.96, profit: 3990.04 },
-      { month: "Feb 2023", revenue: 23614.0, expenses: 21331.26, profit: 2282.74 },
-      { month: "Mar 2023", revenue: 28644.0, expenses: 23026.8, profit: 5617.2 },
-      { month: "Apr 2023", revenue: 46965.0, expenses: 37613.59, profit: 9351.41 },
-      { month: "May 2023", revenue: 33129.0, expenses: 27602.04, profit: 5526.96 },
-      { month: "Jun 2023", revenue: 25146.0, expenses: 21803.0, profit: 3343.0 },
-      { month: "Jul 2023", revenue: 51554.0, expenses: 44322.35, profit: 7231.65 },
-      { month: "Aug 2023", revenue: 65226.0, expenses: 52969.19, profit: 12256.81 },
-      { month: "Sep 2023", revenue: 54501.0, expenses: 44297.11, profit: 10203.89 },
-      { month: "Oct 2023", revenue: 66673.4, expenses: 53729.56, profit: 12943.84 },
-      { month: "Nov 2023", revenue: 82083.18, expenses: 66828.51, profit: 15254.67 },
-      { month: "Dec 2023", revenue: 59292.41, expenses: 47553.87, profit: 11738.54 },
-      { month: "Jan 2024", revenue: 9761.92, expenses: 8993.49, profit: 768.43 },
-      { month: "Feb 2024", revenue: 15628.59, expenses: 15891.24, profit: -262.65 },
-      { month: "Mar 2024", revenue: 37586.57, expenses: 33129.79, profit: 4456.78 },
-      { month: "Apr 2024", revenue: 58677.17, expenses: 50029.94, profit: 8647.23 },
-      { month: "May 2024", revenue: 51336.26, expenses: 42767.64, profit: 8568.62 },
-      { month: "Jun 2024", revenue: 39672.32, expenses: 33506.2, profit: 6166.12 },
-      { month: "Jul 2024", revenue: 40417.15, expenses: 35398.26, profit: 5018.89 },
-      { month: "Aug 2024", revenue: 35743.31, expenses: 30265.09, profit: 5478.22 },
-      { month: "Sep 2024", revenue: 33492.7, expenses: 27279.94, profit: 6212.76 },
-      { month: "Oct 2024", revenue: 38957.0, expenses: 33987.75, profit: 4969.25 },
-      { month: "Nov 2024", revenue: 49622.51, expenses: 43881.75, profit: 5740.76 },
-      { month: "Dec 2024", revenue: 57595.0, expenses: 46180.05, profit: 11414.95 },
-      { month: "Jan 2025", revenue: 15313.0, expenses: 13728.44, profit: 1584.56 },
-      { month: "Feb 2025", revenue: 14650.0, expenses: 13895.36, profit: 754.64 },
-      { month: "Mar 2025", revenue: 23047.0, expenses: 19627.57, profit: 3419.43 },
-      { month: "Apr 2025", revenue: 40928.0, expenses: 34067.47, profit: 6860.53 },
-      { month: "May 2025", revenue: 19892.3, expenses: 17735.28, profit: 2157.02 },
-      { month: "Jun 2025", revenue: 19273.0, expenses: 15915.97, profit: 3357.03 },
-      { month: "Jul 2025", revenue: 17649.0, expenses: 14679.38, profit: 2969.62 },
-      { month: "Aug 2025", revenue: 34079.0, expenses: 27313.26, profit: 6765.74 },
-      { month: "Sep 2025", revenue: 21243.0, expenses: 18827.12, profit: 2415.88 },
-      { month: "Oct 2025", revenue: 20476.0, expenses: 16765.21, profit: 3710.79 },
-      { month: "Nov 2025", revenue: 32375.0, expenses: 26977.31, profit: 5397.69 },
-      { month: "Dec 2025", revenue: 32611.0, expenses: 25328.85, profit: 7282.15 }
-    ],
     about: `Business Overview
 
 Lion Legion is a UK-based eCommerce brand operating in the print-on-demand apparel market. The business focuses on humor-driven designs with themes tied to British culture, patriotism, film references, and veteran humor. Founded by a Royal Navy veteran, the brand has built a strong following and expanded beyond its original niche to appeal to a broad UK audience.
@@ -2694,6 +2545,182 @@ The decline in revenue is straightforward: the business has been managed with mi
 While I’ve attempted to work with a few individuals, finding the right person to manage these projects has been challenging. These websites require regular involvement, including social media activity, campaigns,`,
   },
   {
+    id: `11883560`,
+    title: `Venues.org.uk`,
+    revealedName: `Venues.org.uk`,
+    url: `https://flippa.com/11883560`,
+    type: `other`,
+    dataLevel: `stats`,
+    askingPrice: 51353.0,
+    avgMonthlyRevenue: 3564.0,
+    avgMonthlyProfit: 2682.0,
+    profitMargin: `75%`,
+    annualRevenue: `GBP £33,674`,
+    annualProfit: `GBP £25,340`,
+    ageYears: 25.0,
+    monetisation: ``,
+    techStack: `Shopify, Stripe`,
+    country: `United Kingdom`,
+    platform: `with`,
+    hasStripe: false,
+    hasPaypal: true,
+    isVetted: true,
+    managedByFlippa: true,
+    ndaApproved: true,
+    scores: {
+      stability: 55,
+      diversification: 50,
+      operatorIndependence: 68.3,
+      roi: 95,
+      growthPotential: 50,
+      overall: 61.9,
+    },
+    recommendation: `CONSIDER`,
+    redFlags: [
+      `25yr claim misleading — company est. 2011, domain was redirect before that`,
+      `Only 356 venue pages vs competitors with 10-16K+`,
+      `Sitemap frozen since Dec 2018`,
+      `Ancient tech: CodeIgniter PHP, Bootstrap 3, jQuery UI 1.11.4`,
+      `Multiple 404 pages linked from navigation (/about, /contact, /advertise)`,
+      `Special offers page shows 2014 content`,
+      `Revenue unverifiable — company files total exemption accounts`,
+      `Sister site exhibitions.co.uk not disclosed — need non-compete`,
+      `BLC Ltd runs multiple revenue streams — need ring-fenced P&L for venues.org.uk only`,
+    ],
+    greenFlags: [
+      `55 paying venues × £550/yr = £30K/yr recurring`,
+      `75% renewal rate`,
+      `35K email subscribers untapped since COVID`,
+      `Pre-COVID peak £120K+/yr — proven ceiling`,
+      `Premium .org.uk domain, 10.3K backlinks, 957 referring domains`,
+      `Low overhead: £917/mo total expenses`,
+      `Simple model: venue listing fees, low maintenance`,
+      `Post-sale support included`,
+      `Seller verified: email, phone, government ID`,
+    ],
+    seller: {
+      name: `Paul Sung`,
+      location: `United Kingdom`,
+      verified: false,
+    },
+    expenses: [
+      {
+        item: `Server`,
+        amount: `GBP £304 /month`,
+      },
+      {
+        item: `Web Developer`,
+        amount: `GBP £253 /month`,
+      },
+      {
+        item: `Admin staff`,
+        amount: `GBP £353 /month`,
+      },
+    ],
+    saleIncludes: [
+      `Assets`,
+      `Domains`,
+      `Website files`,
+      `Email address`,
+      `Social media accounts`,
+      `Email subscriber list`,
+      `Brand assets (logos, etc)`,
+      `Supplier contracts`,
+      `Unique content`,
+      `Unique design`,
+      `Included.`,
+      `620 followers`,
+      `914 followers`,
+      `11,083 followers`,
+      `1,100 followers`,
+      `35,000 subscribers`,
+      `Contact Seller`,
+      `Send message`,
+      `No comments`,
+      `Show all`,
+      `Open for negotiation`,
+      `Indicative Price`,
+      `USD $60,291`,
+      `USD $51,353`,
+      `Reduced 15%`,
+      `GBP £38,541`,
+      `Contact Seller Submit LOI Make O`,
+    ],
+    postSaleSupport: `Included.`,
+    badges: [
+      `Editor's Choice`,
+      `Sponsored`,
+      `Managed by Flippa`,
+    ],
+    ga: {
+      users: `45,611`,
+      totalPageViews: `6,082`,
+      pagesPerSession: `1.26`,
+      avgDuration: `00:00:10`,
+      engagementRate: `0.16%`,
+      topCountries: [
+        {
+          country: `China`,
+          views: 3559,
+        },
+        {
+          country: `United Kingdom`,
+          views: 1785,
+        },
+        {
+          country: `Singapore`,
+          views: 241,
+        },
+        {
+          country: `United States`,
+          views: 116,
+        },
+        {
+          country: `Mexico`,
+          views: 23,
+        },
+      ],
+    },
+    integrations: [
+      `PayPal`,
+      `Paypal`,
+      `Google Analytics`,
+      `Amazon`,
+    ],
+    tech: [
+      `Shopify`,
+      `Stripe`,
+    ],
+    views: 1040,
+    watchers: 35,
+    about: `Venues.org.uk is one of the longest-standing and most recognized online venue discovery platforms in the UK, serving the events industry since 2001. As a trusted portal for venue bookers, corporate clients, and event planners, the business provides a streamlined experience for finding and showcasing event spaces across the country. With a 25-year-old domain, highly engaged email list of 35,000 subscribers, and an SEO authority score of 27 supported by 10.3K backlinks and 957 referring domains, Venues.org.uk is a cornerstone of digital real estate in the UK events industry.
+
+The platform operates on a profitable and stable business model, with 75% profit margins and monthly net earnings of USD $3000+. Revenue is derived from a mix of subscription-based listings for venues and advertising services, providing both predictable cash flow and upside through content-driven traffic. Its niche positioning, high organic search traffic (79% of pageviews), and recurring income base make it a valuable asset for investors or acquirers seeking a defensible and established foothold in the events and hospitality sector.
+
+Monetization Model
+The primary revenue stream comes from annual subscription fees paid by venues for profile listings, enhanced visibility, and promotional placements. Secondary monetization includes advertising placements and upsell features on the platform. The subscription model provides recurring and predictable revenue, while organic content and SEO drive low-cost lead acquisition. With minimal operating costs and no physical overhead, the business runs lean and profitably.
+
+Customer Base
+The platform serves a wide range of clientele in the UK events sector including:
+
+Corporate event organizers
+Wedding and party planners
+Venue managers and marketing teams
+Agencies and venue bookers
+
+Operations & Team
+The business is highly automated with minimal staffing. The only recurring operational costs are web development and server maintenance. No full-time team is required to operate the business, offering strong passive income potential or a base to build a more hands-on sales and growth team. Ownership involvement is light, primarily focused on admin, renewals, and content moderation.
+
+Growth Opportunities
+
+SEO Optimization: With a strong organic base and over 10K ranking keywords, additional SEO investment could exponentially increase traffic.
+Sales Expansion: Introduce direct sales outreach to target underrepresented venue categories (e.g. outdoor, corporate retreats, heritage venues).
+Enhanced CRM: Leverage the 35,000-email subscriber list for automated campaigns and retargeting funnels.
+Platform Modernization: A UX refresh or feature expansion (e.g. bookings, calendar integrations) could boost engagement and conversion.
+Partnerships: Collaborate with wedding planners, corporate event agencies, and event tech providers to broaden monetization.
+International Expansion: Explore additional listing revenue by opening up to Irish, European, or Commo`,
+  },
+  {
     id: `12195937`,
     title: `Woodbury Learning Academy Limited`,
     revealedName: `Woodbury Learning Academy Limited`,
@@ -3083,56 +3110,6 @@ Founder Support: The founder brings 20+ years of operational and education exper
     ],
     views: 2996,
     watchers: 200,
-    attachmentPL: [
-      { month: "Jan 2022", revenue: 13178.03, expenses: 7168.32, profit: 0.46 },
-      { month: "Feb 2022", revenue: 12198.61, expenses: 8817.39, profit: 0.28 },
-      { month: "Mar 2022", revenue: 11218.91, expenses: 8832.19, profit: 0.21 },
-      { month: "Apr 2022", revenue: 9426.62, expenses: 8137.33, profit: 0.14 },
-      { month: "May 2022", revenue: 11162.57, expenses: 9325.93, profit: 0.16 },
-      { month: "Jun 2022", revenue: 8358.77, expenses: 6755.44, profit: 0.19 },
-      { month: "Jul 2022", revenue: 11147.41, expenses: 11997.75, profit: -0.08 },
-      { month: "Aug 2022", revenue: 16679.07, expenses: 15766.85, profit: 0.05 },
-      { month: "Sep 2022", revenue: 20301.82, expenses: 17506.34, profit: 0.14 },
-      { month: "Oct 2022", revenue: 26076.25, expenses: 20840.37, profit: 0.2 },
-      { month: "Nov 2022", revenue: 58602.36, expenses: 38613.64, profit: 0.34 },
-      { month: "Dec 2022", revenue: 77362.13, expenses: 57001.38, profit: 0.26 },
-      { month: "Jan 2023", revenue: 12222.85, expenses: 14444.4, profit: -0.18 },
-      { month: "Feb 2023", revenue: 11109.57, expenses: 6887.97, profit: 0.38 },
-      { month: "Mar 2023", revenue: 12969.94, expenses: 7336.56, profit: 0.43 },
-      { month: "Apr 2023", revenue: 9325.27, expenses: 8098.91, profit: 0.13 },
-      { month: "May 2023", revenue: 13478.91, expenses: 9041.77, profit: 0.33 },
-      { month: "Jun 2023", revenue: 9982.3, expenses: 6202.86, profit: 0.38 },
-      { month: "Jul 2023", revenue: 8257.38, expenses: 4477.41, profit: 0.46 },
-      { month: "Aug 2023", revenue: 9642.62, expenses: 6840.4, profit: 0.29 },
-      { month: "Sep 2023", revenue: 9108.45, expenses: 7237.58, profit: 0.21 },
-      { month: "Oct 2023", revenue: 13900.49, expenses: 8829.56, profit: 0.36 },
-      { month: "Nov 2023", revenue: 43739.08, expenses: 18827.93, profit: 0.57 },
-      { month: "Dec 2023", revenue: 62259.21, expenses: 37420.67, profit: 0.4 },
-      { month: "Jan 2024", revenue: 7649.14, expenses: 6672.56, profit: 0.13 },
-      { month: "Feb 2024", revenue: 7029.62, expenses: 3912.97, profit: 0.44 },
-      { month: "Mar 2024", revenue: 7409.56, expenses: 3793.9, profit: 0.49 },
-      { month: "Apr 2024", revenue: 7502.96, expenses: 3170.63, profit: 0.58 },
-      { month: "May 2024", revenue: 7853.35, expenses: 4144.51, profit: 0.47 },
-      { month: "Jun 2024", revenue: 8299.92, expenses: 4412.97, profit: 0.47 },
-      { month: "Jul 2024", revenue: 7241.58, expenses: 4207.28, profit: 0.42 },
-      { month: "Aug 2024", revenue: 6807.59, expenses: 4490.68, profit: 0.34 },
-      { month: "Sep 2024", revenue: 6712.7, expenses: 4801.92, profit: 0.28 },
-      { month: "Oct 2024", revenue: 10090.5, expenses: 6193.61, profit: 0.39 },
-      { month: "Nov 2024", revenue: 43124.66, expenses: 25611.43, profit: 0.41 },
-      { month: "Dec 2024", revenue: 65230.09, expenses: 48433.67, profit: 0.26 },
-      { month: "Jan 2025", revenue: 11434.48, expenses: 9699.09, profit: 0.15 },
-      { month: "Feb 2025", revenue: 9311.23, expenses: 9430.52, profit: -0.01 },
-      { month: "Mar 2025", revenue: 10219.43, expenses: 7996.96, profit: 0.22 },
-      { month: "Apr 2025", revenue: 11529.76, expenses: 7554.85, profit: 0.34 },
-      { month: "May 2025", revenue: 0.0, expenses: 0.0, profit: 0 },
-      { month: "Jun 2025", revenue: 0.0, expenses: 0.0, profit: 0 },
-      { month: "Jul 2025", revenue: 0.0, expenses: 0.0, profit: 0 },
-      { month: "Aug 2025", revenue: 0.0, expenses: 0.0, profit: 0 },
-      { month: "Sep 2025", revenue: 0.0, expenses: 0.0, profit: 0 },
-      { month: "Oct 2025", revenue: 0.0, expenses: 0.0, profit: 0 },
-      { month: "Nov 2025", revenue: 0.0, expenses: 0.0, profit: 0 },
-      { month: "Dec 2025", revenue: 0.0, expenses: 0.0, profit: 0 }
-    ],
     about: `Key Highlights
 
 Paw & Glory is a fast-growing, pet-centric e-commerce brand that specializes in custom pet portraits with a humorous, regal twist. Since launching in October 2020, the company has generated just under £1 million in total revenue, built a loyal customer base of over 21,000 pet lovers, and grown an active email list of 35,000+ subscribers.
@@ -9649,68 +9626,6 @@ Salman`,
     views: 4904,
     watchers: 163,
     commentCount: 4,
-    attachmentPL: [
-      { month: "Jan 2021", revenue: 11449.39, expenses: 3735.26, profit: 7714.13 },
-      { month: "Feb 2021", revenue: 11558.0, expenses: 1737.78, profit: 9820.22 },
-      { month: "Mar 2021", revenue: 10714.39, expenses: 2919.9, profit: 7794.49 },
-      { month: "Apr 2021", revenue: 11647.64, expenses: 4463.59, profit: 7184.05 },
-      { month: "May 2021", revenue: 11118.2, expenses: 3052.14, profit: 8066.06 },
-      { month: "Jun 2021", revenue: 10006.38, expenses: 2996.68, profit: 7009.7 },
-      { month: "Jul 2021", revenue: 11119.51, expenses: 4661.82, profit: 6457.69 },
-      { month: "Aug 2021", revenue: 10595.83, expenses: 4618.92, profit: 5976.91 },
-      { month: "Sep 2021", revenue: 11728.65, expenses: 4303.94, profit: 7424.71 },
-      { month: "Oct 2021", revenue: 13065.97, expenses: 5686.03, profit: 7379.94 },
-      { month: "Nov 2021", revenue: 15389.81, expenses: 5831.17, profit: 9558.64 },
-      { month: "Dec 2021", revenue: 11913.99, expenses: 6221.98, profit: 5692.01 },
-      { month: "Jan 2022", revenue: 10979.57, expenses: 5681.97, profit: 5297.6 },
-      { month: "Feb 2022", revenue: 13651.92, expenses: 6625.3, profit: 7026.62 },
-      { month: "Mar 2022", revenue: 11685.69, expenses: 6769.83, profit: 4915.86 },
-      { month: "Apr 2022", revenue: 11362.11, expenses: 7192.33, profit: 4169.78 },
-      { month: "May 2022", revenue: 10486.41, expenses: 6047.14, profit: 4439.27 },
-      { month: "Jun 2022", revenue: 13545.6, expenses: 7891.9, profit: 5653.7 },
-      { month: "Jul 2022", revenue: 10653.44, expenses: 5678.35, profit: 4975.09 },
-      { month: "Aug 2022", revenue: 9953.98, expenses: 5639.26, profit: 4314.72 },
-      { month: "Sep 2022", revenue: 13407.06, expenses: 6627.65, profit: 6779.41 },
-      { month: "Oct 2022", revenue: 13352.6, expenses: 7403.67, profit: 5948.93 },
-      { month: "Nov 2022", revenue: 15258.52, expenses: 8342.19, profit: 6916.33 },
-      { month: "Dec 2022", revenue: 11670.28, expenses: 5901.73, profit: 5768.55 },
-      { month: "Jan 2023", revenue: 10348.66, expenses: 1351.12, profit: 8997.54 },
-      { month: "Feb 2023", revenue: 9749.36, expenses: 5588.6, profit: 4160.76 },
-      { month: "Mar 2023", revenue: 10440.97, expenses: 6254.49, profit: 4186.48 },
-      { month: "Apr 2023", revenue: 6213.4, expenses: 4952.47, profit: 1260.93 },
-      { month: "May 2023", revenue: 9291.71, expenses: 5106.16, profit: 4185.55 },
-      { month: "Jun 2023", revenue: 7041.36, expenses: 4577.98, profit: 2463.38 },
-      { month: "Jul 2023", revenue: 9488.3, expenses: 5027.24, profit: 4461.06 },
-      { month: "Aug 2023", revenue: 9521.23, expenses: 4813.54, profit: 4707.69 },
-      { month: "Sep 2023", revenue: 7441.97, expenses: 5209.65, profit: 2232.32 },
-      { month: "Oct 2023", revenue: 7348.32, expenses: 5388.25, profit: 1960.07 },
-      { month: "Nov 2023", revenue: 9317.47, expenses: 6130.24, profit: 3187.23 },
-      { month: "Dec 2023", revenue: 10050.97, expenses: 5264.3, profit: 4786.67 },
-      { month: "Jan 2024", revenue: 10883.5, expenses: 6108.03, profit: 4775.47 },
-      { month: "Feb 2024", revenue: 8474.03, expenses: 5837.43, profit: 2636.6 },
-      { month: "Mar 2024", revenue: 8268.93, expenses: 5591.12, profit: 2677.81 },
-      { month: "Apr 2024", revenue: 7968.3, expenses: 5339.04, profit: 2629.26 },
-      { month: "May 2024", revenue: 10586.56, expenses: 5342.27, profit: 5244.29 },
-      { month: "Jun 2024", revenue: 10965.14, expenses: 5789.57, profit: 5175.57 },
-      { month: "Jul 2024", revenue: 8781.62, expenses: 5836.15, profit: 2945.47 },
-      { month: "Aug 2024", revenue: 8253.12, expenses: 5597.95, profit: 2655.17 },
-      { month: "Sep 2024", revenue: 9441.31, expenses: 5623.72, profit: 3817.59 },
-      { month: "Oct 2024", revenue: 8725.9, expenses: 4695.71, profit: 4030.19 },
-      { month: "Nov 2024", revenue: 9402.3, expenses: 4678.48, profit: 4723.82 },
-      { month: "Dec 2024", revenue: 7144.95, expenses: 4857.76, profit: 2287.19 },
-      { month: "Jan 2025", revenue: 6992.14, expenses: 4276.0, profit: 2716.14 },
-      { month: "Feb 2025", revenue: 8030.25, expenses: 4324.52, profit: 3705.73 },
-      { month: "Mar 2025", revenue: 6699.1, expenses: 4493.24, profit: 2205.86 },
-      { month: "Apr 2025", revenue: 8488.32, expenses: 4097.2, profit: 4391.12 },
-      { month: "May 2025", revenue: 9432.76, expenses: 4532.17, profit: 4900.59 },
-      { month: "Jun 2025", revenue: 10409.83, expenses: 4318.98, profit: 6090.85 },
-      { month: "Jul 2025", revenue: 10722.38, expenses: 4686.51, profit: 6035.87 },
-      { month: "Aug 2025", revenue: 13823.64, expenses: 4997.58, profit: 8826.06 },
-      { month: "Sep 2025", revenue: 9128.86, expenses: 5485.98, profit: 3642.88 },
-      { month: "Oct 2025", revenue: 8374.3, expenses: 4884.19, profit: 3490.11 },
-      { month: "Nov 2025", revenue: 7011.65, expenses: 4879.3, profit: 2132.35 },
-      { month: "Dec 2025", revenue: 5408.75, expenses: 4339.44, profit: 1069.31 }
-    ],
     about: `I will be with you for 3 months to ensure a smooth transition. I love this business and want to see it grow. You can reach out to me anytime after that as well.
 
 ℹ️ Description:
@@ -12713,20 +12628,6 @@ For more details and to discuss this exciting opportunity, please contact us.`,
     ],
     views: 521,
     watchers: 9,
-    attachmentPL: [
-      { month: "Oct 2024", revenue: 24707.42, profit: 1595.84 },
-      { month: "Nov 2024", revenue: 0, profit: 0 },
-      { month: "Dec 2024", revenue: 0, profit: 0 },
-      { month: "Jan 2025", revenue: 0, profit: 0 },
-      { month: "Feb 2025", revenue: 0, profit: 0 },
-      { month: "Mar 2025", revenue: 0, profit: 0 },
-      { month: "Apr 2025", revenue: 0, profit: 0 },
-      { month: "May 2025", revenue: 0, profit: 0 },
-      { month: "Jun 2025", revenue: 0, profit: 0 },
-      { month: "Jul 2025", revenue: 0, profit: 0 },
-      { month: "Aug 2025", revenue: 0, profit: 0 },
-      { month: "Sep 2025", revenue: 0, profit: 0 }
-    ],
     about: `UpgradeRC: Business Overview
 
 UpgradeRC is an established ecommerce business operating in the remote-controlled models and building sets niche, offering a wide range of RC cars, airplanes, boats, drones, accessories, and construction kits. Founded in 2023 and headquartered in Belgium, the company has quickly built a strong presence within the European hobby market through a hybrid fulfillment model and an extensive supplier network.
@@ -15136,164 +15037,6 @@ Driven by its dedicated team, TrendingUS has achieved 120,000 organic traffic 
 As the digital landscape continues to expand, TrendingUS presents a unique opportunity for growth and expansion within the Content & Publishing sector. With a proven track record of success and a strong foundation, this business is poised to capitalize on emerging trends and new revenue opportunities. TrendingUS represents a valuable investment for entrepreneurs looking to enter the dynamic world of online publishing and content creation.`,
   },
   {
-    id: `11883560`,
-    title: `Venues.org.uk`,
-    revealedName: `Venues.org.uk`,
-    url: `https://flippa.com/11883560`,
-    type: `other`,
-    dataLevel: `stats`,
-    askingPrice: 51353.0,
-    avgMonthlyRevenue: 3564.0,
-    avgMonthlyProfit: 2682.0,
-    profitMargin: `75%`,
-    annualRevenue: `GBP £33,674`,
-    annualProfit: `GBP £25,340`,
-    ageYears: 25.0,
-    monetisation: ``,
-    techStack: `Shopify, Stripe`,
-    country: `United Kingdom`,
-    platform: `with`,
-    hasStripe: false,
-    hasPaypal: true,
-    isVetted: true,
-    managedByFlippa: true,
-    ndaApproved: true,
-    scores: {
-      stability: 55,
-      diversification: 50,
-      operatorIndependence: 68.3,
-      roi: 95,
-      growthPotential: 50,
-      overall: 61.9,
-    },
-    recommendation: `AVOID`,
-    redFlags: [
-      `Failed deep verification — website/product issues`,
-    ],
-    greenFlags: [],
-    seller: {
-      name: `Paul Sung`,
-      location: `United Kingdom`,
-      verified: false,
-    },
-    expenses: [
-      {
-        item: `Server`,
-        amount: `GBP £304 /month`,
-      },
-      {
-        item: `Web Developer`,
-        amount: `GBP £253 /month`,
-      },
-      {
-        item: `Admin staff`,
-        amount: `GBP £353 /month`,
-      },
-    ],
-    saleIncludes: [
-      `Assets`,
-      `Domains`,
-      `Website files`,
-      `Email address`,
-      `Social media accounts`,
-      `Email subscriber list`,
-      `Brand assets (logos, etc)`,
-      `Supplier contracts`,
-      `Unique content`,
-      `Unique design`,
-      `Included.`,
-      `620 followers`,
-      `914 followers`,
-      `11,083 followers`,
-      `1,100 followers`,
-      `35,000 subscribers`,
-      `Contact Seller`,
-      `Send message`,
-      `No comments`,
-      `Show all`,
-      `Open for negotiation`,
-      `Indicative Price`,
-      `USD $60,291`,
-      `USD $51,353`,
-      `Reduced 15%`,
-      `GBP £38,541`,
-      `Contact Seller Submit LOI Make O`,
-    ],
-    postSaleSupport: `Included.`,
-    badges: [
-      `Editor's Choice`,
-      `Sponsored`,
-      `Managed by Flippa`,
-    ],
-    ga: {
-      users: `45,611`,
-      totalPageViews: `6,082`,
-      pagesPerSession: `1.26`,
-      avgDuration: `00:00:10`,
-      engagementRate: `0.16%`,
-      topCountries: [
-        {
-          country: `China`,
-          views: 3559,
-        },
-        {
-          country: `United Kingdom`,
-          views: 1785,
-        },
-        {
-          country: `Singapore`,
-          views: 241,
-        },
-        {
-          country: `United States`,
-          views: 116,
-        },
-        {
-          country: `Mexico`,
-          views: 23,
-        },
-      ],
-    },
-    integrations: [
-      `PayPal`,
-      `Paypal`,
-      `Google Analytics`,
-      `Amazon`,
-    ],
-    tech: [
-      `Shopify`,
-      `Stripe`,
-    ],
-    views: 1040,
-    watchers: 35,
-    about: `Venues.org.uk is one of the longest-standing and most recognized online venue discovery platforms in the UK, serving the events industry since 2001. As a trusted portal for venue bookers, corporate clients, and event planners, the business provides a streamlined experience for finding and showcasing event spaces across the country. With a 25-year-old domain, highly engaged email list of 35,000 subscribers, and an SEO authority score of 27 supported by 10.3K backlinks and 957 referring domains, Venues.org.uk is a cornerstone of digital real estate in the UK events industry.
-
-The platform operates on a profitable and stable business model, with 75% profit margins and monthly net earnings of USD $3000+. Revenue is derived from a mix of subscription-based listings for venues and advertising services, providing both predictable cash flow and upside through content-driven traffic. Its niche positioning, high organic search traffic (79% of pageviews), and recurring income base make it a valuable asset for investors or acquirers seeking a defensible and established foothold in the events and hospitality sector.
-
-Monetization Model
-The primary revenue stream comes from annual subscription fees paid by venues for profile listings, enhanced visibility, and promotional placements. Secondary monetization includes advertising placements and upsell features on the platform. The subscription model provides recurring and predictable revenue, while organic content and SEO drive low-cost lead acquisition. With minimal operating costs and no physical overhead, the business runs lean and profitably.
-
-Customer Base
-The platform serves a wide range of clientele in the UK events sector including:
-
-Corporate event organizers
-Wedding and party planners
-Venue managers and marketing teams
-Agencies and venue bookers
-
-Operations & Team
-The business is highly automated with minimal staffing. The only recurring operational costs are web development and server maintenance. No full-time team is required to operate the business, offering strong passive income potential or a base to build a more hands-on sales and growth team. Ownership involvement is light, primarily focused on admin, renewals, and content moderation.
-
-Growth Opportunities
-
-SEO Optimization: With a strong organic base and over 10K ranking keywords, additional SEO investment could exponentially increase traffic.
-Sales Expansion: Introduce direct sales outreach to target underrepresented venue categories (e.g. outdoor, corporate retreats, heritage venues).
-Enhanced CRM: Leverage the 35,000-email subscriber list for automated campaigns and retargeting funnels.
-Platform Modernization: A UX refresh or feature expansion (e.g. bookings, calendar integrations) could boost engagement and conversion.
-Partnerships: Collaborate with wedding planners, corporate event agencies, and event tech providers to broaden monetization.
-International Expansion: Explore additional listing revenue by opening up to Irish, European, or Commo`,
-  },
-  {
     id: `12026246`,
     title: `Reasons To Skip The Housework`,
     revealedName: `Reasons To Skip The Housework`,
@@ -15457,20 +15200,6 @@ International Expansion: Explore additional listing revenue by opening up to Iri
     views: 862,
     watchers: 41,
     commentCount: 1,
-    attachmentPL: [
-      { month: "Nov 2024", revenue: 4370.44, profit: 4311.47 },
-      { month: "Dec 2024", revenue: 7304.35, profit: 7245.38 },
-      { month: "Jan 2025", revenue: 6635.12, profit: 6576.15 },
-      { month: "Feb 2025", revenue: 7008.12, profit: 6949.15 },
-      { month: "Mar 2025", revenue: 5315.14, profit: 5256.17 },
-      { month: "Apr 2025", revenue: 4392.62, profit: 4333.65 },
-      { month: "May 2025", revenue: 4210.54, profit: 4151.57 },
-      { month: "Jun 2025", revenue: 2082.82, profit: 2023.85 },
-      { month: "Jul 2025", revenue: 3139.69, profit: 3080.72 },
-      { month: "Aug 2025", revenue: 2414.02, profit: 2355.05 },
-      { month: "Sep 2025", revenue: 1308.43, profit: 1249.46 },
-      { month: "Oct 2025", revenue: 561.96, profit: 502.99 }
-    ],
     about: `Reasons To Skip The Housework: Business Overview
 
 Reasons To Skip The Housework is a high-margin, low-maintenance content business generating consistent profits from a loyal, home-focused audience. Launched in 2011 and operated under its current monetization model for the past 2 years, the site delivers seasonal and evergreen lifestyle content in the home, DIY, and recipe categories. It earns 99% net margins and nearly $4,000/month in pure profit through a mix of AdThrive display ads, guest posting fees, and affiliate commissions — all while requiring minimal ongoing effort.
