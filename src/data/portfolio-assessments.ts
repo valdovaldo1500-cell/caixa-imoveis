@@ -300,10 +300,10 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   // ── CONSIDER DD batch survivors (amber) ───────────────────────────────────
   {
     id: "F12250811",
-    name: "AI SaaS — 80% Margins, 4% Churn, 130 Subs ($56K)",
-    verdict: "CONDITIONAL — verified, best SaaS fundamentals in batch",
-    verdictColor: "amber",
-    price: "$56,457 (target $40-45K)",
+    name: "SHORTSAUTO — AI Video SaaS ($56K)",
+    verdict: "AVOID — subscribers declining 140→117, revenue -14%, violates NO DECLINING rule",
+    verdictColor: "red",
+    price: "$56,457",
     monthlyProfit: "$1,682/mo",
     annualROI: "36-50%",
     trendProfit: "CRITICAL RECONCILIATION NEEDED: Flippa shows $7.2K MRR with 80% margin = $5.76K/mo true profit, yet quick DD shows only $1,682/mo. At $56K ask: if true profit is $5.76K = 0.8x annual = STEAL. If true profit is $1,682 = 2.8x = fair but not exceptional. Must resolve this discrepancy via NDA before any action",
