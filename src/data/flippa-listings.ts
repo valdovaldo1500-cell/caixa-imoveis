@@ -52,6 +52,9 @@ export interface FlippaListing {
   redFlags: string[];
   greenFlags: string[];
 
+  // Attachment P&L (multi-year from XLSX)
+  attachmentPL?: { month: string; revenue?: number; expenses?: number; profit?: number }[];
+
   // Enriched fields
   seller?: { name: string; location?: string; verified?: boolean; transactions?: string };
   socialMedia?: string[];
