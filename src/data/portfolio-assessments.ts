@@ -996,9 +996,9 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   {
     id: "F12098007",
-    name: "Profitable Digital Agency — Podcast Booking ($30K, NDA)",
-    verdict: "CONSIDER — 2yr track record, 54% margin, 40% price drop, Philippines-based",
-    verdictColor: "amber",
+    name: "Tinig Marketing — Podcast Booking Agency ($30K)",
+    verdict: "AVOID — service business, 10-15 hrs/wk, only 5 pay-per-booking clients, seasonal",
+    verdictColor: "red",
     price: "$30,000",
     monthlyProfit: "~£1,476/mo (~$1,860 USD)",
     annualROI: "74%",

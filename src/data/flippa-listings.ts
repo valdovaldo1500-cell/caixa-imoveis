@@ -1,6 +1,6 @@
 // AUTO-GENERATED — do not edit manually
 // Source: all_extractions_merged.json + overrides.json
-// Generated: 2026-04-05T07:54:35Z
+// Generated: 2026-04-06T10:21:06Z
 
 export interface FlippaListing {
   // Core
