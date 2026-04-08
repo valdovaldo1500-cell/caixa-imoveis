@@ -856,35 +856,6 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
       "Claude can refresh all 4 sites with AI-generated financial content targeting long-tail Canadian payday loan keywords — restoring the organic rankings lost during the 12 months of neglect. Build an AI-powered lead qualification form: Claude asks applicants structured questions, pre-screens eligibility, and routes only qualified leads to lenders (commanding higher per-lead fees). Expand from payday loans to adjacent Canadian finance niches: bad credit car loans, personal installment loans, rent-to-own — same lead gen infrastructure, new verticals. Automate lender outreach to recruit 2–3 new lender partners, diversifying revenue away from the current relationship.",
   },
   {
-    id: "F12627158",
-    name: "Facebook Chatbot SaaS — 7yr Site, 175K Users, 183K Email List ($32.5K)",
-    verdict: "CONSIDER — ONLY Flippa-verified listing in Batch C, 175K unmonetized SaaS users",
-    verdictColor: "amber",
-    price: "$32,500",
-    monthlyProfit: "~$802/mo (AdSense, verified)",
-    annualROI: "30%",
-    trendProfit: "AdSense verified by Flippa: $10,182 earned since mid-2024 (~$848/mo average). 96% profit margin — near-zero operating costs. Revenue described as 'unoptimized' by seller. 9,000+ indexed pages across 20+ languages. Only listing in Batch C with both Flippa-verified revenue AND verified traffic",
-    trendTraffic: "33K+ organic sessions/month. 9,000+ indexed pages. 7-year-old domain. Also includes a Facebook-approved chatbot SaaS platform with 175,190 registered users and 183K untouched email subscribers. 413 YouTube tutorials. AdSense revenue is entirely unoptimized (no Ezoic/Mediavine)",
-    highlights: [
-      "ONLY Flippa-verified listing in Batch C — verified revenue AND verified traffic. Highest trust signal in the entire batch",
-      "175,190 registered SaaS users is an enormous unmonetized asset — subscriptions exist ($19.99–$299.99/mo) but not actively sold",
-      "183K email list completely untouched — first email campaign to a relevant list of chatbot practitioners could generate $5K–$20K immediately",
-      "9,000+ indexed pages in 20+ languages — massive SEO footprint that would take years to rebuild",
-      "AdSense revenue described as 'unoptimized' — switching to Ezoic/Mediavine typically 2–3x RPM with same traffic",
-    ],
-    risks: [
-      "AdSense revenue at 3.4x monthly profit is expensive — AdSense income is algorithmically fragile and could drop 50% overnight",
-      "175K SaaS users may include significant spam/inactive accounts — verify actual active user count before valuing this asset",
-      "183K email list dormant for years — deliverability will be very low. First send could trigger spam traps. Needs careful warm-up",
-      "ManyChat now dominates Facebook Messenger chatbot market — the tool's positioning vs the incumbent is unclear",
-      "Facebook platform policy changes constantly — 'Facebook-Approved' status needs independent verification",
-    ],
-    recommendation:
-      "CONSIDER at $22,000–$27,000. The verified AdSense revenue alone at a fair multiple ($848/mo × 12 = $10K/yr) justifies $12–15K. The 175K SaaS users and 183K email list are options value on top. Pre-offer: (1) verify SaaS platform domain and get active user count from database, (2) email list deliverability/bounce rate after inactivity, (3) are any SaaS users currently paying?, (4) AdSense dashboard access for 12-month trend. Do not pay $32,500 without full SaaS user verification.",
-    aiPlan:
-      "The 183K email list is the first move: Claude writes a re-engagement sequence targeting chatbot practitioners with an AI-powered content upgrade — 'The 2026 Facebook Messenger Automation Guide.' This single campaign could recover the entire acquisition cost. Switch AdSense to Ezoic/Mediavine to 2–3x RPM with zero traffic change needed. Reactivate the SaaS with a Claude-powered chatbot builder — use Claude to auto-generate chatbot flows from a user's business description. Send a reactivation campaign to the 175K registered users offering a 'free AI upgrade' to their chatbot — converting even 0.5% to paying subscribers at $19.99/mo = $17K+ MRR.",
-  },
-  {
     id: "F12720648",
     name: "Advisor Amplify — AI LinkedIn Posts for Financial Advisors ($50)",
     verdict: "PASS — zero users, just code, not worth the time",
