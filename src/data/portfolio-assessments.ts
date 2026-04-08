@@ -583,37 +583,6 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
 
   // ── LEAD GEN (Apr 3, 2026) ────────────────────────────────────────────────
   // Batches A, B, C — 15 listings from 3 batch DD reports
-  // STRONG (emerald) ──────────────────────────────────────────────────────────
-  {
-    id: "F11883560",
-    name: "Venues.org.uk — 25yr UK Venue Directory ($32K)",
-    verdict: "STRONG — 25yr domain, 35K subscribers, 10K backlinks, Flippa-vetted",
-    verdictColor: "emerald",
-    price: "$32,454",
-    monthlyProfit: "$2,814/mo",
-    annualROI: "104%",
-    trendProfit: "$2,814/mo profit on $3,739/mo revenue (75% margin). No monthly P&L breakdown available — must request from seller. Revenue not Flippa-verified, but manually vetted. Registered UK company: Business Lead Connections Ltd (Co. No. 07651206) — independently verifiable",
-    trendTraffic: "79% organic traffic. Authority Score 27, 10.3K backlinks, 957 referring domains built over 25 years. 35,000 email subscribers in UK corporate events niche. Verified traffic by Flippa. Seasonality: Q4 peak (Christmas parties), Jan–Feb slow",
-    highlights: [
-      "25-year domain (est. 2001) — irreplaceable SEO moat. Google trusts this domain deeply across all algorithm updates",
-      "35,000 email subscribers in the highly targeted UK corporate events niche — an outreach asset worth tens of thousands alone",
-      "10.3K backlinks, 957 referring domains — impossible to replicate organically in under 5–10 years",
-      "Real premier UK venues listed: Glaziers Hall London, Longleat, Twickenham Stoop — legitimacy beyond doubt",
-      "Registered UK company (Business Lead Connections Ltd) — verifiable at Companies House. Not a ghost entity",
-      "Manually vetted by Flippa. $32,454 for a 25yr established UK brand is extraordinarily cheap",
-    ],
-    risks: [
-      "No monthly P&L data visible — must request 12-month breakdown before closing. Revenue not Flippa-verified",
-      "'List your venue' page is broken — technical neglect suggests passive operation, potential churn from frustrated venue managers",
-      "UK events market seasonality: Q1 is reliably weak. Verify Jan–Feb revenue before using annual avg",
-      "Platform looks dated (no booking integration, basic CMS) — needs UX investment to prevent churn",
-      "Revenue depends on recurring venue subscriptions — must verify renewal rate and number of paying venues",
-    ],
-    recommendation:
-      "STRONG BUY — offer $28,000–$32,000 (negotiate on unverified revenue). Before final offer: (1) request 12-month monthly P&L for 2025, (2) how many paying venues currently subscribed and at what price/year, (3) renewal rate, (4) Google Analytics read-only access. The 25yr domain + 35K email list + 10K backlinks is worth more than $32K as a pure asset base. Even at flat revenue this is a 9.5x monthly profit multiple — fair for an established brand with this much SEO equity.",
-    aiPlan:
-      "Claude can rewrite venue listing pages with AI-optimized descriptions boosting local SEO rankings for 'conference venues London' type queries — each venue page ranking better increases organic lead volume for venue managers (justifying higher subscription prices). Build an AI-powered venue matching tool: event organizer inputs capacity, location, and event type → Claude recommends the top 5 venues → venues pay premium for placement in these recommendations. Launch an email newsletter to the 35K subscribers with AI-curated 'venue spotlights' to keep list warm and generate upsell opportunities. Fix the broken 'list your venue' page and add an AI-assisted self-onboarding flow.",
-  },
 
   // CONSIDER (amber) ──────────────────────────────────────────────────────────
   {
