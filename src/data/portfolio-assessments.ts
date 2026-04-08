@@ -553,34 +553,6 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
     aiPlan:
       "Use AI to automate outreach, personalize emails at scale, add Claude-powered lead qualification, expand to cybersecurity/IT lead gen niches.",
   },
-  {
-    id: "F12661644",
-    name: "n8n Hosting Platform — Recurring ($24K)",
-    verdict: "AVOID — competes with n8n's own cloud hosting, license restrictions",
-    verdictColor: "red",
-    price: "$24,000",
-    monthlyProfit: "~$2,223/mo",
-    annualROI: "111%",
-    trendProfit: "n8n hosting with recurring subscription revenue",
-    trendTraffic: "Automation/workflow market growing rapidly",
-    highlights: [
-      "n8n is a fast-growing open-source automation platform",
-      "Hosting = recurring revenue with minimal support",
-      "$24K entry point with $2.2K/mo = 11 month payback",
-      "Automation market is booming (Make, Zapier competitors)",
-    ],
-    risks: [
-      "0yr old — brand new, no track record",
-      "n8n could offer their own hosted solution (platform risk)",
-      "Hosting is a commodity — low moat",
-      "Customer acquisition without n8n's endorsement is hard",
-    ],
-    recommendation:
-      "INVESTIGATE. The n8n ecosystem is growing fast and hosting is a real need. At $24K the risk is minimal. But verify: does n8n already offer hosted? If so, this competes with the platform itself.",
-    aiPlan:
-      "Add managed workflows, templates, AI-powered automation suggestions, target specific niches (e-commerce, marketing agencies).",
-  },
-
   // ── LEAD GEN (Apr 3, 2026) ────────────────────────────────────────────────
   // Batches A, B, C — 15 listings from 3 batch DD reports
 
