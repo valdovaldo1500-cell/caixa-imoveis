@@ -443,34 +443,6 @@ export const PORTFOLIO_ASSESSMENTS: ExpertAssessment[] = [
   },
   // ── AVOID (red) ────────────────────────────────────────────────────────────
   {
-    id: "F12205406",
-    name: "AI SaaS with DR72 + 35K Organic ($23K)",
-    verdict: "AVOID — DR72 claim is fake (actual AS 22), revenue declining, LTD cash grab",
-    verdictColor: "red",
-    price: "$23,000",
-    monthlyProfit: "~$1,212/mo",
-    annualROI: "63%",
-    trendProfit: "DR72 domain, 35K organic visitors, 99% margins",
-    trendTraffic: "Strong SEO foundation — 35K monthly organic visitors",
-    highlights: [
-      "DR72 domain authority — took years to build, incredibly valuable",
-      "35K organic visitors/mo = free traffic",
-      "99% margins — near-zero operating costs",
-      "$23K is dirt cheap for a DR72 domain alone",
-      "AI SaaS product already built",
-    ],
-    risks: [
-      "Only $1,212/mo profit — below threshold but growable",
-      "2yr old — limited track record",
-      "Need to verify DR72 claim independently",
-      "AI SaaS space is competitive",
-    ],
-    recommendation:
-      "INVESTIGATE. The DR72 domain alone may be worth more than $23K. With 35K organic visitors and an AI product already built, Claude Code could add features and grow revenue significantly. This is a buy-the-asset-cheap play.",
-    aiPlan:
-      "Use Claude Code to improve the SaaS product, add premium features, leverage DR72 SEO to rank for high-value keywords, add content marketing.",
-  },
-  {
     id: "F12042663",
     name: "8yr WordPress Plugin — 8,300+ Sales ($40K)",
     verdict: "AVOID — declining theme (not plugin), 30-60 hrs/mo support, seller is flipper",
