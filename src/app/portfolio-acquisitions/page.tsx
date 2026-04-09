@@ -433,6 +433,9 @@ export default function PortfolioAcquisitionsPage() {
           </a>
         </div>
 
+        {/* Portfolio Investment Calculator */}
+        <PortfolioCalculator />
+
         {/* KPI bar */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
