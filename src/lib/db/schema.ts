@@ -179,6 +179,7 @@ export const zapListings = pgTable("zap_listings", {
   id: serial("id").primaryKey(),
   zapId: varchar("zap_id", { length: 30 }),
   business: varchar("business", { length: 10 }), // SALE or RENTAL
+  uf: varchar("uf", { length: 2 }).default("RS"),
   cidade: varchar("cidade", { length: 100 }),
   bairro: varchar("bairro", { length: 100 }),
   unitType: varchar("unit_type", { length: 30 }),
@@ -192,7 +193,7 @@ export const zapListings = pgTable("zap_listings", {
   source: varchar("source", { length: 20 }).default("zap"), // "zap" or "vivareal"
   createdAt: timestamp("created_at").defaultNow(),
 }, (table) => [
-  index("idx_zap_cidade_bairro").on(table.cidade, table.bairro),
+  index("idx_zap_uf_cidade_bairro").on(table.uf, table.cidade, table.bairro),
   index("idx_zap_business").on(table.business),
   index("idx_zap_source").on(table.source),
 ]);
