@@ -78,9 +78,9 @@ export async function GET(request: NextRequest) {
     if (!isNaN(dist)) {
       conditions.push(sql`
         (6371 * acos(
-          cos(radians(${POA_LAT})) * cos(radians(${properties.lat}::float)) *
-          cos(radians(${properties.lng}::float) - radians(${POA_LNG})) +
-          sin(radians(${POA_LAT})) * sin(radians(${properties.lat}::float))
+          cos(radians(${CENTER_LAT})) * cos(radians(${properties.lat}::float)) *
+          cos(radians(${properties.lng}::float) - radians(${CENTER_LNG})) +
+          sin(radians(${CENTER_LAT})) * sin(radians(${properties.lat}::float))
         )) <= ${dist}
       `);
     }
