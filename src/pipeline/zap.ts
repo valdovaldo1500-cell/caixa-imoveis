@@ -72,8 +72,10 @@ function normalizeCidade(name: string): string {
 }
 
 export async function importZapData(
-  jsonPath: string
+  jsonPath: string,
+  uf: string = "RS"
 ): Promise<{ imported: number; skipped: number; errors: string[] }> {
+  const ufUpper = uf.toUpperCase();
   let raw: string;
   try {
     raw = readFileSync(jsonPath, "utf-8");
