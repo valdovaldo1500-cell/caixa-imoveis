@@ -1,14 +1,17 @@
 import { execFileSync } from "child_process";
 import { readFileSync, existsSync } from "fs";
 
-const CSV_URL =
-  "https://venda-imoveis.caixa.gov.br/listaweb/Lista_imoveis_RS.csv";
-
-export async function downloadCSV(): Promise<string> {
-  const tmpPath = "/tmp/caixa_imoveis_rs.csv";
+export async function downloadCSV(uf: string = "RS"): Promise<string> {
+  const ufUpper = uf.toUpperCase();
+  const ufLower = uf.toLowerCase();
+  const CSV_URL = `https://venda-imoveis.caixa.gov.br/listaweb/Lista_imoveis_${ufUpper}.csv`;
+  const tmpPath = `/tmp/caixa_imoveis_${ufLower}.csv`;
 
   // Try local cache first (for development / when Caixa blocks the IP)
-  const localCache = process.env.CSV_LOCAL_PATH;
+  // Supports both per-UF env var (CSV_LOCAL_PATH_GO) and legacy CSV_LOCAL_PATH (RS default)
+  const localCache =
+    process.env[`CSV_LOCAL_PATH_${ufUpper}`] ||
+    (ufUpper === "RS" ? process.env.CSV_LOCAL_PATH : undefined);
   if (localCache && existsSync(localCache)) {
     return readFileSync(localCache).toString("latin1");
   }
@@ -27,16 +30,15 @@ export async function downloadCSV(): Promise<string> {
   ], { timeout: 90000 });
 
   if (!existsSync(tmpPath)) {
-    throw new Error("Failed to download CSV: file not found after curl");
+    throw new Error(`Failed to download CSV for ${ufUpper}: file not found after curl`);
   }
 
   const buffer = readFileSync(tmpPath);
 
-  // Check if we got a CAPTCHA page instead of CSV
   const preview = buffer.toString("latin1").substring(0, 200);
   if (preview.includes("<head>") || preview.includes("CAPTCHA")) {
     throw new Error(
-      "Download blocked by Radware Bot Manager. CSV not available from this IP."
+      `Download blocked by Radware Bot Manager for ${ufUpper}. CSV not available from this IP.`
     );
   }
 
