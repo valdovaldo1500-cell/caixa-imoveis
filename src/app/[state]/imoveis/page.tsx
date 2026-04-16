@@ -592,7 +592,7 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12, s
   );
 }
 
-function RentPopup({ propertyId, onClose, months = 12, propertyPrice = 0 }: { propertyId: number; onClose: () => void; months?: number; propertyPrice?: number }) {
+function RentPopup({ propertyId, onClose, months = 12, propertyPrice = 0, state }: { propertyId: number; onClose: () => void; months?: number; propertyPrice?: number; state: string }) {
   const [itbiComps, setItbiComps] = useState<Array<{ logradouro: string; nEndereco: string; bairro: string; baseCalculo: number; areaConstrPrivativa: number; precoM2: number; dataEstimativa: string }>>([]);
   const [medianM2, setMedianM2] = useState(0);
   const [estimatedValue, setEstimatedValue] = useState<number | null>(null);
