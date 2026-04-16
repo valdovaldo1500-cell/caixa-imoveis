@@ -109,7 +109,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md bg-zinc-900 border-zinc-800">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-zinc-100">
-            Imóveis Caixa RS
+            Imóveis Caixa
           </CardTitle>
           <p className="text-sm text-zinc-400">
             Dashboard de análise de imóveis retomados
