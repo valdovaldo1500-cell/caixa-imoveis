@@ -147,8 +147,8 @@ export async function importQAData(
   return { imported, skipped, errors };
 }
 
-export async function calculateQAMarketValues(): Promise<{ updated: number }> {
-  // Fetch all active properties
+export async function calculateQAMarketValues(uf?: string): Promise<{ updated: number }> {
+  const ufUpper = uf?.toUpperCase();
   const allProperties = await db
     .select({
       id: properties.id,
@@ -161,22 +161,21 @@ export async function calculateQAMarketValues(): Promise<{ updated: number }> {
       areaTotalM2: properties.areaTotalM2,
     })
     .from(properties)
-    .where(isNull(properties.removedAt));
+    .where(ufUpper ? and(isNull(properties.removedAt), eq(properties.uf, ufUpper)) : isNull(properties.removedAt));
 
   if (allProperties.length === 0) {
     return { updated: 0 };
   }
 
-  // Load all QA SALE listings in memory, grouped by normalized cidade
-  const allSaleListings = await db
-    .select()
-    .from(qaListings)
-    .where(eq(qaListings.business, "SALE"));
+  const saleFilter = ufUpper
+    ? and(eq(qaListings.business, "SALE"), eq(qaListings.uf, ufUpper))
+    : eq(qaListings.business, "SALE");
+  const rentalFilter = ufUpper
+    ? and(eq(qaListings.business, "RENTAL"), eq(qaListings.uf, ufUpper))
+    : eq(qaListings.business, "RENTAL");
 
-  const allRentalListings = await db
-    .select()
-    .from(qaListings)
-    .where(eq(qaListings.business, "RENTAL"));
+  const allSaleListings = await db.select().from(qaListings).where(saleFilter);
+  const allRentalListings = await db.select().from(qaListings).where(rentalFilter);
 
   // Group by normalized cidade for fast lookup
   type QARow = (typeof allSaleListings)[0];
