@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Imóveis Caixa RS",
-  description: "Dashboard de análise de imóveis retomados pela Caixa no RS",
+  title: "Imóveis Caixa",
+  description: "Dashboard de análise de imóveis retomados pela Caixa Econômica Federal",
 };
 
 export default function RootLayout({
