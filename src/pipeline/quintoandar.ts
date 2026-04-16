@@ -71,8 +71,10 @@ function getQAUnitTypes(tipoImovel: string | null, descricao: string | null): st
 }
 
 export async function importQAData(
-  jsonPath: string
+  jsonPath: string,
+  uf: string = "RS"
 ): Promise<{ imported: number; skipped: number; errors: string[] }> {
+  const ufUpper = uf.toUpperCase();
   let raw: string;
   try {
     raw = readFileSync(jsonPath, "utf-8");
