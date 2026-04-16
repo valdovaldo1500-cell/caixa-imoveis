@@ -10,6 +10,8 @@ export async function GET(request: NextRequest) {
   const ufParam = request.nextUrl.searchParams.get("uf");
   const ufCondition = ufParam ? eq(properties.uf, ufParam.toUpperCase()) : undefined;
   const baseWhere = ufCondition ? and(isNull(properties.removedAt), ufCondition) : isNull(properties.removedAt);
+  // Extra AND clause for raw SQL queries
+  const ufSqlClause = ufParam ? sql` AND ${properties.uf} = ${ufParam.toUpperCase()}` : sql``;
 
   try {
     // Top 15 cities by count with avg discount and avg price
