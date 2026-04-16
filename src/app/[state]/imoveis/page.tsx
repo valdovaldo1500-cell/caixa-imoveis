@@ -1920,7 +1920,7 @@ function ImoveisPageInner() {
               <span className="text-zinc-600">—</span>
             )}
             {expandedComparables === "qa:" + p.id && (
-              <ComparablesPopup propertyId={p.id} source="qa" months={globalPeriod} onClose={() => setExpandedComparables(null)} />
+              <ComparablesPopup propertyId={p.id} source="qa" months={globalPeriod} onClose={() => setExpandedComparables(null)} state={state} />
             )}
           </TableCell>
         );
