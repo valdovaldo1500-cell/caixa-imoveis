@@ -948,6 +948,10 @@ function NotePopup({
 function ImoveisPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { state } = useParams<{ state: string }>();
+
+  const FILTERS_KEY = `caixa-imoveis-filters-${state}`;
+  const SAVED_FILTERS_KEY = `caixa-imoveis-saved-filters-${state}`;
 
   const [data, setData] = useState<Property[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
