@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { isNull, sql } from "drizzle-orm";
+import { and, eq, isNull, sql } from "drizzle-orm";
 
 interface MunicipioData {
   municipio: string;
@@ -10,13 +10,14 @@ interface MunicipioData {
   population: number;
 }
 
-export async function updateCrimeRates(): Promise<{
+export async function updateCrimeRates(uf: string = "RS"): Promise<{
   updated: number;
   citiesWithData: number;
 }> {
-  // Fetch all RS municipality crime data in one call
+  const ufUpper = uf.toUpperCase();
+
   const res = await fetch(
-    "https://crimebrasil.com.br/api/heatmap/municipios?state=RS&ultimos_meses=12",
+    `https://crimebrasil.com.br/api/heatmap/municipios?state=${ufUpper}&ultimos_meses=12`,
     { next: { revalidate: 0 } }
   );
 
@@ -26,7 +27,6 @@ export async function updateCrimeRates(): Promise<{
 
   const municipios: MunicipioData[] = await res.json();
 
-  // Build cidade → crime rate map (rate per 100k inhabitants)
   const rateMap = new Map<string, number>();
   for (const m of municipios) {
     if (m.population > 0) {
@@ -35,20 +35,19 @@ export async function updateCrimeRates(): Promise<{
     }
   }
 
-  // Get all active properties
+  // Get active properties for this UF only
   const rows = await db
     .select({
       id: properties.id,
       cidade: properties.cidade,
     })
     .from(properties)
-    .where(isNull(properties.removedAt));
+    .where(and(isNull(properties.removedAt), eq(properties.uf, ufUpper)));
 
   if (rows.length === 0) {
     return { updated: 0, citiesWithData: 0 };
   }
 
-  // Group properties by cidade to batch updates
   const cityGroups = new Map<string, number[]>();
   for (const row of rows) {
     const cidade = row.cidade.toUpperCase();
@@ -68,7 +67,6 @@ export async function updateCrimeRates(): Promise<{
 
     citiesWithData++;
 
-    // Update all properties in this city
     const BATCH_SIZE = 500;
     for (let i = 0; i < ids.length; i += BATCH_SIZE) {
       const batch = ids.slice(i, i + BATCH_SIZE);
