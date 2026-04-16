@@ -1579,7 +1579,7 @@ function ImoveisPageInner() {
       case "cidade":
         return (
           <TableCell key={colId} className="font-medium">
-            <Link href={`/imoveis/${p.id}`} className="hover:text-blue-400 transition-colors">
+            <Link href={`/${state}/imoveis/${p.id}`} className="hover:text-blue-400 transition-colors">
               {p.cidade}
             </Link>
           </TableCell>
