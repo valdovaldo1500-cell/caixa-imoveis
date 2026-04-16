@@ -125,6 +125,7 @@ export async function regeocodeStacked(limit = 100): Promise<{
       endereco: properties.endereco,
       bairro: properties.bairro,
       cidade: properties.cidade,
+      uf: properties.uf,
       lat: properties.lat,
       lng: properties.lng,
     })
