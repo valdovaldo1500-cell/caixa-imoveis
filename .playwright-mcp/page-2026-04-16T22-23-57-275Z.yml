@@ -1,0 +1,30 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - heading "Imóveis Caixa" [level=1] [ref=e5]
+      - paragraph [ref=e6]: Dashboard de análise de imóveis retomados — selecione o estado
+    - generic [ref=e7]:
+      - link "RS Rio Grande do Sul Porto Alegre e interior — dados completos com scoring e comparáveis Acessar dashboard" [ref=e8] [cursor=pointer]:
+        - /url: /rs
+        - generic [ref=e9]:
+          - img [ref=e11]
+          - generic [ref=e14]: RS
+        - generic [ref=e15]:
+          - heading "Rio Grande do Sul" [level=2] [ref=e16]
+          - paragraph [ref=e17]: Porto Alegre e interior — dados completos com scoring e comparáveis
+        - generic [ref=e18]:
+          - text: Acessar dashboard
+          - img [ref=e19]
+      - link "GO Goiás Goiânia e interior — pipeline de importação em configuração Acessar dashboard" [ref=e21] [cursor=pointer]:
+        - /url: /go
+        - generic [ref=e22]:
+          - img [ref=e24]
+          - generic [ref=e28]: GO
+        - generic [ref=e29]:
+          - heading "Goiás" [level=2] [ref=e30]
+          - paragraph [ref=e31]: Goiânia e interior — pipeline de importação em configuração
+        - generic [ref=e32]:
+          - text: Acessar dashboard
+          - img [ref=e33]
+    - paragraph [ref=e35]: Acesso restrito — faça login para continuar
+  - alert [ref=e36]
