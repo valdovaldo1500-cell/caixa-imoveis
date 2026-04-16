@@ -110,6 +110,7 @@ export async function importVivaRealData(
       await db.insert(zapListings).values({
         zapId: listing.vrId || null,       // vrId stored in the zapId column
         business: listing.business,
+        uf: (listing as { uf?: string }).uf?.toUpperCase() || ufUpper,
         cidade: listing.cidade,
         bairro: listing.bairro || null,
         unitType: listing.unitType || null,
