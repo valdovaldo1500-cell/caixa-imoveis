@@ -183,8 +183,9 @@ function getZapUnitTypes(tipoImovel: string | null, _descricao: string | null): 
   return null;
 }
 
-export async function calculateZapMarketValues(): Promise<{ updated: number }> {
-  // Fetch all active properties
+export async function calculateZapMarketValues(uf?: string): Promise<{ updated: number }> {
+  const ufUpper = uf?.toUpperCase();
+  // Fetch active properties (optionally filtered by UF)
   const allProperties = await db
     .select({
       id: properties.id,
@@ -199,22 +200,22 @@ export async function calculateZapMarketValues(): Promise<{ updated: number }> {
       dataQualityFlag: properties.dataQualityFlag,
     })
     .from(properties)
-    .where(isNull(properties.removedAt));
+    .where(ufUpper ? and(isNull(properties.removedAt), eq(properties.uf, ufUpper)) : isNull(properties.removedAt));
 
   if (allProperties.length === 0) {
     return { updated: 0 };
   }
 
-  // Load all ZAP SALE listings in memory, grouped by normalized cidade
-  const allSaleListings = await db
-    .select()
-    .from(zapListings)
-    .where(eq(zapListings.business, "SALE"));
+  // Load ZAP listings filtered by UF (or all when no UF specified)
+  const saleFilter = ufUpper
+    ? and(eq(zapListings.business, "SALE"), eq(zapListings.uf, ufUpper))
+    : eq(zapListings.business, "SALE");
+  const rentalFilter = ufUpper
+    ? and(eq(zapListings.business, "RENTAL"), eq(zapListings.uf, ufUpper))
+    : eq(zapListings.business, "RENTAL");
 
-  const allRentalListings = await db
-    .select()
-    .from(zapListings)
-    .where(eq(zapListings.business, "RENTAL"));
+  const allSaleListings = await db.select().from(zapListings).where(saleFilter);
+  const allRentalListings = await db.select().from(zapListings).where(rentalFilter);
 
   // Group by normalized cidade for fast lookup
   type ZapRow = (typeof allSaleListings)[0];
