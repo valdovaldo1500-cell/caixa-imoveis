@@ -1,9 +1,14 @@
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
 import { isNull, and, eq, sql, isNotNull } from "drizzle-orm";
+import { STATE_META } from "@/lib/state";
 
 const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
-const USER_AGENT = "CaixaImoveisRS/1.0 (imoveis.crimebrasil.com.br)";
+const USER_AGENT = "CaixaImoveisBR/1.0 (imoveis.crimebrasil.com.br)";
+
+function stateFullName(uf: string): string {
+  return STATE_META[uf.toUpperCase()]?.nome || uf.toUpperCase();
+}
 
 interface NominatimResult {
   lat: string;
