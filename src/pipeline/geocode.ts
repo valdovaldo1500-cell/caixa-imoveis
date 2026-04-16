@@ -166,7 +166,7 @@ export async function regeocodeStacked(limit = 100): Promise<{
         console.log(
           `[regeocodeStacked] [${prop.caixaId}] Structured: "${cleanedStreet}", "${cidade}"`
         );
-        hit = await nominatimStructuredSearch(cleanedStreet, cidade, "Rio Grande do Sul");
+        hit = await nominatimStructuredSearch(cleanedStreet, cidade, stateFullName(prop.uf));
         if (!hit) {
           console.log(`[regeocodeStacked] [${prop.caixaId}] Structured returned no result`);
         }
