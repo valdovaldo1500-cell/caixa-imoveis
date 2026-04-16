@@ -676,8 +676,9 @@ function TierComparablesList({
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 export default function PropertyDetailPage() {
-  const params = useParams();
+  const params = useParams<{ state: string; id: string }>();
   const id = params?.id as string;
+  const state = params?.state as string;
 
   const [property, setProperty] = useState<Property | null>(null);
   const [history, setHistory] = useState<PriceHistoryEntry[]>([]);
