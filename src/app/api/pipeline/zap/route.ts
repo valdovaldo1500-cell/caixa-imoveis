@@ -6,22 +6,21 @@ const ZAP_DATA_PATH = "/tmp/zap-data.json";
 
 export async function POST(request: NextRequest) {
   const action = request.nextUrl.searchParams.get("action") || "all";
+  const uf = request.nextUrl.searchParams.get("uf") || undefined;
 
   try {
-    const result: Record<string, unknown> = { action };
+    const result: Record<string, unknown> = { action, uf: uf ?? "all" };
 
     if (action === "import" || action === "all") {
-      console.log("Starting ZAP data import...");
-      const importResult = await importZapData(ZAP_DATA_PATH);
+      console.log(`Starting ZAP data import (uf=${uf ?? "from JSON"})...`);
+      const importResult = await importZapData(ZAP_DATA_PATH, uf);
       result.import = importResult;
-      console.log("ZAP import done:", importResult);
     }
 
     if (action === "calculate" || action === "all") {
-      console.log("Calculating ZAP market values...");
-      const calcResult = await calculateZapMarketValues();
+      console.log(`Calculating ZAP market values (uf=${uf ?? "all"})...`);
+      const calcResult = await calculateZapMarketValues(uf);
       result.calculate = calcResult;
-      console.log("ZAP market value calculation done:", calcResult);
     }
 
     if (action !== "import" && action !== "calculate" && action !== "all") {
