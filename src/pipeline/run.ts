@@ -140,18 +140,17 @@ export async function runPipeline(uf: string = "RS"): Promise<PipelineResult> {
       );
     }
 
-    // 5. Mark removals — properties not in today's CSV
+    // 5. Mark removals — properties not in today's CSV (scoped to current UF)
     if (seenIds.length > 0) {
-      const removeResult = await db
+      await db
         .update(properties)
         .set({ removedAt: new Date() })
         .where(
           sql`${properties.caixaId} NOT IN (${sql.join(
             seenIds.map((id) => sql`${id}`),
             sql`, `
-          )}) AND ${properties.removedAt} IS NULL`
+          )}) AND ${properties.removedAt} IS NULL AND ${properties.uf} = ${ufUpper}`
         );
-      // Count is not directly available from drizzle update, so we skip exact count
     }
 
     // Update run log
