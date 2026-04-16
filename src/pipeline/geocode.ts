@@ -287,17 +287,18 @@ export async function geocodeProperties(limit = 50): Promise<{
     // Build query candidates from most specific to least specific
     const queries: string[] = [];
 
+    const uf = prop.uf;
     if (parts.endereco && parts.bairro) {
-      queries.push(`${parts.endereco}, ${parts.bairro}, ${parts.cidade}, RS, Brasil`);
+      queries.push(`${parts.endereco}, ${parts.bairro}, ${parts.cidade}, ${uf}, Brasil`);
     } else if (parts.endereco) {
-      queries.push(`${parts.endereco}, ${parts.cidade}, RS, Brasil`);
+      queries.push(`${parts.endereco}, ${parts.cidade}, ${uf}, Brasil`);
     }
 
     if (parts.bairro) {
-      queries.push(`${parts.bairro}, ${parts.cidade}, RS, Brasil`);
+      queries.push(`${parts.bairro}, ${parts.cidade}, ${uf}, Brasil`);
     }
 
-    queries.push(`${parts.cidade}, RS, Brasil`);
+    queries.push(`${parts.cidade}, ${uf}, Brasil`);
 
     let geocoded = false;
 
