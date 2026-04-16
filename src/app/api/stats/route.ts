@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
           count(*)::int as count,
           min(CASE WHEN ${properties.desconto} IS NULL THEN 99 ELSE floor(${properties.desconto}::numeric / 10) END) as sort_order
         FROM ${properties}
-        WHERE ${properties.removedAt} IS NULL
+        WHERE ${properties.removedAt} IS NULL${ufSqlClause}
         GROUP BY range
         ORDER BY sort_order
       ) t
