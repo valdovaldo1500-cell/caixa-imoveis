@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { sql, isNull } from "drizzle-orm";
+import { sql, isNull, and, eq } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const ufParam = request.nextUrl.searchParams.get("uf");
+  const ufCondition = ufParam ? eq(properties.uf, ufParam.toUpperCase()) : undefined;
+  const baseWhere = ufCondition ? and(isNull(properties.removedAt), ufCondition) : isNull(properties.removedAt);
+
   try {
     // Top 15 cities by count with avg discount and avg price
     const byCity = await db
@@ -16,7 +21,7 @@ export async function GET() {
         avgPrice: sql<number>`round(avg(${properties.preco})::numeric, 0)::float`,
       })
       .from(properties)
-      .where(isNull(properties.removedAt))
+      .where(baseWhere)
       .groupBy(properties.cidade)
       .orderBy(sql`count(*) desc`)
       .limit(15);
