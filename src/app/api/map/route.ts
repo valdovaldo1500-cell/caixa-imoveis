@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { and, isNull, isNotNull, gte, lte, ilike, SQL, sql } from "drizzle-orm";
-
-// Porto Alegre center coordinates
-const POA_LAT = -30.0346;
-const POA_LNG = -51.2177;
+import { and, isNull, isNotNull, gte, lte, ilike, SQL, sql, eq } from "drizzle-orm";
+import { STATE_META } from "@/lib/state";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -16,6 +13,13 @@ export async function GET(request: NextRequest) {
   const precoMax = searchParams.get("preco_max");
   const tipoParam = searchParams.get("tipo");
   const maxDistance = searchParams.get("max_distance");
+  const ufParam = searchParams.get("uf");
+
+  // Get center coords from STATE_META (default to RS)
+  const uf = ufParam?.toUpperCase() ?? "RS";
+  const meta = STATE_META[uf] ?? STATE_META["RS"];
+  const CENTER_LAT = meta.centerLat;
+  const CENTER_LNG = meta.centerLng;
 
   const modalidades = modalidadeParam ? modalidadeParam.split(",").map((s) => s.trim()).filter(Boolean) : [];
   const tipos = tipoParam ? tipoParam.split(",").map((s) => s.trim()).filter(Boolean) : [];
