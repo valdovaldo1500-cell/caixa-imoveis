@@ -123,6 +123,7 @@ export async function importQAData(
       await db.insert(qaListings).values({
         qaId: listing.qaId || null,
         business: listing.business,
+        uf: (listing as { uf?: string }).uf?.toUpperCase() || ufUpper,
         cidade: listing.cidade,
         bairro: listing.bairro || null,
         unitType: listing.unitType || null,
