@@ -1946,6 +1946,7 @@ function ImoveisPageInner() {
                 months={globalPeriod}
                 propertyPrice={p.preco ? parseFloat(p.preco) : 0}
                 onClose={() => setExpandedRent(null)}
+                state={state}
               />
             )}
           </TableCell>
