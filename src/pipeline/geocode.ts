@@ -262,6 +262,7 @@ export async function geocodeProperties(limit = 50): Promise<{
       endereco: properties.endereco,
       bairro: properties.bairro,
       cidade: properties.cidade,
+      uf: properties.uf,
     })
     .from(properties)
     .where(and(isNull(properties.lat), isNull(properties.removedAt)))
