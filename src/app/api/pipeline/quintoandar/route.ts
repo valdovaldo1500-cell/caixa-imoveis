@@ -6,22 +6,21 @@ const QA_DATA_PATH = "/tmp/qa-data.json";
 
 export async function POST(request: NextRequest) {
   const action = request.nextUrl.searchParams.get("action") || "all";
+  const uf = request.nextUrl.searchParams.get("uf") || undefined;
 
   try {
-    const result: Record<string, unknown> = { action };
+    const result: Record<string, unknown> = { action, uf: uf ?? "all" };
 
     if (action === "import" || action === "all") {
-      console.log("Starting QuintoAndar data import...");
-      const importResult = await importQAData(QA_DATA_PATH);
+      console.log(`Starting QuintoAndar data import (uf=${uf ?? "from JSON"})...`);
+      const importResult = await importQAData(QA_DATA_PATH, uf);
       result.import = importResult;
-      console.log("QA import done:", importResult);
     }
 
     if (action === "calculate" || action === "all") {
-      console.log("Calculating QuintoAndar market values...");
-      const calcResult = await calculateQAMarketValues();
+      console.log(`Calculating QuintoAndar market values (uf=${uf ?? "all"})...`);
+      const calcResult = await calculateQAMarketValues(uf);
       result.calculate = calcResult;
-      console.log("QA market value calculation done:", calcResult);
     }
 
     if (action !== "import" && action !== "calculate" && action !== "all") {
