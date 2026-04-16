@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
         count: sql<number>`count(*)::int`,
       })
       .from(properties)
-      .where(isNull(properties.removedAt))
+      .where(baseWhere)
       .groupBy(
         sql`coalesce(
           nullif(trim(${properties.tipoImovel}), ''),
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
         count: sql<number>`count(*)::int`,
       })
       .from(properties)
-      .where(isNull(properties.removedAt))
+      .where(baseWhere)
       .groupBy(sql`coalesce(nullif(trim(${properties.modalidadeVenda}), ''), 'N/D')`)
       .orderBy(sql`count(*) desc`);
 
