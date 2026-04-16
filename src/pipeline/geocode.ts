@@ -184,7 +184,7 @@ export async function regeocodeStacked(limit = 100): Promise<{
     // Attempt 2: free-text fallback with cleaned address
     if (!hit && cleanedStreet) {
       try {
-        const query = `${cleanedStreet}, ${cidade}, RS, Brasil`;
+        const query = `${cleanedStreet}, ${cidade}, ${prop.uf}, Brasil`;
         console.log(`[regeocodeStacked] [${prop.caixaId}] Free-text: "${query}"`);
         hit = await nominatimSearch(query);
         if (!hit) {
