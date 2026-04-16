@@ -128,11 +128,12 @@ export const itbiTransactions = pgTable(
     matricula: varchar("matricula", { length: 30 }),
     zonaRegistro: varchar("zona_registro", { length: 10 }),
     situacao: varchar("situacao", { length: 30 }),
+    cidade: varchar("cidade", { length: 100 }).default("PORTO ALEGRE"),
     year: integer("year"),
     createdAt: timestamp("created_at").defaultNow(),
   },
   (table) => [
-    index("idx_itbi_bairro").on(table.bairro),
+    index("idx_itbi_cidade_bairro").on(table.cidade, table.bairro),
     index("idx_itbi_tipo").on(table.finalidadeConstrucao),
     index("idx_itbi_data").on(table.dataEstimativa),
     index("idx_itbi_year").on(table.year),
