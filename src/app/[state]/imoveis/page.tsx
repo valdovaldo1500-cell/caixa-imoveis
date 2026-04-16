@@ -1060,7 +1060,7 @@ function ImoveisPageInner() {
     if (dist) params.set("max_distance", dist);
     if (!hidden) params.set("hidden", "false");
     const qs = params.toString();
-    router.replace(qs ? `/imoveis?${qs}` : "/imoveis", { scroll: false });
+    router.replace(qs ? `/${state}/imoveis?${qs}` : `/${state}/imoveis`, { scroll: false });
   }, [sort, order, search, filterCidades, filterTipos, filterModalidades, filterDescontoMin, filterPrecoMax, filterPrecoMin, filterDistancia, showHidden, router]);
 
   // Load saved filters and column config from localStorage on mount
