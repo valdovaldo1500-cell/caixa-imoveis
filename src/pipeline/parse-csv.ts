@@ -83,7 +83,7 @@ export function parseCSV(csvText: string, defaultUf: string = "RS"): RawProperty
 
     results.push({
       caixaId,
-      uf: colUF >= 0 ? cols[colUF]?.trim() || "RS" : "RS",
+      uf: colUF >= 0 ? cols[colUF]?.trim() || defaultUf : defaultUf,
       cidade,
       bairro: colBairro >= 0 ? cols[colBairro]?.trim() || "" : "",
       endereco: colEndereco >= 0 ? cols[colEndereco]?.trim() || "" : "",
