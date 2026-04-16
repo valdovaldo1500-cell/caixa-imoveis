@@ -30,8 +30,10 @@ interface VivaRealListing {
  *    both carry it).
  */
 export async function importVivaRealData(
-  jsonPath: string
+  jsonPath: string,
+  uf: string = "RS"
 ): Promise<{ imported: number; skipped: number; deduped: number; errors: string[] }> {
+  const ufUpper = uf.toUpperCase();
   let raw: string;
   try {
     raw = readFileSync(jsonPath, "utf-8");
