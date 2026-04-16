@@ -1,0 +1,1 @@
+CREATE INDEX "properties_uf_idx" ON "properties" USING btree ("uf");

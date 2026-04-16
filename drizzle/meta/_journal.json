@@ -85,6 +85,13 @@
       "when": 1774810230744,
       "tag": "0011_faithful_red_ghost",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1776375424437,
+      "tag": "0012_adorable_stryfe",
+      "breakpoints": true
     }
   ]
 }

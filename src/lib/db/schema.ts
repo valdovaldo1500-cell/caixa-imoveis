@@ -86,6 +86,7 @@ export const properties = pgTable(
     index("idx_properties_desconto").on(table.desconto),
     index("idx_properties_removed").on(table.removedAt),
     index("idx_properties_latlng").on(table.lat, table.lng),
+    index("properties_uf_idx").on(table.uf),
   ]
 );
 
