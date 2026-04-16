@@ -29,7 +29,7 @@ function parseDecimal(value: string): number | null {
   return isNaN(num) ? null : num;
 }
 
-export function parseCSV(csvText: string): RawProperty[] {
+export function parseCSV(csvText: string, defaultUf: string = "RS"): RawProperty[] {
   const lines = csvText.split("\n").filter((l) => l.trim());
   if (lines.length < 2) return [];
 
