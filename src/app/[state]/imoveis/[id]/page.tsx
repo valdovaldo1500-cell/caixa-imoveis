@@ -889,7 +889,7 @@ export default function PropertyDetailPage() {
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <header className="space-y-2">
         <div className="flex items-center gap-2 text-sm text-zinc-400">
-          <Link href="/imoveis" className="hover:text-zinc-200 transition-colors">
+          <Link href={`/${state}/imoveis`} className="hover:text-zinc-200 transition-colors">
             ← Imóveis
           </Link>
           <span>/</span>
