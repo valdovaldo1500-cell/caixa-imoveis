@@ -202,6 +202,7 @@ export const qaListings = pgTable("qa_listings", {
   id: serial("id").primaryKey(),
   qaId: varchar("qa_id", { length: 30 }),
   business: varchar("business", { length: 10 }), // SALE or RENTAL
+  uf: varchar("uf", { length: 2 }).default("RS"),
   cidade: varchar("cidade", { length: 100 }),
   bairro: varchar("bairro", { length: 100 }),
   unitType: varchar("unit_type", { length: 30 }),
@@ -214,7 +215,7 @@ export const qaListings = pgTable("qa_listings", {
   listingUrl: text("listing_url"),
   createdAt: timestamp("created_at").defaultNow(),
 }, (table) => [
-  index("idx_qa_cidade_bairro").on(table.cidade, table.bairro),
+  index("idx_qa_uf_cidade_bairro").on(table.uf, table.cidade, table.bairro),
   index("idx_qa_business").on(table.business),
 ]);
 
