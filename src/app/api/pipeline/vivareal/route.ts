@@ -7,25 +7,21 @@ const VIVAREAL_DATA_PATH = "/tmp/vivareal-data.json";
 
 export async function POST(request: NextRequest) {
   const action = request.nextUrl.searchParams.get("action") || "all";
+  const uf = request.nextUrl.searchParams.get("uf") || undefined;
 
   try {
-    const result: Record<string, unknown> = { action };
+    const result: Record<string, unknown> = { action, uf: uf ?? "all" };
 
     if (action === "import" || action === "all") {
-      console.log("Starting VivaReal data import...");
-      const importResult = await importVivaRealData(VIVAREAL_DATA_PATH);
+      console.log(`Starting VivaReal data import (uf=${uf ?? "from JSON"})...`);
+      const importResult = await importVivaRealData(VIVAREAL_DATA_PATH, uf);
       result.import = importResult;
-      console.log("VivaReal import done:", importResult);
     }
 
     if (action === "calculate" || action === "all") {
-      // VivaReal listings are stored in zap_listings — the existing ZAP market value
-      // calculation already queries all rows in that table, so calling it here
-      // automatically incorporates the newly imported VivaReal data.
-      console.log("Calculating market values (ZAP + VivaReal combined)...");
-      const calcResult = await calculateZapMarketValues();
+      console.log(`Calculating market values (ZAP + VivaReal, uf=${uf ?? "all"})...`);
+      const calcResult = await calculateZapMarketValues(uf);
       result.calculate = calcResult;
-      console.log("Market value calculation done:", calcResult);
     }
 
     if (action !== "import" && action !== "calculate" && action !== "all") {
