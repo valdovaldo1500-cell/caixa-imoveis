@@ -8,12 +8,16 @@ export async function downloadCSV(uf: string = "RS"): Promise<string> {
   const tmpPath = `/tmp/caixa_imoveis_${ufLower}.csv`;
 
   // Try local cache first (for development / when Caixa blocks the IP)
-  // Supports both per-UF env var (CSV_LOCAL_PATH_GO) and legacy CSV_LOCAL_PATH (RS default)
+  // Order: per-UF env var → legacy CSV_LOCAL_PATH (RS only) → default tmp path
   const localCache =
     process.env[`CSV_LOCAL_PATH_${ufUpper}`] ||
     (ufUpper === "RS" ? process.env.CSV_LOCAL_PATH : undefined);
   if (localCache && existsSync(localCache)) {
     return readFileSync(localCache).toString("latin1");
+  }
+  // Fallback: if the default tmp path already has the file (manually uploaded via scp+docker cp), use it
+  if (existsSync(tmpPath)) {
+    return readFileSync(tmpPath).toString("latin1");
   }
 
   // Use curl with browser-like headers to bypass Radware Bot Manager
