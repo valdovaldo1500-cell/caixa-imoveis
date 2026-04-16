@@ -29,6 +29,10 @@ export async function GET(request: NextRequest) {
     isNotNull(properties.lat),
   ];
 
+  if (ufParam) {
+    conditions.push(eq(properties.uf, ufParam.toUpperCase()));
+  }
+
   if (modalidades.length === 1) {
     conditions.push(ilike(properties.modalidadeVenda, modalidades[0]));
   } else if (modalidades.length > 1) {
