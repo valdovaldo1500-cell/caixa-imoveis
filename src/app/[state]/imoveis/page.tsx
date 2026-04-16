@@ -1450,7 +1450,7 @@ function ImoveisPageInner() {
     if (filterDistancia) params.set("max_distance", filterDistancia);
     if (!showHidden) params.set("hidden", "false");
     const qs = params.toString();
-    const newUrl = qs ? `/imoveis?${qs}` : "/imoveis";
+    const newUrl = qs ? `/${state}/imoveis?${qs}` : `/${state}/imoveis`;
     // Use history API directly for immediate URL update (router.replace may be async)
     window.history.replaceState(null, "", newUrl);
   };
