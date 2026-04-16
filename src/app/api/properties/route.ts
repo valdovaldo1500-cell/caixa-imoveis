@@ -37,6 +37,11 @@ export async function GET(request: NextRequest) {
   if (!includeRemoved) {
     conditions.push(isNull(properties.removedAt));
   }
+
+  const ufParam = params.get("uf");
+  if (ufParam) {
+    conditions.push(eq(properties.uf, ufParam.toUpperCase()));
+  }
   if (cidades.length === 1) {
     conditions.push(ilike(properties.cidade, cidades[0]));
   } else if (cidades.length > 1) {
