@@ -76,8 +76,7 @@ interface SavedFilterPreset {
   };
 }
 
-const FILTERS_KEY = "caixa-imoveis-filters";
-const SAVED_FILTERS_KEY = "caixa-imoveis-saved-filters";
+// Keys are defined inside the component, namespaced by state
 const NOTIFICATIONS_KEY = "caixa-imoveis-notifications";
 const COLUMNS_KEY = "caixa-imoveis-columns";
 
