@@ -2189,7 +2189,6 @@ function ImoveisPageInner() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <NavHeader />
       <div className="p-6 space-y-4">
         <div>
           <h1 className="text-xl font-bold">Imóveis</h1>
