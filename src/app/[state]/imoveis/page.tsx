@@ -1824,7 +1824,7 @@ function ImoveisPageInner() {
               <span className="text-zinc-600">—</span>
             )}
             {expandedComparables === "valorMercado:" + p.id && (
-              <ComparablesPopup propertyId={p.id} months={globalPeriod} onClose={() => setExpandedComparables(null)} />
+              <ComparablesPopup propertyId={p.id} months={globalPeriod} onClose={() => setExpandedComparables(null)} state={state} />
             )}
           </TableCell>
         );
@@ -1871,7 +1871,7 @@ function ImoveisPageInner() {
               <span className="text-zinc-600">—</span>
             )}
             {expandedComparables === "mercadoM2:" + p.id && (
-              <ComparablesPopup propertyId={p.id} months={globalPeriod} onClose={() => setExpandedComparables(null)} />
+              <ComparablesPopup propertyId={p.id} months={globalPeriod} onClose={() => setExpandedComparables(null)} state={state} />
             )}
           </TableCell>
         );
