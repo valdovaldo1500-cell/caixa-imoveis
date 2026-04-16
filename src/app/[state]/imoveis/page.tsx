@@ -580,7 +580,7 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12, s
             </table>
             {itbiComps.length > 10 && (
               <p className="text-xs text-zinc-500 mt-1">
-                <a href={`/imoveis/${propertyId}#comparaveis`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                <a href={`/${state}/imoveis/${propertyId}#comparaveis`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
                   Ver todas as {itbiComps.length} transações →
                 </a>
               </p>
@@ -734,7 +734,7 @@ function RentPopup({ propertyId, onClose, months = 12, propertyPrice = 0, state 
           </table>
           {itbiComps.length > 8 && (
             <p className="text-xs text-zinc-500 mt-1">
-              <a href={`/imoveis/${propertyId}#comparaveis`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+              <a href={`/${state}/imoveis/${propertyId}#comparaveis`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
                 +{itbiComps.length - 8} transações →
               </a>
             </p>
