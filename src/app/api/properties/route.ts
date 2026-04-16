@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { sql, isNull, gte, lte, and, ilike } from "drizzle-orm";
+import { sql, isNull, gte, lte, and, ilike, eq } from "drizzle-orm";
 
 // Porto Alegre center coordinates
 const POA_LAT = -30.0346;
