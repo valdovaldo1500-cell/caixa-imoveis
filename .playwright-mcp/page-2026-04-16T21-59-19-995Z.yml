@@ -1,0 +1,32 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - img "Avatar" [ref=e5]
+    - heading "Caixa Econômica Federal" [level=4] [ref=e7]
+    - generic [ref=e8]:
+      - img "Avatar" [ref=e10]
+      - generic [ref=e11]:
+        - heading "Precisamos fazer uma verificação de segurança para sua conta" [level=4] [ref=e12]
+        - heading "Toque no quadro abaixo para poder verificar que você não é robô." [level=5] [ref=e13]
+    - generic [ref=e14]:
+      - generic [ref=e16]:
+        - button "Clique aqui para o desafio captcha com opção de acessibilidade" [ref=e18] [cursor=pointer]: Click me
+        - generic [ref=e19]:
+          - iframe [ref=e21]:
+            - generic [ref=f2e2] [cursor=pointer]:
+              - checkbox "'I am human', Select in order to trigger the challenge, or to bypass it if you have an accessibility cookie" [ref=f2e7]
+              - generic [ref=f2e11]: I am human
+              - generic [ref=f2e12]:
+                - generic "hCaptcha" [ref=f2e13]:
+                  - button "hCaptcha logo, opens new window with more information" [ref=f2e14]:
+                    - img [ref=f2e16]
+                - generic [ref=f2e78]:
+                  - link "hCaptcha Privacy Policy, opens in a new tab" [ref=f2e79]:
+                    - /url: https://hcaptcha.com/privacy?ref=validate.perfdrive.com&utm_campaign=ae73173b-7003-44e0-bc87-654d0dab8b75&utm_medium=checkbox&hl=en
+                    - text: Privacy
+                  - text: "-"
+                  - link "hCaptcha Terms of Service, opens in a new tab" [ref=f2e80]:
+                    - /url: https://hcaptcha.com/terms?ref=validate.perfdrive.com&utm_campaign=ae73173b-7003-44e0-bc87-654d0dab8b75&utm_medium=checkbox&hl=en
+                    - text: Terms
+          - button "Submit" [ref=e23]
+      - img "Avatar" [ref=e25]
+  - paragraph [ref=e28]: Você chegou a esta página enquanto tentava acessar https://venda-imoveis.caixa.gov.br/sistema/download-lista.asp 95.214.185.21 April 16 2026, 21:59:18 UTC Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.0.0 Safari/537.36
