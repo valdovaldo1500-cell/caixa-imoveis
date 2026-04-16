@@ -112,7 +112,7 @@ export async function GET(request: NextRequest) {
             ELSE 5
           END) as sort_order
         FROM ${properties}
-        WHERE ${properties.removedAt} IS NULL
+        WHERE ${properties.removedAt} IS NULL${ufSqlClause}
         GROUP BY range
         ORDER BY sort_order
       ) t
