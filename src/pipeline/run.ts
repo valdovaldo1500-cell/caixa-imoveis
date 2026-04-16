@@ -14,7 +14,8 @@ export interface PipelineResult {
   errors: string[];
 }
 
-export async function runPipeline(): Promise<PipelineResult> {
+export async function runPipeline(uf: string = "RS"): Promise<PipelineResult> {
+  const ufUpper = uf.toUpperCase();
   const startedAt = new Date();
   const result: PipelineResult = {
     total: 0,
@@ -33,10 +34,10 @@ export async function runPipeline(): Promise<PipelineResult> {
 
   try {
     // 1. Download CSV
-    const csvText = await downloadCSV();
+    const csvText = await downloadCSV(ufUpper);
 
     // 2. Parse
-    const parsed = parseCSV(csvText);
+    const parsed = parseCSV(csvText, ufUpper);
     result.total = parsed.length;
 
     if (parsed.length === 0) {
