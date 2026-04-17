@@ -77,10 +77,11 @@ function formatBRL(value: string | null): string {
   }).format(Number(value));
 }
 
-export default function PropertyMap({ properties }: PropertyMapProps) {
+export default function PropertyMap({ properties, state }: PropertyMapProps) {
+  const center = STATE_CENTERS[(state || "RS").toUpperCase()] ?? STATE_CENTERS.RS;
   return (
     <MapContainer
-      center={[-29.95, -51.15]}
+      center={center}
       zoom={7}
       style={{ width: "100%", height: "100%" }}
     >
