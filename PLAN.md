@@ -83,10 +83,10 @@ Avg score: 58.41 (up from 56.08 after ZAP market value fix)
 - Need to: run initial RS scrape, add to daily pipeline (already added Wednesday slot)
 - Blocked: do RS after GO is confirmed working
 
-### Market Value Coverage (known gap)
-- Only 186/5567 properties have any market value — suspected cause: ZAP matching too strict per bairro
-- After VivaReal import: re-check coverage
-- May need to loosen matching radius in `calculateZapMarketValues`
+### VivaReal RS
+- Scraper already parameterized (`--uf RS`)
+- Need to: run initial RS scrape, add to daily pipeline (already added Wednesday slot)
+- Blocked: do RS after GO is confirmed working
 
 ---
 
