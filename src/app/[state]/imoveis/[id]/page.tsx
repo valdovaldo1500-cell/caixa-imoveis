@@ -1418,24 +1418,31 @@ export default function PropertyDetailPage() {
 
                   {/* Custo de reforma */}
                   <div>
-                    <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Custo de Reforma ({inv.area.toFixed(0)}m²)</h4>
+                    <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">
+                      Custo de Reforma ({inv.area.toFixed(0)}m²
+                      {inv.propertyTypeKey === "apt" ? " · Apto" : inv.propertyTypeKey === "sala" ? " · Comercial" : inv.propertyTypeKey === "terreno" ? " · Terreno" : " · Casa"})
+                    </h4>
+                    {inv.propertyTypeKey === "terreno" ? (
+                      <p className="text-xs text-zinc-500">Terreno — sem custo de reforma aplicável.</p>
+                    ) : (
                     <div className="grid grid-cols-3 gap-2">
                       <div className="bg-zinc-800/50 rounded p-2">
-                        <div className="text-[10px] text-zinc-500">Leve (R$700/m²)</div>
+                        <div className="text-[10px] text-zinc-500">Leve (R${inv.renoRates.light.toLocaleString("pt-BR")}/m²)</div>
                         <div className="text-sm font-bold text-green-400">{brl(inv.renoLight)}</div>
                         <div className="text-[10px] text-zinc-600">Pintura, piso, elét.</div>
                       </div>
                       <div className="bg-zinc-800/50 rounded p-2">
-                        <div className="text-[10px] text-zinc-500">Média (R$1.200/m²)</div>
+                        <div className="text-[10px] text-zinc-500">Média (R${inv.renoRates.medium.toLocaleString("pt-BR")}/m²)</div>
                         <div className="text-sm font-bold text-yellow-400">{brl(inv.renoMedium)}</div>
                         <div className="text-[10px] text-zinc-600">+ banheiros, cozinha</div>
                       </div>
                       <div className="bg-zinc-800/50 rounded p-2">
-                        <div className="text-[10px] text-zinc-500">Pesada (R$1.800/m²)</div>
+                        <div className="text-[10px] text-zinc-500">Pesada (R${inv.renoRates.heavy.toLocaleString("pt-BR")}/m²)</div>
                         <div className="text-sm font-bold text-red-400">{brl(inv.renoHeavy)}</div>
                         <div className="text-[10px] text-zinc-600">Reforma completa</div>
                       </div>
                     </div>
+                    )}
                   </div>
 
                   {/* Flip scenarios */}
