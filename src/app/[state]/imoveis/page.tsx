@@ -2360,6 +2360,7 @@ function ImoveisPageInner() {
             <option value="100">até 100km</option>
             <option value="200">até 200km</option>
           </select>
+          {state.toUpperCase() !== "GO" && (
           <div className="flex items-center gap-1">
             <select
               value={globalPeriod}
@@ -2375,6 +2376,7 @@ function ImoveisPageInner() {
               <span className="text-xs text-zinc-500 animate-pulse">recalculando...</span>
             )}
           </div>
+          )}
           {hasActiveFilters && (
             <button
               onClick={() => {
