@@ -1809,6 +1809,7 @@ function ImoveisPageInner() {
         );
 
       case "valorMercado": {
+        if (state.toUpperCase() === "GO") return <TableCell key={colId} className="text-right"><span className="text-zinc-600">—</span></TableCell>;
         const recalc = recalculatedValues[p.id];
         const displayMarketValue = recalc ? recalc.marketValue : p.marketValue;
         const displayCount = recalc ? recalc.comparablesCount : p.comparablesCount;
