@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { STATE_META } from "@/lib/state";
 
 interface Property {
   id: number;
