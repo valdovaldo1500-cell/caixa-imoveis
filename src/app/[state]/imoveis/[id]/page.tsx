@@ -246,6 +246,8 @@ interface InvAnalysis {
   renoLight: number;
   renoMedium: number;
   renoHeavy: number;
+  renoRates: { light: number; medium: number; heavy: number };
+  propertyTypeKey: "apt" | "casa" | "sala" | "terreno";
   txCostBuy: number;
   txCostSell: number;
   rentalYieldGross: number;
