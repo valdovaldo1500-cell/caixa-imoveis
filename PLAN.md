@@ -1,15 +1,17 @@
 # Caixa Imóveis — Master Plan
 
-Last updated: 17/04 12:25
+Last updated: 17/04 15:30
 
 ---
 
 ## Current State
 
-| State | Total | Scored | Photos | Geocoded |
-|-------|-------|--------|--------|----------|
-| RS | 861 | 861 ✓ | 839 | 861 ✓ |
-| GO | 4706 | 4706 ✓ | 3283 | 3381 |
+| State | Total | Scored | Photos | Geocoded | ZAP val |
+|-------|-------|--------|--------|----------|---------|
+| RS | 861 | 861 ✓ | 839 | 861 ✓ | 493 |
+| GO | 4706 | 4706 ✓ | 3283 | 3410 | 3268 ✓ |
+
+Avg score: 58.41 (up from 56.08 after ZAP market value fix)
 
 ---
 
@@ -18,8 +20,8 @@ Last updated: 17/04 12:25
 | Process | Status | Log |
 |---------|--------|-----|
 | Photos GO | ~1423 remaining, loop running | `/tmp/photos_loop3.log` |
-| Geocoding GO | ~1325 remaining, loop running | `/tmp/geocode_loop.log` |
-| VivaReal GO scrape | Running — 25/673 bairros | `/tmp/vivareal-go-scrape.log` |
+| Geocoding GO | ~1296 remaining, loop running | `/tmp/geocode_loop.log` |
+| VivaReal GO scrape | Running — 353/673 bairros | `/tmp/vivareal-go-scrape.log` |
 | VR auto-import | Waiting for scrape to finish | `/tmp/vivareal-go-import.log` |
 
 ---
