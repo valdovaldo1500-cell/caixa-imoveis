@@ -294,7 +294,7 @@ export default function MapaPage() {
           />
 
           <div className="flex items-center gap-1.5">
-            <label className="text-zinc-500">Dist. POA</label>
+            <label className="text-zinc-500">Dist. {state?.toUpperCase() === "GO" ? "GYN" : "POA"}</label>
             <select
               value={distancia}
               onChange={(e) => setDistancia(e.target.value)}
