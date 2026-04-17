@@ -462,8 +462,8 @@ function analyzeProperty(prop: Property): InvAnalysis {
 
   return {
     area, purchasePrice, appraisedValue, bestMarketValue, marketSource, totalComparables,
-    monthlyRent, rentSource, renoLight, renoMedium, renoHeavy, txCostBuy, txCostSell,
-    rentalYieldGross, paybackMonths, riskRating, riskFactors, dataConfidence,
+    monthlyRent, rentSource, renoLight, renoMedium, renoHeavy, renoRates, propertyTypeKey: typeKey,
+    txCostBuy, txCostSell, rentalYieldGross, paybackMonths, riskRating, riskFactors, dataConfidence,
   };
 }
 
