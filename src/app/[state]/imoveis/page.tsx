@@ -506,7 +506,9 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12, s
           <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-sm">✕</button>
         </div>
       </div>
-      {loading ? (
+      {isGoItbi ? (
+        <p className="text-xs text-zinc-500">Sem dados ITBI para GO</p>
+      ) : loading ? (
         <p className="text-xs text-zinc-500">Carregando...</p>
       ) : (showZap || showQA) ? (
         /* ZAP / QA listings */
