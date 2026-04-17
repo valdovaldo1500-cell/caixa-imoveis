@@ -401,8 +401,8 @@ function analyzeProperty(prop: Property): InvAnalysis {
   const renoLight = area * 700;
   const renoMedium = area * 1200;
   const renoHeavy = area * 1800;
-  // POA ITBI = 3%, RS interior = 2%. Add ~1.5% for escritura+registro
-  const itbiRate = prop.cidade.toUpperCase() === "PORTO ALEGRE" ? 0.03 : 0.02;
+  // POA ITBI = 3%, RS interior = 2%, GO = 2%. Add ~1.5% for escritura+registro
+  const itbiRate = prop.uf === "GO" ? 0.02 : (prop.cidade.toUpperCase() === "PORTO ALEGRE" ? 0.03 : 0.02);
   const txCostBuy = purchasePrice * (itbiRate + 0.015);
   const txCostSell = bestMarketValue * 0.055;
 
