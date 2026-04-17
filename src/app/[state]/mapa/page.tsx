@@ -311,7 +311,7 @@ export default function MapaPage() {
       {/* Map */}
       <div className="flex-1 relative">
         {!loading && (
-          <PropertyMap properties={properties} />
+          <PropertyMap properties={properties} state={state} />
         )}
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center text-zinc-400">
