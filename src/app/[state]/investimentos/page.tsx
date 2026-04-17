@@ -1272,7 +1272,7 @@ export default function InvestimentosPage() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/investimentos", { credentials: "include" })
+    fetch(`/api/investimentos?uf=${uf}`, { credentials: "include" })
       .then((r) => {
         if (r.status === 403) throw new Error("Acesso restrito.");
         if (!r.ok) throw new Error("Erro ao carregar dados");
