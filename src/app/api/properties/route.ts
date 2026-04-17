@@ -4,9 +4,10 @@ import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
 import { sql, isNull, gte, lte, and, ilike, eq } from "drizzle-orm";
 
-// Porto Alegre center coordinates
-const POA_LAT = -30.0346;
-const POA_LNG = -51.2177;
+const STATE_CENTERS: Record<string, { lat: number; lng: number }> = {
+  RS: { lat: -30.0346, lng: -51.2177 },
+  GO: { lat: -16.6869, lng: -49.2648 },
+};
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
