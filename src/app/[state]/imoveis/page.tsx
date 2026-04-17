@@ -749,14 +749,14 @@ function RentPopup({ propertyId, onClose, months = 12, propertyPrice = 0, state 
   );
 }
 
-function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose }: { preco: number; aluguelMensal: number; valorAvaliacao: number; onClose: () => void }) {
+function YieldPopup({ preco, aluguelMensal, valorAvaliacao, onClose, state = "" }: { preco: number; aluguelMensal: number; valorAvaliacao: number; onClose: () => void; state?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, onClose);
 
   const SELIC = 14.25; // Current Selic rate (Mar 2025)
 
   // Acquisition costs
-  const itbiRate = 0.03;
+  const itbiRate = state.toUpperCase() === "GO" ? 0.02 : 0.03;
   const registroRate = 0.01;
   const itbiCost = preco * itbiRate;
   const registroCost = preco * registroRate;
