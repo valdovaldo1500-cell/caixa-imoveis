@@ -2352,7 +2352,7 @@ function ImoveisPageInner() {
             onChange={(e) => { setFilterDistancia(e.target.value); syncUrl({ filterDistancia: e.target.value }); }}
             className="bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-zinc-300 text-xs"
           >
-            <option value="">Distância POA</option>
+            <option value="">Distância {state.toUpperCase() === "GO" ? "Goiânia" : "POA"}</option>
             <option value="10">até 10km</option>
             <option value="25">até 25km</option>
             <option value="50">até 50km</option>
