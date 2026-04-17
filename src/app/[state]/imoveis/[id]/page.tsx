@@ -398,9 +398,27 @@ function analyzeProperty(prop: Property): InvAnalysis {
     }
   }
 
-  const renoLight = area * 700;
-  const renoMedium = area * 1200;
-  const renoHeavy = area * 1800;
+  // Renovation costs vary by property type
+  // Apartments: lower R$/m² (no roof/foundation) but hard minimums (kitchen+bathroom always expensive)
+  // Houses: higher R$/m² (more structural, roof, external)
+  // Terreno: no renovation
+  // Commercial: higher fit-out standards
+  const typeKey = getTypeKey(prop.tipoImovel);
+  const renoRates = typeKey === "apt"
+    ? { light: 600, medium: 1000, heavy: 1600 }
+    : typeKey === "terreno"
+    ? { light: 0, medium: 0, heavy: 0 }
+    : typeKey === "sala"
+    ? { light: 800, medium: 1400, heavy: 2000 }
+    : { light: 700, medium: 1200, heavy: 1800 }; // casa default
+  const renoMin = typeKey === "apt"
+    ? { light: 18000, medium: 35000, heavy: 60000 }
+    : typeKey === "terreno"
+    ? { light: 0, medium: 0, heavy: 0 }
+    : { light: 10000, medium: 25000, heavy: 50000 };
+  const renoLight = Math.max(area * renoRates.light, renoMin.light);
+  const renoMedium = Math.max(area * renoRates.medium, renoMin.medium);
+  const renoHeavy = Math.max(area * renoRates.heavy, renoMin.heavy);
   // POA ITBI = 3%, RS interior = 2%, GO = 2%. Add ~1.5% for escritura+registro
   const itbiRate = prop.uf === "GO" ? 0.02 : (prop.cidade.toUpperCase() === "PORTO ALEGRE" ? 0.03 : 0.02);
   const txCostBuy = purchasePrice * (itbiRate + 0.015);
