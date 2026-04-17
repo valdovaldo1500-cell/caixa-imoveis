@@ -2043,14 +2043,15 @@ function ImoveisPageInner() {
         if (!p.lat || !p.lng) return <TableCell key={colId} className="text-zinc-600 text-xs">—</TableCell>;
         const lat = parseFloat(p.lat);
         const lng = parseFloat(p.lng);
-        const POA_LAT = -30.0346;
-        const POA_LNG = -51.2177;
+        const CENTER = STATE_META[state.toUpperCase() as keyof typeof STATE_META] ?? STATE_META["RS"];
+        const CENTER_LAT = CENTER.centerLat;
+        const CENTER_LNG = CENTER.centerLng;
         const toRad = (deg: number) => (deg * Math.PI) / 180;
-        const dLat = toRad(lat - POA_LAT);
-        const dLng = toRad(lng - POA_LNG);
+        const dLat = toRad(lat - CENTER_LAT);
+        const dLng = toRad(lng - CENTER_LNG);
         const a =
           Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(toRad(POA_LAT)) * Math.cos(toRad(lat)) *
+          Math.cos(toRad(CENTER_LAT)) * Math.cos(toRad(lat)) *
           Math.sin(dLng / 2) * Math.sin(dLng / 2);
         const distKm = 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return (
