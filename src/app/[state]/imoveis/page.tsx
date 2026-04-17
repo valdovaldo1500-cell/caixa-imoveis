@@ -2276,7 +2276,18 @@ function ImoveisPageInner() {
         <div className="flex gap-2 flex-wrap items-center text-xs">
           <MultiSelect
             label="Cidades"
-            options={[
+            options={state.toUpperCase() === "GO" ? [
+              "GOIANIA",
+              "APARECIDA DE GOIANIA",
+              "ANAPOLIS",
+              "LUZIANIA",
+              "CIDADE OCIDENTAL",
+              "VALPARAISO DE GOIAS",
+              "SANTO ANTONIO DO DESCOBERTO",
+              "NOVO GAMA",
+              "PLANALTINA",
+              "AGUAS LINDAS DE GOIAS",
+            ] : [
               "PORTO ALEGRE",
               "PELOTAS",
               "CAXIAS DO SUL",
