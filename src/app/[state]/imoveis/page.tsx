@@ -1999,6 +1999,7 @@ function ImoveisPageInner() {
                 aluguelMensal={rentVal}
                 valorAvaliacao={p.valorAvaliacao ? parseFloat(p.valorAvaliacao) : 0}
                 onClose={() => setExpandedYield(null)}
+                state={state}
               />
             )}
           </TableCell>
