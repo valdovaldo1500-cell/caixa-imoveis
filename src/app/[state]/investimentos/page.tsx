@@ -1324,7 +1324,7 @@ export default function InvestimentosPage() {
         <div>
           <h1 className="text-xl font-bold">Analise de Investimento</h1>
           <p className="text-sm text-zinc-500 mt-1">
-            {analyses.length} imoveis selecionados &middot; Dados de mercado: ZAP, QuintoAndar, ITBI POA &middot; CUB/RS Fev 2026
+            {analyses.length} imoveis selecionados &middot; Dados de mercado: ZAP, QuintoAndar{uf === "RS" ? ", ITBI POA" : ""} &middot; CUB/{uf} Fev 2026
           </p>
         </div>
 
