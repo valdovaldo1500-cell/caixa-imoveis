@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
       .innerJoin(properties, eq(favorites.propertyId, properties.id))
       .where(
         ufParam
-          ? eq(favorites.username, ALLOWED_USER) && eq(properties.uf, ufParam) as never
+          ? and(eq(favorites.username, ALLOWED_USER), eq(properties.uf, ufParam))
           : eq(favorites.username, ALLOWED_USER)
       )
       .orderBy(desc(properties.score));
