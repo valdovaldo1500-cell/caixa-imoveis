@@ -479,13 +479,14 @@ function ComparablesPopup({ propertyId, onClose, source = "itbi", months = 12, s
   useClickOutside(ref, onClose);
 
   useEffect(() => {
+    if (isGoItbi) return;
     setLoading(true);
     fetch(`/api/properties/${propertyId}/comparables?months=${months}`, { credentials: "include" })
       .then((r) => r.json())
       .then((d) => setData(d))
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [propertyId, months]);
+  }, [propertyId, months, isGoItbi]);
 
   const itbiComps = data ? (data.tier1.count > 0 ? data.tier1.comparables : data.tier2.comparables) : [];
   const zapComps = data?.zapListings?.saleComparables || [];
