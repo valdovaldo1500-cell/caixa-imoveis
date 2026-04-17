@@ -1222,7 +1222,7 @@ export default function PropertyDetailPage() {
           )}
 
           {/* Market value */}
-          {(property.marketValue || property.marketValuePerM2) && (
+          {(property.marketValue || property.marketValuePerM2) && state.toUpperCase() !== "GO" && (
             <Card id="comparaveis" className="bg-zinc-900 border-zinc-800">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium text-zinc-400">
