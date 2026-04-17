@@ -1667,8 +1667,8 @@ export default function PropertyDetailPage() {
                     setAiLoading(true);
                     try {
                       const res = await fetch(`/api/properties/${property.id}/analysis`, { method: "POST", credentials: "include" });
-                      const data = await res.json() as { analysis?: string | null; message?: string };
-                      setAiAnalysis(data.analysis || data.message || "Analise ainda nao gerada. Execute o script localmente.");
+                      const data = await res.json() as { analysis?: string | null; message?: string; error?: string };
+                      setAiAnalysis(data.analysis || data.error || data.message || "Serviço de análise IA não disponível neste ambiente.");
                     } catch { setAiAnalysis("Erro de conexao"); }
                     finally { setAiLoading(false); }
                   }}
