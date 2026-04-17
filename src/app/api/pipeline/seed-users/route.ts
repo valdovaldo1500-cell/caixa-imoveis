@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 const SEED_USERS = [
   { username: "isilva", password: "NoNot1!" },
   { username: "alex", password: "AlexMinhoca1!" },
+  { username: "leo", password: "AppleYellowSubmarine!" },
 ];
 
 export async function POST(request: Request) {
