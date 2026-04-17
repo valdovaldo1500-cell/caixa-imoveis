@@ -25,8 +25,14 @@ interface MapProperty {
   lng: string;
 }
 
+const STATE_CENTERS: Record<string, [number, number]> = {
+  RS: [-29.95, -51.15],
+  GO: [-16.69, -49.26],
+};
+
 interface PropertyMapProps {
   properties: MapProperty[];
+  state?: string;
 }
 
 function getMarkerColor(desconto: string | null): string {
