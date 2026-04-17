@@ -314,13 +314,22 @@ function analyze(prop: Property): Analysis {
     }
   }
 
-  // Renovation costs (per m2, CUB/RS Feb 2026 derived)
-  const renoLight = area * 700;
-  const renoMedium = area * 1200;
-  const renoHeavy = area * 1800;
+  // Renovation costs — type-aware, SINAPI GO/2024
+  const typeK = getTypeKey(prop.tipoImovel);
+  const renoRates = typeK === "apt" ? { l: 280, m: 700, h: 1300 }
+    : typeK === "terreno" ? { l: 0, m: 0, h: 0 }
+    : typeK === "sala" ? { l: 320, m: 800, h: 1400 }
+    : { l: 300, m: 750, h: 1450 };
+  const renoMin = typeK === "apt" ? { l: 6000, m: 20000, h: 40000 }
+    : typeK === "terreno" ? { l: 0, m: 0, h: 0 }
+    : { l: 5000, m: 15000, h: 35000 };
+  const renoLight = Math.max(area * renoRates.l, renoMin.l);
+  const renoMedium = Math.max(area * renoRates.m, renoMin.m);
+  const renoHeavy = Math.max(area * renoRates.h, renoMin.h);
 
-  // Transaction costs — POA ITBI = 3%, RS interior = 2%. Add ~1.5% for escritura+registro
-  const itbiRate = prop.cidade.toUpperCase() === "PORTO ALEGRE" ? 0.03 : 0.02;
+  // Transaction costs — GO/RS interior ITBI = 2%, POA = 3%
+  const propUf = (prop as { uf?: string }).uf?.toUpperCase();
+  const itbiRate = propUf === "GO" ? 0.02 : (prop.cidade.toUpperCase() === "PORTO ALEGRE" ? 0.03 : 0.02);
   const txCostBuy = purchasePrice * (itbiRate + 0.015);
   const txCostSell = bestMarketValue * 0.055; // Corretagem 5.5%
 
