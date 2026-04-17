@@ -406,18 +406,20 @@ function analyzeProperty(prop: Property): InvAnalysis {
   // Terreno: no renovation
   // Commercial: higher fit-out standards
   const typeKey = getTypeKey(prop.tipoImovel);
+  // Source: SINAPI Centro-Oeste nov/2024, Habitissimo quotes, CAU-GO guidelines
+  // Goiânia labor ~10-15% below SP. Reforma pesada ≈ 60-70% of CUB-GO (R$2.347/m², dez/2024).
   const renoRates = typeKey === "apt"
-    ? { light: 600, medium: 1000, heavy: 1600 }
+    ? { light: 450, medium: 800, heavy: 1400 }
     : typeKey === "terreno"
     ? { light: 0, medium: 0, heavy: 0 }
     : typeKey === "sala"
-    ? { light: 800, medium: 1400, heavy: 2000 }
-    : { light: 700, medium: 1200, heavy: 1800 }; // casa default
+    ? { light: 500, medium: 950, heavy: 1600 }
+    : { light: 450, medium: 900, heavy: 1650 }; // casa
   const renoMin = typeKey === "apt"
-    ? { light: 8000, medium: 28000, heavy: 55000 }
+    ? { light: 6000, medium: 20000, heavy: 40000 }
     : typeKey === "terreno"
     ? { light: 0, medium: 0, heavy: 0 }
-    : { light: 8000, medium: 22000, heavy: 45000 };
+    : { light: 5000, medium: 18000, heavy: 40000 };
   const renoLight = Math.max(area * renoRates.light, renoMin.light);
   const renoMedium = Math.max(area * renoRates.medium, renoMin.medium);
   const renoHeavy = Math.max(area * renoRates.heavy, renoMin.heavy);
