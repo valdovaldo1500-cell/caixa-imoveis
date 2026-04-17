@@ -1498,7 +1498,16 @@ function ImoveisPageInner() {
     switch (colId) {
       case "foto":
         return (
-          <TableCell key={colId} className="w-24 px-1 relative group/img">
+          <TableCell
+            key={colId}
+            className="w-24 px-1 relative"
+            onMouseEnter={(e) => {
+              const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+              setPhotoPreviewFlip(window.innerHeight - rect.bottom < 420);
+              setHoveredPhotoId(p.id);
+            }}
+            onMouseLeave={() => setHoveredPhotoId(null)}
+          >
             {p.fotoUrl ? (
               <>
                 <img
@@ -1507,13 +1516,15 @@ function ImoveisPageInner() {
                   className="w-20 h-14 rounded object-cover"
                   loading="lazy"
                 />
-                <div className="hidden group-hover/img:block absolute left-full top-0 ml-2 z-[200] pointer-events-none">
-                  <img
-                    src={p.fotoUrl}
-                    alt=""
-                    className="max-w-[500px] max-h-[400px] rounded-lg object-contain bg-zinc-950 shadow-2xl border-2 border-zinc-600 p-1"
-                  />
-                </div>
+                {hoveredPhotoId === p.id && (
+                  <div className={`absolute left-full ml-2 z-[200] pointer-events-none ${photoPreviewFlip ? "bottom-0" : "top-0"}`}>
+                    <img
+                      src={p.fotoUrl}
+                      alt=""
+                      className="max-w-[500px] max-h-[400px] rounded-lg object-contain bg-zinc-950 shadow-2xl border-2 border-zinc-600 p-1"
+                    />
+                  </div>
+                )}
               </>
             ) : (
               <div className="w-8 h-6 rounded bg-zinc-800" />
