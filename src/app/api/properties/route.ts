@@ -75,12 +75,13 @@ export async function GET(request: NextRequest) {
   if (maxDistance) {
     const dist = parseFloat(maxDistance);
     if (!isNaN(dist)) {
+      const center = STATE_CENTERS[(ufParam || "RS").toUpperCase()] ?? STATE_CENTERS.RS;
       conditions.push(sql`
         ${properties.lat} IS NOT NULL AND ${properties.lng} IS NOT NULL AND
         (6371 * acos(
-          cos(radians(${POA_LAT})) * cos(radians(${properties.lat}::float)) *
-          cos(radians(${properties.lng}::float) - radians(${POA_LNG})) +
-          sin(radians(${POA_LAT})) * sin(radians(${properties.lat}::float))
+          cos(radians(${center.lat})) * cos(radians(${properties.lat}::float)) *
+          cos(radians(${properties.lng}::float) - radians(${center.lng})) +
+          sin(radians(${center.lat})) * sin(radians(${properties.lat}::float))
         )) <= ${dist}
       `);
     }
