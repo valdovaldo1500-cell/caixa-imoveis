@@ -303,19 +303,41 @@ export async function calculateZapMarketValues(uf?: string): Promise<{ updated: 
       ? cityRentalListings.filter((r) => normalizeName(r.bairro || "") === bairroKey)
       : [];
 
-    // Step 1: bairro + type + area + bedrooms (strict)
-    let saleComparables = filterListings(bairroSaleListings, true);
-    // Step 2: bairro + type + area (relaxed, no bedrooms filter)
-    if (saleComparables.length < 3) saleComparables = filterListings(bairroSaleListings);
-    // NO city-wide fallback for sale — different bairro = different price
-    // If no bairro match, no ZAP sale value (better no value than wrong value)
+    // Prefix match: "PARQUE ESTRELA DALVA IX" → matches ZAP "PARQUE ESTRELA DALVA"
+    // Handles Caixa sub-division names that ZAP groups under a parent bairro
+    const prefixSaleListings = bairroKey && bairroSaleListings.length === 0
+      ? citySaleListings.filter((r) => {
+          const zk = normalizeName(r.bairro || "");
+          return zk && (bairroKey.startsWith(zk) || zk.startsWith(bairroKey));
+        })
+      : bairroSaleListings;
+    const prefixRentalListings = bairroKey && bairroRentalListings.length === 0
+      ? cityRentalListings.filter((r) => {
+          const zk = normalizeName(r.bairro || "");
+          return zk && (bairroKey.startsWith(zk) || zk.startsWith(bairroKey));
+        })
+      : bairroRentalListings;
+
+    // Step 1: exact/prefix bairro + type + area + bedrooms (strict)
+    let saleComparables = filterListings(prefixSaleListings, true);
+    // Step 2: exact/prefix bairro + type + area (relaxed)
+    if (saleComparables.length < 3) saleComparables = filterListings(prefixSaleListings);
+    // Step 3: city-wide fallback — only if still no match AND city has enough listings (≥5)
+    if (saleComparables.length < 3) {
+      const cityFallback = filterListings(citySaleListings);
+      if (cityFallback.length >= 5) saleComparables = cityFallback;
+    }
 
     // Remove outliers (Caixa repossession resale ads with artificially low prices)
     saleComparables = removeOutliers(saleComparables, (r) => parseFloat(r.pricePerM2 || "0"));
 
-    // Rental: same — bairro only (isSale=false to skip Caixa price filter)
-    let rentalComparables = filterListings(bairroRentalListings, true, false);
-    if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings, false, false);
+    // Rental: same tier logic
+    let rentalComparables = filterListings(prefixRentalListings, true, false);
+    if (rentalComparables.length < 3) rentalComparables = filterListings(prefixRentalListings, false, false);
+    if (rentalComparables.length < 3) {
+      const cityRentalFallback = filterListings(cityRentalListings, false, false);
+      if (cityRentalFallback.length >= 5) rentalComparables = cityRentalFallback;
+    }
 
     // Calculate median R$/m² from sale comparables
     const salePricesPerM2 = saleComparables
