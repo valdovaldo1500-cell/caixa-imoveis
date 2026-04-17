@@ -264,7 +264,7 @@ export default async function DashboardPage({
               </CardHeader>
               <CardContent>
                 <p className="text-2xl font-bold">{stats.withMarketValue}</p>
-                <p className="text-[10px] text-zinc-500">ITBI, ZAP ou 5ºAndar</p>
+                <p className="text-[10px] text-zinc-500">{uf === "GO" ? "ZAP ou 5ºAndar" : "ITBI, ZAP ou 5ºAndar"}</p>
               </CardContent>
             </Card>
           </div>
