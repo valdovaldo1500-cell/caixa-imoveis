@@ -40,7 +40,7 @@ export default function LandingPage() {
             </div>
             <div>
               <h2 className="text-lg font-semibold text-white">Goiás</h2>
-              <p className="text-sm text-zinc-400 mt-1">Goiânia e interior — pipeline de importação em configuração</p>
+              <p className="text-sm text-zinc-400 mt-1">Goiânia e interior — 4706 imóveis com scoring e comparáveis ZAP/5ºAndar</p>
             </div>
             <div className="flex items-center gap-1 text-emerald-400 text-sm font-medium">
               Acessar dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
