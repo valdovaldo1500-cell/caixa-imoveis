@@ -414,10 +414,10 @@ function analyzeProperty(prop: Property): InvAnalysis {
     ? { light: 800, medium: 1400, heavy: 2000 }
     : { light: 700, medium: 1200, heavy: 1800 }; // casa default
   const renoMin = typeKey === "apt"
-    ? { light: 18000, medium: 35000, heavy: 60000 }
+    ? { light: 8000, medium: 28000, heavy: 55000 }
     : typeKey === "terreno"
     ? { light: 0, medium: 0, heavy: 0 }
-    : { light: 10000, medium: 25000, heavy: 50000 };
+    : { light: 8000, medium: 22000, heavy: 45000 };
   const renoLight = Math.max(area * renoRates.light, renoMin.light);
   const renoMedium = Math.max(area * renoRates.medium, renoMin.medium);
   const renoHeavy = Math.max(area * renoRates.heavy, renoMin.heavy);
