@@ -1421,10 +1421,10 @@ export default function InvestimentosPage() {
             {/* Methodology note */}
             <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-4 text-xs text-zinc-500 space-y-1">
               <h4 className="font-semibold text-zinc-400">Metodologia</h4>
-              <p><strong>Valor de mercado:</strong> Prioridade: ITBI (transacoes reais POA) &gt; ZAP Imoveis &gt; QuintoAndar &gt; Benchmark do bairro. Valores ITBI sao os mais confiaveis pois refletem precos reais pagos.</p>
-              <p><strong>Reforma:</strong> Baseado no CUB/RS (Sinduscon-RS, Fev 2026). Leve: R$700/m², Media: R$1.200/m², Pesada: R$1.800/m². Pos-enchente 2024 pode haver premium de 10-15%.</p>
-              <p><strong>Custos:</strong> ITBI 2% + escritura/registro ~2% na compra. Corretagem 5,5% na venda. IR sobre ganho de capital (15%) nao incluido (isento se reinvestir em 180 dias).</p>
-              <p><strong>Prazos:</strong> Liquidez alta (POA, Canoas): 8-12 meses. Media (SL, NH, Sapucaia): 14-16 meses. Baixa (Charqueadas): 24+ meses. Inclui compra (2-3 meses) + reforma + venda.</p>
+              <p><strong>Valor de mercado:</strong> Prioridade: {uf === "RS" ? "ITBI (transacoes reais POA) > " : ""}ZAP Imoveis &gt; QuintoAndar &gt; Benchmark do bairro.{uf === "RS" ? " Valores ITBI sao os mais confiaveis pois refletem precos reais pagos." : " GO nao possui dados ITBI publicos."}</p>
+              <p><strong>Reforma:</strong> Baseado no CUB/{uf} (SINAPI Centro-Oeste, 2024). Apto — Leve: R$280/m², Media: R$700/m², Pesada: R$1.300/m². Casa — Leve: R$300/m², Media: R$750/m², Pesada: R$1.450/m².</p>
+              <p><strong>Custos:</strong> ITBI {uf === "RS" ? "3% (POA) ou 2% (interior RS)" : "2% (GO)"} + escritura/registro ~1,5% na compra. Corretagem 5,5% na venda. IR sobre ganho de capital (15%) nao incluido.</p>
+              <p><strong>Prazos:</strong> {uf === "RS" ? "Liquidez alta (POA, Canoas): 8-12 meses. Media (SL, NH, Sapucaia): 14-16 meses. Baixa (Charqueadas): 24+ meses." : "Liquidez alta (Goiania): 8-12 meses. Media (Aparecida, Anapolis): 14-18 meses. Baixa (interior): 24+ meses."} Inclui compra (2-3 meses) + reforma + venda.</p>
               <p><strong>Riscos nao modelados:</strong> Ocupacao do imovel (pode adicionar 6-24 meses de desocupacao judicial), estado real da construcao, dividas condominiais, IPTU atrasado.</p>
             </div>
           </>
