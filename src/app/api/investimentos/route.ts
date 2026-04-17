@@ -62,10 +62,15 @@ export async function GET(request: NextRequest) {
         firstSeenAt: properties.firstSeenAt,
         lastSeenAt: properties.lastSeenAt,
         removedAt: properties.removedAt,
+        uf: properties.uf,
       })
       .from(favorites)
       .innerJoin(properties, eq(favorites.propertyId, properties.id))
-      .where(eq(favorites.username, ALLOWED_USER))
+      .where(
+        ufParam
+          ? eq(favorites.username, ALLOWED_USER) && eq(properties.uf, ufParam) as never
+          : eq(favorites.username, ALLOWED_USER)
+      )
       .orderBy(desc(properties.score));
 
     return NextResponse.json(rows);
