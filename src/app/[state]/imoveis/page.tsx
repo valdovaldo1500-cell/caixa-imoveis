@@ -1864,6 +1864,7 @@ function ImoveisPageInner() {
         );
 
       case "mercadoM2": {
+        if (state.toUpperCase() === "GO") return <TableCell key={colId} className="text-right"><span className="text-zinc-600">—</span></TableCell>;
         const recalcM2 = recalculatedValues[p.id];
         const displayM2 = recalcM2 ? recalcM2.marketValuePerM2 : p.marketValuePerM2;
         return (
