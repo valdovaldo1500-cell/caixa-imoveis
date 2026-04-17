@@ -1014,6 +1014,10 @@ function ImoveisPageInner() {
   >({});
   const [recalculating, setRecalculating] = useState(false);
 
+  // Photo preview hover state — tracks hovered property id and popup direction
+  const [hoveredPhotoId, setHoveredPhotoId] = useState<number | null>(null);
+  const [photoPreviewFlip, setPhotoPreviewFlip] = useState(false);
+
   // Drag-and-drop column reorder state
   const [dragCol, setDragCol] = useState<string | null>(null);
   const [dragOverCol, setDragOverCol] = useState<string | null>(null);
