@@ -1161,7 +1161,14 @@ function ImoveisPageInner() {
         const savedSet = new Set(filtered);
         const newCols = ALL_COLUMNS.filter((c) => c.defaultVisible && !savedSet.has(c.id as string)).map((c) => c.id as string);
         if (newCols.length > 0) filtered.push(...newCols);
-        if (filtered.length > 0) setVisibleColumns(filtered);
+        // For GO state, remove ITBI columns from visible set
+        const itbiCols = new Set(["valorMercado", "mercadoM2"]);
+        const finalCols = state.toUpperCase() === "GO" ? filtered.filter((id) => !itbiCols.has(id)) : filtered;
+        if (finalCols.length > 0) setVisibleColumns(finalCols);
+      } else if (state.toUpperCase() === "GO") {
+        // No saved columns — use default but strip ITBI columns
+        const itbiCols = new Set(["valorMercado", "mercadoM2"]);
+        setVisibleColumns(DEFAULT_VISIBLE.filter((id) => !itbiCols.has(id)));
       }
     } catch {
       // ignore
