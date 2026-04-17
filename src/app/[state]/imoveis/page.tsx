@@ -1737,7 +1737,7 @@ function ImoveisPageInner() {
                             discount: 25, priceEfficiency: 20, financing: 15,
                             propertyType: 10, areaValue: 15, daysOnMarket: 5, crimeSafety: 10,
                           };
-                          const val = typeof v === "number" ? v : 0;
+                          const val = typeof v === "object" && v !== null ? (v as { score: number }).score : (typeof v === "number" ? v : 0);
                           const w = weights[k] || 0;
                           return (
                             <div key={k} className="flex items-center gap-2 text-xs">
