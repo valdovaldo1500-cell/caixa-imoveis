@@ -1255,6 +1255,8 @@ function MarketValuePopup({ a, onClose, source }: { a: Analysis; onClose: () => 
 // ─── Main page ───────────────────────────────────────────────────────────────
 
 export default function InvestimentosPage() {
+  const { state } = useParams<{ state: string }>();
+  const uf = state?.toUpperCase() ?? "RS";
   const [analyses, setAnalyses] = useState<Analysis[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
