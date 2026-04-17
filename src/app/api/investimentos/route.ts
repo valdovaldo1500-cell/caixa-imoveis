@@ -13,6 +13,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
+  const ufParam = request.nextUrl.searchParams.get("uf")?.toUpperCase();
+
   try {
     const rows = await db
       .select({
