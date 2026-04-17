@@ -2128,7 +2128,8 @@ function ImoveisPageInner() {
 
   const renderHeader = (colId: string) => {
     const colDef = ALL_COLUMNS.find((c) => c.id === colId);
-    const label = colDef?.label ?? "";
+    let label = colDef?.label ?? "";
+    if (colId === "distancia") label = state.toUpperCase() === "GO" ? "Dist. GYN" : "Dist. POA";
     const sk = (colDef as { sortKey?: string } | undefined)?.sortKey;
     const w = columnWidths[colId];
     const dw = (colDef as { defaultWidth?: number } | undefined)?.defaultWidth;
