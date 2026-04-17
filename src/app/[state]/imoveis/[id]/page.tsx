@@ -885,7 +885,7 @@ export default function PropertyDetailPage() {
 
   return (
     <div className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto space-y-6">
-      {compsPopup && <CompsModal propertyId={property.id} source={compsPopup} onClose={() => setCompsPopup(null)} />}
+      {compsPopup && !(state.toUpperCase() === "GO" && compsPopup === "itbi") && <CompsModal propertyId={property.id} source={compsPopup} onClose={() => setCompsPopup(null)} />}
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <header className="space-y-2">
         <div className="flex items-center gap-2 text-sm text-zinc-400">
