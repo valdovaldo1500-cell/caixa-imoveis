@@ -264,11 +264,19 @@ export async function calculateQAMarketValues(uf?: string): Promise<{ updated: n
     let saleComparables = filterListings(bairroSaleListings, true);
     // Step 2: bairro + type + area (relaxed)
     if (saleComparables.length < 3) saleComparables = filterListings(bairroSaleListings);
-    // NO city-wide fallback — different bairro = different price
+    // Step 3: city-wide fallback when sparse data (GO has only 205 QA listings total)
+    if (saleComparables.length < 3) {
+      const cityFallback = filterListings(citySaleListings);
+      if (cityFallback.length >= 3) saleComparables = cityFallback;
+    }
 
-    // Rental: bairro only
+    // Rental: same tiers
     let rentalComparables = filterListings(bairroRentalListings, true);
     if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings);
+    if (rentalComparables.length < 3) {
+      const cityRentalFallback = filterListings(cityRentalListings);
+      if (cityRentalFallback.length >= 3) rentalComparables = cityRentalFallback;
+    }
 
     // Calculate median R$/m² from sale comparables
     const salePricesPerM2 = saleComparables
