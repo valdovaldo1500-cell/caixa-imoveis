@@ -158,7 +158,7 @@ export default function PropertyMap({ properties, state }: PropertyMapProps) {
                     {p.modalidadeVenda || ""}
                   </p>
                   <div style={{ marginTop: 6, display: "flex", gap: 8 }}>
-                    <a href={`/imoveis/${p.id}`} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", fontSize: 12 }}>
+                    <a href={`/${state || "rs"}/imoveis/${p.id}`} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", fontSize: 12 }}>
                       Detalhes →
                     </a>
                     {p.linkCaixa && (
