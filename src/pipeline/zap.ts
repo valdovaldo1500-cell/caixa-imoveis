@@ -322,11 +322,7 @@ export async function calculateZapMarketValues(uf?: string): Promise<{ updated: 
     let saleComparables = filterListings(prefixSaleListings, true);
     // Step 2: exact/prefix bairro + type + area (relaxed)
     if (saleComparables.length < 3) saleComparables = filterListings(prefixSaleListings);
-    // Step 3: city-wide fallback — only if still no match AND city has enough listings (≥5)
-    if (saleComparables.length < 3) {
-      const cityFallback = filterListings(citySaleListings);
-      if (cityFallback.length >= 5) saleComparables = cityFallback;
-    }
+    // No city-wide fallback — bairro-level only (different bairro = different price)
 
     // Remove outliers (Caixa repossession resale ads with artificially low prices)
     saleComparables = removeOutliers(saleComparables, (r) => parseFloat(r.pricePerM2 || "0"));
