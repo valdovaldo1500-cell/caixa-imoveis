@@ -611,19 +611,41 @@ export async function getZapComparables(propertyId: number, _months: number = 12
   ]);
 
   // Normalize bairro on ZAP side too (ZAP has accented bairros, properties may not)
-  const bairroSale = bairroKey
+  let bairroSale = bairroKey
     ? citySale.filter((r) => normalizeName(r.bairro || "") === bairroKey)
     : [];
-  const bairroRental = bairroKey
+  let bairroRental = bairroKey
     ? cityRental.filter((r) => normalizeName(r.bairro || "") === bairroKey)
     : [];
 
-  // Bairro-only matching — no city-wide fallback (different bairro = different price)
+  // Prefix match fallback (e.g. "RESIDENCIAL ELDORADO EXPANSAO" matches ZAP's "RESIDENCIAL ELDORADO")
+  if (bairroKey && bairroSale.length === 0) {
+    bairroSale = citySale.filter((r) => {
+      const zk = normalizeName(r.bairro || "");
+      return zk && (bairroKey.startsWith(zk) || zk.startsWith(bairroKey));
+    });
+  }
+  if (bairroKey && bairroRental.length === 0) {
+    bairroRental = cityRental.filter((r) => {
+      const zk = normalizeName(r.bairro || "");
+      return zk && (bairroKey.startsWith(zk) || zk.startsWith(bairroKey));
+    });
+  }
+
   let saleComps = filterRows(bairroSale);
-  // Remove outliers (Caixa repossession resale ads with artificially low prices)
   saleComps = removeOutliers(saleComps, (r) => parseFloat(r.pricePerM2 || "0"));
 
   let rentalComps = filterRows(bairroRental, false);
+
+  // City-wide fallback when bairro-level is too sparse
+  if (saleComps.length < 3) {
+    const cityFallback = removeOutliers(filterRows(citySale), (r) => parseFloat(r.pricePerM2 || "0"));
+    if (cityFallback.length >= 5) saleComps = cityFallback;
+  }
+  if (rentalComps.length < 3) {
+    const cityFallbackR = filterRows(cityRental, false);
+    if (cityFallbackR.length >= 5) rentalComps = cityFallbackR;
+  }
 
   const salePm2 = saleComps.map((r) => parseFloat(r.pricePerM2 || "0")).filter((v) => v > 0);
   const rentalPrices = rentalComps.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
