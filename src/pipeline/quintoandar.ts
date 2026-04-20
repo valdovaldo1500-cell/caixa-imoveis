@@ -269,6 +269,7 @@ export async function calculateQAMarketValues(uf?: string): Promise<{ updated: n
     // Rental: same tiers
     let rentalComparables = filterListings(bairroRentalListings, true);
     if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings);
+    // No city-wide fallback — bairro-only
     if (false) {
       const cityRentalFallback = filterListings(cityRentalListings);
       if (cityRentalFallback.length >= 3) rentalComparables = cityRentalFallback;
