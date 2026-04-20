@@ -636,17 +636,7 @@ export async function getZapComparables(propertyId: number, _months: number = 12
   let saleComps = filterRows(bairroSale);
   saleComps = removeOutliers(saleComps, (r) => parseFloat(r.pricePerM2 || "0"));
 
-  let rentalComps = filterRows(bairroRental, false);
-
-  // City-wide fallback when bairro-level is too sparse
-  if (saleComps.length < 3) {
-    const cityFallback = removeOutliers(filterRows(citySale), (r) => parseFloat(r.pricePerM2 || "0"));
-    if (cityFallback.length >= 5) saleComps = cityFallback;
-  }
-  if (rentalComps.length < 3) {
-    const cityFallbackR = filterRows(cityRental, false);
-    if (cityFallbackR.length >= 5) rentalComps = cityFallbackR;
-  }
+  const rentalComps = filterRows(bairroRental, false);
 
   const salePm2 = saleComps.map((r) => parseFloat(r.pricePerM2 || "0")).filter((v) => v > 0);
   const rentalPrices = rentalComps.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
