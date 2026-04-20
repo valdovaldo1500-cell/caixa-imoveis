@@ -495,11 +495,6 @@ export async function getZapRentalComparables(propertyId: number, _months: numbe
       return rk && (bairroKey.startsWith(rk) || rk.startsWith(bairroKey));
     });
   }
-  // City-wide fallback
-  if (matched.length < 3) {
-    const cityFallback = cityRental.filter(matchesFallback);
-    if (cityFallback.length >= 5) matched = cityFallback;
-  }
   matched = matched.slice(0, 15);
 
   const prices = matched.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
