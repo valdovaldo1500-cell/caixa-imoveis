@@ -388,7 +388,11 @@ export async function getQAComparables(propertyId: number) {
 
   let comparables = filterListings(bairroListings, true);
   if (comparables.length < 3) comparables = filterListings(bairroListings);
-  // No city-wide fallback — bairro-only matching (same as zap.ts)
+  // City-wide fallback when bairro is too sparse (e.g. GO, where QA has 2 sale total)
+  if (comparables.length < 3) {
+    const cityFallback = filterListings(cityListings);
+    if (cityFallback.length >= 5) comparables = cityFallback;
+  }
 
   return {
     saleComparables: comparables.map((r) => ({
