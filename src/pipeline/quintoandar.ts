@@ -270,10 +270,6 @@ export async function calculateQAMarketValues(uf?: string): Promise<{ updated: n
     let rentalComparables = filterListings(bairroRentalListings, true);
     if (rentalComparables.length < 3) rentalComparables = filterListings(bairroRentalListings);
     // No city-wide fallback — bairro-only
-    if (false) {
-      const cityRentalFallback = filterListings(cityRentalListings);
-      if (cityRentalFallback.length >= 3) rentalComparables = cityRentalFallback;
-    }
 
     // Calculate median R$/m² from sale comparables
     const salePricesPerM2 = saleComparables
