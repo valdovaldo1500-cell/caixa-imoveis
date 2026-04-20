@@ -459,18 +459,7 @@ export async function getQARentalComparables(propertyId: number) {
       return true;
     });
   }
-  // City-wide fallback when bairro is too sparse
-  if (comparables.length < 3) {
-    const cityFallback = cityRentals.filter((r) => {
-      const rowType = (r.unitType || "").toUpperCase();
-      if (!rowType) return false;
-      if (isResidential && COMMERCIAL_TYPES.has(rowType)) return false;
-      if (!isResidential && !COMMERCIAL_TYPES.has(rowType)) return false;
-      if (qaTypes && !qaTypes.includes(rowType)) return false;
-      return true;
-    });
-    if (cityFallback.length >= 5) comparables = cityFallback;
-  }
+  // No city-wide fallback — bairro-only
 
   const prices = comparables.map((r) => parseFloat(r.price || "0")).filter((v) => v > 0);
 
