@@ -1,3 +1,8 @@
+# Single-package repo. The `packages` field is required by pnpm >=9.15 whenever
+# this file exists (otherwise `pnpm build` fails with "packages field missing or
+# empty"); '.' registers the repo root as the sole workspace package.
+packages:
+  - .
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
