@@ -18,9 +18,16 @@ services:
       RESEND_API_KEY: ${RESEND_API_KEY}
       NOTIFICATION_EMAIL: ${NOTIFICATION_EMAIL}
       PIPELINE_TOKEN: ${PIPELINE_TOKEN:-caixa-pipeline-2026-rs-secret}
+      # Explicit V8 heap ceiling, independent of cgroup auto-detection. Must stay
+      # comfortably below mem_limit so the kernel never OOM-kills the process.
+      NODE_OPTIONS: --max-old-space-size=1024
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped
+    # Next.js 16 cannot serve under load in the ~256MB Coolify was applying — it
+    # OOM-crashed (→ 502s). The app's real working set is ~130MB; 1.5GB is ample.
+    mem_limit: 1536m
+    mem_reservation: 512m
     networks:
       - default
       - coolify
