@@ -56,6 +56,14 @@ export async function runPipeline(uf: string = "RS"): Promise<PipelineResult> {
             id: properties.id,
             preco: properties.preco,
             desconto: properties.desconto,
+            valorAvaliacao: properties.valorAvaliacao,
+            modalidadeVenda: properties.modalidadeVenda,
+            linkCaixa: properties.linkCaixa,
+            aceitaFinanciamento: properties.aceitaFinanciamento,
+            cidade: properties.cidade,
+            bairro: properties.bairro,
+            endereco: properties.endereco,
+            descricao: properties.descricao,
           })
           .from(properties)
           .where(eq(properties.caixaId, p.caixaId))
@@ -79,12 +87,17 @@ export async function runPipeline(uf: string = "RS"): Promise<PipelineResult> {
           });
           result.new++;
         } else {
-          // Update existing
+          // Update existing — Caixa's CSV is the source of truth, so we ALWAYS
+          // re-sync every CSV-derived field. Previously these were only written
+          // when price/discount changed, which let modalidade, link, avaliação,
+          // financiamento and address fields drift stale (e.g. a property
+          // reclassified to "Venda Direta Online" without a price change never
+          // updated in the app — its old modalidade lingered forever).
           const row = existing[0];
           const oldPreco = row.preco ? parseFloat(row.preco) : null;
           const newPreco = p.preco;
 
-          // Track price changes
+          // Track price changes (only on a genuine price move)
           if (oldPreco !== null && newPreco !== null && oldPreco !== newPreco) {
             await db.insert(priceHistory).values({
               propertyId: row.id,
@@ -94,27 +107,50 @@ export async function runPipeline(uf: string = "RS"): Promise<PipelineResult> {
             result.priceChanges++;
           }
 
-          // Only update fields that may change; always touch lastSeenAt
+          // Normalised incoming values
+          const newPrecoStr = p.preco?.toString() ?? null;
+          const newAvalStr = p.valorAvaliacao?.toString() ?? null;
+          const newDescStr = p.desconto?.toString() ?? null;
+          const newModalidade = p.modalidadeVenda || null;
+          const newLink = p.linkCaixa || null;
+          const newFinanciamento = p.aceitaFinanciamento;
+          const newCidade = p.cidade;
+          const newBairro = p.bairro || null;
+          const newEndereco = p.endereco || null;
+          const newDescricao = p.descricao || null;
+
+          // Did any meaningful field change? (drives updatedAt + the counter)
+          const oldDesc = row.desconto ? parseFloat(row.desconto) : null;
+          const oldAval = row.valorAvaliacao ? parseFloat(row.valorAvaliacao) : null;
+          const dataChanged =
+            oldPreco !== newPreco ||
+            oldDesc !== p.desconto ||
+            oldAval !== p.valorAvaliacao ||
+            row.modalidadeVenda !== newModalidade ||
+            row.linkCaixa !== newLink ||
+            row.aceitaFinanciamento !== newFinanciamento ||
+            row.cidade !== newCidade ||
+            row.bairro !== newBairro ||
+            row.endereco !== newEndereco ||
+            row.descricao !== newDescricao;
+
+          // Always re-sync from the CSV (Caixa is authoritative); always touch lastSeenAt
           const updateSet: Record<string, unknown> = {
             lastSeenAt: new Date(),
             removedAt: null, // Mark as active again if it was removed
+            preco: newPrecoStr,
+            valorAvaliacao: newAvalStr,
+            desconto: newDescStr,
+            modalidadeVenda: newModalidade,
+            linkCaixa: newLink,
+            aceitaFinanciamento: newFinanciamento,
+            cidade: newCidade,
+            bairro: newBairro,
+            endereco: newEndereco,
+            descricao: newDescricao,
           };
 
-          // Check if any field actually changed before setting updatedAt
-          const oldDesc = row.desconto ? parseFloat(row.desconto) : null;
-          const newDesc = p.desconto;
-          const dataChanged =
-            oldPreco !== newPreco ||
-            oldDesc !== newDesc ||
-            row.preco !== (p.preco?.toString() ?? null);
-
           if (dataChanged) {
-            updateSet.preco = p.preco?.toString() ?? null;
-            updateSet.valorAvaliacao = p.valorAvaliacao?.toString() ?? null;
-            updateSet.desconto = p.desconto?.toString() ?? null;
-            updateSet.modalidadeVenda = p.modalidadeVenda || null;
-            updateSet.linkCaixa = p.linkCaixa || null;
-            updateSet.aceitaFinanciamento = p.aceitaFinanciamento;
             updateSet.updatedAt = new Date();
             result.updated++;
           }
