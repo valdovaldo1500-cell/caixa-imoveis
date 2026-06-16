@@ -56,6 +56,14 @@ export async function runPipeline(uf: string = "RS"): Promise<PipelineResult> {
             id: properties.id,
             preco: properties.preco,
             desconto: properties.desconto,
+            valorAvaliacao: properties.valorAvaliacao,
+            modalidadeVenda: properties.modalidadeVenda,
+            linkCaixa: properties.linkCaixa,
+            aceitaFinanciamento: properties.aceitaFinanciamento,
+            cidade: properties.cidade,
+            bairro: properties.bairro,
+            endereco: properties.endereco,
+            descricao: properties.descricao,
           })
           .from(properties)
           .where(eq(properties.caixaId, p.caixaId))
