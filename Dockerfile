@@ -1,7 +1,11 @@
 FROM node:20-alpine AS base
 
 # Install pnpm and curl (for CSV download)
-RUN corepack enable && corepack prepare pnpm@latest --activate && \
+# pnpm is PINNED to 9.x: this image is node:20-alpine, and pnpm >=10 requires
+# Node >=22.13 (uses node:util styleText) — `pnpm@latest` silently broke the
+# build once pnpm 10 shipped. 9.15.9 matches our lockfileVersion 9.0. Do NOT
+# revert to @latest without also bumping the Node base image.
+RUN corepack enable && corepack prepare pnpm@9.15.9 --activate && \
     apk add --no-cache curl
 
 # Dependencies
