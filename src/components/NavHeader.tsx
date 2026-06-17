@@ -76,6 +76,13 @@ export default function NavHeader({ state }: { state: string }) {
               </Link>
             );
           })}
+          <a
+            href="/sitios.html"
+            className="px-3 py-1.5 rounded text-sm text-emerald-400 hover:text-emerald-300 hover:bg-zinc-800 transition-colors whitespace-nowrap"
+            title="Catálogo de sítios e chácaras do canal Darlei Souza"
+          >
+            🌿 Sítios
+          </a>
           <div className="ml-3 pl-3 border-l border-zinc-700 flex items-center gap-2">
             {username && (
               <span className="text-xs text-zinc-500 flex items-center gap-1">
