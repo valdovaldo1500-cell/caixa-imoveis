@@ -17,7 +17,13 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Public routes — no auth required
-  if (pathname === "/" || pathname === "/login" || pathname.startsWith("/api/auth/")) {
+  if (
+    pathname === "/" ||
+    pathname === "/login" ||
+    pathname === "/sitios" ||
+    pathname === "/sitios.html" ||
+    pathname.startsWith("/api/auth/")
+  ) {
     return NextResponse.next();
   }
 

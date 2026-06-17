@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, Building2, ArrowRight } from "lucide-react";
+import { MapPin, Building2, ArrowRight, Trees } from "lucide-react";
 
 export const metadata = {
   title: "Imóveis Caixa — Selecione o Estado",
@@ -47,6 +47,22 @@ export default function LandingPage() {
             </div>
           </Link>
         </div>
+
+        <a
+          href="/sitios.html"
+          className="group relative bg-gradient-to-r from-emerald-900/30 to-zinc-900 border border-zinc-800 hover:border-emerald-500 rounded-xl p-5 transition-all hover:bg-zinc-800/60 flex items-center gap-4"
+        >
+          <div className="bg-emerald-600/20 rounded-lg p-2.5 shrink-0">
+            <Trees className="w-5 h-5 text-emerald-400" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h2 className="text-base font-semibold text-white">Sítios, Chácaras &amp; Terrenos — Darlei Souza</h2>
+            <p className="text-sm text-zinc-400 mt-0.5">
+              Catálogo de 1.410 vídeos do canal, por ano e cidade (RS/SC) — com favoritar e ocultar
+            </p>
+          </div>
+          <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-0.5 transition-transform shrink-0" />
+        </a>
 
         <p className="text-center text-xs text-zinc-600">Acesso restrito — faça login para continuar</p>
       </div>
