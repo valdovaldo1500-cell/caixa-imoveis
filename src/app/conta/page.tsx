@@ -111,7 +111,11 @@ export default async function ContaPage({
             </p>
 
             {!liberado && (
-              <AssinarBotoes planoSugerido={assinar === "anual" ? "anual" : "mensal"} />
+              <AssinarBotoes
+                planoSugerido={assinar === "anual" ? "anual" : "mensal"}
+                rotuloMensal={PRECOS.mensal.rotulo}
+                rotuloAnual={PRECOS.anual.rotulo}
+              />
             )}
 
             {liberado && assinante.status === "ativa" && <CancelarBotao />}
