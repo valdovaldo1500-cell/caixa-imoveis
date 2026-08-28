@@ -18,6 +18,15 @@ services:
       RESEND_API_KEY: ${RESEND_API_KEY}
       NOTIFICATION_EMAIL: ${NOTIFICATION_EMAIL}
       PIPELINE_TOKEN: ${PIPELINE_TOKEN:-caixa-pipeline-2026-rs-secret}
+      # O6 — site público do agregador. Sem isso: NEXT_PUBLIC_SITE_URL cai no
+      # fallback hardcoded (funciona, mas silencioso); ASSINATURA_SESSION_SECRET
+      # sem valor cai no SESSION_SECRET do time interno (funciona, mas reusa
+      # segredo entre dois sistemas que deveriam ser isolados); sem
+      # WEBHOOK_ASSINATURA_SECRET a rota /api/assinatura/webhook agora recusa
+      # (503) em vez de aceitar sem autenticação.
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://imoveis.crimebrasil.com.br}
+      ASSINATURA_SESSION_SECRET: ${ASSINATURA_SESSION_SECRET}
+      WEBHOOK_ASSINATURA_SECRET: ${WEBHOOK_ASSINATURA_SECRET}
       # Explicit V8 heap ceiling, independent of cgroup auto-detection. Must stay
       # comfortably below mem_limit so the kernel never OOM-kills the process.
       NODE_OPTIONS: --max-old-space-size=1024
