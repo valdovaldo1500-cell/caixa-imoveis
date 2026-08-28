@@ -25,6 +25,13 @@ export async function POST(request: Request) {
     if (recebido !== secretEsperado) {
       return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
     }
+  } else if (process.env.NODE_ENV === "production") {
+    // Sem WEBHOOK_ASSINATURA_SECRET configurado, esta rota aceitaria
+    // {assinanteId, tipo:"pagamento_confirmado", status:"pago"} de QUALQUER
+    // origem sem autenticação — liberaria plano pago de graça (ou cancelaria
+    // assinatura de terceiro) para qualquer assinanteId adivinhado. Recusa
+    // fechado em produção em vez de degradar para "sem checagem".
+    return NextResponse.json({ error: "Webhook não configurado" }, { status: 503 });
   }
 
   const body = await request.json().catch(() => null);
