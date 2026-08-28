@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
+import { unstable_cache } from "next/cache";
 import { and, eq, isNull, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
 import { cidadeUrl, imovelUrl, ufUrl } from "@/lib/slug";
 import { VALID_STATES } from "@/lib/state";
+import { CACHE_TTL_SITEMAP } from "@/lib/cache";
 
 /**
  * Sitemap do agregador (O6).
@@ -31,10 +33,12 @@ const ativo = isNull(properties.removedAt);
  * Coolify o build roda antes de o container entrar na rede do Postgres.
  * Um build que falha por isso derruba o deploy inteiro, e o sitemap não
  * ganha nada em ser estático: ele muda todo dia, junto com o estoque.
- * Por isso é gerado sob demanda, com cache de uma hora.
+ * Por isso é gerado sob demanda (`force-dynamic`, nunca pré-renderizado), e o
+ * cache de verdade fica nas funções `sitemapEstrutura`/`sitemapImoveis`
+ * abaixo, via `unstable_cache` — 6h de TTL (`CACHE_TTL_SITEMAP`), maior que
+ * o TTL das páginas porque o sitemap só serve crawler, não visita direta.
  */
 export const dynamic = "force-dynamic";
-export const revalidate = 3600;
 
 export async function generateSitemaps() {
   return [{ id: "estrutura" }, { id: "imoveis-go" }, { id: "imoveis-rs" }];
@@ -51,58 +55,72 @@ export default async function sitemap({ id }: { id: Promise<string> }): Promise<
   return sitemapEstrutura();
 }
 
-async function sitemapEstrutura(): Promise<MetadataRoute.Sitemap> {
-  const entradas: MetadataRoute.Sitemap = [
-    { url: SITE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
-  ];
+// PEGADINHA (ver `@/lib/cache.ts`): `unstable_cache` serializa o retorno com
+// `JSON.stringify`/`JSON.parse`, então os `Date` de `lastModified` abaixo
+// voltam como `string` (ISO) num cache HIT — e como `Date` de verdade só no
+// MISS. Não quebra nada aqui: `MetadataRoute.Sitemap["lastModified"]` já
+// aceita `string | Date`, e o serializador de sitemap do Next também aceita
+// os dois formatos.
+const sitemapEstrutura = unstable_cache(
+  async (): Promise<MetadataRoute.Sitemap> => {
+    const entradas: MetadataRoute.Sitemap = [
+      { url: SITE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
+    ];
 
-  for (const uf of VALID_STATES) {
-    entradas.push({
-      url: `${SITE_URL}${ufUrl(uf)}`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.8,
-    });
-  }
+    for (const uf of VALID_STATES) {
+      entradas.push({
+        url: `${SITE_URL}${ufUrl(uf)}`,
+        lastModified: new Date(),
+        changeFrequency: "daily",
+        priority: 0.8,
+      });
+    }
 
-  const cidades = await db
-    .select({
-      uf: properties.uf,
-      cidade: properties.cidade,
-      atualizadoEm: sql<Date | null>`max(${properties.updatedAt})`,
-    })
-    .from(properties)
-    .where(ativo)
-    .groupBy(properties.uf, properties.cidade);
+    const cidades = await db
+      .select({
+        uf: properties.uf,
+        cidade: properties.cidade,
+        atualizadoEm: sql<Date | null>`max(${properties.updatedAt})`,
+      })
+      .from(properties)
+      .where(ativo)
+      .groupBy(properties.uf, properties.cidade);
 
-  for (const c of cidades) {
-    entradas.push({
-      url: `${SITE_URL}${cidadeUrl(c.uf, c.cidade)}`,
-      lastModified: c.atualizadoEm ?? new Date(),
-      changeFrequency: "daily",
-      priority: 0.6,
-    });
-  }
+    for (const c of cidades) {
+      entradas.push({
+        url: `${SITE_URL}${cidadeUrl(c.uf, c.cidade)}`,
+        lastModified: c.atualizadoEm ?? new Date(),
+        changeFrequency: "daily",
+        priority: 0.6,
+      });
+    }
 
-  return entradas;
-}
+    return entradas;
+  },
+  ["o6", "sitemap", "estrutura"],
+  { revalidate: CACHE_TTL_SITEMAP }
+);
 
-async function sitemapImoveis(uf: string): Promise<MetadataRoute.Sitemap> {
-  const imoveis = await db
-    .select({
-      caixaId: properties.caixaId,
-      uf: properties.uf,
-      cidade: properties.cidade,
-      tipoImovel: properties.tipoImovel,
-      atualizadoEm: properties.updatedAt,
-    })
-    .from(properties)
-    .where(and(ativo, eq(properties.uf, uf)));
+const sitemapImoveis = unstable_cache(
+  async (uf: string): Promise<MetadataRoute.Sitemap> => {
+    const imoveis = await db
+      .select({
+        caixaId: properties.caixaId,
+        uf: properties.uf,
+        cidade: properties.cidade,
+        tipoImovel: properties.tipoImovel,
+        atualizadoEm: properties.updatedAt,
+      })
+      .from(properties)
+      .where(and(ativo, eq(properties.uf, uf)));
 
-  return imoveis.map((p) => ({
-    url: `${SITE_URL}${imovelUrl(p)}`,
-    lastModified: p.atualizadoEm ?? new Date(),
-    changeFrequency: "daily" as const,
-    priority: 0.5,
-  }));
-}
+    return imoveis.map((p) => ({
+      url: `${SITE_URL}${imovelUrl(p)}`,
+      lastModified: p.atualizadoEm ?? new Date(),
+      changeFrequency: "daily" as const,
+      priority: 0.5,
+    }));
+  },
+  ["o6", "sitemap", "imoveis"],
+  { revalidate: CACHE_TTL_SITEMAP }
+);

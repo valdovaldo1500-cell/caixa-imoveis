@@ -5,25 +5,44 @@
  */
 
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { eq } from "drizzle-orm";
 import type { InferSelectModel } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
+import { CACHE_TTL_LISTA } from "@/lib/cache";
 
 export type Imovel = InferSelectModel<typeof properties>;
 
 /**
- * `cache()` garante que `generateMetadata` e a página em si — que rodam na
- * mesma requisição — não disparem a mesma query duas vezes.
+ * Duas camadas de cache: `unstable_cache` persiste o resultado entre
+ * requisições (TTL de 1h — ver `@/lib/cache.ts`), e `cache()` do React
+ * garante que `generateMetadata` e a página em si — que rodam na mesma
+ * requisição — não disparem a mesma leitura duas vezes.
+ *
+ * PEGADINHA: `linha` (o registro inteiro de `properties`) carrega várias
+ * colunas `timestamp`/`date` (ex.: `createdAt`, `crimeJanelaInicio`) que,
+ * depois de passar pelo `JSON.stringify`/`JSON.parse` do `unstable_cache`,
+ * viram `string` em vez de `Date` num cache HIT. Hoje nenhum campo de data
+ * do imóvel é usado com `.getFullYear()`/`.toISOString()` na página pública
+ * (só `Boolean(imovel.removedAt)`, que funciona igual nos dois tipos) — se
+ * algum código novo precisar de um desses campos como `Date`, trate a
+ * pegadinha ali, não aqui.
  */
-export const buscarImovel = cache(async (caixaId: string): Promise<Imovel | null> => {
-  const [linha] = await db
-    .select()
-    .from(properties)
-    .where(eq(properties.caixaId, caixaId))
-    .limit(1);
-  return linha ?? null;
-});
+export const buscarImovel = cache(
+  unstable_cache(
+    async (caixaId: string): Promise<Imovel | null> => {
+      const [linha] = await db
+        .select()
+        .from(properties)
+        .where(eq(properties.caixaId, caixaId))
+        .limit(1);
+      return linha ?? null;
+    },
+    ["o6", "imovel", "buscar"],
+    { revalidate: CACHE_TTL_LISTA }
+  )
+);
 
 export function formatBRL(valor: string | number | null | undefined): string | null {
   if (valor == null) return null;
