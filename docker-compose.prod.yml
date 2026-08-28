@@ -32,6 +32,17 @@ services:
       NODE_OPTIONS: --max-old-space-size=1024
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    # Sem isso, `docker inspect` mostra Healthcheck: null (checado em prod em
+    # 28/08/2026) — o Coolify não tem como saber se o container novo subiu
+    # quebrado antes de trocar o tráfego. /api/auth/status não toca o banco
+    # (só lê cookie), então não falsopositiva em soluço passageiro do Postgres.
+    # start_period cobre o sleep 5s do entrypoint.sh + tempo de boot do Next.
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/auth/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     restart: unless-stopped
     # Next.js 16 cannot serve under load in the ~256MB Coolify was applying — it
     # OOM-crashed (→ 502s). The app's real working set is ~130MB; 1.5GB is ample.
