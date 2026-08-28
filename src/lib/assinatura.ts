@@ -318,11 +318,6 @@ export function getProvedorPagamento(): ProvedorPagamento {
   const escolha = (process.env.PAGAMENTO_PROVEDOR || "demo").trim().toLowerCase();
 
   if (escolha === "pagbank") {
-    // Import tardio (não no topo do módulo): mantém `assinatura.ts` livre de
-    // custo de carregar o adaptador PagBank quando ninguém pediu ele — e
-    // evita qualquer surpresa de import circular em tempo de build, já que
-    // `pagbank.ts` importa tipos e `PRECOS` daqui.
-    const { provedorPagBank, pagbankConfigurado } = require("@/lib/pagamento/pagbank") as typeof import("@/lib/pagamento/pagbank");
     if (pagbankConfigurado()) return provedorPagBank;
     console.error(
       "[assinatura] PAGAMENTO_PROVEDOR=pagbank mas PAGSEGURO_API_TOKEN não está configurado — " +
