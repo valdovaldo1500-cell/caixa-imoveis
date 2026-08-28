@@ -1,20 +1,39 @@
 name: Deploy to Coolify
 
+# 28/08/2026: a chamada direta a ${COOLIFY_URL}/api/v1/deploy parou de funcionar quando
+# coolify-port-guard.sh (10/08/2026, no host) fechou as portas :8000/:6001/:6002 do
+# Coolify para a internet publica -- endurecimento deliberado, o dashboard estava
+# respondendo sem nada alem de senha na frente. O proprio guard documenta o caminho
+# sancionado pos-fechamento: SSH. Este workflow faz exatamente isso: conecta via SSH
+# com uma chave restrita (forced command, sem shell livre) e o comando forcado no host
+# chama http://localhost:8000 -- nunca sai para a internet. Ver DEPLOY.md na raiz do
+# repo para o desenho completo (chave, forced command, como girar/revogar).
 on:
   push:
     branches: [main]
+  workflow_dispatch: {}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Coolify deploy
+      - name: Trigger Coolify deploy via SSH (forced command, sem :8000 publico)
         env:
-          COOLIFY_URL: ${{ secrets.COOLIFY_URL }}
-          COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
-          COOLIFY_APP_UUID: ${{ secrets.COOLIFY_APP_UUID }}
+          DEPLOY_SSH_KEY: ${{ secrets.CAIXA_DEPLOY_SSH_KEY }}
+          DEPLOY_SSH_HOST: ${{ secrets.CAIXA_DEPLOY_SSH_HOST }}
         run: |
-          curl -s -X POST \
-            "${COOLIFY_URL}/api/v1/deploy?uuid=${COOLIFY_APP_UUID}&force=false" \
-            -H "Authorization: Bearer ${COOLIFY_TOKEN}" \
-            -H "Content-Type: application/json"
+          set -euo pipefail
+          umask 077
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_SSH_KEY" > ~/.ssh/caixa_deploy_key
+          chmod 600 ~/.ssh/caixa_deploy_key
+
+          # Host key pinado (mesma chave verificada manualmente em 28/08/2026) --
+          # nunca StrictHostKeyChecking=no aqui, essa chave só dispara deploy, mas
+          # ainda assim é credencial de produção.
+          echo "$DEPLOY_SSH_HOST ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBOdTZbZmM/fEqHNOQ2P7Yq5TKrYWP7AhbDMn1nkqr2W" > ~/.ssh/known_hosts
+
+          OUT=$(ssh -i ~/.ssh/caixa_deploy_key -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
+            "root@${DEPLOY_SSH_HOST}" "deploy caixa-imoveis")
+          echo "$OUT"
+          echo "$OUT" | grep -q '"deployment_uuid"' || { echo "::error::resposta sem deployment_uuid -- deploy provavelmente NAO foi enfileirado"; exit 1; }
