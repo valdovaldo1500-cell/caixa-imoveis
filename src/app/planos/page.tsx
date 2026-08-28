@@ -83,8 +83,8 @@ export default async function PlanosPage() {
                 ))}
               </ul>
               {!assinante && (
-                <Button asChild size="lg" variant="outline" className="w-full">
-                  <Link href="/cadastro">Criar conta grátis</Link>
+                <Button size="lg" variant="outline" className="w-full" render={<Link href="/cadastro" />}>
+                  Criar conta grátis
                 </Button>
               )}
             </CardContent>
