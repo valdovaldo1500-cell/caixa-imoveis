@@ -131,25 +131,25 @@ export default async function PlanosPage() {
               </ul>
 
               {jaAssina ? (
-                <Button asChild size="lg" className="w-full">
-                  <Link href="/conta">Ver minha conta</Link>
+                <Button size="lg" className="w-full" render={<Link href="/conta" />}>
+                  Ver minha conta
                 </Button>
               ) : assinante ? (
                 <div className="grid grid-cols-2 gap-2">
-                  <Button asChild size="lg" className="w-full">
-                    <Link href="/conta?assinar=mensal">Assinar mensal</Link>
+                  <Button size="lg" className="w-full" render={<Link href="/conta?assinar=mensal" />}>
+                    Assinar mensal
                   </Button>
-                  <Button asChild size="lg" variant="outline" className="w-full">
-                    <Link href="/conta?assinar=anual">Assinar anual</Link>
+                  <Button size="lg" variant="outline" className="w-full" render={<Link href="/conta?assinar=anual" />}>
+                    Assinar anual
                   </Button>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 gap-2">
-                  <Button asChild size="lg" className="w-full">
-                    <Link href="/cadastro?plano=mensal">Assinar mensal</Link>
+                  <Button size="lg" className="w-full" render={<Link href="/cadastro?plano=mensal" />}>
+                    Assinar mensal
                   </Button>
-                  <Button asChild size="lg" variant="outline" className="w-full">
-                    <Link href="/cadastro?plano=anual">Assinar anual</Link>
+                  <Button size="lg" variant="outline" className="w-full" render={<Link href="/cadastro?plano=anual" />}>
+                    Assinar anual
                   </Button>
                 </div>
               )}
