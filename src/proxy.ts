@@ -34,6 +34,7 @@ export function proxy(request: NextRequest) {
     pathname === "/conta" ||
     pathname.startsWith("/imovel/") ||
     pathname.startsWith("/leilao-imoveis") ||
+    pathname.startsWith("/sitemap") ||
     pathname.startsWith("/api/auth/") ||
     pathname.startsWith("/api/assinatura/")
   ) {
@@ -71,5 +72,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|sitemap|robots.txt).*)"],
 };

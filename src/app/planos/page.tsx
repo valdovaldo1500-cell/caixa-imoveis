@@ -20,7 +20,7 @@ const RECURSOS_GRATIS = [
   "Ficha completa de cada imóvel",
   "Nota de segurança do município",
   "Filtro por nota de segurança",
-  "Documentos do imóvel (edital, matrícula)",
+  "Link direto para o edital no site da Caixa",
 ];
 
 // Só entra aqui o que já está construído. A pesquisa de mercado mostrou que
