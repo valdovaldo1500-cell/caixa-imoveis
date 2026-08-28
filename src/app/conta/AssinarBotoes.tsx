@@ -3,14 +3,26 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { PRECOS } from "@/lib/assinatura";
 
 /**
  * Dispara `POST /api/assinatura/assinar`. Com o provedor `demo` isto NUNCA
  * cobra de verdade — só deixa a conta em "pagamento pendente" e grava a
  * intenção em `cobrancas`. Ver `src/lib/assinatura.ts`.
+ *
+ * `rotuloMensal`/`rotuloAnual` vêm como prop (calculados no Server Component
+ * a partir de `PRECOS`) em vez de importar `@/lib/assinatura` aqui — esse
+ * módulo também importa `db` (postgres) e `next/headers`, que não podem
+ * entrar no bundle do cliente.
  */
-export default function AssinarBotoes({ planoSugerido }: { planoSugerido: "mensal" | "anual" }) {
+export default function AssinarBotoes({
+  planoSugerido,
+  rotuloMensal,
+  rotuloAnual,
+}: {
+  planoSugerido: "mensal" | "anual";
+  rotuloMensal: string;
+  rotuloAnual: string;
+}) {
   const router = useRouter();
   const [loadingPlano, setLoadingPlano] = useState<"mensal" | "anual" | null>(null);
   const [erro, setErro] = useState("");
