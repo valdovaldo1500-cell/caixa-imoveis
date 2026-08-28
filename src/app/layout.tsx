@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Imóveis Caixa",
-  description: "Dashboard de análise de imóveis retomados pela Caixa Econômica Federal",
+  title: { default: "Imóveis de leilão da Caixa", template: "%s" },
+  description:
+    "Imóveis da Caixa em leilão, com a nota de segurança do município ao lado de cada um.",
 };
 
 export default function RootLayout({
@@ -29,6 +31,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-zinc-950 text-zinc-100">
         {children}
+        <Analytics />
       </body>
     </html>
   );
