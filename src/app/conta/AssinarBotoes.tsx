@@ -60,7 +60,7 @@ export default function AssinarBotoes({
           onClick={() => assinar("mensal")}
           variant={planoSugerido === "mensal" ? "default" : "outline"}
         >
-          {loadingPlano === "mensal" ? "..." : `Assinar mensal — ${PRECOS.mensal.rotulo}`}
+          {loadingPlano === "mensal" ? "..." : `Assinar mensal — ${rotuloMensal}`}
         </Button>
         <Button
           size="lg"
