@@ -17,6 +17,12 @@ import { cookies } from "next/headers";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { assinantes, cobrancas } from "@/lib/db/schema";
+// Import circular de propósito: `pagbank.ts` importa tipos e `PRECOS` daqui,
+// e este arquivo importa a implementação de lá. Seguro porque nenhum dos
+// dois lados usa o valor importado no topo do módulo — só dentro de corpo
+// de função (`getProvedorPagamento`, `iniciarAssinatura`, etc.), quando os
+// dois módulos já terminaram de carregar.
+import { provedorPagBank, pagbankConfigurado } from "@/lib/pagamento/pagbank";
 
 const scrypt = promisify(scryptCb);
 
@@ -211,14 +217,16 @@ export const PRECOS = {
 // ---------------------------------------------------------------------------
 // Adaptador de provedor de cobrança.
 //
-// O Crime Brasil já usa PagBank, mas só para pagamento avulso (boleto/PIX de
-// relatório) — não há assinatura recorrente configurada lá, então não existe
-// caminho pronto para copiar. A escolha entre PagBank recorrente e Mercado
-// Pago (preapproval) está pendente com o dono do produto.
+// Implementação real: PagBank/PagSeguro, via `src/lib/pagamento/pagbank.ts`
+// (Checkout PagBank com `recurrence_plan` — ver o cabeçalho daquele arquivo
+// para a arquitetura completa, os dois hosts/tokens envolvidos e o que falta
+// habilitar no painel do PagBank).
 //
-// Só existe a implementação `demo` abaixo, que nunca cobra: registra a
-// intenção em `cobrancas` e deixa o assinante em `pendente`. Ninguém deve
-// achar que isso processa pagamento de verdade.
+// A implementação `demo` abaixo continua existindo e é o PADRÃO — nunca
+// cobra: registra a intenção em `cobrancas` e deixa o assinante em
+// `pendente`. Trocar para o provedor real é uma decisão explícita do dono via
+// env (`PAGAMENTO_PROVEDOR=pagbank`), nunca um efeito colateral de deploy —
+// ver `getProvedorPagamento()` no fim do arquivo.
 // ---------------------------------------------------------------------------
 
 export type Plano = "mensal" | "anual";
@@ -247,29 +255,8 @@ export interface ProvedorPagamento {
 
 /**
  * Implementação demo — não fala com nenhum gateway. Só grava a intenção.
- *
- * O QUE FALTA PARA PLUGAR O PROVEDOR REAL (PagBank recorrente ou Mercado
- * Pago preapproval):
- *  1. Credenciais em env (`process.env.PAGBANK_TOKEN` ou
- *     `MERCADOPAGO_ACCESS_TOKEN`) — nunca hardcoded.
- *  2. `iniciarAssinatura` precisa chamar a API do provedor para criar o plano
- *     recorrente (ou usar um plano pré-cadastrado no painel do provedor) e
- *     devolver uma `checkoutUrl` real para redirecionar o assinante — aqui
- *     `checkoutUrl` é sempre `null`.
- *  3. `cancelarAssinatura` precisa chamar o endpoint de cancelamento do
- *     provedor (PagBank: `PUT /subscriptions/{id}/cancel`; Mercado Pago:
- *     `PUT /preapproval/{id}` com `status: cancelled`) — aqui é só cosmético.
- *  4. O webhook (`/api/assinatura/webhook/route.ts`) HOJE confia num segredo
- *     compartilhado simples (`WEBHOOK_ASSINATURA_SECRET`). Cada provedor tem
- *     seu próprio esquema de assinatura de webhook (PagBank manda um header
- *     de notificação que exige uma consulta de confirmação à API deles;
- *     Mercado Pago assina com HMAC-SHA256 num header `x-signature`) — isso
- *     precisa ser validado por provedor antes de confiar no payload.
- *  5. Idempotência: `cobrancas.provedorEventoId` não tem constraint UNIQUE
- *     hoje. O webhook real deve checar se o evento já foi processado antes
- *     de aplicar (provedores reenviam o mesmo evento).
- *  6. Mapear o `plano` interno (`mensal`/`anual`) para o ID de plano do
- *     provedor — hoje é 1:1 fictício.
+ * Continua existindo como PADRÃO (ver `getProvedorPagamento`), para que o
+ * comportamento em produção nunca mude sozinho por causa de um deploy.
  */
 export const provedorDemo: ProvedorPagamento = {
   nome: "demo",
@@ -314,8 +301,29 @@ export const provedorDemo: ProvedorPagamento = {
   },
 };
 
+/**
+ * Seleção do provedor — por env, nunca automática.
+ *
+ * `PAGAMENTO_PROVEDOR=pagbank|demo`, com `demo` como PADRÃO: o que está no
+ * ar hoje não muda de comportamento sozinho por causa deste deploy — ligar
+ * cobrança de verdade é uma decisão explícita do dono (setar a env em
+ * produção), não um efeito colateral.
+ *
+ * Falha fechada: se `PAGAMENTO_PROVEDOR=pagbank` mas a credencial mínima
+ * (`PAGSEGURO_API_TOKEN`) não está configurada, o provedor real NÃO carrega
+ * — cai para `demo` e loga um aviso alto, em vez de deixar rotas de
+ * pagamento quebrarem em produção ou (pior) seguir sem checagem nenhuma.
+ */
 export function getProvedorPagamento(): ProvedorPagamento {
-  // Quando o provedor real existir, trocar aqui por
-  // `process.env.PROVEDOR_PAGAMENTO === "pagbank" ? provedorPagBank : ...`.
+  const escolha = (process.env.PAGAMENTO_PROVEDOR || "demo").trim().toLowerCase();
+
+  if (escolha === "pagbank") {
+    if (pagbankConfigurado()) return provedorPagBank;
+    console.error(
+      "[assinatura] PAGAMENTO_PROVEDOR=pagbank mas PAGSEGURO_API_TOKEN não está configurado — " +
+        "caindo para o provedor demo (nenhuma cobrança real será feita)."
+    );
+  }
+
   return provedorDemo;
 }

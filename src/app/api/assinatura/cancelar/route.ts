@@ -21,10 +21,19 @@ export async function POST(request: Request) {
   }
 
   const provedor = getProvedorPagamento();
-  await provedor.cancelarAssinatura({
+  const resultado = await provedor.cancelarAssinatura({
     assinanteId: assinante.id,
     provedorAssinaturaId: assinante.provedorAssinaturaId,
   });
+
+  // Com o provedor demo, `cancelarAssinatura` sempre volta `ok: true` (é só
+  // cosmético). Com o PagBank de verdade, se a chamada ao provedor falhar
+  // (ex.: `PAGSEGURO_ASSINATURAS_TOKEN` ausente), NÃO marcamos `cancelada`
+  // aqui — senão o produto acha que parou de cobrar enquanto o PagBank
+  // continua debitando o cartão do assinante nos próximos ciclos.
+  if (!resultado.ok) {
+    return NextResponse.json({ error: resultado.erro || "Não foi possível cancelar no provedor" }, { status: 502 });
+  }
 
   // O acesso pago continua até `validoAte` — cancelar não corta na hora,
   // só desliga a renovação. `podeVer()` já sabe ler isso.
