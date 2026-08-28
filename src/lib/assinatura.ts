@@ -157,7 +157,18 @@ export type RecursoPago = "alertas" | "filtro_seguranca" | "historico_preco";
 
 const PLANOS_PAGOS = new Set(["mensal", "anual"]);
 
-export function podeVer(assinante: AssinanteSessao | null, _recurso: RecursoPago): boolean {
+// Hoje os três recursos pagos liberam juntos (mesma regra de plano/status).
+// O parâmetro fica explícito porque é bem provável que um recurso solte
+// antes do outro (ex.: filtro_seguranca no plano grátis como isca) — nesse
+// dia, a diferença entra aqui, num lugar só, sem caçar chamada por chamada.
+const RECURSOS_PAGOS: Record<RecursoPago, true> = {
+  alertas: true,
+  filtro_seguranca: true,
+  historico_preco: true,
+};
+
+export function podeVer(assinante: AssinanteSessao | null, recurso: RecursoPago): boolean {
+  if (!RECURSOS_PAGOS[recurso]) return false;
   if (!assinante) return false;
   if (!PLANOS_PAGOS.has(assinante.plano)) return false;
 
