@@ -155,7 +155,7 @@ export default async function CidadePage({ params, searchParams }: Props) {
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-400">{paragrafo}</p>
 
         <div className="mt-6">
-          <Filtros action={base} tipos={tipos} atual={{ desconto: primeiro(query.desconto), seguranca: primeiro(query.seguranca), precoMax: primeiro(query.precoMax), tipo: primeiro(query.tipo), ordem: primeiro(query.ordem) }} />
+          <Filtros action={base} tipos={tipos} atual={filtrosAtuais} />
         </div>
 
         <p className="mt-4 text-xs text-zinc-500">
