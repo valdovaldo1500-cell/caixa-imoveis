@@ -69,7 +69,7 @@ export default function AssinarBotoes({
           onClick={() => assinar("anual")}
           variant={planoSugerido === "anual" ? "default" : "outline"}
         >
-          {loadingPlano === "anual" ? "..." : `Assinar anual — ${PRECOS.anual.rotulo}`}
+          {loadingPlano === "anual" ? "..." : `Assinar anual — ${rotuloAnual}`}
         </Button>
       </div>
       {erro && <p className="text-sm text-red-400">{erro}</p>}
