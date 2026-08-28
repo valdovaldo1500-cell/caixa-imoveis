@@ -119,13 +119,19 @@ export default async function CidadePage({ params, searchParams }: Props) {
   const seguranca = amostraSeguranca ? lerSeguranca(amostraSeguranca) : null;
   const paragrafo = gerarParagrafo({ cidade: nomeCidade, uf, resumo, bairros, seguranca });
 
+  const filtrosAtuais = {
+    desconto: primeiro(query.desconto),
+    seguranca: primeiro(query.seguranca),
+    precoMax: primeiro(query.precoMax),
+    tipo: primeiro(query.tipo),
+    ordem: primeiro(query.ordem),
+  };
+
   const base = cidadeUrl(uf, cidade);
   const paramsAtuais = new URLSearchParams();
-  if (query.desconto) paramsAtuais.set("desconto", primeiro(query.desconto) ?? "");
-  if (query.seguranca) paramsAtuais.set("seguranca", primeiro(query.seguranca) ?? "");
-  if (query.precoMax) paramsAtuais.set("precoMax", primeiro(query.precoMax) ?? "");
-  if (query.tipo) paramsAtuais.set("tipo", primeiro(query.tipo) ?? "");
-  if (query.ordem) paramsAtuais.set("ordem", primeiro(query.ordem) ?? "");
+  for (const [chave, valor] of Object.entries(filtrosAtuais)) {
+    if (valor) paramsAtuais.set(chave, valor);
+  }
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
