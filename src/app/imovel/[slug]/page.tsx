@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { BlocoSeguranca } from "@/components/BlocoSeguranca";
 import { lerSeguranca } from "@/lib/seguranca";
 import { caixaIdDoSlug, cidadeUrl, imovelUrl, ufUrl } from "@/lib/slug";
-import { buscarImovel, formatBRL, nomeUf, plural, tituloCaso, urlAbsoluta } from "../_lib/helpers";
+import { buscarImovel, formatBRL, jsonLdSeguro, nomeUf, plural, tituloCaso, urlAbsoluta } from "../_lib/helpers";
 
 // Revalida a cada hora — o preço e a disponibilidade mudam devagar, mas mudam.
 export const revalidate = 3600;
