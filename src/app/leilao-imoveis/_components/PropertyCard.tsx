@@ -1,0 +1,78 @@
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { BlocoSeguranca } from "@/components/BlocoSeguranca";
+import { imovelUrl } from "@/lib/slug";
+import { areaTexto, descontoTexto, formatBRL, tituloCaso } from "../_lib/format";
+import type { ImovelCard } from "../_lib/queries";
+
+/**
+ * Anatomia do card (auditada no Arremata.ai e no LeilôAI, ver
+ * research/concorrente-leilao/SEO.md): desconto → modalidade → foto → título
+ * → cidade/UF → segurança → área → preço com avaliação riscada → botão.
+ * O desconto é o elemento de maior peso visual — é o que todo concorrente
+ * destaca primeiro.
+ */
+export function PropertyCard({ imovel }: { imovel: ImovelCard }) {
+  const desconto = descontoTexto(imovel.desconto);
+  const area = areaTexto(imovel.areaPrivativaM2 ?? imovel.areaTotalM2);
+  const preco = formatBRL(imovel.preco);
+  const valorAvaliacao = formatBRL(imovel.valorAvaliacao);
+  const bairro = tituloCaso(imovel.bairro);
+  const cidade = tituloCaso(imovel.cidade);
+  const tipo = imovel.tipoImovel ?? "Imóvel";
+  const alt = bairro ? `${tipo} em ${bairro}, ${cidade}` : `${tipo} em ${cidade}`;
+
+  return (
+    <Link
+      href={imovelUrl(imovel)}
+      className="group flex flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/40 transition hover:border-zinc-700"
+    >
+      <div className="relative aspect-[4/3] bg-zinc-900">
+        {desconto && (
+          <Badge className="absolute left-2 top-2 z-10 h-auto border-emerald-500/30 bg-emerald-500/15 px-2.5 py-1 text-sm font-semibold text-emerald-300">
+            -{desconto}%
+          </Badge>
+        )}
+        {imovel.modalidadeVenda && (
+          <Badge
+            variant="outline"
+            className="absolute right-2 top-2 z-10 h-auto max-w-[65%] truncate border-zinc-700 bg-zinc-950/80 px-2 py-0.5 text-[11px] text-zinc-300"
+          >
+            {imovel.modalidadeVenda}
+          </Badge>
+        )}
+        {imovel.fotoUrl ? (
+          // Fotos vêm de domínios variados da Caixa/scraper — <img> simples
+          // evita ter que manter remotePatterns no next.config.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={imovel.fotoUrl} alt={alt} loading="lazy" className="h-full w-full object-cover" />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-xs text-zinc-600">Sem foto</div>
+        )}
+      </div>
+
+      <div className="flex flex-1 flex-col gap-2 p-3">
+        <div>
+          <h3 className="text-sm font-medium text-zinc-100">{bairro ? `${tipo} — ${bairro}` : tipo}</h3>
+          <p className="text-xs text-zinc-500">
+            {cidade}/{imovel.uf}
+          </p>
+        </div>
+
+        <BlocoSeguranca imovel={imovel} cidade={cidade} compacto />
+
+        {area && <p className="text-xs text-zinc-400">{area}</p>}
+
+        <div className="mt-auto pt-1">
+          <div className="flex items-baseline gap-2">
+            <p className="text-lg font-semibold text-zinc-100">{preco ?? "Sob consulta"}</p>
+            {valorAvaliacao && <p className="text-xs text-zinc-500 line-through">{valorAvaliacao}</p>}
+          </div>
+          <span className="mt-2 inline-flex w-full items-center justify-center rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white transition group-hover:bg-emerald-500">
+            Ver imóvel
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
