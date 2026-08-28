@@ -78,3 +78,15 @@ const SITE_URL_ENV = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "");
 export function urlAbsoluta(caminho: string): string {
   return SITE_URL_ENV ? `${SITE_URL_ENV}${caminho}` : caminho;
 }
+
+/**
+ * Serializa um objeto para injetar em `<script type="application/ld+json">`
+ * via `dangerouslySetInnerHTML`. `JSON.stringify` puro NÃO escapa `<`, então
+ * um campo vindo da fonte (ex.: `descricao`) contendo `</script>` fecharia a
+ * tag antes da hora e o que viesse depois seria executado como HTML/script —
+ * o vetor de XSS clássico de JSON-LD. Escapar para `<` neutraliza isso
+ * sem alterar o JSON (é só uma forma diferente de representar o mesmo caractere).
+ */
+export function jsonLdSeguro(dado: unknown): string {
+  return JSON.stringify(dado).replace(/</g, "\\u003c");
+}
