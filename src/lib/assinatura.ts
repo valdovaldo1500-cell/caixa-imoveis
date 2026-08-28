@@ -249,29 +249,8 @@ export interface ProvedorPagamento {
 
 /**
  * Implementação demo — não fala com nenhum gateway. Só grava a intenção.
- *
- * O QUE FALTA PARA PLUGAR O PROVEDOR REAL (PagBank recorrente ou Mercado
- * Pago preapproval):
- *  1. Credenciais em env (`process.env.PAGBANK_TOKEN` ou
- *     `MERCADOPAGO_ACCESS_TOKEN`) — nunca hardcoded.
- *  2. `iniciarAssinatura` precisa chamar a API do provedor para criar o plano
- *     recorrente (ou usar um plano pré-cadastrado no painel do provedor) e
- *     devolver uma `checkoutUrl` real para redirecionar o assinante — aqui
- *     `checkoutUrl` é sempre `null`.
- *  3. `cancelarAssinatura` precisa chamar o endpoint de cancelamento do
- *     provedor (PagBank: `PUT /subscriptions/{id}/cancel`; Mercado Pago:
- *     `PUT /preapproval/{id}` com `status: cancelled`) — aqui é só cosmético.
- *  4. O webhook (`/api/assinatura/webhook/route.ts`) HOJE confia num segredo
- *     compartilhado simples (`WEBHOOK_ASSINATURA_SECRET`). Cada provedor tem
- *     seu próprio esquema de assinatura de webhook (PagBank manda um header
- *     de notificação que exige uma consulta de confirmação à API deles;
- *     Mercado Pago assina com HMAC-SHA256 num header `x-signature`) — isso
- *     precisa ser validado por provedor antes de confiar no payload.
- *  5. Idempotência: `cobrancas.provedorEventoId` não tem constraint UNIQUE
- *     hoje. O webhook real deve checar se o evento já foi processado antes
- *     de aplicar (provedores reenviam o mesmo evento).
- *  6. Mapear o `plano` interno (`mensal`/`anual`) para o ID de plano do
- *     provedor — hoje é 1:1 fictício.
+ * Continua existindo como PADRÃO (ver `getProvedorPagamento`), para que o
+ * comportamento em produção nunca mude sozinho por causa de um deploy.
  */
 export const provedorDemo: ProvedorPagamento = {
   nome: "demo",
