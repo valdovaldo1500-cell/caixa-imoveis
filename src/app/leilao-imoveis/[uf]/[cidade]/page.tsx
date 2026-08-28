@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { ChevronRight } from "lucide-react";
 import { isValidState } from "@/lib/state";
 import { cidadeUrl, ufUrl } from "@/lib/slug";
-import { lerSeguranca, type Seguranca } from "@/lib/seguranca";
+import { lerSeguranca, type Seguranca, type NivelSeguranca } from "@/lib/seguranca";
 import { formatBRL, tituloCaso } from "../../_lib/format";
 import {
   UF_NOME,
