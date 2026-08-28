@@ -1,71 +1,220 @@
 import Link from "next/link";
-import { MapPin, Building2, ArrowRight, Trees } from "lucide-react";
+import { db } from "@/lib/db";
+import { properties } from "@/lib/db/schema";
+import { sql, isNull } from "drizzle-orm";
+import { ArrowRight, ShieldCheck, Trees, Lock } from "lucide-react";
+import { ufUrl, imovelUrl } from "@/lib/slug";
+import { BlocoSeguranca } from "@/components/BlocoSeguranca";
 
-export const metadata = {
-  title: "Imóveis Caixa — Selecione o Estado",
-};
+// O build do Coolify roda antes de o container entrar na rede do Postgres,
+// então qualquer página pré-renderizada que consulte o banco derruba o
+// deploy. É por isso que todas as páginas com banco deste repo são
+// force-dynamic (ver src/app/[state]/page.tsx). Com os índices novos a
+// consulta custa 0,2ms e o banco fica no mesmo host, então o custo por
+// requisição é irrelevante.
+export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
-export default function LandingPage() {
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://imoveis.crimebrasil.com.br";
+
+/**
+ * Home pública do agregador (O6).
+ *
+ * Decisão de copy vinda da auditoria de concorrentes (28/08/2026): o hero usa
+ * NÚMEROS REAIS do nosso estoque em vez de inflar amplitude. Não dá para
+ * brigar de "quantas fontes" com quem anuncia 1.366 — e o desconto mediano
+ * de 44% é um número melhor que qualquer contagem de leiloeiro.
+ *
+ * O segundo argumento é a lista aberta: o buscador da própria Caixa exige
+ * CPF, telefone e e-mail antes de mostrar qualquer resultado (verificado no
+ * wizard deles). Ser navegável sem cadastro é vantagem real sobre o "grátis".
+ */
+async function getResumo() {
+  const [tot] = await db
+    .select({
+      total: sql<number>`count(*)::int`,
+      cidades: sql<number>`count(distinct ${properties.cidade})::int`,
+      descontoMediano: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.desconto}) filter (where ${properties.desconto} > 0)::numeric, 0)`,
+      comDesconto: sql<number>`count(*) filter (where ${properties.desconto} > 0)::int`,
+      precoMediano: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.preco})::numeric, 0)`,
+      comSeguranca: sql<number>`count(${properties.crimeNota})::int`,
+    })
+    .from(properties)
+    .where(isNull(properties.removedAt));
+
+  const porUf = await db
+    .select({
+      uf: properties.uf,
+      total: sql<number>`count(*)::int`,
+      desconto: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.desconto}) filter (where ${properties.desconto} > 0)::numeric, 0)`,
+      comDesconto: sql<number>`count(*) filter (where ${properties.desconto} > 0)::int`,
+    })
+    .from(properties)
+    .where(isNull(properties.removedAt))
+    .groupBy(properties.uf)
+    .orderBy(sql`count(*) desc`);
+
+  const destaques = await db
+    .select({
+      caixaId: properties.caixaId,
+      uf: properties.uf,
+      cidade: properties.cidade,
+      bairro: properties.bairro,
+      tipoImovel: properties.tipoImovel,
+      preco: properties.preco,
+      valorAvaliacao: properties.valorAvaliacao,
+      desconto: properties.desconto,
+      crimeNota: properties.crimeNota,
+      crimeTaxa: properties.crimeTaxa,
+      crimeGrao: properties.crimeGrao,
+      crimeFonte: properties.crimeFonte,
+      crimeJanelaInicio: properties.crimeJanelaInicio,
+      crimeJanelaFim: properties.crimeJanelaFim,
+      crimeSuprimido: properties.crimeSuprimido,
+    })
+    .from(properties)
+    .where(sql`${properties.removedAt} is null and ${properties.desconto} is not null and ${properties.preco} > 0`)
+    .orderBy(sql`${properties.desconto} desc`)
+    .limit(6);
+
+  return { tot, porUf, destaques };
+}
+
+const UF_NOMES: Record<string, string> = { GO: "Goiás", RS: "Rio Grande do Sul" };
+
+export async function generateMetadata() {
+  const { tot } = await getResumo();
+  const n = (tot?.total ?? 0).toLocaleString("pt-BR");
+  return {
+    title: "Imóveis de leilão da Caixa, com a segurança da região",
+    description: `${n} imóveis da Caixa com desconto sobre a avaliação, e a nota de criminalidade do município ao lado de cada um. Navegue sem cadastro.`,
+    alternates: { canonical: SITE_URL },
+  };
+}
+
+function brl(v: string | number | null) {
+  if (v == null) return "—";
+  return Number(v).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+}
+
+export default async function Home() {
+  const { tot, porUf, destaques } = await getResumo();
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-950 p-6">
-      <div className="w-full max-w-2xl space-y-8">
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-white">Imóveis Caixa</h1>
-          <p className="text-zinc-400 text-sm">Dashboard de análise de imóveis retomados — selecione o estado</p>
+    <div className="min-h-screen bg-zinc-950">
+      <header className="border-b border-zinc-900">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+          <span className="font-semibold text-zinc-100">Imóveis de Leilão</span>
+          <nav className="flex items-center gap-5 text-sm">
+            <Link href="/planos" className="text-zinc-400 hover:text-zinc-100">Planos</Link>
+            <Link href="/entrar" className="text-zinc-400 hover:text-zinc-100">Entrar</Link>
+          </nav>
         </div>
+      </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Link href="/rs" className="group relative bg-zinc-900 border border-zinc-800 hover:border-blue-500 rounded-xl p-6 transition-all hover:bg-zinc-800/80 flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <div className="bg-blue-600/20 rounded-lg p-2.5">
-                <MapPin className="w-5 h-5 text-blue-400" />
-              </div>
-              <span className="text-2xl font-bold text-blue-400">RS</span>
-            </div>
-            <div>
-              <h2 className="text-lg font-semibold text-white">Rio Grande do Sul</h2>
-              <p className="text-sm text-zinc-400 mt-1">Porto Alegre e interior — dados completos com scoring e comparáveis</p>
-            </div>
-            <div className="flex items-center gap-1 text-blue-400 text-sm font-medium">
-              Acessar dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </div>
-          </Link>
+      <main className="mx-auto max-w-5xl px-6 py-14">
+        <section>
+          <h1 className="max-w-3xl text-4xl font-bold leading-tight text-zinc-50 sm:text-5xl">
+            O imóvel é barato. Mas o bairro é seguro?
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg text-zinc-400">
+            {(tot?.total ?? 0).toLocaleString("pt-BR")} imóveis da Caixa em{" "}
+            {(tot?.cidades ?? 0).toLocaleString("pt-BR")} cidades.{" "}
+            {(tot?.comDesconto ?? 0).toLocaleString("pt-BR")} saem abaixo da avaliação, com desconto mediano de{" "}
+            <strong className="text-zinc-200">{tot?.descontoMediano ?? "—"}%</strong> — e a criminalidade do
+            município ao lado de cada um. Nenhum outro agregador mostra isso.
+          </p>
 
-          <Link href="/go" className="group relative bg-zinc-900 border border-zinc-800 hover:border-emerald-500 rounded-xl p-6 transition-all hover:bg-zinc-800/80 flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <div className="bg-emerald-600/20 rounded-lg p-2.5">
-                <Building2 className="w-5 h-5 text-emerald-400" />
-              </div>
-              <span className="text-2xl font-bold text-emerald-400">GO</span>
-            </div>
-            <div>
-              <h2 className="text-lg font-semibold text-white">Goiás</h2>
-              <p className="text-sm text-zinc-400 mt-1">Goiânia e interior — 4706 imóveis com scoring e comparáveis ZAP/5ºAndar</p>
-            </div>
-            <div className="flex items-center gap-1 text-emerald-400 text-sm font-medium">
-              Acessar dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </div>
-          </Link>
-        </div>
-
-        <a
-          href="/sitios.html"
-          className="group relative bg-gradient-to-r from-emerald-900/30 to-zinc-900 border border-zinc-800 hover:border-emerald-500 rounded-xl p-5 transition-all hover:bg-zinc-800/60 flex items-center gap-4"
-        >
-          <div className="bg-emerald-600/20 rounded-lg p-2.5 shrink-0">
-            <Trees className="w-5 h-5 text-emerald-400" />
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            {porUf.map((u) => (
+              <Link
+                key={u.uf}
+                href={ufUrl(u.uf)}
+                className="group inline-flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-2.5 text-sm text-zinc-200 transition hover:border-zinc-600"
+              >
+                <span className="font-semibold">{UF_NOMES[u.uf] ?? u.uf}</span>
+                <span className="text-zinc-500">
+                  {u.total.toLocaleString("pt-BR")} imóveis · {u.comDesconto.toLocaleString("pt-BR")} com desconto,
+                  mediana {u.desconto}%
+                </span>
+                <ArrowRight className="h-4 w-4 text-zinc-500 transition group-hover:translate-x-0.5" />
+              </Link>
+            ))}
           </div>
-          <div className="flex-1 min-w-0">
-            <h2 className="text-base font-semibold text-white">Sítios, Chácaras &amp; Terrenos — Darlei Souza</h2>
-            <p className="text-sm text-zinc-400 mt-0.5">
-              Catálogo de 1.410 vídeos do canal, por ano e cidade (RS/SC) — com favoritar e ocultar
-            </p>
-          </div>
-          <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-0.5 transition-transform shrink-0" />
-        </a>
 
-        <p className="text-center text-xs text-zinc-600">Acesso restrito — faça login para continuar</p>
-      </div>
+          <p className="mt-4 flex items-center gap-2 text-sm text-zinc-500">
+            <ShieldCheck className="h-4 w-4" />
+            Navegue sem cadastro. O buscador da própria Caixa pede CPF e telefone antes de mostrar a lista.
+          </p>
+          <p className="mt-2 text-xs text-zinc-600">
+            A mediana de desconto considera só os imóveis que saem abaixo da avaliação. No leilão SFI de edital
+            único o lance mínimo é a dívida do imóvel, e não raro fica acima da avaliação — contar esses como
+            &quot;0% de desconto&quot; achataria o número e esconderia as oportunidades reais.
+          </p>
+        </section>
+
+        <section className="mt-14">
+          <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">
+            Maiores descontos agora
+          </h2>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {destaques.map((d) => (
+              <Link
+                key={d.caixaId}
+                href={imovelUrl(d)}
+                className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-4 transition hover:border-zinc-600"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-sm font-semibold text-emerald-300">
+                    -{Number(d.desconto).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}%
+                  </span>
+                  <BlocoSeguranca imovel={d} cidade={d.cidade} compacto />
+                </div>
+                <p className="mt-3 text-sm font-medium text-zinc-200">
+                  {d.tipoImovel ?? "Imóvel"}
+                  {d.bairro ? ` · ${d.bairro}` : ""}
+                </p>
+                <p className="text-sm text-zinc-500">
+                  {d.cidade}/{d.uf}
+                </p>
+                <p className="mt-3 text-lg font-semibold text-zinc-100">{brl(d.preco)}</p>
+                <p className="text-xs text-zinc-500 line-through">{brl(d.valorAvaliacao)}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-14 rounded-lg border border-zinc-800 bg-zinc-900/40 p-6">
+          <h2 className="text-lg font-semibold text-zinc-100">De onde vem a nota de segurança</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-zinc-400">
+            A nota é do <strong className="text-zinc-300">município</strong>, calculada sobre mortes violentas
+            registradas no DATASUS/SIM, e comparada com a distribuição dos 3.615 municípios brasileiros com dado
+            suficiente. Cada imóvel mostra o número, a fonte e o período — e onde o município teve poucos
+            registros, dizemos que o dado é insuficiente em vez de exibir um número frágil.
+          </p>
+          <p className="mt-3 text-sm text-zinc-500">
+            {(tot?.comSeguranca ?? 0).toLocaleString("pt-BR")} dos {(tot?.total ?? 0).toLocaleString("pt-BR")}{" "}
+            imóveis têm a leitura de segurança da região.
+          </p>
+        </section>
+
+        <section className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <a
+            href="/sitios.html"
+            className="flex flex-1 items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-900/40 p-4 transition hover:border-zinc-600"
+          >
+            <Trees className="h-5 w-5 shrink-0 text-emerald-400" />
+            <span className="text-sm text-zinc-300">Sítios, chácaras e terrenos — catálogo do canal Darlei Souza</span>
+          </a>
+          <Link
+            href="/login"
+            className="flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-900/40 p-4 text-sm text-zinc-500 transition hover:border-zinc-600"
+          >
+            <Lock className="h-4 w-4 shrink-0" />
+            Painel interno
+          </Link>
+        </section>
+      </main>
     </div>
   );
 }

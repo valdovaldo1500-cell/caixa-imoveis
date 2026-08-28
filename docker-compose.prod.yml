@@ -18,11 +18,31 @@ services:
       RESEND_API_KEY: ${RESEND_API_KEY}
       NOTIFICATION_EMAIL: ${NOTIFICATION_EMAIL}
       PIPELINE_TOKEN: ${PIPELINE_TOKEN:-caixa-pipeline-2026-rs-secret}
+      # O6 — site público do agregador. Sem isso: NEXT_PUBLIC_SITE_URL cai no
+      # fallback hardcoded (funciona, mas silencioso); ASSINATURA_SESSION_SECRET
+      # sem valor cai no SESSION_SECRET do time interno (funciona, mas reusa
+      # segredo entre dois sistemas que deveriam ser isolados); sem
+      # WEBHOOK_ASSINATURA_SECRET a rota /api/assinatura/webhook agora recusa
+      # (503) em vez de aceitar sem autenticação.
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://imoveis.crimebrasil.com.br}
+      ASSINATURA_SESSION_SECRET: ${ASSINATURA_SESSION_SECRET}
+      WEBHOOK_ASSINATURA_SECRET: ${WEBHOOK_ASSINATURA_SECRET}
       # Explicit V8 heap ceiling, independent of cgroup auto-detection. Must stay
       # comfortably below mem_limit so the kernel never OOM-kills the process.
       NODE_OPTIONS: --max-old-space-size=1024
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    # Sem isso, `docker inspect` mostra Healthcheck: null (checado em prod em
+    # 28/08/2026) — o Coolify não tem como saber se o container novo subiu
+    # quebrado antes de trocar o tráfego. /api/auth/status não toca o banco
+    # (só lê cookie), então não falsopositiva em soluço passageiro do Postgres.
+    # start_period cobre o sleep 5s do entrypoint.sh + tempo de boot do Next.
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/auth/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     restart: unless-stopped
     # Next.js 16 cannot serve under load in the ~256MB Coolify was applying — it
     # OOM-crashed (→ 502s). The app's real working set is ~130MB; 1.5GB is ample.
