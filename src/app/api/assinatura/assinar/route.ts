@@ -5,10 +5,13 @@ import { assinantes } from "@/lib/db/schema";
 import { getAssinanteIdFromRequest, getProvedorPagamento, type Plano } from "@/lib/assinatura";
 
 /**
- * Inicia uma assinatura paga. Com o provedor `demo` isto NUNCA cobra —
- * só marca `assinantes.status = 'pendente'` e grava a intenção em
- * `cobrancas`. Ver `src/lib/assinatura.ts` para o que falta plugar o
- * gateway de verdade.
+ * Inicia uma assinatura. Provedor decidido por env
+ * (`PAGAMENTO_PROVEDOR=pagbank|demo`, ver `src/lib/assinatura.ts`):
+ *  - `demo` NUNCA cobra — só marca `assinantes.status = 'pendente'` e grava a
+ *    intenção em `cobrancas`.
+ *  - `pagbank` cria um checkout de verdade (`src/lib/pagamento/pagbank.ts`)
+ *    e devolve a URL da página hospedada do PagBank pra redirecionar o
+ *    assinante — é lá que o cartão é digitado, nunca no nosso servidor.
  */
 export async function POST(request: Request) {
   const assinanteId = getAssinanteIdFromRequest(request);
