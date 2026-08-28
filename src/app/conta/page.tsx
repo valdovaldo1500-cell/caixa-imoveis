@@ -85,6 +85,8 @@ export default async function ContaPage({
             <h1 className="text-2xl font-bold text-white">Minha conta</h1>
             <p className="text-sm text-zinc-400">{assinante.email}</p>
           </div>
+          {/* Rota de API (limpa cookie + redireciona), não uma página — não é <Link> de propósito. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/api/assinatura/sair" className="text-xs text-zinc-500 underline hover:text-zinc-300">
             Sair
           </a>
