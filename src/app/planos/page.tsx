@@ -8,21 +8,27 @@ import { getAssinante, podeVer, PRECOS } from "@/lib/assinatura";
 
 export const metadata = {
   title: "Planos — Leilão de Imóveis Caixa",
-  description: "Acompanhe leilões da Caixa com alerta, filtro de segurança e histórico de preço.",
+  description: "Acompanhe os leilões da Caixa e receba alerta quando entrar um imóvel que bate com a sua busca.",
 };
 
+// A lista do grátis é deliberadamente generosa: é o padrão do Arremata.ai,
+// que abre quase tudo e cobra pelo extra. E a nota de segurança precisa ficar
+// aberta porque é ela que traz gente pela busca — trancar o diferencial
+// atrás da parede mataria o próprio canal de aquisição.
 const RECURSOS_GRATIS = [
   "Todos os imóveis em leilão, sem limite",
   "Ficha completa de cada imóvel",
   "Nota de segurança do município",
+  "Filtro por nota de segurança",
   "Documentos do imóvel (edital, matrícula)",
 ];
 
+// Só entra aqui o que já está construído. A pesquisa de mercado mostrou que
+// o alerta é o gancho principal de 100% dos concorrentes pagos — é ele que
+// sustenta a assinatura, não uma lista comprida de promessas.
 const RECURSOS_PAGOS = [
   "Alerta por e-mail quando um imóvel novo bate com sua busca",
-  "Filtro por nota de segurança do município",
-  "Buscas salvas ilimitadas",
-  "Histórico de preço do imóvel",
+  "Buscas salvas ilimitadas, por cidade, preço, desconto e segurança",
 ];
 
 export default async function PlanosPage() {

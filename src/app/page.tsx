@@ -27,7 +27,8 @@ async function getResumo() {
     .select({
       total: sql<number>`count(*)::int`,
       cidades: sql<number>`count(distinct ${properties.cidade})::int`,
-      descontoMediano: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.desconto})::numeric, 0)`,
+      descontoMediano: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.desconto}) filter (where ${properties.desconto} > 0)::numeric, 0)`,
+      comDesconto: sql<number>`count(*) filter (where ${properties.desconto} > 0)::int`,
       precoMediano: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.preco})::numeric, 0)`,
       comSeguranca: sql<number>`count(${properties.crimeNota})::int`,
     })
@@ -38,7 +39,8 @@ async function getResumo() {
     .select({
       uf: properties.uf,
       total: sql<number>`count(*)::int`,
-      desconto: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.desconto})::numeric, 0)`,
+      desconto: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.desconto}) filter (where ${properties.desconto} > 0)::numeric, 0)`,
+      comDesconto: sql<number>`count(*) filter (where ${properties.desconto} > 0)::int`,
     })
     .from(properties)
     .where(isNull(properties.removedAt))
@@ -110,9 +112,10 @@ export default async function Home() {
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-zinc-400">
             {(tot?.total ?? 0).toLocaleString("pt-BR")} imóveis da Caixa em{" "}
-            {(tot?.cidades ?? 0).toLocaleString("pt-BR")} cidades, com desconto mediano de{" "}
-            <strong className="text-zinc-200">{tot?.descontoMediano ?? "—"}%</strong> sobre a avaliação — e a
-            criminalidade do município ao lado de cada um. Nenhum outro agregador mostra isso.
+            {(tot?.cidades ?? 0).toLocaleString("pt-BR")} cidades.{" "}
+            {(tot?.comDesconto ?? 0).toLocaleString("pt-BR")} saem abaixo da avaliação, com desconto mediano de{" "}
+            <strong className="text-zinc-200">{tot?.descontoMediano ?? "—"}%</strong> — e a criminalidade do
+            município ao lado de cada um. Nenhum outro agregador mostra isso.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -124,7 +127,8 @@ export default async function Home() {
               >
                 <span className="font-semibold">{UF_NOMES[u.uf] ?? u.uf}</span>
                 <span className="text-zinc-500">
-                  {u.total.toLocaleString("pt-BR")} imóveis · {u.desconto}% de desconto
+                  {u.total.toLocaleString("pt-BR")} imóveis · {u.comDesconto.toLocaleString("pt-BR")} com desconto,
+                  mediana {u.desconto}%
                 </span>
                 <ArrowRight className="h-4 w-4 text-zinc-500 transition group-hover:translate-x-0.5" />
               </Link>
@@ -134,6 +138,11 @@ export default async function Home() {
           <p className="mt-4 flex items-center gap-2 text-sm text-zinc-500">
             <ShieldCheck className="h-4 w-4" />
             Navegue sem cadastro. O buscador da própria Caixa pede CPF e telefone antes de mostrar a lista.
+          </p>
+          <p className="mt-2 text-xs text-zinc-600">
+            A mediana de desconto considera só os imóveis que saem abaixo da avaliação. No leilão SFI de edital
+            único o lance mínimo é a dívida do imóvel, e não raro fica acima da avaliação — contar esses como
+            &quot;0% de desconto&quot; achataria o número e esconderia as oportunidades reais.
           </p>
         </section>
 

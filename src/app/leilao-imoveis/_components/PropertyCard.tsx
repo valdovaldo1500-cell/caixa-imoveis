@@ -29,14 +29,14 @@ export function PropertyCard({ imovel }: { imovel: ImovelCard }) {
     >
       <div className="relative aspect-[4/3] bg-zinc-900">
         {desconto && (
-          <Badge className="absolute left-2 top-2 z-10 h-auto border-emerald-500/30 bg-emerald-500/15 px-2.5 py-1 text-sm font-semibold text-emerald-300">
+          <Badge className="absolute left-2 top-2 z-10 h-auto border-transparent bg-emerald-600 px-2.5 py-1 text-sm font-bold text-white shadow-lg shadow-black/40">
             -{desconto}%
           </Badge>
         )}
         {imovel.modalidadeVenda && (
           <Badge
             variant="outline"
-            className="absolute right-2 top-2 z-10 h-auto max-w-[65%] truncate border-zinc-700 bg-zinc-950/80 px-2 py-0.5 text-[11px] text-zinc-300"
+            className="absolute right-2 top-2 z-10 h-auto max-w-[65%] truncate border-zinc-700 bg-zinc-950/90 px-2 py-0.5 text-[11px] text-zinc-200 shadow-lg shadow-black/40"
           >
             {imovel.modalidadeVenda}
           </Badge>
@@ -45,15 +45,22 @@ export function PropertyCard({ imovel }: { imovel: ImovelCard }) {
           // Fotos vêm de domínios variados da Caixa/scraper — <img> simples
           // evita ter que manter remotePatterns no next.config.
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={imovel.fotoUrl} alt={alt} loading="lazy" className="h-full w-full object-cover" />
+          <img
+            src={imovel.fotoUrl}
+            alt={alt}
+            loading="lazy"
+            className="h-full w-full bg-zinc-900 object-cover text-transparent"
+          />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-xs text-zinc-600">Sem foto</div>
         )}
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-3">
-        <div>
-          <h3 className="text-sm font-medium text-zinc-100">{bairro ? `${tipo} — ${bairro}` : tipo}</h3>
+        <div className="min-h-[2.75rem]">
+          <h3 className="line-clamp-2 text-sm font-medium leading-snug text-zinc-100">
+            {bairro ? `${tipo} — ${bairro}` : tipo}
+          </h3>
           <p className="text-xs text-zinc-500">
             {cidade}/{imovel.uf}
           </p>

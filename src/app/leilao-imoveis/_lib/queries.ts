@@ -33,7 +33,7 @@ export const getResumoUf = cache(async (uf: string) => {
       total: sql<number>`count(*)::int`,
       descontoMediano: sql<
         string | null
-      >`round(percentile_cont(0.5) within group (order by ${properties.desconto}::numeric), 1)`,
+      >`round((percentile_cont(0.5) within group (order by ${properties.desconto}::numeric) filter (where ${properties.desconto} > 0))::numeric, 1)`,
       precoMin: sql<string | null>`min(${properties.preco}::numeric)`,
       precoMax: sql<string | null>`max(${properties.preco}::numeric)`,
     })
@@ -75,7 +75,7 @@ export const getResumoCidade = cache(async (uf: string, cidade: string) => {
       total: sql<number>`count(*)::int`,
       descontoMediano: sql<
         string | null
-      >`round(percentile_cont(0.5) within group (order by ${properties.desconto}::numeric), 1)`,
+      >`round((percentile_cont(0.5) within group (order by ${properties.desconto}::numeric) filter (where ${properties.desconto} > 0))::numeric, 1)`,
       precoMin: sql<string | null>`min(${properties.preco}::numeric)`,
       precoMax: sql<string | null>`max(${properties.preco}::numeric)`,
     })

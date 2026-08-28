@@ -38,13 +38,23 @@ export function BlocoSeguranca({
     );
   }
 
+  // No card, a fonte NÃO pode ficar só no atributo `title`: em toque não
+  // existe hover, e a regra é que o número nunca apareça sozinho. Por isso o
+  // compacto mostra o rótulo e a taxa visíveis, e diz que a leitura é do
+  // município — a frase completa fica na ficha do imóvel.
   if (compacto) {
     return (
-      <span
-        className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs font-medium ${s.cor}`}
-        title={fraseFonte(s)}
-      >
-        {s.rotulo}
+      <span className="inline-flex flex-col items-end gap-0.5 text-right">
+        <span
+          className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${s.cor}`}
+        >
+          {s.rotulo}
+        </span>
+        <span className="text-[10px] leading-tight text-zinc-500">
+          {s.taxa != null
+            ? `${s.taxa.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}/100 mil hab. · município`
+            : "leitura do município"}
+        </span>
       </span>
     );
   }

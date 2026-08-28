@@ -16,11 +16,12 @@
  *    endereços) e não pode ser rotulada como "por 100 mil habitantes".
  *
  * As faixas são quintis da distribuição nacional dos 3.615 municípios não
- * suprimidos (medido em 28/08/2026): p20=400, p40=460, p60=520, p80=589.
+ * suprimidos (medido em 28/08/2026): p20=400, p40=460, mediana=489, p60=520,
+ * p80=589.
  * Assim "alto" quer dizer alto em relação ao Brasil, não a um chute.
  */
 
-export const FAIXAS_NACIONAIS = { p20: 400, p40: 460, p60: 520, p80: 589 } as const;
+export const FAIXAS_NACIONAIS = { p20: 400, p40: 460, mediana: 489, p60: 520, p80: 589 } as const;
 
 export type NivelSeguranca = "baixo" | "moderado" | "medio" | "alto" | "muito_alto";
 
@@ -52,7 +53,10 @@ const NIVEIS: Record<NivelSeguranca, { rotulo: string; cor: string; contexto: st
   medio: {
     rotulo: "Risco médio",
     cor: "bg-amber-500/15 text-amber-300 border-amber-500/30",
-    contexto: "acima da mediana nacional",
+    // A faixa 460-519 atravessa a mediana nacional (489, medido em
+    // 28/08/2026), então NÃO pode afirmar um lado. Dizer "acima da mediana"
+    // aqui seria falso para metade dos municípios da faixa.
+    contexto: "na faixa central do país, perto da mediana nacional",
   },
   alto: {
     rotulo: "Risco alto",
