@@ -295,8 +295,34 @@ export const provedorDemo: ProvedorPagamento = {
   },
 };
 
+/**
+ * Seleção do provedor — por env, nunca automática.
+ *
+ * `PAGAMENTO_PROVEDOR=pagbank|demo`, com `demo` como PADRÃO: o que está no
+ * ar hoje não muda de comportamento sozinho por causa deste deploy — ligar
+ * cobrança de verdade é uma decisão explícita do dono (setar a env em
+ * produção), não um efeito colateral.
+ *
+ * Falha fechada: se `PAGAMENTO_PROVEDOR=pagbank` mas a credencial mínima
+ * (`PAGSEGURO_API_TOKEN`) não está configurada, o provedor real NÃO carrega
+ * — cai para `demo` e loga um aviso alto, em vez de deixar rotas de
+ * pagamento quebrarem em produção ou (pior) seguir sem checagem nenhuma.
+ */
 export function getProvedorPagamento(): ProvedorPagamento {
-  // Quando o provedor real existir, trocar aqui por
-  // `process.env.PROVEDOR_PAGAMENTO === "pagbank" ? provedorPagBank : ...`.
+  const escolha = (process.env.PAGAMENTO_PROVEDOR || "demo").trim().toLowerCase();
+
+  if (escolha === "pagbank") {
+    // Import tardio (não no topo do módulo): mantém `assinatura.ts` livre de
+    // custo de carregar o adaptador PagBank quando ninguém pediu ele — e
+    // evita qualquer surpresa de import circular em tempo de build, já que
+    // `pagbank.ts` importa tipos e `PRECOS` daqui.
+    const { provedorPagBank, pagbankConfigurado } = require("@/lib/pagamento/pagbank") as typeof import("@/lib/pagamento/pagbank");
+    if (pagbankConfigurado()) return provedorPagBank;
+    console.error(
+      "[assinatura] PAGAMENTO_PROVEDOR=pagbank mas PAGSEGURO_API_TOKEN não está configurado — " +
+        "caindo para o provedor demo (nenhuma cobrança real será feita)."
+    );
+  }
+
   return provedorDemo;
 }
