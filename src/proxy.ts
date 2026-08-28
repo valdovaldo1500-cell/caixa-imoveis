@@ -16,13 +16,26 @@ const LEGACY_REDIRECTS: Record<string, string> = {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Public routes — no auth required
+  // Rotas públicas — o produto de leilão (O6). Não exigem sessão.
+  //
+  // O painel interno continua sendo /[state]/* (/rs, /go) e segue exigindo
+  // login: são dois públicos diferentes no mesmo app. O que é público aqui é
+  // o agregador; o que decide o acesso do ASSINANTE (plano pago) é
+  // src/lib/assinatura.ts, dentro da própria página — a parede nunca vira
+  // redirect, porque o visitante precisa ver o que existe antes de assinar.
   if (
     pathname === "/" ||
     pathname === "/login" ||
     pathname === "/sitios" ||
     pathname === "/sitios.html" ||
-    pathname.startsWith("/api/auth/")
+    pathname === "/planos" ||
+    pathname === "/entrar" ||
+    pathname === "/cadastro" ||
+    pathname === "/conta" ||
+    pathname.startsWith("/imovel/") ||
+    pathname.startsWith("/leilao-imoveis") ||
+    pathname.startsWith("/api/auth/") ||
+    pathname.startsWith("/api/assinatura/")
   ) {
     return NextResponse.next();
   }
