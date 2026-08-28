@@ -19,16 +19,16 @@ import { Filtros } from "../../_components/Filtros";
 import { Paginacao } from "../../_components/Paginacao";
 
 // A página lê filtro e paginação da querystring em toda requisição — por
-// isso continua dinâmica na prática mesmo com `revalidate` definido, mas o
-// valor é exigido para ficar alinhado com o resto do site.
+// isso continua dinâmica na prática, mas a consulta por trás (`getImoveisDaCidade`
+// e as demais, em `../../_lib/queries`) é cacheada por `uf+cidade+filtros`
+// via `unstable_cache`, TTL de 1h.
 // O build do Coolify roda antes de o container entrar na rede do Postgres,
 // então qualquer página pré-renderizada que consulte o banco derruba o
 // deploy. É por isso que todas as páginas com banco deste repo são
-// force-dynamic (ver src/app/[state]/page.tsx). Com os índices novos a
-// consulta custa 0,2ms e o banco fica no mesmo host, então o custo por
-// requisição é irrelevante.
+// force-dynamic (ver src/app/[state]/page.tsx) — a página em si nunca é
+// pré-renderizada, e `unstable_cache` só executa em tempo de requisição
+// (nunca no build — ver `@/lib/cache.ts`).
 export const dynamic = "force-dynamic";
-export const revalidate = 3600;
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebrasil.com.br").replace(/\/+$/, "");
 

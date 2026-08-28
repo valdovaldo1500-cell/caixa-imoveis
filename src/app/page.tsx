@@ -1,19 +1,22 @@
 import Link from "next/link";
+import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
 import { sql, isNull } from "drizzle-orm";
 import { ArrowRight, ShieldCheck, Trees, Lock } from "lucide-react";
 import { ufUrl, imovelUrl } from "@/lib/slug";
 import { BlocoSeguranca } from "@/components/BlocoSeguranca";
+import { CACHE_TTL_LISTA } from "@/lib/cache";
 
 // O build do Coolify roda antes de o container entrar na rede do Postgres,
 // então qualquer página pré-renderizada que consulte o banco derruba o
 // deploy. É por isso que todas as páginas com banco deste repo são
-// force-dynamic (ver src/app/[state]/page.tsx). Com os índices novos a
-// consulta custa 0,2ms e o banco fica no mesmo host, então o custo por
-// requisição é irrelevante.
+// force-dynamic (ver src/app/[state]/page.tsx) — a página em si nunca é
+// pré-renderizada. O cache de verdade mora na consulta (`getResumo` abaixo,
+// via `unstable_cache`, TTL de 1h): ele só executa em tempo de requisição,
+// então nunca roda durante `next build` (ver `@/lib/cache.ts`).
 export const dynamic = "force-dynamic";
-export const revalidate = 3600;
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://imoveis.crimebrasil.com.br";
 
@@ -29,56 +32,66 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://imoveis.crimebrasi
  * CPF, telefone e e-mail antes de mostrar qualquer resultado (verificado no
  * wizard deles). Ser navegável sem cadastro é vantagem real sobre o "grátis".
  */
-async function getResumo() {
-  const [tot] = await db
-    .select({
-      total: sql<number>`count(*)::int`,
-      cidades: sql<number>`count(distinct ${properties.cidade})::int`,
-      descontoMediano: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.desconto}) filter (where ${properties.desconto} > 0)::numeric, 0)`,
-      comDesconto: sql<number>`count(*) filter (where ${properties.desconto} > 0)::int`,
-      precoMediano: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.preco})::numeric, 0)`,
-      comSeguranca: sql<number>`count(${properties.crimeNota})::int`,
-    })
-    .from(properties)
-    .where(isNull(properties.removedAt));
+// `generateMetadata` e `Home` (abaixo) chamam `getResumo` na mesma
+// requisição — `cache()` do React deduplica essa chamada; `unstable_cache`
+// persiste o resultado entre requisições diferentes (o que realmente tira
+// carga do banco).
+const getResumo = cache(
+  unstable_cache(
+    async () => {
+    const [tot] = await db
+      .select({
+        total: sql<number>`count(*)::int`,
+        cidades: sql<number>`count(distinct ${properties.cidade})::int`,
+        descontoMediano: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.desconto}) filter (where ${properties.desconto} > 0)::numeric, 0)`,
+        comDesconto: sql<number>`count(*) filter (where ${properties.desconto} > 0)::int`,
+        precoMediano: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.preco})::numeric, 0)`,
+        comSeguranca: sql<number>`count(${properties.crimeNota})::int`,
+      })
+      .from(properties)
+      .where(isNull(properties.removedAt));
 
-  const porUf = await db
-    .select({
-      uf: properties.uf,
-      total: sql<number>`count(*)::int`,
-      desconto: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.desconto}) filter (where ${properties.desconto} > 0)::numeric, 0)`,
-      comDesconto: sql<number>`count(*) filter (where ${properties.desconto} > 0)::int`,
-    })
-    .from(properties)
-    .where(isNull(properties.removedAt))
-    .groupBy(properties.uf)
-    .orderBy(sql`count(*) desc`);
+    const porUf = await db
+      .select({
+        uf: properties.uf,
+        total: sql<number>`count(*)::int`,
+        desconto: sql<string>`round(percentile_cont(0.5) within group (order by ${properties.desconto}) filter (where ${properties.desconto} > 0)::numeric, 0)`,
+        comDesconto: sql<number>`count(*) filter (where ${properties.desconto} > 0)::int`,
+      })
+      .from(properties)
+      .where(isNull(properties.removedAt))
+      .groupBy(properties.uf)
+      .orderBy(sql`count(*) desc`);
 
-  const destaques = await db
-    .select({
-      caixaId: properties.caixaId,
-      uf: properties.uf,
-      cidade: properties.cidade,
-      bairro: properties.bairro,
-      tipoImovel: properties.tipoImovel,
-      preco: properties.preco,
-      valorAvaliacao: properties.valorAvaliacao,
-      desconto: properties.desconto,
-      crimeNota: properties.crimeNota,
-      crimeTaxa: properties.crimeTaxa,
-      crimeGrao: properties.crimeGrao,
-      crimeFonte: properties.crimeFonte,
-      crimeJanelaInicio: properties.crimeJanelaInicio,
-      crimeJanelaFim: properties.crimeJanelaFim,
-      crimeSuprimido: properties.crimeSuprimido,
-    })
-    .from(properties)
-    .where(sql`${properties.removedAt} is null and ${properties.desconto} is not null and ${properties.preco} > 0`)
-    .orderBy(sql`${properties.desconto} desc`)
-    .limit(6);
+    const destaques = await db
+      .select({
+        caixaId: properties.caixaId,
+        uf: properties.uf,
+        cidade: properties.cidade,
+        bairro: properties.bairro,
+        tipoImovel: properties.tipoImovel,
+        preco: properties.preco,
+        valorAvaliacao: properties.valorAvaliacao,
+        desconto: properties.desconto,
+        crimeNota: properties.crimeNota,
+        crimeTaxa: properties.crimeTaxa,
+        crimeGrao: properties.crimeGrao,
+        crimeFonte: properties.crimeFonte,
+        crimeJanelaInicio: properties.crimeJanelaInicio,
+        crimeJanelaFim: properties.crimeJanelaFim,
+        crimeSuprimido: properties.crimeSuprimido,
+      })
+      .from(properties)
+      .where(sql`${properties.removedAt} is null and ${properties.desconto} is not null and ${properties.preco} > 0`)
+      .orderBy(sql`${properties.desconto} desc`)
+      .limit(6);
 
-  return { tot, porUf, destaques };
-}
+    return { tot, porUf, destaques };
+    },
+    ["o6", "home", "resumo"],
+    { revalidate: CACHE_TTL_LISTA }
+  )
+);
 
 const UF_NOMES: Record<string, string> = { GO: "Goiás", RS: "Rio Grande do Sul" };
 

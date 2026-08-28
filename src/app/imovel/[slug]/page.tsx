@@ -8,15 +8,15 @@ import { lerSeguranca } from "@/lib/seguranca";
 import { caixaIdDoSlug, cidadeUrl, imovelUrl, ufUrl } from "@/lib/slug";
 import { buscarImovel, formatBRL, jsonLdSeguro, nomeUf, plural, tituloCaso, urlAbsoluta } from "../_lib/helpers";
 
-// Revalida a cada hora — o preço e a disponibilidade mudam devagar, mas mudam.
 // O build do Coolify roda antes de o container entrar na rede do Postgres,
 // então qualquer página pré-renderizada que consulte o banco derruba o
 // deploy. É por isso que todas as páginas com banco deste repo são
-// force-dynamic (ver src/app/[state]/page.tsx). Com os índices novos a
-// consulta custa 0,2ms e o banco fica no mesmo host, então o custo por
-// requisição é irrelevante.
+// force-dynamic (ver src/app/[state]/page.tsx) — a página em si nunca é
+// pré-renderizada. O cache de verdade mora em `buscarImovel`
+// (`../_lib/helpers`, via `unstable_cache`, TTL de 1h — o preço e a
+// disponibilidade mudam devagar, mas mudam): só executa em tempo de
+// requisição, nunca durante `next build` (ver `@/lib/cache.ts`).
 export const dynamic = "force-dynamic";
-export const revalidate = 3600;
 
 type Props = { params: Promise<{ slug: string }> };
 
