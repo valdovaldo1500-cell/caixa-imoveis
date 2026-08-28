@@ -17,7 +17,6 @@ import {
 import { PropertyCard } from "../../_components/PropertyCard";
 import { Filtros } from "../../_components/Filtros";
 import { Paginacao } from "../../_components/Paginacao";
-import type { NivelSeguranca } from "@/lib/seguranca";
 
 // A página lê filtro e paginação da querystring em toda requisição — por
 // isso continua dinâmica na prática mesmo com `revalidate` definido, mas o
