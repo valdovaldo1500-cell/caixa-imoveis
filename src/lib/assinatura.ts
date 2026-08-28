@@ -211,14 +211,16 @@ export const PRECOS = {
 // ---------------------------------------------------------------------------
 // Adaptador de provedor de cobrança.
 //
-// O Crime Brasil já usa PagBank, mas só para pagamento avulso (boleto/PIX de
-// relatório) — não há assinatura recorrente configurada lá, então não existe
-// caminho pronto para copiar. A escolha entre PagBank recorrente e Mercado
-// Pago (preapproval) está pendente com o dono do produto.
+// Implementação real: PagBank/PagSeguro, via `src/lib/pagamento/pagbank.ts`
+// (Checkout PagBank com `recurrence_plan` — ver o cabeçalho daquele arquivo
+// para a arquitetura completa, os dois hosts/tokens envolvidos e o que falta
+// habilitar no painel do PagBank).
 //
-// Só existe a implementação `demo` abaixo, que nunca cobra: registra a
-// intenção em `cobrancas` e deixa o assinante em `pendente`. Ninguém deve
-// achar que isso processa pagamento de verdade.
+// A implementação `demo` abaixo continua existindo e é o PADRÃO — nunca
+// cobra: registra a intenção em `cobrancas` e deixa o assinante em
+// `pendente`. Trocar para o provedor real é uma decisão explícita do dono via
+// env (`PAGAMENTO_PROVEDOR=pagbank`), nunca um efeito colateral de deploy —
+// ver `getProvedorPagamento()` no fim do arquivo.
 // ---------------------------------------------------------------------------
 
 export type Plano = "mensal" | "anual";
