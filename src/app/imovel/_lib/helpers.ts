@@ -64,17 +64,15 @@ export function nomeUf(uf: string): string {
   return UF_NOMES[uf?.toUpperCase()] ?? uf;
 }
 
-const SITE_URL_ENV = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "");
-
-/**
- * Resolve um caminho para URL absoluta quando `NEXT_PUBLIC_SITE_URL` estiver
- * configurada no ambiente. O domínio final do agregador ainda não foi
- * decidido (ver PLAN.md) — até lá, devolve o caminho relativo em vez de
- * inventar um domínio. Um `<link rel="canonical">` relativo é resolvido pelo
- * navegador/crawler contra a própria página, então continua correto; só o
- * JSON-LD perde o host absoluto (schema.org recomenda URI absoluta) até a
- * env var ser configurada no deploy.
- */
+// O domínio do agregador é imoveis.crimebrasil.com.br — o mesmo que o
+// sitemap e o robots.txt já usam por exigência de protocolo. Manter um
+// fallback relativo aqui deixava as duas metades do site discordando: o
+// sitemap anunciava URL absoluta e o canonical da ficha era relativo, e o
+// JSON-LD saía sem host (schema.org pede URI absoluta). NEXT_PUBLIC_SITE_URL
+// continua tendo precedência, para ambiente de teste.
+const SITE_URL_ENV = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://imoveis.crimebrasil.com.br"
+).replace(/\/+$/, "");
 export function urlAbsoluta(caminho: string): string {
   return SITE_URL_ENV ? `${SITE_URL_ENV}${caminho}` : caminho;
 }

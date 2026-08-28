@@ -6,6 +6,13 @@ import { ArrowRight, ShieldCheck, Trees, Lock } from "lucide-react";
 import { ufUrl, imovelUrl } from "@/lib/slug";
 import { BlocoSeguranca } from "@/components/BlocoSeguranca";
 
+// O build do Coolify roda antes de o container entrar na rede do Postgres,
+// então qualquer página pré-renderizada que consulte o banco derruba o
+// deploy. É por isso que todas as páginas com banco deste repo são
+// force-dynamic (ver src/app/[state]/page.tsx). Com os índices novos a
+// consulta custa 0,2ms e o banco fica no mesmo host, então o custo por
+// requisição é irrelevante.
+export const dynamic = "force-dynamic";
 export const revalidate = 3600;
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://imoveis.crimebrasil.com.br";

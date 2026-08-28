@@ -10,6 +10,13 @@ import { UF_NOME, getCidadesDoEstado, getResumoUf } from "../_lib/queries";
 // A cidade tem filtro/paginação por querystring e por isso é sempre
 // renderizada por requisição; o hub não — 3600s é suficiente porque o
 // estoque muda devagar (novos leilões entram/saem uma vez por dia).
+// O build do Coolify roda antes de o container entrar na rede do Postgres,
+// então qualquer página pré-renderizada que consulte o banco derruba o
+// deploy. É por isso que todas as páginas com banco deste repo são
+// force-dynamic (ver src/app/[state]/page.tsx). Com os índices novos a
+// consulta custa 0,2ms e o banco fica no mesmo host, então o custo por
+// requisição é irrelevante.
+export const dynamic = "force-dynamic";
 export const revalidate = 3600;
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebrasil.com.br").replace(/\/+$/, "");

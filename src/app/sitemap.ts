@@ -25,6 +25,17 @@ const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebras
 
 const ativo = isNull(properties.removedAt);
 
+/**
+ * O sitemap consulta o banco. Se ele for pré-renderizado no build, o build
+ * passa a depender de o banco estar acessível de dentro do runner — e no
+ * Coolify o build roda antes de o container entrar na rede do Postgres.
+ * Um build que falha por isso derruba o deploy inteiro, e o sitemap não
+ * ganha nada em ser estático: ele muda todo dia, junto com o estoque.
+ * Por isso é gerado sob demanda, com cache de uma hora.
+ */
+export const dynamic = "force-dynamic";
+export const revalidate = 3600;
+
 export async function generateSitemaps() {
   return [{ id: "estrutura" }, { id: "imoveis-go" }, { id: "imoveis-rs" }];
 }
