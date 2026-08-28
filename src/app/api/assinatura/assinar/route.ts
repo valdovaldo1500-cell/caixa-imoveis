@@ -51,6 +51,8 @@ export async function POST(request: Request) {
     success: true,
     status: "pendente",
     checkoutUrl: resultado.checkoutUrl,
-    aviso: "Provedor demo — nenhuma cobrança real foi processada.",
+    // Aviso só no provedor demo — com o PagBank de verdade seria mentira
+    // dizer que nenhuma cobrança real foi processada.
+    aviso: provedor.nome === "demo" ? "Provedor demo — nenhuma cobrança real foi processada." : undefined,
   });
 }
