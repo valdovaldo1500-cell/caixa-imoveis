@@ -134,14 +134,15 @@ export default async function ImovelPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- JSON-LD, não navegação */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProduto) }}
+        // Conteúdo controlado (campos do imóvel), escapado por jsonLdSeguro —
+        // ver comentário na função para o porquê do escape de "<".
+        dangerouslySetInnerHTML={{ __html: jsonLdSeguro(jsonLdProduto) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSeguro(jsonLdBreadcrumb) }}
       />
 
       <div className="mx-auto max-w-3xl px-4 py-6">
