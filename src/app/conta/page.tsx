@@ -44,11 +44,11 @@ export default async function ContaPage({
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
-            <Button asChild size="lg">
-              <Link href="/entrar">Entrar</Link>
+            <Button size="lg" render={<Link href="/entrar" />}>
+              Entrar
             </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/cadastro">Criar conta grátis</Link>
+            <Button size="lg" variant="outline" render={<Link href="/cadastro" />}>
+              Criar conta grátis
             </Button>
           </CardContent>
         </Card>
