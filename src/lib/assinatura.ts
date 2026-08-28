@@ -48,10 +48,25 @@ export async function verificarSenha(senha: string, hashArmazenado: string | nul
 // Sessão do assinante — cookie próprio, nunca o `imoveis_session` interno.
 // ---------------------------------------------------------------------------
 
-const ASSINATURA_SESSION_SECRET =
-  process.env.ASSINATURA_SESSION_SECRET ||
-  process.env.SESSION_SECRET ||
-  "change-me-in-production-assinatura";
+// Lazy de propósito (não é `const` avaliado no import): o build do Coolify
+// roda `next build` com NODE_ENV=production e SEM as env vars de runtime
+// (só NEXT_PUBLIC_HCAPTCHA_SITE_KEY vira ARG do Dockerfile — ver Dockerfile).
+// Um throw em NODE_ENV==="production" avaliado no topo do módulo derrubaria
+// o build. Aqui só executa quando uma sessão é de fato assinada/verificada
+// (nunca em build-time, já que este módulo só roda dentro de rotas
+// force-dynamic/route handlers). Falha alto em produção sem segredo
+// configurado em vez de assinar com uma string hardcoded e pública no repo
+// (sessão forjável por qualquer um que leia o código-fonte).
+function segredoSessaoAssinante(): string {
+  const segredo = process.env.ASSINATURA_SESSION_SECRET || process.env.SESSION_SECRET;
+  if (segredo) return segredo;
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "ASSINATURA_SESSION_SECRET (ou SESSION_SECRET) não configurado em produção — recusando assinar/verificar sessão de assinante."
+    );
+  }
+  return "change-me-in-dev-assinatura";
+}
 
 const ASSINANTE_MAX_AGE = 2592000; // 30 dias — sessão de consumidor, não de operador
 
@@ -67,7 +82,7 @@ export const COOKIE_ASSINANTE_OPTIONS = {
 export function assinarSessaoAssinante(assinanteId: number): string {
   const timestamp = String(Math.floor(Date.now() / 1000));
   const payload = `${timestamp}:${assinanteId}`;
-  const signature = createHmac("sha256", ASSINATURA_SESSION_SECRET).update(payload).digest("hex");
+  const signature = createHmac("sha256", segredoSessaoAssinante()).update(payload).digest("hex");
   return `${payload}:${signature}`;
 }
 
@@ -89,7 +104,7 @@ export function verificarSessaoAssinante(token: string): { valid: boolean; assin
   if (Date.now() / 1000 - ts > ASSINANTE_MAX_AGE) return { valid: false };
 
   const payload = `${timestamp}:${idStr}`;
-  const expected = createHmac("sha256", ASSINATURA_SESSION_SECRET).update(payload).digest("hex");
+  const expected = createHmac("sha256", segredoSessaoAssinante()).update(payload).digest("hex");
 
   try {
     const sigBuf = Buffer.from(signature, "hex");
