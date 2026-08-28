@@ -1,0 +1,82 @@
+import { lerSeguranca, fraseFonte, type CrimeCampos } from "@/lib/seguranca";
+
+/**
+ * O bloco que diferencia o produto.
+ *
+ * Posição na página: logo abaixo do título e das características, no mesmo
+ * lugar em que o Arremata.ai põe o score jurídico — é o ponto da página em
+ * que o comprador já sabe o que é o imóvel e quer saber se vale a pena.
+ * Nenhum dos 11 agregadores auditados em 28/08/2026 mostra dado de segurança.
+ *
+ * Regra que não pode ser quebrada: o número nunca aparece sozinho. Grão,
+ * fonte e janela vão junto, sempre. Quando o dado é suprimido por poucos
+ * eventos, mostramos a ausência — nunca um neutro fixo.
+ */
+export function BlocoSeguranca({
+  imovel,
+  cidade,
+  compacto = false,
+}: {
+  imovel: CrimeCampos;
+  cidade: string;
+  compacto?: boolean;
+}) {
+  const s = lerSeguranca(imovel);
+
+  if (!s) {
+    if (compacto) return null;
+    return (
+      <section className="rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
+        <h2 className="text-sm font-medium text-zinc-300">Segurança da região</h2>
+        <p className="mt-1 text-sm text-zinc-500">
+          Dado insuficiente para {cidade}. O município teve poucos registros no
+          período, e uma taxa calculada sobre poucos casos oscilaria demais para
+          significar alguma coisa. Preferimos não mostrar um número a mostrar um
+          número frágil.
+        </p>
+      </section>
+    );
+  }
+
+  if (compacto) {
+    return (
+      <span
+        className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs font-medium ${s.cor}`}
+        title={fraseFonte(s)}
+      >
+        {s.rotulo}
+      </span>
+    );
+  }
+
+  return (
+    <section className="rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
+      <h2 className="text-sm font-medium text-zinc-300">Segurança da região</h2>
+
+      <div className="mt-3 flex flex-wrap items-baseline gap-3">
+        <span
+          className={`inline-flex items-center rounded-full border px-3 py-1 text-base font-semibold ${s.cor}`}
+        >
+          {s.rotulo}
+        </span>
+        {s.taxa != null && (
+          <span className="text-2xl font-semibold tabular-nums text-zinc-100">
+            {s.taxa.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}
+            <span className="ml-1 text-sm font-normal text-zinc-400">
+              mortes violentas por 100 mil habitantes/ano
+            </span>
+          </span>
+        )}
+      </div>
+
+      <p className="mt-2 text-sm text-zinc-400">
+        {cidade} está {s.contexto}.
+      </p>
+
+      <p className="mt-3 border-t border-zinc-800 pt-3 text-xs leading-relaxed text-zinc-500">
+        {fraseFonte(s)} A nota é {s.grao} — não do endereço. Dois imóveis na
+        mesma cidade recebem a mesma leitura.
+      </p>
+    </section>
+  );
+}

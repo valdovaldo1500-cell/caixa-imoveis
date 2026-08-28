@@ -1,5 +1,6 @@
 import {
   pgTable,
+  date,
   serial,
   varchar,
   text,
@@ -56,6 +57,19 @@ export const properties = pgTable(
     fotoUrl: text("foto_url"),
     crimeRate: decimal("crime_rate", { precision: 10, scale: 2 }),
     crimeRateUpdatedAt: timestamp("crime_rate_updated_at"),
+    // Camada de segurança (O6). Preenchida por scripts/caixa-crime-layer.sh a
+    // partir de app.score_nacional. crimeNota é RISCO: maior = mais violento.
+    // As colunas crimeRate* acima são o caminho antigo (API do heatmap, só RS,
+    // escala de todas as ocorrências) e não devem ser usadas na tela pública.
+    crimeNota: integer("crime_nota"),
+    crimeTaxa: decimal("crime_taxa", { precision: 12, scale: 4 }),
+    crimeGrao: varchar("crime_grao", { length: 12 }),
+    crimeCobertura: varchar("crime_cobertura", { length: 12 }),
+    crimeFonte: varchar("crime_fonte", { length: 40 }),
+    crimeJanelaInicio: date("crime_janela_inicio"),
+    crimeJanelaFim: date("crime_janela_fim"),
+    crimeSuprimido: boolean("crime_suprimido"),
+    crimeAtualizadoEm: timestamp("crime_atualizado_em"),
     marketValue: decimal("market_value", { precision: 12, scale: 2 }),
     marketValuePerM2: decimal("market_value_per_m2", { precision: 10, scale: 2 }),
     marketRentValue: decimal("market_rent_value", { precision: 10, scale: 2 }),
@@ -264,3 +278,83 @@ export const pipelineRuns = pgTable("pipeline_runs", {
   priceChanges: integer("price_changes"),
   errors: text("errors"),
 });
+
+/**
+ * Assinatura pública (O6, plano mestre §3).
+ *
+ * `users` acima é a equipe interna (4 contas, senha em hash, sem plano).
+ * `assinantes` é o público pagante — mantidos separados de propósito: o
+ * painel interno não vira produto e o produto não herda permissão interna.
+ *
+ * Faixas do plano: R$39–59/mês, a faixa comprovada do mercado
+ * (Arremata.ai R$39,17 · LeilôAI R$59,90 · Mapa do Leilão R$74,90).
+ */
+export const assinantes = pgTable(
+  "assinantes",
+  {
+    id: serial("id").primaryKey(),
+    email: varchar("email", { length: 160 }).unique().notNull(),
+    senhaHash: varchar("senha_hash", { length: 128 }),
+    nome: varchar("nome", { length: 120 }),
+    telefone: varchar("telefone", { length: 20 }),
+    // livre | mensal | anual — "livre" é a conta grátis, que existe para
+    // capturar e-mail e liberar os documentos (padrão Arremata.ai).
+    plano: varchar("plano", { length: 20 }).notNull().default("livre"),
+    // ativa | pendente | cancelada | inadimplente
+    status: varchar("status", { length: 20 }).notNull().default("ativa"),
+    // Provedor de cobrança e id da assinatura lá — o produto não guarda cartão.
+    provedor: varchar("provedor", { length: 20 }),
+    provedorAssinaturaId: varchar("provedor_assinatura_id", { length: 80 }),
+    validoAte: timestamp("valido_ate"),
+    canceladoEm: timestamp("cancelado_em"),
+    ultimoAcessoEm: timestamp("ultimo_acesso_em"),
+    criadoEm: timestamp("criado_em").notNull().defaultNow(),
+  },
+  (table) => [
+    index("idx_assinantes_plano").on(table.plano),
+    index("idx_assinantes_status").on(table.status),
+  ]
+);
+
+/**
+ * Alertas por busca salva. A pesquisa de mercado mostrou que o alerta rápido
+ * é o gancho principal de TODOS os concorrentes pagos — é o que o assinante
+ * compra primeiro, antes de análise jurídica ou amplitude de fontes.
+ */
+export const alertas = pgTable(
+  "alertas",
+  {
+    id: serial("id").primaryKey(),
+    assinanteId: integer("assinante_id").notNull().references(() => assinantes.id),
+    nome: varchar("nome", { length: 80 }),
+    uf: varchar("uf", { length: 2 }),
+    cidade: varchar("cidade", { length: 100 }),
+    precoMax: decimal("preco_max", { precision: 12, scale: 2 }),
+    descontoMin: decimal("desconto_min", { precision: 5, scale: 2 }),
+    tipoImovel: varchar("tipo_imovel", { length: 50 }),
+    // Teto de risco aceito: filtra pela nota de segurança. É o filtro que
+    // nenhum concorrente tem.
+    crimeNotaMax: integer("crime_nota_max"),
+    ativo: boolean("ativo").notNull().default(true),
+    ultimoEnvioEm: timestamp("ultimo_envio_em"),
+    criadoEm: timestamp("criado_em").notNull().defaultNow(),
+  },
+  (table) => [index("idx_alertas_assinante").on(table.assinanteId)]
+);
+
+/** Eventos de cobrança, para auditar o que o provedor mandou. */
+export const cobrancas = pgTable(
+  "cobrancas",
+  {
+    id: serial("id").primaryKey(),
+    assinanteId: integer("assinante_id").references(() => assinantes.id),
+    provedor: varchar("provedor", { length: 20 }).notNull(),
+    provedorEventoId: varchar("provedor_evento_id", { length: 80 }),
+    tipo: varchar("tipo", { length: 40 }),
+    valor: decimal("valor", { precision: 10, scale: 2 }),
+    status: varchar("status", { length: 20 }),
+    payload: jsonb("payload"),
+    criadoEm: timestamp("criado_em").notNull().defaultNow(),
+  },
+  (table) => [index("idx_cobrancas_assinante").on(table.assinanteId)]
+);
