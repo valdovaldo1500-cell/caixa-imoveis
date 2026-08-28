@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { alertas as alertasTable } from "@/lib/db/schema";
-import { getAssinante, podeVer } from "@/lib/assinatura";
+import { getAssinante, podeVer, PRECOS } from "@/lib/assinatura";
 import AssinarBotoes from "./AssinarBotoes";
 import CancelarBotao from "./CancelarBotao";
 import AlertasPainel, { type AlertaCliente } from "./AlertasPainel";
