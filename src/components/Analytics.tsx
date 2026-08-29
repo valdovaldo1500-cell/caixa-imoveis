@@ -1,6 +1,7 @@
 "use client";
 
 import Script from "next/script";
+import { usePathname } from "next/navigation";
 
 /**
  * GA4 no site público de leilões (O6).
@@ -11,16 +12,41 @@ import Script from "next/script";
  * propriedade no painel — o que travaria a medição por dias. Se um dia o
  * produto justificar propriedade própria, basta trocar a env.
  *
- * Só carrega em produção e só no site público: o painel interno da equipe
- * não é produto e mediria uso nosso como se fosse visitante.
+ * Sai por `NEXT_PUBLIC_GA_ID`; sem a env, nada carrega. Como é `NEXT_PUBLIC_*`,
+ * o Next INLINA o valor no build — por isso a var precisa estar no `ARG` do
+ * Dockerfile e no `build.args` do docker-compose.prod.yml, não só no runtime.
+ * Sem isso o script some sem erro nenhum.
+ *
+ * Lista de PERMISSÃO por rota, não de bloqueio: só o site público é medido.
+ * O painel interno da equipe (`/rs/...`, `/go/...`, `/login`) não é produto —
+ * medir nosso próprio uso como se fosse visitante estragaria o único número
+ * que o plano pede do O6, que é se a camada de segurança converte. Falha
+ * fechada de propósito: rota nova nasce sem medição até ser listada aqui.
  *
  * `afterInteractive` de propósito: o script não pode competir com o LCP.
  * A regra da casa exige CWV medido antes e depois — ver o PR.
  */
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 
+const ROTAS_PUBLICAS = [
+  "/leilao-imoveis",
+  "/imovel",
+  "/planos",
+  "/cadastro",
+  "/conta",
+  "/entrar",
+];
+
+function ehSitePublico(pathname: string): boolean {
+  if (pathname === "/") return true;
+  return ROTAS_PUBLICAS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+}
+
 export function Analytics() {
+  const pathname = usePathname();
+
   if (!GA_ID) return null;
+  if (!ehSitePublico(pathname ?? "")) return null;
 
   return (
     <>
