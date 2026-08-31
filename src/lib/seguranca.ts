@@ -145,7 +145,7 @@ const GRAOS: Record<string, string> = {
 };
 
 /** Nível a partir do percentil nacional (0-100) — a régua preferida, comparável entre grãos. */
-function nivelDoPercentil(percentil: number): NivelSeguranca {
+export function nivelDoPercentil(percentil: number): NivelSeguranca {
   if (percentil < 20) return "baixo";
   if (percentil < 40) return "moderado";
   if (percentil < 60) return "medio";

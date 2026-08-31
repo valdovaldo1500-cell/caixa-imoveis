@@ -55,3 +55,7 @@ measure.py
 scratch_*.py
 fetch_*.py
 fetch_*.sh
+
+# npm local: o build de verdade usa pnpm com pnpm-lock.yaml (--frozen-lockfile).
+# Um package-lock.json commitado é ruído e diverge do que o Dockerfile instala.
+package-lock.json

@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
 import { sql, isNull } from "drizzle-orm";
 import { ArrowRight, ShieldCheck, Trees, Lock } from "lucide-react";
+import { GUIAS } from "./guias/_lib/indice";
 import { ufUrl, imovelUrl } from "@/lib/slug";
 import { BlocoSeguranca } from "@/components/BlocoSeguranca";
 import { CACHE_TTL_LISTA } from "@/lib/cache";
@@ -129,6 +130,7 @@ export default async function Home() {
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <span className="font-semibold text-zinc-100">Imóveis de Leilão</span>
           <nav className="flex items-center gap-5 text-sm">
+            <Link href="/guias" className="text-zinc-400 hover:text-zinc-100">Guias</Link>
             <Link href="/planos" className="text-zinc-400 hover:text-zinc-100">Planos</Link>
             <Link href="/entrar" className="text-zinc-400 hover:text-zinc-100">Entrar</Link>
           </nav>
@@ -220,6 +222,26 @@ export default async function Home() {
             {(tot?.comSeguranca ?? 0).toLocaleString("pt-BR")} dos {(tot?.total ?? 0).toLocaleString("pt-BR")}{" "}
             imóveis têm a leitura de segurança da região.
           </p>
+        </section>
+
+        <section className="mt-14">
+          <h2 className="text-lg font-semibold text-zinc-100">Antes de dar lance</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-zinc-400">
+            Três leituras curtas sobre o que muda o preço final de um imóvel retomado. Os números de cada uma saem do
+            estoque de hoje, não do texto.
+          </p>
+          <ul className="mt-4 grid gap-2 sm:grid-cols-3">
+            {GUIAS.map((g) => (
+              <li key={g.slug}>
+                <Link
+                  href={`/guias/${g.slug}`}
+                  className="flex h-full items-start rounded-lg border border-zinc-800 bg-zinc-900/40 p-4 text-sm text-zinc-300 transition hover:border-zinc-600"
+                >
+                  {g.titulo}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section className="mt-10 flex flex-col gap-3 sm:flex-row">

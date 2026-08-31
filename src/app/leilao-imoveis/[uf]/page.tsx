@@ -6,6 +6,7 @@ import { isValidState, VALID_STATES } from "@/lib/state";
 import { cidadeUrl, ufUrl } from "@/lib/slug";
 import { formatBRL, tituloCaso } from "../_lib/format";
 import { UF_NOME, getCidadesDoEstado, getResumoUf } from "../_lib/queries";
+import { GUIAS } from "@/app/guias/_lib/indice";
 
 // O build do Coolify roda antes de o container entrar na rede do Postgres,
 // então qualquer página pré-renderizada que consulte o banco derruba o
@@ -118,6 +119,19 @@ export default async function HubEstadoPage({ params }: Props) {
             })}
           </ul>
         )}
+
+        <div className="mt-10 rounded-md border border-zinc-800 bg-zinc-900/40 px-4 py-3">
+          <p className="text-sm text-zinc-300">Antes de dar lance</p>
+          <ul className="mt-2 space-y-1 text-sm">
+            {GUIAS.map((g) => (
+              <li key={g.slug}>
+                <Link href={`/guias/${g.slug}`} className="text-zinc-400 underline underline-offset-4 hover:text-zinc-100">
+                  {g.titulo}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

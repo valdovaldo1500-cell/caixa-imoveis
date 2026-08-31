@@ -6,6 +6,7 @@ import { properties } from "@/lib/db/schema";
 import { cidadeUrl, imovelUrl, ufUrl } from "@/lib/slug";
 import { VALID_STATES } from "@/lib/state";
 import { CACHE_TTL_SITEMAP } from "@/lib/cache";
+import { GUIAS } from "./guias/_lib/indice";
 
 /**
  * Sitemap do agregador (O6).
@@ -85,6 +86,23 @@ const sitemapEstrutura = unstable_cache(
     const entradas: MetadataRoute.Sitemap = [
       { url: SITE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
     ];
+
+    // Guias (requisito #6 do plano). Vêm do mesmo índice que o hub `/guias`
+    // renderiza, então guia novo entra aqui sozinho.
+    entradas.push({
+      url: `${SITE_URL}/guias`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    });
+    for (const g of GUIAS) {
+      entradas.push({
+        url: `${SITE_URL}/guias/${g.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.7,
+      });
+    }
 
     for (const uf of VALID_STATES) {
       entradas.push({
