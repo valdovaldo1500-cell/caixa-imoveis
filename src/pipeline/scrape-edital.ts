@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
-import { and, asc, eq, isNull, lt, or, sql } from "drizzle-orm";
+import { and, eq, isNull, lt, or, sql } from "drizzle-orm";
 import { DetailFetchBlockedError, fetchDetailHtml, sleep } from "./caixa-detail-fetch";
 
 /**
