@@ -63,3 +63,27 @@ Ou, direto no host, sem passar pelo GitHub:
 ssh crimebrasil-prod "curl -s -H \"Authorization: Bearer \$(cat /root/.config/coolify-caixa-deploy.token)\" \
   http://localhost:8000/api/v1/deployments/<uuid>"
 ```
+
+## Ligar a cobrança (PagBank Payment Link) — 31/08/2026
+
+O provedor padrão é `pagseguro_link` (`src/lib/pagamento/pagseguro-link.ts`),
+a mesma técnica do Crime Brasil em `/relatorio`: link fixo por faixa criado à
+mão no painel do lojista, checkout hospedado no PagBank, confirmação MANUAL.
+Não existe API para criar o link — o valor é cravado no cadastro do produto.
+
+1. No painel do PagBank, criar dois links de pagamento: **R$ 49,90** (mensal) e
+   **R$ 499** (anual). Os links do Crime Brasil não servem — são de outro preço.
+2. No Coolify (app `k888wo4k4w8s8kgws00sg0og`), criar as envs
+   `PAGSEGURO_LINK_MENSAL` e `PAGSEGURO_LINK_ANUAL` com essas URLs e redeployar.
+   Enquanto elas faltarem, `iniciarAssinatura` recusa a faixa com mensagem clara
+   — nunca cai calado para o provedor `demo`. Essa ausência É a trava.
+3. Conferir quem está esperando:
+   `curl -H "Authorization: Bearer $PIPELINE_TOKEN" https://imoveis.crimebrasil.com.br/api/assinatura/admin/pendentes`
+4. Achar o pagamento no histórico do PagBank (minhaconta.pagseguro.uol.com.br),
+   casar pelo e-mail do comprador e confirmar:
+   `curl -X POST -H "Authorization: Bearer $PIPELINE_TOKEN" -H 'Content-Type: application/json' \`
+   `  -d '{"email":"...","plano":"mensal","provedorTransacaoId":"<id do PagBank>"}' \`
+   `  https://imoveis.crimebrasil.com.br/api/assinatura/admin/confirmar-pagamento`
+   Confirmar duas vezes o mesmo checkout não credita duas vezes (chave de
+   idempotência = `provedor_evento_id`, com o índice `uniq_cobrancas_evento`
+   como backstop). Quem renova antes de vencer não perde os dias já pagos.
