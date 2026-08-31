@@ -123,7 +123,10 @@ export default async function CidadePage({ params, searchParams }: Props) {
     getImoveisDaCidade(uf, cidade, { descontoMin, precoMax, tipo, segurancaMax, ordem, pagina }),
   ]);
 
-  const seguranca = amostraSeguranca ? lerSeguranca(amostraSeguranca) : null;
+  // Sempre o contexto MUNICIPAL: com grão bairro, a nota de UM imóvel
+  // amostrado não representa mais a cidade inteira (ver comentário em
+  // `../../_lib/queries.ts`).
+  const seguranca = amostraSeguranca ? lerSegurancaMunicipio(amostraSeguranca) : null;
   const paragrafo = gerarParagrafo({ cidade: nomeCidade, uf, resumo, bairros, seguranca });
 
   const filtrosAtuais = {
