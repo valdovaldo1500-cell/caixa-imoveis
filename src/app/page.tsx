@@ -143,8 +143,8 @@ export default async function Home() {
             {(tot?.total ?? 0).toLocaleString("pt-BR")} imóveis da Caixa em{" "}
             {(tot?.cidades ?? 0).toLocaleString("pt-BR")} cidades.{" "}
             {(tot?.comDesconto ?? 0).toLocaleString("pt-BR")} saem abaixo da avaliação, com desconto mediano de{" "}
-            <strong className="text-zinc-200">{tot?.descontoMediano ?? "—"}%</strong> — e a criminalidade do
-            município ao lado de cada um. Nenhum outro agregador mostra isso.
+            <strong className="text-zinc-200">{tot?.descontoMediano ?? "—"}%</strong> — e a criminalidade da
+            região (bairro ou município) ao lado de cada um. Nenhum outro agregador mostra isso.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
