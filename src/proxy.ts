@@ -31,7 +31,10 @@ export function proxy(request: NextRequest) {
     pathname === "/planos" ||
     pathname === "/entrar" ||
     pathname === "/cadastro" ||
-    pathname === "/conta" ||
+    // startsWith, não igualdade: /conta/pagar (tela do PIX) é filha desta área
+    // e cair no redirect de operador deixaria o assinante sem como pagar —
+    // foi exatamente o que aconteceu com /sitemap/* em 28/08.
+    pathname.startsWith("/conta") ||
     pathname.startsWith("/imovel/") ||
     pathname.startsWith("/leilao-imoveis") ||
     pathname.startsWith("/sitemap") ||
