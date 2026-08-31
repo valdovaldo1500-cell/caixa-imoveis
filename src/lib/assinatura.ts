@@ -218,16 +218,21 @@ export const PRECOS = {
 // ---------------------------------------------------------------------------
 // Adaptador de provedor de cobrança.
 //
-// Implementação real: PagBank/PagSeguro, via `src/lib/pagamento/pagbank.ts`
-// (Checkout PagBank com `recurrence_plan` — ver o cabeçalho daquele arquivo
-// para a arquitetura completa, os dois hosts/tokens envolvidos e o que falta
-// habilitar no painel do PagBank).
+// Provedor PADRÃO (desde 31/08/2026): `pagseguro_link`, via
+// `src/lib/pagamento/pagseguro-link.ts` — PagBank Payment Links, a mesma
+// técnica que o Crime Brasil já usa em produção. Cada faixa (mensal/anual)
+// tem um link fixo criado no painel do lojista; o assinante paga no
+// checkout hospedado do PagBank e a confirmação é MANUAL (ver
+// `/api/assinatura/admin/confirmar-pagamento`).
 //
-// A implementação `demo` abaixo continua existindo e é o PADRÃO — nunca
-// cobra: registra a intenção em `cobrancas` e deixa o assinante em
-// `pendente`. Trocar para o provedor real é uma decisão explícita do dono via
-// env (`PAGAMENTO_PROVEDOR=pagbank`), nunca um efeito colateral de deploy —
-// ver `getProvedorPagamento()` no fim do arquivo.
+// `pagbank.ts` (Checkout PagBank com `recurrence_plan`, cobrança recorrente
+// de verdade) fica no repo FORA do caminho padrão — só entra com
+// `PAGAMENTO_PROVEDOR=pagbank` explícito (ver o cabeçalho daquele arquivo).
+//
+// A implementação `demo` abaixo continua existindo, pra dev/teste local sem
+// os links configurados: nunca cobra, só registra a intenção em `cobrancas`
+// e deixa o assinante em `pendente`. Só entra com `PAGAMENTO_PROVEDOR=demo`
+// explícito — ver `getProvedorPagamento()` no fim do arquivo.
 // ---------------------------------------------------------------------------
 
 export type Plano = "mensal" | "anual";
