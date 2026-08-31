@@ -34,6 +34,34 @@ export function detailUrlFor(property: { caixaId: string; linkCaixa: string | nu
  * no topo do arquivo) mas teria mojibaked qualquer valor acentuado que este
  * coletor viesse a extrair (nome de leiloeiro, comarca).
  */
+/**
+ * Aceita a página SÓ se ela realmente for a ficha do imóvel.
+ *
+ * Lista negra não basta, e isso custou caro em 31/08/2026: do servidor de
+ * produção a Caixa devolve a página de erro do Azion — 10.458 bytes, sem as
+ * palavras "Radware" ou "Bot Manager" — que passava batido pela checagem
+ * antiga e era gravada como coleta bem-sucedida com ZERO campo. 19 imóveis
+ * foram marcados como coletados sem nada dentro antes de eu perceber.
+ * Por isso a checagem agora é por MARCADOR POSITIVO: se o HTML não tem o que
+ * toda ficha tem, é bloqueio/erro, seja lá de quem for o intermediário.
+ */
+export function garantirPaginaDeImovel(html: string): void {
+  if (html.length < 500) {
+    throw new DetailFetchBlockedError(`Resposta curta demais (${html.length} bytes)`);
+  }
+  const temMarcador =
+    html.includes("Número do imóvel") ||
+    html.includes("N&uacute;mero do im&oacute;vel") ||
+    html.includes("Valor de avaliação") ||
+    html.includes("Valor de avalia&ccedil;&atilde;o");
+  if (!temMarcador) {
+    const titulo = /<title>([^<]{0,80})/i.exec(html)?.[1]?.trim() ?? "sem título";
+    throw new DetailFetchBlockedError(
+      `Resposta não é a ficha do imóvel (${html.length} bytes, título: "${titulo}") — bloqueio ou página de erro`
+    );
+  }
+}
+
 export function fetchDetailHtml(property: { caixaId: string; linkCaixa: string | null }): string {
   const url = detailUrlFor(property);
 
@@ -54,14 +82,7 @@ export function fetchDetailHtml(property: { caixaId: string; linkCaixa: string |
 
   const html = htmlBuffer.toString("utf8");
 
-  if (
-    html.includes("Radware") ||
-    html.includes("Bot Manager") ||
-    html.includes("Access Denied") ||
-    html.length < 500
-  ) {
-    throw new DetailFetchBlockedError("Request blocked by Radware Bot Manager");
-  }
+  garantirPaginaDeImovel(html);
 
   return html;
 }
