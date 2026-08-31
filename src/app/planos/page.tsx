@@ -18,7 +18,7 @@ export const metadata = {
 const RECURSOS_GRATIS = [
   "Todos os imóveis em leilão, sem limite",
   "Ficha completa de cada imóvel",
-  "Nota de segurança do município",
+  "Nota de segurança do bairro ou do município, conforme a cobertura",
   "Filtro por nota de segurança",
   "Link direto para o edital no site da Caixa",
 ];

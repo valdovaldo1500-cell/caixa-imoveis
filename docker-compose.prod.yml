@@ -28,6 +28,16 @@ services:
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://imoveis.crimebrasil.com.br}
       ASSINATURA_SESSION_SECRET: ${ASSINATURA_SESSION_SECRET}
       WEBHOOK_ASSINATURA_SECRET: ${WEBHOOK_ASSINATURA_SECRET}
+      # Cobrança. Sem PIX_CHAVE o provedor padrão (`pix`) recusa alto e ninguém
+      # consegue pagar — é a trava contra cobrança acidental, não um esquecimento.
+      # Os PAGSEGURO_LINK_* ficam aqui de passagem para o dia em que existirem
+      # links do PagBank nas faixas daqui (hoje os que existem são de outro preço).
+      PIX_CHAVE: ${PIX_CHAVE}
+      PIX_RECEBEDOR_NOME: ${PIX_RECEBEDOR_NOME:-CRIME BRASIL}
+      PIX_RECEBEDOR_CIDADE: ${PIX_RECEBEDOR_CIDADE:-SAO PAULO}
+      PAGAMENTO_PROVEDOR: ${PAGAMENTO_PROVEDOR:-pix}
+      PAGSEGURO_LINK_MENSAL: ${PAGSEGURO_LINK_MENSAL:-}
+      PAGSEGURO_LINK_ANUAL: ${PAGSEGURO_LINK_ANUAL:-}
       # Explicit V8 heap ceiling, independent of cgroup auto-detection. Must stay
       # comfortably below mem_limit so the kernel never OOM-kills the process.
       NODE_OPTIONS: --max-old-space-size=1024

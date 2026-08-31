@@ -17,12 +17,14 @@ import { cookies } from "next/headers";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { assinantes, cobrancas } from "@/lib/db/schema";
-// Import circular de propósito: `pagbank.ts` importa tipos e `PRECOS` daqui,
-// e este arquivo importa a implementação de lá. Seguro porque nenhum dos
-// dois lados usa o valor importado no topo do módulo — só dentro de corpo
-// de função (`getProvedorPagamento`, `iniciarAssinatura`, etc.), quando os
-// dois módulos já terminaram de carregar.
+// Import circular de propósito: `pagbank.ts` e `pagseguro-link.ts` importam
+// tipos e `PRECOS` daqui, e este arquivo importa a implementação de lá.
+// Seguro porque nenhum dos lados usa o valor importado no topo do módulo —
+// só dentro de corpo de função (`getProvedorPagamento`, `iniciarAssinatura`,
+// etc.), quando todos os módulos já terminaram de carregar.
 import { provedorPagBank, pagbankConfigurado } from "@/lib/pagamento/pagbank";
+import { provedorPagSeguroLink } from "@/lib/pagamento/pagseguro-link";
+import { provedorPix } from "@/lib/pagamento/pix-estatico";
 
 const scrypt = promisify(scryptCb);
 
@@ -217,16 +219,21 @@ export const PRECOS = {
 // ---------------------------------------------------------------------------
 // Adaptador de provedor de cobrança.
 //
-// Implementação real: PagBank/PagSeguro, via `src/lib/pagamento/pagbank.ts`
-// (Checkout PagBank com `recurrence_plan` — ver o cabeçalho daquele arquivo
-// para a arquitetura completa, os dois hosts/tokens envolvidos e o que falta
-// habilitar no painel do PagBank).
+// Provedor PADRÃO (desde 31/08/2026): `pagseguro_link`, via
+// `src/lib/pagamento/pagseguro-link.ts` — PagBank Payment Links, a mesma
+// técnica que o Crime Brasil já usa em produção. Cada faixa (mensal/anual)
+// tem um link fixo criado no painel do lojista; o assinante paga no
+// checkout hospedado do PagBank e a confirmação é MANUAL (ver
+// `/api/assinatura/admin/confirmar-pagamento`).
 //
-// A implementação `demo` abaixo continua existindo e é o PADRÃO — nunca
-// cobra: registra a intenção em `cobrancas` e deixa o assinante em
-// `pendente`. Trocar para o provedor real é uma decisão explícita do dono via
-// env (`PAGAMENTO_PROVEDOR=pagbank`), nunca um efeito colateral de deploy —
-// ver `getProvedorPagamento()` no fim do arquivo.
+// `pagbank.ts` (Checkout PagBank com `recurrence_plan`, cobrança recorrente
+// de verdade) fica no repo FORA do caminho padrão — só entra com
+// `PAGAMENTO_PROVEDOR=pagbank` explícito (ver o cabeçalho daquele arquivo).
+//
+// A implementação `demo` abaixo continua existindo, pra dev/teste local sem
+// os links configurados: nunca cobra, só registra a intenção em `cobrancas`
+// e deixa o assinante em `pendente`. Só entra com `PAGAMENTO_PROVEDOR=demo`
+// explícito — ver `getProvedorPagamento()` no fim do arquivo.
 // ---------------------------------------------------------------------------
 
 export type Plano = "mensal" | "anual";
@@ -304,26 +311,35 @@ export const provedorDemo: ProvedorPagamento = {
 /**
  * Seleção do provedor — por env, nunca automática.
  *
- * `PAGAMENTO_PROVEDOR=pagbank|demo`, com `demo` como PADRÃO: o que está no
- * ar hoje não muda de comportamento sozinho por causa deste deploy — ligar
- * cobrança de verdade é uma decisão explícita do dono (setar a env em
- * produção), não um efeito colateral.
+ * `PAGAMENTO_PROVEDOR=pix|pagseguro_link|pagbank|demo`, com `pix` como PADRÃO
+ * (desde 31/08/2026). O PIX é o único caminho que cobra de verdade sem
+ * depender de ninguém abrir painel: medido no mesmo dia, a conta PagBank
+ * recusa criação de cobrança por API (checkout v2 "Product has been
+ * disabled"; Orders API 403), e os links fixos que existem são de outro
+ * preço. `pagseguro_link` continua disponível para quando os links das
+ * faixas daqui existirem. A trava contra cobrança acidental é a ausência da
+ * env (`PIX_CHAVE`, ou os `PAGSEGURO_LINK_*`): sem ela o provedor recusa
+ * alto, nunca cai calado pro demo.
  *
- * Falha fechada: se `PAGAMENTO_PROVEDOR=pagbank` mas a credencial mínima
- * (`PAGSEGURO_API_TOKEN`) não está configurada, o provedor real NÃO carrega
- * — cai para `demo` e loga um aviso alto, em vez de deixar rotas de
- * pagamento quebrarem em produção ou (pior) seguir sem checagem nenhuma.
+ * `demo` (nunca cobra) e `pagbank` (recorrente, ainda inativo — ver
+ * `pagbank.ts`) só entram com a env setada explicitamente. `pagbank`
+ * também tem trava própria: se `PAGSEGURO_API_TOKEN` não está configurado,
+ * cai para `pagseguro_link` (o padrão), nunca pro demo — evita mascarar
+ * a intenção do dono de cobrar de verdade.
  */
 export function getProvedorPagamento(): ProvedorPagamento {
-  const escolha = (process.env.PAGAMENTO_PROVEDOR || "demo").trim().toLowerCase();
+  const escolha = (process.env.PAGAMENTO_PROVEDOR || "pix").trim().toLowerCase();
+
+  if (escolha === "demo") return provedorDemo;
+  if (escolha === "pagseguro_link") return provedorPagSeguroLink;
 
   if (escolha === "pagbank") {
     if (pagbankConfigurado()) return provedorPagBank;
     console.error(
       "[assinatura] PAGAMENTO_PROVEDOR=pagbank mas PAGSEGURO_API_TOKEN não está configurado — " +
-        "caindo para o provedor demo (nenhuma cobrança real será feita)."
+        "caindo para pix (o provedor padrão)."
     );
   }
 
-  return provedorDemo;
+  return provedorPix;
 }
