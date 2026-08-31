@@ -17,12 +17,13 @@ import { cookies } from "next/headers";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { assinantes, cobrancas } from "@/lib/db/schema";
-// Import circular de propósito: `pagbank.ts` importa tipos e `PRECOS` daqui,
-// e este arquivo importa a implementação de lá. Seguro porque nenhum dos
-// dois lados usa o valor importado no topo do módulo — só dentro de corpo
-// de função (`getProvedorPagamento`, `iniciarAssinatura`, etc.), quando os
-// dois módulos já terminaram de carregar.
+// Import circular de propósito: `pagbank.ts` e `pagseguro-link.ts` importam
+// tipos e `PRECOS` daqui, e este arquivo importa a implementação de lá.
+// Seguro porque nenhum dos lados usa o valor importado no topo do módulo —
+// só dentro de corpo de função (`getProvedorPagamento`, `iniciarAssinatura`,
+// etc.), quando todos os módulos já terminaram de carregar.
 import { provedorPagBank, pagbankConfigurado } from "@/lib/pagamento/pagbank";
+import { provedorPagSeguroLink } from "@/lib/pagamento/pagseguro-link";
 
 const scrypt = promisify(scryptCb);
 
