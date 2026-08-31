@@ -195,7 +195,8 @@ export type FiltrosCidade = {
 const ORDENACOES: Record<OrdemListagem, SQL> = {
   desconto: sql`${properties.desconto}::numeric desc nulls last`,
   preco: sql`${properties.preco}::numeric asc nulls last`,
-  risco: sql`${properties.crimeNota} asc nulls last`,
+  // Percentil, não nota: comparável entre bairro e município (ver lib/seguranca.ts).
+  risco: sql`${properties.crimePercentil} asc nulls last`,
 };
 
 // Único call site é a página da cidade (não passa por `generateMetadata`),
