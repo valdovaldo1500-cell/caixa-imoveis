@@ -33,7 +33,9 @@ export function tituloCaso(txt: string | null | undefined): string {
 export function descontoTexto(valor: string | number | null | undefined): string | null {
   if (valor == null) return null;
   const n = Number(valor);
-  if (!Number.isFinite(n)) return null;
+  // Desconto 0 não é desconto: no "Leilão SFI - Edital Único" o lance mínimo
+  // é a dívida e empata (ou passa) a avaliação. O selo "-0%" sujava o card.
+  if (!Number.isFinite(n) || n <= 0) return null;
   return n.toFixed(0);
 }
 
