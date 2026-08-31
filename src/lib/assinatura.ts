@@ -310,26 +310,32 @@ export const provedorDemo: ProvedorPagamento = {
 /**
  * Seleção do provedor — por env, nunca automática.
  *
- * `PAGAMENTO_PROVEDOR=pagbank|demo`, com `demo` como PADRÃO: o que está no
- * ar hoje não muda de comportamento sozinho por causa deste deploy — ligar
- * cobrança de verdade é uma decisão explícita do dono (setar a env em
- * produção), não um efeito colateral.
+ * `PAGAMENTO_PROVEDOR=pagseguro_link|pagbank|demo`, com `pagseguro_link`
+ * como PADRÃO (desde 31/08/2026 — ligação do pagamento real via PagBank
+ * Payment Links). Antes disso o padrão era `demo`, e era ELE a trava de
+ * segurança contra cobrança acidental; agora a trava é a própria ausência
+ * das envs de link (`PAGSEGURO_LINK_MENSAL` / `PAGSEGURO_LINK_ANUAL`) — sem
+ * elas, `provedorPagSeguroLink.iniciarAssinatura()` falha alto por faixa,
+ * nunca cai calado pro demo (ver `pagseguro-link.ts`).
  *
- * Falha fechada: se `PAGAMENTO_PROVEDOR=pagbank` mas a credencial mínima
- * (`PAGSEGURO_API_TOKEN`) não está configurada, o provedor real NÃO carrega
- * — cai para `demo` e loga um aviso alto, em vez de deixar rotas de
- * pagamento quebrarem em produção ou (pior) seguir sem checagem nenhuma.
+ * `demo` (nunca cobra) e `pagbank` (recorrente, ainda inativo — ver
+ * `pagbank.ts`) só entram com a env setada explicitamente. `pagbank`
+ * também tem trava própria: se `PAGSEGURO_API_TOKEN` não está configurado,
+ * cai para `pagseguro_link` (o padrão), nunca pro demo — evita mascarar
+ * a intenção do dono de cobrar de verdade.
  */
 export function getProvedorPagamento(): ProvedorPagamento {
-  const escolha = (process.env.PAGAMENTO_PROVEDOR || "demo").trim().toLowerCase();
+  const escolha = (process.env.PAGAMENTO_PROVEDOR || "pagseguro_link").trim().toLowerCase();
+
+  if (escolha === "demo") return provedorDemo;
 
   if (escolha === "pagbank") {
     if (pagbankConfigurado()) return provedorPagBank;
     console.error(
       "[assinatura] PAGAMENTO_PROVEDOR=pagbank mas PAGSEGURO_API_TOKEN não está configurado — " +
-        "caindo para o provedor demo (nenhuma cobrança real será feita)."
+        "caindo para pagseguro_link (o provedor padrão)."
     );
   }
 
-  return provedorDemo;
+  return provedorPagSeguroLink;
 }
