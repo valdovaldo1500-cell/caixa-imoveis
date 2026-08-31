@@ -46,6 +46,27 @@ export const properties = pgTable(
     areaPrivativaM2: decimal("area_privativa_m2", { precision: 10, scale: 2 }),
     matricula: varchar("matricula", { length: 30 }),
     comarca: varchar("comarca", { length: 50 }),
+    // Rastreador de edital (O6, requisito #7). Preenchido por
+    // src/pipeline/scrape-edital.ts — ver drizzle/mig_05_edital.sql para o
+    // porque matricula/comarca acima passam a ser escritas por ele também
+    // (o scraper antigo nunca as populava: DOM da Caixa é <span>, não <td>).
+    editalNumero: varchar("edital_numero", { length: 60 }),
+    editalItem: varchar("edital_item", { length: 10 }),
+    leiloeiro: varchar("leiloeiro", { length: 150 }),
+    editalPublicadoEm: timestamp("edital_publicado_em"),
+    editalPdfUrl: text("edital_pdf_url"),
+    // Datas em UTC real (fonte é horário de Brasília, UTC-3 fixo — Brasil
+    // não observa DST desde 2019 — convertido na coleta, ver scrape-edital.ts).
+    leilao1Data: timestamp("leilao1_data"),
+    leilao2Data: timestamp("leilao2_data"),
+    licitacaoData: timestamp("licitacao_data"),
+    propostaPrazo: timestamp("proposta_prazo"),
+    oficio: varchar("oficio", { length: 10 }),
+    inscricaoImobiliaria: varchar("inscricao_imobiliaria", { length: 40 }),
+    // Bookkeeping do coletor — NÃO é a data do edital (essa é editalPublicadoEm).
+    // NULL = nunca coletado. É o que torna o passo incremental.
+    editalAtualizadoEm: timestamp("edital_atualizado_em"),
+    editalErro: varchar("edital_erro", { length: 200 }),
     lat: decimal("lat", { precision: 10, scale: 7 }),
     lng: decimal("lng", { precision: 10, scale: 7 }),
     geocodedAt: timestamp("geocoded_at"),
