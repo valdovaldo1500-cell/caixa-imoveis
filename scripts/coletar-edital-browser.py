@@ -22,9 +22,11 @@ PIPELINE_TOKEN vem do ambiente ou de ~/.config/crime-map/credentials-o6.env.
 
 import argparse
 import json
+import ssl
 import os
 import sys
 import time
+import urllib.error
 import urllib.request
 
 sys.path.insert(0, "/home/valdo/scripts")
@@ -49,16 +51,42 @@ def token() -> str:
     raise SystemExit("PIPELINE_TOKEN ausente (env ou ~/.config/crime-map/credentials-o6.env)")
 
 
-def api(caminho: str, metodo="GET", corpo=None, tok=""):
+def api(caminho: str, metodo="GET", corpo=None, tok="", tentativas=4):
+    """
+    Chama a API do agregador, com repeticao em falha de REDE.
+
+    Por que a repeticao existe: em 31/08/2026 um deploy reiniciou o container
+    no meio de uma rodada e o urlopen morreu com "EOF occurred in violation of
+    protocol" — a rodada inteira de 400 fichas foi perdida e a fila nao andou.
+    O container fica fora do ar uns 15s a cada deploy, e o coletor roda por
+    horas: cruzar com um deploy nao e excecao, e o esperado.
+
+    So repete falha de REDE/5xx. Um 401 (token errado) ou 400 sobe na hora —
+    insistir nesses so esconderia o defeito.
+    """
     dados = json.dumps(corpo).encode() if corpo is not None else None
-    req = urllib.request.Request(
-        f"{BASE}{caminho}",
-        data=dados,
-        method=metodo,
-        headers={"Authorization": f"Bearer {tok}", "Content-Type": "application/json"},
-    )
-    with urllib.request.urlopen(req, timeout=180) as r:
-        return json.load(r)
+    for tentativa in range(1, tentativas + 1):
+        req = urllib.request.Request(
+            f"{BASE}{caminho}",
+            data=dados,
+            method=metodo,
+            headers={"Authorization": f"Bearer {tok}", "Content-Type": "application/json"},
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=180) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            if e.code < 500 or tentativa == tentativas:
+                raise
+            motivo = f"HTTP {e.code}"
+        except (urllib.error.URLError, ssl.SSLError, OSError) as e:
+            if tentativa == tentativas:
+                raise
+            motivo = type(e).__name__
+        espera = 5 * (2 ** (tentativa - 1))  # 5s, 10s, 20s
+        print(f"  rede falhou ({motivo}), tentativa {tentativa}/{tentativas} — aguardando {espera}s", flush=True)
+        time.sleep(espera)
+    raise SystemExit("inalcancavel")
 
 
 def main() -> int:
