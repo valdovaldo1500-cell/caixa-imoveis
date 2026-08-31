@@ -45,3 +45,13 @@ next-env.d.ts
 # prints de verificacao local, nao versionar
 shots/
 shots-final/
+
+# recon do rastreador de edital (HTML/scripts de amostra) — fica fora do repo
+*.html
+detail_*.txt
+links_*.txt
+sample_ids.txt
+measure.py
+scratch_*.py
+fetch_*.py
+fetch_*.sh
