@@ -220,8 +220,8 @@ export const getImoveisDaCidade = unstable_cache(
       condicoes.push(eq(properties.tipoImovel, filtros.tipo));
     }
     if (filtros.segurancaMax) {
-      const teto = NOTA_TETO[filtros.segurancaMax];
-      if (teto != null) condicoes.push(lt(properties.crimeNota, teto));
+      const teto = PERCENTIL_TETO[filtros.segurancaMax];
+      if (teto != null) condicoes.push(lt(properties.crimePercentil, teto));
     }
 
     const where = and(...condicoes);
