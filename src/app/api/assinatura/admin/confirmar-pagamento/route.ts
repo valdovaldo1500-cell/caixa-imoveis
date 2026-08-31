@@ -71,12 +71,17 @@ export async function POST(request: NextRequest) {
   if (!assinante) {
     return NextResponse.json({ error: "Nenhum assinante com esse e-mail" }, { status: 404 });
   }
-  if (assinante.provedor !== "pagseguro_link" || !assinante.provedorAssinaturaId) {
+  // Os dois provedores de confirmação MANUAL (`pix`, o padrão, e o link fixo
+  // do PagBank) usam o mesmo fluxo daqui; `pagbank` recorrente e `demo` não
+  // passam por confirmação humana e por isso ficam de fora.
+  const MANUAIS = ["pix", "pagseguro_link"];
+  if (!assinante.provedor || !MANUAIS.includes(assinante.provedor) || !assinante.provedorAssinaturaId) {
     return NextResponse.json(
-      { error: "Assinante não tem um checkout pagseguro_link pendente para confirmar" },
+      { error: "Assinante não tem um checkout pendente de confirmação manual (pix ou pagseguro_link)" },
       { status: 409 }
     );
   }
+  const provedor = assinante.provedor;
   if (assinante.plano !== plano) {
     return NextResponse.json(
       { error: `O plano pendente do assinante é '${assinante.plano}', não '${plano}' — confira antes de confirmar` },
@@ -89,7 +94,7 @@ export async function POST(request: NextRequest) {
   const [jaConfirmado] = await db
     .select({ id: cobrancas.id })
     .from(cobrancas)
-    .where(and(eq(cobrancas.provedor, "pagseguro_link"), eq(cobrancas.provedorEventoId, provedorEventoId)))
+    .where(and(eq(cobrancas.provedor, provedor), eq(cobrancas.provedorEventoId, provedorEventoId)))
     .limit(1);
 
   if (jaConfirmado) {
@@ -100,7 +105,7 @@ export async function POST(request: NextRequest) {
   try {
     await db.insert(cobrancas).values({
       assinanteId: assinante.id,
-      provedor: "pagseguro_link",
+      provedor,
       provedorEventoId,
       tipo: "pagamento_confirmado",
       valor: valorReais.toString(),

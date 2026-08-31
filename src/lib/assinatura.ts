@@ -24,6 +24,7 @@ import { assinantes, cobrancas } from "@/lib/db/schema";
 // etc.), quando todos os módulos já terminaram de carregar.
 import { provedorPagBank, pagbankConfigurado } from "@/lib/pagamento/pagbank";
 import { provedorPagSeguroLink } from "@/lib/pagamento/pagseguro-link";
+import { provedorPix } from "@/lib/pagamento/pix-estatico";
 
 const scrypt = promisify(scryptCb);
 
@@ -310,13 +311,15 @@ export const provedorDemo: ProvedorPagamento = {
 /**
  * Seleção do provedor — por env, nunca automática.
  *
- * `PAGAMENTO_PROVEDOR=pagseguro_link|pagbank|demo`, com `pagseguro_link`
- * como PADRÃO (desde 31/08/2026 — ligação do pagamento real via PagBank
- * Payment Links). Antes disso o padrão era `demo`, e era ELE a trava de
- * segurança contra cobrança acidental; agora a trava é a própria ausência
- * das envs de link (`PAGSEGURO_LINK_MENSAL` / `PAGSEGURO_LINK_ANUAL`) — sem
- * elas, `provedorPagSeguroLink.iniciarAssinatura()` falha alto por faixa,
- * nunca cai calado pro demo (ver `pagseguro-link.ts`).
+ * `PAGAMENTO_PROVEDOR=pix|pagseguro_link|pagbank|demo`, com `pix` como PADRÃO
+ * (desde 31/08/2026). O PIX é o único caminho que cobra de verdade sem
+ * depender de ninguém abrir painel: medido no mesmo dia, a conta PagBank
+ * recusa criação de cobrança por API (checkout v2 "Product has been
+ * disabled"; Orders API 403), e os links fixos que existem são de outro
+ * preço. `pagseguro_link` continua disponível para quando os links das
+ * faixas daqui existirem. A trava contra cobrança acidental é a ausência da
+ * env (`PIX_CHAVE`, ou os `PAGSEGURO_LINK_*`): sem ela o provedor recusa
+ * alto, nunca cai calado pro demo.
  *
  * `demo` (nunca cobra) e `pagbank` (recorrente, ainda inativo — ver
  * `pagbank.ts`) só entram com a env setada explicitamente. `pagbank`
@@ -325,17 +328,18 @@ export const provedorDemo: ProvedorPagamento = {
  * a intenção do dono de cobrar de verdade.
  */
 export function getProvedorPagamento(): ProvedorPagamento {
-  const escolha = (process.env.PAGAMENTO_PROVEDOR || "pagseguro_link").trim().toLowerCase();
+  const escolha = (process.env.PAGAMENTO_PROVEDOR || "pix").trim().toLowerCase();
 
   if (escolha === "demo") return provedorDemo;
+  if (escolha === "pagseguro_link") return provedorPagSeguroLink;
 
   if (escolha === "pagbank") {
     if (pagbankConfigurado()) return provedorPagBank;
     console.error(
       "[assinatura] PAGAMENTO_PROVEDOR=pagbank mas PAGSEGURO_API_TOKEN não está configurado — " +
-        "caindo para pagseguro_link (o provedor padrão)."
+        "caindo para pix (o provedor padrão)."
     );
   }
 
-  return provedorPagSeguroLink;
+  return provedorPix;
 }

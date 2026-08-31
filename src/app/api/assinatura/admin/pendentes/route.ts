@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { assinantes, cobrancas } from "@/lib/db/schema";
 import { PRECOS } from "@/lib/assinatura";
@@ -33,6 +33,10 @@ export async function GET(request: NextRequest) {
       email: assinantes.email,
       nome: assinantes.nome,
       plano: assinantes.plano,
+      // O txid é o que aparece no extrato do PIX — é por ele que se casa o
+      // pagamento com o assinante na hora de confirmar.
+      txid: assinantes.provedorAssinaturaId,
+      provedor: assinantes.provedor,
       solicitadoEm: cobrancas.criadoEm,
     })
     .from(assinantes)
@@ -40,17 +44,19 @@ export async function GET(request: NextRequest) {
       cobrancas,
       and(
         eq(cobrancas.assinanteId, assinantes.id),
-        eq(cobrancas.provedor, "pagseguro_link"),
+        inArray(cobrancas.provedor, ["pix", "pagseguro_link"]),
         eq(cobrancas.provedorEventoId, assinantes.provedorAssinaturaId)
       )
     )
-    .where(and(eq(assinantes.status, "pendente"), eq(assinantes.provedor, "pagseguro_link")))
+    .where(and(eq(assinantes.status, "pendente"), inArray(assinantes.provedor, ["pix", "pagseguro_link"])))
     .orderBy(desc(cobrancas.criadoEm));
 
   const pendentes = linhas.map((l) => ({
     email: l.email,
     nome: l.nome,
     plano: l.plano,
+    txid: l.txid,
+    provedor: l.provedor,
     valor: l.plano === "anual" ? PRECOS.anual.valor : PRECOS.mensal.valor,
     solicitadoEm: l.solicitadoEm,
   }));
