@@ -39,7 +39,7 @@ export default async function GuiaModalidades() {
     >
       <p>
         Quem procura “leilão da Caixa” costuma imaginar uma coisa só: um pregão com data marcada, lance e martelo. Na
-        prática o estoque da Caixa está repartido em quatro modalidades, e só parte dele é leilão de verdade. As outras
+        prática, o estoque da Caixa está repartido em quatro modalidades, e só parte dele é leilão de verdade. As outras
         são venda por proposta, que abre e fecha sem data pública.
       </p>
 

@@ -94,7 +94,7 @@ export default async function GuiaDescontos() {
 
       <H2>O que come o desconto depois</H2>
       <p>
-        Três custos não entram na conta do percentual e mudam o resultado final: a desocupação, quando o imóvel está
+        Três custos não entram na conta do percentual e mudam o resultado: a desocupação, quando o imóvel está
         ocupado e o edital passa essa responsabilidade ao comprador; as dívidas de condomínio e IPTU anteriores à
         arrematação, que em parte dos editais também vão para o comprador; e a reforma, que num imóvel retomado
         raramente é cosmética. Some os três antes de decidir se o desconto compensa.
