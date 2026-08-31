@@ -1,0 +1,111 @@
+'' -> http://www.caixa.gov.br/
+'Ajuda para Acessar ›' -> http://www.caixa.gov.br/atendimento/canais-digitais/banking-caixa/primeiro-acesso/usuario-senha/Paginas/default.aspx?pk_campaign=Acolhimento&pk_kwd=02_027_Passo-1_AJ_acessar2
+'Imprensa' -> http://www20.caixa.gov.br/Paginas/Default.aspx
+'EN' -> http://www.caixa.gov.br/site/english
+'Imprensa' -> 
+'Segurança' -> http://www.caixa.gov.br/seguranca/Paginas/default.aspx
+'Downloads' -> http://www.caixa.gov.br/site/paginas/downloads.aspx
+'Sobre a Caixa' -> http://www.caixa.gov.br/sobre-a-caixa
+'Menu Principal' -> 
+'Produtos' -> https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnimovel=8787718965896#
+'Contas' -> http://www.caixa.gov.br/voce/contas
+'Habitação' -> http://www.caixa.gov.br/voce/habitacao
+'Poupança e Investimentos' -> http://www.caixa.gov.br/voce/poupanca-e-investimentos
+'Cartões' -> http://www.caixa.gov.br/voce/cartoes
+'Empréstimo e Financiamento' -> http://www.caixa.gov.br/voce/credito-financiamento
+'Seguros' -> http://www.caixa.gov.br/voce/Seguros
+'Previdência Privada' -> http://www.caixa.gov.br/voce/previdencia
+'Loterias' -> http://loterias.caixa.gov.br/
+'Promoções' -> http://www.caixa.gov.br/voce/promocoes
+'Negocie sua dívida' -> http://www.caixa.gov.br/voce/credito-financiamento/renegociacao-dividas/Paginas/default.aspx
+'Todos os produtos para você ›' -> http://www.caixa.gov.br/voce
+'Contas' -> http://www.caixa.gov.br/empresa/contas
+'Investimentos' -> http://www.caixa.gov.br/fundos-investimento/empresa/poupanca-e-investimentos
+'Cartões' -> http://www.caixa.gov.br/empresa/cartoes
+'Crédito e Financiamento' -> http://www.caixa.gov.br/empresa/credito-financiamento
+'Imóveis' -> http://www.caixa.gov.br/empresa/credito-financiamento/imoveis
+'Serviços para o Judiciário' -> http://www.caixa.gov.br/poder-publico/apoio-poder-publico/servicos-caixa/servicos-judiciarios
+'Crédito Rural' -> http://www.caixa.gov.br/empresa/credito-financiamento/credito-rural
+'Conectividade Social' -> http://www.caixa.gov.br/empresa/conectividade-social
+'FGTS' -> http://www.caixa.gov.br/empresa/fgts-empresas
+'Todos os produtos para empresas ›' -> http://www.caixa.gov.br/empresa
+'Benefícios e Programas' -> https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnimovel=8787718965896#
+'FGTS' -> http://www.caixa.gov.br/beneficios-trabalhador/fgts
+'PIS' -> http://www.caixa.gov.br/beneficios-trabalhador/pis
+'INSS' -> http://www.caixa.gov.br/beneficios-trabalhador/inss
+'Seguro-Desemprego' -> http://www.caixa.gov.br/beneficios-trabalhador/seguro-desemprego
+'Tudo sobre os benefícios do trabalhador ›' -> http://www.caixa.gov.br/beneficios-trabalhador
+'Minha Casa Minha Vida' -> http://www.caixa.gov.br/voce/habitacao/minha-casa-minha-vida
+'Minha Casa Melhor' -> http://www.caixa.gov.br/programas-sociais/minha-casa-melhor
+'Bolsa Família' -> http://www.caixa.gov.br/programas-sociais/bolsa-familia
+'FIES' -> http://www.caixa.gov.br/programas-sociais/fies
+'Todos os programas ›' -> http://www.caixa.gov.br/programas-sociais
+'Cartão do Cidadão' -> http://www.caixa.gov.br/cadastros/cartao-cidadao
+'CPF' -> http://www.caixa.gov.br/cadastros/cpf
+'Cadastro Único' -> http://www.caixa.gov.br/cadastros/cadastro-unico
+'Cadastro NIS Empresa' -> http://www.caixa.gov.br/cadastros/nis
+'Todos os cadastros ›' -> http://www.caixa.gov.br/cadastros
+'Atendimento' -> https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnimovel=8787718965896#
+'Atendimento para você e para empresa' -> http://www.caixa.gov.br/atendimento/Paginas/default.aspx
+'Telefones' -> http://www.caixa.gov.br/atendimento/Paginas/default.aspx#telefones-caixa
+'Endereços' -> http://www.caixa.gov.br/atendimento/Paginas/default.aspx#encontre
+'Fale Conosco' -> http://fale-conosco.caixa.gov.br/
+'Aplicativos' -> http://www.caixa.gov.br/atendimento/aplicativos
+'Downloads' -> http://www.caixa.gov.br/site/Paginas/downloads.aspx
+'2ª via de boletos' -> http://www.caixa.gov.br/atendimento/2-via-boleto
+'Todos os serviços e canais digitais ›' -> http://www.caixa.gov.br/atendimento/canais-digitais/Paginas/default.aspx?pk_campaign=canaisset15&pk_kwd=link_menu
+'Agência-Barco' -> http://www.caixa.gov.br/sustentabilidade/responsabilidade-social/agencia-barco
+'Sustentabilidade' -> http://www.caixa.gov.br/sustentabilidade
+'Trabalhe na Caixa' -> http://www.caixa.gov.br/sobre-a-caixa/trabalhe-na-caixa
+'Imprensa' -> http://www20.caixa.gov.br/Paginas/Default.aspx
+'Tudo sobre a Caixa ›' -> http://www.caixa.gov.br/sobre-a-caixa
+'Poder Público' -> http://www.caixa.gov.br/poder-publico/
+'Segurança' -> http://www.caixa.gov.br/seguranca/Paginas/default.aspx
+'Downloads' -> http://www.caixa.gov.br/site/paginas/downloads.aspx
+'Sobre a Caixa' -> http://www.caixa.gov.br/sobre-a-caixa
+'Imprensa' -> http://www20.caixa.gov.br/Paginas/Default.aspx
+'EN' -> http://www.caixa.gov.br/site/english
+'Tradutor de libras' -> http://www.caixa.gov.br/
+'Imprensa' -> 
+'' -> https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnimovel=8787718965896#
+' Acessar minha conta' -> https://internetbanking.caixa.gov.br/sinbc/#!nb/login
+'Menu' -> https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnimovel=8787718965896#
+'Conta' -> https://internetbanking.caixa.gov.br/sinbc/#!nb/login
+'Início' -> http://www.caixa.gov.br/Paginas/home-caixa.aspx
+'Produtos para você' -> http://www.caixa.gov.br/voce/Paginas/default.aspx
+'Imóveis à venda' -> https://venda-imoveis.caixa.gov.br/sistema/index.asp
+'Topo' -> https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnimovel=8787718965896#
+'Baixar matrícula do imóvel' -> https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnimovel=8787718965896#
+'Baixar edital e anexos' -> https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnimovel=8787718965896#
+'Topo' -> https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnimovel=8787718965896#
+'Melhor crédito para você' -> http://www.caixa.gov.br/voce/credito-financiamento
+'Veja as opções ›' -> http://www.caixa.gov.br/voce/credito-financiamento
+'Casa própria' -> http://www.caixa.gov.br/voce/habitacao
+'Compre sua casa própria ›' -> http://www.caixa.gov.br/voce/habitacao
+'Cartões Caixa' -> http://www.caixa.gov.br/voce/cartoes
+'Escolha agora o seu ›' -> http://www.caixa.gov.br/voce/cartoes
+'Contas Caixa' -> http://www.caixa.gov.br/voce/contas
+'Abra sua conta ›' -> http://www.caixa.gov.br/voce/contas
+'Todos os telefones' -> http://www.caixa.gov.br/atendimento/Paginas/default.aspx#telefones-caixa
+'Deficiente Auditivo' -> http://www.caixa.gov.br/atendimento/Paginas/default.aspx#telefones-caixa
+'Caixa de A - Z' -> http://www.caixa.gov.br/caixa-a-z/Paginas/default.aspx
+'Encontre uma Agência' -> http://www.caixa.gov.br/atendimento/Paginas/default.aspx#encontre
+'Sobre a Caixa' -> http://www.caixa.gov.br/sobre-a-caixa
+'Trabalhe na Caixa' -> http://www.caixa.gov.br/sobre-a-caixa/trabalhe-na-caixa
+'Aplicativos' -> http://www.caixa.gov.br/atendimento/aplicativos
+'Acesso à Informação' -> http://www.caixa.gov.br/acesso-a-informacao
+'Twitter' -> http://www.twitter.com/caixa
+'Facebook' -> http://www.facebook.com/caixa%22
+'Youtube' -> http://www.youtube.com/canalcaixa
+'Google' -> https://plus.google.com/u/1/101382192914122349840/posts
+'English' -> http://www.caixa.gov.br/site/english
+'Ouvidoria' -> http://www.caixa.gov.br/atendimento
+'Politica de privacidades' -> http://www.caixa.gov.br/politica-de-privacidade
+'Termos de uso' -> http://www.caixa.gov.br/termos-de-uso
+'Caixa A-Z' -> http://www.caixa.gov.br/caixa-a-z/Paginas/default.aspx
+'Segurança' -> http://www.caixa.gov.br/seguranca
+'Imprensa' -> http://www20.caixa.gov.br/Paginas/Default.aspx
+'' -> http://www.caixa.gov.br/acesso-a-informacao
+'' -> http://www.caixa.gov.br/Paginas/home-caixa.aspx
+'' -> http://www.caixa.gov.br/voce/Paginas/default.aspx
+'' -> https://venda-imoveis.caixa.gov.br/sistema/index.asp
