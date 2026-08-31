@@ -80,6 +80,7 @@ const getResumo = cache(
         crimeJanelaInicio: properties.crimeJanelaInicio,
         crimeJanelaFim: properties.crimeJanelaFim,
         crimeSuprimido: properties.crimeSuprimido,
+        crimeMarcado: properties.crimeMarcado,
         crimePercentil: properties.crimePercentil,
         crimeBairro: properties.crimeBairro,
         crimeBairroOrigem: properties.crimeBairroOrigem,

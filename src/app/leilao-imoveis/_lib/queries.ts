@@ -145,6 +145,7 @@ export const getResumoCidade = cache(
           crimeJanelaInicio: properties.crimeJanelaInicio,
           crimeJanelaFim: properties.crimeJanelaFim,
           crimeSuprimido: properties.crimeSuprimido,
+          crimeMarcado: properties.crimeMarcado,
         })
         .from(properties)
         .where(and(ativo, eq(properties.uf, uf), eq(properties.cidade, cidade)))
@@ -251,6 +252,7 @@ export const getImoveisDaCidade = unstable_cache(
         crimeJanelaInicio: properties.crimeJanelaInicio,
         crimeJanelaFim: properties.crimeJanelaFim,
         crimeSuprimido: properties.crimeSuprimido,
+        crimeMarcado: properties.crimeMarcado,
         crimePercentil: properties.crimePercentil,
         crimeBairro: properties.crimeBairro,
         crimeBairroOrigem: properties.crimeBairroOrigem,

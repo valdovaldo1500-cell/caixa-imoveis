@@ -15,12 +15,16 @@
  *    da convenção de `scoring.ts`, onde nota alta é boa. Nunca reaproveite a
  *    nota crua como se fosse "segurança".
  *
- * 2. `crimeTaxa` é a única grandeza que pode ser escrita em português na tela
- *    como "mortes violentas por 100 mil habitantes/ano" — e ela SÓ existe no
- *    grão MUNICÍPIO (`crimeMuniTaxa` é o equivalente sempre-municipal). No
- *    grão bairro `crimeTaxa` é NULL de propósito: a `taxa_letal` de bairro
- *    tem denominador de endereços, não de habitantes, e rotulá-la "por 100
- *    mil habitantes" seria falso.
+ * 2. `crimeTaxa` é "mortes violentas por 100 mil habitantes/ano" e existe nos
+ *    DOIS grãos, mas não vem da mesma conta. No município é a taxa do IBGE/
+ *    DATASUS direto. No bairro é calculada sobre a população do Censo 2022 e
+ *    SUAVIZADA por credibilidade: a divisão crua produz 724 por 100 mil num
+ *    bairro de 276 moradores com 2 mortes — artefato de número pequeno, não
+ *    taxa. Por isso a tela chama o número de bairro de ESTIMATIVA. Fica
+ *    `null` quando o bairro não tem população no Censo (cerca de 30% dos
+ *    bairros do RS); aí a tela cai em `crimeMuniTaxa` como contexto.
+ *    O que NUNCA pode virar "por 100 mil habitantes" é a `taxa_letal` de
+ *    bairro da origem: aquela tem denominador de ENDEREÇOS.
  *
  * 3. As RÉGUAS de bairro e de município são DIFERENTES — não dá para
  *    comparar `crimeNota` cru entre os dois grãos. Medido em 31/08/2026
@@ -151,6 +155,7 @@ export type CrimeCampos = {
   crimeJanelaInicio: Date | string | null;
   crimeJanelaFim: Date | string | null;
   crimeSuprimido: boolean | null;
+  crimeMarcado?: boolean | null;
   crimePercentil?: number | null;
   crimeBairro?: string | null;
   crimeBairroOrigem?: string | null;
@@ -165,12 +170,26 @@ export type CrimeCampos = {
 const OCORRENCIAS_MINIMAS = 20;
 
 /**
- * Devolve `null` quando não há nota confiável — grão suprimido por poucos
- * eventos, ou imóvel ainda sem casamento. A tela deve mostrar "dado
- * insuficiente", nunca um número inventado ou um neutro fixo.
+ * Devolve `null` quando não há nota que valha a pena mostrar, ou quando o
+ * imóvel ainda não casou com nenhum grão. A tela mostra "dado insuficiente",
+ * nunca um número inventado ou um neutro fixo.
+ *
+ * QUANDO ESCONDER — decisão do dono em 31/08/2026, não mexa sem falar com
+ * ele. Na origem, `suprimido` marca 1 a 9 ocorrências na janela e `marcado`
+ * marca 10 a 19. Poucas ocorrências quase sempre quer dizer LUGAR CALMO, e
+ * esconder isso é esconder notícia boa: há bairro suprimido com 40 mil
+ * endereços e nenhum homicídio. Então a nota aparece, com a ressalva de
+ * `fraseAvisoPoucosDados`.
+ *
+ * O único caso escondido é `suprimido E marcado` ao mesmo tempo (21 bairros
+ * no RS): ali o critério da origem é misto e o número sai distorcido —
+ * são Centros onde a ocorrência é de quem não mora no bairro, e o
+ * denominador é residencial. Ex.: Costa e Silva, em Porto Alegre, daria
+ * taxa 75,2. Esses caem de volta para o município.
  */
 export function lerSeguranca(p: CrimeCampos): Seguranca | null {
-  if (p.crimeNota == null || p.crimeSuprimido) return null;
+  if (p.crimeNota == null) return null;
+  if (p.crimeSuprimido && p.crimeMarcado) return null;
 
   const grao = p.crimeGrao ?? "municipio";
   const percentil = p.crimePercentil ?? null;
@@ -290,11 +309,23 @@ function janelaLegivel(ini: Date | string | null, fim: Date | string | null): st
   return b ?? a ?? "";
 }
 
-/** A frase de fonte que vai embaixo do número. Sempre exibida junto. */
+/**
+ * A frase de fonte que vai embaixo do número. Sempre exibida junto.
+ *
+ * No grão bairro a taxa é ESTIMATIVA e a palavra tem de aparecer: o número
+ * é suavizado em direção à taxa do município conforme o porte do bairro,
+ * senão dois homicídios num bairro de 276 moradores virariam 724 por 100
+ * mil. Chamar isso de "taxa do bairro" sem mais nada prometeria uma
+ * precisão que o dado de um ano não tem.
+ */
 export function fraseFonte(s: Seguranca): string {
   const taxa = s.taxa == null ? null : s.taxa.toLocaleString("pt-BR", { maximumFractionDigits: 1 });
   const base = `Média ${s.grao}, ${s.janela}. Fonte: ${s.fonte}.`;
-  return taxa ? `${taxa} mortes violentas por 100 mil habitantes ao ano. ${base}` : base;
+  if (taxa == null) return base;
+  if (s.graoCodigo === "bairro") {
+    return `${taxa} mortes violentas por 100 mil habitantes ao ano — estimativa do bairro, ajustada pelo porte da população. ${base}`;
+  }
+  return `${taxa} mortes violentas por 100 mil habitantes ao ano. ${base}`;
 }
 
 /**
@@ -304,6 +335,10 @@ export function fraseFonte(s: Seguranca): string {
 export function fraseMunicipio(s: Seguranca): string | null {
   if (!s.municipio) return null;
   const taxa = s.municipio.taxa.toLocaleString("pt-BR", { maximumFractionDigits: 1 });
+  // Serve para as duas situações: como comparação, quando o bairro tem
+  // estimativa própria (é o que mostra que o bairro difere da cidade), e
+  // como o único número disponível, quando o bairro ficou sem população no
+  // Censo e `s.taxa` veio nulo.
   return `No município: ${taxa} mortes violentas por 100 mil habitantes ao ano (${s.municipio.janela}). Fonte: ${s.municipio.fonte}.`;
 }
 
