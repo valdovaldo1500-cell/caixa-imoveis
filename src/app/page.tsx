@@ -109,7 +109,7 @@ export async function generateMetadata() {
   const n = (tot?.total ?? 0).toLocaleString("pt-BR");
   return {
     title: "Imóveis de leilão da Caixa, com a segurança da região",
-    description: `${n} imóveis da Caixa com desconto sobre a avaliação, e a nota de criminalidade do município ao lado de cada um. Navegue sem cadastro.`,
+    description: `${n} imóveis da Caixa com desconto sobre a avaliação, e a nota de criminalidade do bairro ou do município ao lado de cada um. Navegue sem cadastro.`,
     alternates: { canonical: SITE_URL },
   };
 }
