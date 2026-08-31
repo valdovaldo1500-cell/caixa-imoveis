@@ -1,4 +1,14 @@
 /**
+ * STATUS (31/08/2026): INATIVO, FORA DO CAMINHO PADRÃO. `getProvedorPagamento()`
+ * em `src/lib/assinatura.ts` usa `pagseguro_link` (ver `pagseguro-link.ts`,
+ * arquivo vizinho) como provedor padrão — os PagBank Payment Links, mesma
+ * técnica que o Crime Brasil já usa em produção hoje. Este arquivo continua
+ * no repo pronto pra ligar quando a assinatura RECORRENTE de verdade fizer
+ * sentido, mas só entra em jogo com `PAGAMENTO_PROVEDOR=pagbank` explícito
+ * — e mesmo assim `cancelarAssinatura` segue recusando (ver função abaixo)
+ * até o dono da conta concluir o "primeiro acesso" em
+ * assinaturas.pagbank.com.br, que na data desta nota ainda não foi feito.
+ *
  * Adaptador PagBank/PagSeguro — cobrança RECORRENTE de verdade para a
  * assinatura do agregador de leilão (O6).
  *
