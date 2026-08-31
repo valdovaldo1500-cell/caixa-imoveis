@@ -31,6 +31,9 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 const ROTAS_PUBLICAS = [
   "/leilao-imoveis",
   "/imovel",
+  // Os guias são justamente a aposta de busca orgânica do O6; deixá-los fora
+  // desta lista mediria tudo MENOS o canal que eles existem para abrir.
+  "/guias",
   "/planos",
   "/cadastro",
   "/conta",
