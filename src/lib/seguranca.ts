@@ -96,11 +96,21 @@ export type Seguranca = {
   municipio: { taxa: number; janela: string; fonte: string } | null;
 };
 
-const NIVEIS: Record<NivelSeguranca, { rotulo: string; cor: string; contexto: (substantivo: string) => string }> = {
+/**
+ * `contexto` recebe `true` quando o número classificado é de um BAIRRO.
+ *
+ * A régua é sempre a distribuição dos 5.570 municípios, mas a frase muda de
+ * forma: "Bairro Navegantes está entre os 20% de municípios mais violentos"
+ * é confuso — o bairro não é um município. Na forma comparativa ("tem taxa
+ * acima da de 80% dos municípios") a mesma verdade lê direito nos dois casos,
+ * e continua explícito de que universo a comparação sai.
+ */
+const NIVEIS: Record<NivelSeguranca, { rotulo: string; cor: string; contexto: (bairro: boolean) => string }> = {
   baixo: {
     rotulo: "Risco baixo",
     cor: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
-    contexto: (s) => `entre os 20% de ${s} menos violentos do país`,
+    contexto: (b) =>
+      b ? "com taxa abaixo da de 80% dos municípios do país" : "entre os 20% de municípios menos violentos do país",
   },
   moderado: {
     rotulo: "Risco moderado",
@@ -110,20 +120,21 @@ const NIVEIS: Record<NivelSeguranca, { rotulo: string; cor: string; contexto: (s
   medio: {
     rotulo: "Risco médio",
     cor: "bg-amber-500/15 text-amber-300 border-amber-500/30",
-    // A faixa central atravessa a mediana nacional em qualquer um dos dois
-    // grãos, então NÃO pode afirmar um lado — "acima da mediana" seria falso
-    // para metade dos casos da faixa.
+    // A faixa central atravessa a mediana nacional, então NÃO pode afirmar um
+    // lado — "acima da mediana" seria falso para metade dos casos da faixa.
     contexto: () => "na faixa central do país, perto da mediana nacional",
   },
   alto: {
     rotulo: "Risco alto",
     cor: "bg-orange-500/15 text-orange-300 border-orange-500/30",
-    contexto: () => "entre os 40% mais violentos do país",
+    contexto: (b) =>
+      b ? "com taxa acima da de 60% dos municípios do país" : "entre os 40% mais violentos do país",
   },
   muito_alto: {
     rotulo: "Risco muito alto",
     cor: "bg-red-500/15 text-red-300 border-red-500/30",
-    contexto: (s) => `entre os 20% de ${s} mais violentos do país`,
+    contexto: (b) =>
+      b ? "com taxa acima da de 80% dos municípios do país" : "entre os 20% de municípios mais violentos do país",
   },
 };
 
@@ -131,12 +142,6 @@ const GRAOS: Record<string, string> = {
   municipio: "do município",
   bairro: "do bairro",
   ponto: "do endereço",
-};
-
-const SUBSTANTIVO_PLURAL: Record<string, string> = {
-  municipio: "municípios",
-  bairro: "bairros",
-  ponto: "endereços",
 };
 
 /** Nível a partir do percentil nacional (0-100) — a régua preferida, comparável entre grãos. */
@@ -240,11 +245,9 @@ export function lerSeguranca(p: CrimeCampos): Seguranca | null {
   return {
     nivel,
     rotulo: meta.rotulo,
-    // A régua é a distribuição de mortes/100 mil hab. dos 5.570 MUNICÍPIOS,
-    // então o substantivo da frase é sempre "municípios" — inclusive quando o
-    // número é de um bairro. Dizer "entre os 20% de bairros mais violentos"
-    // seria falso: bairro nenhum entrou na régua.
-    contexto: meta.contexto("municípios"),
+    // Dizer "entre os 20% de bairros mais violentos" seria falso: bairro
+    // nenhum entrou na régua, que é feita de municípios.
+    contexto: meta.contexto(grao === "bairro" && !taxaEDoMunicipio),
     cor: meta.cor,
     nota: p.crimeNota,
     percentil,
@@ -296,7 +299,7 @@ export function lerSegurancaMunicipio(p: CamposMunicipio): Seguranca | null {
     return {
       nivel,
       rotulo: meta.rotulo,
-      contexto: meta.contexto("municípios"),
+      contexto: meta.contexto(false),
       cor: meta.cor,
       nota: p.crimeMuniNota,
       percentil: null,
