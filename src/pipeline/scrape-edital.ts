@@ -12,10 +12,11 @@ import { DetailFetchBlockedError, fetchDetailHtml, sleep } from "./caixa-detail-
  * `<span>Rótulo:&nbsp;valor</span>`. Padrões validados em 31/08/2026 contra
  * 80 páginas de detalhe reais (20 leilão SFI, 20 licitação, 40 venda
  * direta/online), zero bloqueio Radware — ver /tmp/o6-edital/measure.py e
- * /tmp/o6-edital/detail_*.txt. `.` no lugar de acento (º, ã, í, ó) porque a
- * página é servida em latin1 e não vale a pena depender do byte exato bater
- * com o literal do arquivo-fonte (UTF-8) — mais robusto a variação de
- * encoding, no mesmo padrão do recon que validou a cobertura.
+ * /tmp/o6-edital/detail_*.txt. `.` no lugar de acento (º, ã, í, ó) por
+ * robustez a variação de encoding — mesmo padrão do recon que validou a
+ * cobertura (a página é UTF-8 de verdade, ver `caixa-detail-fetch.ts`, mas o
+ * `.` não custa nada e blinda contra qualquer mudança futura do lado da
+ * Caixa).
  */
 
 const RE_EDITAL_NUMERO = /Edital:&nbsp;([^<]+)<\/span>/;
@@ -155,7 +156,7 @@ export async function coletarEditalBatch(
         or(isNull(properties.editalAtualizadoEm), lt(properties.editalAtualizadoEm, cutoff))
       )
     )
-    .orderBy(sql`${properties.editalAtualizadoEm} asc nulls first`)
+    .orderBy(sql`${properties.editalAtualizadoEm} asc nulls first, ${properties.id} asc`)
     .limit(limit);
 
   const result: EditalBatchResult = {

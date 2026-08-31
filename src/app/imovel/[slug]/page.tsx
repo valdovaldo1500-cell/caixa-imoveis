@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
-import { Bath, Bed, Car, ChevronRight, ExternalLink, ImageOff, Ruler } from "lucide-react";
+import { Bath, Bed, Calendar, Car, ChevronRight, ExternalLink, FileText, ImageOff, Ruler } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BlocoSeguranca } from "@/components/BlocoSeguranca";
 import { lerSeguranca } from "@/lib/seguranca";
 import { caixaIdDoSlug, cidadeUrl, imovelUrl, ufUrl } from "@/lib/slug";
-import { buscarImovel, formatBRL, jsonLdSeguro, nomeUf, plural, tituloCaso, urlAbsoluta } from "../_lib/helpers";
+import {
+  buscarImovel,
+  formatarDataHora,
+  formatBRL,
+  jsonLdSeguro,
+  nomeUf,
+  paraData,
+  plural,
+  tituloCaso,
+  urlAbsoluta,
+} from "../_lib/helpers";
 
 // O build do Coolify roda antes de o container entrar na rede do Postgres,
 // então qualquer página pré-renderizada que consulte o banco derruba o
@@ -117,6 +127,31 @@ export default async function ImovelPage({ params }: Props) {
     caracteristicas.push({ Icone: Ruler, texto: `${areaTotal.toLocaleString("pt-BR")} m² totais` });
   if (areaPrivativa)
     caracteristicas.push({ Icone: Ruler, texto: `${areaPrivativa.toLocaleString("pt-BR")} m² privativos` });
+
+  // Rastreador de edital (O6, requisito #7). Cada data só entra na lista se
+  // existir — imóvel sem nenhuma delas não ganha o bloco (ver mais abaixo).
+  // "Próxima data" é a menor entre as futuras; datas passadas continuam
+  // aparecendo (o leiloeiro pode não ter re-listado ainda), só sem destaque
+  // e marcadas como já ocorridas — nunca inventamos contagem regressiva pra
+  // uma data que já passou.
+  const datasLeilao: { rotulo: string; valor: Date }[] = [];
+  const dataLeilao1 = paraData(imovel.leilao1Data);
+  const dataLeilao2 = paraData(imovel.leilao2Data);
+  const dataLicitacao = paraData(imovel.licitacaoData);
+  const dataProposta = paraData(imovel.propostaPrazo);
+  if (dataLeilao1) datasLeilao.push({ rotulo: "1º leilão", valor: dataLeilao1 });
+  if (dataLeilao2) datasLeilao.push({ rotulo: "2º leilão", valor: dataLeilao2 });
+  if (dataLicitacao) datasLeilao.push({ rotulo: "Licitação aberta", valor: dataLicitacao });
+  if (dataProposta) datasLeilao.push({ rotulo: "Prazo para propostas", valor: dataProposta });
+
+  const futuras = datasLeilao.filter((d) => d.valor.getTime() > Date.now());
+  const proximaData =
+    futuras.length > 0
+      ? futuras.reduce((menor, atual) => (atual.valor < menor.valor ? atual : menor))
+      : null;
+
+  const temBlocoEdital =
+    datasLeilao.length > 0 || Boolean(imovel.editalNumero) || Boolean(imovel.leiloeiro) || Boolean(imovel.editalPdfUrl);
 
   // Product+Offer no mesmo nó — é o padrão pedido para o rich result de imóvel.
   const jsonLdProduto = {
@@ -250,8 +285,61 @@ export default async function ImovelPage({ params }: Props) {
           </div>
         </div>
 
+        {/* 6b. Leilão e edital (O6, requisito #7) — some inteiro se não houver nada */}
+        {temBlocoEdital && (
+          <div className="mt-4 rounded-lg border border-zinc-800 bg-zinc-900/40 p-4 text-sm">
+            <h2 className="text-sm font-medium text-zinc-300">Leilão e edital</h2>
+
+            {datasLeilao.length > 0 && (
+              <ul className="mt-2 space-y-1.5">
+                {datasLeilao.map((d) => {
+                  const ehProxima = proximaData?.rotulo === d.rotulo;
+                  const jaPassou = d.valor.getTime() <= Date.now();
+                  return (
+                    <li
+                      key={d.rotulo}
+                      className={`flex items-center gap-2 ${ehProxima ? "text-emerald-300" : "text-zinc-400"}`}
+                    >
+                      <Calendar className={`size-4 shrink-0 ${ehProxima ? "text-emerald-400" : "text-zinc-600"}`} />
+                      <span>
+                        {d.rotulo}: {formatarDataHora(d.valor)}
+                      </span>
+                      {ehProxima && (
+                        <Badge className="border-transparent bg-emerald-600/20 text-[11px] text-emerald-300">
+                          próxima data
+                        </Badge>
+                      )}
+                      {jaPassou && !ehProxima && <span className="text-xs text-zinc-600">(já ocorreu)</span>}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+
+            {(imovel.editalNumero || imovel.leiloeiro) && (
+              <p className="mt-2 text-zinc-500">
+                {imovel.editalNumero && <>Edital nº {imovel.editalNumero}</>}
+                {imovel.editalNumero && imovel.leiloeiro && " — "}
+                {imovel.leiloeiro && <>Leiloeiro(a): {imovel.leiloeiro}</>}
+              </p>
+            )}
+
+            {imovel.editalPdfUrl && (
+              <a
+                href={imovel.editalPdfUrl}
+                target="_blank"
+                rel="nofollow noopener"
+                className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-400 hover:text-emerald-300"
+              >
+                <FileText className="size-4" />
+                Baixar edital (PDF)
+              </a>
+            )}
+          </div>
+        )}
+
         {/* 7. Endereço e registro */}
-        {(imovel.endereco || imovel.comarca || imovel.matricula) && (
+        {(imovel.endereco || imovel.comarca || imovel.matricula || imovel.oficio || imovel.inscricaoImobiliaria) && (
           <div className="mt-4 rounded-lg border border-zinc-800 bg-zinc-900/40 p-4 text-sm">
             <h2 className="text-sm font-medium text-zinc-300">Endereço e registro</h2>
             {imovel.endereco && (
@@ -262,6 +350,10 @@ export default async function ImovelPage({ params }: Props) {
             )}
             {imovel.comarca && <p className="mt-1 text-zinc-500">Comarca: {imovel.comarca}</p>}
             {imovel.matricula && <p className="mt-1 text-zinc-500">Matrícula: {imovel.matricula}</p>}
+            {imovel.oficio && <p className="mt-1 text-zinc-500">Ofício: {imovel.oficio}</p>}
+            {imovel.inscricaoImobiliaria && (
+              <p className="mt-1 text-zinc-500">Inscrição imobiliária: {imovel.inscricaoImobiliaria}</p>
+            )}
           </div>
         )}
 
