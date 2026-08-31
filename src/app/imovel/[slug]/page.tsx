@@ -105,8 +105,12 @@ export default async function ImovelPage({ params }: Props) {
       ? Number(imovel.valorAvaliacao) - Number(imovel.preco)
       : null;
   const economia = economiaReais != null && economiaReais > 0 ? formatBRL(economiaReais) : null;
+  // Só existe "desconto" quando ele é maior que zero. Metade do estoque é
+  // "Leilão SFI - Edital Único", onde o lance mínimo é a dívida e costuma
+  // empatar ou passar a avaliação: ali o campo vem 0 e o selo saía como
+  // "-0% de desconto", que é pior que não ter selo nenhum.
   const descontoPct =
-    imovel.desconto != null
+    imovel.desconto != null && Number(imovel.desconto) > 0
       ? Number(imovel.desconto).toLocaleString("pt-BR", { maximumFractionDigits: 1 })
       : null;
 
