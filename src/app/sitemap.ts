@@ -61,6 +61,25 @@ export default async function sitemap({ id }: { id: Promise<string> }): Promise<
 // MISS. Não quebra nada aqui: `MetadataRoute.Sitemap["lastModified"]` já
 // aceita `string | Date`, e o serializador de sitemap do Next também aceita
 // os dois formatos.
+/**
+ * `max(updated_at)` volta como STRING no formato do Postgres
+ * ("2026-08-30 06:18:08.18") — o driver só converte para `Date` o que tem
+ * tipo declarado na coluna, e um agregado em `sql<...>` não tem. Essa string
+ * ia crua para o `<lastmod>`, que exige data W3C: em 31/08/2026 o Search
+ * Console recusou 175 das 178 URLs de `estrutura.xml` por causa disso (as 3
+ * que passaram eram as que usavam `new Date()`). Normaliza sempre.
+ */
+function dataValida(v: Date | string | null): Date {
+  if (v instanceof Date) return v;
+  if (typeof v === "string") {
+    // "YYYY-MM-DD HH:MM:SS[.ms]" — sem T e sem fuso, o Date do JS aceita se
+    // trocarmos o espaço por "T"; se ainda assim vier inválida, cai para agora.
+    const d = new Date(v.includes("T") ? v : v.replace(" ", "T") + "Z");
+    if (!Number.isNaN(d.getTime())) return d;
+  }
+  return new Date();
+}
+
 const sitemapEstrutura = unstable_cache(
   async (): Promise<MetadataRoute.Sitemap> => {
     const entradas: MetadataRoute.Sitemap = [
@@ -89,7 +108,7 @@ const sitemapEstrutura = unstable_cache(
     for (const c of cidades) {
       entradas.push({
         url: `${SITE_URL}${cidadeUrl(c.uf, c.cidade)}`,
-        lastModified: c.atualizadoEm ?? new Date(),
+        lastModified: dataValida(c.atualizadoEm),
         changeFrequency: "daily",
         priority: 0.6,
       });
@@ -116,7 +135,7 @@ const sitemapImoveis = unstable_cache(
 
     return imoveis.map((p) => ({
       url: `${SITE_URL}${imovelUrl(p)}`,
-      lastModified: p.atualizadoEm ?? new Date(),
+      lastModified: dataValida(p.atualizadoEm),
       changeFrequency: "daily" as const,
       priority: 0.5,
     }));
