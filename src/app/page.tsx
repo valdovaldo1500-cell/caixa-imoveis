@@ -218,9 +218,12 @@ export default async function Home() {
             mostra o número, a fonte e o período — e onde a região teve poucos registros, dizemos que o dado é
             insuficiente em vez de exibir um número frágil.
           </p>
+          {/* "5.161 dos 5.161" lê torto quando a cobertura é total; a frase
+              muda de forma em vez de fingir que sempre falta alguém. */}
           <p className="mt-3 text-sm text-zinc-500">
-            {(tot?.comSeguranca ?? 0).toLocaleString("pt-BR")} dos {(tot?.total ?? 0).toLocaleString("pt-BR")}{" "}
-            imóveis têm a leitura de segurança da região.
+            {(tot?.comSeguranca ?? 0) >= (tot?.total ?? 0)
+              ? `Os ${(tot?.total ?? 0).toLocaleString("pt-BR")} imóveis têm a leitura de segurança da região.`
+              : `${(tot?.comSeguranca ?? 0).toLocaleString("pt-BR")} dos ${(tot?.total ?? 0).toLocaleString("pt-BR")} imóveis têm a leitura de segurança da região.`}
           </p>
         </section>
 
