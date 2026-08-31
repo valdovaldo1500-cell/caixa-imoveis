@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 /**
- * Dispara `POST /api/assinatura/assinar`. Com o provedor `demo` isto NUNCA
- * cobra de verdade — só deixa a conta em "pagamento pendente" e grava a
- * intenção em `cobrancas`. Ver `src/lib/assinatura.ts`.
+ * Dispara `POST /api/assinatura/assinar` e leva para onde se paga: no provedor
+ * padrão (`pix`) isso é `/conta/pagar`, com o copia-e-cola. Só o provedor
+ * `demo` não devolve `checkoutUrl` — aí a conta apenas fica "pagamento
+ * pendente" sem cobrar nada. Ver `src/lib/assinatura.ts`.
  *
  * `rotuloMensal`/`rotuloAnual` vêm como prop (calculados no Server Component
  * a partir de `PRECOS`) em vez de importar `@/lib/assinatura` aqui — esse
@@ -42,6 +43,17 @@ export default function AssinarBotoes({
         setErro(data.error || "Erro ao iniciar assinatura");
         return;
       }
+      // Provedor real devolve para onde pagar: rota interna (PIX copia-e-cola)
+      // ou link hospedado do PagBank. Sem checkoutUrl (só o demo), fica na
+      // conta com o status atualizado.
+      if (typeof data.checkoutUrl === "string" && data.checkoutUrl) {
+        if (data.checkoutUrl.startsWith("/")) {
+          router.push(data.checkoutUrl);
+        } else {
+          window.location.href = data.checkoutUrl;
+        }
+        return;
+      }
       router.refresh();
     } catch {
       setErro("Erro de conexão");
@@ -74,8 +86,8 @@ export default function AssinarBotoes({
       </div>
       {erro && <p className="text-sm text-red-400">{erro}</p>}
       <p className="text-xs text-zinc-600">
-        Ambiente de teste: nenhuma cobrança real acontece ainda. A conta fica
-        &quot;pagamento pendente&quot; até o meio de pagamento real ser ligado.
+        O pagamento é por PIX. A conta fica &quot;pagamento pendente&quot; até a
+        entrada ser conferida — costuma sair no mesmo dia útil.
       </p>
     </div>
   );
