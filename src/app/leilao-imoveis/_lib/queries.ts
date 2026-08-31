@@ -176,16 +176,10 @@ export const getTiposDaCidade = cache(
   )
 );
 
-// Teto cumulativo de nota por nível. `crimeNota` é RISCO — quanto MAIOR, mais
-// violento (ver lib/seguranca.ts) — então "até risco moderado" é "nota <
-// p40", não ">=". `muito_alto` não tem teto: aceita qualquer nota.
-const NOTA_TETO: Record<NivelSeguranca, number | null> = {
-  baixo: FAIXAS_NACIONAIS.p20,
-  moderado: FAIXAS_NACIONAIS.p40,
-  medio: FAIXAS_NACIONAIS.p60,
-  alto: FAIXAS_NACIONAIS.p80,
-  muito_alto: null,
-};
+// Teto cumulativo de PERCENTIL por nível (0-100, dentro do próprio grão —
+// ver lib/seguranca.ts para o porquê de nunca filtrar por crimeNota cru).
+// `muito_alto` não tem teto: aceita qualquer percentil.
+const PERCENTIL_TETO = TETO_PERCENTIL;
 
 export type OrdemListagem = "desconto" | "preco" | "risco";
 
