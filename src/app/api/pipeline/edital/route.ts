@@ -12,6 +12,24 @@ let isRunning = false;
  * /api/pipeline/scrape existente) e ?staleDays=N (padrão 21).
  */
 export async function POST(req: NextRequest) {
+  // 31/08/2026: a Caixa não responde a `curl` do servidor — volta a página de
+  // erro do Azion. Quem busca agora é `scripts/coletar-edital-browser.py`, no
+  // Chrome, e manda o HTML para `/api/pipeline/edital/ingest`. Esta rota fica
+  // porque o dia em que a Caixa voltar a aceitar servidor ela é o caminho mais
+  // simples — mas só roda com ?forcar=1, para ninguém rodar por engano e
+  // encher o banco de "coletado" vazio.
+  if (new URL(req.url).searchParams.get("forcar") !== "1") {
+    return NextResponse.json(
+      {
+        error:
+          "Coleta por servidor está desativada — a Caixa bloqueia requisição de datacenter (página de erro do Azion). " +
+          "Use scripts/coletar-edital-browser.py, que busca pelo Chrome e envia para /api/pipeline/edital/ingest. " +
+          "Para tentar mesmo assim: ?forcar=1.",
+      },
+      { status: 409 }
+    );
+  }
+
   if (isRunning) {
     return NextResponse.json({ error: "Coleta de edital já está executando" }, { status: 409 });
   }

@@ -110,6 +110,37 @@ export function extrairEdital(html: string): EditalFields {
   };
 }
 
+/**
+ * Grava os campos extraídos de UMA página, sem nunca sobrescrever dado bom
+ * com null: só entra no SET o que veio preenchido. É o único ponto que
+ * escreve as colunas do edital — usado tanto pelo coletor por servidor
+ * (`coletarEditalBatch`) quanto pela ingestão vinda do navegador
+ * (`/api/pipeline/edital/ingest`).
+ */
+export async function gravarEdital(propertyId: number, campos: EditalFields): Promise<boolean> {
+  const set: Record<string, unknown> = {
+    editalAtualizadoEm: new Date(),
+    editalErro: null,
+    updatedAt: new Date(),
+  };
+  if (campos.editalNumero != null) set.editalNumero = campos.editalNumero;
+  if (campos.editalItem != null) set.editalItem = campos.editalItem;
+  if (campos.leiloeiro != null) set.leiloeiro = campos.leiloeiro;
+  if (campos.editalPublicadoEm != null) set.editalPublicadoEm = campos.editalPublicadoEm;
+  if (campos.editalPdfUrl != null) set.editalPdfUrl = campos.editalPdfUrl;
+  if (campos.leilao1Data != null) set.leilao1Data = campos.leilao1Data;
+  if (campos.leilao2Data != null) set.leilao2Data = campos.leilao2Data;
+  if (campos.licitacaoData != null) set.licitacaoData = campos.licitacaoData;
+  if (campos.propostaPrazo != null) set.propostaPrazo = campos.propostaPrazo;
+  if (campos.matricula != null) set.matricula = campos.matricula;
+  if (campos.comarca != null) set.comarca = campos.comarca;
+  if (campos.oficio != null) set.oficio = campos.oficio;
+  if (campos.inscricaoImobiliaria != null) set.inscricaoImobiliaria = campos.inscricaoImobiliaria;
+
+  await db.update(properties).set(set).where(eq(properties.id, propertyId));
+  return Object.values(campos).some((v) => v != null);
+}
+
 export interface EditalBatchResult {
   processados: number;
   atualizados: number;
@@ -178,34 +209,13 @@ export async function coletarEditalBatch(
       const html = fetchDetailHtml(prop);
       const campos = extrairEdital(html);
 
-      const temCampoNovo = Object.values(campos).some((v) => v != null);
-
       // Só inclui no SET os campos não-nulos — nunca sobrescreve dado bom
       // com null (ex.: venda direta sem "Data do 1º Leilão" não deve apagar
       // um leilao1Data que porventura já existisse de uma coleta anterior
       // com modalidade diferente).
-      const set: Record<string, unknown> = {
-        editalAtualizadoEm: new Date(),
-        editalErro: null,
-        updatedAt: new Date(),
-      };
-      if (campos.editalNumero != null) set.editalNumero = campos.editalNumero;
-      if (campos.editalItem != null) set.editalItem = campos.editalItem;
-      if (campos.leiloeiro != null) set.leiloeiro = campos.leiloeiro;
-      if (campos.editalPublicadoEm != null) set.editalPublicadoEm = campos.editalPublicadoEm;
-      if (campos.editalPdfUrl != null) set.editalPdfUrl = campos.editalPdfUrl;
-      if (campos.leilao1Data != null) set.leilao1Data = campos.leilao1Data;
-      if (campos.leilao2Data != null) set.leilao2Data = campos.leilao2Data;
-      if (campos.licitacaoData != null) set.licitacaoData = campos.licitacaoData;
-      if (campos.propostaPrazo != null) set.propostaPrazo = campos.propostaPrazo;
-      if (campos.matricula != null) set.matricula = campos.matricula;
-      if (campos.comarca != null) set.comarca = campos.comarca;
-      if (campos.oficio != null) set.oficio = campos.oficio;
-      if (campos.inscricaoImobiliaria != null) set.inscricaoImobiliaria = campos.inscricaoImobiliaria;
+      const temCampo = await gravarEdital(prop.id, campos);
 
-      await db.update(properties).set(set).where(eq(properties.id, prop.id));
-
-      if (temCampoNovo) {
+      if (temCampo) {
         result.atualizados++;
       } else {
         result.semDadoNovo++;
