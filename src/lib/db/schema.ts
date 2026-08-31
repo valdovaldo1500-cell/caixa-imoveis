@@ -315,7 +315,10 @@ export const assinantes = pgTable(
   {
     id: serial("id").primaryKey(),
     email: varchar("email", { length: 160 }).unique().notNull(),
-    senhaHash: varchar("senha_hash", { length: 128 }),
+    // `text`, não varchar(128): o hash é `salt:hash` em hex (161 chars com os
+    // parâmetros atuais do scrypt) e a coluna curta derrubava TODO cadastro
+    // com 22001 em produção — ver drizzle/mig_06_senha_hash.sql.
+    senhaHash: text("senha_hash"),
     nome: varchar("nome", { length: 120 }),
     telefone: varchar("telefone", { length: 20 }),
     // livre | mensal | anual — "livre" é a conta grátis, que existe para
