@@ -266,6 +266,12 @@ export default async function ImovelPage({ params }: Props) {
         {/* 5. Bloco de segurança — o diferencial do produto */}
         <div className="mt-4">
           <BlocoSeguranca imovel={imovel} cidade={cidade} />
+          <p className="mt-2 text-xs text-zinc-500">
+            <Link href="/guias/seguranca-do-bairro" className="underline underline-offset-4 hover:text-zinc-300">
+              Como ler esse número
+            </Link>{" "}
+            · o que ele mede, de onde vem e o que não mede.
+          </p>
         </div>
 
         {/* 6. Os três números */}
