@@ -123,11 +123,21 @@ export const getResumoCidade = cache(
         .orderBy(sql`count(*) desc`)
         .limit(3);
 
-      // Só precisa de UM imóvel da cidade — a nota de segurança é por
-      // município, então todo imóvel ativo da mesma cidade compartilha os
-      // mesmos campos.
+      // Só precisa de UM imóvel da cidade — mas SÓ para os campos crime_muni_*
+      // (contexto municipal, sempre igual para qualquer imóvel da cidade).
+      // crime_nota/crime_grao NÃO servem mais de amostra aqui: com grão
+      // bairro, dois imóveis da mesma cidade podem estar em bairros com
+      // notas diferentes, e o parágrafo agregado da cidade não pode
+      // representar a cidade inteira pela nota de UM bairro sorteado.
+      // `lerSegurancaMunicipio` (@/lib/seguranca) lê os campos abaixo.
       const [amostraSeguranca] = await db
         .select({
+          crimeMuniNota: properties.crimeMuniNota,
+          crimeMuniTaxa: properties.crimeMuniTaxa,
+          crimeMuniJanelaInicio: properties.crimeMuniJanelaInicio,
+          crimeMuniJanelaFim: properties.crimeMuniJanelaFim,
+          crimeMuniFonte: properties.crimeMuniFonte,
+          // Fallback para linha ainda não reprocessada (crime_muni_* nulo).
           crimeNota: properties.crimeNota,
           crimeTaxa: properties.crimeTaxa,
           crimeGrao: properties.crimeGrao,
