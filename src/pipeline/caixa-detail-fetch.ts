@@ -22,9 +22,17 @@ export function detailUrlFor(property: { caixaId: string; linkCaixa: string | nu
 }
 
 /**
- * Busca o HTML cru (latin1 — a página da Caixa não é UTF-8) da página de
- * detalhe. Lança `DetailFetchBlockedError` se o Radware Bot Manager bloqueou
- * a requisição — quem chama decide se isso conta para o limiar de aborto.
+ * Busca o HTML cru da página de detalhe. Lança `DetailFetchBlockedError` se
+ * o Radware Bot Manager bloqueou a requisição — quem chama decide se isso
+ * conta para o limiar de aborto.
+ *
+ * DECODE UTF-8 (31/08/2026): a página da Caixa declara `<meta
+ * charset="utf-8">` e serve bytes UTF-8 de verdade (confirmado byte a byte:
+ * "Leilão" = `4c 65 69 6c c3 a3 6f`, i.e. 0xC3 0xA3 = 'ã' em UTF-8 — como
+ * latin1 seria dois caracteres soltos, "Ã" + "£"). O código anterior fazia
+ * `.toString("latin1")`; não quebrava nada que já funcionava (ver comentário
+ * no topo do arquivo) mas teria mojibaked qualquer valor acentuado que este
+ * coletor viesse a extrair (nome de leiloeiro, comarca).
  */
 export function fetchDetailHtml(property: { caixaId: string; linkCaixa: string | null }): string {
   const url = detailUrlFor(property);
@@ -44,7 +52,7 @@ export function fetchDetailHtml(property: { caixaId: string; linkCaixa: string |
     { timeout: 45000 }
   );
 
-  const html = htmlBuffer.toString("latin1");
+  const html = htmlBuffer.toString("utf8");
 
   if (
     html.includes("Radware") ||
