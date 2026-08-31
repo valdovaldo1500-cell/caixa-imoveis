@@ -55,6 +55,15 @@ type ImovelAlerta = {
   crimeJanelaInicio: string | null;
   crimeJanelaFim: string | null;
   crimeSuprimido: boolean | null;
+  crimePercentil: number | null;
+  crimeBairro: string | null;
+  crimeBairroOrigem: string | null;
+  crimeOcorrencias: number | null;
+  crimeMuniNota: number | null;
+  crimeMuniTaxa: string | null;
+  crimeMuniJanelaInicio: string | null;
+  crimeMuniJanelaFim: string | null;
+  crimeMuniFonte: string | null;
 };
 
 export type DetalheDisparo = {
