@@ -48,7 +48,7 @@ export function PropertyCard({ imovel }: { imovel: ImovelCard }) {
         {urgencia && (
           <Badge className="absolute bottom-2 left-2 z-10 h-auto gap-1 border-transparent bg-zinc-950/90 px-2 py-0.5 text-[11px] text-amber-300 shadow-lg shadow-black/40">
             <CalendarClock className="size-3" />
-            {urgencia.rotulo} em {dataCurta(urgencia.valor)}
+            {urgencia.rotulo} {dataCurta(urgencia.valor)}
           </Badge>
         )}
         {imovel.fotoUrl ? (

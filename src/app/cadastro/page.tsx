@@ -7,11 +7,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { PRECOS } from "@/lib/precos";
 
 function CadastroForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const plano = searchParams.get("plano"); // "mensal" | "anual" | null — repassado para /conta
+  // Só as duas faixas reais entram na tela: `?plano=qualquercoisa` não pode
+  // renderizar preço nenhum nem quebrar a página.
+  const planoEscolhido = plano === "mensal" || plano === "anual" ? plano : null;
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -49,10 +53,24 @@ function CadastroForm() {
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 p-4 text-zinc-100">
       <Card className="w-full max-w-sm bg-zinc-900 border-zinc-800">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl text-white">Criar conta grátis</CardTitle>
-          <p className="text-sm text-zinc-400">
-            Só o e-mail e uma senha. Sem cartão.
-          </p>
+          <CardTitle className="text-2xl text-white">
+            {planoEscolhido ? "Criar sua conta" : "Criar conta grátis"}
+          </CardTitle>
+          {/* Quem chega de /planos clicando "Assinar mensal" via um cartão que
+              dizia "Criar conta grátis / Sem cartão" e nenhuma menção ao plano
+              — parecia que tinha clicado errado, no exato passo da conversão.
+              O `?plano=` já era repassado para /conta; só não aparecia. */}
+          {planoEscolhido ? (
+            <p className="text-sm text-zinc-400">
+              Plano {planoEscolhido === "mensal" ? "mensal" : "anual"} ·{" "}
+              <span className="text-zinc-200">{PRECOS[planoEscolhido].rotulo}</span>. Primeiro a conta;
+              o pagamento vem na tela seguinte.
+            </p>
+          ) : (
+            <p className="text-sm text-zinc-400">
+              Só o e-mail e uma senha. Sem cartão.
+            </p>
+          )}
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { artigo, jsonLdSeguro } from "@/lib/jsonld";
 
 /**
  * Casca comum dos guias (O6). Fecha a janela do dado no rodapé de cada texto:
@@ -11,15 +12,28 @@ export function Guia({
   titulo,
   linhaFina,
   atualizadoEm,
+  caminho,
   children,
 }: {
   titulo: string;
   linhaFina: string;
   atualizadoEm: Date;
+  /** Caminho do guia, ex. "/guias/onde-estao-os-descontos" — vira o Article. */
+  caminho: string;
   children: React.ReactNode;
 }) {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      {/* Article com `dateModified`: os guias recalculam os números a cada
+          abertura, e é essa data que diz ao Google que o texto não é de 2024. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLdSeguro(
+            artigo({ titulo, descricao: linhaFina, caminho, atualizadoEm })
+          ),
+        }}
+      />
       <div className="mx-auto max-w-3xl px-4 py-8">
         <nav aria-label="Navegação estrutural" className="mb-4 flex items-center gap-1 text-xs text-zinc-500">
           <Link href="/" className="hover:text-zinc-300">

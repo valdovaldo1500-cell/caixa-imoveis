@@ -6,6 +6,8 @@ import { isValidState, VALID_STATES } from "@/lib/state";
 import { cidadeUrl, ufUrl } from "@/lib/slug";
 import { formatBRL, tituloCaso } from "../_lib/format";
 import { UF_NOME, getCidadesDoEstado, getResumoUf } from "../_lib/queries";
+import { metaSeo } from "@/lib/seo";
+import { breadcrumb, itemList, jsonLdSeguro } from "@/lib/jsonld";
 import { GUIAS } from "@/app/guias/_lib/indice";
 
 // O build do Coolify roda antes de o container entrar na rede do Postgres,
@@ -17,8 +19,6 @@ import { GUIAS } from "@/app/guias/_lib/indice";
 // tempo de requisição, então nunca rodam durante `next build`
 // (ver `@/lib/cache.ts`).
 export const dynamic = "force-dynamic";
-
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebrasil.com.br").replace(/\/+$/, "");
 
 type Props = { params: Promise<{ uf: string }> };
 
@@ -35,18 +35,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const total = resumo?.total ?? 0;
   const desconto = resumo?.descontoMediano;
 
-  const title = `Imóveis em leilão da Caixa em ${nome} — ${total} ${total === 1 ? "imóvel" : "imóveis"}`;
+  const totalTxt = total.toLocaleString("pt-BR");
+  const title = `Imóveis em leilão da Caixa em ${nome} — ${totalTxt} ${total === 1 ? "imóvel" : "imóveis"}`;
   const description =
     total > 0
-      ? `${total} imóveis retomados pela Caixa Econômica Federal em leilão em ${nome}${
+      ? `${totalTxt} imóveis retomados pela Caixa Econômica Federal em leilão em ${nome}${
           desconto ? `, desconto mediano de ${Number(desconto).toFixed(0)}% sobre a avaliação` : ""
         }. Preço, cidade e leitura de segurança da região antes de decidir.`
       : `Imóveis retomados pela Caixa Econômica Federal em leilão em ${nome}.`;
 
   return {
-    title,
-    description,
-    alternates: { canonical: `${SITE_URL}${ufUrl(uf)}` },
+    ...metaSeo({ title, description, path: ufUrl(uf) }),
   };
 }
 
@@ -63,8 +62,21 @@ export default async function HubEstadoPage({ params }: Props) {
   const precoMin = formatBRL(resumo?.precoMin);
   const precoMax = formatBRL(resumo?.precoMax);
 
+  // BreadcrumbList + ItemList das cidades: é assim que o Google entende o hub
+  // como índice e acha as 175 páginas de cidade sem depender só do sitemap.
+  const dados = [
+    breadcrumb([
+      { nome: "Início", caminho: "/" },
+      { nome: nome, caminho: ufUrl(uf) },
+    ]),
+    itemList(`Cidades com imóveis em leilão em ${nome}`, cidades.map((c) => cidadeUrl(uf, c.cidade))),
+  ];
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      {dados.map((d, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdSeguro(d) }} />
+      ))}
       <div className="mx-auto max-w-4xl px-4 py-8">
         <nav aria-label="Navegação estrutural" className="mb-4 flex items-center gap-1 text-xs text-zinc-500">
           <Link href="/" className="hover:text-zinc-300">

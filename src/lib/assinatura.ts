@@ -211,10 +211,11 @@ export function podeVer(assinante: AssinanteSessao | null, recurso: RecursoPago)
 // Leilão R$74,90); ficamos no meio.
 // ---------------------------------------------------------------------------
 
-export const PRECOS = {
-  mensal: { valor: 49.9, rotulo: "R$ 49,90/mês" },
-  anual: { valor: 499, rotulo: "R$ 499/ano", equivalenteMensal: "R$ 41,58/mês" },
-} as const;
+// Reexportado de `@/lib/precos` (módulo sem dependência de servidor) para que a
+// tela de cadastro, que é client component, possa mostrar o plano escolhido sem
+// arrastar `next/headers` e o Drizzle para o bundle do navegador.
+import { PRECOS } from "@/lib/precos";
+export { PRECOS };
 
 // ---------------------------------------------------------------------------
 // Adaptador de provedor de cobrança.

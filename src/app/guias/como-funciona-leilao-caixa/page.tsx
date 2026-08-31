@@ -3,18 +3,18 @@ import type { Metadata } from "next";
 import { formatBRL } from "../../leilao-imoveis/_lib/format";
 import { getAtualizacao, getModalidades, getTotais } from "../_lib/queries";
 import { Destaque, Guia, H2 } from "../_components/Guia";
+import { metaSeo } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebrasil.com.br").replace(/\/+$/, "");
 
 export async function generateMetadata(): Promise<Metadata> {
   const totais = await getTotais();
-  return {
+  return metaSeo({
+    path: "/guias/como-funciona-leilao-caixa",
     title: "Como funciona o leilão da Caixa: as 4 modalidades e o que muda em cada uma",
     description: `As quatro modalidades de venda da Caixa se comportam de formas opostas quanto a desconto, preço e financiamento. Comparação feita sobre os ${num(totais?.total ?? 0)} imóveis ativos hoje.`,
-    alternates: { canonical: `${SITE_URL}/guias/como-funciona-leilao-caixa` },
-  };
+  });
 }
 
 const num = (n: number) => n.toLocaleString("pt-BR");
@@ -36,6 +36,7 @@ export default async function GuiaModalidades() {
       titulo="Como funciona o leilão da Caixa: as 4 modalidades e o que muda em cada uma"
       linhaFina={`A Caixa vende imóvel retomado por quatro caminhos diferentes, e a diferença entre eles decide se existe desconto, se dá para financiar e se há uma data de leilão para respeitar. A comparação abaixo é feita sobre os ${num(total)} imóveis ativos agora.`}
       atualizadoEm={atualizadoEm}
+      caminho="/guias/como-funciona-leilao-caixa"
     >
       <p>
         Quem procura “leilão da Caixa” costuma imaginar uma coisa só: um pregão com data marcada, lance e martelo. Na

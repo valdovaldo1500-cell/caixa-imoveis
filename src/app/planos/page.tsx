@@ -5,11 +5,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getAssinante, podeVer, PRECOS } from "@/lib/assinatura";
+import { metaSeo } from "@/lib/seo";
 
-export const metadata = {
+// Estava sem canonical e sem Open Graph até o hard check de 31/08/2026 — é a
+// página de conversão, a que mais recebe link colado em conversa.
+export const metadata = metaSeo({
   title: "Planos — Leilão de Imóveis Caixa",
-  description: "Acompanhe os leilões da Caixa e receba alerta quando entrar um imóvel que bate com a sua busca.",
-};
+  description:
+    "Acompanhe os leilões da Caixa e receba alerta quando entrar um imóvel que bate com a sua busca.",
+  path: "/planos",
+});
 
 // A lista do grátis é deliberadamente generosa: é o padrão do Arremata.ai,
 // que abre quase tudo e cobra pelo extra. E a nota de segurança precisa ficar
