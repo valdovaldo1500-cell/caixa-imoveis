@@ -21,6 +21,17 @@ import { CACHE_TTL_LISTA } from "@/lib/cache";
 
 const ativo = isNull(properties.removedAt);
 
+function normalizar(v: Date | string | null | undefined): Date {
+  if (v instanceof Date) return v;
+  if (typeof v === "string") {
+    // "YYYY-MM-DD HH:MM:SS[.ms]" — sem T e sem fuso, o Date do JS aceita se
+    // trocarmos o espaço por "T"; se ainda assim vier inválida, cai para agora.
+    const d = new Date(v.includes("T") ? v : v.replace(" ", "T") + "Z");
+    if (!Number.isNaN(d.getTime())) return d;
+  }
+  return new Date();
+}
+
 /**
  * Data do estoque. É o que fecha a janela na frase de abertura de cada guia —
  * sem isso o leitor não sabe se está lendo o mercado de hoje ou de abril.
@@ -29,25 +40,27 @@ const ativo = isNull(properties.removedAt);
  * declarado no driver) — o mesmo defeito que derrubou 175 URLs do sitemap em
  * 31/08/2026. Normaliza aqui, uma vez.
  */
-export const getAtualizacao = cache(
-  unstable_cache(
-    async (): Promise<Date> => {
-      const [linha] = await db
-        .select({ em: sql<Date | string | null>`max(${properties.updatedAt})` })
-        .from(properties)
-        .where(ativo);
-      const v = linha?.em;
-      if (v instanceof Date) return v;
-      if (typeof v === "string") {
-        const d = new Date(v.includes("T") ? v : v.replace(" ", "T") + "Z");
-        if (!Number.isNaN(d.getTime())) return d;
-      }
-      return new Date();
-    },
-    ["o6", "guias", "atualizacao"],
-    { revalidate: CACHE_TTL_LISTA }
-  )
+const getAtualizacaoIso = unstable_cache(
+  async (): Promise<string> => {
+    const [linha] = await db
+      .select({ em: sql<Date | string | null>`max(${properties.updatedAt})` })
+      .from(properties)
+      .where(ativo);
+    return normalizar(linha?.em).toISOString();
+  },
+  ["o6", "guias", "atualizacao"],
+  { revalidate: CACHE_TTL_LISTA }
 );
+
+/**
+ * PEGADINHA que já custou 500 nas três páginas de guia (31/08/2026):
+ * `unstable_cache` serializa o retorno com JSON, então um `Date` volta como
+ * STRING no cache HIT e como `Date` de verdade só no MISS — as páginas
+ * quebravam na segunda visita, não na primeira. Por isso o que fica no cache
+ * é ISO (`getAtualizacaoIso`, tipo estável nos dois caminhos) e o `Date` é
+ * remontado aqui fora.
+ */
+export const getAtualizacao = cache(async (): Promise<Date> => new Date(await getAtualizacaoIso()));
 
 export type Modalidade = {
   modalidade: string;

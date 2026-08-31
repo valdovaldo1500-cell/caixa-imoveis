@@ -37,6 +37,9 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/conta") ||
     pathname.startsWith("/imovel/") ||
     pathname.startsWith("/leilao-imoveis") ||
+    // Guias: conteúdo público, e é o canal de busca. Trancar aqui mataria
+    // justamente o tráfego que eles existem para trazer.
+    pathname.startsWith("/guias") ||
     pathname.startsWith("/sitemap") ||
     pathname.startsWith("/api/auth/") ||
     pathname.startsWith("/api/assinatura/")

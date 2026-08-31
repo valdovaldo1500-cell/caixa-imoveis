@@ -8,13 +8,15 @@ import { Destaque, Guia, H2 } from "../_components/Guia";
 
 export const dynamic = "force-dynamic";
 
+const num = (n: number) => n.toLocaleString("pt-BR");
+
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebrasil.com.br").replace(/\/+$/, "");
 
 export async function generateMetadata(): Promise<Metadata> {
   const totais = await getTotais();
   return {
     title: "Onde estão os maiores descontos nos imóveis da Caixa",
-    description: `Cidades ordenadas pelo desconto mediano sobre o valor de avaliação, sobre os ${totais?.abaixoDaAvaliacao ?? 0} imóveis que hoje saem abaixo da avaliação.`,
+    description: `Cidades ordenadas pelo desconto mediano sobre o valor de avaliação, sobre os ${num(totais?.abaixoDaAvaliacao ?? 0)} imóveis que hoje saem abaixo da avaliação.`,
     alternates: { canonical: `${SITE_URL}/guias/onde-estao-os-descontos` },
   };
 }
@@ -29,10 +31,18 @@ export default async function GuiaDescontos() {
   const total = totais?.total ?? 0;
   const abaixo = totais?.abaixoDaAvaliacao ?? 0;
 
+  // A distância entre o topo e o fim da lista é DERIVADA, nunca afirmada: com
+  // o estoque mudando todo dia, uma frase cravada ("passa de duas vezes")
+  // vira mentira sozinha na primeira reimportação.
+  const espalhamento =
+    cidades.length >= 2
+      ? `${cidades[0].descontoMediano.toFixed(0)}% na primeira contra ${cidades[cidades.length - 1].descontoMediano.toFixed(0)}% na última desta lista.`
+      : null;
+
   return (
     <Guia
       titulo="Onde estão os maiores descontos nos imóveis da Caixa"
-      linhaFina={`Dos ${total} imóveis ativos, ${abaixo} saem abaixo do valor de avaliação. O desconto não está distribuído por igual: entre as cidades com estoque relevante, a diferença entre a primeira e a última da lista abaixo passa de duas vezes.`}
+      linhaFina={`Dos ${num(total)} imóveis ativos, ${num(abaixo)} saem abaixo do valor de avaliação. O desconto não está distribuído por igual${espalhamento ? `: ${espalhamento}` : "."}`}
       atualizadoEm={atualizadoEm}
     >
       <p>
@@ -60,7 +70,7 @@ export default async function GuiaDescontos() {
                   </Link>
                   <span className="text-zinc-500"> · {UF_NOME[c.uf] ?? c.uf}</span>
                 </td>
-                <td className="py-2 pr-3 text-right tabular-nums">{c.total}</td>
+                <td className="py-2 pr-3 text-right tabular-nums">{num(c.total)}</td>
                 <td className="py-2 pr-3 text-right tabular-nums">{c.descontoMediano.toFixed(0)}%</td>
                 <td className="py-2 text-right tabular-nums">{formatBRL(c.precoMediano) ?? "—"}</td>
               </tr>

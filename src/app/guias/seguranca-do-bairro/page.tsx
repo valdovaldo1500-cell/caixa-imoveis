@@ -2,11 +2,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { cidadeUrl } from "@/lib/slug";
 import { FAIXAS_TAXA, nivelDoPercentil } from "@/lib/seguranca";
-import { formatBRL } from "../../leilao-imoveis/_lib/format";
+import { formatBRL, tituloCaso } from "../../leilao-imoveis/_lib/format";
 import { getAtualizacao, getBairrosDaCidade, getTotais } from "../_lib/queries";
 import { Destaque, Guia, H2 } from "../_components/Guia";
 
 export const dynamic = "force-dynamic";
+
+const num = (n: number) => n.toLocaleString("pt-BR");
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebrasil.com.br").replace(/\/+$/, "");
 
@@ -48,10 +50,18 @@ export default async function GuiaSeguranca() {
   const menor = bairros[bairros.length - 1];
   const vezes = maior && menor && menor.taxa > 0 ? maior.taxa / menor.taxa : null;
 
+  // "5.161 dos imóveis têm leitura" lê torto quando são todos. A frase muda
+  // de forma conforme a cobertura, em vez de fingir que sempre falta alguém.
+  const total = totais?.total ?? 0;
+  const coberturaTexto =
+    comSeguranca >= total
+      ? `Hoje os ${num(total)} imóveis do estoque têm leitura de segurança, ${num(comBairro)} deles no grão do próprio bairro.`
+      : `Hoje ${num(comSeguranca)} dos ${num(total)} imóveis do estoque têm leitura de segurança, ${num(comBairro)} deles no grão do próprio bairro.`;
+
   return (
     <Guia
       titulo="Como ler a segurança do bairro antes de comprar um imóvel de leilão"
-      linhaFina={`Preço barato em bairro ruim não é desconto, é risco embutido — e a média da cidade não responde essa pergunta. Hoje ${comSeguranca} dos imóveis do nosso estoque têm leitura de segurança, ${comBairro} deles no grão do próprio bairro.`}
+      linhaFina={`Preço barato em bairro ruim não é desconto, é risco embutido — e a média da cidade não responde essa pergunta. ${coberturaTexto}`}
       atualizadoEm={atualizadoEm}
     >
       <p>
@@ -102,12 +112,12 @@ export default async function GuiaSeguranca() {
               <tbody className="text-zinc-300">
                 {bairros.map((b) => (
                   <tr key={b.bairro} className="border-b border-zinc-900">
-                    <td className="py-2 pr-3">{b.bairro}</td>
+                    <td className="py-2 pr-3">{tituloCaso(b.bairro)}</td>
                     <td className="py-2 pr-3 text-right tabular-nums">{b.taxa.toFixed(1).replace(".", ",")}</td>
                     <td className="py-2 pr-3 text-zinc-400">
                       {b.percentil != null ? ROTULO[nivelDoPercentil(b.percentil)] : "—"}
                     </td>
-                    <td className="py-2 pr-3 text-right tabular-nums">{b.total}</td>
+                    <td className="py-2 pr-3 text-right tabular-nums">{num(b.total)}</td>
                     <td className="py-2 text-right tabular-nums">{formatBRL(b.precoMediano) ?? "—"}</td>
                   </tr>
                 ))}
@@ -118,8 +128,8 @@ export default async function GuiaSeguranca() {
           {vezes != null && vezes > 1.5 && (
             <Destaque>
               Entre o bairro mais violento e o mais calmo da lista, com estoque na mesma cidade, a taxa varia{" "}
-              {vezes.toFixed(1).replace(".", ",")} vezes — {maior.bairro} em{" "}
-              {maior.taxa.toFixed(1).replace(".", ",")} contra {menor.bairro} em{" "}
+              {vezes.toFixed(1).replace(".", ",")} vezes — {tituloCaso(maior.bairro)} em{" "}
+              {maior.taxa.toFixed(1).replace(".", ",")} contra {tituloCaso(menor.bairro)} em{" "}
               {menor.taxa.toFixed(1).replace(".", ",")}. Uma média da cidade devolveria o mesmo número para os dois.
             </Destaque>
           )}

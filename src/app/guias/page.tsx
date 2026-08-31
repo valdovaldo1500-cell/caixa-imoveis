@@ -32,7 +32,7 @@ export default async function GuiasPage() {
         <h1 className="text-2xl font-semibold text-zinc-100">Guias sobre imóveis de leilão da Caixa</h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400">
           Textos curtos que respondem o que muda o preço final de um imóvel retomado. Nenhum número está escrito no
-          texto: todos saem do estoque de {totais?.total ?? 0} imóveis que mantemos atualizado, recalculados quando você
+          texto: todos saem do estoque de {(totais?.total ?? 0).toLocaleString("pt-BR")} imóveis que mantemos atualizado, recalculados quando você
           abre a página.
         </p>
 

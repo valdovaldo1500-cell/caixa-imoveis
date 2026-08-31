@@ -12,10 +12,12 @@ export async function generateMetadata(): Promise<Metadata> {
   const totais = await getTotais();
   return {
     title: "Como funciona o leilão da Caixa: as 4 modalidades e o que muda em cada uma",
-    description: `As quatro modalidades de venda da Caixa se comportam de formas opostas quanto a desconto, preço e financiamento. Comparação feita sobre os ${totais?.total ?? 0} imóveis ativos hoje.`,
+    description: `As quatro modalidades de venda da Caixa se comportam de formas opostas quanto a desconto, preço e financiamento. Comparação feita sobre os ${num(totais?.total ?? 0)} imóveis ativos hoje.`,
     alternates: { canonical: `${SITE_URL}/guias/como-funciona-leilao-caixa` },
   };
 }
+
+const num = (n: number) => n.toLocaleString("pt-BR");
 
 function pct(parte: number, todo: number): string {
   if (!todo) return "0%";
@@ -32,7 +34,7 @@ export default async function GuiaModalidades() {
   return (
     <Guia
       titulo="Como funciona o leilão da Caixa: as 4 modalidades e o que muda em cada uma"
-      linhaFina={`A Caixa vende imóvel retomado por quatro caminhos diferentes, e a diferença entre eles decide se existe desconto, se dá para financiar e se há uma data de leilão para respeitar. A comparação abaixo é feita sobre os ${total} imóveis ativos agora.`}
+      linhaFina={`A Caixa vende imóvel retomado por quatro caminhos diferentes, e a diferença entre eles decide se existe desconto, se dá para financiar e se há uma data de leilão para respeitar. A comparação abaixo é feita sobre os ${num(total)} imóveis ativos agora.`}
       atualizadoEm={atualizadoEm}
     >
       <p>
@@ -59,16 +61,16 @@ export default async function GuiaModalidades() {
             {modalidades.map((m) => (
               <tr key={m.modalidade} className="border-b border-zinc-900">
                 <td className="py-2 pr-3">{m.modalidade}</td>
-                <td className="py-2 pr-3 text-right tabular-nums">{m.total}</td>
+                <td className="py-2 pr-3 text-right tabular-nums">{num(m.total)}</td>
                 <td className="py-2 pr-3 text-right tabular-nums">
-                  {m.comDesconto} <span className="text-zinc-500">({pct(m.comDesconto, m.total)})</span>
+                  {num(m.comDesconto)} <span className="text-zinc-500">({pct(m.comDesconto, m.total)})</span>
                 </td>
                 <td className="py-2 pr-3 text-right tabular-nums">
                   {m.descontoMediano != null ? `${m.descontoMediano.toFixed(0)}%` : "—"}
                 </td>
                 <td className="py-2 pr-3 text-right tabular-nums">{formatBRL(m.precoMediano) ?? "—"}</td>
                 <td className="py-2 text-right tabular-nums">
-                  {m.aceitaFinanciamento} <span className="text-zinc-500">({pct(m.aceitaFinanciamento, m.total)})</span>
+                  {num(m.aceitaFinanciamento)} <span className="text-zinc-500">({pct(m.aceitaFinanciamento, m.total)})</span>
                 </td>
               </tr>
             ))}
@@ -79,9 +81,9 @@ export default async function GuiaModalidades() {
       {sfi && direta && (
         <Destaque>
           A leitura que inverte a expectativa de quase todo mundo: a modalidade que se chama leilão é a que tem menos
-          desconto. No Leilão SFI, {sfi.comDesconto} de {sfi.total} imóveis saem abaixo da avaliação (
-          {pct(sfi.comDesconto, sfi.total)}) e {sfi.acimaDaAvaliacao} estão com preço <em>acima</em> dela. Na Venda
-          Direta Online, que não é leilão, são {direta.comDesconto} de {direta.total} (
+          desconto. No Leilão SFI, {num(sfi.comDesconto)} de {num(sfi.total)} imóveis saem abaixo da avaliação (
+          {pct(sfi.comDesconto, sfi.total)}) e {num(sfi.acimaDaAvaliacao)} estão com preço <em>acima</em> dela. Na Venda
+          Direta Online, que não é leilão, são {num(direta.comDesconto)} de {num(direta.total)} (
           {pct(direta.comDesconto, direta.total)}), com desconto mediano de {direta.descontoMediano?.toFixed(0)}%.
         </Destaque>
       )}
@@ -101,7 +103,7 @@ export default async function GuiaModalidades() {
 
       <H2>Financiamento é a exceção, não a regra</H2>
       <p>
-        Somando as quatro modalidades, {modalidades.reduce((s, m) => s + m.aceitaFinanciamento, 0)} dos {total} imóveis
+        Somando as quatro modalidades, {num(modalidades.reduce((s, m) => s + m.aceitaFinanciamento, 0))} dos {num(total)} imóveis
         ativos aceitam financiamento da Caixa. O resto é pagamento à vista, no prazo do edital. É o ponto que mais
         derruba comprador de primeira viagem: o desconto é real, mas o dinheiro precisa estar disponível.
       </p>
