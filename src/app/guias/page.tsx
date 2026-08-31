@@ -3,17 +3,17 @@ import type { Metadata } from "next";
 import { ChevronRight } from "lucide-react";
 import { GUIAS } from "./_lib/indice";
 import { getAtualizacao, getTotais } from "./_lib/queries";
+import { metaSeo } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebrasil.com.br").replace(/\/+$/, "");
 
-export const metadata: Metadata = {
+export const metadata: Metadata = metaSeo({
+  path: "/guias",
   title: "Guias sobre imóveis de leilão da Caixa",
   description:
     "Como funcionam as modalidades de venda da Caixa, onde estão os descontos reais e como ler a segurança do bairro antes de dar lance. Todos com números do estoque de hoje.",
-  alternates: { canonical: `${SITE_URL}/guias` },
-};
+});
 
 export default async function GuiasPage() {
   const [totais, atualizadoEm] = await Promise.all([getTotais(), getAtualizacao()]);

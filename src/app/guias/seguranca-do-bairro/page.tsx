@@ -5,12 +5,12 @@ import { FAIXAS_TAXA, nivelDoPercentil } from "@/lib/seguranca";
 import { formatBRL, tituloCaso } from "../../leilao-imoveis/_lib/format";
 import { getAtualizacao, getBairrosDaCidade, getTotais } from "../_lib/queries";
 import { Destaque, Guia, H2 } from "../_components/Guia";
+import { metaSeo } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
 const num = (n: number) => n.toLocaleString("pt-BR");
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebrasil.com.br").replace(/\/+$/, "");
 
 /**
  * A cidade do exemplo é fixa de propósito: Porto Alegre é a que tem estoque
@@ -29,12 +29,12 @@ const ROTULO: Record<string, string> = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return metaSeo({
+    path: "/guias/seguranca-do-bairro",
     title: "Como ler a segurança do bairro antes de comprar um imóvel de leilão",
     description:
       "O que a taxa de mortes violentas por 100 mil habitantes diz e o que ela não diz, por que a média da cidade engana, e como comparar dois bairros da mesma cidade.",
-    alternates: { canonical: `${SITE_URL}/guias/seguranca-do-bairro` },
-  };
+  });
 }
 
 export default async function GuiaSeguranca() {
@@ -63,6 +63,7 @@ export default async function GuiaSeguranca() {
       titulo="Como ler a segurança do bairro antes de comprar um imóvel de leilão"
       linhaFina={`Preço barato em bairro ruim não é desconto, é risco embutido — e a média da cidade não responde essa pergunta. ${coberturaTexto}`}
       atualizadoEm={atualizadoEm}
+      caminho="/guias/seguranca-do-bairro"
     >
       <p>
         “Esse apartamento barato fica num bairro seguro?” é a primeira pergunta de quem olha um imóvel de leilão, e é a

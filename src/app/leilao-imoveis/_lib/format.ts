@@ -68,10 +68,13 @@ export function proximaDataUrgencia(imovel: {
   licitacaoData?: Date | string | null;
   propostaPrazo?: Date | string | null;
 }): { rotulo: string; valor: Date } | null {
+  // O rótulo já carrega a preposição. O card montava `{rotulo} em {data}`, o que
+  // dava "Proposta até em 31/08" — pego no hard check de 31/08/2026. Com a
+  // preposição aqui, cada rótulo escolhe a sua e o card só concatena.
   const candidatas: { rotulo: string; valor: Date | null }[] = [
-    { rotulo: "1º leilão", valor: paraData(imovel.leilao1Data) },
-    { rotulo: "2º leilão", valor: paraData(imovel.leilao2Data) },
-    { rotulo: "Licitação", valor: paraData(imovel.licitacaoData) },
+    { rotulo: "1º leilão em", valor: paraData(imovel.leilao1Data) },
+    { rotulo: "2º leilão em", valor: paraData(imovel.leilao2Data) },
+    { rotulo: "Licitação em", valor: paraData(imovel.licitacaoData) },
     { rotulo: "Proposta até", valor: paraData(imovel.propostaPrazo) },
   ];
   const futuras = candidatas.filter(

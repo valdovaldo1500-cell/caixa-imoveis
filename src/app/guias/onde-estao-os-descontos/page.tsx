@@ -5,20 +5,20 @@ import { formatBRL, tituloCaso } from "../../leilao-imoveis/_lib/format";
 import { UF_NOME } from "../../leilao-imoveis/_lib/queries";
 import { getAtualizacao, getCidadesPorDesconto, getTotais } from "../_lib/queries";
 import { Destaque, Guia, H2 } from "../_components/Guia";
+import { metaSeo } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
 const num = (n: number) => n.toLocaleString("pt-BR");
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebrasil.com.br").replace(/\/+$/, "");
 
 export async function generateMetadata(): Promise<Metadata> {
   const totais = await getTotais();
-  return {
+  return metaSeo({
+    path: "/guias/onde-estao-os-descontos",
     title: "Onde estão os maiores descontos nos imóveis da Caixa",
     description: `Cidades ordenadas pelo desconto mediano sobre o valor de avaliação, sobre os ${num(totais?.abaixoDaAvaliacao ?? 0)} imóveis que hoje saem abaixo da avaliação.`,
-    alternates: { canonical: `${SITE_URL}/guias/onde-estao-os-descontos` },
-  };
+  });
 }
 
 export default async function GuiaDescontos() {
@@ -44,6 +44,7 @@ export default async function GuiaDescontos() {
       titulo="Onde estão os maiores descontos nos imóveis da Caixa"
       linhaFina={`Dos ${num(total)} imóveis ativos, ${num(abaixo)} saem abaixo do valor de avaliação. O desconto não está distribuído por igual${espalhamento ? `: ${espalhamento}` : "."}`}
       atualizadoEm={atualizadoEm}
+      caminho="/guias/onde-estao-os-descontos"
     >
       <p>
         A lista traz as cidades com pelo menos dez imóveis com desconto, ordenadas pelo desconto mediano. O piso de dez

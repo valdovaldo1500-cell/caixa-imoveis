@@ -52,9 +52,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const titleParts = [titulo, imovel.uf, preco].filter(Boolean);
 
+  // Só entra na descrição quando existe desconto DE VERDADE. Metade do estoque
+  // é Leilão SFI, onde o lance mínimo é a dívida e o desconto é zero — e a
+  // descrição abria com "0% de desconto sobre a avaliação", que é a pior
+  // primeira linha possível no resultado de busca. A ficha já esconde o selo
+  // nesse caso (ver o card); a meta description passa a fazer o mesmo.
+  const descontoNum = imovel.desconto != null ? Number(imovel.desconto) : null;
   const descontoTxt =
-    imovel.desconto != null
-      ? `${Number(imovel.desconto).toLocaleString("pt-BR", { maximumFractionDigits: 1 })}% de desconto sobre a avaliação.`
+    descontoNum != null && descontoNum > 0
+      ? `${descontoNum.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}% de desconto sobre a avaliação.`
       : null;
   const regiaoSeguranca =
     seguranca && seguranca.graoCodigo === "bairro" && seguranca.bairroNome
@@ -67,10 +73,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? "Este imóvel não está mais disponível para leilão."
     : "Imóvel de leilão da Caixa Econômica Federal.";
 
+  const title = titleParts.join(" — ");
+  const description = [descontoTxt, segurancaTxt, disponibilidadeTxt].filter(Boolean).join(" ");
+
   return {
-    title: titleParts.join(" — "),
-    description: [descontoTxt, segurancaTxt, disponibilidadeTxt].filter(Boolean).join(" "),
+    title,
+    description,
     alternates: { canonical },
+    // A ficha é a página mais colada em conversa de WhatsApp ("olha esse
+    // aqui"). Sem Open Graph ela ia como URL crua. Quando há foto do imóvel,
+    // ela vira a imagem do card.
+    openGraph: {
+      type: "website",
+      locale: "pt_BR",
+      siteName: "Leilão de Imóveis da Caixa",
+      title,
+      description,
+      url: canonical,
+      ...(imovel.fotoUrl ? { images: [{ url: imovel.fotoUrl }] } : {}),
+    },
+    twitter: { card: imovel.fotoUrl ? "summary_large_image" : "summary", title, description },
   };
 }
 
@@ -157,18 +179,28 @@ export default async function ImovelPage({ params }: Props) {
   const temBlocoEdital =
     datasLeilao.length > 0 || Boolean(imovel.editalNumero) || Boolean(imovel.leiloeiro) || Boolean(imovel.editalPdfUrl);
 
-  // Product+Offer no mesmo nó — é o padrão pedido para o rich result de imóvel.
+  // Product COM a Offer aninhada em `offers`. Estava como `"@type": ["Product",
+  // "Offer"]` até o hard check de 31/08/2026 — tipo que não existe no
+  // schema.org: `price`, `availability` e `priceCurrency` são campos de Offer,
+  // e num nó que também é Product o Google os descarta. Resultado: o preço não
+  // aparecia no resultado de busca, que é o único motivo de ter o Product aqui.
   const jsonLdProduto = {
     "@context": "https://schema.org",
-    "@type": ["Product", "Offer"],
+    "@type": "Product",
     name: titulo,
     description: imovel.descricao ?? titulo,
     ...(imovel.fotoUrl ? { image: imovel.fotoUrl } : {}),
     sku: imovel.caixaId,
     url: canonicalUrl,
-    ...(imovel.preco != null ? { price: Number(imovel.preco), priceCurrency: "BRL" } : {}),
-    availability: removido ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
     itemCondition: "https://schema.org/UsedCondition",
+    offers: {
+      "@type": "Offer",
+      url: canonicalUrl,
+      priceCurrency: "BRL",
+      ...(imovel.preco != null ? { price: Number(imovel.preco) } : {}),
+      availability: removido ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+      itemCondition: "https://schema.org/UsedCondition",
+    },
   };
 
   const jsonLdBreadcrumb = {

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ChevronRight } from "lucide-react";
 import { isValidState } from "@/lib/state";
-import { cidadeUrl, ufUrl } from "@/lib/slug";
+import { cidadeUrl, imovelUrl, ufUrl } from "@/lib/slug";
 import { lerSegurancaMunicipio, type Seguranca, type NivelSeguranca } from "@/lib/seguranca";
 import { formatBRL, tituloCaso } from "../../_lib/format";
 import {
@@ -17,6 +17,8 @@ import {
 import { PropertyCard } from "../../_components/PropertyCard";
 import { Filtros } from "../../_components/Filtros";
 import { Paginacao } from "../../_components/Paginacao";
+import { metaSeo } from "@/lib/seo";
+import { breadcrumb, itemList, jsonLdSeguro } from "@/lib/jsonld";
 
 // A página lê filtro e paginação da querystring em toda requisição — por
 // isso continua dinâmica na prática, mas a consulta por trás (`getImoveisDaCidade`
@@ -30,7 +32,6 @@ import { Paginacao } from "../../_components/Paginacao";
 // (nunca no build — ver `@/lib/cache.ts`).
 export const dynamic = "force-dynamic";
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://imoveis.crimebrasil.com.br").replace(/\/+$/, "");
 
 type Params = { uf: string; cidade: string };
 type SearchParams = { [key: string]: string | string[] | undefined };
@@ -95,9 +96,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       : `Imóveis da Caixa Econômica Federal em leilão em ${nomeCidade}/${uf}.`;
 
   return {
-    title,
-    description,
-    alternates: { canonical: `${SITE_URL}${cidadeUrl(uf, cidade)}` },
+    ...metaSeo({ title, description, path: cidadeUrl(uf, cidade) }),
+    // Página 2+ sai do índice mas segue sendo rastreada: é por ela que o
+    // Googlebot descobre as fichas que não cabem nas 24 da primeira.
     robots: pagina > 1 ? { index: false, follow: true } : undefined,
   };
 }
@@ -143,8 +144,30 @@ export default async function CidadePage({ params, searchParams }: Props) {
     if (valor) paramsAtuais.set(chave, valor);
   }
 
+  // BreadcrumbList sempre; ItemList só na página 1 sem filtro — nas outras a
+  // lista descreve um recorte, não a cidade, e marcar recorte como índice da
+  // cidade confunde o que o Google entende por esta URL.
+  const dados: unknown[] = [
+    breadcrumb([
+      { nome: "Início", caminho: "/" },
+      { nome: nomeUf, caminho: ufUrl(uf) },
+      { nome: nomeCidade, caminho: cidadeUrl(uf, cidade) },
+    ]),
+  ];
+  if (pagina === 1 && paramsAtuais.toString() === "") {
+    dados.push(
+      itemList(
+        `Imóveis em leilão da Caixa em ${nomeCidade}/${uf}`,
+        listagem.itens.map((i) => imovelUrl(i))
+      )
+    );
+  }
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      {dados.map((d, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdSeguro(d) }} />
+      ))}
       <div className="mx-auto max-w-6xl px-4 py-8">
         <nav aria-label="Navegação estrutural" className="mb-4 flex flex-wrap items-center gap-1 text-xs text-zinc-500">
           <Link href="/" className="hover:text-zinc-300">

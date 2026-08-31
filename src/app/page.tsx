@@ -6,6 +6,8 @@ import { properties } from "@/lib/db/schema";
 import { sql, isNull } from "drizzle-orm";
 import { ArrowRight, ShieldCheck, Trees, Lock } from "lucide-react";
 import { GUIAS } from "./guias/_lib/indice";
+import { metaSeo } from "@/lib/seo";
+import { jsonLdSeguro, websiteEOrganizacao } from "@/lib/jsonld";
 import { ufUrl, imovelUrl } from "@/lib/slug";
 import { BlocoSeguranca } from "@/components/BlocoSeguranca";
 import { CACHE_TTL_LISTA } from "@/lib/cache";
@@ -19,7 +21,6 @@ import { CACHE_TTL_LISTA } from "@/lib/cache";
 // então nunca roda durante `next build` (ver `@/lib/cache.ts`).
 export const dynamic = "force-dynamic";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://imoveis.crimebrasil.com.br";
 
 /**
  * Home pública do agregador (O6).
@@ -109,11 +110,11 @@ const UF_NOMES: Record<string, string> = { GO: "Goiás", RS: "Rio Grande do Sul"
 export async function generateMetadata() {
   const { tot } = await getResumo();
   const n = (tot?.total ?? 0).toLocaleString("pt-BR");
-  return {
+  return metaSeo({
+    path: "/",
     title: "Imóveis de leilão da Caixa, com a segurança da região",
     description: `${n} imóveis da Caixa com desconto sobre a avaliação, e a nota de criminalidade do bairro ou do município ao lado de cada um. Navegue sem cadastro.`,
-    alternates: { canonical: SITE_URL },
-  };
+  });
 }
 
 function brl(v: string | number | null) {
@@ -126,6 +127,12 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-zinc-950">
+      {/* WebSite + Organization: é o nó que amarra o domínio a um nome no
+          Knowledge Graph. Sem ele o Google trata cada URL como página solta. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdSeguro(websiteEOrganizacao()) }}
+      />
       <header className="border-b border-zinc-900">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <span className="font-semibold text-zinc-100">Imóveis de Leilão</span>
