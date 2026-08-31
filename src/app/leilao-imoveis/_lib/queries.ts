@@ -21,7 +21,7 @@ import { and, eq, isNull, lt, sql, type SQL } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
 import { slugify } from "@/lib/slug";
-import { FAIXAS_NACIONAIS, type NivelSeguranca } from "@/lib/seguranca";
+import { TETO_PERCENTIL, type NivelSeguranca } from "@/lib/seguranca";
 import { CACHE_TTL_LISTA } from "@/lib/cache";
 
 export const UF_NOME: Record<string, string> = {
