@@ -251,6 +251,15 @@ export const getImoveisDaCidade = unstable_cache(
         crimeJanelaInicio: properties.crimeJanelaInicio,
         crimeJanelaFim: properties.crimeJanelaFim,
         crimeSuprimido: properties.crimeSuprimido,
+        crimePercentil: properties.crimePercentil,
+        crimeBairro: properties.crimeBairro,
+        crimeBairroOrigem: properties.crimeBairroOrigem,
+        crimeOcorrencias: properties.crimeOcorrencias,
+        crimeMuniNota: properties.crimeMuniNota,
+        crimeMuniTaxa: properties.crimeMuniTaxa,
+        crimeMuniJanelaInicio: properties.crimeMuniJanelaInicio,
+        crimeMuniJanelaFim: properties.crimeMuniJanelaFim,
+        crimeMuniFonte: properties.crimeMuniFonte,
       })
       .from(properties)
       .where(where)
