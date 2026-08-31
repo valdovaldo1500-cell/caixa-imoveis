@@ -209,10 +209,11 @@ export default async function Home() {
         <section className="mt-14 rounded-lg border border-zinc-800 bg-zinc-900/40 p-6">
           <h2 className="text-lg font-semibold text-zinc-100">De onde vem a nota de segurança</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-zinc-400">
-            A nota é do <strong className="text-zinc-300">município</strong>, calculada sobre mortes violentas
-            registradas no DATASUS/SIM, e comparada com a distribuição dos 3.615 municípios brasileiros com dado
-            suficiente. Cada imóvel mostra o número, a fonte e o período — e onde o município teve poucos
-            registros, dizemos que o dado é insuficiente em vez de exibir um número frágil.
+            A nota é do <strong className="text-zinc-300">bairro</strong>, quando a base tem esse grão (hoje o Rio
+            Grande do Sul), ou do <strong className="text-zinc-300">município</strong> nos demais casos — sempre
+            comparada com a distribuição nacional do próprio grão, para não misturar réguas diferentes. Cada imóvel
+            mostra o número, a fonte e o período — e onde a região teve poucos registros, dizemos que o dado é
+            insuficiente em vez de exibir um número frágil.
           </p>
           <p className="mt-3 text-sm text-zinc-500">
             {(tot?.comSeguranca ?? 0).toLocaleString("pt-BR")} dos {(tot?.total ?? 0).toLocaleString("pt-BR")}{" "}
