@@ -41,3 +41,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# prints de verificacao local, nao versionar
+shots/
+shots-final/
