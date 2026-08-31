@@ -26,21 +26,34 @@
  *    O que NUNCA pode virar "por 100 mil habitantes" é a `taxa_letal` de
  *    bairro da origem: aquela tem denominador de ENDEREÇOS.
  *
- * 3. As RÉGUAS de bairro e de município são DIFERENTES — não dá para
- *    comparar `crimeNota` cru entre os dois grãos. Medido em 31/08/2026
- *    sobre notas não suprimidas:
- *      município (n=3.615): p20=400 p40=460 mediana=489 p60=520 p80=589
- *      bairro    (n=10.748): p20=374 p40=435 mediana=454 p60=469 p80=497
- *    Uma nota 497 é "médio" na régua municipal e "entre os 20% piores" na de
- *    bairro. Por isso o nível vem de `crimePercentil` (0-100, percentil
- *    nacional DENTRO do próprio grão) — a única grandeza comparável entre
- *    bairro e município. Filtro e ordenação de risco usam SEMPRE
- *    `crimePercentil`, nunca `crimeNota`. As faixas de nota abaixo só
- *    existem como QUEDA DE BRAÇO para linhas antigas ainda sem percentil.
+ * 3. O NÍVEL (o selo colorido) descreve a TAXA que aparece do lado dele, e
+ *    nada mais. `crimePercentil` é o percentil dessa taxa na distribuição
+ *    nacional de mortes por 100 mil habitantes/ano — 5.570 municípios,
+ *    medida em 31/08/2026: p20=5,3 p40=11,0 mediana=14,4 p60=18,3 p80=29,8.
+ *    Uma medida, uma régua, nos dois grãos.
+ *
+ *    NÃO volte a tirar o nível de `crimeNota`. Foi assim na primeira versão
+ *    e o resultado apareceu no primeiro print de borda: `nota_letal` não
+ *    mede morte por habitante (correlação 0,338 no bairro do RS), então o
+ *    selo contradizia o número que rotulava — 209 de 653 imóveis com selo
+ *    "alto"/"muito alto" e taxa ABAIXO da do próprio município. Morro
+ *    Santana, em Porto Alegre, saía no percentil 99 com 11,3 contra 22,0 da
+ *    cidade.
+ *
+ *    Efeito colateral bom: como a taxa está na mesma unidade nos dois grãos,
+ *    isto também dissolveu o problema das réguas de NOTA serem diferentes
+ *    entre bairro (mediana 454) e município (mediana 489).
+ *
+ *    Filtro e ordenação de risco usam SEMPRE `crimePercentil`.
  */
 
-export const FAIXAS_MUNICIPIO = { p20: 400, p40: 460, mediana: 489, p60: 520, p80: 589 } as const;
-export const FAIXAS_BAIRRO = { p20: 374, p40: 435, mediana: 454, p60: 469, p80: 497 } as const;
+/**
+ * Quintis nacionais de mortes violentas por 100 mil habitantes/ano, sobre os
+ * 5.570 municípios de `app.ancora_letal` (medido 31/08/2026). É a régua do
+ * produto — vale para a taxa do município E para a estimativa do bairro,
+ * porque as duas estão na mesma unidade.
+ */
+export const FAIXAS_TAXA = { p20: 5.3, p40: 11.0, mediana: 14.4, p60: 18.3, p80: 29.8 } as const;
 
 export type NivelSeguranca = "baixo" | "moderado" | "medio" | "alto" | "muito_alto";
 
@@ -65,8 +78,10 @@ export type Seguranca = {
   percentil: number | null;
   /** "municipio" | "bairro" | "ponto" — código cru do grão, para lógica condicional na tela. */
   graoCodigo: string;
-  /** Mortes violentas/100 mil hab./ano. Só existe no grão município — NULL no grão bairro. */
-  taxa: number | null;
+  /** Mortes violentas/100 mil hab./ano — o número que a tela exibe. Nunca nulo. */
+  taxa: number;
+  /** `true` quando conhecemos o bairro mas a taxa exibida é a do município. */
+  taxaEDoMunicipio: boolean;
   grao: string;
   fonte: string;
   janela: string;
@@ -135,15 +150,14 @@ function nivelDoPercentil(percentil: number): NivelSeguranca {
 
 /**
  * Fallback para linha ainda sem `crimePercentil` (job antigo, não
- * reprocessado): usa a régua de NOTA do próprio grão, para não quebrar nem
- * misturar a régua errada.
+ * reprocessado): classifica a própria taxa nas faixas nacionais. Mesma
+ * medida do caminho principal, só sem o percentil exato.
  */
-function nivelDaNota(nota: number, grao: string): NivelSeguranca {
-  const faixas = grao === "bairro" ? FAIXAS_BAIRRO : FAIXAS_MUNICIPIO;
-  if (nota < faixas.p20) return "baixo";
-  if (nota < faixas.p40) return "moderado";
-  if (nota < faixas.p60) return "medio";
-  if (nota < faixas.p80) return "alto";
+function nivelDaTaxa(taxa: number): NivelSeguranca {
+  if (taxa < FAIXAS_TAXA.p20) return "baixo";
+  if (taxa < FAIXAS_TAXA.p40) return "moderado";
+  if (taxa < FAIXAS_TAXA.p60) return "medio";
+  if (taxa < FAIXAS_TAXA.p80) return "alto";
   return "muito_alto";
 }
 
@@ -193,16 +207,31 @@ export function lerSeguranca(p: CrimeCampos): Seguranca | null {
 
   const grao = p.crimeGrao ?? "municipio";
   const percentil = p.crimePercentil ?? null;
-  const nivel = percentil != null ? nivelDoPercentil(percentil) : nivelDaNota(p.crimeNota, grao);
-  const meta = NIVEIS[nivel];
-  const taxa = p.crimeTaxa == null ? null : Number(p.crimeTaxa);
-  const ocorrencias = p.crimeOcorrencias ?? null;
+  const taxaPropria = p.crimeTaxa == null ? null : Number(p.crimeTaxa);
+  const muniTaxaBruta = p.crimeMuniTaxa == null ? null : Number(p.crimeMuniTaxa);
 
-  const muniTaxa = p.crimeMuniTaxa == null ? null : Number(p.crimeMuniTaxa);
+  // O NÚMERO EXIBIDO. Quando o bairro não tem população no Censo não existe
+  // taxa própria, e o card mostra a do município — é isso que o selo
+  // classifica, senão ele voltaria a rotular um número que não está na tela.
+  const taxa = Number.isFinite(taxaPropria as number)
+    ? (taxaPropria as number)
+    : Number.isFinite(muniTaxaBruta as number)
+      ? (muniTaxaBruta as number)
+      : null;
+  if (taxa == null) return null;
+
+  const nivel = percentil != null ? nivelDoPercentil(percentil) : nivelDaTaxa(taxa);
+  const meta = NIVEIS[nivel];
+  const ocorrencias = p.crimeOcorrencias ?? null;
+  /** `true` quando o número exibido é o do município, apesar de sabermos o bairro. */
+  const taxaEDoMunicipio = !Number.isFinite(taxaPropria as number);
+
+  // A linha de comparação municipal só faz sentido quando o número principal
+  // é o do bairro; se o principal JÁ é o do município, repetir seria ruído.
   const municipio =
-    grao === "bairro" && muniTaxa != null && Number.isFinite(muniTaxa)
+    grao === "bairro" && !taxaEDoMunicipio && Number.isFinite(muniTaxaBruta as number)
       ? {
-          taxa: muniTaxa,
+          taxa: muniTaxaBruta as number,
           janela: janelaLegivel(p.crimeMuniJanelaInicio ?? null, p.crimeMuniJanelaFim ?? null),
           fonte: p.crimeMuniFonte ?? "DATASUS/SIM",
         }
@@ -211,13 +240,18 @@ export function lerSeguranca(p: CrimeCampos): Seguranca | null {
   return {
     nivel,
     rotulo: meta.rotulo,
-    contexto: meta.contexto(SUBSTANTIVO_PLURAL[grao] ?? "municípios"),
+    // A régua é a distribuição de mortes/100 mil hab. dos 5.570 MUNICÍPIOS,
+    // então o substantivo da frase é sempre "municípios" — inclusive quando o
+    // número é de um bairro. Dizer "entre os 20% de bairros mais violentos"
+    // seria falso: bairro nenhum entrou na régua.
+    contexto: meta.contexto("municípios"),
     cor: meta.cor,
     nota: p.crimeNota,
     percentil,
     graoCodigo: grao,
-    taxa: Number.isFinite(taxa) ? taxa : null,
-    grao: GRAOS[grao] ?? "do município",
+    taxa,
+    taxaEDoMunicipio,
+    grao: GRAOS[taxaEDoMunicipio ? "municipio" : grao] ?? "do município",
     fonte: p.crimeFonte ?? "DATASUS/SIM",
     janela: janelaLegivel(p.crimeJanelaInicio, p.crimeJanelaFim),
     bairroNome: p.crimeBairro ?? null,
@@ -255,10 +289,10 @@ export type CamposMunicipio = {
  * direto sobre `crimeMuniNota` — nunca precisa de percentil.
  */
 export function lerSegurancaMunicipio(p: CamposMunicipio): Seguranca | null {
-  if (p.crimeMuniNota != null) {
-    const nivel = nivelDaNota(p.crimeMuniNota, "municipio");
+  const muniTaxa = p.crimeMuniTaxa == null ? null : Number(p.crimeMuniTaxa);
+  if (p.crimeMuniNota != null && muniTaxa != null && Number.isFinite(muniTaxa)) {
+    const nivel = nivelDaTaxa(muniTaxa);
     const meta = NIVEIS[nivel];
-    const taxa = p.crimeMuniTaxa == null ? null : Number(p.crimeMuniTaxa);
     return {
       nivel,
       rotulo: meta.rotulo,
@@ -267,7 +301,8 @@ export function lerSegurancaMunicipio(p: CamposMunicipio): Seguranca | null {
       nota: p.crimeMuniNota,
       percentil: null,
       graoCodigo: "municipio",
-      taxa: Number.isFinite(taxa) ? taxa : null,
+      taxa: muniTaxa,
+      taxaEDoMunicipio: false,
       grao: GRAOS.municipio,
       fonte: p.crimeMuniFonte ?? "DATASUS/SIM",
       janela: janelaLegivel(p.crimeMuniJanelaInicio ?? null, p.crimeMuniJanelaFim ?? null),
@@ -319,13 +354,11 @@ function janelaLegivel(ini: Date | string | null, fim: Date | string | null): st
  * precisão que o dado de um ano não tem.
  */
 export function fraseFonte(s: Seguranca): string {
-  const taxa = s.taxa == null ? null : s.taxa.toLocaleString("pt-BR", { maximumFractionDigits: 1 });
-  const base = `Média ${s.grao}, ${s.janela}. Fonte: ${s.fonte}.`;
-  if (taxa == null) return base;
-  if (s.graoCodigo === "bairro") {
-    return `${taxa} mortes violentas por 100 mil habitantes ao ano — estimativa do bairro, ajustada pelo porte da população. ${base}`;
+  const taxa = s.taxa.toLocaleString("pt-BR", { maximumFractionDigits: 1 });
+  if (s.graoCodigo === "bairro" && !s.taxaEDoMunicipio) {
+    return `${taxa} mortes violentas por 100 mil habitantes ao ano — estimativa do bairro, ajustada pelo porte da população. Média do bairro, ${s.janela}. Fonte: ${s.fonte}.`;
   }
-  return `${taxa} mortes violentas por 100 mil habitantes ao ano. ${base}`;
+  return `${taxa} mortes violentas por 100 mil habitantes ao ano. Média do município, ${s.janela}. Fonte: ${s.fonte}.`;
 }
 
 /**

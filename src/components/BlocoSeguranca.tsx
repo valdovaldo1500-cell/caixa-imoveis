@@ -56,10 +56,14 @@ export function BlocoSeguranca({
   // compacto mostra o rótulo e o número visíveis, com a palavra do grão ao
   // lado — nunca só no `title`.
   if (compacto) {
+    // O grão TEM de sair daqui, não pode ser cravado: desde 31/08/2026 a taxa
+    // existe nos dois grãos, e escrever "município" numa taxa de bairro
+    // rotula o número errado — foi o defeito pego no primeiro print.
+    const ondeVem = s.graoCodigo === "bairro" && s.bairroNome ? tituloCaso(s.bairroNome) : grãoPalavra;
     const detalhe =
       s.taxa != null
-        ? `${s.taxa.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}/100 mil hab. · município`
-        : `nota ${s.nota} · ${grãoPalavra}`;
+        ? `${s.taxa.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}/100 mil hab. · ${ondeVem}`
+        : `nota ${s.nota} · ${ondeVem}`;
     return (
       <span className="inline-flex flex-col items-end gap-0.5 text-right">
         <span
