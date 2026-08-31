@@ -3,8 +3,13 @@ import { execFileSync } from "child_process";
 /**
  * Fetch da página de detalhe de um imóvel na Caixa — compartilhado entre
  * `scrape-details.ts` (quartos/vagas/foto) e `scrape-edital.ts` (edital,
- * leilão, matrícula). Extraído de `scrapePropertyDetails` sem mudar
- * comportamento: mesmos headers, mesmo timeout, mesma detecção de bloqueio.
+ * leilão, matrícula). Extraído de `scrapePropertyDetails` preservando headers,
+ * timeout e detecção de bloqueio — a ÚNICA mudança de comportamento é a
+ * decodificação (ver comentário em `fetchDetailHtml`), que não regride nada:
+ * o parser antigo (`findValue`, baseado em `<td>`/`<th>`) já não casava com
+ * o DOM atual (`<span>Rótulo: <strong>valor</strong></span>`) então nunca
+ * dependeu do encoding pra extrair nada além de `fotoUrl` (uma URL, ASCII) e
+ * das palavras-chave de bloqueio (também ASCII).
  */
 
 export const DETAIL_BASE_URL =
