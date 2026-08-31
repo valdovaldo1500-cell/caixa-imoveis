@@ -55,6 +55,15 @@ type ImovelAlerta = {
   crimeJanelaInicio: string | null;
   crimeJanelaFim: string | null;
   crimeSuprimido: boolean | null;
+  crimePercentil: number | null;
+  crimeBairro: string | null;
+  crimeBairroOrigem: string | null;
+  crimeOcorrencias: number | null;
+  crimeMuniNota: number | null;
+  crimeMuniTaxa: string | null;
+  crimeMuniJanelaInicio: string | null;
+  crimeMuniJanelaFim: string | null;
+  crimeMuniFonte: string | null;
 };
 
 export type DetalheDisparo = {
@@ -304,12 +313,15 @@ export async function dispararAlertas(opts: { dryRun: boolean }): Promise<Result
       if (linha.precoMax != null) condicoes.push(lte(properties.preco, linha.precoMax));
       if (linha.descontoMin != null) condicoes.push(gte(properties.desconto, linha.descontoMin));
       if (linha.crimeNotaMax != null) {
-        // crimeNota é RISCO (maior = pior), então o filtro é <=. Suprimido
-        // ou sem nota NUNCA passa em um filtro de teto de risco — não dá
+        // `crimeNotaMax` guarda um PERCENTIL (0-100), não a nota crua: as
+        // réguas de bairro e de município são diferentes (ver
+        // lib/seguranca.ts), então crimePercentil é a única grandeza
+        // comparável entre os dois grãos para este filtro. Suprimido, ou
+        // linha ainda sem percentil, NUNCA passa num teto de risco — não dá
         // para afirmar que está abaixo do teto sem o dado.
-        condicoes.push(isNotNull(properties.crimeNota));
+        condicoes.push(isNotNull(properties.crimePercentil));
         condicoes.push(sql`${properties.crimeSuprimido} IS NOT TRUE`);
-        condicoes.push(lte(properties.crimeNota, linha.crimeNotaMax));
+        condicoes.push(lte(properties.crimePercentil, linha.crimeNotaMax));
       }
 
       const imoveis: ImovelAlerta[] = await db
@@ -329,6 +341,15 @@ export async function dispararAlertas(opts: { dryRun: boolean }): Promise<Result
           crimeJanelaInicio: properties.crimeJanelaInicio,
           crimeJanelaFim: properties.crimeJanelaFim,
           crimeSuprimido: properties.crimeSuprimido,
+          crimePercentil: properties.crimePercentil,
+          crimeBairro: properties.crimeBairro,
+          crimeBairroOrigem: properties.crimeBairroOrigem,
+          crimeOcorrencias: properties.crimeOcorrencias,
+          crimeMuniNota: properties.crimeMuniNota,
+          crimeMuniTaxa: properties.crimeMuniTaxa,
+          crimeMuniJanelaInicio: properties.crimeMuniJanelaInicio,
+          crimeMuniJanelaFim: properties.crimeMuniJanelaFim,
+          crimeMuniFonte: properties.crimeMuniFonte,
         })
         .from(properties)
         .where(and(...condicoes))

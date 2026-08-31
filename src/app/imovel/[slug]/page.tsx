@@ -46,8 +46,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     imovel.desconto != null
       ? `${Number(imovel.desconto).toLocaleString("pt-BR", { maximumFractionDigits: 1 })}% de desconto sobre a avaliação.`
       : null;
+  const regiaoSeguranca =
+    seguranca && seguranca.graoCodigo === "bairro" && seguranca.bairroNome
+      ? `o bairro ${tituloCaso(seguranca.bairroNome)}`
+      : cidade;
   const segurancaTxt = seguranca
-    ? `Segurança da região: ${seguranca.rotulo.toLowerCase()}, ${cidade} está ${seguranca.contexto}.`
+    ? `Segurança da região: ${seguranca.rotulo.toLowerCase()}, ${regiaoSeguranca} está ${seguranca.contexto}.`
     : null;
   const disponibilidadeTxt = imovel.removedAt
     ? "Este imóvel não está mais disponível para leilão."

@@ -28,7 +28,10 @@ function resumoAlerta(a: AlertaCliente): string {
   if (a.tipoImovel) partes.push(a.tipoImovel);
   if (a.precoMax) partes.push(`até R$ ${Number(a.precoMax).toLocaleString("pt-BR")}`);
   if (a.descontoMin) partes.push(`desconto mín. ${Number(a.descontoMin)}%`);
-  if (a.crimeNotaMax != null) partes.push(`risco até ${a.crimeNotaMax}`);
+  // crimeNotaMax guarda um PERCENTIL nacional (0-100), não a nota crua — as
+  // réguas de bairro e de município são diferentes (ver lib/seguranca.ts).
+  // Só entram imóveis entre os X% mais seguros do país, no grão de cada um.
+  if (a.crimeNotaMax != null) partes.push(`só entre os ${a.crimeNotaMax}% mais seguros do país`);
   return partes.length ? partes.join(" · ") : "Sem filtros — todos os imóveis novos";
 }
 

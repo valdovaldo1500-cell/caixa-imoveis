@@ -7,6 +7,7 @@ import {
   decimal,
   boolean,
   integer,
+  smallint,
   timestamp,
   jsonb,
   index,
@@ -70,6 +71,26 @@ export const properties = pgTable(
     crimeJanelaFim: date("crime_janela_fim"),
     crimeSuprimido: boolean("crime_suprimido"),
     crimeAtualizadoEm: timestamp("crime_atualizado_em"),
+    // Percentil nacional (0-100) da nota DENTRO do próprio grão. As réguas de
+    // bairro e município são diferentes (medido 31/08/2026: p80 municipal=589,
+    // p80 de bairro=497), então comparar crime_nota cru entre grãos é errado.
+    // Filtro e ordenação de risco usam SEMPRE crimePercentil.
+    crimePercentil: smallint("crime_percentil"),
+    // Bairro que de fato gerou a nota. Difere de `bairro` quando a Caixa
+    // cadastrou o nome do loteamento ("LOT RURAL ELDORADO") e a resolução veio
+    // do polígono do IBGE.
+    crimeBairro: varchar("crime_bairro", { length: 120 }),
+    crimeBairroOrigem: varchar("crime_bairro_origem", { length: 12 }),
+    crimeMarcado: boolean("crime_marcado"),
+    crimeOcorrencias: integer("crime_ocorrencias"),
+    // Contexto municipal, preenchido SEMPRE — inclusive quando a nota exibida
+    // é a do bairro. crimeTaxa (mortes/100 mil hab.) só existe no grão
+    // município; no grão bairro ela é NULL e a tela usa crimeMuniTaxa.
+    crimeMuniNota: integer("crime_muni_nota"),
+    crimeMuniTaxa: decimal("crime_muni_taxa", { precision: 10, scale: 2 }),
+    crimeMuniJanelaInicio: date("crime_muni_janela_inicio"),
+    crimeMuniJanelaFim: date("crime_muni_janela_fim"),
+    crimeMuniFonte: varchar("crime_muni_fonte", { length: 40 }),
     marketValue: decimal("market_value", { precision: 12, scale: 2 }),
     marketValuePerM2: decimal("market_value_per_m2", { precision: 10, scale: 2 }),
     marketRentValue: decimal("market_rent_value", { precision: 10, scale: 2 }),

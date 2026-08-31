@@ -80,6 +80,16 @@ const getResumo = cache(
         crimeJanelaInicio: properties.crimeJanelaInicio,
         crimeJanelaFim: properties.crimeJanelaFim,
         crimeSuprimido: properties.crimeSuprimido,
+        crimeMarcado: properties.crimeMarcado,
+        crimePercentil: properties.crimePercentil,
+        crimeBairro: properties.crimeBairro,
+        crimeBairroOrigem: properties.crimeBairroOrigem,
+        crimeOcorrencias: properties.crimeOcorrencias,
+        crimeMuniNota: properties.crimeMuniNota,
+        crimeMuniTaxa: properties.crimeMuniTaxa,
+        crimeMuniJanelaInicio: properties.crimeMuniJanelaInicio,
+        crimeMuniJanelaFim: properties.crimeMuniJanelaFim,
+        crimeMuniFonte: properties.crimeMuniFonte,
       })
       .from(properties)
       .where(sql`${properties.removedAt} is null and ${properties.desconto} is not null and ${properties.preco} > 0`)
@@ -100,7 +110,7 @@ export async function generateMetadata() {
   const n = (tot?.total ?? 0).toLocaleString("pt-BR");
   return {
     title: "Imóveis de leilão da Caixa, com a segurança da região",
-    description: `${n} imóveis da Caixa com desconto sobre a avaliação, e a nota de criminalidade do município ao lado de cada um. Navegue sem cadastro.`,
+    description: `${n} imóveis da Caixa com desconto sobre a avaliação, e a nota de criminalidade do bairro ou do município ao lado de cada um. Navegue sem cadastro.`,
     alternates: { canonical: SITE_URL },
   };
 }
@@ -134,8 +144,8 @@ export default async function Home() {
             {(tot?.total ?? 0).toLocaleString("pt-BR")} imóveis da Caixa em{" "}
             {(tot?.cidades ?? 0).toLocaleString("pt-BR")} cidades.{" "}
             {(tot?.comDesconto ?? 0).toLocaleString("pt-BR")} saem abaixo da avaliação, com desconto mediano de{" "}
-            <strong className="text-zinc-200">{tot?.descontoMediano ?? "—"}%</strong> — e a criminalidade do
-            município ao lado de cada um. Nenhum outro agregador mostra isso.
+            <strong className="text-zinc-200">{tot?.descontoMediano ?? "—"}%</strong> — e a criminalidade da
+            região (bairro ou município) ao lado de cada um. Nenhum outro agregador mostra isso.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -200,10 +210,11 @@ export default async function Home() {
         <section className="mt-14 rounded-lg border border-zinc-800 bg-zinc-900/40 p-6">
           <h2 className="text-lg font-semibold text-zinc-100">De onde vem a nota de segurança</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-zinc-400">
-            A nota é do <strong className="text-zinc-300">município</strong>, calculada sobre mortes violentas
-            registradas no DATASUS/SIM, e comparada com a distribuição dos 3.615 municípios brasileiros com dado
-            suficiente. Cada imóvel mostra o número, a fonte e o período — e onde o município teve poucos
-            registros, dizemos que o dado é insuficiente em vez de exibir um número frágil.
+            A nota é do <strong className="text-zinc-300">bairro</strong>, quando a base tem esse grão (hoje o Rio
+            Grande do Sul), ou do <strong className="text-zinc-300">município</strong> nos demais casos — sempre
+            comparada com a distribuição nacional do próprio grão, para não misturar réguas diferentes. Cada imóvel
+            mostra o número, a fonte e o período — e onde a região teve poucos registros, dizemos que o dado é
+            insuficiente em vez de exibir um número frágil.
           </p>
           <p className="mt-3 text-sm text-zinc-500">
             {(tot?.comSeguranca ?? 0).toLocaleString("pt-BR")} dos {(tot?.total ?? 0).toLocaleString("pt-BR")}{" "}

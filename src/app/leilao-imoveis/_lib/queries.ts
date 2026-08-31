@@ -21,7 +21,7 @@ import { and, eq, isNull, lt, sql, type SQL } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
 import { slugify } from "@/lib/slug";
-import { FAIXAS_NACIONAIS, type NivelSeguranca } from "@/lib/seguranca";
+import { TETO_PERCENTIL, type NivelSeguranca } from "@/lib/seguranca";
 import { CACHE_TTL_LISTA } from "@/lib/cache";
 
 export const UF_NOME: Record<string, string> = {
@@ -123,11 +123,21 @@ export const getResumoCidade = cache(
         .orderBy(sql`count(*) desc`)
         .limit(3);
 
-      // Só precisa de UM imóvel da cidade — a nota de segurança é por
-      // município, então todo imóvel ativo da mesma cidade compartilha os
-      // mesmos campos.
+      // Só precisa de UM imóvel da cidade — mas SÓ para os campos crime_muni_*
+      // (contexto municipal, sempre igual para qualquer imóvel da cidade).
+      // crime_nota/crime_grao NÃO servem mais de amostra aqui: com grão
+      // bairro, dois imóveis da mesma cidade podem estar em bairros com
+      // notas diferentes, e o parágrafo agregado da cidade não pode
+      // representar a cidade inteira pela nota de UM bairro sorteado.
+      // `lerSegurancaMunicipio` (@/lib/seguranca) lê os campos abaixo.
       const [amostraSeguranca] = await db
         .select({
+          crimeMuniNota: properties.crimeMuniNota,
+          crimeMuniTaxa: properties.crimeMuniTaxa,
+          crimeMuniJanelaInicio: properties.crimeMuniJanelaInicio,
+          crimeMuniJanelaFim: properties.crimeMuniJanelaFim,
+          crimeMuniFonte: properties.crimeMuniFonte,
+          // Fallback para linha ainda não reprocessada (crime_muni_* nulo).
           crimeNota: properties.crimeNota,
           crimeTaxa: properties.crimeTaxa,
           crimeGrao: properties.crimeGrao,
@@ -135,6 +145,7 @@ export const getResumoCidade = cache(
           crimeJanelaInicio: properties.crimeJanelaInicio,
           crimeJanelaFim: properties.crimeJanelaFim,
           crimeSuprimido: properties.crimeSuprimido,
+          crimeMarcado: properties.crimeMarcado,
         })
         .from(properties)
         .where(and(ativo, eq(properties.uf, uf), eq(properties.cidade, cidade)))
@@ -166,16 +177,10 @@ export const getTiposDaCidade = cache(
   )
 );
 
-// Teto cumulativo de nota por nível. `crimeNota` é RISCO — quanto MAIOR, mais
-// violento (ver lib/seguranca.ts) — então "até risco moderado" é "nota <
-// p40", não ">=". `muito_alto` não tem teto: aceita qualquer nota.
-const NOTA_TETO: Record<NivelSeguranca, number | null> = {
-  baixo: FAIXAS_NACIONAIS.p20,
-  moderado: FAIXAS_NACIONAIS.p40,
-  medio: FAIXAS_NACIONAIS.p60,
-  alto: FAIXAS_NACIONAIS.p80,
-  muito_alto: null,
-};
+// Teto cumulativo de PERCENTIL por nível (0-100, dentro do próprio grão —
+// ver lib/seguranca.ts para o porquê de nunca filtrar por crimeNota cru).
+// `muito_alto` não tem teto: aceita qualquer percentil.
+const PERCENTIL_TETO = TETO_PERCENTIL;
 
 export type OrdemListagem = "desconto" | "preco" | "risco";
 
@@ -191,7 +196,8 @@ export type FiltrosCidade = {
 const ORDENACOES: Record<OrdemListagem, SQL> = {
   desconto: sql`${properties.desconto}::numeric desc nulls last`,
   preco: sql`${properties.preco}::numeric asc nulls last`,
-  risco: sql`${properties.crimeNota} asc nulls last`,
+  // Percentil, não nota: comparável entre bairro e município (ver lib/seguranca.ts).
+  risco: sql`${properties.crimePercentil} asc nulls last`,
 };
 
 // Único call site é a página da cidade (não passa por `generateMetadata`),
@@ -215,8 +221,8 @@ export const getImoveisDaCidade = unstable_cache(
       condicoes.push(eq(properties.tipoImovel, filtros.tipo));
     }
     if (filtros.segurancaMax) {
-      const teto = NOTA_TETO[filtros.segurancaMax];
-      if (teto != null) condicoes.push(lt(properties.crimeNota, teto));
+      const teto = PERCENTIL_TETO[filtros.segurancaMax];
+      if (teto != null) condicoes.push(lt(properties.crimePercentil, teto));
     }
 
     const where = and(...condicoes);
@@ -246,6 +252,16 @@ export const getImoveisDaCidade = unstable_cache(
         crimeJanelaInicio: properties.crimeJanelaInicio,
         crimeJanelaFim: properties.crimeJanelaFim,
         crimeSuprimido: properties.crimeSuprimido,
+        crimeMarcado: properties.crimeMarcado,
+        crimePercentil: properties.crimePercentil,
+        crimeBairro: properties.crimeBairro,
+        crimeBairroOrigem: properties.crimeBairroOrigem,
+        crimeOcorrencias: properties.crimeOcorrencias,
+        crimeMuniNota: properties.crimeMuniNota,
+        crimeMuniTaxa: properties.crimeMuniTaxa,
+        crimeMuniJanelaInicio: properties.crimeMuniJanelaInicio,
+        crimeMuniJanelaFim: properties.crimeMuniJanelaFim,
+        crimeMuniFonte: properties.crimeMuniFonte,
       })
       .from(properties)
       .where(where)
