@@ -155,7 +155,7 @@ export async function coletarEditalBatch(
         or(isNull(properties.editalAtualizadoEm), lt(properties.editalAtualizadoEm, cutoff))
       )
     )
-    .orderBy(asc(sql`${properties.editalAtualizadoEm} nulls first`))
+    .orderBy(sql`${properties.editalAtualizadoEm} asc nulls first`)
     .limit(limit);
 
   const result: EditalBatchResult = {
