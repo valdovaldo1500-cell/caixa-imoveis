@@ -107,3 +107,45 @@ export function urlAbsoluta(caminho: string): string {
 export function jsonLdSeguro(dado: unknown): string {
   return JSON.stringify(dado).replace(/</g, "\\u003c");
 }
+
+// --- Rastreador de edital (O6, requisito #7) ---------------------------
+
+/**
+ * `leilao1Data`/`leilao2Data`/`licitacaoData`/`propostaPrazo`/`editalPublicadoEm`
+ * são `timestamp` do Postgres, sujeitos à MESMA pegadinha documentada acima
+ * em `buscarImovel`: `Date` num cache MISS, `string` ISO num cache HIT.
+ * Normaliza os dois formatos antes de qualquer comparação/format.
+ */
+export function paraData(v: Date | string | null | undefined): Date | null {
+  if (!v) return null;
+  const d = v instanceof Date ? v : new Date(v);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+/**
+ * "14/10/2026 às 10h00". As colunas do coletor guardam o INSTANTE UTC real
+ * (o valor já foi convertido de horário de Brasília na coleta — ver
+ * `scrape-edital.ts`), então formatar em America/Sao_Paulo aqui devolve
+ * exatamente a hora que a Caixa publicou.
+ */
+export function formatarDataHora(v: Date | string | null | undefined): string | null {
+  const d = paraData(v);
+  if (!d) return null;
+  const dataStr = d.toLocaleDateString("pt-BR", {
+    timeZone: "America/Sao_Paulo",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+  const horaStr = d.toLocaleTimeString("pt-BR", {
+    timeZone: "America/Sao_Paulo",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  return `${dataStr} às ${horaStr}`;
+}
+
+export function ehFuturo(v: Date | string | null | undefined): boolean {
+  const d = paraData(v);
+  return d != null && d.getTime() > Date.now();
+}

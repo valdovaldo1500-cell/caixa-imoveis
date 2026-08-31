@@ -1,8 +1,8 @@
-import { execFileSync } from "child_process";
 import * as cheerio from "cheerio";
 import { db } from "@/lib/db";
 import { properties } from "@/lib/db/schema";
 import { isNull, and, eq } from "drizzle-orm";
+import { fetchDetailHtml, sleep } from "./caixa-detail-fetch";
 
 export interface ScrapedDetails {
   tipoImovel: string | null;
@@ -16,48 +16,25 @@ export interface ScrapedDetails {
   fotoUrl: string | null;
 }
 
-const DETAIL_BASE_URL =
-  "https://venda-imoveis.caixa.gov.br/sistema/detalhe-imovel.asp?hdnOrigem=index&hdnimovel=";
-
 /**
  * Fetches and parses the detail page for a property.
  * The page is ASP Classic with tables — we use cheerio to extract fields.
+ *
+ * NOTA (31/08/2026): `findValue()` abaixo procura o valor num `<td>`/`<th>`
+ * vizinho do rótulo. A página de detalhe ATUAL da Caixa não usa tabela pra
+ * nenhum desses campos — é `<span>Rótulo: <strong>valor</strong></span>` — e
+ * por isso `matricula`/`comarca` nunca são preenchidos por este caminho (é o
+ * bug por trás de matricula/comarca 0/5.161 no banco). O rastreador de
+ * edital (`scrape-edital.ts`) faz a extração correta por regex e passa a ser
+ * o escritor de fato dessas duas colunas — não fizemos esse fix aqui para
+ * não mexer no caminho de quartos/vagas/tipoImovel, que é escopo de outra
+ * tarefa (fonte provável real desses três: parse-descriptions, não scraping).
  */
 export function scrapePropertyDetails(property: {
   caixaId: string;
   linkCaixa: string | null;
 }): ScrapedDetails {
-  const url = property.linkCaixa?.trim()
-    ? property.linkCaixa.trim()
-    : `${DETAIL_BASE_URL}${property.caixaId}`;
-
-  const htmlBuffer = execFileSync(
-    "curl",
-    [
-      "-s",
-      "-L",
-      "--max-time", "30",
-      "-H", "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-      "-H", "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-      "-H", "Accept-Language: pt-BR,pt;q=0.9,en;q=0.8",
-      "-H", `Referer: https://venda-imoveis.caixa.gov.br/sistema/download-lista.asp`,
-      url,
-    ],
-    { timeout: 45000 }
-  );
-
-  const html = htmlBuffer.toString("latin1");
-
-  // Detect bot block
-  if (
-    html.includes("Radware") ||
-    html.includes("Bot Manager") ||
-    html.includes("Access Denied") ||
-    html.length < 500
-  ) {
-    throw new Error("Request blocked by Radware Bot Manager");
-  }
-
+  const html = fetchDetailHtml(property);
   const $ = cheerio.load(html);
 
   // Helper: find a table cell value by its label text (case-insensitive, partial match)
@@ -286,8 +263,4 @@ export async function rescrapeForMissingQuartos(): Promise<{
   }
 
   return result;
-}
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }

@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { CalendarClock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BlocoSeguranca } from "@/components/BlocoSeguranca";
 import { imovelUrl } from "@/lib/slug";
-import { areaTexto, descontoTexto, formatBRL, tituloCaso } from "../_lib/format";
+import { areaTexto, dataCurta, descontoTexto, formatBRL, proximaDataUrgencia, tituloCaso } from "../_lib/format";
 import type { ImovelCard } from "../_lib/queries";
 
 /**
@@ -21,6 +22,9 @@ export function PropertyCard({ imovel }: { imovel: ImovelCard }) {
   const cidade = tituloCaso(imovel.cidade);
   const tipo = imovel.tipoImovel ?? "Imóvel";
   const alt = bairro ? `${tipo} em ${bairro}, ${cidade}` : `${tipo} em ${cidade}`;
+  // Urgência (O6, requisito #7): só a data mais próxima e FUTURA. Sem
+  // countdown pra data que já passou — não inventamos escassez.
+  const urgencia = proximaDataUrgencia(imovel);
 
   return (
     <Link
@@ -39,6 +43,12 @@ export function PropertyCard({ imovel }: { imovel: ImovelCard }) {
             className="absolute right-2 top-2 z-10 h-auto max-w-[65%] truncate border-zinc-700 bg-zinc-950/90 px-2 py-0.5 text-[11px] text-zinc-200 shadow-lg shadow-black/40"
           >
             {imovel.modalidadeVenda}
+          </Badge>
+        )}
+        {urgencia && (
+          <Badge className="absolute bottom-2 left-2 z-10 h-auto gap-1 border-transparent bg-zinc-950/90 px-2 py-0.5 text-[11px] text-amber-300 shadow-lg shadow-black/40">
+            <CalendarClock className="size-3" />
+            {urgencia.rotulo} em {dataCurta(urgencia.valor)}
           </Badge>
         )}
         {imovel.fotoUrl ? (

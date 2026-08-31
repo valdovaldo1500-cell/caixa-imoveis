@@ -262,6 +262,11 @@ export const getImoveisDaCidade = unstable_cache(
         crimeMuniJanelaInicio: properties.crimeMuniJanelaInicio,
         crimeMuniJanelaFim: properties.crimeMuniJanelaFim,
         crimeMuniFonte: properties.crimeMuniFonte,
+        // Rastreador de edital (O6, requisito #7) — urgência no card.
+        leilao1Data: properties.leilao1Data,
+        leilao2Data: properties.leilao2Data,
+        licitacaoData: properties.licitacaoData,
+        propostaPrazo: properties.propostaPrazo,
       })
       .from(properties)
       .where(where)
