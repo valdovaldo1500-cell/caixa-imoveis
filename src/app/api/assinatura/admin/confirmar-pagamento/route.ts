@@ -62,6 +62,7 @@ export async function POST(request: NextRequest) {
       status: assinantes.status,
       provedor: assinantes.provedor,
       provedorAssinaturaId: assinantes.provedorAssinaturaId,
+      validoAte: assinantes.validoAte,
     })
     .from(assinantes)
     .where(eq(assinantes.email, email))
@@ -115,8 +116,13 @@ export async function POST(request: NextRequest) {
     throw err;
   }
 
+  // Renovação MANUAL: o assinante costuma pagar de novo ANTES de vencer.
+  // Contar sempre a partir de agora queimaria os dias que ele já pagou —
+  // por isso o novo período parte do que for MAIOR entre hoje e o
+  // `validoAte` atual (o mesmo que um gateway recorrente faria sozinho).
   const dias = plano === "anual" ? 365 : 30;
-  const validoAte = new Date(Date.now() + dias * 24 * 60 * 60 * 1000);
+  const base = assinante.validoAte && assinante.validoAte > new Date() ? assinante.validoAte : new Date();
+  const validoAte = new Date(base.getTime() + dias * 24 * 60 * 60 * 1000);
   await db.update(assinantes).set({ status: "ativa", validoAte }).where(eq(assinantes.id, assinante.id));
 
   return NextResponse.json({ success: true, assinanteId: assinante.id, plano, validoAte });

@@ -43,21 +43,29 @@ import { db } from "@/lib/db";
 import { assinantes, cobrancas } from "@/lib/db/schema";
 import { PRECOS, type ProvedorPagamento } from "@/lib/assinatura";
 
-const LINKS: Record<"mensal" | "anual", string> = {
-  mensal: process.env.PAGSEGURO_LINK_MENSAL || "",
-  anual: process.env.PAGSEGURO_LINK_ANUAL || "",
-};
+/**
+ * Leitura LAZY da env, nunca no topo do módulo: este arquivo é importado em
+ * cadeia por `assinatura.ts`, que por sua vez é importado por página que o
+ * `next build` executa. Ler no topo congelaria o valor do BUILD (onde as
+ * envs de link não existem) e o container serviria "link não configurado"
+ * mesmo com a env setada no Coolify. Mesmo motivo pelo qual o segredo de
+ * sessão em `assinatura.ts` virou lazy em 29/08/2026.
+ */
+function getLink(plano: "mensal" | "anual"): string {
+  const bruto = plano === "mensal" ? process.env.PAGSEGURO_LINK_MENSAL : process.env.PAGSEGURO_LINK_ANUAL;
+  return (bruto || "").trim();
+}
 
 /** `true` só quando AS DUAS faixas têm link configurado. Uso: diagnóstico/monitoramento — a checagem que de fato bloqueia uma faixa sem link é feita dentro de `iniciarAssinatura`, por faixa. */
 export function pagseguroLinkConfigurado(): boolean {
-  return LINKS.mensal.length > 0 && LINKS.anual.length > 0;
+  return getLink("mensal").length > 0 && getLink("anual").length > 0;
 }
 
 export const provedorPagSeguroLink: ProvedorPagamento = {
   nome: "pagseguro_link",
 
   async iniciarAssinatura({ assinanteId, plano }) {
-    const link = LINKS[plano];
+    const link = getLink(plano);
     if (!link) {
       return {
         ok: false,
