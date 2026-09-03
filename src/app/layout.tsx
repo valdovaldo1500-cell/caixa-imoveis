@@ -34,6 +34,15 @@ export const metadata: Metadata = {
     url: SITE_URL,
   },
   twitter: { card: "summary_large_image" },
+  // NOINDEX no site inteiro até o lançamento (decisão do dono, 03/09/2026).
+  // O site entrou no índice em 31/08 (sitemaps submetidos nesse dia) e já
+  // aparece na busca assinado "Crime Brasil" — mas ainda não foi lançado:
+  // 2.010 dos 5.351 imóveis ativos não têm foto e 3.578 fichas de imóvel
+  // removido respondem 200. Enquanto isso estiver assim, a marca do Crime
+  // Brasil está associada a páginas incompletas. Sai do índice até ficar
+  // pronto. `robots.txt` continua liberando o rastreio de propósito — o
+  // Google precisa BUSCAR a página para enxergar este noindex.
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({
